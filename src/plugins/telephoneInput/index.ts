@@ -36,8 +36,6 @@ export default class TelephoneInput {
     }
   }
 
-  // Other methods remain unchanged
-
   private async convertCountries(countries: string[]): Promise<Record<string, CountryInfo>> {
     const countryObjects = await Promise.all(
       countries.map(async (code) => {
@@ -54,7 +52,6 @@ export default class TelephoneInput {
       return acc;
     }, {} as Record<string, CountryInfo>);
   }
-  // Other methods like init, createCountryDropdown, updatePlaceholder remain unchanged
 
   private init() {
     if (this.inputElement) {

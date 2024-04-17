@@ -1,6 +1,6 @@
 /*
 * Notification
-* @version: 1.0.1
+* @version: 0.0.2
 * @author: Nezanuha
 * @license: Licensed under MIT
 * Copyright 2023 Nezanuha

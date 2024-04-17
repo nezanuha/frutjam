@@ -5,11 +5,10 @@ export interface NotificationOptions {
     escapeTime?: number;
     arriveTime?: number;
     autoClose?: boolean;
-    arriveFrom?: ArriveFrom; // Use the ArriveFrom type here
+    arriveFrom?: ArriveFrom;
     element?: HTMLElement | null;
 }
 
-// Define your Config interface or type with index signature for effects
 export interface NotificationConfig {
     arriveFrom: {
         right: string;
@@ -18,6 +17,6 @@ export interface NotificationConfig {
         top: string;
     };
     effects: {
-        [key: string]: string; // Index signature for effects
+        [key: string]: string;
     };
 }
