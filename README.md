@@ -1,4 +1,4 @@
-# Frutjam Useful Prebuilt Plugins & UI Components for TailwindCSS
+## Frutjam Useful Prebuilt Plugins & UI Components for TailwindCSS
 
 Frutjam is a powerful library with an array of useful plugins and UI components created exclusively for use with Tailwind CSS. Whether you're creating a web app, a website, or a digital product, Frutjam offers a variety of tools to help you boost your development process and improve user experience. Furthermore, it provides numerous customization options within its plugins, allowing you to design your solutions precisely to your requirements.
 
