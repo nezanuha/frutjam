@@ -3,7 +3,7 @@
 * @version: 0.0.2
 * @author: Nezanuha
 * @license: Licensed under MIT
-* Copyright 2023 Nezanuha
+* Copyright 2024 Nezanuha
 */
 
 import { NotificationOptions } from './interfaces';

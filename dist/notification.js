@@ -1,7 +1,7 @@
 'use strict';
 
-var chunkDX6DDNOR_js = require('./chunk-DX6DDNOR.js');
+var chunkXQPX7AAA_js = require('./chunk-XQPX7AAA.js');
 
 
 
-module.exports = chunkDX6DDNOR_js.a;
+module.exports = chunkXQPX7AAA_js.a;

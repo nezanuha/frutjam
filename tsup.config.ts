@@ -15,5 +15,5 @@ export default defineConfig({
     splitting: true, // Code splitting added
     treeshake: true, // Tree shaking added
     // Exclude node_modules explicitly
-    external: ['node_modules'],
+    external: ['node_modules']
 });
