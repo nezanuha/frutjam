@@ -1,16 +1,4 @@
-export { default as Notification } from './notification.js';
-export { default as TelephoneInput } from './telephoneInput.js';
-
-declare class Popover {
-    autoPopup: boolean;
-    popupTime: number;
-    timeoutId: number | null;
-    constructor({ autoPopup, popupTime }?: {
-        autoPopup?: boolean;
-        popupTime?: number;
-    });
-    action(): void;
-    togglePopover(popoverContent: HTMLElement): void;
-}
-
-export { Popover };
+export { default as Notification } from './plugins/notification';
+export { default as TelephoneInput } from './plugins/telephoneInput';
+export { default as Popover } from './plugins/popover';
+export { default as Tabs } from './plugins/tabs';

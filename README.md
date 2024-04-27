@@ -43,7 +43,6 @@ Import the `Notification` class from Frutjam:
 
 ```typescript
 import { Notification } from "frutjam";
-import "frutjam/dist/notification.css";
 ```
 
 Create a new notification instance with custom configurations:
