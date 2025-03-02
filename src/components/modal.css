@@ -1,0 +1,105 @@
+@utility dialog {
+    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit;
+    overflow-x: hidden;
+    transition:
+      transform 0.3s ease-out,
+      visibility 0.3s allow-discrete,
+      opacity 0.1s ease-out;
+    overflow-y: hidden;
+    overscroll-behavior: contain;
+    z-index: 999;
+  
+    &:not(dialog:not([popover]:popover-open)),
+    &::backdrop {
+      @apply opacity-100 starting:invisible starting:opacity-0 bg-neutral-950/25 dark:bg-neutral-950/50;
+      transition:
+        display 0.3s ease-out allow-discrete,
+        opacity 0.3s ease-out,
+        visibility 0.3s ease-out allow-discrete;
+    }
+  
+    &[popover]:popover-open {
+      @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
+  
+      .dialog-body {
+        translate: 0 0;
+        scale: 1;
+        opacity: 1;
+      }
+    }
+  }
+  
+  @utility dialog-backdrop {
+    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent;
+    z-index: -1;
+  
+    button {
+      @apply cursor-pointer;
+    }
+  }
+  
+  @utility dialog-body {
+    @apply bg-white rounded-2xl ring shadow-lg ring-neutral-500/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-4;
+    transition:
+      translate 0.3s ease-out,
+      scale 0.3s ease-out,
+      opacity 0.2s ease-out 0.05s,
+      box-shadow 0.3s ease-out;
+    scale: 95%;
+    opacity: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  
+  @utility dialog-top {
+    @apply place-items-start;
+  
+    :where(.dialog-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 -100%;
+      scale: 1;
+    }
+  }
+  
+  @utility dialog-middle {
+    @apply place-items-center;
+  
+    :where(.dialog-body) {
+      @apply h-auto w-11/12 max-w-[32rem];
+      max-height: calc(100vh - 5em);
+      translate: 0 2%;
+      scale: 98%;
+    }
+  }
+  
+  @utility dialog-bottom {
+    @apply place-items-end;
+  
+    :where(.dialog-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 100%;
+      scale: 1;
+    }
+  }
+  
+  @utility dialog-start {
+    @apply place-items-start;
+  
+    :where(.dialog-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: -100% 0;
+      scale: 1;
+    }
+  }
+  
+  @utility dialog-end {
+    @apply place-items-end;
+  
+    :where(.dialog-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: 100% 0;
+      scale: 1;
+    }
+  }
