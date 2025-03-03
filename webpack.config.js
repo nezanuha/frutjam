@@ -9,7 +9,9 @@ module.exports = (env, argv) => {
         mode: isProd ? 'production' : 'development',
         stats: 'minimal',
         entry: {
-            frutjam: './src/main.js',
+            "frutjam": './src/main.css',
+            "components/button": './src/components/button.css',
+            "components/modal": './src/components/modal.css',
         },
         resolve: {
             extensions: ['.ts', '.js'],
