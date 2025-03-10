@@ -1,6 +1,5 @@
-@import 'tailwindcss';
-@import '../themes/default.css';
 @utility modal {
+  @layer components {
     @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
     transition: transform 0.3s ease-out, opacity 0.1s ease-out, visibility 0.3s allow-discrete;
   
@@ -23,76 +22,91 @@
       }
     }
   }
+}
   
   @utility modal-backdrop {
-    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
-    button {
-      @apply cursor-pointer;
+    @layer components {
+      @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
+      button {
+        @apply cursor-pointer;
+      }
     }
   }
   
   @utility modal-body {
-    @apply bg-white rounded-2xl ring shadow-lg ring-neutral-500/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-4;
-    transition:
-      translate 0.3s ease-out,
-      scale 0.3s ease-out,
-      opacity 0.2s ease-out 0.05s,
-      box-shadow 0.3s ease-out;
-    scale: 95%;
-    opacity: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    @layer components {
+      @apply bg-white rounded-2xl ring shadow-lg ring-neutral-500/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-4;
+      transition:
+        translate 0.3s ease-out,
+        scale 0.3s ease-out,
+        opacity 0.2s ease-out 0.05s,
+        box-shadow 0.3s ease-out;
+      scale: 95%;
+      opacity: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
   }
   
   @utility modal-top {
-    @apply place-items-start;
-  
-    :where(.modal-body) {
-      @apply h-auto w-full max-w-none rounded-none;
-      max-height: calc(100vh - 5em);
-      translate: 0 -100%;
-      scale: 1;
+    @layer components {
+      @apply place-items-start;
+    
+      :where(.modal-body) {
+        @apply h-auto w-full max-w-none rounded-none;
+        max-height: calc(100vh - 5em);
+        translate: 0 -100%;
+        scale: 1;
+      }
     }
   }
   
   @utility modal-middle {
-    @apply place-items-center;
-  
-    :where(.modal-body) {
-      @apply h-auto w-11/12 max-w-[32rem];
-      max-height: calc(100vh - 5em);
-      translate: 0 2%;
-      scale: 98%;
+    @layer components {
+      @apply place-items-center;
+    
+      :where(.modal-body) {
+        @apply h-auto w-11/12 max-w-[32rem];
+        max-height: calc(100vh - 5em);
+        translate: 0 2%;
+        scale: 98%;
+      }
     }
   }
   
   @utility modal-bottom {
-    @apply place-items-end;
-  
-    :where(.modal-body) {
-      @apply h-auto w-full max-w-none rounded-none;
-      max-height: calc(100vh - 5em);
-      translate: 0 100%;
-      scale: 1;
+    @layer components {
+      @apply place-items-end;
+    
+      :where(.modal-body) {
+        @apply h-auto w-full max-w-none rounded-none;
+        max-height: calc(100vh - 5em);
+        translate: 0 100%;
+        scale: 1;
+      }
     }
   }
   
   @utility modal-start {
-    @apply place-items-start;
-  
-    :where(.modal-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
-      translate: -100% 0;
-      scale: 1;
+    @layer components {
+      @apply place-items-start;
+    
+      :where(.modal-body) {
+        @apply h-screen max-h-none w-auto max-w-none rounded-none;
+        translate: -100% 0;
+        scale: 1;
+      }
     }
   }
   
   @utility modal-end {
-    @apply place-items-end;
-  
-    :where(.modal-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
-      translate: 100% 0;
-      scale: 1;
+    @layer components {
+      @apply place-items-end;
+    
+      :where(.modal-body) {
+        @apply h-screen max-h-none w-auto max-w-none rounded-none;
+        translate: 100% 0;
+        scale: 1;
+      }
     }
   }
