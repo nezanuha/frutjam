@@ -10,8 +10,10 @@ module.exports = (env, argv) => {
         stats: 'minimal',
         entry: {
             "frutjam": './src/main.css',
-            "components/button": './src/components/button.css',
-            "components/modal": './src/components/modal.css',
+            "components/button": "./src/components/button.css",
+            "components/modal": "./src/components/modal.css",
+            "components/accordion": "./src/components/accordion.css",
+            "components/checkbox": "./src/components/checkbox.css",
         },
         resolve: {
             extensions: ['.ts', '.js'],

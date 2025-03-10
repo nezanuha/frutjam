@@ -1,17 +1,10 @@
 @import 'tailwindcss';
 @import '../themes/default.css';
-@utility dialog {
-    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit;
-    overflow-x: hidden;
-    transition:
-      transform 0.3s ease-out,
-      visibility 0.3s allow-discrete,
-      opacity 0.1s ease-out;
-    overflow-y: hidden;
-    overscroll-behavior: contain;
-    z-index: 999;
+@utility modal {
+    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
+    transition: transform 0.3s ease-out, opacity 0.1s ease-out, visibility 0.3s allow-discrete;
   
-    &:not(dialog:not([popover]:popover-open)),
+    &:not(modal:not([popover]:popover-open)),
     &::backdrop {
       @apply opacity-100 starting:invisible starting:opacity-0 bg-neutral-950/25 dark:bg-neutral-950/50;
       transition:
@@ -23,7 +16,7 @@
     &[popover]:popover-open {
       @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
   
-      .dialog-body {
+      .modal-body {
         translate: 0 0;
         scale: 1;
         opacity: 1;
@@ -31,16 +24,14 @@
     }
   }
   
-  @utility dialog-backdrop {
-    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent;
-    z-index: -1;
-  
+  @utility modal-backdrop {
+    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
     button {
       @apply cursor-pointer;
     }
   }
   
-  @utility dialog-body {
+  @utility modal-body {
     @apply bg-white rounded-2xl ring shadow-lg ring-neutral-500/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-4;
     transition:
       translate 0.3s ease-out,
@@ -53,10 +44,10 @@
     overscroll-behavior: contain;
   }
   
-  @utility dialog-top {
+  @utility modal-top {
     @apply place-items-start;
   
-    :where(.dialog-body) {
+    :where(.modal-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 -100%;
@@ -64,10 +55,10 @@
     }
   }
   
-  @utility dialog-middle {
+  @utility modal-middle {
     @apply place-items-center;
   
-    :where(.dialog-body) {
+    :where(.modal-body) {
       @apply h-auto w-11/12 max-w-[32rem];
       max-height: calc(100vh - 5em);
       translate: 0 2%;
@@ -75,10 +66,10 @@
     }
   }
   
-  @utility dialog-bottom {
+  @utility modal-bottom {
     @apply place-items-end;
   
-    :where(.dialog-body) {
+    :where(.modal-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 100%;
@@ -86,20 +77,20 @@
     }
   }
   
-  @utility dialog-start {
+  @utility modal-start {
     @apply place-items-start;
   
-    :where(.dialog-body) {
+    :where(.modal-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: -100% 0;
       scale: 1;
     }
   }
   
-  @utility dialog-end {
+  @utility modal-end {
     @apply place-items-end;
   
-    :where(.dialog-body) {
+    :where(.modal-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: 100% 0;
       scale: 1;

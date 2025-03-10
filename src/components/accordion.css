@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import '../themes/default.css';
+@utility accordion {
+    @apply grid divide-y divide-neutral-300 border border-neutral-300 cursor-pointer rounded-md;
+
+    &>details {
+        @apply text-pretty;
+        
+        &>*:not(summary){
+            @apply px-4 pb-4;
+        }
+        &>summary::marker{
+            @apply content-none;
+        }
+        &>summary{
+            @apply flex gap-4 items-center justify-between p-4 font-medium;
+            &::after {
+                @apply content-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0icmdiYSg1Myw1Myw1MywxKSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij4KICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0xOS41IDguMjUtNy41IDcuNS03LjUtNy41Ii8+Cjwvc3ZnPg==')];
+                @apply inline-block;
+            }
+        }
+    }
+
+    &>details[open] {
+
+        &>summary {
+            @apply pb-4;
+            &::after {
+                @apply rotate-180 origin-center transition-transform duration-300;
+            }
+        }
+    }
+}

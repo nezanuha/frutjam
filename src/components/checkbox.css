@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+@import '../themes/default.css';
+
+@utility checkbox {
+    @apply size-4 rounded-md relative shrink-0 cursor-pointer appearance-none p-1 align-middle shadow ring duration-150;
+
+    &::before {
+      @apply block size-full rotate-45 bg-current opacity-0 content-none transition-all;
+      clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 0, 70% 0, 70% 100%);
+      font-size: 1rem;
+      line-height: 0.75;
+    }
+  
+    &:focus-visible {
+      outline: 2px solid var(--input-color, currentColor);
+      outline-offset: 2px;
+    }
+  
+    &:checked,
+    &[aria-checked="true"] {
+        @apply shadow-2xl;  
+        &::before {
+            clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 0, 70% 0, 70% 100%);
+            @apply opacity-100 content-['✔︎'];
+            @media (forced-colors: active) {
+                @apply rotate-0 bg-transparent content-['✔︎'] [clip-path:none];
+            }
+        }
+    }
+  
+    &:indeterminate {
+      &:before {
+        @apply rotate-0 opacity-100;
+        translate: 0 -35%;
+        clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 80%, 80% 80%, 80% 100%);
+      }
+    }
+    
+    &:disabled {
+        @apply cursor-not-allowed opacity-20;
+    }
+  }
+  
+  @utility checkbox-primary {
+    @apply bg-primary/20 text-primary-content ring-primary;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-primary;
+    }
+  }
+  
+  @utility checkbox-secondary {
+    @apply bg-secondary/20 text-secondary-content ring-secondary;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-secondary;
+    }
+  }
+  
+  @utility checkbox-accent {
+    @apply bg-accent/20 text-accent-content ring-accent;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-accent;
+    }
+  }
+  
+  @utility checkbox-neutral {
+    @apply bg-neutral/20 text-neutral-content ring-neutral;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-neutral;
+    }
+  }
+  
+  @utility checkbox-info {
+    @apply bg-info/20 text-info-content ring-info;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-info;
+    }
+  }
+  
+  @utility checkbox-success {
+    @apply bg-success/20 text-success-content ring-success;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-success;
+    }
+  }
+  
+  @utility checkbox-warning {
+    @apply bg-warning/20 text-warning-content ring-warning;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-warning;
+    }
+  }
+  
+  @utility checkbox-error {
+    @apply bg-error/20 text-error-content ring-error;
+    &:checked,
+    &[aria-checked="true"] {
+        @apply bg-error;
+    }
+  }
+
+  @utility checkbox-* {
+    @apply bg-[--value([color])]/20 text-[--value([color])] ring-[--value([color])]
+  }  
+  
+  @utility checkbox-xs {
+    @apply p-0.5 size-2;
+  }
+  
+  @utility checkbox-sm {
+    @apply p-0.75 size-3;
+  }
+  
+  @utility checkbox-md {
+    @apply p-1 size-4;
+  }
+  
+  @utility checkbox-lg {
+    @apply p-1.25 size-5;
+  }
+  
+  @utility checkbox-xl {
+    @apply p-1.5 size-6;
+  }
