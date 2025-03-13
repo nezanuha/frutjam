@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PostcssDiscardDuplicates = require('postcss-discard-duplicates');
 
 module.exports = (env, argv) => {
     const isProd = argv.mode === 'production';
@@ -10,6 +11,11 @@ module.exports = (env, argv) => {
         stats: 'minimal',
         entry: {
             "frutjam": './src/main.css',
+            "components/button": "./src/components/button.css",
+            "components/modal": "./src/components/modal.css",
+            "components/accordion": "./src/components/accordion.css",
+            "components/checkbox": "./src/components/checkbox.css",
+            "utilities/headings": "./src/utilities/headings.css",
         },
         resolve: {
             extensions: ['.ts', '.js'],
@@ -32,7 +38,16 @@ module.exports = (env, argv) => {
                     use: [
                         MiniCssExtractPlugin.loader,
                         'css-loader',
-                        'postcss-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                postcssOptions: {
+                                    plugins: [
+                                        PostcssDiscardDuplicates(),
+                                    ],
+                                },
+                            },
+                        },
                     ],
                 },
                 {
@@ -66,7 +81,7 @@ module.exports = (env, argv) => {
             ],
         },
         devtool: isProd ? 'source-map' : 'eval-source-map',
-        
+
         // Updated devServer configuration
         devServer: {
             static: {
