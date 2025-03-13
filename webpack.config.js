@@ -1,35 +1,15 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PostcssDiscardDuplicates = require('postcss-discard-duplicates');
 
 module.exports = (env, argv) => {
-    const isProd = argv.mode === 'production';
+    const isDevelopment = argv.mode === 'development';
+
     return {
-        mode: isProd ? 'production' : 'development',
+        mode: isDevelopment ? 'development' : 'production',
         stats: 'minimal',
         entry: {
             "frutjam": './src/main.css',
-            "components/button": "./src/components/button.css",
-            "components/modal": "./src/components/modal.css",
-            "components/accordion": "./src/components/accordion.css",
-            "components/checkbox": "./src/components/checkbox.css",
-            "utilities/headings": "./src/utilities/headings.css",
-        },
-        resolve: {
-            extensions: ['.ts', '.js'],
-        },
-        output: {
-            filename: '[name].js',
-            path: path.resolve(__dirname, 'dist'),
-            library: {
-                name: 'frutjam',
-                type: 'umd',
-                export: 'default',
-            },
-            globalObject: 'typeof self !== "undefined" ? self : this',
-            clean: true, // Ensures output directory is cleaned before each build
         },
         module: {
             rules: [
@@ -38,27 +18,16 @@ module.exports = (env, argv) => {
                     use: [
                         MiniCssExtractPlugin.loader,
                         'css-loader',
+                        'postcss-loader',
                         {
-                            loader: 'postcss-loader',
+                            loader: 'string-replace-loader',
                             options: {
-                                postcssOptions: {
-                                    plugins: [
-                                        PostcssDiscardDuplicates(),
-                                    ],
-                                },
-                            },
-                        },
+                                search: '^',
+                                replace: isDevelopment ? '@import "tailwindcss";\n' : '',
+                                flags: 'g'
+                            }
+                        }
                     ],
-                },
-                {
-                    test: /\.m?js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env'],
-                        },
-                    },
                 },
             ],
         },
@@ -67,21 +36,13 @@ module.exports = (env, argv) => {
                 filename: '[name].css',
             }),
             // Only add HtmlWebpackPlugin in development mode
-            !isProd && new HtmlWebpackPlugin({
+            isDevelopment && new HtmlWebpackPlugin({
                 template: 'index.html', // Path to your HTML file
                 filename: 'index.html', // Output file name
             }),
         ].filter(Boolean), // Filter out false values in production mode
-        optimization: {
-            minimize: isProd,
-            minimizer: [
-                new TerserPlugin({
-                    extractComments: false,
-                }),
-            ],
-        },
-        devtool: isProd ? 'source-map' : 'eval-source-map',
-
+        devtool: isDevelopment ? 'eval-source-map' : false,
+        
         // Updated devServer configuration
         devServer: {
             static: {
@@ -92,7 +53,6 @@ module.exports = (env, argv) => {
             open: true, // Automatically open the browser
             hot: true, // Enable hot module replacement
             historyApiFallback: true, // Support for single-page applications
-            // You can add more configuration if needed
         },
     };
 };
