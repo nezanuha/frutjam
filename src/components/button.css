@@ -1,14 +1,14 @@
-@import '../themes/colors.css';
+@import '../themes/colors/base.css';
 @utility btn {
   @layer components {
-    @apply text-[buttonFace] flex items-center text-center rounded-lg font-medium cursor-pointer relative overflow-hidden text-xs transition duration-300 inset-ring inset-ring-black/10;
+    @apply text-[buttonFace] flex items-center text-center rounded-lg font-medium cursor-pointer relative overflow-hidden text-xs transition duration-300 ring ring-black/40 inset-ring inset-ring-black/20;
 
     &:focus{
-      @apply inset-ring-black/30;
+      @apply inset-ring-black/10;
     }
 
     &:not(.btn-dashed, .btn-outline, .btn-soft){
-      @apply border-t border-black/40;
+      @apply border-b-2 border-black/30;
     }
   }
 }
@@ -27,14 +27,6 @@
 
 @utility btn-soft {
   @layer components {
-    &:is(.btn-neutral){
-      @apply bg-neutral/10 text-neutral;
-      @media (hover: hover){
-        &:hover {
-          @apply bg-neutral text-[var(--color-neutral-content)];
-        }
-      }
-    }
 
     &:is(.btn-primary){
       @apply bg-primary/10 text-primary;
@@ -131,19 +123,9 @@
   }
 }
 
-@utility btn-neutral {
+@utility btn-full {
   @layer components {
-    @apply bg-neutral text-neutral-content;
-    
-    &:is(.btn-dashed, .btn-outline){
-      @apply bg-white text-neutral border-neutral;
-    }
-
-    @media (hover: hover){
-      &:hover {
-        @apply bg-neutral text-white border-solid;
-      }
-    }
+    @apply rounded-full leading-4;
   }
 }
 

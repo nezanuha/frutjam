@@ -1,21 +1,16 @@
-@import '../themes/colors.css';
+@import "../themes/colors/base.css";
 @utility modal {
   @layer components {
     @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
-    transition: transform 0.3s ease-out, opacity 0.1s ease-out, visibility 0.3s allow-discrete;
-  
+
     &:not(modal:not([popover]:popover-open)),
     &::backdrop {
-      @apply opacity-100 starting:invisible starting:opacity-0 bg-neutral-950/25 dark:bg-neutral-950/50;
-      transition:
-        display 0.3s ease-out allow-discrete,
-        opacity 0.3s ease-out,
-        visibility 0.3s ease-out allow-discrete;
+      @apply opacity-100 starting:invisible starting:opacity-0 bg-backdrop dark:bg-neutral-950/50;
     }
-  
+
     &[popover]:popover-open {
       @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
-  
+
       .modal-body {
         translate: 0 0;
         scale: 1;
@@ -24,90 +19,81 @@
     }
   }
 }
-  
-  @utility modal-backdrop {
-    @layer components {
-      @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
-      button {
-        @apply cursor-pointer;
-      }
+
+@utility modal-backdrop {
+  @layer components {
+    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
+    button {
+      @apply cursor-pointer;
     }
   }
-  
-  @utility modal-body {
-    @layer components {
-      @apply bg-white rounded-2xl ring shadow-lg ring-neutral-500/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-4;
-      transition:
-        translate 0.3s ease-out,
-        scale 0.3s ease-out,
-        opacity 0.2s ease-out 0.05s,
-        box-shadow 0.3s ease-out;
-      scale: 95%;
-      opacity: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
+}
+
+@utility modal-body {
+  @layer components {
+    @apply bg-surface rounded-3xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+  }
+}
+
+@utility modal-top {
+  @layer components {
+    @apply place-items-start;
+
+    :where(.modal-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 -100%;
+      scale: 1;
     }
   }
-  
-  @utility modal-top {
-    @layer components {
-      @apply place-items-start;
-    
-      :where(.modal-body) {
-        @apply h-auto w-full max-w-none rounded-none;
-        max-height: calc(100vh - 5em);
-        translate: 0 -100%;
-        scale: 1;
-      }
+}
+
+@utility modal-middle {
+  @layer components {
+    @apply place-items-center;
+
+    :where(.modal-body) {
+      @apply h-auto w-11/12 max-w-[32rem];
+      max-height: calc(100vh - 5em);
+      translate: 0 2%;
+      scale: 98%;
     }
   }
-  
-  @utility modal-middle {
-    @layer components {
-      @apply place-items-center;
-    
-      :where(.modal-body) {
-        @apply h-auto w-11/12 max-w-[32rem];
-        max-height: calc(100vh - 5em);
-        translate: 0 2%;
-        scale: 98%;
-      }
+}
+
+@utility modal-bottom {
+  @layer components {
+    @apply place-items-end;
+
+    :where(.modal-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 100%;
+      scale: 1;
     }
   }
-  
-  @utility modal-bottom {
-    @layer components {
-      @apply place-items-end;
-    
-      :where(.modal-body) {
-        @apply h-auto w-full max-w-none rounded-none;
-        max-height: calc(100vh - 5em);
-        translate: 0 100%;
-        scale: 1;
-      }
+}
+
+@utility modal-start {
+  @layer components {
+    @apply place-items-start;
+
+    :where(.modal-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: -100% 0;
+      scale: 1;
     }
   }
-  
-  @utility modal-start {
-    @layer components {
-      @apply place-items-start;
-    
-      :where(.modal-body) {
-        @apply h-screen max-h-none w-auto max-w-none rounded-none;
-        translate: -100% 0;
-        scale: 1;
-      }
+}
+
+@utility modal-end {
+  @layer components {
+    @apply place-items-end;
+
+    :where(.modal-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: 100% 0;
+      scale: 1;
     }
   }
-  
-  @utility modal-end {
-    @layer components {
-      @apply place-items-end;
-    
-      :where(.modal-body) {
-        @apply h-screen max-h-none w-auto max-w-none rounded-none;
-        translate: 100% 0;
-        scale: 1;
-      }
-    }
-  }
+}
