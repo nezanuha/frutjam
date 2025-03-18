@@ -8,7 +8,7 @@
       @apply opacity-100 starting:invisible starting:opacity-0 bg-backdrop;
     }
 
-    &[open], &.modal-open {
+    &[open], &.modal-open{
       @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
 
       .modal-body {
@@ -35,45 +35,65 @@
   }
 }
 
-@utility modal-place-* {
+@utility modal-top {
   @layer components {
-    @apply [place-items:--value([*])];
+    @apply place-items-start;
+
+    :where(.modal-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 -100%;
+      scale: 1;
+    }
   }
 }
 
-@utility modal-slide-up {
-    @layer components {
-        :where(.modal-body) {
-            translate: 0 100%;
-            scale: 1;
-        }
+@utility modal-middle {
+  @layer components {
+    @apply place-items-center;
+
+    :where(.modal-body) {
+      @apply h-auto w-11/12 max-w-[32rem];
+      max-height: calc(100vh - 5em);
+      translate: 0 2%;
+      scale: 98%;
     }
+  }
 }
 
-@utility modal-slide-down {
-    @layer components {
-        :where(.modal-body) {
-            translate: 0 -100%;
-            scale: 1;
-        }
+@utility modal-bottom {
+  @layer components {
+    @apply place-items-end;
+
+    :where(.modal-body) {
+      @apply h-auto w-full max-w-none rounded-none;
+      max-height: calc(100vh - 5em);
+      translate: 0 100%;
+      scale: 1;
     }
+  }
 }
 
-@utility modal-slide-left {
-    @layer components {
-        :where(.modal-body) {
-            translate: 100% 0;
-            scale: 1;
-        }
+@utility modal-start {
+  @layer components {
+    @apply place-items-start;
+
+    :where(.modal-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: -100% 0;
+      scale: 1;
     }
+  }
 }
 
-@utility modal-slide-right {
-    @layer components {
-        :where(.modal-body) {
-            translate: -100% 0;
-            scale: 1;
-        }
-    }
-}
+@utility modal-end {
+  @layer components {
+    @apply place-items-end;
 
+    :where(.modal-body) {
+      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      translate: 100% 0;
+      scale: 1;
+    }
+  }
+}
