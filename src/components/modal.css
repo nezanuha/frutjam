@@ -1,7 +1,10 @@
 @import "../themes/colors/base.css";
-@utility modal {
+@import "../themes/placement.css";
+@import "../themes/animation/slide.css";
+
+@utility modal{
   @layer components {
-    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
+    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-3 text-inherit z-999 overflow-hidden overscroll-contain;
 
     &:not(modal:not([open]):not(.modal-open)),
     &::backdrop {
@@ -31,49 +34,35 @@
 
 @utility modal-body {
   @layer components {
-    @apply bg-surface text-surface-content rounded-3xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @apply bg-surface text-surface-content rounded-2xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   }
 }
 
-@utility modal-place-* {
+
+
+/* placements */
+
+@utility modal-x-* {
   @layer components {
-    @apply [place-items:--value([*])];
+      /* @apply [justify-items:--value([*])]; */
+      @apply [justify-items:--value(--x-*)];
   }
 }
 
-@utility modal-slide-up {
-    @layer components {
-        :where(.modal-body) {
-            translate: 0 100%;
-            scale: 1;
-        }
-    }
+@utility modal-y-* {
+  @layer components {
+      /* @apply [align-items:--value([*])]; */
+      @apply [align-items:--value(--y-*)];
+  }
 }
 
-@utility modal-slide-down {
-    @layer components {
-        :where(.modal-body) {
-            translate: 0 -100%;
-            scale: 1;
-        }
-    }
-}
+/* animation */
 
-@utility modal-slide-left {
-    @layer components {
-        :where(.modal-body) {
-            translate: 100% 0;
-            scale: 1;
-        }
-    }
+@utility modal-slide-* {
+  @layer components {
+      :where(.modal-body) {
+          @apply [translate:--value(--slide-*)];
+          scale: 1;
+      }
+  }
 }
-
-@utility modal-slide-right {
-    @layer components {
-        :where(.modal-body) {
-            translate: -100% 0;
-            scale: 1;
-        }
-    }
-}
-

@@ -1,17 +1,17 @@
 @import "../themes/colors/base.css";
-@utility modal {
+@utility drawer {
   @layer components {
-    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
+    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none place-items-start bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
 
-    &:not(modal:not([open]):not(.modal-open)),
+    &:not(drawer:not([open]):not(.drawer-open)),
     &::backdrop {
       @apply opacity-100 starting:invisible starting:opacity-0 bg-backdrop;
     }
 
-    &[open], &.modal-open{
+    &[open], &.drawer-open{
       @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
 
-      .modal-body {
+      .drawer-body {
         translate: 0 0;
         scale: 1;
         opacity: 1;
@@ -20,7 +20,7 @@
   }
 }
 
-@utility modal-backdrop {
+@utility drawer-backdrop {
   @layer components {
     @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
     button {
@@ -29,17 +29,20 @@
   }
 }
 
-@utility modal-body {
+@utility drawer-body {
   @layer components {
-    @apply bg-surface text-surface-content rounded-3xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @apply bg-surface text-surface-content rounded-none border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 h-screen max-h-none w-11/12  w-auto max-w-none p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    translate: -100% 0;
+    scale: 1;
   }
 }
 
-@utility modal-top {
+
+@utility drawer-top {
   @layer components {
     @apply place-items-start;
 
-    :where(.modal-body) {
+    :where(.drawer-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 -100%;
@@ -48,24 +51,11 @@
   }
 }
 
-@utility modal-middle {
-  @layer components {
-    @apply place-items-center;
-
-    :where(.modal-body) {
-      @apply h-auto w-11/12 max-w-[32rem];
-      max-height: calc(100vh - 5em);
-      translate: 0 2%;
-      scale: 98%;
-    }
-  }
-}
-
-@utility modal-bottom {
+@utility drawer-bottom {
   @layer components {
     @apply place-items-end;
 
-    :where(.modal-body) {
+    :where(.drawer-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 100%;
@@ -74,11 +64,11 @@
   }
 }
 
-@utility modal-start {
+@utility drawer-start {
   @layer components {
     @apply place-items-start;
 
-    :where(.modal-body) {
+    :where(.drawer-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: -100% 0;
       scale: 1;
@@ -86,11 +76,11 @@
   }
 }
 
-@utility modal-end {
+@utility drawer-end {
   @layer components {
     @apply place-items-end;
 
-    :where(.modal-body) {
+    :where(.drawer-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: 100% 0;
       scale: 1;
