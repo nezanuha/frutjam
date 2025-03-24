@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
                 directory: path.resolve(__dirname, 'dist'), // Serve content from 'dist' directory
             },
             compress: true, // Enable gzip compression
-            open: true, // Automatically open the browser
+            open: false, // Automatically open the browser
             hot: true, // Enable hot module replacement
             historyApiFallback: true, // Support for single-page applications
         },
