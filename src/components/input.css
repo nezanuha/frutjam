@@ -2,14 +2,56 @@
 
 @utility input-* {
   @layer components {
-    @apply border border-[--value(--color-*-fore)]/20 rounded-[var(--radius-size)] transition duration-300 outline-0 px-1 py-0.5;
+    @apply outline outline-[--value(--color-*)]/20 rounded-[var(--radius-size)] transition duration-300 px-2.5 font-medium;
+    @apply relative inline-flex self-start shrink-0 appearance-none items-center gap-2 align-middle whitespace-nowrap leading-4;
     &:focus, &:focus-within {
-        @apply border-[--value(--color-*-fore)];
+        @apply outline-[--value(--color-*)] ring-2 ring-[--value(--color-*)]/10 isolate;
     }
     @media (hover: hover) {
         &:hover {
             @apply border-[--value(--color-*-fore)]/40
         }
+    }
+
+    &:is(.input-ghost) {
+      @apply outline-0;
+      @media (hover: hover) {
+        &:hover {
+          @apply outline;
+        }
+      }
+    }
+
+    /* disabled input */
+    &:is(:disabled, [disabled], .input-disabled) {
+      @apply bg-[--value(--color-*)]/10 text-[--value(--color-*)]/30 pointer-events-none cursor-not-allowed;
+    }
+
+    /* If no input size class is present, apply the default size as input-md */
+    &:not(.input-xs, .input-sm, .input-md, .input-lg, .input-xl, .input-2xl) {
+      @apply px-3.5 py-2.5 text-sm;
+    }
+
+    /* input sizes */
+    &:is(.input-xs, .input-sm, .input-md, .input-lg, .input-xl, .input-2xl) {
+      &:is(.input-xs) {
+        @apply px-2.5 py-1.5 text-xs;
+      }
+      &:is(.input-sm) {
+        @apply px-3 py-2 text-xs;
+      }
+      &:is(.input-md) {
+        @apply px-3.5 py-2.5 text-sm;
+      }
+      &:is(.input-lg) {
+        @apply px-4 py-3 text-base;
+      }
+      &:is(.input-xl) {
+        @apply px-4.5 py-3.5 text-base;
+      }
+      &:is(.input-2xl) {
+        @apply px-5 py-4 text-base;
+      }
     }
   }
 }
