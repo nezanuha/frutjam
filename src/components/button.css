@@ -4,7 +4,7 @@
 
 @utility btn-* {
   @layer components {
-    @apply relative inline-flex shrink-0 flex-nowrap items-center justify-center gap-1.5 text-center align-middle font-medium relative overflow-hidden text-xs transition duration-300 text-center leading-4;
+    @apply relative inline-flex self-start shrink-0 flex-nowrap items-center justify-center gap-1.5 text-center align-middle font-medium overflow-hidden text-xs transition duration-300 leading-4;
     @apply rounded-[var(--radius-size)];
     &:is(.btn-default, .btn-primary, .btn-secondary, .btn-success, .btn-error, .btn-warning, .btn-info, .btn-accent) {
 
@@ -30,7 +30,7 @@
         }
       }
 
-      /* disabled buttons */
+      /* disabled button */
       &:is(:disabled, [disabled], .btn-disabled) {
         @apply bg-[--value(--color-*)]/10 text-[--value(--color-*)]/30 pointer-events-none;
       }
@@ -91,6 +91,11 @@
           }
         }
       }
+    }
+
+    /* If no btn size class is present, apply the default size as btn-md */
+    &:not(.btn-xs, .btn-sm, .btn-md, .btn-lg, .btn-xl, .btn-2xl) {
+      @apply px-3.5 py-2.5 text-sm;
     }
 
     /* button sizes */
