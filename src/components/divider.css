@@ -1,42 +1,38 @@
 @utility divider-* {
     @layer components {
-        @apply bg-red-300 h-6 w-full;
-        :is(*) {
+        @apply flex flex-row items-center self-stretch whitespace-nowrap h-4;
 
-            @apply flex flex-row items-center self-stretch whitespace-nowrap h-4;
+        &::before,
+        &::after {
+            @apply content-[''] bg-[--value(--color-*)] h-0.5 w-full grow;
+        }
 
-            &:before,
-            &:after {
-                @apply bg-default content-[''] bg-surface-fore/10 h-0.5 w-full grow;
+        @media print {
+            &::before,
+            &::after {
+                border: 0.5px solid;
             }
+        }
+    
+        &:not(:empty) {
+            @apply gap-2;
+        }
 
-            @media print {
-                &:before,
-                &:after {
-                    border: 0.5px solid;
-                }
-            }
-        
-            &:not(:empty) {
-                @apply gap-4;
-            }
+        .divider-start::before, .divider-end::after  {
+            @apply hidden;
+        }
 
-            .divider-start:before, .divider-end:after  {
-                @apply hidden;
-            }
-
-            :is(.divider-x, .divider-y) {
-                .divider-x {
-                    @apply h-auto w-4 flex-col mx-4;
-                    &:before &:after {
-                        @apply h-full w-0.5;
-                    }
-                }
-                .divider-y {
-                    @apply h-4 w-auto flex-row my-4;
-                    &:before &:after {
+        &:is(.divider-x, .divider-y) {
+            &:is(.divider-x) {
+                @apply h-4 w-auto flex-row my-2;
+                &::before, &::after {
                     @apply h-0.5 w-full;
-                    }
+                }
+            }
+            &:is(.divider-y) {
+                @apply h-auto w-4 flex-col mx-2;
+                &::before, &::after {
+                    @apply h-full w-0.5;
                 }
             }
         }
