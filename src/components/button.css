@@ -1,18 +1,21 @@
 @import "../themes/styles/base.css";
 @import "../themes/animation/wiggle.css";
 
-
 @utility btn-* {
   @layer components {
-    @apply relative inline-flex self-start shrink-0 flex-nowrap items-center justify-center gap-1.5 text-center align-middle font-medium overflow-hidden text-xs transition duration-300 leading-4;
-    @apply rounded-[var(--radius-size)];
-    &:is(.btn-default, .btn-primary, .btn-secondary, .btn-success, .btn-error, .btn-warning, .btn-info, .btn-accent) {
 
+    @apply relative inline-flex self-start shrink-0 flex-nowrap items-center
+           justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
+           text-xs transition duration-300 leading-4 rounded-[var(--radius-size)];
+
+    &:is(.btn-base, .btn-primary, .btn-secondary, .btn-success, .btn-error, .btn-warning, .btn-info, .btn-accent) {
       /* global */
-      @media (hover: hover) {
-        &:hover {
-          &::before {
-            @apply content-[''] absolute size-full animate-wiggle bg-[radial-gradient(#ffffff33,_#00000000)];
+      &:not(.btn-link) {
+        @media (hover: hover) {
+          &:hover {
+            &::before {
+              @apply content-[''] absolute size-full animate-wiggle bg-[radial-gradient(#ffffff33,_#00000000)];
+            }
           }
         }
       }
@@ -26,7 +29,7 @@
         }
     
         &:checked {
-          @apply ring-2 bg-gradient-to-tr via-[--value(--color-*)]/90 isolate;
+          @apply ring-1 bg-gradient-to-tr via-[--value(--color-*)]/90 isolate;
         }
       }
 
@@ -41,7 +44,7 @@
           @apply text-[--value(--color-*-fore)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)] ring-[0.5px] ring-[--value(--color-*)]/50
         }
         &:is(.btn-ghost) {
-          @apply text-[--value(--color-*)];
+          @apply text-[--value(--color-*-fore)];
         }
 
         @media (hover: hover) {
@@ -50,10 +53,10 @@
               @apply text-[--value(--color-*-fore)] from-[--value(--color-*)] to-[--value(--color-*)] ring-[--value(--color-*)]/50 duration-500;
             }
             &:not(.btn-link) {
-              @apply ring-2 bg-gradient-to-tr via-[--value(--color-*)]/90;
+              @apply ring-1 bg-gradient-to-tr via-[--value(--color-*)]/90;
             }
             &:is(.btn-link) {
-              @apply text-[--value(--color-*)] underline underline-offset-4 cursor-pointer;
+              @apply underline underline-offset-4 cursor-pointer;
             }
           }
         }
@@ -65,7 +68,7 @@
 
         @media (hover: hover) {
           &:hover {
-            @apply ring-2 text-surface bg-[--value(--color-*)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)];
+            @apply ring-1 text-surface bg-[--value(--color-*)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)];
           }
         }
       }
@@ -76,7 +79,7 @@
   
         @media (hover: hover) {
           &:hover {
-            @apply ring-2 text-surface bg-[--value(--color-*)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)];
+            @apply ring-1 text-surface bg-[--value(--color-*)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)];
           }
         }
       }
@@ -84,16 +87,15 @@
       /* button soft */
       &:is(.btn-soft) {
         @apply text-[--value(--color-*)] bg-[--value(--color-*)]/20 ring-[0.5px] ring-[--value(--color-*)]/20;
-  
         @media (hover: hover) {
           &:hover {
-            @apply ring-2;
+            @apply ring-1;
           }
         }
       }
     }
 
-    /* If no btn size class is present, apply the default size as btn-md */
+    /* If no btn size class is present, apply the base size as btn-md */
     &:not(.btn-xs, .btn-sm, .btn-md, .btn-lg, .btn-xl, .btn-2xl) {
       @apply px-3.5 py-2.5 text-sm;
     }
