@@ -63,41 +63,46 @@
   <button type="button" class="btn btn-sm btn-primary rounded-md" onclick="toggleDrawer.show()">Open Drawer</button>
 
   <!-- layout header -->
-  <header class="header">
+  <header class="header flex justify-between items-center gap-3">
     <div>
-      <a href=""><img src="logo.png" alt=""></a>
+      <a href=""><img src="#" alt="" width="20"></a>
     </div>
-    <div>
-      <nav class="nav-menu nav-x-end">
-        <p>Heading</p>
+
+    <!-- for large screen -->
+    <div class="hidden lg:block">
+      <nav class="nav-menu nav-x-start">
         <ul class="nav-list">
           <li>
-            <a href="#" class="btn-link">Home</a>
+            <a href="#" class="btn-primary btn-link">Home</a>
           </li>
           <li>
-            <a href="#" class="btn-link">About</a>
+            <a href="#" class="btn-primary btn-link">About</a>
           </li>
           <li>
-            <a href="#" class="btn-link">Contact</a>
+            <a href="#" class="btn-primary btn-link">Contact</a>
           </li>
         </ul>
       </nav> 
     </div>
+
     <!-- for small screen -->
-    <dialog class="drawer" id="toggleDrawer">
-      <div class="drawer-body">
-        <div class="max-w-xs">
-          <nav class="menu">
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </nav>          
+     <div class="block lg:hidden">
+      <button type="button" class="btn-base btn-sm btn-ghost" onclick="toggleMenu.show()">menu</button>
+      <dialog class="drawer" id="toggleMenu">
+        <div class="drawer-body">
+          <div class="max-w-xs">
+            <nav class="menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </nav>          
+          </div>
         </div>
-      </div>
-      <button type="button" class="drawer-backdrop" onclick="toggleDrawer.close()">Close Drawer via Backdrop</button>
-    </dialog>
+        <button type="button" class="drawer-backdrop" onclick="toggleMenu.close()">Close Drawer via Backdrop</button>
+      </dialog>
+     </div>
   </header>
 
   <div class="space-y-3 my-4">
