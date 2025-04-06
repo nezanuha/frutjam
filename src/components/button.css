@@ -6,7 +6,11 @@
 
     @apply relative inline-flex self-start shrink-0 flex-nowrap items-center
            justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
-           text-xs transition duration-300 leading-4 rounded-[var(--radius-size)];
+           text-xs transition duration-300 leading-4;
+    
+    &:not(.btn-link){
+      @apply rounded-[var(--radius-size)];
+    }
 
     &:is(.btn-base, .btn-primary, .btn-secondary, .btn-success, .btn-error, .btn-warning, .btn-info, .btn-accent) {
       /* global */
@@ -43,10 +47,15 @@
         &:not(.btn-ghost, .btn-link) {
           @apply text-[--value(--color-*-fore)] bg-gradient-to-br from-[--value(--color-*)] via-[--value(--color-*)]/95 to-[--value(--color-*)] ring-[0.5px] ring-[--value(--color-*)]/50
         }
-        &:is(.btn-ghost) {
-          @apply text-[--value(--color-*-fore)];
+        &:is(.btn-ghost, .btn-link) {
+          @apply text-[--value(--color-*)];
         }
 
+        &:is(.btn-active),
+        &:hover:is(.btn-link) {
+          @apply underline underline-offset-4 cursor-pointer;
+        }
+        
         @media (hover: hover) {
           &:hover {
             &:is(.btn-ghost) {
@@ -55,11 +64,9 @@
             &:not(.btn-link) {
               @apply ring-1 bg-gradient-to-tr via-[--value(--color-*)]/90;
             }
-            &:is(.btn-link) {
-              @apply underline underline-offset-4 cursor-pointer;
-            }
           }
         }
+        
       }
 
       /* button dashed */
