@@ -9,18 +9,19 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # Grant write access to id-token permission
+      contents: write  # Ensure write access for creating releases
 
     env:
-      NODE_VERSION: '20'  # Directly set to your current Node.js version
+      NODE_VERSION: '20'
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}  # Use the environment variable for the Node version
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Authenticate with npm
         run: npm set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
@@ -32,3 +33,12 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body_path: CHANGELOG.md  # Optional, if you have a changelog file
+          draft: false
+          prerelease: false
