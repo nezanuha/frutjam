@@ -15,25 +15,25 @@
 
 @utility btn-md {
   @layer components {
-    @apply px-3.5 py-2.5 text-sm;
+    @apply px-3.5 py-2.5 text-base;
   }
 }
 
 @utility btn-lg {
   @layer components {
-    @apply px-4 py-3 text-base;
+    @apply px-4 py-3 text-lg;
   }
 }
 
 @utility btn-xl {
   @layer components {
-    @apply px-4.5 py-3.5 text-base;
+    @apply px-4.5 py-3.5 text-xl;
   }
 }
 
 @utility btn-2xl {
   @layer components {
-    @apply px-5 py-4 text-base;
+    @apply px-5 py-4 text-2xl;
   }
 }
 
@@ -102,22 +102,41 @@
 
 @utility btn-default {
   @layer components {
-    @apply btn bg-default-300 text-default-950 ring-default-100;
-    &:hover {
-      @apply bg-default-200 ring-default-100 from-default-300 via-default-200 to-default-300;
+    @apply btn bg-default-300 text-default-700 ring-default-100;
+    
+    &:not(.btn-link) {
+      &:hover {
+        @apply bg-default-200 ring-default-100 from-default-300 via-default-200 to-default-300;
+          
+        @media (prefers-color-scheme: dark) {
+          @apply bg-default-800 ring-default-700 from-default-900 via-default-800 to-default-900;
+        }
+      }
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-default-700 text-default-700;
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-default-700 text-default-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply outline-default-700 text-default-400;
+      }
 
       @media (hover: hover) {
         &:hover {
-          @apply btn-active outline-none text-default-800;
+          @apply btn-active outline-none;
         }
       }
     }
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-default-700 text-default-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-default-700 text-default-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply ring-default-700 text-default-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -127,7 +146,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-default-100 text-default-700;
+      &:not(.btn-active) {
+        @apply bg-default-100 text-default-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply bg-default-700/25 text-default-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -136,8 +161,19 @@
       }
     }
 
+    &:is(.btn-ghost) {
+      &:not(.btn-active) {
+        @apply bg-transparent text-default-700;
+      }
+      &:hover {
+        @apply btn-active text-default-50;
+      }
+    }
+
     &:is(.btn-link) {
-      @apply bg-transparent;
+      &:not(.btn-active) {
+        @apply bg-transparent;
+      }
       &:hover {
         @apply btn-active;
       }
@@ -147,7 +183,7 @@
 
 @utility btn-primary {
   @layer components {
-    @apply btn bg-primary-700 text-primary-50;
+    @apply btn bg-primary-700 text-primary-50 ring-primary-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -156,7 +192,9 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-primary-700 text-primary-700;
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-primary-700 text-primary-700;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -166,7 +204,13 @@
     }
 
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-primary-700 text-primary-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-primary-700 text-primary-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply ring-primary-700 text-primary-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -176,7 +220,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-primary-100 text-primary-700;
+      &:not(.btn-active) {
+        @apply bg-primary-100 text-primary-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply bg-primary-700/25 text-primary-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -186,14 +236,20 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-primary-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-primary-700;
+      }
+
       &:hover {
         @apply btn-active text-primary-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-primary-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-primary-700;
+      }
+
       &:hover {
         @apply btn-active;
       }
@@ -203,7 +259,7 @@
 
 @utility btn-secondary {
   @layer components {
-    @apply btn bg-secondary-700 text-secondary-50;
+    @apply btn bg-secondary-700 text-secondary-50 ring-secondary-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -212,8 +268,10 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-secondary-700 text-secondary-700;
-
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-secondary-700 text-secondary-700;
+      }
+  
       @media (hover: hover) {
         &:hover {
           @apply btn-active outline-none text-secondary-50;
@@ -222,7 +280,13 @@
     }
 
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-secondary-700 text-secondary-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-secondary-700 text-secondary-700;
+      }
+  
+      @media (prefers-color-scheme: dark) {
+        @apply ring-secondary-700 text-secondary-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -232,7 +296,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-secondary-100 text-secondary-700;
+      &:not(.btn-active) {
+        @apply bg-secondary-100 text-secondary-700;
+      }
+  
+      @media (prefers-color-scheme: dark) {
+        @apply bg-secondary-700/25 text-secondary-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -242,14 +312,20 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-secondary-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-secondary-700;
+      }
+  
       &:hover {
         @apply btn-active text-secondary-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-secondary-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-secondary-700;
+      }
+
       &:hover {
         @apply btn-active;
       }
@@ -259,7 +335,7 @@
 
 @utility btn-accent {
   @layer components {
-    @apply btn bg-accent-700 text-accent-50;
+    @apply btn bg-accent-700 text-accent-50 ring-accent-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -268,7 +344,9 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-accent-700 text-accent-700;
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-accent-700 text-accent-700;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -278,7 +356,13 @@
     }
 
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-accent-700 text-accent-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-accent-700 text-accent-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply ring-accent-700 text-accent-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -288,7 +372,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-accent-100 text-accent-700;
+      &:not(.btn-active) {
+        @apply bg-accent-100 text-accent-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply bg-accent-700/25 text-accent-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -298,14 +388,20 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-accent-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-accent-700;
+      }
+
       &:hover {
         @apply btn-active text-accent-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-accent-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-accent-700;
+      }
+
       &:hover {
         @apply btn-active;
       }
@@ -315,7 +411,7 @@
 
 @utility btn-info {
   @layer components {
-    @apply btn bg-info-700 text-info-50;
+    @apply btn bg-info-700 text-info-50 ring-info-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -324,8 +420,10 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-info-700 text-info-700;
-
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-info-700 text-info-700;
+      }
+  
       @media (hover: hover) {
         &:hover {
           @apply btn-active outline-none text-info-50;
@@ -333,7 +431,13 @@
       }
     }
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-info-700 text-info-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-info-700 text-info-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply ring-info-700 text-info-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -343,7 +447,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-info-100 text-info-700;
+      &:not(.btn-active) {
+        @apply bg-info-100 text-info-700;
+      }
+    
+      @media (prefers-color-scheme: dark) {
+        @apply bg-info-700/25 text-info-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -353,7 +463,9 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-info-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-info-700;
+      }
       &:hover {
         @apply btn-active text-info-50;
       }
@@ -370,7 +482,7 @@
 
 @utility btn-success {
   @layer components {
-    @apply btn bg-success-700 text-success-50;
+    @apply btn bg-success-700 text-success-50 ring-success-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -379,7 +491,9 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-success-700 text-success-700;
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-success-700 text-success-700;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -388,7 +502,13 @@
       }
     }
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-success-700 text-success-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-success-700 text-success-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply ring-success-700 text-success-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -398,7 +518,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-success-100 text-success-700;
+      &:not(.btn-active) {
+        @apply bg-success-100 text-success-700;
+      }
+  
+      @media (prefers-color-scheme: dark) {
+        @apply bg-success-700/25 text-success-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -408,14 +534,18 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-success-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-success-700;
+      }
       &:hover {
         @apply btn-active text-success-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-success-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-success-700;
+      }
       &:hover {
         @apply btn-active;
       }
@@ -425,7 +555,7 @@
 
 @utility btn-warning {
   @layer components {
-    @apply btn bg-warning-700 text-warning-50;
+    @apply btn bg-warning-700 text-warning-50 ring-warning-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -434,8 +564,9 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-warning-700 text-warning-700;
-
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-warning-700 text-warning-700;
+      }
       @media (hover: hover) {
         &:hover {
           @apply btn-active outline-none text-warning-50;
@@ -443,7 +574,12 @@
       }
     }
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-warning-700 text-warning-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-warning-700 text-warning-700;
+      }
+      @media (prefers-color-scheme: dark) {
+        @apply ring-warning-700 text-warning-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -453,7 +589,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-warning-100 text-warning-700;
+      &:not(.btn-active) {
+        @apply bg-warning-100 text-warning-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply bg-warning-700/25 text-warning-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -463,14 +605,19 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-warning-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-warning-700;
+      }
+
       &:hover {
         @apply btn-active text-warning-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-warning-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-warning-700;
+      }
       &:hover {
         @apply btn-active;
       }
@@ -480,7 +627,7 @@
 
 @utility btn-error {
   @layer components {
-    @apply btn bg-error-700 text-error-50;
+    @apply btn bg-error-700 text-error-50 ring-error-600;
 
     &:not(.btn-link) {
       &:hover {
@@ -489,8 +636,9 @@
     }
 
     &:is(.btn-dashed) {
-      @apply bg-transparent outline outline-dashed outline-error-700 text-error-700;
-
+      &:not(.btn-active) {
+        @apply bg-transparent outline outline-dashed outline-error-700 text-error-700;
+      }
       @media (hover: hover) {
         &:hover {
           @apply btn-active outline-none text-error-50;
@@ -498,7 +646,12 @@
       }
     }
     &:is(.btn-outline) {
-      @apply bg-transparent ring-1 ring-error-700 text-error-700;
+      &:not(.btn-active) {
+        @apply bg-transparent ring-1 ring-error-700 text-error-700;
+      }
+      @media (prefers-color-scheme: dark) {
+        @apply ring-error-700 text-error-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -508,7 +661,13 @@
     }
 
     &:is(.btn-soft) {
-      @apply bg-error-100 text-error-700;
+      &:not(.btn-active) {
+        @apply bg-error-100 text-error-700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @apply bg-error-700/25 text-error-400;
+      }
 
       @media (hover: hover) {
         &:hover {
@@ -518,14 +677,19 @@
     }
 
     &:is(.btn-ghost) {
-      @apply bg-transparent text-error-700;
+      &:not(.btn-active) {
+        @apply bg-transparent text-error-700;
+      }
       &:hover {
         @apply btn-active text-error-50;
       }
     }
 
     &:is(.btn-link) {
-      @apply bg-transparent text-error-700 ;
+      &:not(.btn-active) {
+        @apply bg-transparent text-error-700;
+      }
+
       &:hover {
         @apply btn-active;
       }
