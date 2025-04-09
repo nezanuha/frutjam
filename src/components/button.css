@@ -89,9 +89,12 @@
         @apply bg-transparent text-[light-dark(var(--btn-700),var(--btn-400))] underline underline-offset-4 cursor-pointer;
       }
       &:not(.btn-link) {
-        @apply bg-[light-dark(var(--btn-800),var(--btn-900))] ring-2 ring-[light-dark(var(--btn-600),var(--btn-800))] text-[light-dark(var(--btn-50),var(--btn-100))] outline-none;
-        &::before {
-          @apply content-[''] absolute size-full animate-wiggle bg-[radial-gradient(#ffffff33,_#00000000)];
+        @apply bg-[light-dark(var(--btn-800),var(--btn-900))] ring ring-[light-dark(var(--btn-600),var(--btn-800))] text-[light-dark(var(--btn-50),var(--btn-100))] outline-none;
+        
+        &:not(:disabled, [disabled], .btn-disabled) {
+          &::before {
+            @apply content-[''] absolute size-full animate-wiggle bg-[radial-gradient(#ffffff33,_#00000000)];
+          }
         }
       }
     }
