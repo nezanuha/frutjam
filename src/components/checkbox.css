@@ -1,6 +1,58 @@
 @import '../themes/styles/base.css';
+
+@utility checkbox-xs {
+  @layer components {
+    @apply p-0.5 size-2;
+  }
+}
+
+@utility checkbox-sm {
+  @layer components {
+    @apply p-0.75 size-3;
+  }
+}
+
+@utility checkbox-md {
+  @layer components {
+    @apply p-1 size-4;
+  }
+}
+
+@utility checkbox-lg {
+  @layer components {
+    @apply p-1.25 size-5;
+  }
+}
+
+@utility checkbox-xl {
+  @layer components {
+    @apply p-1.5 size-6;
+  }
+}
+
+@utility checkbox-2xl {
+  @layer components {
+    @apply p-1.75 size-7;
+  }
+}
+
+@utility checkbox-circle {
+  @layer components {
+    @apply rounded-full aspect-square;
+  }
+}
+
+@utility checkbox-square {
+  @layer components {
+    @apply rounded-[var(--radius-checkbox)] aspect-square;
+  }
+}
+
 @utility checkbox {
-    @apply size-4 rounded-md relative shrink-0 cursor-pointer appearance-none p-1 align-middle shadow ring duration-150;
+  @layer components {
+    @apply relative shrink-0 cursor-pointer appearance-none align-middle shadow ring duration-350
+           rounded-[var(--radius-checkbox)] checkbox-md bg-[light-dark(var(--checkbox-100),var(--checkbox-100))]
+           text-[light-dark(var(--checkbox-700),var(--checkbox-700))] ring-[light-dark(var(--checkbox-700),var(--checkbox-700))];
 
     &::before {
       @apply block size-full rotate-45 bg-current opacity-0 content-none transition-all;
@@ -16,7 +68,7 @@
   
     &:checked,
     &[aria-checked="true"] {
-        @apply shadow-2xl;  
+        @apply shadow-2xl bg-[light-dark(var(--checkbox-200),var(--checkbox-200))];  
         &::before {
             clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 0, 70% 0, 70% 100%);
             @apply opacity-100 content-['✔︎'];
@@ -35,87 +87,160 @@
     }
     
     &:disabled {
-        @apply cursor-not-allowed opacity-20;
+      @apply cursor-not-allowed opacity-20;
     }
   }
-  
-  @utility checkbox-primary {
-    @apply bg-primary-100 text-primary-700 ring-primary-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-primary-200;
-    }
-  }
-  
-  @utility checkbox-secondary {
-    @apply bg-secondary-100 text-secondary-700 ring-secondary-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-secondary-200;
-    }
-  }
-  
-  @utility checkbox-accent {
-    @apply bg-accent-100 text-accent-700 ring-accent-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-accent-200;
-    }
-  }
-  
-  
-  @utility checkbox-info {
-    @apply bg-info-100 text-info-700 ring-info-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-info-200;
-    }
-  }
-  
-  @utility checkbox-success {
-    @apply bg-success-100 text-success-700 ring-success-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-success-200;
-    }
-  }
-  
-  @utility checkbox-warning {
-    @apply bg-warning-100 text-warning-700 ring-warning-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-warning-200;
-    }
-  }
-  
-  @utility checkbox-error {
-    @apply bg-error-100 text-error-700 ring-error-700;
-    &:checked,
-    &[aria-checked="true"] {
-        @apply bg-error-200;
-    }
-  }
+}
 
-  @utility checkbox-* {
-    @apply bg-[--value([color])]/20 text-[--value([color])] ring-[--value([color])]
-  }  
-  
-  @utility checkbox-xs {
-    @apply p-0.5 size-2;
+@utility checkbox-default {
+  @layer components {
+    @apply checkbox;
   }
-  
-  @utility checkbox-sm {
-    @apply p-0.75 size-3;
+  @layer theme {
+    --checkbox-50: var(--default-50);
+    --checkbox-100: var(--default-100);
+    --checkbox-200: var(--default-200);
+    --checkbox-300: var(--default-300);
+    --checkbox-400: var(--default-400);
+    --checkbox-500: var(--default-500);
+    --checkbox-600: var(--default-600);
+    --checkbox-700: var(--default-700);
+    --checkbox-800: var(--default-800);
+    --checkbox-900: var(--default-900);
+    --checkbox-950: var(--default-950);
   }
+}
   
-  @utility checkbox-md {
-    @apply p-1 size-4;
+@utility checkbox-primary {
+  @layer components {
+    @apply checkbox;
   }
+  @layer theme {
+    --checkbox-50: var(--primary-50);
+    --checkbox-100: var(--primary-100);
+    --checkbox-200: var(--primary-200);
+    --checkbox-300: var(--primary-300);
+    --checkbox-400: var(--primary-400);
+    --checkbox-500: var(--primary-500);
+    --checkbox-600: var(--primary-600);
+    --checkbox-700: var(--primary-700);
+    --checkbox-800: var(--primary-800);
+    --checkbox-900: var(--primary-900);
+    --checkbox-950: var(--primary-950);
+  }
+}
   
-  @utility checkbox-lg {
-    @apply p-1.25 size-5;
+@utility checkbox-secondary {
+  @layer components {
+    @apply checkbox;
   }
+  @layer theme {
+    --checkbox-50: var(--secondary-50);
+    --checkbox-100: var(--secondary-100);
+    --checkbox-200: var(--secondary-200);
+    --checkbox-300: var(--secondary-300);
+    --checkbox-400: var(--secondary-400);
+    --checkbox-500: var(--secondary-500);
+    --checkbox-600: var(--secondary-600);
+    --checkbox-700: var(--secondary-700);
+    --checkbox-800: var(--secondary-800);
+    --checkbox-900: var(--secondary-900);
+    --checkbox-950: var(--secondary-950);
+  }
+}
   
-  @utility checkbox-xl {
-    @apply p-1.5 size-6;
+@utility checkbox-accent {
+  @layer components {
+    @apply checkbox;
   }
+  @layer theme {
+    --checkbox-50: var(--accent-50);
+    --checkbox-100: var(--accent-100);
+    --checkbox-200: var(--accent-200);
+    --checkbox-300: var(--accent-300);
+    --checkbox-400: var(--accent-400);
+    --checkbox-500: var(--accent-500);
+    --checkbox-600: var(--accent-600);
+    --checkbox-700: var(--accent-700);
+    --checkbox-800: var(--accent-800);
+    --checkbox-900: var(--accent-900);
+    --checkbox-950: var(--accent-950);
+  }
+}
+  
+  
+@utility checkbox-info {
+  @layer components {
+    @apply checkbox;
+  }
+  @layer theme {
+    --checkbox-50: var(--info-50);
+    --checkbox-100: var(--info-100);
+    --checkbox-200: var(--info-200);
+    --checkbox-300: var(--info-300);
+    --checkbox-400: var(--info-400);
+    --checkbox-500: var(--info-500);
+    --checkbox-600: var(--info-600);
+    --checkbox-700: var(--info-700);
+    --checkbox-800: var(--info-800);
+    --checkbox-900: var(--info-900);
+    --checkbox-950: var(--info-950);
+  }
+}
+  
+@utility checkbox-success {
+  @layer components {
+    @apply checkbox;
+  }
+  @layer theme {
+    --checkbox-50: var(--success-50);
+    --checkbox-100: var(--success-100);
+    --checkbox-200: var(--success-200);
+    --checkbox-300: var(--success-300);
+    --checkbox-400: var(--success-400);
+    --checkbox-500: var(--success-500);
+    --checkbox-600: var(--success-600);
+    --checkbox-700: var(--success-700);
+    --checkbox-800: var(--success-800);
+    --checkbox-900: var(--success-900);
+    --checkbox-950: var(--success-950);
+  }
+}
+  
+@utility checkbox-warning {
+  @layer components {
+    @apply checkbox;
+  }
+  @layer theme {
+    --checkbox-50: var(--warning-50);
+    --checkbox-100: var(--warning-100);
+    --checkbox-200: var(--warning-200);
+    --checkbox-300: var(--warning-300);
+    --checkbox-400: var(--warning-400);
+    --checkbox-500: var(--warning-500);
+    --checkbox-600: var(--warning-600);
+    --checkbox-700: var(--warning-700);
+    --checkbox-800: var(--warning-800);
+    --checkbox-900: var(--warning-900);
+    --checkbox-950: var(--warning-950);
+  }
+}
+  
+@utility checkbox-error {
+  @layer components {
+    @apply checkbox;
+  }
+  @layer theme {
+    --checkbox-50: var(--error-50);
+    --checkbox-100: var(--error-100);
+    --checkbox-200: var(--error-200);
+    --checkbox-300: var(--error-300);
+    --checkbox-400: var(--error-400);
+    --checkbox-500: var(--error-500);
+    --checkbox-600: var(--error-600);
+    --checkbox-700: var(--error-700);
+    --checkbox-800: var(--error-800);
+    --checkbox-900: var(--error-900);
+    --checkbox-950: var(--error-950);
+  }
+}
