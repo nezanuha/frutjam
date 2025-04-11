@@ -1,5 +1,5 @@
-@import "../themes/styles/base.css";
-@import "../themes/animation/wiggle.css";
+@import "../theme/skins/base.css";
+@import "../theme/animation/wiggle.css";
 
 @utility btn-xs {
   @layer components {
@@ -63,10 +63,16 @@
 
 @utility btn {
   @layer components {
-    @apply relative inline-flex self-start shrink-0 flex-nowrap items-center
-            justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
-            text-xs transition duration-350 ease-in-out leading-4 btn-md cursor-pointer
-            bg-[light-dark(var(--btn-700),var(--btn-900))] text-[var(--btn-50)] rounded-[var(--radius-btn)];
+    @apply btn-md relative inline-flex self-start shrink-0 flex-nowrap items-center
+           justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
+           text-xs transition duration-350 ease-in-out leading-4 cursor-pointer;
+    
+    color: var(--btn-50);
+    border-radius: var(--radius-btn);
+    background-color: light-dark(
+      var(--btn-600),
+      var(--btn-500)
+    );
 
     &:is(:disabled, [disabled], .btn-disabled) {
       @apply opacity-20 pointer-events-none;
@@ -86,10 +92,25 @@
 
     &:is(.btn-active, :hover) {
       &:is(.btn-link) {
-        @apply bg-transparent text-[light-dark(var(--btn-700),var(--btn-400))] underline underline-offset-4 cursor-pointer;
+        @apply bg-transparent underline underline-offset-4 cursor-pointer;
+        
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-500)
+        );
       }
       &:not(.btn-link) {
-        @apply bg-[light-dark(var(--btn-800),var(--btn-900))] ring ring-[light-dark(var(--btn-600),var(--btn-800))] text-[light-dark(var(--btn-50),var(--btn-100))] outline-none;
+        @apply ring ring-[light-dark(var(--btn-600),var(--btn-800))] outline-none;
+
+        background-color: light-dark(
+          var(--btn-800),
+          var(--btn-600)
+        );
+
+        color: light-dark(
+          var(--btn-50),
+          var(--btn-100)
+        );
         
         &:not(:disabled, [disabled], .btn-disabled) {
           &::before {
@@ -101,31 +122,60 @@
 
     &:where(.btn-dashed) {
       &:not(.btn-active) {
-        @apply bg-transparent outline outline-dashed text-[light-dark(var(--btn-700),var(--btn-400))];
+        @apply bg-transparent outline outline-dashed;
+
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-500)
+        );
       }
     }
 
     &:where(.btn-outline) {
       &:not(.btn-active) {
-        @apply bg-transparent outline outline-solid text-[light-dark(var(--btn-700),var(--btn-400))];
+        @apply bg-transparent outline outline-solid;
+        
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-500)
+        );
       }
     }
 
     &:where(.btn-soft) {
       &:not(.btn-active) {
-        @apply bg-[light-dark(var(--btn-100),var(--btn-950))] text-[light-dark(var(--btn-700),var(--btn-100))];
+
+        background-color: light-dark(
+          var(--btn-100),
+          var(--btn-950)
+        );
+
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-100)
+        );
       }
     }
 
     &:where(.btn-ghost) {
       &:not(.btn-active) {
-        @apply bg-transparent text-[light-dark(var(--btn-700),var(--btn-400))];
+        @apply bg-transparent;
+
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-500)
+        );
       }
     }
 
     &:where(.btn-link) {
       &:not(.btn-active) {
-        @apply bg-transparent text-[light-dark(var(--btn-700),var(--btn-400))];
+        @apply bg-transparent;
+
+        color: light-dark(
+          var(--btn-600),
+          var(--btn-500)
+        );
       }
     }
   }
