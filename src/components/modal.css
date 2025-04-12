@@ -8,7 +8,11 @@
 
     &:not(modal:not([open]):not(.modal-open)),
     &::backdrop {
-      @apply opacity-100 starting:invisible starting:opacity-0 bg-default-600;
+      @apply opacity-100 starting:invisible starting:opacity-0;
+      background-image: light-dark(
+        color-mix(in oklab,var(--default-100)15%,transparent),
+        color-mix(in oklab,var(--default-800)50%,transparent)
+      );
     }
 
     &[open], &.modal-open {
@@ -34,7 +38,7 @@
 
 @utility modal-body {
   @layer components {
-    @apply bg-core-50 text-core-950 rounded-[calc(var(--radius-size)*2)] border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @apply bg-core-50 text-core-950 rounded-[var(--radius-modal)] border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   }
 }
 
