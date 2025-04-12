@@ -48,18 +48,23 @@
   }
 }
 
-@utility checkbox {
+@utility checkbox-core {
   @layer components {
-    @apply relative shrink-0 cursor-pointer appearance-none align-middle shadow ring duration-350 checkbox-md ring-[light-dark(var(--checkbox-300),var(--checkbox-900))];
+    @apply relative shrink-0 cursor-pointer appearance-none align-middle shadow ring duration-350 checkbox-md;
+
+    --tw-ring-color: light-dark(
+      var(--checkbox-300),
+      color-mix(in oklab,var(--checkbox-100)16%,transparent)
+    );
 
     background-color: light-dark(
       var(--checkbox-100),
-      color-mix(in oklab, var(--checkbox-300) 60%, transparent)
+      color-mix(in oklab,var(--checkbox-600)15%,transparent)
     );
 
     color: light-dark(
       var(--checkbox-700),
-      color-mix(in oklab, var(--checkbox-200) 60%, transparent)
+      var(--checkbox-200)
     );
 
     border-radius: var(--radius-checkbox);
@@ -106,9 +111,9 @@
   }
 }
 
-@utility checkbox-default {
+@utility checkbox {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--default-50);
@@ -127,7 +132,7 @@
   
 @utility checkbox-primary {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--primary-50);
@@ -146,7 +151,7 @@
   
 @utility checkbox-secondary {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--secondary-50);
@@ -165,7 +170,7 @@
   
 @utility checkbox-accent {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--accent-50);
@@ -185,7 +190,7 @@
   
 @utility checkbox-info {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--info-50);
@@ -204,7 +209,7 @@
   
 @utility checkbox-success {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--success-50);
@@ -223,7 +228,7 @@
   
 @utility checkbox-warning {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--warning-50);
@@ -242,7 +247,7 @@
   
 @utility checkbox-error {
   @layer components {
-    @apply checkbox;
+    @apply checkbox-core;
   }
   @layer theme {
     --checkbox-50: var(--error-50);
