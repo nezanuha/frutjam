@@ -61,7 +61,7 @@
   }
 }
 
-@utility btn {
+@utility btn-core {
   @layer components {
     @apply btn-md relative inline-flex self-start shrink-0 flex-nowrap items-center
            justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
@@ -71,7 +71,7 @@
     border-radius: var(--radius-btn);
     background-color: light-dark(
       var(--btn-600),
-      var(--btn-500)
+      var(--btn-800)
     );
 
     &:is(:disabled, [disabled], .btn-disabled) {
@@ -100,11 +100,16 @@
         );
       }
       &:not(.btn-link) {
-        @apply ring ring-[light-dark(var(--btn-600),var(--btn-800))] outline-none;
+        @apply shadow-2xl ring-2 outline-none;
+
+        --tw-ring-color: light-dark(
+          color-mix(in oklab,var(--btn-700)10%,transparent),
+          color-mix(in oklab,var(--btn-400)10%,transparent)
+        );
 
         background-color: light-dark(
-          var(--btn-800),
-          var(--btn-600)
+          var(--btn-700),
+          var(--btn-900)
         );
 
         color: light-dark(
@@ -125,7 +130,7 @@
         @apply bg-transparent outline outline-dashed;
 
         color: light-dark(
-          var(--btn-600),
+          var(--btn-700),
           var(--btn-500)
         );
       }
@@ -136,7 +141,7 @@
         @apply bg-transparent outline outline-solid;
         
         color: light-dark(
-          var(--btn-600),
+          var(--btn-700),
           var(--btn-500)
         );
       }
@@ -147,12 +152,12 @@
 
         background-color: light-dark(
           var(--btn-100),
-          var(--btn-950)
+          color-mix(in oklab,var(--btn-900)10%,transparent)
         );
 
         color: light-dark(
-          var(--btn-600),
-          var(--btn-100)
+          var(--btn-800),
+          var(--btn-400)
         );
       }
     }
@@ -181,9 +186,9 @@
   }
 }
 
-@utility btn-default {
+@utility btn {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--default-50);
@@ -202,7 +207,7 @@
 
 @utility btn-primary {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--primary-50);
@@ -221,7 +226,7 @@
 
 @utility btn-secondary {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--secondary-50);
@@ -240,7 +245,7 @@
 
 @utility btn-accent {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--accent-50);
@@ -259,7 +264,7 @@
 
 @utility btn-info {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--info-50);
@@ -278,7 +283,7 @@
 
 @utility btn-success {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--success-50);
@@ -297,7 +302,7 @@
 
 @utility btn-warning {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--warning-50);
@@ -316,7 +321,7 @@
 
 @utility btn-error {
   @layer components {
-    @apply btn;
+    @apply btn-core;
   }
   @layer theme {
     --btn-50: var(--error-50);
