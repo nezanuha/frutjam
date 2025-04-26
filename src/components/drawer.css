@@ -5,11 +5,15 @@
 
     &:not(drawer:not([open]):not(.drawer-open)),
     &::backdrop {
-      @apply opacity-100 starting:invisible starting:opacity-0 bg-default-600;
+      @apply starting:invisible;
+      background: light-dark(
+        color-mix(in oklab,var(--color-default-100)30%,var(--color-default-900)20%),
+        color-mix(in oklab,var(--color-default-800)50%,transparent)
+      );
     }
 
     &[open], &.drawer-open{
-      @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
+      @apply pointer-events-auto visible starting:invisible;
 
       .drawer-body {
         translate: 0 0;
@@ -31,7 +35,7 @@
 
 @utility drawer-body {
   @layer components {
-    @apply bg-core-50 text-core-950 rounded-none border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 h-screen max-h-none w-11/12  w-auto max-w-none p-1 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @apply bg-core-50 text-core-950 rounded-none shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 h-screen max-h-none w-11/12  w-auto max-w-none p-1 transition-all duration-200 overflow-y-auto overscroll-contain;
     translate: -100% 0;
     scale: 1;
   }
