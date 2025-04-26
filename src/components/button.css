@@ -3,37 +3,37 @@
 
 @utility btn-xs {
   @layer components {
-    @apply px-2.5 py-1.5 text-xs;
+    @apply px-3.5 py-1.5 text-xs;
   }
 }
 
 @utility btn-sm {
   @layer components {
-    @apply px-3 py-2 text-sm;
+    @apply px-4 py-2 text-sm;
   }
 }
 
 @utility btn-md {
   @layer components {
-    @apply px-3.5 py-2.5 text-base;
+    @apply px-4.5 py-2.5 text-base;
   }
 }
 
 @utility btn-lg {
   @layer components {
-    @apply px-4 py-3 text-base;
+    @apply px-5 py-3 text-base;
   }
 }
 
 @utility btn-xl {
   @layer components {
-    @apply px-4.5 py-3.5 text-base;
+    @apply px-5.5 py-3.5 text-base;
   }
 }
 
 @utility btn-2xl {
   @layer components {
-    @apply px-5 py-4 text-lg;
+    @apply px-6 py-4 text-lg;
   }
 }
 
@@ -63,16 +63,28 @@
 
 @utility btn-core {
   @layer components {
-    @apply btn-md relative inline-flex self-start shrink-0 flex-nowrap items-center
+    @apply btn-md text-shadow-xs/5 relative inline-flex self-start shrink-0 flex-nowrap items-center
            justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
-           text-xs transition duration-350 ease-in-out leading-4 cursor-pointer;
+           text-xs transition duration-350 ease-in-out leading-normal cursor-pointer box-border;
     
     color: var(--btn-50);
     border-radius: var(--radius-btn);
-    background-color: light-dark(
-      var(--btn-600),
-      var(--btn-800)
-    );
+
+    /* for default btn */
+    &:is(.btn) {
+      background-color: light-dark(
+        var(--btn-100),
+        var(--btn-800)
+      );
+    }
+
+    /* for all btn exclude default btn */
+    &:not(.btn) {
+      background-color: light-dark(
+        var(--btn-600),
+        var(--btn-800)
+      );
+    }
 
     &:is(:disabled, [disabled], .btn-disabled) {
       @apply opacity-20 pointer-events-none;
@@ -95,27 +107,38 @@
         @apply bg-transparent underline underline-offset-4 cursor-pointer;
         
         color: light-dark(
-          var(--btn-600),
+          var(--btn-800),
           var(--btn-500)
         );
       }
       &:not(.btn-link) {
-        @apply shadow-2xl ring-2 outline-none;
+        @apply outline-none;
 
-        --tw-ring-color: light-dark(
-          color-mix(in oklab,var(--btn-700)10%,transparent),
-          color-mix(in oklab,var(--btn-400)10%,transparent)
-        );
+        /* for default btn */
+        &:is(.btn) {
+          background-color: light-dark(
+            var(--btn-200),
+            var(--btn-900)
+          );
+  
+          color: light-dark(
+            var(--btn-950),
+            var(--btn-100)
+          );
+        }
 
-        background-color: light-dark(
-          var(--btn-700),
-          var(--btn-900)
-        );
+        /* for all btn exclude default btn */
+        &:not(.btn) {
+          background-color: light-dark(
+            var(--btn-700),
+            var(--btn-900)
+          );
 
-        color: light-dark(
-          var(--btn-50),
-          var(--btn-100)
-        );
+          color: light-dark(
+            var(--btn-50),
+            var(--btn-100)
+          );
+        }
         
         &:not(:disabled, [disabled], .btn-disabled) {
           &::before {
@@ -178,7 +201,7 @@
         @apply bg-transparent;
 
         color: light-dark(
-          var(--btn-600),
+          var(--btn-700),
           var(--btn-500)
         );
       }
