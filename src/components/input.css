@@ -1,57 +1,297 @@
 @import "../theme/skins/base.css";
 
-@utility input-* {
+@utility input-size {
   @layer components {
-    @apply outline outline-[--value(--color-*)]/20 rounded-[var(--radius-size)] transition duration-300 px-2.5 font-medium;
-    @apply relative inline-flex self-start shrink-0 appearance-none items-center gap-2 align-middle whitespace-nowrap leading-4;
-    &:focus, &:focus-within {
-        @apply outline-[--value(--color-*)] ring-2 ring-[--value(--color-*)]/10 isolate;
+    padding-inline: var(--input-inline);
+    padding-block: var(--input-block);
+    font-size: var(--input-text-size);
+  }
+}
+
+@utility input-xs {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 0.875rem;
+    --input-block: 0.375rem;
+    --input-text-size: 0.75rem;
+  }
+}
+
+@utility input-sm {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 1rem;
+    --input-block: 0.5rem;
+    --input-text-size: 0.875rem;
+  }
+}
+
+@utility input-md {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 1.125rem;
+    --input-block: 0.625rem;
+    --input-text-size: 1rem;
+  }
+}
+
+@utility input-lg {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 1.25rem;
+    --input-block: 0.75rem;
+    --input-text-size: 1rem;
+  }
+}
+
+@utility input-xl {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 1.375rem;
+    --input-block: 0.875rem;
+    --input-text-size: 1rem;
+  }
+}
+
+@utility input-2xl {
+  @layer components {
+    @apply input-size;
+  }
+  @layer theme {
+    --input-inline: 1.5rem;
+    --input-block: 1rem;
+    --input-text-size: 1.125rem;
+  }
+}
+
+@utility input-dashed {
+  @layer components {
+    &:not(.input-active) {
+      @apply outline-dashed;
     }
-    @media (hover: hover) {
-        &:hover {
-            @apply border-[--value(--color-*-fore)]/40
-        }
+  }
+}
+
+
+@utility input-outline {
+  @layer components {
+    &:not(.input-active) {
+      @apply outline outline-solid;
+    }
+  }
+}
+
+@utility input-soft {
+  @layer components {
+    &:not(.input-active) {
+      background-color: light-dark(
+        var(--input-100),
+        color-mix(in oklab,var(--input-900)10%,transparent)
+      );
+      color: light-dark(
+        var(--input-800),
+        var(--input-400)
+      );
+    }
+  }
+}
+
+@utility input-ghost {
+  @layer components {
+    &:not(.input-active) {
+      @apply outline-transparent;
+    }
+  }
+}
+
+@utility input-core {
+  @layer components {
+    @apply input-md transition duration-300 px-2.5 font-medium relative inline-flex self-start
+           shrink-0 appearance-none items-center gap-2 align-middle whitespace-nowrap placeholder:text-[var(--input-300)];
+    
+    border-radius: var(--radius-input);
+
+    &:is(.input) {
+      @apply outline outline-[var(--input-300)];
     }
 
-    &:is(.input-ghost) {
-      @apply outline-0;
-      @media (hover: hover) {
-        &:hover {
-          @apply outline;
-        }
-      }
+    &:not(.input) {
+      @apply outline outline-[var(--input-700)];
     }
 
-    /* disabled input */
     &:is(:disabled, [disabled], .input-disabled) {
-      @apply bg-[--value(--color-*)]/10 text-[--value(--color-*)]/30 pointer-events-none cursor-not-allowed;
+      @apply cursor-not-allowed placeholder:text-[var(--input-200)];
+      color:var(--input-50);
+      background-color: light-dark(
+        var(--input-100),
+        var(--input-900)
+      );
     }
+ 
+    &:focus, &:focus-within {
+      @apply outline-[var(--input-800)] ring-2 ring-[var(--input-200)] isolate;
+    }
+  }
+}
 
-    /* If no input size class is present, apply the default size as input-md */
-    &:not(.input-xs, .input-sm, .input-md, .input-lg, .input-xl, .input-2xl) {
-      @apply px-3.5 py-2.5 text-sm;
-    }
+@utility input {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--default-50);
+    --input-100: var(--default-100);
+    --input-200: var(--default-200);
+    --input-300: var(--default-300);
+    --input-400: var(--default-400);
+    --input-500: var(--default-500);
+    --input-600: var(--default-600);
+    --input-700: var(--default-700);
+    --input-800: var(--default-800);
+    --input-900: var(--default-900);
+    --input-950: var(--default-950);
+  }
+}
 
-    /* input sizes */
-    &:is(.input-xs, .input-sm, .input-md, .input-lg, .input-xl, .input-2xl) {
-      &:is(.input-xs) {
-        @apply px-2.5 py-1.5 text-xs;
-      }
-      &:is(.input-sm) {
-        @apply px-3 py-2 text-xs;
-      }
-      &:is(.input-md) {
-        @apply px-3.5 py-2.5 text-sm;
-      }
-      &:is(.input-lg) {
-        @apply px-4 py-3 text-base;
-      }
-      &:is(.input-xl) {
-        @apply px-4.5 py-3.5 text-base;
-      }
-      &:is(.input-2xl) {
-        @apply px-5 py-4 text-base;
-      }
-    }
+@utility input-primary {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--primary-50);
+    --input-100: var(--primary-100);
+    --input-200: var(--primary-200);
+    --input-300: var(--primary-300);
+    --input-400: var(--primary-400);
+    --input-500: var(--primary-500);
+    --input-600: var(--primary-600);
+    --input-700: var(--primary-700);
+    --input-800: var(--primary-800);
+    --input-900: var(--primary-900);
+    --input-950: var(--primary-950);
+  }
+}
+
+@utility input-secondary {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--secondary-50);
+    --input-100: var(--secondary-100);
+    --input-200: var(--secondary-200);
+    --input-300: var(--secondary-300);
+    --input-400: var(--secondary-400);
+    --input-500: var(--secondary-500);
+    --input-600: var(--secondary-600);
+    --input-700: var(--secondary-700);
+    --input-800: var(--secondary-800);
+    --input-900: var(--secondary-900);
+    --input-950: var(--secondary-950);
+  }
+}
+
+@utility input-accent {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--accent-50);
+    --input-100: var(--accent-100);
+    --input-200: var(--accent-200);
+    --input-300: var(--accent-300);
+    --input-400: var(--accent-400);
+    --input-500: var(--accent-500);
+    --input-600: var(--accent-600);
+    --input-700: var(--accent-700);
+    --input-800: var(--accent-800);
+    --input-900: var(--accent-900);
+    --input-950: var(--accent-950);
+  }
+}
+
+@utility input-info {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--info-50);
+    --input-100: var(--info-100);
+    --input-200: var(--info-200);
+    --input-300: var(--info-300);
+    --input-400: var(--info-400);
+    --input-500: var(--info-500);
+    --input-600: var(--info-600);
+    --input-700: var(--info-700);
+    --input-800: var(--info-800);
+    --input-900: var(--info-900);
+    --input-950: var(--info-950);
+  }
+}
+
+@utility input-success {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--success-50);
+    --input-100: var(--success-100);
+    --input-200: var(--success-200);
+    --input-300: var(--success-300);
+    --input-400: var(--success-400);
+    --input-500: var(--success-500);
+    --input-600: var(--success-600);
+    --input-700: var(--success-700);
+    --input-800: var(--success-800);
+    --input-900: var(--success-900);
+    --input-950: var(--success-950);
+  }
+}
+
+@utility input-warning {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--warning-50);
+    --input-100: var(--warning-100);
+    --input-200: var(--warning-200);
+    --input-300: var(--warning-300);
+    --input-400: var(--warning-400);
+    --input-500: var(--warning-500);
+    --input-600: var(--warning-600);
+    --input-700: var(--warning-700);
+    --input-800: var(--warning-800);
+    --input-900: var(--warning-900);
+    --input-950: var(--warning-950);
+  }
+}
+
+@utility input-error {
+  @layer components {
+    @apply input-core;
+  }
+  @layer theme {
+    --input-50: var(--error-50);
+    --input-100: var(--error-100);
+    --input-200: var(--error-200);
+    --input-300: var(--error-300);
+    --input-400: var(--error-400);
+    --input-500: var(--error-500);
+    --input-600: var(--error-600);
+    --input-700: var(--error-700);
+    --input-800: var(--error-800);
+    --input-900: var(--error-900);
+    --input-950: var(--error-950);
   }
 }
