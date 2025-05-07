@@ -5,13 +5,6 @@
     &::before, &::after {
         @apply w-full h-[0.5px];
     }
-
-    @media print {
-        &::before,
-        &::after {
-            border-left: 0.5px solid var(--divider-color);
-        }
-    }
 }
 
 @utility divider-x-solid {
@@ -21,6 +14,12 @@
             var(--divider-color),
             color-mix(in oklab, var(--divider-color) 60%, transparent)
         );
+    }
+    @media print {
+        &::before,
+        &::after {
+            border-top: 0.5px solid var(--divider-color);
+        }
     }
 }
 
@@ -34,6 +33,12 @@
             transparent 5px,
             transparent 10px
         );
+    }
+    @media print {
+        &::before,
+        &::after {
+            border-top: 0.5px dashed var(--divider-color);
+        }
     }
 }
 /* Container with two sections and a vertical divider in between.
@@ -59,13 +64,6 @@
     &::before, &::after {
         @apply w-[0.5px] flex-1;
     }
-
-    @media print {
-        &::before,
-        &::after {
-            border-left: 0.5px solid var(--divider-color);
-        }
-    }
 }
 
 @utility divider-y-solid {
@@ -75,6 +73,12 @@
             var(--divider-color),
             color-mix(in oklab, var(--divider-color) 60%, transparent)
         );
+    }
+    @media print {
+        &::before,
+        &::after {
+            border-left: 0.5px solid var(--divider-color);
+        }
     }
 }
 
@@ -89,6 +93,12 @@
             transparent 10px
         );
     }
+    @media print {
+        &::before,
+        &::after {
+            border-left: 0.5px dashed var(--divider-color);
+        }
+    }
 }
 
 @utility divider-core {
@@ -96,20 +106,8 @@
 
     &::before, &::after {
         @apply content-[''];
-        /* background: repeating-linear-gradient(
-            to bottom,
-            black 0,
-            black 5px,
-            transparent 5px,
-            transparent 10px
-          ); */
-        /* background-color: light-dark(
-            var(--divider-color),
-            color-mix(in oklab, var(--divider-color) 60%, transparent)
-        ); */
     }
 }
-
 
 @utility divider {
     --divider-color: var(--default-300);
