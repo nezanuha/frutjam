@@ -44,14 +44,20 @@
 
   <dialog class="modal modal-x-center lg:modal-y-center lg:modal-y-center" id="toggleModal">
     <div class="modal-body" data-theme="light">
-      <button type="button" class="btn-xs btn-secondary" onclick="toggleModal.close()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque provident accusamus dicta expedita</p>
-      <form method="dialog">
-        <input type="text">
-        <button type="button">submit</button>
-      </form>
+      <div class="flex justify-between items-center gap-3">
+        <div class="font-medium">Image</div>
+        <button type="button" class="btn btn-ghost btn-xs btn-circle" onclick="toggleModal.remove()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+    </div>
+    <div class="divider my-4"></div>
+    <form method="post">
+        <div class="flex flex-col justify-center gap-y-4.5 mt-4">
+            <input type="url" placeholder="URL" class="input-primary w-full img-link-input" required>
+            <input type="text" placeholder="Alt text" class="input w-full img-link-alt-input" value="" required>
+            <button type="submit" class="btn btn-sm submit-img-link self-end">Apply</button>
+        </div>
+    </form>
     </div>
     <button type="button" class="modal-backdrop" onclick="toggleModal.close()">Close Modal via Backdrop</button>
   </dialog>
@@ -117,7 +123,8 @@
   </header>
 
   <div class="space-y-3 my-4">
-    <button class="btn-outline btn btn-active" disabled>Default</button>
+    <button class="btn-outline btn" disabled>Default</button>
+    <button class="btn">Default</button>
     <button class="btn-outline btn">Default</button>
     <button class="btn-dashed btn">Default</button>
     <button class="btn-dashed btn-primary">Primary</button>
