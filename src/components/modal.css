@@ -7,14 +7,10 @@
   &:not(modal:not([open]):not(.modal-open)),
   &::backdrop {
     @apply opacity-100 starting:invisible starting:opacity-0;
-    background-image: light-dark(
-      color-mix(in oklab,var(--core-100)15%,transparent),
-      color-mix(in oklab,var(--core-800)50%,transparent)
-    );
+    background: light-dark(#00000026, #000000ba);
   }
   &[open], &.modal-open {
     @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
-
     .modal-body {
       translate: 0 0;
       scale: 1;
@@ -24,18 +20,14 @@
 }
 
 @utility modal-backdrop {
-  @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
-  background: light-dark(
-    color-mix(in oklab,var(--core-300)50%,transparent),
-    color-mix(in oklab,var(--core-900)80%,transparent)
-  );
+  @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1 bg-transparent;
   button {
     @apply cursor-pointer;
   }
 }
 
 @utility modal-body {
-  @apply rounded-[var(--radius-modal)] shadow-sm forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+  @apply rounded-[var(--radius-modal)] shadow-sm forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   --tw-shadow-color: light-dark(
     color-mix(in oklab,var(--core-300)50%,transparent),
     color-mix(in oklab,var(--core-900)60%,transparent)
@@ -52,6 +44,7 @@
     var(--core-300),
     var(--core-900)
   );
+  transition: translate 0.3s ease-out, visibility 0.3s allow-discrete, background-color 0.3s ease-out, opacity 0.1s ease-out;
 }
 
 
