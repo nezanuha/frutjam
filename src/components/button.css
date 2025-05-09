@@ -70,12 +70,157 @@
   @apply w-full;
 }
 
+@utility btn-link-active {
+  background: transparent;
+  color: light-dark(
+    var(--btn-800),
+    var(--btn-500)
+  );
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+} 
+
+@utility btn-ghost-active {
+  /* for default btn */
+  &:is(.btn) {
+    background-color: light-dark(
+      var(--btn-200),
+      var(--btn-900)
+    );
+    color: light-dark(
+      var(--btn-950),
+      var(--btn-100)
+    );
+  }
+
+  /* for all btn exclude default btn */
+  &:not(.btn) {
+    background-color: light-dark(
+      var(--btn-700),
+      var(--btn-900)
+    );
+    color: light-dark(
+      var(--btn-50),
+      var(--btn-100)
+    );
+  }
+}
+
+@utility btn-active {
+  &:is(.btn-link) {    
+    @apply btn-link-active
+  }
+  &:is(.btn-ghost) {
+    @apply btn-ghost-active;
+  }
+  &:not(.btn-link, .btn-ghost) {
+    outline-style: none;
+
+    /* for default btn */
+    &:is(.btn) {
+      background-color: light-dark(
+        var(--btn-300),
+        var(--btn-900)
+      );
+      color: light-dark(
+        var(--btn-950),
+        var(--btn-100)
+      );
+    }
+
+    /* for all btn exclude default btn */
+    &:not(.btn) {
+      background-color: light-dark(
+        var(--btn-700),
+        var(--btn-900)
+      );
+      color: light-dark(
+        var(--btn-50),
+        var(--btn-100)
+      );
+    }
+  }
+}
+
+@utility btn-dashed {
+  &:not(.btn-active) {
+    background:  transparent;
+    outline: 1px dashed light-dark(
+      var(--btn-500),
+      var(--btn-700)
+    );
+    color: light-dark(
+      var(--btn-700),
+      var(--btn-500)
+    );
+  }
+}
+
+@utility btn-outline {
+  &:not(.btn-active) {
+    background: transparent;
+    outline: 1px solid light-dark(
+      var(--btn-500),
+      var(--btn-800)
+    );
+    color: light-dark(
+      var(--btn-800),
+      var(--btn-200)
+    );
+  }
+}
+
+@utility btn-soft {
+  &:not(.btn-active) {
+    background-color: light-dark(
+      var(--btn-100),
+      color-mix(in oklab,var(--btn-900)10%,transparent)
+    );
+    color: light-dark(
+      var(--btn-800),
+      var(--btn-400)
+    );
+  }
+}
+
+@utility btn-ghost {
+  &:not(.btn-active) {
+    background: transparent;
+    color: light-dark(
+      var(--btn-600),
+      var(--btn-300)
+    );
+  }
+}
+
+@utility btn-link {
+  &:not(.btn-active) {
+    background: transparent;
+    color: light-dark(
+      var(--btn-700),
+      var(--btn-500)
+    );
+  }
+}
+
 @utility btn-core {
-  @apply btn-md text-shadow-xs/5 relative inline-flex self-start shrink-0 flex-nowrap items-center
-          justify-center gap-1.5 text-center align-middle font-medium overflow-hidden
-          text-xs transition duration-350 ease-in-out leading-normal cursor-pointer box-border;
-  
+  @apply btn-md text-shadow-xs/5 gap-1.5 text-xs transition duration-350 ease-in-out leading-normal;
+
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex-wrap: nowrap;
+  vertical-align: middle;
+  font-weight: 500;
+  text-align: center;
   border-radius: var(--radius-btn);
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
 
   /* for default btn */
   &:is(.btn) {
@@ -99,7 +244,7 @@
   }
 
   &:is(:disabled, [disabled], .btn-disabled) {
-    @apply opacity-20 cursor-not-allowed;
+    @apply opacity-20 cursor-not-allowed pointer-events-none;
   }
 
   &:is(input[type="checkbox"], input[type="radio"]) {
@@ -114,115 +259,8 @@
     }
   }
 
-  &:is(.btn-active, :hover) {
-    &:is(.btn-link) {
-      @apply bg-transparent underline underline-offset-4 cursor-pointer;
-      
-      color: light-dark(
-        var(--btn-800),
-        var(--btn-500)
-      );
-    }
-    &:not(.btn-link) {
-      @apply outline-none;
-
-      /* for default btn */
-      &:is(.btn) {
-        background-color: light-dark(
-          var(--btn-300),
-          var(--btn-900)
-        );
-
-        color: light-dark(
-          var(--btn-950),
-          var(--btn-100)
-        );
-      }
-
-      /* for all btn exclude default btn */
-      &:not(.btn) {
-        background-color: light-dark(
-          var(--btn-700),
-          var(--btn-900)
-        );
-
-        color: light-dark(
-          var(--btn-50),
-          var(--btn-100)
-        );
-      }
-      
-      &:not(:disabled, [disabled], .btn-disabled) {
-        &::before {
-          @apply content-[''] absolute size-full;
-        }
-      }
-    }
-  }
-
-  &:where(.btn-dashed) {
-    &:not(.btn-active) {
-      @apply bg-transparent;
-      outline: 1px dashed light-dark(
-        var(--btn-500),
-        var(--btn-700)
-      );
-      color: light-dark(
-        var(--btn-700),
-        var(--btn-500)
-      );
-    }
-  }
-
-  &:where(.btn-outline) {
-    &:not(.btn-active) {
-      @apply bg-transparent;
-      outline: 1px solid light-dark(
-        var(--btn-500),
-        var(--btn-800)
-      );
-      color: light-dark(
-        var(--btn-800),
-        var(--btn-200)
-      );
-    }
-  }
-
-  &:where(.btn-soft) {
-    &:not(.btn-active) {
-
-      background-color: light-dark(
-        var(--btn-100),
-        color-mix(in oklab,var(--btn-900)10%,transparent)
-      );
-
-      color: light-dark(
-        var(--btn-800),
-        var(--btn-400)
-      );
-    }
-  }
-
-  &:where(.btn-ghost) {
-    &:not(.btn-active) {
-      @apply bg-transparent;
-
-      color: light-dark(
-        var(--btn-600),
-        var(--btn-300)
-      );
-    }
-  }
-
-  &:where(.btn-link) {
-    &:not(.btn-active) {
-      @apply bg-transparent;
-
-      color: light-dark(
-        var(--btn-700),
-        var(--btn-500)
-      );
-    }
+  &:is(:hover) {
+    @apply btn-active;
   }
 }
 
