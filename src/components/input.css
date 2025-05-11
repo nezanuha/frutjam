@@ -95,12 +95,11 @@
   }
 
   &::file-selector-button{
-    @apply mr-4 inline-flex items-center;
-    font-size: clamp(0.75rem, calc(1rem/2),  1.025rem);
+    @apply mr-4 inline-flex items-center transition duration-300 text-sm;
     border-radius: calc(var(--radius-input)/2);
     border: 0;
     background: light-dark(
-      var(--input-300),
+      var(--input-100),
       var(--input-800)
     );
     font-weight: semibold;
@@ -110,11 +109,18 @@
     );
     padding-block: calc(var(--input-block)/6);
     padding-inline: calc(var(--input-inline)/2);
-    &:hover{
-      color: light-dark(
-        var(--input-600),
-        var(--input-300)
-      );
+    
+    @media (hover: hover) {
+      &:hover{
+        color: light-dark(
+          var(--input-900),
+          var(--input-300)
+        );
+        background: light-dark(
+          var(--input-200),
+          var(--input-700)
+        );
+      }
     }
   }
 
