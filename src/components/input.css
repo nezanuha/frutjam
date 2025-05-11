@@ -7,44 +7,44 @@
 }
 
 @utility input-xs {
-  --input-inline: 0.875rem;
+  --input-inline: 0.475rem;
   --input-block: 0.375rem;
   --input-text-size: 0.75rem;
   @apply input-size;
 }
 
 @utility input-sm {
-  --input-inline: 1rem;
+  --input-inline: 0.6rem;
   --input-block: 0.5rem;
   --input-text-size: 0.875rem;
   @apply input-size;
 }
 
 @utility input-md {
-  --input-inline: 1.125rem;
+  --input-inline: 0.75rem;
   --input-block: 0.625rem;
   --input-text-size: 1rem;
   @apply input-size;
 }
 
 @utility input-lg {
-  --input-inline: 1.25rem;
+  --input-inline:0.9rem;
   --input-block: 0.75rem;
   --input-text-size: 1rem;
   @apply input-size;
 }
 
 @utility input-xl {
-  --input-inline: 1.375rem;
+  --input-inline: 1rem;
   --input-block: 0.875rem;
   --input-text-size: 1rem;
   @apply input-size;
 }
 
 @utility input-2xl {
-  --input-inline: 1.5rem;
+  --input-inline: 1.25rem;
   --input-block: 1rem;
-  --input-text-size: 1.125rem;
+  --input-text-size: 1.025rem;
   @apply input-size;
 }
 
@@ -94,7 +94,31 @@
     );
   }
 
-  &:is(.input) {
+  &::file-selector-button{
+    @apply mr-4 inline-flex items-center;
+    font-size: clamp(0.75rem, calc(1rem/2),  1.025rem);
+    border-radius: calc(var(--radius-input)/2);
+    border: 0;
+    background: light-dark(
+      var(--input-300),
+      var(--input-800)
+    );
+    font-weight: semibold;
+    color: light-dark(
+      var(--input-800),
+      var(--input-400)
+    );
+    padding-block: calc(var(--input-block)/6);
+    padding-inline: calc(var(--input-inline)/2);
+    &:hover{
+      color: light-dark(
+        var(--input-600),
+        var(--input-300)
+      );
+    }
+  }
+
+  &:is(.input) { 
     outline: 1px solid light-dark(
       var(--input-300),
       var(--input-800)
