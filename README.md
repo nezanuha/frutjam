@@ -60,7 +60,7 @@ Contributions are welcome! If you find a bug, have a feature request, or want to
 2. Create a new branch
 3. Submit a pull request
 
-Please check the [contributing guidelines](CONTRIBUTING.md) before starting.
+Please check the [contributing guidelines](.github/CONTRIBUTING.md) before starting.
 
 ---
 
