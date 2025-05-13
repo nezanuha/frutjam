@@ -1,5 +1,3 @@
-## Frutjam - UI Library
-
 [![Total Downloads](https://img.shields.io/npm/dt/frutjam.svg)](https://www.npmjs.com/package/frutjam)
 [![Latest Release](https://img.shields.io/npm/v/frutjam.svg)](https://github.com/nezanuha/frutjam/releases)
 [![License](https://img.shields.io/npm/l/frutjam.svg)](https://github.com/nezanuha/frutjam/blob/master/LICENSE)
