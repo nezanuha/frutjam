@@ -1,93 +1,98 @@
 @import "../theme/jams/base.css";
 @utility drawer {
-  @layer components {
-    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none place-items-start bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
+  @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none place-items-start bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
 
-    &:not(drawer:not([open]):not(.drawer-open)),
-    &::backdrop {
-      @apply starting:invisible;
-      background: light-dark(
-        color-mix(in oklab,var(--color-default-100)30%,var(--color-default-900)20%),
-        color-mix(in oklab,var(--color-default-800)50%,transparent)
-      );
-    }
+  &:not(drawer:not([open]):not(.drawer-open)),
+  &::backdrop {
+    @apply starting:invisible;
+    background: light-dark(
+      color-mix(in oklab,var(--color-default-100)30%,var(--color-default-900)20%),
+      color-mix(in oklab,var(--color-default-800)50%,transparent)
+    );
+  }
 
-    &[open], &.drawer-open{
-      @apply pointer-events-auto visible starting:invisible;
+  &[open], &.drawer-open{
+    @apply pointer-events-auto visible starting:invisible;
 
-      .drawer-body {
-        translate: 0 0;
-        scale: 1;
-        opacity: 1;
-      }
+    .drawer-body {
+      translate: 0 0;
+      scale: 1;
+      opacity: 1;
     }
   }
 }
 
 @utility drawer-backdrop {
-  @layer components {
-    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
-    button {
-      @apply cursor-pointer;
-    }
+  @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
+  button {
+    @apply cursor-pointer;
   }
 }
 
 @utility drawer-body {
-  @layer components {
-    @apply bg-core-50 text-core-950 rounded-none shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 h-screen max-h-none w-11/12  w-auto max-w-none p-1 transition-all duration-200 overflow-y-auto overscroll-contain;
+  @apply rounded-none forced-colors:outline col-start-1 row-start-1 h-screen max-h-none w-11/12  w-auto max-w-none p-1 overflow-y-auto overscroll-contain;
+  translate: -100% 0;
+  scale: 1;
+
+  --tw-shadow-color: light-dark(
+    color-mix(in oklab,var(--core-300)50%,transparent),
+    color-mix(in oklab,var(--core-900)60%,transparent)
+  );
+
+  background: light-dark(
+    var(--core-50),
+    var(--core-950)
+  );
+  color: light-dark(
+    var(--default-800),
+    var(--default-50)
+  );
+  border: 1px solid light-dark(
+    var(--core-300),
+    var(--core-900)
+  );
+  transition: translate 0.3s ease-out, visibility 0.3s allow-discrete, background-color 0.3s ease-out, opacity 0.1s ease-out;
+}
+
+
+@utility drawer-top {
+  @apply place-items-start;
+
+  :where(.drawer-body) {
+    @apply h-auto w-full max-w-none rounded-none;
+    max-height: calc(100vh - 5em);
+    translate: 0 -100%;
+    scale: 1;
+  }
+}
+
+@utility drawer-bottom {
+  @apply place-items-end;
+
+  :where(.drawer-body) {
+    @apply h-auto w-full max-w-none rounded-none;
+    max-height: calc(100vh - 5em);
+    translate: 0 100%;
+    scale: 1;
+  }
+}
+
+@utility drawer-start {
+  @apply place-items-start;
+
+  :where(.drawer-body) {
+    @apply h-screen max-h-none w-auto max-w-none rounded-none;
     translate: -100% 0;
     scale: 1;
   }
 }
 
-
-@utility drawer-top {
-  @layer components {
-    @apply place-items-start;
-
-    :where(.drawer-body) {
-      @apply h-auto w-full max-w-none rounded-none;
-      max-height: calc(100vh - 5em);
-      translate: 0 -100%;
-      scale: 1;
-    }
-  }
-}
-
-@utility drawer-bottom {
-  @layer components {
-    @apply place-items-end;
-
-    :where(.drawer-body) {
-      @apply h-auto w-full max-w-none rounded-none;
-      max-height: calc(100vh - 5em);
-      translate: 0 100%;
-      scale: 1;
-    }
-  }
-}
-
-@utility drawer-start {
-  @layer components {
-    @apply place-items-start;
-
-    :where(.drawer-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
-      translate: -100% 0;
-      scale: 1;
-    }
-  }
-}
-
 @utility drawer-end {
-  @layer components {
-    @apply place-items-end;
+  @apply place-items-end;
 
-    :where(.drawer-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
-      translate: 100% 0;
-      scale: 1;
-    }
+  :where(.drawer-body) {
+    @apply h-screen max-h-none w-auto max-w-none rounded-none;
+    translate: 100% 0;
+    scale: 1;
   }
 }
