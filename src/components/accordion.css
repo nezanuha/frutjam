@@ -1,33 +1,39 @@
 @import '../theme/jams/base.css';
 @utility accordion {
-    @layer components {
-        @apply grid divide-y divide-info-100 border border-info-100 cursor-pointer rounded-md;
+    @apply divide-y divide-core-300 dark:divide-core-900;
 
-        &>details {
-            @apply text-pretty;
-            
-            &>*:not(summary){
-                @apply px-4 pb-4;
-            }
-            &>summary::marker{
-                @apply content-none;
-            }
-            &>summary{
-                @apply flex gap-4 items-center justify-between p-4 font-medium;
-                &::after {
-                    @apply content-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0icmdiYSg1Myw1Myw1MywxKSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij4KICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0xOS41IDguMjUtNy41IDcuNS03LjUtNy41Ii8+Cjwvc3ZnPg==')];
-                    @apply inline-block text-inherit;
-                }
+    display: grid;
+    border: 1px solid light-dark(
+        var(--core-300),
+        var(--core-900)
+    );
+    border-radius: var(--radius-accordion);
+    cursor: pointer;
+
+    &>details {
+        @apply text-pretty;
+        
+        &>*:not(summary){
+            @apply px-4 pb-4;
+        }
+        &>summary::marker{
+            @apply content-none;
+        }
+        &>summary{
+            @apply flex gap-4 items-center justify-between p-4 font-medium;
+            &::after {
+                @apply content-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0icmdiYSg1Myw1Myw1MywxKSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij4KICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0xOS41IDguMjUtNy41IDcuNS03LjUtNy41Ii8+Cjwvc3ZnPg==')];
+                @apply inline-block text-inherit;
             }
         }
+    }
 
-        &>details[open] {
+    &>details[open] {
 
-            &>summary {
-                @apply pb-4;
-                &::after {
-                    @apply rotate-180 origin-center transition-transform duration-300;
-                }
+        &>summary {
+            @apply pb-4;
+            &::after {
+                @apply rotate-180 origin-center transition-transform duration-300;
             }
         }
     }
