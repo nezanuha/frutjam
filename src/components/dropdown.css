@@ -2,7 +2,6 @@
 @import "../theme/placement.css";
 
 @utility dropdown {
-  @layer components {
     @apply relative inline-block;
     position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
   
@@ -80,13 +79,28 @@
         @apply hidden origin-top opacity-0 scale-95;
       }
     }  
-  }
 }
 
 @utility dropdown-body {
-  @layer components {
-    @apply bg-core-50 text-core-950 rounded-[var(--radius-size)] border border-black/30 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen p-3 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
-  }
+  @apply shadow forced-colors:outline col-start-1 row-start-1 max-h-screen p-3 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+  
+  --tw-shadow-color: light-dark(
+    color-mix(in oklab,var(--core-300)50%,transparent),
+    color-mix(in oklab,var(--core-900)60%,transparent)
+  );
+  border: 1px solid light-dark(
+      var(--core-200),
+      var(--core-900)
+  );
+  border-radius: var(--radius-dropdown);
+  background: light-dark(
+    var(--core-50),
+    var(--core-950)
+  );
+  color: light-dark(
+    var(--core-800),
+    var(--core-50)
+  );
 }
 
 /* placements */
