@@ -1,4 +1,5 @@
-@utility nav-* {
+/* use for breadcrums and menu */
+@utility nav {
   width: 100%;
   &:is(.nav-list) {
       @apply gap-2;
@@ -7,17 +8,22 @@
 }
 
 /* placements */
-
 @utility nav-x-* {
-  @apply [justify-self:--value(--x-*)];
+  justify-self: --value(--x-*);
   & > :where(.nav-list) {
-    @apply [justify-content:--value(--x-*)] items-center flex-row gap-x-2;
+    justify-content:--value(--x-*);
+    align-items: center;
+    flex-direction: row;
+    @apply gap-x-2;
   }
 }
 
 @utility nav-y-* {
-  @apply [justify-self:--value(--y-*)];
+  justify-self:--value(--y-*);
   & > :where(.nav-list) {
-      @apply items-start flex-col gap-y-1 w-full;
+      @apply gap-y-1;
+      align-items: start;
+      flex-direction: column;
+      width: 100%;
   }
 }
