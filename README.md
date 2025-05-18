@@ -11,6 +11,8 @@
 
 With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
 
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/nezanuha)
+
 ---
 
 ### ✨ Features
