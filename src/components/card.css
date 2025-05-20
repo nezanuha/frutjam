@@ -1,0 +1,49 @@
+@utility card-outline {
+    border: 1px solid light-dark(
+      var(--input-700),
+      var(--input-800)
+    );
+}
+
+@utility card-dashed {
+    border: 1px dashed light-dark(
+      var(--input-700),
+      var(--input-800)
+    );
+}
+
+/* card size */
+
+@utility card {
+    @apply relative flex flex-col;
+    border-radius: var(--radius-card);
+
+    &:where(figure:first-child) {
+        @apply overflow-hidden;
+        border-start-start-radius: inherit;
+        border-start-end-radius: inherit;
+        border-end-start-radius: unset;
+        border-end-end-radius: unset;
+    }
+    
+    &:where(figure:last-child) {
+        @apply overflow-hidden;
+        border-start-start-radius: unset;
+        border-start-end-radius: unset;
+        border-end-start-radius: inherit;
+        border-end-end-radius: inherit;
+    }
+}
+
+@utility card-body {
+    @apply flex flex-auto flex-col gap-2;
+    padding: 1.5rem;
+
+    &:where(p){
+        @apply  text-base grow;
+    }
+}
+
+@utility card-title {
+    @apply flex items-center gap-2 font-semibold text-lg;
+}
