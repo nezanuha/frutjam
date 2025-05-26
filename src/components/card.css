@@ -1,14 +1,14 @@
 @utility card-outline {
     border: 1px solid light-dark(
-      var(--input-700),
-      var(--input-800)
+      var(--core-200),
+      var(--core-900)
     );
 }
 
 @utility card-dashed {
     border: 1px dashed light-dark(
-      var(--input-700),
-      var(--input-800)
+      var(--core-200),
+      var(--core-900)
     );
 }
 
@@ -17,17 +17,22 @@
 @utility card {
     @apply relative flex flex-col;
     border-radius: var(--radius-card);
+    overflow:hidden;
+    background: light-dark(
+        var(--core-50),
+        var(--core-900)
+    );
 
-    &:where(figure:first-child) {
-        @apply overflow-hidden;
+    :where(figure:first-child) {
+        overflow: hidden;
         border-start-start-radius: inherit;
         border-start-end-radius: inherit;
         border-end-start-radius: unset;
         border-end-end-radius: unset;
     }
     
-    &:where(figure:last-child) {
-        @apply overflow-hidden;
+    :where(figure:last-child) {
+        overflow: hidden;
         border-start-start-radius: unset;
         border-start-end-radius: unset;
         border-end-start-radius: inherit;
@@ -39,8 +44,8 @@
     @apply flex flex-auto flex-col gap-2;
     padding: 1.5rem;
 
-    &:where(p){
-        @apply  text-base grow;
+    :where(p){
+        @apply text-base grow;
     }
 }
 
