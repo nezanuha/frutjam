@@ -80,7 +80,7 @@
   }
 }
 
-@utility input-core {
+@utility input {
   @apply input-md transition duration-300 px-2.5 font-medium relative inline-flex self-start
   shrink-0 appearance-none items-center gap-2 align-middle whitespace-nowrap;
 
@@ -127,14 +127,30 @@
     }
   }
 
-  &:is(.input) { 
+  &:not(
+    .input-primary,
+    .input-secondary,
+    .input-accent,
+    .input-info,
+    .input-success,
+    .input-warning,
+    .input-error
+  ){
     outline: 1px solid light-dark(
       var(--input-300),
       var(--input-800)
     );
   }
 
-  &:not(.input) {
+  &:is(
+    .input-primary,
+    .input-secondary,
+    .input-accent,
+    .input-info,
+    .input-success,
+    .input-warning,
+    .input-error
+  ){
     outline: 1px solid light-dark(
       var(--input-700),
       var(--input-800)
@@ -153,9 +169,7 @@
   &:focus, &:focus-within {
     @apply outline-[var(--input-800)] ring-2 ring-[var(--input-200)] isolate;
   }
-}
 
-@utility input {
   --input-50: var(--default-50);
   --input-100: var(--default-100);
   --input-200: var(--default-200);
@@ -167,8 +181,8 @@
   --input-800: var(--default-800);
   --input-900: var(--default-900);
   --input-950: var(--default-950);
-  @apply input-core;
 }
+
 
 @utility input-primary {
   --input-50: var(--primary-50);
@@ -182,7 +196,6 @@
   --input-800: var(--primary-800);
   --input-900: var(--primary-900);
   --input-950: var(--primary-950);
-  @apply input-core;
 }
 
 @utility input-secondary {
@@ -197,7 +210,6 @@
   --input-800: var(--secondary-800);
   --input-900: var(--secondary-900);
   --input-950: var(--secondary-950);
-  @apply input-core;
 }
 
 @utility input-accent {
@@ -212,7 +224,6 @@
   --input-800: var(--accent-800);
   --input-900: var(--accent-900);
   --input-950: var(--accent-950);
-  @apply input-core;
 }
 
 @utility input-info {
@@ -227,7 +238,6 @@
   --input-800: var(--info-800);
   --input-900: var(--info-900);
   --input-950: var(--info-950);
-  @apply input-core;
 }
 
 @utility input-success {
@@ -242,7 +252,6 @@
   --input-800: var(--success-800);
   --input-900: var(--success-900);
   --input-950: var(--success-950);
-  @apply input-core;
 }
 
 @utility input-warning {
@@ -257,7 +266,6 @@
   --input-800: var(--warning-800);
   --input-900: var(--warning-900);
   --input-950: var(--warning-950);
-  @apply input-core;
 }
 
 @utility input-error {
@@ -272,5 +280,4 @@
   --input-800: var(--error-800);
   --input-900: var(--error-900);
   --input-950: var(--error-950);
-  @apply input-core;
 }
