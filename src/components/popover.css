@@ -1,9 +1,9 @@
 @import "../theme/jams/base.css";
-@utility modal {
+@utility popover {
   @layer components {
     @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
 
-    &:not(modal:not([popover]:popover-open)),
+    &:not(popover:not([popover]:popover-open)),
     &::backdrop {
       @apply opacity-100 starting:invisible starting:opacity-0 bg-default-600;
     }
@@ -11,7 +11,7 @@
     &[popover]:popover-open {
       @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
 
-      .modal-body {
+      .popover-body {
         translate: 0 0;
         scale: 1;
         opacity: 1;
@@ -20,7 +20,7 @@
   }
 }
 
-@utility modal-backdrop {
+@utility popover-backdrop {
   @layer components {
     @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
     button {
@@ -29,17 +29,17 @@
   }
 }
 
-@utility modal-body {
+@utility popover-body {
   @layer components {
     @apply bg-core-50 text-core-950 rounded-3xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   }
 }
 
-@utility modal-top {
+@utility popover-top {
   @layer components {
     @apply place-items-start;
 
-    :where(.modal-body) {
+    :where(.popover-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 -100%;
@@ -48,11 +48,11 @@
   }
 }
 
-@utility modal-middle {
+@utility popover-middle {
   @layer components {
     @apply place-items-center;
 
-    :where(.modal-body) {
+    :where(.popover-body) {
       @apply h-auto w-11/12 max-w-[32rem];
       max-height: calc(100vh - 5em);
       translate: 0 2%;
@@ -61,11 +61,11 @@
   }
 }
 
-@utility modal-bottom {
+@utility popover-bottom {
   @layer components {
     @apply place-items-end;
 
-    :where(.modal-body) {
+    :where(.popover-body) {
       @apply h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 100%;
@@ -74,11 +74,11 @@
   }
 }
 
-@utility modal-start {
+@utility popover-start {
   @layer components {
     @apply place-items-start;
 
-    :where(.modal-body) {
+    :where(.popover-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: -100% 0;
       scale: 1;
@@ -86,11 +86,11 @@
   }
 }
 
-@utility modal-end {
+@utility popover-end {
   @layer components {
     @apply place-items-end;
 
-    :where(.modal-body) {
+    :where(.popover-body) {
       @apply h-screen max-h-none w-auto max-w-none rounded-none;
       translate: 100% 0;
       scale: 1;
