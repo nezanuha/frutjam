@@ -2,11 +2,9 @@
 @import "../theme/animation/wiggle.css";
 
 @utility btn-size {
-  @layer components {
-    padding-inline: var(--btn-inline);
-    padding-block: var(--btn-block);
-    font-size: var(--btn-text-size);
-  }
+  padding-inline: var(--btn-inline);
+  padding-block: var(--btn-block);
+  font-size: var(--btn-text-size);
 }
 
 @utility btn-xs {
@@ -80,13 +78,29 @@
 
 @utility btn-ghost-active {
   /* for default btn */
-  &:is(.btn) {
+  &:not(
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .btn-info,
+    .btn-success,
+    .btn-warning,
+    .btn-error
+  ) {
     background-color: light-dark(var(--btn-200), var(--btn-900));
     color: light-dark(var(--btn-950), var(--btn-100));
   }
 
   /* for all btn exclude default btn */
-  &:not(.btn) {
+  &:is(
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .btn-info,
+    .btn-success,
+    .btn-warning,
+    .btn-error
+  ) {
     background-color: light-dark(var(--btn-700), var(--btn-900));
     color: light-dark(var(--btn-50), var(--btn-100));
   }
@@ -103,13 +117,29 @@
     outline-style: none;
 
     /* for default btn */
-    &:is(.btn) {
+    &:not(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
       background-color: light-dark(var(--btn-300), var(--btn-900));
       color: light-dark(var(--btn-950), var(--btn-100));
     }
 
     /* for all btn exclude default btn */
-    &:not(.btn) {
+    &:is(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
       background-color: light-dark(var(--btn-800), var(--btn-800));
       color: light-dark(var(--btn-50), var(--btn-100));
     }
@@ -156,7 +186,7 @@
   }
 }
 
-@utility btn-core {
+@utility btn {
   @apply btn-md text-shadow-xs/5 gap-1.5 leading-normal;
   transition:
     translate 0.2s ease-out,
@@ -179,13 +209,29 @@
   box-sizing: border-box;
 
   /* for default btn */
-  &:is(.btn) {
+  &:not(
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .btn-info,
+    .btn-success,
+    .btn-warning,
+    .btn-error
+  ) {
     background-color: light-dark(var(--btn-200), var(--btn-800));
     color: light-dark(var(--btn-900), var(--btn-50));
   }
 
   /* for all btn exclude default btn */
-  &:not(.btn) {
+  &:is(
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .btn-info,
+    .btn-success,
+    .btn-warning,
+    .btn-error
+  ) {
     background-color: light-dark(var(--btn-700), var(--btn-700));
     color: var(--btn-50);
   }
@@ -211,9 +257,7 @@
       @apply btn-active;
     }
   }
-}
 
-@utility btn {
   --btn-50: var(--default-50);
   --btn-100: var(--default-100);
   --btn-200: var(--default-200);
@@ -225,7 +269,6 @@
   --btn-800: var(--default-800);
   --btn-900: var(--default-900);
   --btn-950: var(--default-950);
-  @apply btn-core;
 }
 
 @utility btn-primary {
@@ -240,7 +283,6 @@
   --btn-800: var(--primary-800);
   --btn-900: var(--primary-900);
   --btn-950: var(--primary-950);
-  @apply btn-core;
 }
 
 @utility btn-secondary {
@@ -255,7 +297,6 @@
   --btn-800: var(--secondary-800);
   --btn-900: var(--secondary-900);
   --btn-950: var(--secondary-950);
-  @apply btn-core;
 }
 
 @utility btn-accent {
@@ -270,7 +311,6 @@
   --btn-800: var(--accent-800);
   --btn-900: var(--accent-900);
   --btn-950: var(--accent-950);
-  @apply btn-core;
 }
 
 @utility btn-info {
@@ -285,7 +325,6 @@
   --btn-800: var(--info-800);
   --btn-900: var(--info-900);
   --btn-950: var(--info-950);
-  @apply btn-core;
 }
 
 @utility btn-success {
@@ -300,7 +339,6 @@
   --btn-800: var(--success-800);
   --btn-900: var(--success-900);
   --btn-950: var(--success-950);
-  @apply btn-core;
 }
 
 @utility btn-warning {
@@ -315,7 +353,6 @@
   --btn-800: var(--warning-800);
   --btn-900: var(--warning-900);
   --btn-950: var(--warning-950);
-  @apply btn-core;
 }
 
 @utility btn-error {
@@ -330,5 +367,4 @@
   --btn-800: var(--error-800);
   --btn-900: var(--error-900);
   --btn-950: var(--error-950);
-  @apply btn-core;
 }
