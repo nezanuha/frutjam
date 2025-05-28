@@ -1,0 +1,72 @@
+@utility breadcrumb {
+  @apply py-2;
+
+  max-width: 100%;
+  overflow-x: auto;
+
+  & > .breadcrumb-list,
+  & > ol,
+  & > ul {
+    display: flex;
+    min-height: min-content;
+    align-items: center;
+    white-space: nowrap;
+
+    /* Automatically hide default separator if a custom separator is used */
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+
+      & > .breadcrumb-link,
+      & > .breadcrumb-current,
+      & > a,
+      & > span {
+        display: flex;
+        align-items: center;
+        @apply gap-2;
+
+        @media (hover: hover) {
+          &:hover:not([aria-current="page"]):not(.breadcrumb-current) {
+            @apply underline underline-offset-4;
+            cursor: pointer;
+          }
+        }
+
+        &:focus {
+          @apply outline-hidden;
+        }
+
+        &:focus-visible {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
+      }
+
+      /* Only show default separator if NOT preceded by .breadcrumb-separator */
+      & + .breadcrumb-item::before {
+        content: "";
+        @apply mr-3 ml-2 block h-1.5 w-1.5 opacity-40;
+        rotate: 45deg;
+        border-top: 1px solid;
+        border-right: 1px solid;
+        background-color: #0000;
+      }
+
+      [dir="rtl"] & + .breadcrumb-item::before {
+        rotate: -135deg;
+      }
+
+      /* Remove default separator when preceded by custom .breadcrumb-separator */
+      .breadcrumb-separator + &::before {
+        content: none;
+      }
+    }
+
+    /* Slotted custom separator */
+    .breadcrumb-separator {
+      display: flex;
+      align-items: center;
+      @apply mx-2 text-sm text-gray-500;
+    }
+  }
+}
