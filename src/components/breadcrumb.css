@@ -13,7 +13,7 @@
     white-space: nowrap;
 
     /* Automatically hide default separator if a custom separator is used */
-    .breadcrumb-item {
+    .breadcrumb-item, li {
       display: flex;
       align-items: center;
 
@@ -43,7 +43,7 @@
       }
 
       /* Only show default separator if NOT preceded by .breadcrumb-separator */
-      & + .breadcrumb-item::before {
+      & + .breadcrumb-item::before, & + li::before {
         content: "";
         @apply mr-3 ml-2 block h-1.5 w-1.5 opacity-40;
         rotate: 45deg;
@@ -52,7 +52,7 @@
         background-color: #0000;
       }
 
-      [dir="rtl"] & + .breadcrumb-item::before {
+      [dir="rtl"] & + .breadcrumb-item::before, [dir="rtl"] & + li::before {
         rotate: -135deg;
       }
 
