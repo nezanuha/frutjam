@@ -1,0 +1,235 @@
+
+@import "../theme/jams/base.css";
+@utility badge-size {
+  padding-inline: var(--badge-inline);
+  padding-block: var(--badge-block);
+  font-size: var(--badge-text-size);
+}
+
+@utility badge-xs {
+  --badge-inline: 0.5rem;
+  --badge-block: 0.125rem;
+  --badge-text-size: 0.625rem;
+  @apply badge-size;
+}
+
+@utility badge-sm {
+  --badge-inline: 0.625rem;
+  --badge-block: 0.25rem;
+  --badge-text-size: 0.75rem;
+  @apply badge-size;
+}
+
+@utility badge-md {
+  --badge-inline: 0.75rem;
+  --badge-block: 0.375rem;
+  --badge-text-size: 0.875rem;
+  @apply badge-size;
+}
+
+@utility badge-lg {
+  --badge-inline: 0.875rem;
+  --badge-block: 0.5rem;
+  --badge-text-size: 1rem;
+  @apply badge-size;
+}
+
+@utility badge-xl {
+  --badge-inline: 1rem;
+  --badge-block: 0.625rem;
+  --badge-text-size: 1.125rem;
+  @apply badge-size;
+}
+
+@utility badge-2xl {
+  --badge-inline: 1.125rem;
+  --badge-block: 0.75rem;
+  --badge-text-size: 1.25rem;
+  @apply badge-size;
+}
+
+@utility badge-square {
+  padding-inline: var(--badge-block);
+  padding-block: var(--badge-block);
+}
+
+@utility badge-circle {
+  @apply badge-md rounded-full;
+  padding-inline: var(--badge-block);
+  padding-block: var(--badge-block);
+}
+
+@utility badge-dashed {
+    background: transparent;
+    outline: 1px dashed light-dark(var(--badge-500), var(--badge-700));
+    color: light-dark(var(--badge-700), var(--badge-500));
+}
+
+@utility badge-outline {
+    background: transparent;
+    outline: 1px solid light-dark(var(--badge-500), var(--badge-800));
+    color: light-dark(var(--badge-800), var(--badge-200));
+}
+
+@utility badge-soft {
+    background-color: light-dark(
+      var(--badge-100),
+      color-mix(in oklab, var(--badge-900) 10%, transparent)
+    );
+    color: light-dark(var(--badge-800), var(--badge-400));
+}
+
+@utility badge-ghost {
+    background: transparent;
+    color: light-dark(var(--badge-600), var(--badge-300));
+}
+
+@utility badge {
+    @apply gap-2 badge-md;
+    
+    border-radius: var(--radius-badge);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    text-align: center;
+    width: fit-content;
+
+    /* for default badge */
+    &:not(
+        .badge-primary,
+        .badge-secondary,
+        .badge-accent,
+        .badge-info,
+        .badge-success,
+        .badge-warning,
+        .badge-error
+    ) {
+        background-color: light-dark(var(--badge-200), var(--badge-800));
+        color: light-dark(var(--badge-900), var(--badge-50));
+    }
+
+    /* for all badge exclude default badge */
+    &:is(
+        .badge-primary,
+        .badge-secondary,
+        .badge-accent,
+        .badge-info,
+        .badge-success,
+        .badge-warning,
+        .badge-error
+    ) {
+        background-color: light-dark(var(--badge-700), var(--badge-700));
+        color: var(--badge-50);
+    }
+
+    --badge-50: var(--default-50);
+    --badge-100: var(--default-100);
+    --badge-200: var(--default-200);
+    --badge-300: var(--default-300);
+    --badge-400: var(--default-400);
+    --badge-500: var(--default-500);
+    --badge-600: var(--default-600);
+    --badge-700: var(--default-700);
+    --badge-800: var(--default-800);
+    --badge-900: var(--default-900);
+    --badge-950: var(--default-950);
+}
+
+@utility badge-primary {
+  --badge-50: var(--primary-50);
+  --badge-100: var(--primary-100);
+  --badge-200: var(--primary-200);
+  --badge-300: var(--primary-300);
+  --badge-400: var(--primary-400);
+  --badge-500: var(--primary-500);
+  --badge-600: var(--primary-600);
+  --badge-700: var(--primary-700);
+  --badge-800: var(--primary-800);
+  --badge-900: var(--primary-900);
+  --badge-950: var(--primary-950);
+}
+
+@utility badge-secondary {
+  --badge-50: var(--secondary-50);
+  --badge-100: var(--secondary-100);
+  --badge-200: var(--secondary-200);
+  --badge-300: var(--secondary-300);
+  --badge-400: var(--secondary-400);
+  --badge-500: var(--secondary-500);
+  --badge-600: var(--secondary-600);
+  --badge-700: var(--secondary-700);
+  --badge-800: var(--secondary-800);
+  --badge-900: var(--secondary-900);
+  --badge-950: var(--secondary-950);
+}
+
+@utility badge-accent {
+  --badge-50: var(--accent-50);
+  --badge-100: var(--accent-100);
+  --badge-200: var(--accent-200);
+  --badge-300: var(--accent-300);
+  --badge-400: var(--accent-400);
+  --badge-500: var(--accent-500);
+  --badge-600: var(--accent-600);
+  --badge-700: var(--accent-700);
+  --badge-800: var(--accent-800);
+  --badge-900: var(--accent-900);
+  --badge-950: var(--accent-950);
+}
+
+@utility badge-info {
+  --badge-50: var(--info-50);
+  --badge-100: var(--info-100);
+  --badge-200: var(--info-200);
+  --badge-300: var(--info-300);
+  --badge-400: var(--info-400);
+  --badge-500: var(--info-500);
+  --badge-600: var(--info-600);
+  --badge-700: var(--info-700);
+  --badge-800: var(--info-800);
+  --badge-900: var(--info-900);
+  --badge-950: var(--info-950);
+}
+
+@utility badge-success {
+  --badge-50: var(--success-50);
+  --badge-100: var(--success-100);
+  --badge-200: var(--success-200);
+  --badge-300: var(--success-300);
+  --badge-400: var(--success-400);
+  --badge-500: var(--success-500);
+  --badge-600: var(--success-600);
+  --badge-700: var(--success-700);
+  --badge-800: var(--success-800);
+  --badge-900: var(--success-900);
+  --badge-950: var(--success-950);
+}
+
+@utility badge-warning {
+  --badge-50: var(--warning-50);
+  --badge-100: var(--warning-100);
+  --badge-200: var(--warning-200);
+  --badge-300: var(--warning-300);
+  --badge-400: var(--warning-400);
+  --badge-500: var(--warning-500);
+  --badge-600: var(--warning-600);
+  --badge-700: var(--warning-700);
+  --badge-800: var(--warning-800);
+  --badge-900: var(--warning-900);
+  --badge-950: var(--warning-950);
+}
+
+@utility badge-error {
+  --badge-50: var(--error-50);
+  --badge-100: var(--error-100);
+  --badge-200: var(--error-200);
+  --badge-300: var(--error-300);
+  --badge-400: var(--error-400);
+  --badge-500: var(--error-500);
+  --badge-600: var(--error-600);
+  --badge-700: var(--error-700);
+  --badge-800: var(--error-800);
+  --badge-900: var(--error-900);
+  --badge-950: var(--error-950);
+}
