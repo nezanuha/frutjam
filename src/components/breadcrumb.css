@@ -1,8 +1,7 @@
 @import "../theme/jams/base.css";
 
 @utility breadcrumb {
-  @apply py-2;
-
+  padding-block: 0.5rem;
   max-width: 100%;
   overflow-x: auto;
 
@@ -25,17 +24,22 @@
       & > span {
         display: flex;
         align-items: center;
-        @apply gap-2;
+        gap: 0.5rem;
 
         @media (hover: hover) {
           &:hover:not([aria-current="page"]):not(.breadcrumb-current) {
-            @apply underline underline-offset-4;
+            text-decoration-line: underline;
+            text-underline-offset: 4px;
             cursor: pointer;
           }
         }
 
         &:focus {
-          @apply outline-hidden;
+          outline-style: none;
+          @media (forced-colors: active) {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+          }
         }
 
         &:focus-visible {
@@ -47,15 +51,22 @@
       /* Only show default separator if NOT preceded by .breadcrumb-separator */
       & + .breadcrumb-item::before, & + li::before {
         content: "";
-        @apply mr-3 ml-2 block h-1.5 w-1.5 opacity-40;
-        rotate: 45deg;
+        margin-right: 0.75rem;
+        margin-left: 0.5rem;
+        height: 0.375rem;
+        width: 0.375rem;
+        opacity: 40%;
+        display: block;
+        transform: rotate(45deg);
+        transition: transform 300ms;
         border-top: 1px solid;
         border-right: 1px solid;
         background-color: #0000;
       }
 
       [dir="rtl"] & + .breadcrumb-item::before, [dir="rtl"] & + li::before {
-        rotate: -135deg;
+        transform: rotate(-135deg);
+        transition: transform 300ms;
       }
 
       /* Remove default separator when preceded by custom .breadcrumb-separator */
@@ -68,7 +79,12 @@
     .breadcrumb-separator {
       display: flex;
       align-items: center;
-      @apply mx-2 text-sm text-gray-500;
+      margin-inline: 0.5rem;
+      font-size: 0.875rem;
+      color: light-dark(
+        var(--core-200),
+        var(--core-900)
+      );
     }
   }
 }

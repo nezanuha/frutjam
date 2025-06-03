@@ -1,7 +1,6 @@
 @import '../theme/jams/base.css';
-@utility accordion {
-    @apply divide-y divide-core-200 dark:divide-core-900;
 
+@utility accordion {
     display: grid;
     background: light-dark(
         var(--core-50),
@@ -15,19 +14,33 @@
     cursor: pointer;
 
     &>details {
-        @apply text-pretty;
+        &:not(:last-child) {
+            border-bottom: 1px solid light-dark(
+                var(--core-200),
+                var(--core-900)
+            );
+        }
+        text-wrap: pretty;
         
         &>*:not(summary){
-            @apply px-4 pb-4;
+            padding-inline: 1rem;
+            padding-bottom: 1rem;
         }
         &>summary::marker{
-            @apply content-none;
+            content: none;
         }
         &>summary{
-            @apply flex gap-4 items-center justify-between p-4 font-medium;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            font-weight: 500;
+
             &::after {
-                @apply content-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0icmdiYSg1Myw1Myw1MywxKSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij4KICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0xOS41IDguMjUtNy41IDcuNS03LjUtNy41Ii8+Cjwvc3ZnPg==')];
-                @apply inline-block text-inherit;
+                content: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0icmdiYSg1Myw1Myw1MywxKSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij4KICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Im0xOS41IDguMjUtNy41IDcuNS03LjUtNy41Ii8+Cjwvc3ZnPg==');
+                display: inline-block;
+                color: inherit;
             }
         }
     }
@@ -35,9 +48,11 @@
     &>details[open] {
 
         &>summary {
-            @apply pb-4;
+            padding-bottom: 1rem;
             &::after {
-                @apply rotate-180 origin-center transition-transform duration-300;
+                transform: rotate(180deg);
+                transform-origin: center;
+                transition: transform 300ms;
             }
         }
     }

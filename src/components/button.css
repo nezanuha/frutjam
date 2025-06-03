@@ -174,12 +174,16 @@
 }
 
 @utility btn {
-  @apply btn-md text-shadow-xs/5 gap-1.5 leading-normal;
+  @apply btn-md;
+
+  text-shadow: 0px 1px 1px color-mix(in oklab, var(--btn-900) 10%, transparent);
+  line-height: 1.5;
   width: var(--btn-width);
   max-width: var(--btn-max-width);
   transition: translate 0.2s ease-out, visibility 0.2s allow-discrete, background-color 0.2s ease-out, opacity 0.1s ease-out;
   position: relative;
   display: var(--btn-display, inline-flex);
+  gap: 0.375rem;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -231,18 +235,20 @@
   }
 
   &:is(:disabled, [disabled], .btn-disabled) {
-    @apply opacity-20 cursor-not-allowed pointer-events-none;
+    opacity: 20%;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   &:is(input[type="checkbox"], input[type="radio"]) {
-    @apply appearance-none;
+    appearance: none;
 
     &::after {
       content: attr(aria-label);
     }
 
     &:checked {
-      @apply isolate;
+      isolation: isolate;
     }
   }
 
