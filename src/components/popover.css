@@ -1,37 +1,78 @@
 @import "../theme/jams/base.css";
-@utility popover {
-  @layer components {
-    @apply pointer-events-none invisible fixed inset-0 m-0 grid h-full max-h-none w-full max-w-none items-center justify-items-center bg-transparent p-0 text-inherit z-999 overflow-hidden overscroll-contain;
 
-    &:not(popover:not([popover]:popover-open)),
-    &::backdrop {
-      @apply opacity-100 starting:invisible starting:opacity-0 bg-default-600;
+@utility popover {
+  pointer-events: none;
+  visibility: hidden;
+  position: fixed;
+  inset: 0rem;
+  margin: 0rem;
+  padding: 0rem;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  align-items: center;
+  justify-items: center;
+  background-color: transparent;
+  color: inherit;
+  z-index: 999;
+  overflow: hidden;
+  overscroll-behavior: contain;
+
+  &:not(popover:not([popover]:popover-open)), &::backdrop {
+    opacity: 100%;
+    @starting-style {
+      visibility: hidden;
+      opacity: 0%;
+    }
+    background-color: var(--default-600);
+  }
+
+  &[popover]:popover-open {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 100%;
+
+    @starting-style {
+      visibility: hidden;
+      opacity: 0%;
     }
 
-    &[popover]:popover-open {
-      @apply pointer-events-auto visible opacity-100 starting:invisible starting:opacity-0;
-
-      .popover-body {
-        translate: 0 0;
-        scale: 1;
-        opacity: 1;
-      }
+    .popover-body {
+      translate: 0 0;
+      scale: 1;
+      opacity: 1;
     }
   }
 }
 
 @utility popover-backdrop {
-  @layer components {
-    @apply col-start-1 row-start-1 grid self-stretch justify-self-stretch text-transparent -z-1;
-    button {
-      @apply cursor-pointer;
-    }
+  display: grid;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  align-self: stretch;
+  justify-self: stretch;
+  color: transparent;
+  z-index: -1;
+
+  button {
+    cursor: pointer;
   }
 }
 
 @utility popover-body {
+
+  background-color: var(--core-50);
+  color: var(--core-950);
+  border-radius: 1.5rem;
+  border: 1px solid light-dark(
+    color-mix(in oklab,var(--core-300)50%,transparent),
+    color-mix(in oklab,var(--core-900)60%,transparent)
+  );
+
   @layer components {
-    @apply bg-core-50 text-core-950 rounded-3xl border border-black/60 shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @apply shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   }
 }
 
