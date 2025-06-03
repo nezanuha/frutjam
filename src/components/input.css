@@ -50,14 +50,16 @@
 
 @utility input-dashed {
   &:not(.input-active) {
-    @apply outline-dashed;
+    outline-width: 1px;
+    outline-style: dashed;
   }
 }
 
 
 @utility input-outline {
   &:not(.input-active) {
-    @apply outline outline-solid;
+    outline-width: 1px;
+    outline-style: solid;
   }
 }
 
@@ -76,18 +78,29 @@
 
 @utility input-ghost {
   &:not(.input-active) {
-    @apply outline-transparent;
+    outline-color: transparent;
   }
 }
 
 @utility input {
-  @apply input-md transition duration-300 px-2.5 font-medium relative inline-flex self-start
-  shrink-0 appearance-none items-center gap-2 align-middle whitespace-nowrap;
+  @apply input-md;
 
+  display: inline-flex;
+  align-self: flex-start;
+  flex-shrink: 0;
+  align-items: center;
+  appearance: none;
   border-radius: var(--radius-input);
+  gap: 0.5rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  font-weight: 500;
+  padding-inline: 0.625rem;
+  transition: border-color 300ms, outline-color 300ms;
 
   &::placeholder {
-    @apply text-sm;
+    font-size: 0.875rem;
     color: light-dark(
       var(--core-300),
       var(--core-800)
@@ -95,9 +108,13 @@
   }
 
   &::file-selector-button{
-    @apply mr-4 inline-flex items-center transition duration-300 text-sm;
+    font-size: 0.875rem;
+    margin-right: 1rem;
+    display: inline-flex;
+    transition: border-color 300ms, background-color 300ms, display 300ms;
+    align-items: center;
     border-radius: calc(var(--radius-input)/2);
-    background: light-dark(
+    background-color: light-dark(
       var(--input-100),
       var(--input-800)
     );
@@ -119,7 +136,7 @@
           var(--input-900),
           var(--input-300)
         );
-        background: light-dark(
+        background-color: light-dark(
           var(--input-200),
           var(--input-700)
         );
@@ -137,8 +154,12 @@
     .input-error
   ){
     outline: 1px solid light-dark(
-      var(--input-300),
-      var(--input-800)
+      var(--input-400),
+      var(--input-700)
+    );
+    border: 0.5px solid light-dark(
+      var(--input-50),
+      var(--input-900)
     );
   }
 
@@ -151,23 +172,59 @@
     .input-warning,
     .input-error
   ){
-    outline: 1px solid light-dark(
-      var(--input-700),
-      var(--input-800)
+    outline: 1px solid var(--input-700);
+    border: 0.5px solid light-dark(
+      var(--input-50),
+      var(--input-900)
     );
   }
 
   &:is(:disabled, [disabled], .input-disabled) {
-    @apply cursor-not-allowed placeholder:text-[var(--input-200)];
+    cursor: not-allowed;
     color:var(--input-50);
     background-color: light-dark(
       var(--input-100),
       var(--input-900)
     );
+
+    &::placeholder {
+      color: var(--input-200);
+    }
   }
 
   &:focus, &:focus-within {
-    @apply outline-[var(--input-800)] ring-2 ring-[var(--input-200)] isolate;
+    isolation: isolate;
+    &:is(
+      .input-primary,
+      .input-secondary,
+      .input-accent,
+      .input-info,
+      .input-success,
+      .input-warning,
+      .input-error
+    ){
+      outline-color: var(--input-800);
+      border-color: light-dark(
+        var(--input-200),
+        var(--input-950)
+      );
+    }
+
+    &:not(
+      .input-primary,
+      .input-secondary,
+      .input-accent,
+      .input-info,
+      .input-success,
+      .input-warning,
+      .input-error
+    ){
+      outline-color: var(--input-800);
+      border-color: light-dark(
+        var(--input-200),
+        var(--input-600)
+      );
+    }
   }
 
   --input-50: var(--default-50);
