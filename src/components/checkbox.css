@@ -58,8 +58,58 @@
     cursor: pointer;
     appearance: none;
     vertical-align: middle;
-    border: 1.6px solid var(--checkbox-600);
-    background-color: transparent;
+
+    box-shadow: 0 0 0 0px var(--checkbox-100),   0 0 0 calc(1px + 0px) light-dark(var(--checkbox-300), var(--checkbox-500)), 0 0 var(--checkbox-100);
+    /* border: 1.6px solid var(--checkbox-100); */
+    outline: 1px solid light-dark(
+      var(--checkbox-400),
+      var(--checkbox-700)
+    );
+      
+    background-color: light-dark(
+      var(--checkbox-100),
+      color-mix(in oklab, var(--checkbox-600) 15%, transparent)
+    );
+
+
+    /* &:not(
+      .checkbox-primary,
+      .checkbox-secondary,
+      .checkbox-accent,
+      .checkbox-info,
+      .checkbox-success,
+      .checkbox-warning,
+      .checkbox-error
+    ){
+      outline: 1px solid light-dark(
+        var(--checkbox-400),
+        var(--checkbox-700)
+      );
+      border: 0.5px solid light-dark(
+        var(--checkbox-50),
+        var(--checkbox-900)
+      );
+    }
+
+    &:is(
+      .checkbox-primary,
+      .checkbox-secondary,
+      .checkbox-accent,
+      .checkbox-info,
+      .checkbox-success,
+      .checkbox-warning,
+      .checkbox-error
+    ){
+      outline: 1px solid var(--checkbox-700);
+      border: 0.5px solid light-dark(
+        var(--checkbox-50),
+        var(--checkbox-900)
+      );
+    } */
+
+
+    /* background-color: transparent; */
+    /* color: light-dark(var(--checkbox-700), var(--checkbox-200)); */
     color: light-dark(var(--checkbox-700), var(--checkbox-200));
     border-radius: var(--radius-checkbox);
 
@@ -84,13 +134,15 @@
 
     &:checked,
     &[aria-checked="true"] {
-      box-shadow: light-dark(
+      /* box-shadow: light-dark(
         var(--core-100),
         var(--core-900)
-      ) 0px 3px 6px;
-      background-color: var(--checkbox-600);
+      ) 0px 3px 6px; */
+      box-shadow: 0 0 0 0px var(--checkbox-100),   0 0 0 calc(1px + 0px) var(--checkbox-400), 0 0 var(--checkbox-100);
+      background-color: light-dark(var(--checkbox-200), var(--checkbox-600));
+      /* background-color: var(--checkbox-600); */
       transition: transform 300ms, background-color 100ms;
-      color:var(--checkbox-50);
+      /* color:var(--checkbox-50); */
       &::before {
         content: '✔︎';
         opacity: 100%;
@@ -98,7 +150,7 @@
           content: '✔︎';
           transform: rotate(0deg);
           transition: transform 300ms, background-color 100ms;
-          background-color: transparent;
+          background-color: light-dark(var(--checkbox-200), var(--checkbox-600));
           clip-path:none
         }
       }
