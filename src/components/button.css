@@ -1,6 +1,96 @@
 @import "../theme/jams/base.css";
 @import "../theme/animation/wiggle.css";
 
+@utility btn {
+  @apply btn-md;
+
+  text-shadow: 0px 1px 1px color-mix(in oklab, var(--btn-900) 10%, transparent);
+  line-height: 1.5;
+  width: var(--btn-width);
+  max-width: var(--btn-max-width);
+  transition: translate 0.2s ease-out, visibility 0.2s allow-discrete, background-color 0.2s ease-out, opacity 0.1s ease-out, border-color 0.3s;
+  position: relative;
+  display: var(--btn-display, inline-flex);
+  gap: 0.375rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex-wrap: nowrap;
+  vertical-align: middle;
+  font-weight: 500;
+  text-align: center;
+  border-radius: var(--btn-radius, var(--radius-btn));
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  padding-inline: var(--btn-inline);
+  padding-block: var(--btn-block);
+  font-size: var(--btn-text-size);
+
+  &:where(.btn-square){
+    padding-inline: var(--btn-block);
+    padding-block: var(--btn-block);
+  }
+
+  background-color: var(--btn-bg-color);
+  color: var(--btn-text-color);
+
+  outline-color: var(--btn-outline-color);
+  outline-style: var(--btn-outline-style);
+  outline-width: var(--btn-outline-width);
+
+  text-decoration: var(--btn-text-decoration);
+  text-underline-offset: var(--btn-text-underline-offset);
+
+  &:is(:disabled, [disabled], .btn-disabled) {
+    opacity: 20%;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:is(input[type="checkbox"], input[type="radio"]) {
+    appearance: none;
+
+    &::after {
+      content: attr(aria-label);
+    }
+
+    &:checked {
+      isolation: isolate;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--btn-700, currentColor);
+    outline-offset: 2px;
+    isolation: isolate;
+  }
+
+  @media (hover: hover) {
+    &:is(:hover) {
+      @apply btn-active;
+    }
+  }
+
+  --btn-50: var(--default-50);
+  --btn-100: var(--default-100);
+  --btn-200: var(--default-200);
+  --btn-300: var(--default-300);
+  --btn-400: var(--default-400);
+  --btn-500: var(--default-500);
+  --btn-600: var(--default-600);
+  --btn-700: var(--default-700);
+  --btn-800: var(--default-800);
+  --btn-900: var(--default-900);
+  --btn-950: var(--default-950);
+
+  --btn-bg-color: light-dark(var(--btn-200), var(--btn-800));
+  --btn-text-color: light-dark(var(--btn-900), var(--btn-50));
+}
+
+
 @utility btn-xs {
   --btn-inline: 0.875rem;
   --btn-block: 0.375rem;
@@ -37,7 +127,7 @@
   --btn-text-size: 1.375rem;
 }
 
-/*btn-circle deprecated*/
+/*btn-circle deprecated: Remove this in stable release*/
 @utility btn-circle {
   --btn-radius: calc(infinity * 1px);
 }
@@ -56,56 +146,16 @@
   --btn-display: block;
 }
 
-@utility btn-link-active {
-  background-color: transparent;
-  color: light-dark(var(--btn-800), var(--btn-500));
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-@utility btn-ghost-active {
-  /* for default btn */
-  &:not(
-    .btn-primary,
-    .btn-secondary,
-    .btn-accent,
-    .btn-info,
-    .btn-success,
-    .btn-warning,
-    .btn-error
-  ) {
-    background-color: light-dark(var(--btn-200), var(--btn-900));
-    color: light-dark(var(--btn-950), var(--btn-100));
-  }
-
-  /* for all btn exclude default btn */
-  &:is(
-    .btn-primary,
-    .btn-secondary,
-    .btn-accent,
-    .btn-info,
-    .btn-success,
-    .btn-warning,
-    .btn-error
-  ) {
-    background-color: light-dark(var(--btn-700), var(--btn-900));
-    color: light-dark(var(--btn-50), var(--btn-100));
-  }
-}
-
 @utility btn-active {
+
   &:is(.btn-link) {
-    @apply btn-link-active;
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-500));
+    --btn-text-decoration: underline;
+    --btn-text-underline-offset: 4px;
   }
+
   &:is(.btn-ghost) {
-    @apply btn-ghost-active;
-  }
-  &:not(.btn-link, .btn-ghost) {
-
-    &:focus:not(:focus-visible) {
-      outline: none;
-    }
-
     /* for default btn */
     &:not(
       .btn-primary,
@@ -116,8 +166,8 @@
       .btn-warning,
       .btn-error
     ) {
-      background-color: light-dark(var(--btn-300), var(--btn-900));
-      color: light-dark(var(--btn-950), var(--btn-100));
+      --btn-bg-color: light-dark(var(--btn-200), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-950), var(--btn-100));
     }
 
     /* for all btn exclude default btn */
@@ -130,155 +180,84 @@
       .btn-warning,
       .btn-error
     ) {
-      background-color: light-dark(var(--btn-800), var(--btn-800));
-      color: light-dark(var(--btn-50), var(--btn-100));
+      --btn-bg-color: light-dark(var(--btn-700), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-50), var(--btn-100));
     }
+  }
+  
+  &:not(.btn-link, .btn-ghost) {
+    /* for default btn */
+    &:not(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-300), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-950), var(--btn-100));
+    }
+
+    /* for all btn exclude default btn */
+    &:is(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-800), var(--btn-800));
+      --btn-text-color: light-dark(var(--btn-50), var(--btn-100));
+    }
+
+    --btn-outline-style: none;
   }
 }
 
 @utility btn-dashed {
   &:not(.btn-active) {
-    background-color: transparent;
-    outline: 1px dashed light-dark(var(--btn-500), var(--btn-700));
-    color: light-dark(var(--btn-700), var(--btn-500));
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-700), var(--btn-500));
+    --btn-outline-color: light-dark(var(--btn-500), var(--btn-700));
+    --btn-outline-style: dashed;
+    --btn-outline-width: 1px;
   }
 }
 
 @utility btn-outline {
   &:not(.btn-active) {
-    background-color: transparent;
-    outline: 1px solid light-dark(var(--btn-500), var(--btn-800));
-    color: light-dark(var(--btn-800), var(--btn-200));
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-200));
+
+    --btn-outline-color: light-dark(var(--btn-500), var(--btn-800));
+    --btn-outline-style: solid;
+    --btn-outline-width: 1px;
   }
 }
 
 @utility btn-soft {
   &:not(.btn-active) {
-    background-color: light-dark(
-      var(--btn-100),
-      color-mix(in oklab, var(--btn-900) 10%, transparent)
-    );
-    color: light-dark(var(--btn-800), var(--btn-400));
+    --btn-bg-color: light-dark(var(--btn-100), color-mix(in oklab, var(--btn-900) 30%, transparent));
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-400));
   }
 }
 
 @utility btn-ghost {
   &:not(.btn-active) {
-    background-color: transparent;
-    color: light-dark(var(--btn-600), var(--btn-300));
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-600), var(--btn-300));
   }
 }
 
 @utility btn-link {
   &:not(.btn-active) {
-    background-color: transparent;
-    color: light-dark(var(--btn-700), var(--btn-400));
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-700), var(--btn-400));
   }
-}
-
-@utility btn {
-  @apply btn-md;
-
-  text-shadow: 0px 1px 1px color-mix(in oklab, var(--btn-900) 10%, transparent);
-  line-height: 1.5;
-  width: var(--btn-width);
-  max-width: var(--btn-max-width);
-  transition: translate 0.2s ease-out, visibility 0.2s allow-discrete, background-color 0.2s ease-out, opacity 0.1s ease-out;
-  position: relative;
-  display: var(--btn-display, inline-flex);
-  gap: 0.375rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  flex-wrap: nowrap;
-  vertical-align: middle;
-  font-weight: 500;
-  text-align: center;
-  border-radius: var(--btn-radius, var(--radius-btn));
-  overflow: hidden;
-  cursor: pointer;
-  box-sizing: border-box;
-
-  padding-inline: var(--btn-inline);
-  padding-block: var(--btn-block);
-  font-size: var(--btn-text-size);
-
-  &:where(.btn-square){
-    padding-inline: var(--btn-block);
-    padding-block: var(--btn-block);
-  }
-
-  /* for default btn */
-  &:not(
-    .btn-primary,
-    .btn-secondary,
-    .btn-accent,
-    .btn-info,
-    .btn-success,
-    .btn-warning,
-    .btn-error
-  ) {
-    background-color: light-dark(var(--btn-200), var(--btn-800));
-    color: light-dark(var(--btn-900), var(--btn-50));
-  }
-
-  /* for all btn exclude default btn */
-  &:is(
-    .btn-primary,
-    .btn-secondary,
-    .btn-accent,
-    .btn-info,
-    .btn-success,
-    .btn-warning,
-    .btn-error
-  ) {
-    background-color: light-dark(var(--btn-700), var(--btn-700));
-    color: var(--btn-50);
-  }
-
-  &:is(:disabled, [disabled], .btn-disabled) {
-    opacity: 20%;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  &:is(input[type="checkbox"], input[type="radio"]) {
-    appearance: none;
-
-    &::after {
-      content: attr(aria-label);
-    }
-
-    &:checked {
-      isolation: isolate;
-    }
-  }
-
-  
-  &:focus-visible {
-    outline: 2px solid var(--btn-700, currentColor);
-    outline-offset: 2px;
-    isolation: isolate;
-  }
-
-  @media (hover: hover) {
-    &:is(:hover) {
-      @apply btn-active;
-    }
-  }
-
-  --btn-50: var(--default-50);
-  --btn-100: var(--default-100);
-  --btn-200: var(--default-200);
-  --btn-300: var(--default-300);
-  --btn-400: var(--default-400);
-  --btn-500: var(--default-500);
-  --btn-600: var(--default-600);
-  --btn-700: var(--default-700);
-  --btn-800: var(--default-800);
-  --btn-900: var(--default-900);
-  --btn-950: var(--default-950);
 }
 
 @utility btn-primary {
@@ -293,6 +272,9 @@
   --btn-800: var(--primary-800);
   --btn-900: var(--primary-900);
   --btn-950: var(--primary-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-secondary {
@@ -307,6 +289,9 @@
   --btn-800: var(--secondary-800);
   --btn-900: var(--secondary-900);
   --btn-950: var(--secondary-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-accent {
@@ -321,6 +306,9 @@
   --btn-800: var(--accent-800);
   --btn-900: var(--accent-900);
   --btn-950: var(--accent-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-info {
@@ -335,6 +323,9 @@
   --btn-800: var(--info-800);
   --btn-900: var(--info-900);
   --btn-950: var(--info-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-success {
@@ -349,6 +340,9 @@
   --btn-800: var(--success-800);
   --btn-900: var(--success-900);
   --btn-950: var(--success-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-warning {
@@ -363,6 +357,9 @@
   --btn-800: var(--warning-800);
   --btn-900: var(--warning-900);
   --btn-950: var(--warning-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
 
 @utility btn-error {
@@ -377,4 +374,7 @@
   --btn-800: var(--error-800);
   --btn-900: var(--error-900);
   --btn-950: var(--error-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
 }
