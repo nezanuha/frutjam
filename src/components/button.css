@@ -101,7 +101,10 @@
     @apply btn-ghost-active;
   }
   &:not(.btn-link, .btn-ghost) {
-    outline-style: none;
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
 
     /* for default btn */
     &:not(
@@ -250,6 +253,13 @@
     &:checked {
       isolation: isolate;
     }
+  }
+
+  
+  &:focus-visible {
+    outline: 2px solid var(--btn-700, currentColor);
+    outline-offset: 2px;
+    isolation: isolate;
   }
 
   @media (hover: hover) {
