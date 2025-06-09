@@ -3,14 +3,14 @@
 @utility card-outline {
     border: 1px solid light-dark(
       var(--core-200),
-      var(--core-950)
+      var(--core-900)
     );
 }
 
 @utility card-dashed {
     border: 1px dashed light-dark(
       var(--core-200),
-      var(--core-950)
+      var(--core-900)
     );
 }
 
@@ -49,11 +49,11 @@
     gap: 0.5rem;
     flex: auto;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: var(--card-body-padding, 1.5rem);
 
     :where(p){
         flex-grow: 1;
-        font-size: 1rem;
+        font-size: var(--card-body-font-size, 1rem);
     }
 }
 
@@ -62,5 +62,61 @@
     align-items: center;
     gap: 0.5rem;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: var(--card-title-font-size, 1.125rem);
+}
+
+
+@utility card-xs {
+  &:is(.card-body) {
+    --card-body-padding: 0.5rem;
+    --card-body-font-size: 0.6875rem;
+  }
+
+  &:is(.card-title) {
+    --card-title-font-size: 0.875rem;
+  }
+}
+
+@utility card-sm {
+  &:is(.card-body) {
+    --card-body-padding: 1rem;
+    --card-body-font-size: 0.75rem;
+  }
+
+  &:is(.card-title) {
+    --card-title-font-size: 1rem;
+  }
+}
+
+@utility card-md {
+  &:is(.card-body) {
+    --card-body-padding: 1.5rem;
+    --card-body-font-size: 0.875rem;
+  }
+
+  &:is(.card-title) {
+    --card-title-font-size: 1.125rem;
+  }
+}
+
+@utility card-lg {
+  &:is(.card-body) {
+    --card-body-padding: 2rem;
+    --card-body-font-size: 1rem;
+  }
+
+  &:is(.card-title) {
+    --card-title-font-size: 1.25rem;
+  }
+}
+
+@utility card-xl {
+  &:is(.card-body) {
+    --card-body-padding: 2.5rem;
+    --card-body-font-size: 1.125rem;
+  }
+
+  &:is(.card-title) {
+    --card-title-font-size: 1.375rem;
+  }
 }
