@@ -42,28 +42,29 @@
 }
 
 @utility badge-dashed {
-    background-color: transparent;
-    outline: 1px dashed light-dark(var(--badge-500), var(--badge-700));
-    color: light-dark(var(--badge-700), var(--badge-500));
+    --badge-bg-color: transparent;
+    --badge-text-color: light-dark(var(--badge-700), var(--badge-500));
+    --badge-outline-width: 1px;
+    --badge-outline-style: dashed;
+    --badge-outline-color: light-dark(var(--badge-500), var(--badge-700));
 }
 
 @utility badge-outline {
-    background-color: transparent;
-    outline: 1px solid light-dark(var(--badge-500), var(--badge-800));
-    color: light-dark(var(--badge-800), var(--badge-200));
+    --badge-bg-color: transparent;
+    --badge-text-color: light-dark(var(--badge-700), var(--badge-500));
+    --badge-outline-width: 1px;
+    --badge-outline-style: solid;
+    --badge-outline-color: light-dark(var(--badge-500), var(--badge-700));
 }
 
 @utility badge-soft {
-    background-color: light-dark(
-      var(--badge-100),
-      color-mix(in oklab, var(--badge-900) 10%, transparent)
-    );
-    color: light-dark(var(--badge-800), var(--badge-400));
+    --badge-bg-color: light-dark(var(--badge-100), color-mix(in oklab, var(--badge-900) 30%, transparent));
+    --badge-text-color: light-dark(var(--badge-800), var(--btn-400));
 }
 
 @utility badge-ghost {
-    background-color: transparent;
-    color: light-dark(var(--badge-600), var(--badge-300));
+    --badge-bg-color: transparent;
+    --badge-text-color: light-dark(var(--badge-600), var(--badge-300));
 }
 
 @utility badge {
@@ -82,39 +83,18 @@
     padding-block: var(--badge-block);
     font-size: var(--badge-text-size);
 
+    background-color: var(--badge-bg-color);
+    color: var(--badge-text-color);
+
+    outline-width: var(--badge-outline-width);
+    outline-style: var(--badge-outline-style);
+    outline-color: var(--badge-outline-color);
+
     &:where(.badge-square){
       padding-inline: var(--badge-inline);
       padding-block: var(--badge-inline);
       width: var(--badge-block);
       height: var(--badge-block);
-    }
-
-    /* for default badge */
-    &:not(
-        .badge-primary,
-        .badge-secondary,
-        .badge-accent,
-        .badge-info,
-        .badge-success,
-        .badge-warning,
-        .badge-error
-    ) {
-        background-color: light-dark(var(--badge-200), var(--badge-800));
-        color: light-dark(var(--badge-900), var(--badge-50));
-    }
-
-    /* for all badge exclude default badge */
-    &:is(
-        .badge-primary,
-        .badge-secondary,
-        .badge-accent,
-        .badge-info,
-        .badge-success,
-        .badge-warning,
-        .badge-error
-    ) {
-        background-color: light-dark(var(--badge-700), var(--badge-700));
-        color: var(--badge-50);
     }
 
     --badge-50: var(--default-50);
@@ -128,6 +108,9 @@
     --badge-800: var(--default-800);
     --badge-900: var(--default-900);
     --badge-950: var(--default-950);
+
+    --badge-bg-color: light-dark(var(--badge-200), var(--badge-800));
+    --badge-text-color: light-dark(var(--badge-900), var(--badge-50));
 }
 
 @utility badge-primary {
@@ -142,6 +125,9 @@
   --badge-800: var(--primary-800);
   --badge-900: var(--primary-900);
   --badge-950: var(--primary-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-secondary {
@@ -156,6 +142,9 @@
   --badge-800: var(--secondary-800);
   --badge-900: var(--secondary-900);
   --badge-950: var(--secondary-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-accent {
@@ -170,6 +159,9 @@
   --badge-800: var(--accent-800);
   --badge-900: var(--accent-900);
   --badge-950: var(--accent-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-info {
@@ -184,6 +176,9 @@
   --badge-800: var(--info-800);
   --badge-900: var(--info-900);
   --badge-950: var(--info-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-success {
@@ -198,6 +193,9 @@
   --badge-800: var(--success-800);
   --badge-900: var(--success-900);
   --badge-950: var(--success-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-warning {
@@ -212,6 +210,9 @@
   --badge-800: var(--warning-800);
   --badge-900: var(--warning-900);
   --badge-950: var(--warning-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
 
 @utility badge-error {
@@ -226,4 +227,7 @@
   --badge-800: var(--error-800);
   --badge-900: var(--error-900);
   --badge-950: var(--error-950);
+
+  --badge-bg-color: light-dark(var(--badge-700), var(--badge-700));
+  --badge-text-color: var(--badge-50);
 }
