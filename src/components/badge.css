@@ -37,8 +37,21 @@
   --badge-text-size: 1.25rem;
 }
 
+@utility badge-square {
+  &:where(.badge-square, .badge-circle){
+    padding-inline: var(--badge-inline);
+    padding-block: var(--badge-inline);
+    width: var(--badge-block);
+    height: var(--badge-block);
+  }
+}
+
 @utility badge-rounded {
   --badge-radius: calc(infinity * 1px);
+}
+
+@utility badge-circle {
+  @apply badge-square badge-rounded;
 }
 
 @utility badge-dashed {
@@ -89,13 +102,6 @@
     outline-width: var(--badge-outline-width);
     outline-style: var(--badge-outline-style);
     outline-color: var(--badge-outline-color);
-
-    &:where(.badge-square){
-      padding-inline: var(--badge-inline);
-      padding-block: var(--badge-inline);
-      width: var(--badge-block);
-      height: var(--badge-block);
-    }
 
     --badge-50: var(--default-50);
     --badge-100: var(--default-100);
