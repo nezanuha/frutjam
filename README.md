@@ -15,6 +15,11 @@ With a wide selection of prebuilt components and themes, Frutjam makes it easy t
 
 ---
 
+🚀 **We’re in Beta — Your Star Helps Us Grow!**
+If you find this project useful, please consider giving it a ⭐. We're actively improving frutjam library during this beta phase, and your support motivates us to move faster, fix issues, and deliver new features. Thanks for being part of the journey!
+
+---
+
 ### ✨ Features
 
 * 🧱 **Prebuilt UI Components** — Plug-and-play components to save time
