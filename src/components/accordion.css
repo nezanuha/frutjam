@@ -1,24 +1,23 @@
-@reference '../utilities/para.css';
-
 @utility accordion {
+
+    --accordion-bg-color: theme(color.core.0);
+    --accordion-border-color: theme(color.core.300);
+
+    @variant dark {
+        --accordion-bg-color: theme(color.core.1000);
+        --accordion-border-color: theme(color.core.700);
+
+    }
+
     display: grid;
-    background-color: light-dark(
-        var(--core-0),
-        var(--core-1000)
-    );
-    border: 1px solid light-dark(
-        var(--core-200),
-        var(--core-900)
-    );
+    background-color: var(--accordion-bg-color);
+    border: 1px solid var(--accordion-border-color);
     border-radius: var(--radius-accordion);
     cursor: pointer;
 
     &>details {
         &:not(:last-child) {
-            border-bottom: 1px solid light-dark(
-                var(--core-200),
-                var(--core-900)
-            );
+            border-bottom: 1px solid var(--accordion-border-color);
         }
         text-wrap: pretty;
         
@@ -30,7 +29,7 @@
             content: none;
         }
         &>p{
-            @reference para-sm;
+            font-size: var(--text-base);
         }
         &>summary{
             display: flex;
