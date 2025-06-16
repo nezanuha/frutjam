@@ -1,121 +1,107 @@
-@import "../theme/jams/base.css";
-
 @utility breadcrumb {
-    padding-block: 0.5rem;
-    max-width: 100%;
-    overflow-x: auto;
-    font-size: 0.875rem;
-    color: light-dark(
-        var(--core-600),
-        var(--core-400)
-    );
+  padding-block: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  color: light-dark(var(--core-600), var(--core-400));
 
-    :where(ol, ul){
-        @apply breadcrumb-list;
+  :where(ol, ul) {
+    @reference breadcrumb-list;
 
-        :where(li){
-            @apply breadcrumb-item;
+    :where(li) {
+      @reference breadcrumb-item;
 
-            :where(a, span){
-                @apply breadcrumb-link;
-            }
-        }
-    } 
+      :where(a, span) {
+        @reference breadcrumb-link;
+      }
+    }
+  }
 }
 
 @utility breadcrumb-list {
-    display: flex;
-    min-height: min-content;
-    align-items: center;
-    white-space: nowrap;
+  display: flex;
+  min-height: min-content;
+  align-items: center;
+  white-space: nowrap;
 }
 
 @utility breadcrumb-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
+  &::before {
+    content: "";
+    margin-right: 0.75rem;
+    margin-left: 0.5rem;
+    height: 0.375rem;
+    width: 0.375rem;
+    color: light-dark(var(--core-400), var(--core-500));
+    display: block;
+    transform: rotate(45deg);
+    transition: transform 300ms;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    background-color: #0000;
+  }
+
+  &:first-child {
     &::before {
-        content: "";
-        margin-right: 0.75rem;
-        margin-left: 0.5rem;
-        height: 0.375rem;
-        width: 0.375rem;
-        color: light-dark(
-            var(--core-400),
-            var(--core-500)
-        );
-        display: block;
-        transform: rotate(45deg);
-        transition: transform 300ms;
-        border-top: 1px solid;
-        border-right: 1px solid;
-        background-color: #0000;
+      content: none;
     }
+  }
 
-    &:first-child {
-        &::before {
-            content: none;
-        } 
+  &:has(.breadcrumb-separator) {
+    &::before {
+      content: none;
     }
+  }
 
-    &:has(.breadcrumb-separator) {
-        &::before {
-            content: none;
-        }
+  &:where(:dir(rtl), [dir="rtl"]) {
+    &::before {
+      transform: rotate(-135deg);
     }
+  }
 
-    &:where(:dir(rtl), [dir="rtl"]){
-        &::before {
-            transform: rotate(-135deg);
-        }
-    }
-
-    &:has([aria-current="page"], .breadcrumb-current){
-        color: light-dark(
-            var(--core-900),
-            var(--core-100)
-        );
-    }
+  &:has([aria-current="page"], .breadcrumb-current) {
+    color: light-dark(var(--core-900), var(--core-100));
+  }
 }
 
 @utility breadcrumb-separator {
-    display: flex;
-    align-items: center;
-    margin-inline: 0.5rem;
-    color: light-dark(
-        var(--core-400),
-        var(--core-500)
-    );
+  display: flex;
+  align-items: center;
+  margin-inline: 0.5rem;
+  color: light-dark(var(--core-400), var(--core-500));
 }
 
 @utility breadcrumb-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    line-height: 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.125rem;
 
-    @media (hover: hover) {
-        &:hover:not([aria-current="page"]):not(.breadcrumb-current) {
-            text-decoration-line: underline;
-            text-underline-offset: 4px;
-            cursor: pointer;
-        }
+  @media (hover: hover) {
+    &:hover:not([aria-current="page"]):not(.breadcrumb-current) {
+      text-decoration-line: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
     }
+  }
 
-    &:focus {
-        outline-style: none;
-        @media (forced-colors: active) {
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-        }
+  &:focus {
+    outline-style: none;
+    @media (forced-colors: active) {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
     }
+  }
 
-    &:focus-visible {
-        outline: 2px solid currentColor;
-        outline-offset: 2px;
-    }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
 }
 
 @utility breadcrumb-current {
-    @apply breadcrumb-link;
+  @reference breadcrumb-link;
 }

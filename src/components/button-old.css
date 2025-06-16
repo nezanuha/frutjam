@@ -1,0 +1,378 @@
+@import "../theme/jams/base.css";
+@import "../theme/animation/wiggle.css";
+
+@utility btn {
+  @apply btn-md;
+  line-height: 1.5;
+  width: var(--btn-width);
+  max-width: var(--btn-max-width);
+  transition: translate 0.2s ease-out, visibility 0.2s allow-discrete, background-color 0.2s ease-out, opacity 0.1s ease-out, border-color 0.3s;
+  position: relative;
+  display: var(--btn-display, inline-flex);
+  gap: 0.375rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  flex-wrap: nowrap;
+  vertical-align: middle;
+  font-weight: 500;
+  text-align: center;
+  border-radius: var(--btn-radius, var(--radius-btn));
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  padding-inline: var(--btn-inline);
+  padding-block: var(--btn-block);
+  font-size: var(--btn-text-size);
+
+  background-color: var(--btn-bg-color);
+  color: var(--btn-text-color);
+
+  outline-color: var(--btn-outline-color);
+  outline-style: var(--btn-outline-style);
+  outline-width: var(--btn-outline-width);
+
+  text-decoration: var(--btn-text-decoration);
+  text-underline-offset: var(--btn-text-underline-offset);
+
+  &:is(:disabled, [disabled], .btn-disabled) {
+    opacity: 20%;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:is(input[type="checkbox"], input[type="radio"]) {
+    appearance: none;
+
+    &::after {
+      content: attr(aria-label);
+    }
+
+    &:checked {
+      isolation: isolate;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--btn-700, currentColor);
+    outline-offset: 2px;
+    isolation: isolate;
+  }
+
+  @media (hover: hover) {
+    &:is(:hover) {
+      @apply btn-active;
+    }
+  }
+
+  --btn-50: var(--default-50);
+  --btn-100: var(--default-100);
+  --btn-200: var(--default-200);
+  --btn-300: var(--default-300);
+  --btn-400: var(--default-400);
+  --btn-500: var(--default-500);
+  --btn-600: var(--default-600);
+  --btn-700: var(--default-700);
+  --btn-800: var(--default-800);
+  --btn-900: var(--default-900);
+  --btn-950: var(--default-950);
+
+  --btn-bg-color: light-dark(var(--btn-200), var(--btn-800));
+  --btn-text-color: light-dark(var(--btn-900), var(--btn-50));
+}
+
+@utility btn-xs {
+  --btn-inline: 0.875rem;
+  --btn-block: 0.375rem;
+  --btn-text-size: 0.75rem;
+}
+
+@utility btn-sm {
+  --btn-inline: 1rem;
+  --btn-block: 0.5rem;
+  --btn-text-size: 0.875rem;
+}
+
+@utility btn-md {
+  --btn-inline: 1.125rem;
+  --btn-block: 0.625rem;
+  --btn-text-size: 1rem;
+}
+
+@utility btn-lg {
+  --btn-inline: 1.25rem;
+  --btn-block: 0.75rem;
+  --btn-text-size: 1.125rem;
+}
+
+@utility btn-xl {
+  --btn-inline: 1.375rem;
+  --btn-block: 0.875rem;
+  --btn-text-size: 1.25rem;
+}
+
+@utility btn-2xl {
+  --btn-inline: 1.5rem;
+  --btn-block: 1rem;
+  --btn-text-size: 1.375rem;
+}
+
+@utility btn-square{
+  &:where(.btn-square, .btn-circle){
+    padding-inline: var(--btn-block);
+    padding-block: var(--btn-block);
+  }
+}
+
+@utility btn-rounded {
+  --btn-radius: calc(infinity * 1px);
+}
+
+@utility btn-circle {
+  @apply btn-square btn-rounded;
+}
+
+@utility btn-wide {
+  --btn-max-width: var(--container-xs);
+  --btn-width: 100%;
+}
+
+@utility btn-block {
+  --btn-width: 100%;
+  --btn-display: block;
+}
+
+@utility btn-active {
+
+  &:is(.btn-link) {
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-500));
+    --btn-text-decoration: underline;
+    --btn-text-underline-offset: 4px;
+  }
+
+  &:is(.btn-ghost) {
+    /* for default btn */
+    &:not(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-200), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-950), var(--btn-100));
+    }
+
+    /* for all btn exclude default btn */
+    &:is(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-700), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-50), var(--btn-100));
+    }
+  }
+  
+  &:not(.btn-link, .btn-ghost) {
+    /* for default btn */
+    &:not(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-300), var(--btn-900));
+      --btn-text-color: light-dark(var(--btn-950), var(--btn-100));
+    }
+
+    /* for all btn exclude default btn */
+    &:is(
+      .btn-primary,
+      .btn-secondary,
+      .btn-accent,
+      .btn-info,
+      .btn-success,
+      .btn-warning,
+      .btn-error
+    ) {
+      --btn-bg-color: light-dark(var(--btn-800), var(--btn-800));
+      --btn-text-color: light-dark(var(--btn-50), var(--btn-100));
+    }
+
+    --btn-outline-style: none;
+  }
+}
+
+@utility btn-dashed {
+  &:not(.btn-active) {
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-700), var(--btn-500));
+    --btn-outline-color: light-dark(var(--btn-500), var(--btn-700));
+    --btn-outline-style: dashed;
+    --btn-outline-width: 1px;
+  }
+}
+
+@utility btn-outline {
+  &:not(.btn-active) {
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-200));
+
+    --btn-outline-color: light-dark(var(--btn-500), var(--btn-800));
+    --btn-outline-style: solid;
+    --btn-outline-width: 1px;
+  }
+}
+
+@utility btn-soft {
+  &:not(.btn-active) {
+    --btn-bg-color: light-dark(var(--btn-100), color-mix(in oklab, var(--btn-900) 30%, transparent));
+    --btn-text-color: light-dark(var(--btn-800), var(--btn-400));
+  }
+}
+
+@utility btn-ghost {
+  &:not(.btn-active) {
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-600), var(--btn-300));
+  }
+}
+
+@utility btn-link {
+  &:not(.btn-active) {
+    --btn-bg-color: transparent;
+    --btn-text-color: light-dark(var(--btn-700), var(--btn-400));
+  }
+}
+
+@utility btn-primary {
+  --btn-50: var(--primary-50);
+  --btn-100: var(--primary-100);
+  --btn-200: var(--primary-200);
+  --btn-300: var(--primary-300);
+  --btn-400: var(--primary-400);
+  --btn-500: var(--primary-500);
+  --btn-600: var(--primary-600);
+  --btn-700: var(--primary-700);
+  --btn-800: var(--primary-800);
+  --btn-900: var(--primary-900);
+  --btn-950: var(--primary-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-secondary {
+  --btn-50: var(--secondary-50);
+  --btn-100: var(--secondary-100);
+  --btn-200: var(--secondary-200);
+  --btn-300: var(--secondary-300);
+  --btn-400: var(--secondary-400);
+  --btn-500: var(--secondary-500);
+  --btn-600: var(--secondary-600);
+  --btn-700: var(--secondary-700);
+  --btn-800: var(--secondary-800);
+  --btn-900: var(--secondary-900);
+  --btn-950: var(--secondary-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-accent {
+  --btn-50: var(--accent-50);
+  --btn-100: var(--accent-100);
+  --btn-200: var(--accent-200);
+  --btn-300: var(--accent-300);
+  --btn-400: var(--accent-400);
+  --btn-500: var(--accent-500);
+  --btn-600: var(--accent-600);
+  --btn-700: var(--accent-700);
+  --btn-800: var(--accent-800);
+  --btn-900: var(--accent-900);
+  --btn-950: var(--accent-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-info {
+  --btn-50: var(--info-50);
+  --btn-100: var(--info-100);
+  --btn-200: var(--info-200);
+  --btn-300: var(--info-300);
+  --btn-400: var(--info-400);
+  --btn-500: var(--info-500);
+  --btn-600: var(--info-600);
+  --btn-700: var(--info-700);
+  --btn-800: var(--info-800);
+  --btn-900: var(--info-900);
+  --btn-950: var(--info-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-success {
+  --btn-50: var(--success-50);
+  --btn-100: var(--success-100);
+  --btn-200: var(--success-200);
+  --btn-300: var(--success-300);
+  --btn-400: var(--success-400);
+  --btn-500: var(--success-500);
+  --btn-600: var(--success-600);
+  --btn-700: var(--success-700);
+  --btn-800: var(--success-800);
+  --btn-900: var(--success-900);
+  --btn-950: var(--success-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-warning {
+  --btn-50: var(--warning-50);
+  --btn-100: var(--warning-100);
+  --btn-200: var(--warning-200);
+  --btn-300: var(--warning-300);
+  --btn-400: var(--warning-400);
+  --btn-500: var(--warning-500);
+  --btn-600: var(--warning-600);
+  --btn-700: var(--warning-700);
+  --btn-800: var(--warning-800);
+  --btn-900: var(--warning-900);
+  --btn-950: var(--warning-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}
+
+@utility btn-error {
+  --btn-50: var(--error-50);
+  --btn-100: var(--error-100);
+  --btn-200: var(--error-200);
+  --btn-300: var(--error-300);
+  --btn-400: var(--error-400);
+  --btn-500: var(--error-500);
+  --btn-600: var(--error-600);
+  --btn-700: var(--error-700);
+  --btn-800: var(--error-800);
+  --btn-900: var(--error-900);
+  --btn-950: var(--error-950);
+
+  --btn-bg-color: light-dark(var(--btn-700), var(--btn-700));
+  --btn-text-color: var(--btn-50);
+}

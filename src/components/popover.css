@@ -1,5 +1,3 @@
-@import "../theme/jams/base.css";
-
 @utility popover {
   pointer-events: none;
   visibility: hidden;
@@ -20,7 +18,8 @@
   overflow: hidden;
   overscroll-behavior: contain;
 
-  &:not(popover:not([popover]:popover-open)), &::backdrop {
+  &:not(popover:not([popover]:popover-open)),
+  &::backdrop {
     opacity: 100%;
     @starting-style {
       visibility: hidden;
@@ -62,26 +61,26 @@
 }
 
 @utility popover-body {
-
   background-color: var(--core-50);
   color: var(--core-950);
   border-radius: 1.5rem;
-  border: 1px solid light-dark(
-    color-mix(in oklab,var(--core-300)50%,transparent),
-    color-mix(in oklab,var(--core-900)60%,transparent)
-  );
+  border: 1px solid
+    light-dark(
+      color-mix(in oklab, var(--core-300) 50%, transparent),
+      color-mix(in oklab, var(--core-900) 60%, transparent)
+    );
 
   @layer components {
-    @apply shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+    @reference shadow-xl shadow-black/10 forced-colors:outline col-start-1 row-start-1 max-h-screen w-11/12 max-w-[32rem] p-6 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
   }
 }
 
 @utility popover-top {
   @layer components {
-    @apply place-items-start;
+    @reference place-items-start;
 
     :where(.popover-body) {
-      @apply h-auto w-full max-w-none rounded-none;
+      @reference h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 -100%;
       scale: 1;
@@ -91,10 +90,10 @@
 
 @utility popover-middle {
   @layer components {
-    @apply place-items-center;
+    @reference place-items-center;
 
     :where(.popover-body) {
-      @apply h-auto w-11/12 max-w-[32rem];
+      @reference h-auto w-11/12 max-w-[32rem];
       max-height: calc(100vh - 5em);
       translate: 0 2%;
       scale: 98%;
@@ -104,10 +103,10 @@
 
 @utility popover-bottom {
   @layer components {
-    @apply place-items-end;
+    @reference place-items-end;
 
     :where(.popover-body) {
-      @apply h-auto w-full max-w-none rounded-none;
+      @reference h-auto w-full max-w-none rounded-none;
       max-height: calc(100vh - 5em);
       translate: 0 100%;
       scale: 1;
@@ -117,10 +116,10 @@
 
 @utility popover-start {
   @layer components {
-    @apply place-items-start;
+    @reference place-items-start;
 
     :where(.popover-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      @reference h-screen max-h-none w-auto max-w-none rounded-none;
       translate: -100% 0;
       scale: 1;
     }
@@ -129,10 +128,10 @@
 
 @utility popover-end {
   @layer components {
-    @apply place-items-end;
+    @reference place-items-end;
 
     :where(.popover-body) {
-      @apply h-screen max-h-none w-auto max-w-none rounded-none;
+      @reference h-screen max-h-none w-auto max-w-none rounded-none;
       translate: 100% 0;
       scale: 1;
     }

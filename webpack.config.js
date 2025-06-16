@@ -16,14 +16,14 @@ module.exports = (env, argv) => {
                         'style-loader',
                         'css-loader',
                         'postcss-loader',
-                        {
-                            loader: 'string-replace-loader',
-                            options: {
-                                search: '^',
-                                replace: '@import "tailwindcss";\n',
-                                flags: 'g'
-                            }
-                        }
+                        // {
+                        //     loader: 'string-replace-loader',
+                        //     options: {
+                        //         search: '^',
+                        //         replace: '@import "tailwindcss";\n',
+                        //         flags: 'g'
+                        //     }
+                        // }
                     ],
                 },
             ],

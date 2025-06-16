@@ -1,106 +1,96 @@
-@import "../theme/jams/base.css";
 @import "../theme/placement.css";
 
 @utility dropdown {
-    @apply relative inline-block;
-    position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
-  
-    & > *:not(summary):focus {
-      @apply outline-hidden;
+  @reference relative inline-block;
+  position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
+
+  & > *:not(summary):focus {
+    @reference outline-hidden;
+  }
+  .dropdown-body {
+    @reference absolute;
+  }
+  &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) {
+    .dropdown-body {
+      @reference hidden origin-top opacity-0 scale-9;
+    }
+  }
+
+  &[popover],
+  .dropdown-body {
+    @reference starting:[scale:95%] starting:[opacity:0] z-999 w-max transition-discrete duration-200 transition-[opacity,_scale,_display] ease-in-out;
+    /* animation: dropdown 0.2s; */
+  }
+
+  &.dropdown-open,
+  &:not(.dropdown-hover):focus,
+  &:focus-within {
+    > [tabindex]:first-child {
+      @reference pointer-events-none;
     }
     .dropdown-body {
-      @apply absolute;
+      @reference opacity-100;
     }
-    &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) {
-      .dropdown-body {
-        @apply hidden origin-top opacity-0 scale-9;
-      }
-    }
-  
-    &[popover],
+  }
+
+  &.dropdown-hover:hover {
     .dropdown-body {
-      @apply starting:[scale:95%] starting:[opacity:0] z-999 w-max transition-discrete duration-200 transition-[opacity,_scale,_display] ease-in-out;
-      /* animation: dropdown 0.2s; */
+      @reference opacity-100 scale-100;
     }
-  
-    &.dropdown-open,
-    &:not(.dropdown-hover):focus,
-    &:focus-within {
-      > [tabindex]:first-child {
-        @apply pointer-events-none;
-      }
-      .dropdown-body {
-        @apply opacity-100;
+  }
+
+  &:is(details) {
+    summary {
+      &::-webkit-details-marker {
+        @reference hidden;
       }
     }
-  
-    &.dropdown-hover:hover {
-      .dropdown-body {
-        @apply opacity-100 scale-100;
+  }
+
+  &.dropdown-open,
+  &:focus,
+  &:focus-within {
+    .dropdown-body {
+      @reference scale-100;
+    }
+  }
+
+  /* experimental */
+  &:where([popover]) {
+    background-color: #0000;
+  }
+  &[popover] {
+    @reference fixed text-inherit;
+
+    @supports not (position-area: bottom) {
+      @reference m-auto;
+
+      &.dropdown-open:not(:popover-open) {
+        @reference hidden origin-top opacity-0 scale-95;
+      }
+
+      &::backdrop {
+        background-color: color-mix(in oklab, #000 30%, #0000);
       }
     }
-  
-    &:is(details) {
-      summary {
-        &::-webkit-details-marker {
-          @apply hidden;
-        }
-      }
+
+    &:not(.dropdown-open, :popover-open) {
+      @reference hidden origin-top opacity-0 scale-95;
     }
-  
-    &.dropdown-open,
-    &:focus,
-    &:focus-within {
-      .dropdown-body {
-        @apply scale-100;
-      }
-    }
-  
-    /* experimental */
-    &:where([popover]) {
-      background-color: #0000;
-    }
-    &[popover] {
-      @apply fixed text-inherit;
-  
-      @supports not (position-area: bottom) {
-        @apply m-auto;
-  
-        &.dropdown-open:not(:popover-open) {
-          @apply hidden origin-top opacity-0 scale-95;
-        }
-  
-        &::backdrop {
-          background-color: color-mix(in oklab, #000 30%, #0000);
-        }
-      }
-  
-      &:not(.dropdown-open, :popover-open) {
-        @apply hidden origin-top opacity-0 scale-95;
-      }
-    }  
+  }
 }
 
 @utility dropdown-body {
-  @apply shadow forced-colors:outline col-start-1 row-start-1 max-h-screen p-3 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
-  
+  @reference shadow forced-colors:outline col-start-1 row-start-1 max-h-screen p-3 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+
   --tw-shadow-color: light-dark(
-    color-mix(in oklab,var(--core-300)50%,transparent),
-    color-mix(in oklab,var(--core-900)60%,transparent)
+    color-mix(in oklab, var(--core-300) 50%, transparent),
+    color-mix(in oklab, var(--core-900) 60%, transparent)
   );
-  border: 1px solid light-dark(
-      var(--core-200),
-      var(--core-900)
-  );
+  border: 1px solid light-dark(var(--core-200), var(--core-900));
   border-radius: var(--radius-dropdown);
-  background-color: light-dark(
-    var(--core-0),
-    var(--core-1000)
-  );
-  color: light-dark(
-    var(--core-800),
-    var(--core-50)
-  );
+  background-color: light-dark(var(--core-0), var(--core-1000));
+  color: light-dark(var(--core-800), var(--core-50));
 }
 
 /* placements */
