@@ -1,10 +1,18 @@
-@import "../../base/preflight.css";
+@import "../../base/preflight.css" layer(theme);
 @import "./snowberry.css";
 @import "./darkberry.css";
 
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *, [data-theme="snowberry"], [data-theme="snowberry"] *),  @media (prefers-color-scheme: light));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *, [data-theme="darkberry"], [data-theme="darkberry"] *),  @media (prefers-color-scheme: dark));
+
 @layer base {
-  :root {
-    color-scheme: var(--scheme-color);
+    :root {
+        color-scheme: var(--color-scheme);
+    }
+}
+
+
+@theme inline {
     --color-core-0: var(--core-0);
     --color-core-50: var(--core-50);
     --color-core-100: var(--core-100);
@@ -30,6 +38,7 @@
     --color-default-800: var(--default-800);
     --color-default-900: var(--default-900);
     --color-default-950: var(--default-950);
+
 
     --color-primary-50: var(--primary-50);
     --color-primary-100: var(--primary-100);
@@ -114,5 +123,4 @@
     --color-error-800: var(--error-800);
     --color-error-900: var(--error-900);
     --color-error-950: var(--error-950);
-  }
 }
