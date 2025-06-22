@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
         mode: 'development',
         stats: 'minimal',
         entry: {
-            "frutjam": './src/main.css',
+            "frutjam": './src/frutjam.css',
         },
         module: {
             rules: [
@@ -28,24 +28,24 @@ module.exports = (env, argv) => {
                 },
             ],
         },
-        plugins: [
-            // Only add HtmlWebpackPlugin in development mode
-            new HtmlWebpackPlugin({
-                template: 'index.html', // Path to your HTML file
-                filename: 'index.html', // Output file name
-            })
-        ], // Filter out false values in production mode
+        // plugins: [
+        //     // Only add HtmlWebpackPlugin in development mode
+        //     new HtmlWebpackPlugin({
+        //         template: 'index.html', // Path to your HTML file
+        //         filename: 'index.html', // Output file name
+        //     })
+        // ], // Filter out false values in production mode
         devtool: 'eval',
         
         // Updated devServer configuration
-        devServer: {
-            static: {
-                directory: path.resolve(__dirname, 'dist'), // Serve content from 'dist' directory
-            },
-            open: false, // Automatically open the browser
-            hot: true, // Enable hot module replacement
-            liveReload: true,
-            watchFiles: ['src/**/*']
-        },
+        // devServer: {
+        //     static: {
+        //         directory: path.resolve(__dirname, 'dist'), // Serve content from 'dist' directory
+        //     },
+        //     open: false, // Automatically open the browser
+        //     hot: true, // Enable hot module replacement
+        //     liveReload: true,
+        //     watchFiles: ['src/**/*']
+        // },
     };
 };
