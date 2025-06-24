@@ -1,0 +1,148 @@
+@import "./safelist.css";
+@import "./variants.css";
+@import "./colors.css";
+@import "./sizes.css";
+@import "./shapes.css";
+
+@utility checkbox {
+  --checkbox--bg-color: var(--color-default-100);
+  --checkbox--color: var(--color-default-700);
+
+  --checkbox--box-shadow:
+    0 0 0 0px var(--color-default-100),
+    0 0 0 calc(1px + 0px) var(--color-default-300), 0 0 var(--color-default-100);
+
+  position: relative;
+  transition-duration: 350ms;
+  flex-shrink: 0;
+  cursor: pointer;
+  appearance: none;
+  vertical-align: middle;
+
+  aspect-ratio: var(--checkbox--aspect-ratio);
+
+  padding: var(--checkbox--padding, 0.3125rem);
+  width: var(--checkbox--width, 1.25rem);
+  height: var(--checkbox--height, 1.25rem);
+
+  box-shadow: var(--checkbox--box-shadow);
+
+  background-color: var(--checkbox--bg-color);
+  color: var(--checkbox--color);
+  border-radius: var(--checkbox--radius, var(--radius-checkbox));
+
+  @variant dark {
+    --checkbox--bg-color: var(--color-default-600);
+    --checkbox--color: var(--color-default-200);
+
+    --checkbox--box-shadow:
+      0 0 0 0px var(--color-default-100),
+      0 0 0 calc(1px + 0px) var(--color-default-800),
+      0 0 var(--color-default-100);
+
+    box-shadow: var(--checkbox--box-shadow);
+    background-color: --alpha(var(--checkbox--bg-color) / 15%);
+    color: var(--checkbox--color);
+  }
+
+  @variant before {
+    content: none;
+    opacity: 0%;
+    background-color: currentcolor;
+    transform: rotate(45deg);
+    transition:
+      transform 300ms,
+      background-color 100ms;
+    display: block;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(20% 100%, 20% 80%, 50% 80%, 50% 0, 70% 0, 70% 100%);
+    font-size: 1rem;
+    line-height: 0.75;
+  }
+
+  @variant focus-visible {
+    --checkbox--outline-color: var(--color-default-700) outline: 1px solid
+      var(--checkbox--outline-color, currentColor);
+    outline-offset: 2px;
+  }
+
+  @variant checked-or-aria-checked {
+    --checkbox--box-shadow:
+      0 0 0 0px var(--color-default-100),
+      0 0 0 calc(1px + 0px) var(--color-default-500),
+      0 0 var(--color-default-100);
+    --checkbox--bg-color: var(--color-default-300);
+
+    box-shadow: var(--checkbox--box-shadow);
+    background-color: var(--checkbox--bg-color);
+
+    @variant dark {
+      --checkbox--box-shadow:
+        0 0 0 0px var(--color-default-100),
+        0 0 0 calc(1px + 0px) var(--color-default-700),
+        0 0 var(--color-default-100);
+      --checkbox--bg-color: var(--color-default-600);
+
+      box-shadow: var(--checkbox--box-shadow);
+      background-color: var(--checkbox--bg-color);
+    }
+    transition:
+      transform 300ms,
+      background-color 100ms;
+
+    @variant before {
+      content: "✔︎";
+      opacity: 100%;
+    }
+
+    @variant forced-colors {
+      @variant before {
+        --checkbox--bg-color: var(--color-default-200);
+
+        content: "✔︎";
+        transform: rotate(0deg);
+        background-color: var(--checkbox--bg-color);
+        clip-path: none;
+
+        @variant dark {
+          --checkbox--bg-color: var(--color-default-600);
+
+          background-color: var(--checkbox--bg-color);
+        }
+      }
+    }
+  }
+
+  @variant indeterminate {
+    @variant before {
+      opacity: 100%;
+      transform: rotate(0deg) translate(0, -35%);
+      clip-path: polygon(
+        20% 100%,
+        20% 80%,
+        50% 80%,
+        50% 80%,
+        80% 80%,
+        80% 100%
+      );
+    }
+  }
+
+  @variant disabled {
+    cursor: not-allowed;
+    opacity: 20%;
+  }
+
+  --checkbox-50: var(--default-50);
+  --checkbox-100: var(--default-100);
+  --checkbox-200: var(--default-200);
+  --checkbox-300: var(--default-300);
+  --checkbox-400: var(--default-400);
+  --checkbox-500: var(--default-500);
+  --checkbox-600: var(--default-600);
+  --checkbox-700: var(--default-700);
+  --checkbox-800: var(--default-800);
+  --checkbox-900: var(--default-900);
+  --checkbox-950: var(--default-950);
+}

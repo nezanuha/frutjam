@@ -1,0 +1,126 @@
+@import "./safelist.css";
+
+@utility breadcrumb {
+  padding-block: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  color: var(--color-base-600);
+
+  @variant dark {
+    color: var(--color-base-400);
+  }
+
+  /* :where(ol, ul) {
+    @apply breadcrumb-list;
+
+    :where(li) {
+      @apply breadcrumb-item;
+
+      :where(a, span) {
+        @apply breadcrumb-link;
+      }
+    }
+  } */
+}
+
+@utility breadcrumb-list {
+  display: flex;
+  min-height: min-content;
+  align-items: center;
+  white-space: nowrap;
+}
+
+@utility breadcrumb-item {
+  display: flex;
+  align-items: center;
+
+  @variant before {
+    content: "";
+    margin-right: 0.75rem;
+    margin-left: 0.5rem;
+    height: 0.375rem;
+    width: 0.375rem;
+    display: block;
+    transform: rotate(45deg);
+    transition: transform 300ms;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    background-color: #0000;
+    color: var(--color-base-400);
+
+    @variant dark {
+      color: var(--color-base-500);
+    }
+  }
+
+  @variant first {
+    @variant before {
+      content: none;
+    }
+  }
+
+  &:has(.breadcrumb-separator) {
+    @variant before {
+      content: none;
+    }
+  }
+
+  @variant rtl {
+    @variant before {
+      transform: rotate(-135deg);
+    }
+  }
+
+  &:has([aria-current="page"], .breadcrumb-current) {
+    color: var(--color-base-900);
+
+    @variant dark {
+      color: var(--color-base-100);
+    }
+  }
+}
+
+@utility breadcrumb-separator {
+  display: flex;
+  align-items: center;
+  margin-inline: 0.5rem;
+  color: var(--color-base-400);
+
+  @variant dark {
+    color: var(--color-base-500);
+  }
+}
+
+@utility breadcrumb-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.125rem;
+
+  @variant hover {
+    text-decoration-line: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+
+  @variant focus {
+    outline-style: none;
+    @variant forced-colors {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+  }
+
+  @variant focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+@utility breadcrumb-current {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.125rem;
+}
