@@ -1,13 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const glob = require('glob');
 const pkg = require('./package.json');
 
-const copyright_text = `frutjam v${pkg.version} (c) 2025 Nezanuha | Released under the MIT License`;
+const copyrightText = `${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYear()} ${pkg.author} | Released under the ${pkg.license} License | ${pkg.homepage}`;
 
 module.exports = (env, argv) => {
     const isDevelopment = argv.mode === 'development';
@@ -24,7 +23,7 @@ module.exports = (env, argv) => {
             extensions: ['.ts', '.js', '.css'],
         },
         output: {
-            filename: '[name].js',
+            filename: '[name].min.js',
             path: path.resolve(__dirname, 'dist'),
             library: {
                 name: 'frutjam',
@@ -32,7 +31,7 @@ module.exports = (env, argv) => {
                 export: 'default',
             },
             globalObject: 'typeof self !== "undefined" ? self : this',
-            clean: true,
+            clean: false,
         },
         module: {
             rules: [
@@ -48,7 +47,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: '[name].css',
+                filename: '[name].min.css',
             }),
             ...(isDevelopment
                 ? glob.sync('./demo/**/*.html').map(file => new HtmlWebpackPlugin({
@@ -59,8 +58,8 @@ module.exports = (env, argv) => {
                 : []),
             ...(isProduction ? [
                 new webpack.BannerPlugin({
-                    banner: copyright_text.trim(),
-                    raw: false,
+                    banner: copyrightText,
+                    raw: false
                 })
             ] : []),
         ],
@@ -77,17 +76,8 @@ module.exports = (env, argv) => {
             minimize: isProduction,
             minimizer: [
                 new TerserPlugin({
-                    extractComments: false,
-                }),
-                new CssMinimizerPlugin({
-                minimizerOptions: {
-                    preset: ['default', {
-                    discardComments: {
-                        remove: (comment) => !comment.includes('frutjam'),
-                    },
-                    }],
-                },
-                }),
+                    extractComments: true,
+                })
             ],
         },
     };
