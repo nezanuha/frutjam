@@ -1,9 +1,35 @@
+@import "./variants.css";
+
+@utility divider {
+  @reference divider-x-solid;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+
+  @variant before-after {
+    content: "";
+  }
+
+  --divider-50: var(--default-50);
+  --divider-100: var(--default-100);
+  --divider-200: var(--default-200);
+  --divider-300: var(--default-300);
+  --divider-400: var(--default-400);
+  --divider-500: var(--default-500);
+  --divider-600: var(--default-600);
+  --divider-700: light-dark(var(--default-200), var(--default-600));
+  --divider-800: var(--default-800);
+  --divider-900: var(--default-900);
+  --divider-950: var(--default-950);
+}
+
 @utility divider-x {
-  &:not(:empty) {
+  @variant not-empty {
     column-gap: 0.5rem;
   }
-  &::before,
-  &::after {
+  @variant before-after {
     width: 100%;
     height: 0.5px;
   }
@@ -11,13 +37,13 @@
 
 @utility divider-x-solid {
   @reference divider-x;
-  &::before,
-  &::after {
-    background: light-dark(var(--divider-700), var(--divider-900));
+
+  @variant before-after {
+    background-color: light-dark(var(--divider-700), var(--divider-900));
   }
-  @media print {
-    &::before,
-    &::after {
+
+  @variant print {
+    @variant before-after {
       border-top: 0.5px solid var(--divider-700);
     }
   }
@@ -25,8 +51,8 @@
 
 @utility divider-x-dashed {
   @reference divider-x;
-  &::before,
-  &::after {
+
+  @variant before-after {
     background: repeating-linear-gradient(
       to right,
       var(--divider-700) 0,
@@ -35,9 +61,8 @@
       transparent 10px
     );
   }
-  @media print {
-    &::before,
-    &::after {
+  @variant print {
+    @variant before-after {
       border-top: 0.5px dashed var(--divider-700);
     }
   }
@@ -58,11 +83,12 @@
 
 @utility divider-y {
   flex-direction: column;
-  &:not(:empty) {
+
+  @variant not-empty {
     row-gap: 0.5rem;
   }
-  &::before,
-  &::after {
+
+  @variant before-after {
     width: 0.5px;
     flex: 1;
   }
@@ -70,13 +96,13 @@
 
 @utility divider-y-solid {
   @reference divider-y;
-  &::before,
-  &::after {
-    background: light-dark(var(--divider-700), var(--divider-800));
+
+  @variant before-after {
+    background-color: light-dark(var(--divider-700), var(--divider-800));
   }
-  @media print {
-    &::before,
-    &::after {
+
+  @variant print {
+    @variant before-after {
       border-left: 0.5px solid var(--divider-700);
     }
   }
@@ -84,8 +110,8 @@
 
 @utility divider-y-dashed {
   @reference divider-y;
-  &::before,
-  &::after {
+
+  @variant before-after {
     background: repeating-linear-gradient(
       to bottom,
       var(--divider-700) 0,
@@ -94,38 +120,11 @@
       transparent 10px
     );
   }
-  @media print {
-    &::before,
-    &::after {
+  @variant print {
+    @variant before-after {
       border-left: 0.5px dashed var(--divider-700);
     }
   }
-}
-
-@utility divider {
-  @reference divider-x-solid;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-
-  &::before,
-  &::after {
-    content: "";
-  }
-
-  --divider-50: var(--default-50);
-  --divider-100: var(--default-100);
-  --divider-200: var(--default-200);
-  --divider-300: var(--default-300);
-  --divider-400: var(--default-400);
-  --divider-500: var(--default-500);
-  --divider-600: var(--default-600);
-  --divider-700: light-dark(var(--default-200), var(--default-600));
-  --divider-800: var(--default-800);
-  --divider-900: var(--default-900);
-  --divider-950: var(--default-950);
 }
 
 @utility divider-primary {

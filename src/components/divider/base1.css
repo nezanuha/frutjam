@@ -1,0 +1,58 @@
+@import "./variants.css";
+
+@utility divider {
+    --divider-dashed--linear-gradient-side: right;
+    --divider--width: 100%;
+    --divider--height: 1px;
+    --divider-dashed--linear-gradient-color: var(--color-primary-200);
+    --divider-solid--bg-color: var(--color-primary-200);
+
+    width: var(--divider--width);
+    height: var(--divider--height);
+
+
+
+    background-color: var(--divider--bg-color);
+    background: var(--divider--background);
+}
+
+@utility divider-primary {
+    --divider-dashed--linear-gradient-color: var(--color-primary-700);
+    --divider-solid--bg-color: var(--color-primary-700);
+}
+
+@utility divider-solid {
+    background-color: var(--divider-solid--bg-color)
+}
+
+@utility divider-dashed {
+    --divider--background: repeating-linear-gradient(
+        to var(--divider-dashed--linear-gradient-side),
+        var(--divider-dashed--linear-gradient-color) 0px,
+        var(--divider-dashed--linear-gradient-color) 5px,         /* Dash length */
+        transparent 5px,  /* Space after dash */
+        transparent 10px  /* Space after dash */
+    );
+
+  &:is(.divider-y){
+    --divider--background: repeating-linear-gradient(
+        to var(--divider-dashed--linear-gradient-side),
+        var(--divider-dashed--linear-gradient-color) 0px,
+        var(--divider-dashed--linear-gradient-color) 5px,           /* Dash height */
+        transparent 5px,     /* Space after dash */
+        transparent 10px     /* Space after dash */
+    );
+  }
+}
+
+@utility divider-x {
+    --divider-dashed--linear-gradient-side: right;
+    --divider--width: 100%;
+    --divider--height: 1px;
+}
+
+@utility divider-y {
+  --divider-dashed--linear-gradient-side: bottom;
+  --divider--width: 2px;             /* Thickness of the line */
+  --divider--height: 100%;           /* Full height */
+}
