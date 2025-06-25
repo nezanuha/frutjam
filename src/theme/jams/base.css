@@ -1,6 +1,14 @@
 @import "./snowberry.css";
 @import "./darkberry.css";
 
+/* Ensures dark theme works consistently across devices.
+   Some systems ignore the `color-scheme` setting and follow the system theme instead.*/
+@custom-variant dark (
+  &:where([data-theme=darkberry],
+  [data-theme=darkberry] *)
+);
+
+
 @layer base {
   :root {
     color-scheme: var(--scheme-color);
