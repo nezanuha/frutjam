@@ -5,32 +5,28 @@
     color: var(--link-700);
     font-size: var(--link-text-size, 1rem);
 
-    &:focus {
+    @variant focus {
         outline-style: none;
-        @media (forced-colors: active) {
+        @variant forced-colors {
             outline: 2px solid transparent;
             outline-offset: 2px;
         }
     }
 
-    &:focus-visible {
+    @variant focus-visible {
         outline: 2px solid currentColor;
         outline-offset: 2px;
     }
 
-    @media (hover: hover) {
-        &:hover {
-            color: light-dark(var(--link-800), var(--link-500));
-        }
+    @variant hover {
+        color: light-dark(var(--link-800), var(--link-500));
     }
 }
 
 @utility link-hover {
     text-decoration-line: none;
-    &:hover {
-        @media (hover: hover) {
-            text-decoration-line: underline;
-        }
+    @variant hover {
+        text-decoration-line: underline;
     }
 }
 

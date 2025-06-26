@@ -1,0 +1,43 @@
+@import "./safelist.css";
+@import "./colors.css";
+@import "./sizes.css";
+@import "./styles.css";
+
+@utility link {
+    --link--color: var(--color-default-900);
+
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--link--color);
+    font-size: var(--link-text-size, 1rem);
+    transition: all 200ms ease-out;
+
+    @variant focus {
+        outline-style: none;
+        @variant forced-colors {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+        }
+    }
+
+    @variant focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+
+    @variant hover {
+        --link--color: var(--color-default-950);
+        color: var(--link--color);
+    }
+
+    @variant dark {
+        --link--color: red;
+          color: var(--link--color);
+
+        @variant hover {
+            --link--color: var(--color-default-300);
+            color: var(--link--color);
+        }
+    }
+}

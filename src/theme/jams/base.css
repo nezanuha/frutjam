@@ -2,11 +2,14 @@
 @import "./darkberry.css";
 
 /* Ensures dark theme works consistently across devices.
-   Some systems ignore the `color-scheme` setting and follow the system theme instead.*/
-@custom-variant dark (
-  &:where([data-theme=darkberry],
-  [data-theme=darkberry] *)
-);
+   Some systems ignore the `color-scheme` setting and follow the system theme instead. */
+@custom-variant dark {
+  &:where([data-theme="darkberry"], [data-theme="darkberry"] *),
+  &:not(data-theme){
+    @media (prefers-color-scheme: dark)
+  }
+}
+
 
 
 @layer base {
