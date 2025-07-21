@@ -1,0 +1,112 @@
+@utility dropdown {
+  position: relative;
+  display: inline-block;
+  position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
+
+  & > *:not(summary):focus {
+    outline-style: none;
+    @variant forced-colors {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+  }
+
+  .dropdown-body {
+    position: absolute;
+  }
+  
+  &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) {
+    .dropdown-body {
+      display: none;
+      transform-origin: top;
+      opacity: 0%;
+    }
+  }
+
+  &[popover],
+  .dropdown-body {
+    z-index: 999;
+    animation: dropdown 0.2s;
+    transition-property: opacity, scale, display;
+    transition-behavior: allow-discrete;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @starting-style {
+    &[popover],
+    .dropdown-body {
+      scale: 95%;
+      opacity: 0;
+    }
+  }
+
+  &.dropdown-open,
+  &:not(.dropdown-hover):focus,
+  &:focus-within {
+    > [tabindex]:first-child {
+      pointer-events: none;
+    }
+    .dropdown-body {
+      opacity: 100%;
+    }
+  }
+
+  &.dropdown-hover:hover {
+    .dropdown-body {
+      opacity: 100%;
+      scale: 100%;
+    }
+  }
+
+  &:is(details) {
+    summary {
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+  }
+
+  &.dropdown-open,
+  &:focus,
+  &:focus-within {
+    .dropdown-body {
+      scale: 100%;
+    }
+  }
+
+  /* experimental */
+  &:where([popover]) {
+    background: oklch(0 0 0 / 0);
+  }
+  &[popover] {
+    position: fixed;
+    color: inherit;
+
+    /* align-self: anchor-center; */
+    /* justify-self: anchor-center; */
+    /* left: anchor(right); */
+    /* align-self: anchor-center; */
+
+    @supports not (position-area: bottom) {
+      margin: auto;
+
+      &.dropdown-open:not(:popover-open) {
+        display: none;
+        transform-origin: top;
+        opacity: 0%;
+        scale: 95%;
+      }
+
+      &::backdrop {
+        background-color: color-mix(in oklab, #000 30%, #0000);
+      }
+    }
+
+    &:not(.dropdown-open, :popover-open) {
+        display: none;
+        transform-origin: top;
+        opacity: 0%;
+        scale: 95%;
+    }
+  }
+}

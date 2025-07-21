@@ -4,7 +4,7 @@
 @import "./styles.css";
 
 @utility link {
-    --link--color: var(--color-default-900);
+    --link--color: var(--color-on-base);
 
     cursor: pointer;
     text-decoration: underline;
@@ -12,6 +12,11 @@
     color: var(--link--color);
     font-size: var(--link-text-size, 1rem);
     transition: all 200ms ease-out;
+
+    @variant hover {
+        --link--color: light-dark(var(--color-base-950), var(--color-base-100));
+        color: var(--link--color);
+    }
 
     @variant focus {
         outline-style: none;
@@ -24,20 +29,5 @@
     @variant focus-visible {
         outline: 2px solid currentColor;
         outline-offset: 2px;
-    }
-
-    @variant hover {
-        --link--color: var(--color-default-950);
-        color: var(--link--color);
-    }
-
-    @variant dark {
-        --link--color: var(--color-default-400);
-          color: var(--link--color);
-
-        @variant hover {
-            --link--color: var(--color-default-300);
-            color: var(--link--color);
-        }
     }
 }

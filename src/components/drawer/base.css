@@ -1,0 +1,45 @@
+@import "./placement.css";
+@import "./safelist.css";
+@import "./structure.css";
+
+@utility drawer {
+  pointer-events: none;
+  visibility: hidden;
+  position: fixed;
+  inset: 0rem;
+  margin: 0rem;
+  padding: 0rem;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  place-items: start;
+  color: inherit;
+  z-index: 999;
+  overflow: hidden;
+  overscroll-behavior: contain;
+
+  &:not(drawer:not([open]):not(.drawer-open)),
+  &::backdrop {
+    @starting-style {
+      visibility: hidden;
+    }
+    background-color: light-dark(color-mix(in oklch, black 10%, var(--color-base-600) 40%), color-mix(in oklch, black 10%, var(--color-base-400) 40%));
+  }
+
+  &[open],
+  &.drawer-open {
+    @starting-style {
+      visibility: hidden;
+    }
+    pointer-events: auto;
+    visibility: visible;
+
+    .drawer-body {
+      translate: 0 0;
+      scale: 1;
+      opacity: 1;
+    }
+  }
+}

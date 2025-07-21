@@ -1,0 +1,40 @@
+@utility dropdown {
+    position: relative;
+    display: inline-block;
+
+    @variant focus-within{
+        --dropdown-display: block;
+    }
+}
+
+@utility dropdown-body {
+    position: absolute;
+    display: var(--dropdown-display, none);
+    animation: dropdown 0.2s;
+    transition-property: opacity, scale, display;
+    transition-behavior: allow-discrete;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    @starting-style {
+        scale: 95%;
+        opacity: 0;
+    }
+}
+
+/* placements */
+/* Positioning Classes */
+@utility dropdown-x-start {
+  left: 0; /* Aligns dropdown to start horizontally */
+}
+
+@utility dropdown-x-end {
+  right: 0; /* Aligns dropdown to end horizontally */
+}
+
+@utility dropdown-y-top {
+  bottom: calc(100% + 10px); /* Positions above the button */
+}
+
+@utility dropdown-y-bottom {
+  top: calc(100% + 10px); /* Positions below the button */
+}

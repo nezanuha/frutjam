@@ -1,132 +1,85 @@
-@import "./safelist.css";
 @import "./colors.css";
-@import "./sizes.css";
-@import "./styles.css";
+@import "./safelist.css";
 @import "./shapes.css";
+@import "./sizes.css";
 @import "./states.css";
+@import "./styles.css";
+@import "./variants.css";
 
 @utility btn {
-  --btn--bg-color: var(--color-default-200);
-  --btn--color: var(--color-base-900);
+    --color-btn: var(--color-base-soft);
+    --color-on-btn: var(--color-on-base);
+    --color-btn-active: var(--color-base-active);
 
-  --btn-soft--bg-color: var(--color-default-100);
-  --btn-soft--color: var(--color-base-900);
+    --color-btn-soft: var(--color-base-soft);
+    --color-on-btn-soft: var(--color-on-base-soft);
 
-  --btn-dashed--outline-color: var(--color-default-400);
-  --btn-dashed--color: var(--color-base-900);
+    --btn-variant-text: var(--color-on-base);
 
-  --btn-outline--outline-color: var(--color-default-400);
-  --btn-outline--color: var(--color-base-900);
-
-  --btn-ghost--color: var(--color-default-900);
-
-  --btn-link--color: var(--color-default-900);
-
-  --btn-active--bg-color: var(--color-default-300);
-  --btn-active--color: var(--color-base-950);
-
-  background-color: var(--btn--bg-color);
-  color: var(--btn--color);
-
-  @variant hover {
-    --btn--bg-color: var(--color-default-300);
-    --btn--color: var(--color-base-950);
-
-    background-color: var(--btn--bg-color);
-    color: var(--btn--color);
-    outline-style: none;
-
-    text-decoration: var(--btn--text-decoration);
-    text-underline-offset: var(--btn--text-underline-offset);
-  }
-
-  @variant dark {
-    --btn--bg-color: var(--color-default-900);
-    --btn--color: var(--color-default-400);
-
-    --btn-soft--bg-color: var(--color-default-900);
-    --btn-soft--color: var(--color-default-400);
-
-    --btn-dashed--outline-color: var(--color-default-800);
-    --btn-dashed--color: var(--color-default-400);
-
-    --btn-outline--outline-color: var(--color-default-800);
-    --btn-outline--color: var(--color-default-400);
-
-    --btn-ghost--color: var(--color-default-400);
-
-    --btn-link--color: var(--color-default-400);
-
-    --btn-active--bg-color: var(--color-error-800);
-    --btn-active--color: var(--color-default-300);
-
-    background-color: var(--btn--bg-color);
-    color: var(--btn--color);
+    background-color: var(--color-btn);
+    color: var(--color-on-btn);
 
     @variant hover {
-      --btn--bg-color: var(--color-default-800);
-      --btn--color: var(--color-default-300);
-
-      background-color: var(--btn--bg-color);
-      color: var(--btn--color);
-    }
-  }
-
-  border-radius: var(--btn--radius, var(--radius-btn));
-  display: var(--btn--display, inline-flex);
-
-  padding-inline: var(--btn--padding-inline, 1.125rem);
-  padding-block: var(--btn--padding-block, 0.625rem);
-  font-size: var(--btn-text-size, 1rem);
-
-  outline-color: var(--btn--outline-color);
-  outline-style: var(--btn--outline-style);
-  outline-width: var(--btn--outline-width);
-
-  width: var(--btn--width);
-  max-width: var(--btn--max-width);
-
-  position: relative;
-  line-height: 1.5;
-  gap: 0.375rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  flex-wrap: nowrap;
-  vertical-align: middle;
-  font-weight: 500;
-  text-align: center;
-  overflow: hidden;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: all 200ms ease-out;
-
-  &:is(:disabled, [disabled], .btn-disabled) {
-    --btn--opacity: 20%;
-    --btn--cursor: not-allowed;
-    --btn--pointer-events: none;
-
-    opacity: var(--btn--opacity);
-    cursor: var(--btn--cursor);
-    pointer-events: var(--btn--pointer-events);
-  }
-
-  &:is(input[type="checkbox"], input[type="radio"]) {
-    appearance: none;
-
-    &::after {
-      content: attr(aria-label);
+        background-color: var(--color-btn-active);
+        color: var(--color-on-btn);
     }
 
-    &:checked {
-      isolation: isolate;
-    }
-  }
+    border-radius: var(--btn--radius, var(--radius-btn));
+    display: var(--btn--display, inline-flex);
 
-  @variant focus-visible {
-    outline: 2px solid var(--color-default-700, currentColor);
-    outline-offset: 2px;
-    isolation: isolate;
-  }
+    padding-inline: var(--btn--padding-inline, 1.125rem);
+    padding-block: var(--btn--padding-block, 0.625rem);
+    font-size: var(--btn--font-size, 1rem);
+
+    width: var(--btn--width);
+    max-width: var(--btn--max-width);
+
+    position: relative;
+    line-height: 1.5;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    flex-wrap: nowrap;
+    vertical-align: middle;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 250ms ease-out;
+
+    @variant btn-disabled {
+        --btn--opacity: 20%;
+        --btn--cursor: not-allowed;
+        --btn--pointer-events: none;
+
+        opacity: var(--btn--opacity);
+        cursor: var(--btn--cursor);
+        pointer-events: var(--btn--pointer-events);
+    }
+
+    &:is(input[type="checkbox"], input[type="radio"]) {
+        appearance: none;
+
+        @variant after {
+            content: attr(aria-label);
+        }
+
+        @variant checked {
+            isolation: isolate;
+        }
+    }
+
+    @variant focus-visible {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: light-dark(
+            var(--color-base-950, currentColor),
+            var(--color-base-50, currentColor)
+        );
+        outline-offset: 3px;
+        isolation: isolate;
+    }
 }

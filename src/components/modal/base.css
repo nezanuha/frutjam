@@ -1,0 +1,53 @@
+@import "./safelist.css";
+@import "./placement.css";
+@import "./structure.css";
+@import "./animation.css";
+
+@utility modal {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  align-items: center;
+  z-index: 999;
+  overscroll-behavior: contain;
+  overflow: hidden;
+  justify-items: center;
+  color: inherit;
+  padding: 0.75rem;
+  background-color: var(--color-base);
+  inset: 0rem;
+  margin: 0rem;
+  pointer-events: none;
+  visibility: hidden;
+  position: fixed;
+
+  &:not(modal:not([open]):not(.modal-open)),
+  &::backdrop {
+    @starting-style {
+      visibility: hidden;
+      opacity: 0%;
+    }
+
+    opacity: 100%;
+    background-color: light-dark(color-mix(in oklch, black 10%, var(--color-base-600) 40%), color-mix(in oklch, black 10%, var(--color-base-400) 40%));
+  }
+  &[open],
+  &.modal-open {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 100%;
+
+    @starting-style {
+      visibility: hidden;
+      opacity: 0%;
+    }
+
+    .modal-body {
+      translate: 0 0;
+      scale: 1;
+      opacity: 1;
+    }
+  }
+}

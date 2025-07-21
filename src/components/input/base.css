@@ -1,0 +1,104 @@
+@import "./colors.css";
+@import "./safelist.css";
+@import "./sizes.css";
+@import "./states.css";
+@import "./styles.css";
+@import "./variants.css";
+
+@utility input {
+    --color-input:  var(--color-base-soft);
+    --color-on-input: var(--color-on-base-soft);
+    
+    --color-input-active: var(--color-base-active);
+    --color-on-input-active: var(--color-on-base);
+
+    --input--inline: 0.75rem;
+    --input--block: 0.625rem;
+    --input--font-size: 1rem;
+
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: var(--color-input-active);
+    background-color: transparent;
+
+    &:not([type="file"]){
+        padding-inline: var(--input--inline);
+        padding-block: var(--input--block);
+    }
+
+    font-size: var(--input--font-size);
+    /* box-shadow: 1px 1px 0px 0px 0.2px var(--color-input); */
+    color: var(--color-on-base);
+    display: inline-flex;
+    align-self: flex-start;
+    flex-shrink: 0;
+    align-items: center;
+    appearance: none;
+    border-radius: var(--radius-input);
+    gap: 0.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+    font-weight: 500;
+    transition: outline-color 250ms;
+    transition-timing-function: ease-in-out;
+
+    @variant placeholder {
+        font-size: var(--input--font-size);
+        color: --alpha(var(--color-on-base) / 30%);
+        font-weight: 400;
+    }
+
+    @variant file {
+        font-size: var(--input--font-size);
+        margin-right: 1rem;
+        display: inline-flex;
+        padding-inline: var(--input--inline);
+        padding-block: var(--input--block);
+        transition:
+            border-color 300ms,
+            background-color 300ms,
+            display 300ms;
+        transition-timing-function: ease-in-out;
+        align-items: center;
+        border-top-left-radius: calc(var(--radius-input) / 2);
+        border-bottom-left-radius: calc(var(--radius-input) / 2);
+        background-color: var(--color-input);
+        border-right-width: 1px;
+        border-style: solid;
+        border-color: var(--color-input-active);
+        font-weight: semibold;
+        color: var(--color-on-input);
+
+        @variant hover {
+            background-color: var(--color-input-active);
+            color: var(--color-on-input-active);
+        }
+    }
+
+    @variant input-disabled {
+        --input-disabled--cursor: not-allowed;
+        --input-disabled--opacity: 0.6;
+        --input-disabled--pointer-events: none;
+        --input-disabled--user-select: none;
+        --input-disabled--bg-color: var(--color-base-soft);
+        --input-disabled--color: light-dark(var(--color-base-700), var(--color-base-400));
+        --input-disabled--outline-color: --alpha(var(--input) / 20%);
+
+        cursor: var(--input-disabled--cursor);
+        opacity: var(--input-disabled--opacity);
+        pointer-events: var(--input-disabled--pointer-events);
+        background-color: var(--input-disabled--bg-color);
+        color: var(--input-disabled--color);
+        user-select: var(--input-disabled--user-select);
+        outline-color: var(--input-disabled--outline-color);
+
+        @variant placeholder {
+            color: var(--input-disabled--color);
+        }
+    }
+
+    @variant focus-or-within {
+        outline-color: light-dark(var(--color-base-800), --alpha(var(--color-base-300) / 80%));
+    }
+}

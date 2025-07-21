@@ -1,0 +1,47 @@
+@utility modal-backdrop {
+  display: grid;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  align-self: stretch;
+  justify-self: stretch;
+  color: transparent;
+  background-color: transparent;
+  z-index: -1;
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@utility modal-body {
+  /* @reference shadow-sm; */
+
+  box-shadow: light-dark(var(--color-base-600), var(--color-base-900)) 0px 1px 1px;
+
+  @variant forced-colors {
+    outline-style: solid;
+    outline-width: 1px;
+  }
+  grid-column-start: 1;
+  grid-row-start: 1;
+  max-height: 100vh;
+  width: calc(11 / 12 * 100%);
+  max-width: 32rem;
+  padding: 1.5rem;
+  transform: scale(95%, 95%);
+  opacity: 0%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-modal);
+
+  background-color: var(--color-base);
+  color: var(--para--color);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-base-soft);
+  transition:
+    translate 0.3s ease-out,
+    visibility 0.3s allow-discrete,
+    background-color 0.3s ease-out,
+    opacity 0.1s ease-out;
+}

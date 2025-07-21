@@ -1,9 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const glob = require('glob');
 const pkg = require('./package.json');
 
 const copyrightText = `${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYear()} ${pkg.author} | Released under the ${pkg.license} License | ${pkg.homepage}`;
@@ -14,7 +12,7 @@ module.exports = (env, argv) => {
 
     return {
         mode: argv.mode || 'production',
-        devtool: isDevelopment ? 'source-map' : false,
+        devtool: isDevelopment ? 'eval-cheap-module-source-map' : false,
         stats: 'minimal',
         entry: {
             frutjam: './src/frutjam.js',
@@ -38,7 +36,7 @@ module.exports = (env, argv) => {
                 {
                     test: /\.css$/,
                     use: [
-                        MiniCssExtractPlugin.loader,
+                        isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                         'css-loader',
                         'postcss-loader',
                     ],
@@ -49,13 +47,6 @@ module.exports = (env, argv) => {
             new MiniCssExtractPlugin({
                 filename: '[name].min.css',
             }),
-            ...(isDevelopment
-                ? glob.sync('./demo/**/*.html').map(file => new HtmlWebpackPlugin({
-                    template: file,
-                    filename: path.basename(file),
-                    minify: false,
-                }))
-                : []),
             ...(isProduction ? [
                 new webpack.BannerPlugin({
                     banner: copyrightText,
@@ -64,19 +55,42 @@ module.exports = (env, argv) => {
             ] : []),
         ],
         devServer: {
-            static: {
-                directory: path.resolve(__dirname, 'dist'),
-            },
+            static: [
+                {
+                    directory: path.resolve(__dirname, 'dist'),
+                    publicPath: '/dist/',
+                },
+                {
+                    directory: path.resolve(__dirname, 'demo'),
+                    publicPath: '/',
+                    watch: false, // Don't watch static HTML files
+                },
+            ],
             open: false,
-            hot: true,
-            liveReload: true,
-            watchFiles: ['src/**/*'],
+            hot: false,
+            liveReload: false,
+
+            watchFiles: {
+                paths: ['src/**/*'],
+                options: {
+                    ignored: ['**/demo/**/*', '**/node_modules/**/*'], // ignore watching demo folder
+                },
+            }
+        },
+        cache: {
+            type: 'filesystem',
         },
         optimization: {
             minimize: isProduction,
             minimizer: [
                 new TerserPlugin({
                     extractComments: true,
+                    parallel: true,
+                    terserOptions: {
+                        format: {
+                        comments: false,
+                        },
+                    },
                 })
             ],
         },

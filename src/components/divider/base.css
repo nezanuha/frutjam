@@ -1,25 +1,39 @@
+@import "./colors.css";
+@import "./direction.css";
+@import "./placement.css";
+@import "./safelist.css";
+@import "./styles.css";
+@import "./variants.css";
+
 @utility divider {
+    --divider--margin: 1rem 0;
+    --color-divider: var(--color-base);
+    --color-divider-soft: var(--color-base-soft);
+    --divider-direction: right;
     --divider--width: 100%;
     --divider--height: 1px;
-    --divider--bg-color: var(--color-default-200);
+    --divider-dash-length: 10px;
+    --divider-gap-length: 0px;
 
-    /* @apply divider-primary; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: var(--divider--flex-direction);
 
-    width: var(--divider--width);
-    height: var(--divider--height);
-    background-color: var(--divider--bg-color);
-
-    @variant dark {
-        --divider--bg-color: var(--color-default-600);
-
-        background-color: var(--divider--bg-color);
+    @variant not-empty {
+        column-gap: 0.5rem;
     }
-}
 
-@utility divider-primary {
-    --divider--bg-color: var(--color-primary-700);
-
-    @variant dark {
-        --divider--bg-color: var(--color-primary-700);
+    @variant before-after {
+        content: "";
+        margin: var(--divider--margin);
+        width: var(--divider--width);
+        height: var(--divider--height);
+        background: repeating-linear-gradient(to var(--divider-direction),
+                var(--color-divider-soft) 0px,
+                var(--color-divider-soft) var(--divider-dash-length),
+                transparent var(--divider-dash-length),
+                transparent calc(var(--divider-dash-length) + var(--divider-gap-length)));
     }
+
 }

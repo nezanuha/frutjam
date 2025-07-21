@@ -1,48 +1,68 @@
-@import "../theme/placement.css";
+@import "../../theme/placement.css";
 
 @utility dropdown {
-  @reference relative inline-block;
+  position: relative;
+  display: inline-block;
   position-area: var(--anchor-v, bottom) var(--anchor-h, span-right);
 
   & > *:not(summary):focus {
-    @reference outline-hidden;
+    outline-style: none;
+    @variant forced-colors {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
   }
+
   .dropdown-body {
-    @reference absolute;
+    position: absolute;
   }
+
   &:not(details, .dropdown-open, .dropdown-hover:hover, :focus-within) {
     .dropdown-body {
-      @reference hidden origin-top opacity-0 scale-9;
+      display: none;
+      transform-origin: top;
+      opacity: 0%;
+      transform: scaleX(9%) scaleY(9%);
     }
   }
 
   &[popover],
   .dropdown-body {
-    @reference starting:[scale:95%] starting:[opacity:0] z-999 w-max transition-discrete duration-200 transition-[opacity,_scale,_display] ease-in-out;
     /* animation: dropdown 0.2s; */
+    @starting-style {
+      transform: scaleX(95%) scaleY(95%);
+      opacity: 0;
+    }
+    z-index: 999;
+    width: max-content;
+    transition-behavior: allow-discrete;
+    transition-duration: 200ms;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
   }
 
   &.dropdown-open,
   &:not(.dropdown-hover):focus,
   &:focus-within {
     > [tabindex]:first-child {
-      @reference pointer-events-none;
+      pointer-events: none;
     }
     .dropdown-body {
-      @reference opacity-100;
+      opacity: 100%;
     }
   }
 
   &.dropdown-hover:hover {
     .dropdown-body {
-      @reference opacity-100 scale-100;
+      opacity: 100%;
+      transform: scaleX(100%) scaleY(100%);
     }
   }
 
   &:is(details) {
     summary {
       &::-webkit-details-marker {
-        @reference hidden;
+        display: none;
       }
     }
   }
@@ -51,22 +71,26 @@
   &:focus,
   &:focus-within {
     .dropdown-body {
-      @reference scale-100;
+      transform: scaleX(100%) scaleY(100%);
     }
   }
 
   /* experimental */
   &:where([popover]) {
-    background-color: #0000;
+    background-color: oklch(0 0 0 / 0);
   }
   &[popover] {
-    @reference fixed text-inherit;
+    position: fixed;
+    color: inherit;
 
     @supports not (position-area: bottom) {
-      @reference m-auto;
+      margin: auto;
 
       &.dropdown-open:not(:popover-open) {
-        @reference hidden origin-top opacity-0 scale-95;
+        display: none;
+        transform-origin: top;
+        opacity: 0%;
+        transform: scaleX(95%) scaleY(95%);
       }
 
       &::backdrop {
@@ -75,13 +99,31 @@
     }
 
     &:not(.dropdown-open, :popover-open) {
-      @reference hidden origin-top opacity-0 scale-95;
+      display: none;
+      transform-origin: top;
+      opacity: 0%;
+      transform: scaleX(95%) scaleY(95%);
     }
   }
 }
 
 @utility dropdown-body {
-  @reference shadow forced-colors:outline col-start-1 row-start-1 max-h-screen p-3 transition-all duration-150 scale-95 opacity-0 overflow-y-auto overscroll-contain;
+  /* @reference shadow; */
+
+  @variant forced-colors{
+    outline-style: solid
+    outline-width: 1px;
+  }
+  grid-column-start: 1;
+  grid-row-start: 1;
+  max-height: 100vh;
+  padding: 0.75rem;
+  transition-property: all;
+  transition-duration: 150ms;
+  transform: scaleX(95%) scaleY(95%);
+  opacity: 0%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 
   --tw-shadow-color: light-dark(
     color-mix(in oklab, var(--base-300) 50%, transparent),
@@ -95,18 +137,18 @@
 
 /* placements */
 /* Positioning Classes */
-.dropdown-x-start {
+@utility dropdown-x-start {
   left: 0; /* Aligns dropdown to start horizontally */
 }
 
-.dropdown-x-end {
+@utility dropdown-x-end {
   right: 0; /* Aligns dropdown to end horizontally */
 }
 
-.dropdown-y-top {
+@utility dropdown-y-top {
   bottom: calc(100% + 10px); /* Positions above the button */
 }
 
-.dropdown-y-bottom {
+@utility dropdown-y-bottom {
   top: calc(100% + 10px); /* Positions below the button */
 }

@@ -1,0 +1,40 @@
+@utility drawer-backdrop {
+  display: grid;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  align-self: stretch;
+  justify-self: stretch;
+  color: transparent;
+  z-index: -1;
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@utility drawer-body {
+  border-radius: 0;
+  translate: -100% 0;
+  scale: 1;
+  grid-column-start: 1;
+  grid-row-start: 1;
+  height: 100vh;
+  max-height: none;
+  width: calc(11 / 12 * 100%);
+  max-width: none;
+  padding: 0.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  @variant forced-colors {
+    outline-style: solid;
+    outline-width: 1px;
+  }
+
+  background-color: var(--color-base);
+  transition:
+    translate 0.3s ease-out,
+    visibility 0.3s allow-discrete,
+    background-color 0.3s ease-out,
+    opacity 0.1s ease-out;
+}
