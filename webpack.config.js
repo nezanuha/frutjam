@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
     return {
         mode: argv.mode || 'production',
         devtool: isDevelopment ? 'eval-cheap-module-source-map' : false,
-        stats: 'minimal',
+        stats: isDevelopment ? 'errors-warnings' : 'minimal',
         entry: {
             frutjam: './src/frutjam.js',
         },
