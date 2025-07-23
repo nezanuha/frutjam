@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - `nav-list` has been renamed to `navbar-list` to align with the navbar component and eliminate confusion.
+- Enable dark variant using data-theme attribute instead of media query.
 
 ## [2.0.0-beta.0] - 2025-07-23
 
