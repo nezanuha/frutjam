@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable dark variant using data-theme attribute instead of media query
 - Adjust the shade to achieve a balanced and cohesive color palette
 - Replaced fixed line-heights with font-size-based line-heights for all button sizes in the `btn` component to ensure consistent vertical alignment and better scalability across font sizes
+- Enhanced soft color appearance across dark and light themes
 
 ### Fixed
 - fix: ensure fallback snowberry theme doesn't override color variables when a data-theme is specified
