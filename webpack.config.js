@@ -1,19 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const pkg = require('./package.json');
-
-const copyrightText = `${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYear()} ${pkg.author} | Released under the ${pkg.license} License | ${pkg.homepage}`;
 
 module.exports = (env, argv) => {
-    const isDevelopment = argv.mode === 'development';
-    const isProduction = argv.mode === 'production';
-
     return {
-        mode: argv.mode || 'production',
-        devtool: isDevelopment ? 'eval-cheap-module-source-map' : false,
-        stats: isDevelopment ? 'errors-warnings' : 'minimal',
+        mode: 'development',
+        devtool: 'eval-cheap-module-source-map' ,
+        stats: 'errors-warnings',
         entry: {
             frutjam: './src/frutjam.js',
         },
@@ -36,24 +27,13 @@ module.exports = (env, argv) => {
                 {
                     test: /\.css$/,
                     use: [
-                        isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        'style-loader',
                         'css-loader',
                         'postcss-loader',
                     ],
                 },
             ],
         },
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].min.css',
-            }),
-            ...(isProduction ? [
-                new webpack.BannerPlugin({
-                    banner: copyrightText,
-                    raw: false
-                })
-            ] : []),
-        ],
         devServer: {
             static: [
                 {
@@ -79,20 +59,6 @@ module.exports = (env, argv) => {
         },
         cache: {
             type: 'filesystem',
-        },
-        optimization: {
-            minimize: isProduction,
-            minimizer: [
-                new TerserPlugin({
-                    extractComments: true,
-                    parallel: true,
-                    terserOptions: {
-                        format: {
-                        comments: false,
-                        },
-                    },
-                })
-            ],
-        },
+        }
     };
 };

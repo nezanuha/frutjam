@@ -21,9 +21,9 @@
   "scripts": {
     "clean": "rimraf  ./dist",
     "dev": "webpack serve --mode=development",
-    "build:css": "node scripts/build-css.mjs",
-    "build:dist": "webpack --mode=production",
-    "build": "npm run clean && npm run build:css && npm run build:dist",
+    "build:browser": "node scripts/build/browser.mjs",
+    "build:local": "webpack --config scripts/build/local.js --mode=production",
+    "build": "npm run clean && npm run build:browser && npm run build:local",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
@@ -83,6 +83,7 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.2.2",
+    "webpack-remove-empty-scripts": "^1.1.1"
   }
 }

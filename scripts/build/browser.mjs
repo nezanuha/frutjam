@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import pkg from '../package.json' with { type: "json" };
+import pkg from '../../package.json' with { type: "json" };
 
 // List of import paths to ignore
 const ignoreImports = [
@@ -12,12 +12,7 @@ const ignoreImports = [
 const input = './src/frutjam.css';
 const output = './dist/frutjam.dev.css';
 
- const banner = `/*!
- * ${pkg.name} v${pkg.version}
- * (c) ${(new Date()).getFullYear()} ${pkg.author}
- * Released under the ${pkg.license} License
- * ${pkg.homepage}
- */\n`;
+ const banner = `/*! ${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYear()} ${pkg.author} | Released under the ${pkg.license} License | ${pkg.homepage} */\n`;
 
 function resolveImports(filePath, seen = new Set()) {
   const absPath = path.resolve(filePath);
