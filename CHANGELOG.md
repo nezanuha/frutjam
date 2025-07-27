@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Added background color to footer using the `--color-base` variable in preflight
+
+### Changed
+- Refactor: create separate `navbar-list` class to improve editor support and highlight while typing
+
+### Fixed
+- Added `width` and `height` to the divider base component to fix layout issues; the divider now occupies the intended space and is no longer affected by `align-items: center` on the parent.
+
 ## [2.2.0-beta.0] - 2025-07-25
 
 ### Added
