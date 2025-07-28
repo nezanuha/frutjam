@@ -1,40 +1,84 @@
 @utility dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 
-    @variant focus-within{
-        --dropdown-display: block;
+  /* &[popover-open]{
+    :is(.dropdown-body){
+      display: block;
     }
+  } */
+
+  /* &:not(details){
+    @variant hover {
+      :is(.dropdown-body){
+        display: block;
+      }
+    }
+  } */
+
+  &[popover]:popover-open {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 100%;
+
+    @starting-style {
+      visibility: hidden;
+      opacity: 0%;
+    }
+
+     :is(.dropdown-body){
+      /* translate: 0 0;
+      scale: 1; */
+      opacity: 1;
+      display: block;
+    }
+  }
+
 }
 
 @utility dropdown-body {
+    position-anchor: --dropdown;
+    position-area: var(--dropdown-y-position, bottom) var(--dropdown-x-position, span-right);
     position: absolute;
-    display: var(--dropdown-display, none);
+    display: none;
+    z-index: 999;
     animation: dropdown 0.2s;
     transition-property: opacity, scale, display;
     transition-behavior: allow-discrete;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
     @starting-style {
         scale: 95%;
         opacity: 0;
     }
 }
 
+@utility dropdown-toggle {
+  anchor-name: --dropdown;
+}
+
 /* placements */
-/* Positioning Classes */
 @utility dropdown-x-start {
-  left: 0; /* Aligns dropdown to start horizontally */
+  --dropdown-x-position: start;
+}
+
+@utility dropdown-x-center {
+  --dropdown-x-position: center;
 }
 
 @utility dropdown-x-end {
-  right: 0; /* Aligns dropdown to end horizontally */
+  --dropdown-x-position: end;
 }
 
-@utility dropdown-y-top {
-  bottom: calc(100% + 10px); /* Positions above the button */
+@utility dropdown-y-start {
+  --dropdown-y-position: start;
 }
 
-@utility dropdown-y-bottom {
-  top: calc(100% + 10px); /* Positions below the button */
+@utility dropdown-y-center {
+  --dropdown-y-position: center;
+}
+
+@utility dropdown-y-end {
+  --dropdown-y-position: end;
 }
