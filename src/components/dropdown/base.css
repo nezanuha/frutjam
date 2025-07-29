@@ -5,27 +5,32 @@
 
 @utility dropdown-body {
     border-radius: var(--radius-dropdown);
-    padding: 0.75rem;
+    padding: 0.60rem;
     visibility: hidden;
-    position-anchor: --dropdown;
-    position-area: var(--dropdown-y-position) var(--dropdown-x-position);
+    position-anchor: var(--anchor-name);
+
+    @supports not (position-area: end span-end) {
+        top: var(--dropdown-position--top);
+        inset-inline-end: var(--dropdown-position--end);
+        bottom: var(--dropdown--bottom);
+        inset-inline-start: var(--dropdown-position--start);
+        transform: translate(var(--dropdown--translate-x), var(--dropdown--translate-y));
+    }
+    
+    @supports (position-area: end span-end) {
+      position-area: var(--dropdown--position-area, end span-end);
+    }
     position: absolute;
     animation: dropdown 0.2s;
+    background-color: var(--color-base);
+    outline-style: solid;
+    outline-width: 1px;
+    min-width: 13rem;
+    outline-color: var(--color-base-active);
     transition-property: opacity, transform;
     transition-behavior: allow-discrete;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-    &[popover]:popover-open {
-        pointer-events: auto;
-        visibility: visible;
-        opacity: 1;
-
-        @starting-style {
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
 }
 
 @keyframes dropdown {
@@ -39,31 +44,116 @@
     }
 }
 
+
+@utility dropdown-hover{
+  anchor-name: var(--anchor-name);
+  @variant hover{
+    :is(.dropdown-body){
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+
+      @starting-style {
+          visibility: hidden;
+          opacity: 0;
+      }
+    }
+  }
+}
+
 @utility dropdown-toggle {
-  anchor-name: --dropdown;
+  anchor-name: var(--anchor-name);
+
+  [popover]:popover-open {
+    &:is(.dropdown-body){
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+
+      @starting-style {
+          visibility: hidden;
+          opacity: 0;
+      }
+    }
+  }
 }
 
 /* placements */
-@utility dropdown-x-start {
-  --dropdown-x-position: span-start;
+@utility dropdown-top-start {
+  --dropdown--position-area: start span-end;
+
+  --dropdown-position--bottom: 100%;
+  --dropdown-position--top: auto;
+  --dropdown-position--start: 0;
+  --dropdown--translate-y: var(-0.5rem);
 }
 
-@utility dropdown-x-center {
-  --dropdown-x-position: center;
+@utility dropdown-top-center {
+  --dropdown--position-area: start center;
+
+  --dropdown-position--bottom: 100%;
+  --dropdown-position--top: auto;
+  --dropdown-position--start: 50%;
+  --dropdown--translate-x: var(-50%);
+  --dropdown--translate-y: var(-0.5rem);
 }
 
-@utility dropdown-x-end {
-  --dropdown-x-position: end;
+@utility dropdown-top-end {
+  --dropdown--position-area: start span-start;
+
+  --dropdown-position--bottom: 100%;
+  --dropdown-position--top: auto;
+  --dropdown-position--end: 0;
+  --dropdown-position--start: auto;
+  --dropdown--translate-y: var(-0.5rem);
 }
 
-@utility dropdown-y-start {
-  --dropdown-y-position: start;
+@utility dropdown-end-top {
+  --dropdown--position-area: span-start end;
 }
 
-@utility dropdown-y-center {
-  --dropdown-y-position: center;
+@utility dropdown-end-center {
+   --dropdown--position-area: center end;
 }
 
-@utility dropdown-y-end {
-  --dropdown-y-position: end;
+@utility dropdown-end-bottom {
+ --dropdown--position-area: span-end end;
+}
+
+@utility dropdown-bottom-start {
+  --dropdown--position-area: end span-end;
+
+  --dropdown-position--top: 100%;
+  --dropdown-position--start: 0;
+  --dropdown--translate-y: var(0.5rem);
+}
+
+@utility dropdown-bottom-center {
+  --dropdown--position-area: end center;
+
+  --dropdown-position--top: 100%;
+  --dropdown-position--start: 50%;
+  --dropdown--translate-x: var(-50%);
+  --dropdown--translate-y: var(0.5rem);
+}
+
+@utility dropdown-bottom-end {
+  --dropdown--position-area: end span-start;
+
+  --dropdown-position--top: 100%;
+  --dropdown-position--end: 0;
+  --dropdown-position--start: auto;
+  --dropdown--translate-y: var(0.5rem);
+}
+
+@utility dropdown-start-top {
+  --dropdown--position-area: span-start start;
+}
+
+@utility dropdown-start-center {
+   --dropdown--position-area: center start;
+}
+
+@utility dropdown-start-bottom {
+ --dropdown--position-area: span-end start;
 }
