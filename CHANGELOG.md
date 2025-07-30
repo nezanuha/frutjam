@@ -9,12 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added background color to footer using the `--color-base` variable in preflight
+- Introduces `focus-or-within` variant to apply styles on `:focus` or `:focus-within`
+- Added a new dropdown component currently in experimental stage
 
 ### Changed
 - Refactor: create separate `navbar-list` class to improve editor support and highlight while typing
+- feat: set accordion to full width for improved layout
+- The container is now considered a utility. Use classes like `container-lg` instead of `container container-lg`
+- Changed base color in darkberry theme to optimize user experience in low-light conditions
 
 ### Fixed
 - Added `width` and `height` to the divider base component to fix layout issues; the divider now occupies the intended space and is no longer affected by `align-items: center` on the parent.
+- The `align-self: flex-start` rule was preventing buttons from being vertically centered when their parent had `align-items: center`. Removing it allows proper alignment in those cases.
+- Corrected the modal component to use a valid CSS opacity value
+
 
 ## [2.2.0-beta.0] - 2025-07-25
 
