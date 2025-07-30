@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0-beta.0] - 2025-07-30
+
 ### Added
 - Added background color to footer using the `--color-base` variable in preflight
 - Introduces `focus-or-within` variant to apply styles on `:focus` or `:focus-within`
