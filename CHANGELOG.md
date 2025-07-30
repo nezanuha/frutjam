@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- fix: add missing `container` utility (same as `container-md`)
+
 ## [2.3.0-beta.0] - 2025-07-30
 
 ### Added
@@ -24,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `width` and `height` to the divider base component to fix layout issues; the divider now occupies the intended space and is no longer affected by `align-items: center` on the parent.
 - The `align-self: flex-start` rule was preventing buttons from being vertically centered when their parent had `align-items: center`. Removing it allows proper alignment in those cases.
 - Corrected the modal component to use a valid CSS opacity value
-
 
 ## [2.2.0-beta.0] - 2025-07-25
 
