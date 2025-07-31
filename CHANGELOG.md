@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0-beta.1] - 2025-07-31
+
 ### Added
 - Added base styling for the `<code>` element
 
 ### Fixed
 - fix: add missing `container` utility (same as `container-md`)
+- The `container` class was broken due to a naming conflict with Tailwind CSS’s `container` variable. This issue was resolved by prefixing the internal `container` variable with `ui`, avoiding the conflict.
 
 ## [2.3.0-beta.0] - 2025-07-30
 
