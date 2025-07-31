@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.3.0-beta.1] - 2025-07-31
+## [2.4.0-beta.0] - 2025-07-31
 
 ### Added
 - Introducing new utilities: `surface` (base), `surface-1`, and `surface-2`
