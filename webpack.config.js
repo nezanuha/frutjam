@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
         devtool: 'eval-cheap-module-source-map' ,
         stats: 'errors-warnings',
         entry: {
-            frutjam: './src/frutjam.js',
+            frutjam: './src/main.js',
         },
         resolve: {
             extensions: ['.ts', '.js', '.css'],

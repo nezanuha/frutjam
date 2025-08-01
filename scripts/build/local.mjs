@@ -5,12 +5,12 @@ import pkg from '../../package.json' with { type: "json" };
 
 // List of import paths to ignore
 const ignoreImports = [
-  'tailwind.css',
+  // 'tailwind.css',
   'safelist.css'
 ];
 
-const input = './src/frutjam.css';
-const output = './dist/frutjam.dev.css';
+const input = './src/main.build.css';
+const output = './dist/frutjam.local.css';
 
  const banner = `/*! ${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYear()} ${pkg.author} | Released under the ${pkg.license} License | ${pkg.homepage} */\n`;
 

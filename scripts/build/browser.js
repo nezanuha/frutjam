@@ -13,7 +13,10 @@ module.exports = (env, argv) => {
         devtool: false,
         stats: 'minimal',
         entry: {
-            frutjam: './src/frutjam.js',
+            frutjam: [
+                './src/main.js',
+                './src/main.build.css'
+            ],
         },
         resolve: {
             extensions: ['.ts', '.js', '.css'],
@@ -56,6 +59,8 @@ module.exports = (env, argv) => {
         },
         optimization: {
             minimize: true,
+            splitChunks: false, 
+              runtimeChunk: false,
             minimizer: [
                 new TerserPlugin({
                     extractComments: true,
