@@ -11,12 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Utility levels: `surface-1`, `surface-2`, and base `surface` 
 - Size variants: `surface-sm`, `surface-md`, ..., `surface-xl` 
 - Border styles: `surface-outline` and `surface-dashed` 
-- `surface-rounded` to apply global `border-radius` style 
+- `surface-rounded` to apply global `border-radius` style
+
+## Fixed
+- Fixed package.json incorrect file paths main, browser, styles
 
 ## Changed
 - Restructured `surface` from a utility to a standalone component 
 - refactor: align card border color with global style
 - Disabled automatic source detection and limited CSS processing to the src folder to avoid including unnecessary styles
+- CDN-ready CSS without preflight
+- Restructured code for improved organization and readability
 
 ## [2.4.0-beta.0] - 2025-07-31
 
