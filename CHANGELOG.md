@@ -9,26 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.5.0-beta.2] - 2025-08-03
 
-## Changed
+### Changed
 - Removed default surface-md size when no size is assigned; now only the assigned size takes effect
 
 ## [2.5.0-beta.1] - 2025-08-02
 
-## Changed
+### Changed
 - This update helps to simplify the button component's structure and behavior, improving flexibility for customization and reducing unnecessary styles
 
 ## [2.5.0-beta.0] - 2025-08-02
 
-## Added
+### Added
 - Utility levels: `surface-1`, `surface-2`, and base `surface` 
 - Size variants: `surface-sm`, `surface-md`, ..., `surface-xl` 
 - Border styles: `surface-outline` and `surface-dashed` 
 - `surface-rounded` to apply global `border-radius` style
 
-## Fixed
+### Fixed
 - Corrected file paths for 'main', 'browser', and 'styles' in package.json
 
-## Changed
+### Changed
 - Restructured `surface` from a utility to a standalone component 
 - refactor: align card border color with global style
 - Disabled automatic source detection and limited CSS processing to the src folder to avoid including unnecessary styles
