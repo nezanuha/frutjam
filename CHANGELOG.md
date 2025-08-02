@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0-beta.2] - 2025-08-03
+
+## Changed
+- Removed default surface-md size when no size is assigned; now only the assigned size takes effect
+
 ## [2.5.0-beta.1] - 2025-08-02
 
 ## Changed
