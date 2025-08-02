@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0-beta.0] - 2025-08-02
+
 ## Added
 - Utility levels: `surface-1`, `surface-2`, and base `surface` 
 - Size variants: `surface-sm`, `surface-md`, ..., `surface-xl` 
@@ -14,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `surface-rounded` to apply global `border-radius` style
 
 ## Fixed
-- Fixed package.json incorrect file paths main, browser, styles
+- Corrected file paths for 'main', 'browser', and 'styles' in package.json
 
 ## Changed
 - Restructured `surface` from a utility to a standalone component 
