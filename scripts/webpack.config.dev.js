@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
         },
         output: {
             filename: '[name].min.js',
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(process.cwd(), 'dist'),
             library: {
                 name: 'frutjam',
                 type: 'umd',
@@ -37,11 +37,11 @@ module.exports = (env, argv) => {
         devServer: {
             static: [
                 {
-                    directory: path.resolve(__dirname, 'dist'),
+                    directory: path.resolve(process.cwd(), 'dist'),
                     publicPath: '/dist/',
                 },
                 {
-                    directory: path.resolve(__dirname, 'demo'),
+                    directory: path.resolve(process.cwd(), 'demo'),
                     publicPath: '/',
                     watch: false, // Don't watch static HTML files
                 },

@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         entry: {
             frutjam: [
                 './src/main.js',
-                './src/main.build.css'
+                './src/main.prod.css'
             ],
         },
         resolve: {
