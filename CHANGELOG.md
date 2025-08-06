@@ -132,3 +132,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed manual border-radius variables for individual components (`--radius-btn`, `--radius-input`, `--radius-checkbox`, etc.)
 - Removed manual color shade variables like `--primary-100` to `--primary-950`, `--secondary-100` to `--secondary-950`, etc.
 - Deprecated and removed the surface component; use bg-primary-{50..950} instead
+
+---
+
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.3...HEAD
+[v2.5.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.2...v2.5.0-beta.3
+[v2.5.0-beta.2]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.1...v2.5.0-beta.2
+[v2.5.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.0...v2.5.0-beta.1
+[v2.5.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.4.0-beta.0...v2.5.0-beta.0
+[v2.4.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.3.0-beta.1...v2.4.0-beta.0
+[v2.3.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.3.0-beta.0...v2.3.0-beta.1
+[v2.3.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.2.0-beta.0...v2.3.0-beta.0
+[v2.2.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.1.0-beta.0...v2.2.0-beta.0
+[v2.1.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.0.0-beta.0...v2.1.0-beta.0
+[v2.0.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.5.0-beta.0...v2.0.0-beta.0
+[v1.5.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.4.0-beta.0...v1.5.0-beta.0
+[v1.4.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.3.0-beta.0...v1.4.0-beta.0
+[v1.3.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.2.0-beta.0...v1.3.0-beta.0
+[v1.2.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.1.0-beta.0...v1.2.0-beta.0
+[v1.1.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v1.0.0-beta.0...v1.1.0-beta.0
+[v1.0.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.14.0-beta.0...v1.0.0-beta.0
+[v0.14.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.13.0-beta.0...v0.14.0-beta.0
+[v0.13.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.12.0-beta.0...v0.13.0-beta.0
+[v0.12.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.11.0-beta.0...v0.12.0-beta.0
+[v0.11.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.10.0-beta.2...v0.11.0-beta.0
+[v0.10.0-beta.2]: https://github.com/nezanuha/frutjam/compare/v0.10.0-beta.1...v0.10.0-beta.2
+[v0.10.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v0.10.0-beta.0...v0.10.0-beta.1
+[v0.10.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.9.0-beta.0...v0.10.0-beta.0
+[v0.9.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.6...v0.9.0-beta.0
+[v0.8.1-beta.6]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.5...v0.8.1-beta.6
+[v0.8.1-beta.5]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.4...v0.8.1-beta.5
+[v0.8.1-beta.4]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.3...v0.8.1-beta.4
+[v0.8.1-beta.3]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.2...v0.8.1-beta.3
+[v0.8.1-beta.2]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.1...v0.8.1-beta.2
+[v0.8.1-beta.1]: https://github.com/nezanuha/frutjam/compare/v0.8.1-beta.0...v0.8.1-beta.1
+[v0.8.1-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.8.0-beta.4...v0.8.1-beta.0
+[v0.8.0-beta.4]: https://github.com/nezanuha/frutjam/compare/v0.8.0-beta.3...v0.8.0-beta.4
+[v0.8.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v0.8.0-beta.2...v0.8.0-beta.3
+[v0.8.0-beta.2]: https://github.com/nezanuha/frutjam/compare/v0.8.0-beta.1...v0.8.0-beta.2
+[v0.8.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v0.8.0-beta.0...v0.8.0-beta.1
+[v0.8.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.5...v0.8.0-beta.0
+[v0.7.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.4...v0.7.0-beta.5
+[v0.7.0-beta.4]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.3...v0.7.0-beta.4
+[v0.7.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.2...v0.7.0-beta.3
+[v0.7.0-beta.2]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.1...v0.7.0-beta.2
+[v0.7.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v0.7.0-beta.0...v0.7.0-beta.1
+[v0.7.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v0.7.0-alpha.0...v0.7.0-beta.0
+[v0.7.0-alpha.0]: https://github.com/nezanuha/frutjam/compare/v0.6.0-alpha.2...v0.7.0-alpha.0
+[v0.6.0-alpha.2]: https://github.com/nezanuha/frutjam/compare/v0.6.0-alpha.1...v0.6.0-alpha.2
+[v0.6.0-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.5.0-alpha.1...v0.6.0-alpha.1
+[v0.5.0-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.5.0-alpha.0...v0.5.0-alpha.1
+[v0.5.0-alpha.0]: https://github.com/nezanuha/frutjam/compare/v0.4.0-alpha.1...v0.5.0-alpha.0
+[v0.4.0-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.4.0-alpha.0...v0.4.0-alpha.1
+[v0.4.0-alpha.0]: https://github.com/nezanuha/frutjam/compare/v0.3.0-alpha.3...v0.4.0-alpha.0
+[v0.3.0-alpha.3]: https://github.com/nezanuha/frutjam/compare/v0.3.0-alpha.2...v0.3.0-alpha.3
+[v0.3.0-alpha.2]: https://github.com/nezanuha/frutjam/compare/v0.3.0-alpha.1...v0.3.0-alpha.2
+[v0.3.0-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.2.0-alpha.4...v0.3.0-alpha.1
+[v0.2.0-alpha.4]: https://github.com/nezanuha/frutjam/compare/v0.1.1-alpha.4...v0.2.0-alpha.4
+[v0.1.1-alpha.4]: https://github.com/nezanuha/frutjam/compare/v0.1.1-alpha.3...v0.1.1-alpha.4
+[v0.1.1-alpha.3]: https://github.com/nezanuha/frutjam/compare/v0.1.1-alpha.2...v0.1.1-alpha.3
+[v0.1.1-alpha.2]: https://github.com/nezanuha/frutjam/compare/v0.1.1-alpha.1...v0.1.1-alpha.2
+[v0.1.1-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.1.0-alpha.1...v0.1.1-alpha.1
+[v0.1.0-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.0.8-alpha.2...v0.1.0-alpha.1
+[v0.0.8-alpha.2]: https://github.com/nezanuha/frutjam/compare/v0.0.8-alpha.1...v0.0.8-alpha.2
+[v0.0.8-alpha.1]: https://github.com/nezanuha/frutjam/compare/v0.0.5...v0.0.8-alpha.1
+[v0.0.5]: https://github.com/nezanuha/frutjam/releases/tag/v0.0.5
