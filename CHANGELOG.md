@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- TailwindCSS prefix issue: Nested utility classes inside components were not being automatically prefixed when using the `tw` prefix. A temporary patch was applied using a class attribute selector workaround until an official fix is released by TailwindCSS.
+
 ## [2.5.0-beta.2] - 2025-08-03
 
 ### Changed
