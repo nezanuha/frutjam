@@ -14,32 +14,32 @@
 }
 
 @utility modal-body {
-  box-shadow: light-dark(var(--color-base-600), var(--color-base-900)) 0px 1px 1px;
+  translate: var(--modal-body--translate);
+  scale: var(--modal-body--scale, 95%);
+  opacity: var(--modal-body--opacity, 0);
 
-  @variant forced-colors {
-    outline-style: solid;
-    outline-width: 1px;
-  }
+  box-shadow: light-dark(var(--color-base-600), var(--color-base-900)) 0px 1px 1px;
   grid-column-start: 1;
   grid-row-start: 1;
   max-height: 100vh;
   width: calc(11 / 12 * 100%);
   max-width: 32rem;
   padding: 1.5rem;
-  transform: scale(95%, 95%);
-  opacity: 0%;
   overflow-y: auto;
   overscroll-behavior: contain;
   border-radius: var(--radius-modal);
-
   background-color: var(--color-base);
-  /* color: var(--para--color); */
   border-width: 1px;
   border-style: solid;
   border-color: var(--color-base-soft);
   transition:
     translate 0.3s ease-out,
-    visibility 0.3s allow-discrete,
-    background-color 0.3s ease-out,
-    opacity 0.1s ease-out;
+    scale 0.3s ease-out,
+    opacity 0.3s ease-out 0.05s,
+    box-shadow 0.3s ease-out;
+
+  @variant forced-colors {
+    outline-style: solid;
+    outline-width: 1px;
+  }
 }

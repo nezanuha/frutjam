@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <script src="frutjam.min.js"></script>
+</head>
+<body>
+    <dialog class="modal modal-x-start lg:modal-x-center modal-y-center lg:modal-y-start modal-slide-start"
+      id="toggleModal">
+      <div class="modal-body" data-theme="light">
+        <div class="flex justify-between items-center gap-3">
+          <div class="font-medium">Image</div>
+          <button type="button" class="btn btn-ghost btn-xs btn-circle" onclick="toggleModal.remove()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="divider my-4"></div>
+        <form method="post">
+          <div class="flex flex-col justify-center gap-y-4.5 mt-4">
+            <input type="url" placeholder="URL" class="input input-primary w-full img-link-input" required>
+            <input type="text" placeholder="Alt text" class="input w-full img-link-alt-input" value="" required>
+            <button type="submit" class="btn btn-sm submit-img-link self-end">Apply</button>
+          </div>
+        </form>
+      </div>
+      <button type="button" class="modal-backdrop" onclick="toggleModal.close()">Close Modal via Backdrop</button>
+    </dialog>
+    https://developer.mozilla.org/en-US/docs/Web/API/Popover_API
+    <button type="button" class="btn btn-md btn-primary" onclick="toggleModal.showModal()">Show Modal</button>
+</body>
+</html>
