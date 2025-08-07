@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0-beta.4] - 2025-08-07
+
 ### Fixed
 
 - Corrects the size of the `container` utility.
@@ -139,7 +141,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.3...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.4...HEAD
+[2.5.0-beta.4]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.3...v2.5.0-beta.4
 [2.5.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.2...v2.5.0-beta.3
 [2.5.0-beta.2]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.1...v2.5.0-beta.2
 [2.5.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.0...v2.5.0-beta.1
