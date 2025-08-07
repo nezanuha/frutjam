@@ -1,4 +1,5 @@
-[![Total Downloads](https://img.shields.io/npm/dt/frutjam.svg)](https://www.npmjs.com/package/frutjam)
+[![npm installs][npm_installs]](https://www.npmjs.com/package/frutjam)
+[![Jsdelivr hits][jsdelivr]](https://cdn.jsdelivr.net/npm/frutjam)
 [![Latest Release](https://img.shields.io/npm/v/frutjam.svg)](https://github.com/nezanuha/frutjam/releases)
 [![License](https://img.shields.io/npm/l/frutjam.svg)](https://github.com/nezanuha/frutjam/blob/master/LICENSE)
 [![Secured](https://img.shields.io/badge/Security-Passed-green)](https://snyk.io/test/github/nezanuha/frutjam)
@@ -74,3 +75,8 @@ Please check the [contributing guidelines](.github/CONTRIBUTING.md) before start
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+[jsdelivr]: https://badgen.net/jsdelivr/hits/npm/frutjam
+[npm_installs]: https://badgen.net/npm/dt/frutjam
