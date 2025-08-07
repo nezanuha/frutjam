@@ -10,7 +10,7 @@ const copyrightText = `${pkg.name} v${pkg.version} (c) ${(new Date()).getFullYea
 module.exports = (env, argv) => {
     return {
         mode: 'production',
-        devtool: false,
+        devtool: 'source-map',
         stats: 'minimal',
         entry: {
             frutjam: [
@@ -60,14 +60,14 @@ module.exports = (env, argv) => {
         optimization: {
             minimize: true,
             splitChunks: false, 
-              runtimeChunk: false,
+            runtimeChunk: false,
             minimizer: [
                 new TerserPlugin({
                     extractComments: true,
                     parallel: true,
                     terserOptions: {
                         format: {
-                        comments: false,
+                            comments: false,
                         },
                     },
                 })
