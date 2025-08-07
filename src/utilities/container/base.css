@@ -1,17 +1,6 @@
 @import "./safelist.css";
 
-@theme {
-  --ui-container-xs: 320px;
-  --ui-container-sm: 640px;
-  --ui-container-md: 768px;
-  --ui-container-lg: 1024px;
-  --ui-container-xl: 1280px;
-  --ui-container-2xl: 1536px;
-  --ui-container-full: 320px;
-}
-
 @utility container {
-  max-width: var(--ui-container-md);
   box-sizing: border-box;
 
   margin-inline: auto;
@@ -26,7 +15,16 @@
 }
 
 @utility container-* {
-  max-width: --value(--ui-container-*, integer, [integer]);
+
+  --container-size-xs: 320px;
+  --container-size-sm: 640px;
+  --container-size-md: 768px;
+  --container-size-lg: 1024px;
+  --container-size-xl: 1280px;
+  --container-size-2xl: 1536px;
+  --container-size-full: 320px;
+
+  max-width: --value(--container-size-*, integer, [integer]);
   box-sizing: border-box;
 
   margin-inline: auto;
