@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Corrects the size of the `container` utility.
+- Corrects the size of the `container-full` utility.
 
 ## [2.5.0-beta.4] - 2025-08-07
 
