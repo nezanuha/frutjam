@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Corrects misassigned target classes for dropdown bodies
+- Corrects misassigned target classes for dropdown-body
 
 ## [2.5.0-beta.6] - 2025-08-11
 
