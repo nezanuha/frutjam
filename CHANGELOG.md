@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0-beta.6] - 2025-08-11
+
+### Changed
+
+- reduce sidebar padding for improved layout spacing
+
+### Fixed
+
+- fix(drawer): enable scroll on drawer-body when content overflows
+- fix: prevent sidebar content from being cut off when scrolling to bottom by adjusting max-height
+- Fixed issue where default checkbox outline was not visible in dark mode.
+
 ## [2.5.0-beta.5] - 2025-08-08
 
 ### Fixed
@@ -147,7 +159,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.5...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.6...HEAD
+[2.5.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.5...v2.5.0-beta.6
 [2.5.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.4...v2.5.0-beta.5
 [2.5.0-beta.4]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.3...v2.5.0-beta.4
 [2.5.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.2...v2.5.0-beta.3
