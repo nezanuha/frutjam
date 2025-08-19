@@ -11,14 +11,6 @@
 **Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast.
 
 With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
-
-[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/nezanuha)
-
----
-
-🚀 **We’re in Beta — Your Star Helps Us Grow!**
-If you find this project useful, please consider giving it a ⭐. We're actively improving frutjam library during this beta phase, and your support motivates us to move faster, fix issues, and deliver new features. Thanks for being part of the journey!
-
 ---
 
 ### ✨ Features
