@@ -11,27 +11,78 @@
     color: var(--color-on-base);
     background-color: var(--color-base);
 
+    *,
+    ::after,
+    ::backdrop,
+    ::before,
+    ::file-selector-button {
+      box-sizing: border-box;
+      border: 0 solid;
+      padding: 0;
+      margin: 0;
+    }
+
+    :host,
+    html {
+      line-height: 1.5;
+      font-family: var(
+        --default-font-family,
+        ui-sans-serif,
+        system-ui,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        "Noto Color Emoji"
+      );
+      -webkit-tap-highlight-color: #0000;
+    }
+
     main, footer {
-    background-color: var(--color-base);
-  }
+      background-color: var(--color-base);
+    }
 
-  /* same as para-md or para */
-  p {
-    text-wrap-style: pretty;
-    color: light-dark(
-      color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
-      color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
-    );
-    font-size: var(--text-base);
-  }
+    /* same as para-md or para */
+    p {
+      text-wrap-style: pretty;
+      color: light-dark(
+        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
+        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
+      );
+      font-size: var(--text-base);
+    }
 
-  code {
-    font-weight: 600;
-    background-color: var(--color-base-soft);
-    color: var(--color-on-base-soft);
-    padding: 0.2em 0.4em;
-    border-radius: calc(var(--border-radius) * 1.5); /* 0.375 rem */
-  }
+    menu,
+    ol,
+    ul {
+      list-style: none;
+      color: light-dark(
+        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
+        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
+      );
+      font-size: var(--text-base);
+    }
+
+    strong{
+      color: var(--color-on-base);
+    }
+
+    code {
+      font-weight: 600;
+      background-color: var(--color-base-soft);
+      color: var(--color-on-base-soft);
+      padding: 0.2em 0.4em;
+      border-radius: calc(var(--border-radius) * 1.5); /* 0.375 rem */
+    }
+
+    img, video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    textarea {
+      resize: vertical;
+    }
 
     --color-base-soft: light-dark(color-mix(in oklch, black 5%, var(--color-base-600) 25%), color-mix(in oklch, black 10%, var(--color-base-400) 75%));
     --color-on-base-soft: var(--color-on-base);
