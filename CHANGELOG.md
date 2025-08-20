@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added new `table` component for displaying tabular data.
+- chore: update preflight to improve base styling and consistency
+
+
 ## [2.5.0-beta.7] - 2025-08-11
 
 ### Fixed
