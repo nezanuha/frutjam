@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.6.0-beta.0] - 2025-08-21
+
 ### Added
 
 - Added new `table` component for displaying tabular data.
@@ -170,9 +172,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.7...HEAD
-[2.5.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.6...v2.5.0-beta.7
-[2.5.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.5...v2.5.0-beta.6
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.6.0-beta.0...HEAD
+[2.6.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.7...v2.6.0-beta.0
+[2.5.0-beta.7]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.6...v2.5.0-beta.7
+[2.5.0-beta.6]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.5...v2.5.0-beta.6
 [2.5.0-beta.5]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.4...v2.5.0-beta.5
 [2.5.0-beta.4]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.3...v2.5.0-beta.4
 [2.5.0-beta.3]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.2...v2.5.0-beta.3
