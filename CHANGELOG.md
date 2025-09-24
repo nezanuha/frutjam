@@ -7,14 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.0-beta.0] - 2025-09-24
+
+### Added
+
+- You can now import all safelists using `import 'frutjam/safelist'`. This makes it easier to generate and use all Frutjam utility classes, especially when working with Markdown content or static analysis tools.
+- Added support for `card-{primary, secondary, accent, info, neutral, success, warning, error}` utility classes to style cards with semantic colors.
+
 # [2.6.0-beta.0] - 2025-08-21
 
 ### Added
 
 - Added new `table` component for displaying tabular data.
 - chore: update preflight to improve base styling and consistency
-- You can now import all safelists using `import 'frutjam/safelist'`. This makes it easier to generate and use all Frutjam utility classes, especially when working with Markdown content or static analysis tools.
-- Added support for `card-{primary, secondary, accent, info, neutral, success, warning, error}` utility classes to style cards with semantic colors.
 
 ## [2.5.0-beta.7] - 2025-08-11
 
@@ -174,7 +179,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.6.0-beta.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.0...HEAD
+[2.7.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.6.0-beta.0...v2.7.0-beta.0
 [2.6.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.7...v2.6.0-beta.0
 [2.5.0-beta.7]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.6...v2.5.0-beta.7
 [2.5.0-beta.6]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.5...v2.5.0-beta.6
