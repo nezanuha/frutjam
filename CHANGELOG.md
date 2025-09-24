@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Introduced new `divider-info` variant for UI divider styling
+
 # [2.7.0-beta.1] - 2025-09-24
 
 ### Fixed
