@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Introduced new `divider-info` variant for UI divider styling
 
+### Fixed
+
+- Fixes "Unexpected token CurlyBracketBlock" warning
+- Add missing semicolon in the CSS for the `.input-disable` class.
+
 # [2.7.0-beta.1] - 2025-09-24
 
 ### Fixed
