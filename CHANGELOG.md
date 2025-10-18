@@ -14,8 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixes "Unexpected token CurlyBracketBlock" warning
-- Add missing semicolon in the CSS for the `.input-disable` class.
-- Fixes drawer width when no placement utility is assigned with the drawer component.
+- Add missing semicolon in the CSS for the `.input-disable` class
+- Fixes drawer width when no placement utility is assigned with the drawer component
 
 # [2.7.0-beta.1] - 2025-09-24
 
