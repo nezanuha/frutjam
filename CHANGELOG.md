@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.1-beta.1] - 2025-10-19
+
+- Fixes drawer width when no placement utility is assigned with the drawer component
+
 ## [2.7.1-beta.0] - 2025-10-19
 
 ### Added
@@ -197,7 +201,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.1...HEAD
+[2.7.1-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...v2.7.1-beta.1
 [2.7.1-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.1...v2.7.1-beta.0
 [2.7.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.0...v2.7.0-beta.1
 [2.7.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.6.0-beta.0...v2.7.0-beta.0
