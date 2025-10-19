@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# [2.7.1-beta.0] - 2025-10-19
+
 ### Added
 
 - Introduced new `divider-info` variant for UI divider styling
@@ -195,7 +197,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...HEAD
+[2.7.1-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.1...v2.7.1-beta.0
 [2.7.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.0...v2.7.0-beta.1
 [2.7.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.6.0-beta.0...v2.7.0-beta.0
 [2.6.0-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.5.0-beta.7...v2.6.0-beta.0
