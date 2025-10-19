@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-# [2.7.1-beta.0] - 2025-10-19
+## [2.7.1-beta.0] - 2025-10-19
 
 ### Added
 
@@ -19,20 +19,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add missing semicolon in the CSS for the `.input-disable` class
 - Fixes drawer width when no placement utility is assigned with the drawer component
 
-# [2.7.0-beta.1] - 2025-09-24
+## [2.7.0-beta.1] - 2025-09-24
 
 ### Fixed
 
 - Corrected incorrect variable assignment for divider color
 
-# [2.7.0-beta.0] - 2025-09-24
+## [2.7.0-beta.0] - 2025-09-24
 
 ### Added
 
 - You can now import all safelists using `import 'frutjam/safelist'`. This makes it easier to generate and use all Frutjam utility classes, especially when working with Markdown content or static analysis tools.
 - Added support for `card-{primary, secondary, accent, info, neutral, success, warning, error}` utility classes to style cards with semantic colors.
 
-# [2.6.0-beta.0] - 2025-08-21
+## [2.6.0-beta.0] - 2025-08-21
 
 ### Added
 
