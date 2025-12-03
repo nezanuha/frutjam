@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-12-03
+
+### Added
+
+* **Prebuilt UI Components** — Ready-to-use components like Buttons, Modals, Accordions, Badges, Cards, Breadcrumbs, Checkboxes, and more.
+* **Flexible Theme System** — Multiple built-in themes (Light, Dark, etc.) plus full support for creating custom themes via CSS variables.
+* **RTL & Responsive Support** — Out-of-the-box support for right-to-left languages and mobile-first responsive layouts.
+* **Accessibility-First Design** — Components built with semantic HTML and accessibility best practices for inclusive, WCAG-friendly interfaces.
+* **SEO-Friendly & Standards-Compliant** — Clean, valid HTML and semantic markup for better SEO and W3C compatibility.
+* **Tailwind CSS Integration** — Seamless integration with Tailwind CSS with minimal setup.
+* **Markdown Editor Plugin** — Built-in plugin support, including a theme-aware Markdown editor for rich text content.
+* **Developer-Friendly & Extensible** — Minimal setup, flexible customization, and full control without relying on heavy JavaScript.
+
 ## [2.7.1-beta.1] - 2025-10-19
 
 - Fixes drawer width when no placement utility is assigned with the drawer component
@@ -201,7 +214,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.1...v1.0.0
 [2.7.1-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...v2.7.1-beta.1
 [2.7.1-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.1...v2.7.1-beta.0
 [2.7.0-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.0...v2.7.0-beta.1
