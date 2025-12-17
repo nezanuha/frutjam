@@ -8,21 +8,27 @@
 @utility radio {
   --radius-radio: calc(var(--border-radius) * 1.5);
 
-  --color-radio: --alpha(var(--color-base) / 50%);
-  --color-radio-active: var(--color-base-active);
+  --color-radio: var(--color-base-soft);
   --color-on-radio: var(--color-on-base);
+  --color-radio-active: var(--color-base-active);
 
-  --radio--box-shadow: 0 0 0 0px var(--color-base-50), 0 0 0 calc(1px + 0px) var(--color-radio-active), 0 0 var(--color-base-50);
+  --color-radio-soft: var(--color-base-soft);
+  --color-on-radio-soft: var(--color-on-base-soft);
 
   padding: var(--radio--padding, 0.3125rem);
   width: var(--radio--width, 1.25rem);
   height: var(--radio--height, 1.25rem);
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
+  background-color: currerntcolor;
   appearance: none;
   vertical-align: middle;
   cursor: pointer;
   position: relative;
+
+    outline-color: var(--color-radio-active);
+    outline-style: solid;
+    outline-width: 1px;
   
   background-color: transparent;
   border-radius: var(--radio--radius, var(--radius-radio));
@@ -35,6 +41,7 @@
     position: absolute;
     inset: 4px; 
     border-radius: 50%;
+    clip-path: circle(50%);
     background-color: var(--color-radio-active);
     opacity: 0;
     transform: scale(0.4);
@@ -52,8 +59,7 @@
   }
 
   @variant checked-or-aria-checked {
-    --radio--bg-color: light-dark(--alpha(var(--color-base-600) / 20%), --alpha(var(--color-base-400) / 20%));
-    background-color: var(--radio--bg-color);
+    background-color: transparent;
 
     @variant before {
       opacity: 1;
