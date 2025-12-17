@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix header width to span full screen
 - Fixes the card-body text color issue when the `card-{color}` theme utility class is applied, ensuring the text color matches the card theme.
+- Corrected variable assignment for `checkbox-rounded`, `checkbox-circle`, and `checkbox-square` utilities, ensuring proper border radius is applied.
 
 ## [1.0.0] - 2025-12-03
 
