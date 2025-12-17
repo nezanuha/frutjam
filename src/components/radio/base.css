@@ -1,0 +1,68 @@
+@import "./colors.css";
+@import "./safelist.css";
+@import "./shapes.css";
+@import "./sizes.css";
+@import "./states.css";
+@import "./variants.css";
+
+@utility radio {
+  --radius-radio: calc(var(--border-radius) * 1.5);
+
+  --color-radio: --alpha(var(--color-base) / 50%);
+  --color-radio-active: var(--color-base-active);
+  --color-on-radio: var(--color-on-base);
+
+  --radio--box-shadow: 0 0 0 0px var(--color-base-50), 0 0 0 calc(1px + 0px) var(--color-radio-active), 0 0 var(--color-base-50);
+
+  padding: var(--radio--padding, 0.3125rem);
+  width: var(--radio--width, 1.25rem);
+  height: var(--radio--height, 1.25rem);
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  appearance: none;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  
+  background-color: transparent;
+  border-radius: var(--radio--radius, var(--radius-radio));
+  box-shadow: var(--radio--box-shadow);
+
+  transition: background-color 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+
+  @variant before {
+    content: "";
+    position: absolute;
+    inset: 4px; 
+    border-radius: 50%;
+    background-color: var(--color-radio-active);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms linear;
+  }
+
+  @variant focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: light-dark(
+        var(--color-base-950, currentColor),
+        var(--color-base-50, currentColor)
+    );
+    outline-offset: 3px;
+  }
+
+  @variant checked-or-aria-checked {
+    --radio--bg-color: light-dark(--alpha(var(--color-base-600) / 20%), --alpha(var(--color-base-400) / 20%));
+    background-color: var(--radio--bg-color);
+
+    @variant before {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @variant radio-disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+}
