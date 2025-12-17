@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `table-zebra-rows` and `table-zebra-cols` for explicit horizontal or vertical striping.
 - `table-pin-rows` and `table-pin-cols` for sticky headers and fixed-position columns.
 - `table-{xs|sm|md|lg|xl}` for controlling cell padding and font sizes.
+- Added a new Radio component for user selection
 
 ### Fixed
 
