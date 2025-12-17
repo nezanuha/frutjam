@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-12-17
+
 ### Added
 - `table-hover` utility to highlight rows on mouseover.
 - `table-zebra` as a shorthand for standard row-based striping.
@@ -228,7 +230,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/nezanuha/frutjam/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.1...v1.0.0
 [2.7.1-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...v2.7.1-beta.1
 [2.7.1-beta.0]: https://github.com/nezanuha/frutjam/compare/v2.7.0-beta.1...v2.7.1-beta.0
