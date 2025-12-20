@@ -22,4 +22,7 @@ jobs:
         run: npm ci
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken
+          npm config set registry https://registry.npmjs.org/
+          npm publish --provenance --access public
