@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2025-12-18
 
 ### Added
+
 - `table-hover` utility to highlight rows on mouseover.
 - `table-zebra` as a shorthand for standard row-based striping.
 - `table-zebra-rows` and `table-zebra-cols` for explicit horizontal or vertical striping.
