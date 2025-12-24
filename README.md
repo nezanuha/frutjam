@@ -8,12 +8,15 @@
 
 # Frutjam: Free & Open-Source Tailwind CSS UI Library
 
+[Frutjam](https://frutjam.com) is a lightweight, modern UI library built for speed. It provides prebuilt Tailwind CSS components and JavaScript-powered plugins that are completely free to use. No complex setup—just copy, paste, and build.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg)](https://github.com/nezanuha/frutjam/stargazers)
 
-**Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast.
+## Pure CSS, no JavaScript needed. Framework-agnostic and fully compatible everywhere.
 
-With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
+**Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast. With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
+
 ---
 
 ## Key Features
@@ -54,7 +57,7 @@ That’s it — you're ready to build with Frutjam components!
 
 ## Live Demo & Documentation
 
-For full documentation and live interactive previews, visit our official site: 👉 **[frutjam](https://frutjam.com)**
+For full documentation and live interactive previews, visit our official site: 👉 **[frutjam](https://frutjam.com/docs)**
 
 ---
 
