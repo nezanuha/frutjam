@@ -1,0 +1,61 @@
+@utility menu-x {
+    display: inline-flex;
+    flex-direction: row;
+
+    & > li:not([class*="menu-title"]) > details {
+      & > ul {
+        background-color: var(--color-menu);
+        position: absolute;
+        margin-inline-start: 0rem;
+        margin-top: 1rem;
+        transform-origin: top;
+        padding-block:0.5rem;
+        padding-inline-end: 0.5rem;
+        opacity: 0%;
+        scale: 95%;
+
+        @media (prefers-reduced-motion: no-preference) {
+          @starting-style {
+            scale: 95%;
+            opacity: 0;
+          }
+
+          animation: menu 0.2s;
+          transition-property: opacity, scale, display;
+          transition-behavior: allow-discrete;
+          transition-duration: 0.2s;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+      }
+
+      &[open] > ul {
+        opacity: 100%;
+        scale: 100%;
+      }
+    }
+
+    & > li > details > ul {
+      &:before {
+        --tw-content: none;
+        content: var(--tw-content);
+      }
+    }
+}
+
+@utility menu-y {
+    display: inline-flex;
+    flex-direction: column;
+
+    & > li:not([class*="menu-title"]) > details > ul {
+        position: relative;
+        margin-inline-start: 1rem;
+        margin-top: 0rem;
+        padding-block: 0rem;
+        padding-inline-end: 0rem;
+        background-color: revert-layer;
+        border-radius: revert-layer;
+        animation: revert-layer;
+        transition: revert-layer;
+        box-shadow: revert-layer;
+    }
+}
