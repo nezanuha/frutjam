@@ -6,14 +6,20 @@
 
 ---
 
-## ⚡ Frutjam — Tailwind CSS UI Library for Fast Development
+# Frutjam: Free & Open-Source Tailwind CSS UI Library
 
-**Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast.
+[Frutjam](https://frutjam.com) is a lightweight, modern UI library built for speed. It provides prebuilt Tailwind CSS components and JavaScript-powered plugins that are completely free to use. No complex setup—just copy, paste, and build.
 
-With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg)](https://github.com/nezanuha/frutjam/stargazers)
+
+## Pure CSS, no JavaScript needed. Framework-agnostic and fully compatible everywhere.
+
+**Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast. With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
+
 ---
 
-### ✨ Features
+## Key Features
 
 * 🧱 **Prebuilt UI Components** — Plug-and-play components to save time
 * 🎨 **Customizable Themes** — Use built-in themes or create your own
@@ -24,41 +30,46 @@ With a wide selection of prebuilt components and themes, Frutjam makes it easy t
 
 ---
 
-### 🚀 Installation
+## Installation & Usage
+
+Import Tailwind CSS and Frutjam into your main stylesheet:
 
 ```bash
 npm install frutjam
 ```
-
----
-
-### 📦 Usage
-
-Import Tailwind CSS and Frutjam into your main stylesheet:
 
 ```css
 @import "tailwindcss";
 @import "frutjam";
 ```
 
+## Basic Example
+
+```html
+<button class="btn btn-primary">
+  Launch App
+</button>
+```
+
 That’s it — you're ready to build with Frutjam components!
 
 ---
 
-### 📚 Documentation
+## Live Demo & Documentation
 
-For examples, theming, and full usage guides, visit:
-👉 **[frutjam.com](https://frutjam.com)**
+For full documentation and live interactive previews, visit our official site: 👉 **[frutjam](https://frutjam.com/docs)**
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you find a bug, have a feature request, or want to help improve the library:
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the repo
-2. Create a new branch
-3. Submit a pull request
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
 
 Please check the [contributing guidelines](.github/CONTRIBUTING.md) before starting.
 
@@ -66,7 +77,7 @@ Please check the [contributing guidelines](.github/CONTRIBUTING.md) before start
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+Distributed under the MIT License. See [MIT License](LICENSE) for more information.
 
 ---
 
