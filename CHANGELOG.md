@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `Menu` component with vertical/horizontal layouts and nested submenu support
 - Added `Tooltip` component
+- Add `.accordion-flush` utility to `accordion` component to remove default border
 
 ## [1.1.0] - 2025-12-18
 
