@@ -1,0 +1,132 @@
+@utility tooltip-top {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(-50%) translateY(var(--tooltip-placement, 0.25rem));
+        inset: auto auto var(--tooltip-body) 50%;
+        z-index: 50;
+    }
+
+    @variant after {
+        transform: translateX(-50%) translateY(var(--tooltip-placement, 0.25rem));
+        inset: auto auto var(--tooltip-tail) 50%;
+        z-index: 50;
+    }
+}
+
+@utility tooltip-bottom {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(-50%) translateY(var(--tooltip-placement, -0.25rem));
+        inset: var(--tooltip-body) auto auto 50%;
+        z-index: 50;
+    }
+
+    @variant after {
+        transform: translateX(-50%) translateY(var(--tooltip-placement, -0.25rem)) rotate(180deg);
+        inset: var(--tooltip-tail) auto auto 50%;
+        z-index: 50;
+    }
+}
+
+@utility tooltip-left {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(calc(var(--tooltip-placement, 0.25rem) - 0.25rem)) translateY(-50%);
+        inset: 50% var(--tooltip-body) auto auto;
+        z-index: 50;
+    }
+
+    @variant after {
+        transform: translateX(var(--tooltip-placement, 0.25rem)) translateY(-50%) rotate(-90deg);
+        inset: 50% calc(var(--tooltip-tail) + 1px) auto auto;
+        z-index: 50;
+    }
+}
+
+@utility tooltip-right {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(calc(var(--tooltip-placement, -0.25rem) + 0.25rem)) translateY(-50%);
+        inset: 50% auto auto var(--tooltip-body);
+        z-index: 50;
+    }
+
+    @variant after {
+        transform: translateX(var(--tooltip-placement, -0.25rem)) translateY(-50%) rotate(90deg);
+        inset: 50% auto auto calc(var(--tooltip-tail) + 1px);
+        z-index: 50;
+    }
+}
+
+@utility tooltip-start {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(calc(var(--tooltip-placement, 0.25rem) - 0.25rem)) translateY(-50%);
+        inset: 50% var(--tooltip-body) auto auto;
+        z-index: 50;
+    }
+
+    @variant rtl {
+
+        &>[class*="tooltip-body"],
+        &[data-tip]:before {
+            transform: translateX(calc(var(--tooltip-placement, -0.25rem) + 0.25rem)) translateY(-50%);
+            inset: 50% auto auto var(--tooltip-body);
+            z-index: 50;
+        }
+    }
+
+    @variant after {
+        transform: translateX(var(--tooltip-placement, 0.25rem)) translateY(-50%) rotate(-90deg);
+        inset: 50% calc(var(--tooltip-tail) + 1px) auto auto;
+        z-index: 50;
+    }
+
+    @variant rtl {
+        @variant after {
+            transform: translateX(var(--tooltip-placement, -0.25rem)) translateY(-50%) rotate(90deg);
+            inset: 50% auto auto calc(var(--tooltip-tail) + 1px);
+            z-index: 50;
+        }
+    }
+}
+
+
+@utility tooltip-end {
+
+    &>[class*="tooltip-body"],
+    &[data-tip]:before {
+        transform: translateX(calc(var(--tooltip-placement, -0.25rem) + 0.25rem)) translateY(-50%);
+        inset: 50% auto auto var(--tooltip-body);
+        z-index: 50;
+    }
+
+    @variant rtl {
+
+        &>[class*="tooltip-body"],
+        &[data-tip]:before {
+            transform: translateX(calc(var(--tooltip-placement, 0.25rem) - 0.25rem)) translateY(-50%);
+            inset: 50% var(--tooltip-body) auto auto;
+            z-index: 50;
+        }
+    }
+
+    @variant after {
+        transform: translateX(var(--tooltip-placement, -0.25rem)) translateY(-50%) rotate(90deg);
+        inset: 50% auto auto calc(var(--tooltip-tail) + 1px);
+        z-index: 50;
+    }
+
+    @variant rtl {
+        @variant after {
+            transform: translateX(var(--tooltip-placement, 0.25rem)) translateY(-50%) rotate(-90deg);
+            inset: 50% calc(var(--tooltip-tail) + 1px) auto auto;
+            z-index: 50;
+        }
+    }
+}
