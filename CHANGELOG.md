@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-12-30
+
 ### Added
 
 - Added `Menu` component with vertical/horizontal layouts and nested submenu support
@@ -237,7 +239,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/nezanuha/frutjam/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/nezanuha/frutjam/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.1...v1.0.0
 [2.7.1-beta.1]: https://github.com/nezanuha/frutjam/compare/v2.7.1-beta.0...v2.7.1-beta.1
