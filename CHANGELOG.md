@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Apply border only to top-level accordion (prevent border on nested accordions)
   - Add padding to first-level accordion-body and summary only, removing it from nested items
   - Ensure nested details and summaries do not inherit styles from parent accordion
+- Removed top padding from the first `<summary>` tag in the `accordion-flush` to improve visual consistency
 
 ## [1.2.0] - 2025-12-30
 
