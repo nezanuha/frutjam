@@ -1,4 +1,5 @@
 @import "./safelist.css";
+@import "./structure.css";
 
 @utility accordion {
   --radius-accordion: calc(var(--border-radius) * 2);      /* 0.5rem */
@@ -8,10 +9,14 @@
   display: grid;
   width: 100%;
   background-color: var(--color-base);
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--color-accordion-active);
-  border-radius: var(--radius-accordion);
+
+  &:not([class*="accordion-body"] *) {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--color-accordion-active);
+    border-radius: var(--radius-accordion);
+  }
+  
   cursor: pointer;
 
   & > details {
@@ -20,21 +25,19 @@
       border-bottom-style:solid;
       border-bottom-color: var(--color-accordion-active);
     }
+    
     text-wrap: pretty;
 
-    & > *:not(summary) {
-      padding-inline: 1rem;
-      padding-bottom: 1rem;
-      /* color: var(--para--color); */
+    /* Target nested accordion bodies to strip their padding */
+    & [class*="accordion-body"] [class*="accordion-body"] {
+      padding-inline: 0;
+      padding-bottom: 0;
     }
+
     & > summary::marker {
       content: none;
     }
-    & > p {
-      font-size: var(--text-base);
-      /* background-color: --alpha(var(--color-base-soft) / 20%); */
-      /* padding-top: 1rem; */
-    }
+
     & > summary {
       display: flex;
       gap: 1rem;
@@ -49,6 +52,12 @@
         color: inherit;
       }
     }
+
+    /* Remove summary padding for nested accordions */
+    & [class*="accordion-body"] details > summary {
+      padding-inline: 0;
+    }
+
   }
 
   & > details[open] {
@@ -61,8 +70,4 @@
       }
     }
   }
-}
-
-@utility accordion-flush {
-  border:none;
 }

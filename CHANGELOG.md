@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Introduced `accordion-body` utility to wrap content and improve separation within accordion sections
+
+### Changed
+
+- `accordion-flush` utility: removed padding and set font-weight to normal
+
+### Fixed
+
+- Accordion border and padding for nested accordions:
+  - Apply border only to top-level accordion (prevent border on nested accordions)
+  - Add padding to first-level accordion-body and summary only, removing it from nested items
+  - Ensure nested details and summaries do not inherit styles from parent accordion
+
 ## [1.2.0] - 2025-12-30
 
 ### Added
