@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Introduced `accordion-body` utility to wrap content and improve separation within accordion sections
+- New `submenu` class for the `menu` component to support nested menu items
 
 ### Changed
 
@@ -17,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the default background color from `accordion`.
 - Updated the `details` element to span the full width of its container.
 - Improved padding to better align with other components such as `menu`.
+- Overall structure and styling of the `menu` component for better usability and visual consistency.
+- Alignment and integration of `menu` component with `accordion` component for seamless collapse/expand behavior within nested menus.
 
 ### Fixed
 
