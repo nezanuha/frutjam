@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `accordion-flush` utility: removed padding and set font-weight to normal
+- Removed the default background color from `accordion`.
+- Updated the `details` element to span the full width of its container.
+- Improved padding to better align with other components such as `menu`.
 
 ### Fixed
 
