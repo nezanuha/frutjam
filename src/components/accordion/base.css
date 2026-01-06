@@ -8,7 +8,6 @@
 
   display: block;
   width: 100%;
-  /* background-color: var(--color-base); */
 
   &:not([class*="accordion-body"] *) {
     border-width: 1px;
@@ -30,12 +29,6 @@
     
     text-wrap: pretty;
 
-    /* Target nested accordion bodies to strip their padding */
-    & [class*="accordion-body"] [class*="accordion-body"] {
-      padding-inline: 0;
-      padding-bottom: 0;
-    }
-
     & > summary::marker {
       content: none;
     }
@@ -45,8 +38,9 @@
       gap: 1rem;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
+      padding-block: 1rem;
       font-weight: 500;
+      color: var(--color-on-base);
 
       &::after {
         content: "";
@@ -57,11 +51,6 @@
         height: 0.625rem;
         transform: rotate(45deg);
       }
-    }
-
-    /* Remove summary padding for nested accordions */
-    & [class*="accordion-body"] details > summary {
-      padding-inline: 0;
     }
 
   }
