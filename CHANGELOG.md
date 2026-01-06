@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed submenu utility to simplify the menu component implementation
+
 ### Fixed
 
-- Adjusted accordion padding to ensure better alignment with other components, such as the menu, without disrupting their layout.
+- Adjusted accordion padding to ensure better alignment with other components, such as the menu, without disrupting their layout
+- Improved component alignment for better consistency
 
 ## [1.4.0] - 2026-01-06
 
