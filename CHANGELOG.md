@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-01-06
+
 ### Added
 
 - Introduced `menu-item` class for the `menu` component to improve menu structure and styling
@@ -14,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Implement accordion chevron icon using pure CSS to ensure theme color consistency
-
+- Remove defualt padding in `sidebar` component
 
 ## [1.3.0] - 2026-01-05
 
@@ -272,7 +274,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/nezanuha/frutjam/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/nezanuha/frutjam/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/nezanuha/frutjam/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/nezanuha/frutjam/compare/v1.0.0...v1.1.0
