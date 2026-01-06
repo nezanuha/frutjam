@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Implement accordion chevron icon using pure CSS to ensure theme color consistency
+
+### Removed
+
 - Remove defualt padding in `sidebar` component
 
 ## [1.3.0] - 2026-01-05
