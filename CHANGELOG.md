@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Restored padding behavior in the accordion component: Padding is applied when `accordion-flush` is not used, and padding is removed when `accordion-flush` is applied.
+- Add the `menu-disabled` and `menu-active` classes to the safelist
 
 ## [1.5.0] - 2026-01-06
 
