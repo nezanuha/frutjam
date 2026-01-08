@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add breakpoint variants to all CDN classes
+- Added new `badge-pill` utility class
 
 ### Changed
 
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add the `menu-disabled` and `menu-active` classes to the safelist
 - Fixed alignment issues in the menu component when using icons with text, ensuring icons and labels appear on the same line
 - fix(accordion): align summary icon and text to start with arrow at end
+- Fixed `badge-circle` utility not rendering as a full circle when applied
 
 ## [1.5.0] - 2026-01-06
 
