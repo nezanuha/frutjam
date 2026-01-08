@@ -46,5 +46,3 @@ const safelistSize = (fs.statSync(safelistOutput).size / 1024).toFixed(2);
 console.log(
   `${chalk.green('✔')} All safelist.css merged: ${chalk.cyan(safelistOutput)} ${chalk.gray(`(${safelistSize} KB)`)}`,
 );
-
-// --- Existing code continues ---
