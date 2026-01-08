@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add breakpoint variants to all CDN classes
+
 ### Changed
 
 - Set the menu component content color to the base color
