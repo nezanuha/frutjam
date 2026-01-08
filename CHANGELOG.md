@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `cursor: pointer` to `menu-item`
 
+### Fixed
+
+- fix(card): remove overflow:hidden to allow content overflow
+
 ## [1.6.0] - 2026-01-08
 
 ### Added
