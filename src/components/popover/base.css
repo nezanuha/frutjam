@@ -1,0 +1,22 @@
+@import "./structure.css";
+@import "./placement.css";
+@import "./safelist.css";
+
+@utility popover {
+  --radius-popover: calc(var(--border-radius) * 2); /* 0.5rem */
+  position: relative;
+  display: inline-block;
+
+  [popover]:popover-open {
+    &:is([class*="popover-body"]) {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+
+      @starting-style {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+  }
+}

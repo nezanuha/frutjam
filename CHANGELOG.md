@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `cursor: pointer` to `menu-item`
+- Add `cursor: pointer` to `menu-item
+- Added new popover component to display overlay content
 
 ### Fixed
 
