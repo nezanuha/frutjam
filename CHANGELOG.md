@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - refactor(styles): replace physical CSS properties with logical ones for LTR/RTL
+- Changed breadcrumb separator icon color to `--color-on-base`
 
 ### Fixed
 
