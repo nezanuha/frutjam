@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `cursor: pointer` to `menu-item
 - Added new `popover` component with click and hover support
 
+### Changed
+
+- refactor(styles): replace physical CSS properties with logical ones for LTR/RTL
+
 ### Fixed
 
 - fix(card): remove overflow:hidden to allow content overflow
