@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix(card): remove overflow:hidden to allow content overflow
 - fix(accordion): prevent chevron from being cut off on small screens or long text
 - fix(accordion): reduce chevron icon size for better fit
+- Fixed accordion top margin not applying in the menu
 
 ## [1.6.0] - 2026-01-08
 
