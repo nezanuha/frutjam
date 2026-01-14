@@ -1,21 +1,27 @@
+@utility popover-toggle {
+  --tw-popover-hover: 1;
+}
+
 @utility popover-body {
     border-radius: var(--radius-popover);
     padding: 0.60rem;
     visibility: hidden;
+    z-index: 100; 
+    pointer-events: auto;
 
     @supports (position-area: end span-end) {
         position-area: var(--popover--position-area, end span-end);
     }
 
     position: absolute;
+    display:block;
     animation: popover 0.2s;
     background-color: var(--color-base);
     outline-style: solid;
     outline-width: 1px;
     min-width: 13rem;
     outline-color: var(--color-base-active);
-    transition-property: opacity,
-    transform;
+    transition-property: opacity, transform;
     transition-behavior: allow-discrete;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
