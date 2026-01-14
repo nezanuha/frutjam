@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- fix(accordion): improved chevron icon alignment to be vertically centered
+
 ## [1.7.0] - 2026-01-14
 
 ### Added
