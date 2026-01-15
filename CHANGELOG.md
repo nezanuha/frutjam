@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Improved accordion UX by limiting pointer cursor to summary.
+
 ### Fixed
 
 - fix(accordion): improved chevron icon alignment to be vertically centered
