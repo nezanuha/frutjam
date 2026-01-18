@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Improved accordion UX by limiting pointer cursor to summary.
+- Improved accordion UX by limiting pointer cursor to summary
+- Removed default padding from the menu
+- Added `margin-block-start` to `ul` and `li` elements in the menu
+- Excluded the first `li` child from the added `margin-block-start`
 
 ### Fixed
 
