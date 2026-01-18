@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - fix(accordion): improved chevron icon alignment to be vertically centered
+- Apply `margin-block-start` only when a popover position is set
 
 ## [1.7.0] - 2026-01-14
 
