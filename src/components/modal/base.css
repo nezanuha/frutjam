@@ -6,11 +6,11 @@
 
 
 @utility modal {
-  --radius-modal: calc(var(--border-radius) * 4);     /* 1rem */
+  --radius-modal: calc(var(--border-radius) * 4);
   
   position: fixed;
-  inset: 0rem;
-  margin: 0rem;
+  inset: 0;
+  margin: 0;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -18,36 +18,45 @@
   height: 100%;
   max-width: none;
   max-height: none;
-  background-color: var(--color-base);
-  color: inherit;
   z-index: 999;
-  overscroll-behavior: contain;
-  overflow: hidden;
   padding: 0.75rem;
+  overflow: hidden;
+  overscroll-behavior: contain;
+
+  /* State Handling */
   pointer-events: none;
   visibility: hidden;
+  background-color: transparent; /* Keep container clear */
 
-  &:not(modal:not([open]):not([class*=modal-open])),
-  &::backdrop {
-    @starting-style {
-      visibility: hidden;
-      opacity: 0;
-    }
+  /* The transition should be fast on the visibility toggle */
+  transition: 
+    visibility 200ms ease allow-discrete, 
+    overlay 200ms ease allow-discrete;
 
-    opacity: 1;
-    background-color: light-dark(color-mix(in oklch, black 10%, var(--color-base-600) 40%), color-mix(in oklch, black 10%, var(--color-base-400) 40%));
+  /* Use the native backdrop for the background color */
+  @variant backdrop {
+    background-color: light-dark(
+      color-mix(in oklch, black 10%, var(--color-base-600) 40%), 
+      color-mix(in oklch, black 10%, var(--color-base-400) 40%)
+    );
+    opacity: 0;
+    transition: opacity 200ms ease-out;
   }
-  &[open],
-  &[class*=modal-open] {
-    @starting-style {
-      visibility: hidden;
-      opacity: 0;
-    }
 
+  &[open] {
     pointer-events: auto;
     visibility: visible;
-    opacity: 1;
 
+    @variant backdrop {
+      opacity: 1;
+    }
+
+    /* Start the backdrop from 0 so it fades in smooth */
+    @starting-style {
+      @variant backdrop { opacity: 0; }
+    }
+
+    /* Trigger Body Variables */
     --modal-body--translate: 0 0;
     --modal-body--scale: 1;
     --modal-body--opacity: 1;

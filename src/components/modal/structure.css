@@ -4,13 +4,17 @@
   grid-row-start: 1;
   align-self: stretch;
   justify-self: stretch;
-  color: transparent;
+
+  appearance: none;
   background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+
   z-index: -1;
 
-  button {
-    cursor: pointer;
-  }
+  color: transparent;
+  font-size: 0;
 }
 
 @utility modal-body {
@@ -18,28 +22,27 @@
   scale: var(--modal-body--scale, 95%);
   opacity: var(--modal-body--opacity, 0);
 
-  box-shadow: light-dark(var(--color-base-600), var(--color-base-900)) 0px 1px 1px;
   grid-column-start: 1;
   grid-row-start: 1;
-  max-height: 100vh;
   width: calc(11 / 12 * 100%);
   max-width: 32rem;
+  max-height: 100vh;
   padding: 1.5rem;
   overflow-y: auto;
   overscroll-behavior: contain;
-  border-radius: var(--radius-modal);
+  
   background-color: var(--color-base);
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--color-base-soft);
+  border-radius: var(--radius-modal);
+  border: 1px solid var(--color-base-soft);
+  box-shadow: light-dark(var(--color-base-600), var(--color-base-900)) 0px 1px 1px;
+
   transition:
-    translate 0.3s ease-out,
-    scale 0.3s ease-out,
-    opacity 0.3s ease-out 0.05s,
-    box-shadow 0.3s ease-out;
+    translate 200ms ease-out,
+    scale 200ms ease-out,
+    opacity 200ms ease-out,
+    box-shadow 200ms ease-out;
 
   @variant forced-colors {
-    outline-style: solid;
-    outline-width: 1px;
+    outline: 1px solid;
   }
 }
