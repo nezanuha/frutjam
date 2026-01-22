@@ -4,13 +4,12 @@
 }
 
 @utility accordion-flush {
-    &:not([class*="accordion-body"] *) {
-        border: none;
-    }
+    --accordion-flush--border-width: 0;
+    --accordion-flush--padding-inline: 0;
 
     &>details:first-child {
         >summary {
-            padding-block-start: 0rem;
+            padding-block-start: 0;
         }
     }
 
@@ -18,19 +17,15 @@
         font-weight: normal;
     }
 
-    &>details:last-child {
+    /* &>details:last-child:not(:only-child) {
         >summary {
-            padding-block-end: 0rem;
+            padding-block-end: 0;
         }
     }
 
-    &>details[open]:last-child {
-        >summary {
+    & > details[open]:last-child:not(:only-child) {
+        > summary {
             padding-block-end: 1rem;
         }
-    }
-
-    & [class*="accordion-body"] details>summary {
-        padding-block-start: 0.375rem;
-    }
+    } */
 }

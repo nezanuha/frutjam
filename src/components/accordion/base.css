@@ -9,16 +9,11 @@
   display: block;
   width: 100%;
 
-  &:not([class*="accordion-flush"]){
-    padding-inline: 1rem;
-  }
-
-  &:not([class*="accordion-body"] *) {
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--color-accordion-active);
-    border-radius: var(--radius-accordion);
-  }
+  padding-inline: var(--accordion-flush--padding-inline, 1rem);
+  border-width: var(--accordion-flush--border-width, 1px);
+  border-style: solid;
+  border-color: var(--color-accordion-active);
+  border-radius: var(--radius-accordion);
 
   & > details {
     box-sizing: border-box;
@@ -47,12 +42,12 @@
       color: var(--color-on-base);
       cursor: pointer;
 
-      &::after {
+      @variant after {
         content: "";
         border-block-end: 1px solid;
         border-inline-end: 1px solid;
-        width: .425rem;
-        height: .425rem;
+        width: 0.425rem;
+        height: 0.425rem;
         position: absolute;
         inset-inline-end: 0.5rem;
         margin-block-start: 0.313rem;
@@ -64,8 +59,7 @@
 
   & > details[open] {
     & > summary {
-      /* padding-block-end: 1rem; */
-      &::after {
+      @variant after {
         transform: rotate(225deg);
         transform-origin: center;
         transition: transform 300ms;
