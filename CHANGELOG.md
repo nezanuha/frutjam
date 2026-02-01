@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **`accordion`**: improved chevron icon alignment to be vertically centered
+- **`accordion`**: Improved chevron icon alignment to be vertically centered
 - **`menu`**: Apply `margin-block-start` only when a popover position is set
 - **`btn`**: Better disabled state (50% opacity instead of 20% - more accessible)
 
@@ -36,14 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`core`**: replace physical CSS properties with logical ones for LTR/RTL
+- **`core`**: Replace physical CSS properties with logical ones for LTR/RTL
 - **`breadcrumb`**: Changed breadcrumb separator icon color to `--color-on-base`
 
 ### Fixed
 
-- **`card`**: remove overflow:hidden to allow content overflow
-- **`accordion`**: prevent chevron from being cut off on small screens or long text
-- **`accordion`**: reduce chevron icon size for better fit
+- **`card`**: Remove overflow:hidden to allow content overflow
+- **`accordion`**: Prevent chevron from being cut off on small screens or long text
+- **`accordion`**: Reduce chevron icon size for better fit
 - **`accordion`**: Fixed accordion top margin not applying in the menu
 
 ## [1.6.0] - 2026-01-08
@@ -59,85 +59,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Restored padding behavior in the accordion component: Padding is applied when `accordion-flush` is not used, and padding is removed when `accordion-flush` is applied.
-- Add the `menu-disabled` and `menu-active` classes to the safelist
-- Fixed alignment issues in the menu component when using icons with text, ensuring icons and labels appear on the same line
-- fix(accordion): align summary icon and text to start with arrow at end
-- Fixed `badge-circle` utility not rendering as a full circle when applied
+- **`accordion`**: Restored padding behavior in the accordion component: Padding is applied when `accordion-flush` is not used, and padding is removed when `accordion-flush` is applied.
+- **`menu`**: Add the `menu-disabled` and `menu-active` classes to the safelist
+- **`menu`**: Fixed alignment issues in the menu component when using icons with text, ensuring icons and labels appear on the same line
+- **`accordion`**: align summary icon and text to start with arrow at end
+- **`badge`**: Fixed `badge-circle` utility not rendering as a full circle when applied
 
 ## [1.5.0] - 2026-01-06
 
 ### Removed
 
-- Removed submenu utility to simplify the menu component implementation
+- **`menu`**: Removed submenu utility to simplify the menu component implementation
 
 ### Fixed
 
-- Adjusted accordion padding to ensure better alignment with other components, such as the menu, without disrupting their layout
-- Improved component alignment for better consistency
+- **`accordion`**: Adjusted accordion padding to ensure better alignment with other components, such as the menu, without disrupting their layout
+- **`menu`**: Improved component alignment for better consistency
 
 ## [1.4.0] - 2026-01-06
 
 ### Added
 
-- Introduced `menu-item` class for the `menu` component to improve menu structure and styling
+- **`menu`**: Introduced `menu-item` class for the `menu` component to improve menu structure and styling
 
 ### Changed
 
-- Implement accordion chevron icon using pure CSS to ensure theme color consistency
+- **`accordion`**: Implement accordion chevron icon using pure CSS to ensure theme color consistency
 
 ### Removed
 
-- Remove defualt padding in `sidebar` component
+- **`sidebar`**: Remove defualt padding in `sidebar` component
 
 ## [1.3.0] - 2026-01-05
 
 ### Added
 
-- Introduced `accordion-body` utility to wrap content and improve separation within accordion sections
-- New `submenu` class for the `menu` component to support nested menu items
+- **`accordion`**: Introduced `accordion-body` utility to wrap content and improve separation within accordion sections
+- **`menu`**: New `submenu` class for the `menu` component to support nested menu items
 
 ### Changed
 
-- `accordion-flush` utility: removed padding and set font-weight to normal
-- Removed the default background color from `accordion`.
-- Updated the `details` element to span the full width of its container.
-- Improved padding to better align with other components such as `menu`.
-- Overall structure and styling of the `menu` component for better usability and visual consistency.
-- Alignment and integration of `menu` component with `accordion` component for seamless collapse/expand behavior within nested menus.
+- **`accordion`**: `accordion-flush` utility: removed padding and set font-weight to normal
+- **`accordion`**: Removed the default background color from `accordion`.
+- **`accordion`**: Updated the `details` element to span the full width of its container.
+- **`accordion`**: Improved padding to better align with other components such as `menu`.
+- **`menu`**: Overall structure and styling of the `menu` component for better usability and visual consistency.
+- **`menu`**: Alignment and integration of `menu` component with `accordion` component for seamless collapse/expand behavior within nested menus.
 
 ### Fixed
 
-- Accordion border and padding for nested accordions:
+- **`accordion`**: Accordion border and padding for nested accordions:
   - Apply border only to top-level accordion (prevent border on nested accordions)
   - Add padding to first-level accordion-body and summary only, removing it from nested items
   - Ensure nested details and summaries do not inherit styles from parent accordion
-- Removed top padding from the first `<summary>` tag in the `accordion-flush` to improve visual consistency
+- **`accordion`**: Removed top padding from the first `<summary>` tag in the `accordion-flush` to improve visual consistency
 
 ## [1.2.0] - 2025-12-30
 
 ### Added
 
-- Added `Menu` component with vertical/horizontal layouts and nested submenu support
-- Added `Tooltip` component
-- Add `.accordion-flush` utility to `accordion` component to remove default border
+- **`menu`**: Added `Menu` component with vertical/horizontal layouts and nested submenu support
+- **`tooltip`**: Added `Tooltip` component
+- **`accordion`**: Add `.accordion-flush` utility to `accordion` component to remove default border
 
 ## [1.1.0] - 2025-12-18
 
 ### Added
 
-- `table-hover` utility to highlight rows on mouseover.
-- `table-zebra` as a shorthand for standard row-based striping.
-- `table-zebra-rows` and `table-zebra-cols` for explicit horizontal or vertical striping.
-- `table-pin-rows` and `table-pin-cols` for sticky headers and fixed-position columns.
-- `table-{xs|sm|md|lg|xl}` for controlling cell padding and font sizes.
-- Added a new Radio component for user selection
+- **`table`**: `table-hover` utility to highlight rows on mouseover.
+- **`table`**: `table-zebra` as a shorthand for standard row-based striping.
+- **`table`**: `table-zebra-rows` and `table-zebra-cols` for explicit horizontal or vertical striping.
+- **`table`**: `table-pin-rows` and `table-pin-cols` for sticky headers and fixed-position columns.
+- **`table`**: `table-{xs|sm|md|lg|xl}` for controlling cell padding and font sizes.
+- **`radio`**: Added a new Radio component for user selection
 
 ### Fixed
 
-- Fix header width to span full screen
-- Fixes the card-body text color issue when the `card-{color}` theme utility class is applied, ensuring the text color matches the card theme.
-- Corrected variable assignment for `checkbox-rounded`, `checkbox-circle`, and `checkbox-square` utilities, ensuring proper border radius is applied.
+- **`header`**: Fix header width to span full screen
+- **`card`**: Fixes the card-body text color issue when the `card-{color}` theme utility class is applied, ensuring the text color matches the card theme.
+- **`checkbox`**: Corrected variable assignment for `checkbox-rounded`, `checkbox-circle`, and `checkbox-square` utilities, ensuring proper border radius is applied.
 
 ## [1.0.0] - 2025-12-03
 
