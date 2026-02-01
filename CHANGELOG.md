@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added CSS-based auto color-contrast fallback for buttons using `color-contrast()` to ensure readable text when `--color-on-btn` is not explicitly defined
+- Added user-select: none to the base button to ensure it looks consistent across browsers.
 
 ### Changed
 
