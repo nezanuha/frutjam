@@ -17,9 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed default padding from the menu
 - Added `margin-block-start` to `ul` and `li` elements in the menu
 - Excluded the first `li` child from the added `margin-block-start`
-- Replaced outline-based button variants with border-based styling for improved layout stability
 - Improved button hover and unhover smoothness with refined transition timing
 - Refined hover background behavior to avoid abrupt color changes
+- Changed from outline to border for better visual consistency
 
 ### Fixed
 
