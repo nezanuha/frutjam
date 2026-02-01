@@ -4,7 +4,6 @@
 @import "./sizes.css";
 @import "./states.css";
 @import "./styles.css";
-@import "./variants.css";
 
 @utility btn {
     --radius-btn: calc(var(--border-radius) * 2);      /* 0.5rem */
@@ -18,11 +17,44 @@
     --btn-variant-text: var(--color-on-base);
 
     background-color: var(--color-btn);
-    color: var(--color-on-btn);
+    color: var(
+        --color-on-btn,
+        color-contrast(
+        var(--color-btn)
+        vs
+        white,
+        black
+        )
+    );
+
+    --btn--opacity: 1;
+    --btn--cursor: pointer;
+    --btn--pointer-events: auto;
+
+    /* border tokens */
+    --btn--border-width: 0;
+    --btn--border-style: solid;
+    --btn--border-color: transparent;
+
+    border-width: var(--btn--border-width);
+    border-style: var(--btn--border-style);
+    border-color: var(--btn--border-color);
+
+
+    &:is(:disabled, [disabled]){
+        --btn--opacity: 0.5;
+        --btn--cursor: not-allowed;
+        --btn--pointer-events: none;
+    }
+
+    opacity: var(--btn--opacity);
+    cursor: var(--btn--cursor);
+    pointer-events: var(--btn--pointer-events);
 
     @variant hover {
         background-color: var(--color-btn-active);
         color: var(--color-on-btn);
+        transition-duration: 220ms;
     }
 
     border-radius: var(--btn--radius, var(--radius-btn));
@@ -48,17 +80,11 @@
     overflow: hidden;
     cursor: pointer;
     box-sizing: border-box;
-    transition: all 250ms ease-out;
-
-    @variant btn-disabled {
-        --btn--opacity: 20%;
-        --btn--cursor: not-allowed;
-        --btn--pointer-events: none;
-
-        opacity: var(--btn--opacity);
-        cursor: var(--btn--cursor);
-        pointer-events: var(--btn--pointer-events);
-    }
+    transition:
+        background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+        color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 200ms ease;
 
     &:is(input[type="checkbox"], input[type="radio"]) {
         appearance: none;
