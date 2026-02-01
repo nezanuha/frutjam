@@ -8,54 +8,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added CSS-based auto color-contrast fallback for buttons using `color-contrast()` to ensure readable text when `--color-on-btn` is not explicitly defined
-- Added user-select: none to the base button to ensure it looks consistent across browsers.
+- **`btn`**: Added CSS-based auto color-contrast fallback for buttons using `color-contrast()` to ensure readable text when `--color-on-btn` is not explicitly defined
+- **`btn`**: Added user-select: none to the base button to ensure it looks consistent across browsers.
 
 ### Changed
 
-- Improved accordion UX by limiting pointer cursor to summary
-- Removed default padding from the menu
-- Added `margin-block-start` to `ul` and `li` elements in the menu
-- Excluded the first `li` child from the added `margin-block-start`
-- Improved button hover and unhover smoothness with refined transition timing
-- Refined hover background behavior to avoid abrupt color changes
-- Changed from outline to border for better visual consistency
+- **`accordion`**: Improved accordion UX by limiting pointer cursor to summary
+- **`menu`**: Removed default padding from the menu
+- **`menu`**: Added `margin-block-start` to `ul` and `li` elements in the menu
+- **`menu`**: Excluded the first `li` child from the added `margin-block-start`
+- **`btn`**: Improved button hover and unhover smoothness with refined transition timing
+- **`btn`**:Refined hover background behavior to avoid abrupt color changes
+- **`btn`**: Changed from outline to border for better visual consistency
 
 ### Fixed
 
-- fix(accordion): improved chevron icon alignment to be vertically centered
-- Apply `margin-block-start` only when a popover position is set
-- Better disabled state (50% opacity instead of 20% - more accessible)
+- **`accordion`**: improved chevron icon alignment to be vertically centered
+- **`menu`**: Apply `margin-block-start` only when a popover position is set
+- **`btn`**: Better disabled state (50% opacity instead of 20% - more accessible)
 
 ## [1.7.0] - 2026-01-14
 
 ### Added
 
-- Add `cursor: pointer` to `menu-item`
-- Added new `popover` component with click and hover support
+- **`menu`**: Add `cursor: pointer` to `menu-item`
+- **`popover`**: Added new `popover` component with click and hover support
 
 ### Changed
 
-- refactor(styles): replace physical CSS properties with logical ones for LTR/RTL
-- Changed breadcrumb separator icon color to `--color-on-base`
+- **`core`**: replace physical CSS properties with logical ones for LTR/RTL
+- **`breadcrumb`**: Changed breadcrumb separator icon color to `--color-on-base`
 
 ### Fixed
 
-- fix(card): remove overflow:hidden to allow content overflow
-- fix(accordion): prevent chevron from being cut off on small screens or long text
-- fix(accordion): reduce chevron icon size for better fit
-- Fixed accordion top margin not applying in the menu
+- **`card`**: remove overflow:hidden to allow content overflow
+- **`accordion`**: prevent chevron from being cut off on small screens or long text
+- **`accordion`**: reduce chevron icon size for better fit
+- **`accordion`**: Fixed accordion top margin not applying in the menu
 
 ## [1.6.0] - 2026-01-08
 
 ### Added
 
-- Add breakpoint variants to all CDN classes
-- Added new `badge-pill` utility class
+- **`cdn`**: Add breakpoint variants to all CDN classes
+- **`badge`**: Added new `badge-pill` utility class
 
 ### Changed
 
-- Set the menu component content color to the base color
+- **`menu`**: Set the menu component content color to the base color
 
 ### Fixed
 
