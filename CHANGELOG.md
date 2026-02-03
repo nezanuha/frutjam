@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`btn`**: Improved button hover and unhover smoothness with refined transition timing
 - **`btn`**:Refined hover background behavior to avoid abrupt color changes
 - **`btn`**: Changed from outline to border for better visual consistency
+- **`cdn`**: refactor: separate responsive and non-responsive utilities
 
 ### Fixed
 
