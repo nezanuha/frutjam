@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`accordion`**: Improved chevron icon alignment to be vertically centered
 - **`menu`**: Apply `margin-block-start` only when a popover position is set
 - **`btn`**: Better disabled state (50% opacity instead of 20% - more accessible)
+- **`table`**: override UA th alignment and use logical start
 
 ## [1.7.0] - 2026-01-14
 
