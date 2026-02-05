@@ -1,30 +1,46 @@
 @utility popover-toggle {
-  --tw-popover-hover: 1;
+   anchor-name: var(--popover-hover--anchor-name, none);
 }
 
 @utility popover-body {
     border-radius: var(--radius-popover);
     padding: 0.60rem;
-    visibility: hidden;
+    display: var(--popover-hover--display, revert);
+    visibility: var(--popover-hover--visibility, hidden);
+    opacity: var(--popover-hover--opacity, 0);
     z-index: 100; 
     pointer-events: auto;
 
-    @supports (position-area: end span-end) {
-        position-area: var(--popover--position-area, end span-end);
-    }
+    position-anchor: var(--popover-hover--anchor-name, revert);
+    position-area: var(--popover--position-area, end span-end);
+
+    margin-block-start: var(--popover-placement--mt, 0.5rem);
+    margin-block-end: var(--popover-placement--mb, 0);
+    margin-inline-start: var(--popover-placement--ms, 0);
+    margin-inline-end: var(--popover-placement--me, 0);
 
     position: absolute;
-    display:block;
     animation: popover 0.2s;
     background-color: var(--color-base);
     outline-style: solid;
     outline-width: 1px;
-    min-width: 13rem;
     outline-color: var(--color-base-active);
-    transition-property: opacity, transform;
+    transition-property: var(--popover-hover--transition, opacity, transform);
     transition-behavior: allow-discrete;
     transition-duration: 0.2s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--popover-hover--transition-delay, revert);
+
+    &[popover]:popover-open {
+        pointer-events: auto;
+        visibility: visible;
+        opacity: 1;
+
+        @starting-style {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
 }
 
 @keyframes popover {

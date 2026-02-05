@@ -1,35 +1,16 @@
 @utility popover-hover {
-  /* 1. Ensure the anchor name is always defined */
-  &:has([class*="popover-toggle"]) [class*="popover-toggle"] {
-    anchor-name: --popover-anchor;
+  --popover-hover--anchor-name: --popover-anchor;
+  --popover-hover--transition: opacity, visibility;
+  --popover-hover--transition-delay: 0.2s;
+
+  @variant hover{
+    --popover-hover--display: block;
+    --popover-hover--visibility: visible;
+    --popover-hover--opacity: 1;
+    --popover-hover--transition-delay: 0;
   }
 
-  & > [class*="popover-body"] {
-    /* 2. Move anchor properties here so they persist during the 0.2s delay */
-    position-anchor: --popover-anchor;
-    position-area: var(--popover--position-area, end span-end);
-
-    pointer-events: auto;
-    
-    /* Setup the transition for the exit phase */
-    transition: 
-      opacity 0.2s, 
-      visibility 0.2s allow-discrete, 
-      display 0.2s allow-discrete;
-    transition-delay: 0.2s;
-  }
-
-  /* 3. Instant Reset on Hover */
-  &:hover > [class*="popover-body"] {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transition-delay: 0s; /* Appears instantly */
-  }
-
-  /* 4. The Tail (Arrow) Position Persistence */
-  &:after {
+  @variant after {
     transition: opacity 0.2s, visibility 0.2s allow-discrete;
     transition-delay: 0.2s;
   }

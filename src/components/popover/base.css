@@ -11,19 +11,6 @@
   position: relative;
   display: inline-block;
 
-  [popover]:popover-open {
-    &:is([class*="popover-body"]) {
-      pointer-events: auto;
-      visibility: visible;
-      opacity: 1;
-
-      @starting-style {
-        visibility: hidden;
-        opacity: 0;
-      }
-    }
-  }
-
   &:has([popover]:popover-open):after {
     visibility: visible;
     opacity: 1;
@@ -34,14 +21,7 @@
     }
   }
 
-  &>[class*="popover-body"]{
-    margin-block-start: var(--popover--margin-block-start, 0.5rem);
-    margin-block-end: var(--popover--margin-block-end, 0);
-    margin-inline-start: var(--popover--margin-inline-start, 0);
-    margin-inline-end: var(--popover--margin-inline-end, 0);
-  }
-
-  &:after {
+  @variant after {
       background-color: var(--color-popover-active);
       content: "";
       visibility: hidden;
