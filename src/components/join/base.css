@@ -1,0 +1,31 @@
+@import "./safelist.css";
+@import "./direction.css";
+@import "./structure.css";
+
+@utility join {
+  display: inline-flex;
+  align-items: stretch;
+
+  flex-direction: row;
+
+  [class*=join-item]{
+      @variant first {
+        border-start-start-radius: var(--join--radius);
+        border-start-end-radius: 0;
+        border-end-start-radius: var(--join--radius);
+        border-end-end-radius: 0;
+      }
+
+      @variant last {
+        border-start-start-radius: 0;
+        border-start-end-radius: var(--join--radius);
+        border-end-start-radius: 0;
+        border-end-end-radius: var(--join--radius);
+      }
+
+      @variant not-first {
+        border-inline-start-width: 0;
+        border-block-start-width: var(--join--border-width, 1px);
+      }
+  }
+}
