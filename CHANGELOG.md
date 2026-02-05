@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-02-05
+
 ### Added
 - **`btn`**: Added CSS-based auto color-contrast fallback for buttons using `color-contrast()` to ensure readable text when `--color-on-btn` is not explicitly defined
 - **`btn`**: Added user-select: none to the base button to ensure it looks consistent across browsers.
@@ -349,7 +351,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/nezanuha/frutjam/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/nezanuha/frutjam/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/nezanuha/frutjam/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/nezanuha/frutjam/compare/v1.4.0...v1.5.0
