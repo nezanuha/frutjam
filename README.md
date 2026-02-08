@@ -81,5 +81,15 @@ Distributed under the MIT License. See [MIT License](LICENSE) for more informati
 
 ---
 
+Thank you for choosing the Frutjam UI Library – Happy coding!
+
+## ⭐ Support
+
+If you like this project, consider giving it a star! 🌟
+
+[![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg?style=social&label=Star&maxAge=2592000)](https://github.com/nezanuha/frutjam/stargazers)
+
+---
+
 [jsdelivr]: https://badgen.net/jsdelivr/hits/npm/frutjam
 [npm_installs]: https://badgen.net/npm/dt/frutjam
