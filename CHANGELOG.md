@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`btn`**: Added CSS-based auto color-contrast fallback for buttons using `color-contrast()` to ensure readable text when `--color-on-btn` is not explicitly defined
 - **`btn`**: Added user-select: none to the base button to ensure it looks consistent across browsers.
 - **`join`**: Added a new join component for grouping other components (e.g., Button, Card).
+- **`prose-frutjam`**: Introduced `.prose-frutjam`, a new typography utility that bridges @tailwindcss/typography with the Frutjam theme
 
 ### Changed
 
