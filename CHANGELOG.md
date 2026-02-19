@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - **`prose-frutjam`**: Introduced `.prose-frutjam`, a new typography utility that bridges @tailwindcss/typography with the Frutjam theme
-- Upgrade Tailwind CSS dependencies
 
 ## [1.8.0] - 2026-02-05
 
