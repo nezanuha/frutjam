@@ -11,12 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`prose-frutjam`**: Introduced `.prose-frutjam`, a new typography utility that bridges @tailwindcss/typography with the Frutjam theme
-- **Documentation**: Added [Typography Docs](https://frutjam.com/docs/typography) page
+- **`prose-frutjam`**: Introduced `.prose-frutjam`, a new typography utility that bridges `@tailwindcss/typography` with the Frutjam theme
+- **`doc`**: Added [Typography Docs](https://frutjam.com/docs/typography) page
 
 ### Changed
 
-- **typography``**: Adjusted line-height: tight (1.15) for heading utility and relaxed (1.6) for para utility
+- **`typography`**: Adjusted line-height: tight (1.15) for heading utility and relaxed (1.6) for para utility
 
 ## [1.8.0] - 2026-02-05
 
