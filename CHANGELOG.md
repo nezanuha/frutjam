@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`join-item`**: Extended `join-item` utility class to support `input` components. This ensures `border-radius` variables are correctly applied to inputs when grouped
+
 ### Changed
 
 - **`badge-circle`**: removed `width` and `height` to allow flexible sizing
