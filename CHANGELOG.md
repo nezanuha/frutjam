@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-03-02
+
 ### Added
 
 - **`join-item`**: Extended `join-item` utility class to support `input` components. This ensures `border-radius` variables are correctly applied to inputs when grouped
@@ -384,7 +386,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.9.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/nezanuha/frutjam/compare/v1.9.1...v1.10.0
 [1.9.1]: https://github.com/nezanuha/frutjam/compare/v1.9.0...v1.9.1
 [1.9.0]: https://github.com/nezanuha/frutjam/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/nezanuha/frutjam/compare/v1.7.0...v1.8.0
