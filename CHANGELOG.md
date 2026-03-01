@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`badge-circle`**: removed `width` and `height` to allow flexible sizing
+- **`badge-circle`**: Removed `width` and `height` to allow flexible sizing
+- **`input`**: Changed from `outline` to `border`. This ensures the input and button maintain a perfectly synchronized height and stroke-line when grouped
 
 ### Fixed
 
