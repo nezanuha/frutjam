@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **`join-item`**: Extended `join-item` utility class to support `input` components. This ensures `border-radius` variables are correctly applied to inputs when grouped
+- **`btn`**: add active background color when checkbox is checked
 
 ### Changed
 
