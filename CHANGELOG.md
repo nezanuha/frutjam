@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **`badge-circle`**: remove `width` and `height` from `badge-circle` to allow flexible sizing
+- **`badge-circle`**: removed `width` and `height` to allow flexible sizing
 
 ## [1.9.1] - 2026-02-21
 
