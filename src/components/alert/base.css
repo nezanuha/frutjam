@@ -1,0 +1,50 @@
+@import "./colors.css";
+@import "./styles.css";
+@import "./shapes.css";
+@import "./direction.css";
+
+@utility alert {
+    --radius-alert: calc(var(--border-radius) * 2);
+    /* 0.5rem */
+
+    --color-alert: var(--color-base-soft);
+    --color-on-alert: var(--color-on-base);
+
+    --color-alert-active: var(--color-base-active);
+
+    --color-alert-soft: var(--color-base-soft);
+    --color-on-alert-soft: var(--color-on-base);
+
+    --alert-variant-text: var(--color-on-base);
+
+    background-color: var(--color-alert);
+    color: var(--color-on-alert);
+
+    padding-inline: var(--alert--padding-inline, 0.75rem);
+    padding-block: var(--alert--padding-block, 0.375rem);
+    font-size: var(--alert--font-size, 0.875rem);
+    line-height: calc(var(--alert--font-size, 0.875rem) * var(--alert--line-height, 1.5));
+
+    outline-width: var(--alert--outline-width);
+    outline-style: var(--alert--outline-style);
+    outline-color: var(--alert--outline-color);
+
+    display: grid;
+    gap: 1rem;
+    border-radius: var(--alert--radius, var(--radius-alert));
+    justify-content: start;
+    justify-items: start;
+    align-items:center;
+    grid-auto-flow: column;
+    grid-template-columns: auto;
+    vertical-align: middle;
+    text-align: start;
+    width: var(--alert--width, fit-content);
+    height: var(--alert--height);
+
+    &:has(:nth-child(2)) {
+      grid-template-columns: auto minmax(auto, 1fr);
+    }
+
+
+}

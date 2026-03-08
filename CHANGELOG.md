@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`alert`**: Added a new `alert` component for displaying contextual feedback messages to users
+
 ### Changed
 
 - **`drawer`**: remove custom width logic for drawer and drawer-body
