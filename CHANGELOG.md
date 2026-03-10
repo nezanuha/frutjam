@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-03-10
+
 ### Added
 
 - **`alert`**: Added a new `alert` component for displaying contextual feedback messages to users
@@ -401,7 +403,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.10.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
 [1.10.1]: https://github.com/nezanuha/frutjam/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/nezanuha/frutjam/compare/v1.9.1...v1.10.0
 [1.9.1]: https://github.com/nezanuha/frutjam/compare/v1.9.0...v1.9.1
