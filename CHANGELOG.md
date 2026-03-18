@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix alert-pill radius to use a fixed value instead of calc(infinity * 1px)
+
 ## [1.11.0] - 2026-03-10
 
 ### Added
