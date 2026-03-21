@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "fs"
+import { readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import postcss from "postcss"
@@ -7,21 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dir = dirname(__filename)
 const srcDir = join(__dir, "src")
 
-const COMPONENTS = [
-  "accordion", "alert", "badge", "breadcrumb", "button",
-  "card", "checkbox", "radio", "divider", "drawer",
-  "header", "input", "join", "link", "menu", "modal",
-  "navbar", "popover", "progress", "sidebar", "surface",
-  "table", "tooltip",
-]
-
-const UTILITIES = ["container", "headings", "para"]
-
 function readFile(p) { return readFileSync(p, "utf8") }
-
-function stripImports(css) {
-  return css.replace(/@import\s+["'][^"']+["'];?\s*/g, "")
-}
 
 function applyPrefix(css, prefix) {
   if (!prefix) return css
@@ -35,49 +21,38 @@ function stripLayerTheme(css) {
   return css.replace(/@layer\s+theme\s*\{([\s\S]*)\}\s*$/, "$1").trim()
 }
 
+/**
+ * Recursively resolves @import statements and returns
+ * a single flat CSS string with all imports inlined
+ */
+function resolveImports(css, baseDir) {
+  return css.replace(
+    /@import\s+["']([^"']+)["'];?\s*/g,
+    (_, importPath) => {
+      const fullPath = join(baseDir, importPath)
+      const importedDir = dirname(fullPath)
+      const importedCSS = readFile(fullPath)
+      // Recursively resolve nested imports
+      return resolveImports(importedCSS, importedDir)
+    }
+  )
+}
+
 function buildCSS(prefix) {
-  const parts = []
+  // Read frutjam.css and recursively resolve all @imports
+  const entryCss = readFile(join(srcDir, "frutjam.css"))
+  let resolved = resolveImports(entryCss, srcDir)
 
-  parts.push(stripImports(readFile(join(srcDir, "base/variants.css"))))
-  parts.push(stripImports(readFile(join(srcDir, "base/preflight.css"))))
-  parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/snowberry.css"))))
-  parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/darkberry.css"))))
+  // Strip @layer theme { } wrappers
+  resolved = resolved.replace(
+    /@layer\s+theme\s*\{([\s\S]*?)\}(?=\s*(?:@|$|\.|#|:|\[))/g,
+    (_, inner) => inner.trim()
+  )
 
-  const extDir = join(srcDir, "theme/jams/extended")
-  for (const f of readdirSync(extDir).filter(f => f.endsWith(".css") && f !== "base.css"))
-    parts.push(stripLayerTheme(readFile(join(extDir, f))))
+  // Apply prefix to all @utility names
+  resolved = applyPrefix(resolved, prefix)
 
-  const themeBase = readFile(join(srcDir, "theme/jams/base.css"))
-  const inline = themeBase.match(/@theme\s+inline\s*\{[\s\S]*\}/)
-  if (inline) parts.push(inline[0])
-
-  parts.push(stripImports(readFile(join(srcDir, "theme/typography.css"))))
-
-  parts.push(`@custom-variant dark (
-    &:where([data-theme=dark],[data-theme=dark] *,
-    [data-theme=darkberry],[data-theme=darkberry] *)
-  );`)
-
-  for (const name of COMPONENTS) {
-    const dir = join(srcDir, "components", name)
-    const files = readdirSync(dir)
-      .filter(f => f.endsWith(".css") && f !== "safelist.css")
-      .sort((a, b) => a === "base.css" ? -1 : b === "base.css" ? 1 : 0)
-    for (const f of files)
-      parts.push(applyPrefix(stripImports(readFile(join(dir, f))), prefix))
-  }
-
-  for (const name of UTILITIES) {
-    const dir = join(srcDir, "utilities", name)
-    for (const f of readdirSync(dir).filter(f => f.endsWith(".css") && f !== "safelist.css"))
-      parts.push(applyPrefix(stripImports(readFile(join(dir, f))), prefix))
-  }
-
-  const animDir = join(srcDir, "theme/animation")
-  for (const f of readdirSync(animDir).filter(f => f.endsWith(".css")))
-    parts.push(readFile(join(animDir, f)))
-
-  return parts.join("\n\n")
+  return resolved
 }
 
 export default function frutjam(options = {}) {
