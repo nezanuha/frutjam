@@ -40,7 +40,6 @@ function buildCSS(prefix) {
 
   parts.push(stripImports(readFile(join(srcDir, "base/variants.css"))))
   parts.push(stripImports(readFile(join(srcDir, "base/preflight.css"))))
-
   parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/snowberry.css"))))
   parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/darkberry.css"))))
 
@@ -81,9 +80,7 @@ function buildCSS(prefix) {
   return parts.join("\n\n")
 }
 
-// ─── Core plugin factory ────────────────────────────────────────────────────
-
-function createPlugin(options = {}) {
+export default function frutjam(options = {}) {
   const prefix = typeof options.prefix === "string" ? options.prefix.trim() : ""
 
   return {
@@ -95,18 +92,3 @@ function createPlugin(options = {}) {
     }
   }
 }
-
-// ─── Export 1: PostCSS plugin for postcss.config.js (dev / advanced) ───────
-// Usage: frutjam({ prefix: "fj" })
-
-export default function frutjam(options = {}) {
-  return createPlugin(options)
-}
-frutjam.postcss = true
-
-// ─── Export 2: Tailwind withOptions for @plugin in CSS (published) ──────────
-// Usage: @plugin "frutjam" { prefix: fj; }
-// Tailwind calls the default export with options when using @plugin
-
-// Make the function also work as a Tailwind plugin by attaching __isPlugin
-frutjam.__isPlugin = true

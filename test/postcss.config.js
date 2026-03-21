@@ -1,4 +1,5 @@
-import frutjam from "../index.js"
+// postcss.config.js
+import frutjam from "frutjam"
 import tailwindcss from "@tailwindcss/postcss"
 
 export default {
