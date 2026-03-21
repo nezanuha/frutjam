@@ -38,36 +38,27 @@ function stripLayerTheme(css) {
 function buildCSS(prefix) {
   const parts = []
 
-  // 1. Custom variants
   parts.push(stripImports(readFile(join(srcDir, "base/variants.css"))))
-
-  // 2. Preflight
   parts.push(stripImports(readFile(join(srcDir, "base/preflight.css"))))
 
-  // 3. Themes
   parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/snowberry.css"))))
   parts.push(stripLayerTheme(readFile(join(srcDir, "theme/jams/default/darkberry.css"))))
 
-  // Extended themes
   const extDir = join(srcDir, "theme/jams/extended")
   for (const f of readdirSync(extDir).filter(f => f.endsWith(".css") && f !== "base.css"))
     parts.push(stripLayerTheme(readFile(join(extDir, f))))
 
-  // @theme inline block
   const themeBase = readFile(join(srcDir, "theme/jams/base.css"))
   const inline = themeBase.match(/@theme\s+inline\s*\{[\s\S]*\}/)
   if (inline) parts.push(inline[0])
 
-  // 4. Typography
   parts.push(stripImports(readFile(join(srcDir, "theme/typography.css"))))
 
-  // 5. Dark variant
   parts.push(`@custom-variant dark (
     &:where([data-theme=dark],[data-theme=dark] *,
     [data-theme=darkberry],[data-theme=darkberry] *)
   );`)
 
-  // 6. Components
   for (const name of COMPONENTS) {
     const dir = join(srcDir, "components", name)
     const files = readdirSync(dir)
@@ -77,14 +68,12 @@ function buildCSS(prefix) {
       parts.push(applyPrefix(stripImports(readFile(join(dir, f))), prefix))
   }
 
-  // 7. Utilities
   for (const name of UTILITIES) {
     const dir = join(srcDir, "utilities", name)
     for (const f of readdirSync(dir).filter(f => f.endsWith(".css") && f !== "safelist.css"))
       parts.push(applyPrefix(stripImports(readFile(join(dir, f))), prefix))
   }
 
-  // 8. Animations
   const animDir = join(srcDir, "theme/animation")
   for (const f of readdirSync(animDir).filter(f => f.endsWith(".css")))
     parts.push(readFile(join(animDir, f)))
@@ -92,10 +81,12 @@ function buildCSS(prefix) {
   return parts.join("\n\n")
 }
 
-export default function frutjam(options = {}) {
+// ─── Core plugin factory ────────────────────────────────────────────────────
+
+function createPlugin(options = {}) {
   const prefix = typeof options.prefix === "string" ? options.prefix.trim() : ""
 
-  const instance = {
+  return {
     postcssPlugin: "frutjam",
     Once(root) {
       const css = buildCSS(prefix)
@@ -103,8 +94,19 @@ export default function frutjam(options = {}) {
       console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
     }
   }
-
-  return instance
 }
 
+// ─── Export 1: PostCSS plugin for postcss.config.js (dev / advanced) ───────
+// Usage: frutjam({ prefix: "fj" })
+
+export default function frutjam(options = {}) {
+  return createPlugin(options)
+}
 frutjam.postcss = true
+
+// ─── Export 2: Tailwind withOptions for @plugin in CSS (published) ──────────
+// Usage: @plugin "frutjam" { prefix: fj; }
+// Tailwind calls the default export with options when using @plugin
+
+// Make the function also work as a Tailwind plugin by attaching __isPlugin
+frutjam.__isPlugin = true
