@@ -17,10 +17,6 @@ function applyPrefix(css, prefix) {
   )
 }
 
-function stripLayerTheme(css) {
-  return css.replace(/@layer\s+theme\s*\{([\s\S]*)\}\s*$/, "$1").trim()
-}
-
 /**
  * Recursively resolves @import statements and returns
  * a single flat CSS string with all imports inlined
@@ -43,12 +39,6 @@ function buildCSS(prefix) {
   const entryCss = readFile(join(srcDir, "frutjam.css"))
   let resolved = resolveImports(entryCss, srcDir)
 
-  // Strip @layer theme { } wrappers
-  resolved = resolved.replace(
-    /@layer\s+theme\s*\{([\s\S]*?)\}(?=\s*(?:@|$|\.|#|:|\[))/g,
-    (_, inner) => inner.trim()
-  )
-
   // Apply prefix to all @utility names
   resolved = applyPrefix(resolved, prefix)
 
@@ -62,7 +52,8 @@ export default function frutjam(options = {}) {
     postcssPlugin: "frutjam",
     Once(root) {
       const css = buildCSS(prefix)
-      root.prepend(postcss.parse(css).nodes)
+      // append instead of prepend — ensures frutjam CSS is inside Tailwind's layer system
+      root.append(postcss.parse(css).nodes)
       console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
     }
   }
