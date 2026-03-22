@@ -59,10 +59,6 @@ function buildCSS(prefix) {
   // Apply prefix to all @utility names
   resolved = applyPrefix(resolved, prefix)
   
-  // Debug — check @apply is prefixed
-  const applyMatch = resolved.match(/@apply.+/g)
-  if (applyMatch) console.log("@apply found:", applyMatch)
-  
   return resolved
 }
 
