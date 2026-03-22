@@ -17,27 +17,19 @@ function applyPrefix(css, prefix) {
     /@utility\s+([\w-]+\*?)\s*\{/g,
     (_, name) => `@utility ${prefix}-${name} {`
   )
-
   // 2. Prefix @apply class references
   css = css.replace(
     /@apply\s+([\w-]+)/g,
     (_, name) => `@apply ${prefix}-${name}`
   )
-
   // 3. Prefix class references inside CSS body
-  // Handles: .classname, :has(.x), :not(.x), :is(.x), :where(.x), & .x, > .x etc.
   css = css.replace(
     /\.(([a-z][a-z0-9]*-?)+)/g,
     (match, name) => `.${prefix}-${name}`
   )
-
   return css
 }
 
-/**
- * Recursively resolves @import statements and returns
- * a single flat CSS string with all imports inlined
- */
 function resolveImports(css, baseDir) {
   return css.replace(
     /@import\s+["']([^"']+)["'];?\s*/g,
@@ -45,33 +37,47 @@ function resolveImports(css, baseDir) {
       const fullPath = join(baseDir, importPath)
       const importedDir = dirname(fullPath)
       const importedCSS = readFile(fullPath)
-      // Recursively resolve nested imports
       return resolveImports(importedCSS, importedDir)
     }
   )
 }
 
-function buildCSS(prefix) {
-  // Read frutjam.css and recursively resolve all @imports
+function buildCustomThemes(themes) {
+  if (!themes || Object.keys(themes).length === 0) return ""
+
+  return Object.entries(themes)
+    .map(([name, vars]) => {
+      const varString = Object.entries(vars)
+        .map(([k, v]) => `  ${k}: ${v};`)
+        .join("\n")
+      return `[data-theme="${name}"] {\n${varString}\n}`
+    })
+    .join("\n\n")
+}
+
+function buildCSS(prefix, themes = {}) {
   const entryCss = readFile(join(srcDir, "frutjam.css"))
   let resolved = resolveImports(entryCss, srcDir)
-
-  // Apply prefix to all @utility names
   resolved = applyPrefix(resolved, prefix)
-  
+
+  // Append custom themes
+  const customThemes = buildCustomThemes(themes)
+  if (customThemes) resolved += "\n\n" + customThemes
+
   return resolved
 }
 
 export default function frutjam(options = {}) {
   const prefix = typeof options.prefix === "string" ? options.prefix.trim() : ""
+  const themes = typeof options.themes === "object" ? options.themes : {}
 
   return {
     postcssPlugin: "frutjam",
     Once(root) {
-      const css = buildCSS(prefix)
-      // append instead of prepend — ensures frutjam CSS is inside Tailwind's layer system
+      const css = buildCSS(prefix, themes)
       root.append(postcss.parse(css).nodes)
       console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
     }
   }
 }
+frutjam.postcss = true
