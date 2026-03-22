@@ -11,10 +11,27 @@ function readFile(p) { return readFileSync(p, "utf8") }
 
 function applyPrefix(css, prefix) {
   if (!prefix) return css
-  return css.replace(
+
+  // 1. Prefix @utility names
+  css = css.replace(
     /@utility\s+([\w-]+\*?)\s*\{/g,
     (_, name) => `@utility ${prefix}-${name} {`
   )
+
+  // 2. Prefix @apply class references
+  css = css.replace(
+    /@apply\s+([\w-]+)/g,
+    (_, name) => `@apply ${prefix}-${name}`
+  )
+
+  // 3. Prefix class references inside CSS body
+  // Handles: .classname, :has(.x), :not(.x), :is(.x), :where(.x), & .x, > .x etc.
+  css = css.replace(
+    /\.(([a-z][a-z0-9]*-?)+)/g,
+    (match, name) => `.${prefix}-${name}`
+  )
+
+  return css
 }
 
 /**
@@ -41,7 +58,11 @@ function buildCSS(prefix) {
 
   // Apply prefix to all @utility names
   resolved = applyPrefix(resolved, prefix)
-
+  
+  // Debug — check @apply is prefixed
+  const applyMatch = resolved.match(/@apply.+/g)
+  if (applyMatch) console.log("@apply found:", applyMatch)
+  
   return resolved
 }
 
