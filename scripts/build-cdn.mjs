@@ -1,5 +1,6 @@
 import postcss from "postcss"
 import tailwindcss from "@tailwindcss/postcss"
+import autoprefixer from "autoprefixer"
 import cssnano from "cssnano"
 import frutjam from "../index.js"
 import { writeFileSync, mkdirSync, readFileSync } from "fs"
@@ -10,31 +11,39 @@ const __filename = fileURLToPath(import.meta.url)
 const __dir = dirname(__filename)
 const rootDir = join(__dir, "..")
 
-// Read version from package.json
 const pkg = JSON.parse(readFileSync(join(rootDir, "package.json"), "utf8"))
 const version = pkg.version
+const year = new Date().getFullYear()
 
-const banner = `/*! frutjam v${version} (c) ${new Date().getFullYear()} Nezanuha | Released under the MIT License | https://frutjam.com */\n`
+const banner = `/*! frutjam v${version} (c) ${year} Nezanuha | Released under the MIT License | https://frutjam.com */\n`
 
 console.log(`Building frutjam v${version} CDN files...`)
 
 const css = `@import "tailwindcss";`
 
-// 1. Unminified
+// 1. Build with Tailwind + autoprefixer
 const result = await postcss([
   frutjam(),
   tailwindcss(),
+  autoprefixer(),
 ]).process(css, {
   from: join(rootDir, "index.css"),
 })
 
 mkdirSync(join(rootDir, "dist"), { recursive: true })
+
+// 2. Unminified
 writeFileSync(join(rootDir, "dist/frutjam.css"), banner + result.css)
 console.log("✅ dist/frutjam.css")
 
-// 2. Minified
+// 3. Minified
 const minified = await postcss([
-  cssnano({ preset: "default" })
+  cssnano({
+    preset: ["default", {
+      discardComments: { removeAll: false }, // keep the banner comment
+      normalizeWhitespace: true,
+    }]
+  })
 ]).process(result.css, { from: undefined })
 
 writeFileSync(join(rootDir, "dist/frutjam.min.css"), banner + minified.css)
