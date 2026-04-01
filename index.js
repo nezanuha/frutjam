@@ -17,15 +17,15 @@ function applyPrefix(css, prefix) {
     /@utility\s+([\w-]+\*?)\s*\{/g,
     (_, name) => `@utility ${prefix}-${name} {`
   )
-  // 2. Prefix @apply class references
+  // 2. Prefix ALL class references in @apply (handles multiple classes)
   css = css.replace(
-    /@apply\s+([\w-]+)/g,
-    (_, name) => `@apply ${prefix}-${name}`
+    /@apply\s+([^;{}\n]+)/g,
+    (_, classes) => `@apply ${classes.trim().split(/\s+/).map(c => `${prefix}-${c}`).join(' ')}`
   )
-  // 3. Prefix class references inside CSS body
+  // 3. Prefix class references inside CSS body, skipping comments and strings
   css = css.replace(
-    /\.(([a-z][a-z0-9]*-?)+)/g,
-    (match, name) => `.${prefix}-${name}`
+    /\/\*[\s\S]*?\*\/|"[^"]*"|'[^']*'|\.(([a-z][a-z0-9]*-?)+)/g,
+    (match, name) => name ? `.${prefix}-${name}` : match
   )
   return css
 }
