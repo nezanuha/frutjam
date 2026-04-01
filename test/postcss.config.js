@@ -1,9 +1,6 @@
-import frutjam from "frutjam"
-import tailwindcss from "@tailwindcss/postcss"
-
-export default {
-  plugins: [
-    frutjam({
+module.exports = {
+  plugins: {
+    "frutjam": {
       prefix: "fj",
       themes: {
         ocean: {
@@ -21,7 +18,9 @@ export default {
           "--scheme-color": "dark",
         }
       }
-    }),
-    tailwindcss(),
-  ]
+    },
+    "@tailwindcss/postcss": {
+      optimize: { minify: false }
+    }
+  }
 }
