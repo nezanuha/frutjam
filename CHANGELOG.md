@@ -7,14 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-04-01
+
 ### Added
 
-- **`hero`**: Added a new `hero` component
-- **`footer`**: Added a new `footer` component
+- **`avatar`**: New component with size variants (`avatar-xs` → `avatar-2xl`), shape variants (`avatar-circle`, `avatar-square`, `avatar-rounded`), color variants, ring (`avatar-ring`), status indicators (`avatar-status`, `avatar-online`, `avatar-offline`, `avatar-busy`, `avatar-away`), mask shapes (`avatar-mask-squircle`, `avatar-mask-hexagon`, `avatar-mask-triangle`), and group layout (`avatar-group`)
+- **`chat`**: New component with `chat-start` / `chat-end` alignment, `chat-bubble`, `chat-avatar`, `chat-footer`, size variants (`chat-xs` → `chat-lg`), and color variants (`chat-bubble-primary`, `chat-bubble-error`, etc.)
+- **`hero`**: New component with `hero-body` for centered content and `hero-overlay` for background image overlays
+- **`footer`**: New component with `footer-title`, direction variants (`footer-x`, `footer-y`), and `footer-center` for centered layouts
+- **`header`**: Added `header-start`, `header-center`, and `header-end` slot utilities for grid-based content placement, plus new state utilities `header-fixed`, `header-shadow`, `header-blur`, `header-transparent`, `header-solid`, and size variants `header-sm` and `header-lg`
+- **`plugin`**: Tailwind-compatible plugin that resolves imports, applies prefix, and injects custom themes
+- **`cdn`**: Minified CDN build with banner comment via `build:cdn` script
+- **Tests**: Vitest unit test suite — 15/15 passing
+
+### Changed
+
+- **`@plugin` instead of `@import`**: Load Frutjam with `@plugin "frutjam"` instead of `@import "frutjam"`. Works with Vite, PostCSS, Next.js, or any Tailwind-compatible setup
+- **Independent prefix**: Frutjam prefix is now configured separately from Tailwind's own prefix — Tailwind's `prefix(tw)` adds `tw:` to Tailwind utilities (e.g., `tw:flex`), while Frutjam's `prefix: "fj"` adds `fj-` to Frutjam components (e.g., `fj-btn`). Both can coexist without conflict
+- **`header`**: Layout changed from flexbox to CSS grid (`1fr auto 1fr`) so `header-center` is always truly visually centered regardless of start/end slot widths
 
 ### Fixed
 
-- **`alert-pill`**: Fix shape issue with alert-pill not appearing correctly
+- **`alert-pill`**: Fixed shape issue with `alert-pill` not appearing correctly
+
+### Removed
+
+- **`blackberry` theme**: Removed — only `snowberry` (light) and `darkberry` (dark) themes ship by default
 
 ## [1.11.0] - 2026-03-10
 
@@ -412,7 +430,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
 [1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
 [1.10.1]: https://github.com/nezanuha/frutjam/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/nezanuha/frutjam/compare/v1.9.1...v1.10.0
