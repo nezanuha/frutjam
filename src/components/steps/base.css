@@ -1,0 +1,73 @@
+@import "./structure.css";
+@import "./colors.css";
+
+@utility steps {
+  display: inline-grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  overflow: hidden;
+  overflow-x: auto;
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@utility step {
+  --color-step: var(--color-base-active);
+  --color-on-step: var(--color-on-base);
+  --color-step-active: var(--color-primary);
+  --color-on-step-active: var(--color-on-primary);
+  --step--size: 2rem;
+  --step--font-size: 0.875rem;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+  place-items: center;
+  text-align: center;
+  min-width: 4rem;
+  counter-increment: step;
+
+  /* Connector line (before the circle) */
+  &::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-step);
+    grid-column: 1;
+    grid-row: 1;
+    margin-inline: -50%;
+    z-index: 0;
+    transition: background-color 200ms ease-in-out;
+  }
+
+  /* Step circle with counter */
+  &::after {
+    content: counter(step);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--step--size);
+    height: var(--step--size);
+    border-radius: 9999px;
+    background-color: var(--color-step);
+    color: var(--color-on-step);
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 1;
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+  }
+
+  /* Label text */
+  & > span, &:not(:empty) {
+    font-size: var(--step--font-size);
+    margin-block-start: 0.5rem;
+    color: --alpha(var(--color-on-base) / 70%);
+    grid-row: 2;
+  }
+}

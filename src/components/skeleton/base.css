@@ -1,0 +1,28 @@
+@import "./shapes.css";
+
+@utility skeleton {
+  --color-skeleton: var(--color-base-soft);
+  --color-skeleton-shine: var(--color-base-active);
+  --radius-skeleton: calc(var(--border-radius) * 2);
+
+  border-radius: var(--radius-skeleton);
+  background-color: var(--color-skeleton);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-skeleton-shine) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+
+  /* Replace text/children with blank space */
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

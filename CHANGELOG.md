@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-04-03
+
+### Added
+
+- **`kbd`**: New keyboard key component
+- **`loading`**: New loading spinner/indicator component
+- **`mask`**: New mask component with shape variants
+- **`range`**: New range slider input component
+- **`rating`**: New star rating component
+- **`select`**: New select dropdown component
+- **`skeleton`**: New skeleton loading placeholder component
+- **`stat`**: New stat/statistic display component
+- **`steps`**: New steps/progress tracker component with `steps-horizontal` and `steps-vertical` layout variants
+- **`tabs`**: New tabs navigation component
+- **`tag`**: New tag/chip component
+- **`textarea`**: New textarea component
+- **`timeline`**: New timeline component with `timeline-horizontal` and `timeline-vertical` layout variants, `timeline-snap-start`, and `timeline-snap-end`
+- **`toast`**: New toast notification container component with placement variants (`toast-top/middle/bottom`, `toast-start/center/end`)
+- **`toggle`**: New toggle switch component
+- **`chat`**: Added `chat-xl` size variant
+- **`divider`**: Added `divider-dotted` style variant
+
+### Breaking Changes
+
+- **`accordion`**: `accordion-body` renamed to `accordion-content`
+- **`alert`**: `alert-x` renamed to `alert-horizontal`; `alert-y` renamed to `alert-vertical`
+- **`card`**: `card-body` renamed to `card-content`; CSS variables `--card-body-padding` and `--card-body-font-size` renamed to `--card-content-padding` and `--card-content-font-size`
+- **`divider`**: `divider-x` renamed to `divider-horizontal`; `divider-y` renamed to `divider-vertical`
+- **`drawer`**: `drawer-body` renamed to `drawer-content`
+- **`footer`**: `footer-x` renamed to `footer-horizontal`; `footer-y` renamed to `footer-vertical`
+- **`header`**: `header-body` renamed to `header-content`
+- **`hero`**: `hero-body` renamed to `hero-content`
+- **`join`**: `join-x` renamed to `join-horizontal`; `join-y` renamed to `join-vertical`
+- **`menu`**: `menu-x` renamed to `menu-horizontal`; `menu-y` renamed to `menu-vertical`
+- **`modal`**: `modal-body` renamed to `modal-content`; placement classes renamed — `modal-x-start/center/end` → `modal-start/center/end`; `modal-y-start/center/end` → `modal-top/middle/bottom`; CSS variables `--modal-body--*` renamed to `--modal-content--*`
+- **`navbar`**: Placement classes renamed — `navbar-x-start/center/end` → `navbar-start/center/end`; `navbar-y-start/center/end` → `navbar-top/middle/bottom`; `navbar-y-center` → `navbar-middle`
+- **`popover`**: `popover-body` renamed to `popover-content`; `--color-popover-active` renamed to `--color-popover-border`; removed built-in arrow/caret
+- **`tooltip`**: `tooltip-body` renamed to `tooltip-content`; CSS variable `--tooltip-body` renamed to `--tooltip-content`
+
+### Changed
+
+- **`btn`**: `btn-square` and `btn-circle` now include `aspect-ratio: 1` for consistent square sizing; `btn-soft` now uses fallback CSS variables for better customization
+- **`divider`**: Added `--divider--flex-direction: row` as default in base; removed explicit `height` from base (height is now controlled by content and direction variants)
+- **`input`**: Soft variant placeholder opacity increased from 20% to 45% for better readability
+- **`popover`**: Simplified to use CSS anchor positioning only; removed arrow/caret element and transition complexity
+- **`preflight`**: Color scale generation refactored — all color scales (`base`, `neutral`, `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error`) now mix against `--color-on-*` instead of `--palette-shade-*-color` for more accurate theme-aware shades
+
+### Fixed
+
+- **`link`**: Fixed typo in `link-neutral` — `nuetral` corrected to `neutral` in color variable references
+
 ## [2.0.0] - 2026-04-01
 
 ### Added
@@ -430,7 +481,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
 [1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
 [1.10.1]: https://github.com/nezanuha/frutjam/compare/v1.10.0...v1.10.1

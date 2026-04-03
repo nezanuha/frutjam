@@ -1,0 +1,50 @@
+@import "./colors.css";
+@import "./sizes.css";
+@import "./styles.css";
+
+@utility tag {
+  --radius-tag: 9999px;
+  --color-tag: var(--color-base-soft);
+  --color-on-tag: var(--color-on-base);
+  --color-tag-active: var(--color-base-active);
+  --tag--padding-inline: 0.625rem;
+  --tag--padding-block: 0.25rem;
+  --tag--font-size: 0.8125rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding-inline: var(--tag--padding-inline);
+  padding-block: var(--tag--padding-block);
+  font-size: var(--tag--font-size);
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: var(--radius-tag);
+  background-color: var(--color-tag);
+  color: var(--color-on-tag);
+  vertical-align: middle;
+  white-space: nowrap;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+}
+
+@utility tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125em;
+  height: 1.125em;
+  border-radius: 9999px;
+  background-color: --alpha(var(--color-on-tag) / 20%);
+  color: var(--color-on-tag);
+  cursor: pointer;
+  font-size: 0.875em;
+  line-height: 1;
+  transition: background-color 150ms ease-in-out;
+  flex-shrink: 0;
+
+  @variant hover {
+    background-color: --alpha(var(--color-on-tag) / 40%);
+  }
+}

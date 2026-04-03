@@ -1,0 +1,109 @@
+@import "./colors.css";
+@import "./sizes.css";
+@import "./styles.css";
+
+@utility select {
+    --radius-select: calc(var(--border-radius) * 2);
+    --join--radius: var(--radius-select);
+
+    --color-select-active: var(--color-base-active);
+
+    --select--inline: 0.75rem;
+    --select--block: 0.625rem;
+    --select--font-size: 1rem;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--color-select-active);
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+
+    padding-inline: var(--select--inline);
+    padding-inline-end: 2.5rem;
+    padding-block: var(--select--block);
+
+    font-size: var(--select--font-size);
+    color: var(--color-on-base);
+    display: inline-flex;
+    align-self: flex-start;
+    flex-shrink: 0;
+    align-items: center;
+    appearance: none;
+    border-radius: var(--radius-select);
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 250ms;
+    transition-timing-function: ease-in-out;
+
+    @variant focus-visible {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: light-dark(var(--color-base-950), var(--color-base-50));
+        outline-offset: 3px;
+    }
+
+    @variant focus-or-within {
+        border-color: light-dark(var(--color-base-800), --alpha(var(--color-base-300) / 80%));
+    }
+
+    @variant disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
+        background-color: var(--color-base-soft);
+        user-select: none;
+    }
+
+    @supports (appearance: base-select) {
+        appearance: base-select;
+
+        &::picker-icon {
+            display: none;
+        }
+
+        &::picker(select) {
+            appearance: base-select;
+            background-color: var(--color-base);
+            color: var(--color-on-base);
+            border-width: 1px;
+            border-style: solid;
+            border-color: var(--color-base-active);
+            border-radius: var(--radius-select);
+            padding: 0.375rem;
+            margin-block: 0.375rem;
+            box-shadow:
+                0 10px 15px -3px oklch(0% 0 0 / 0.1),
+                0 4px 6px -4px oklch(0% 0 0 / 0.1);
+        }
+
+        option {
+            border-radius: calc(var(--radius-select) - 2px);
+            padding-inline: 0.625rem;
+            padding-block: 0.375rem;
+            cursor: pointer;
+            transition: background-color 150ms ease-in-out;
+
+            &::checkmark {
+                color: var(--color-select-active);
+            }
+
+            &:not(:disabled) {
+                &:hover,
+                &:focus-visible {
+                    background-color: var(--color-base-soft);
+                    outline: none;
+                }
+            }
+
+            &:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+        }
+    }
+}
