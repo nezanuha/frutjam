@@ -1,0 +1,60 @@
+@import "./colors.css";
+@import "./sizes.css";
+
+@utility pin-input {
+    --radius-pin-input: calc(var(--border-radius) * 2);
+
+    --color-pin-input: var(--color-base-active);
+    --color-pin-input-active: var(--color-base-active);
+
+    --pin-input--size: 3rem;
+    --pin-input--font-size: 1rem;
+    --pin-input--gap: 0.625rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pin-input--gap);
+    vertical-align: middle;
+}
+
+@utility pin-input-field {
+    width: var(--pin-input--size);
+    height: var(--pin-input--size);
+    font-size: var(--pin-input--font-size);
+    font-weight: 600;
+    text-align: center;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--color-pin-input);
+    border-radius: var(--radius-pin-input, calc(var(--border-radius) * 2));
+    background-color: transparent;
+    color: var(--color-on-base);
+
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 250ms ease-in-out;
+
+    @variant placeholder {
+        color: --alpha(var(--color-on-base) / 30%);
+        font-weight: 400;
+    }
+
+    @variant focus-visible {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: light-dark(var(--color-base-950), var(--color-base-50));
+        outline-offset: 3px;
+        border-color: var(--color-pin-input-active);
+    }
+
+    @variant disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+        background-color: var(--color-base-soft);
+    }
+}

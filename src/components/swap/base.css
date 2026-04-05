@@ -1,0 +1,65 @@
+@import "./styles.css";
+
+@utility swap {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+
+    input[type="checkbox"] {
+        appearance: none;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .swap-on,
+    .swap-off,
+    .swap-indeterminate {
+        grid-column: 1;
+        grid-row: 1;
+        transition:
+            opacity 300ms ease-in-out,
+            rotate 300ms ease-in-out,
+            transform 300ms ease-in-out;
+    }
+
+    .swap-on,
+    .swap-indeterminate {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .swap-off {
+        opacity: 1;
+    }
+
+    &:has(input:checked),
+    &.swap-active {
+        .swap-on {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .swap-off {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    &:has(input:indeterminate) {
+        .swap-indeterminate {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .swap-on {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}

@@ -19,7 +19,33 @@ const banner = `/*! frutjam v${version} (c) ${year} Nezanuha | Released under th
 
 console.log(`Building frutjam v${version} CDN files...`)
 
-const css = `@import "tailwindcss";`
+// Extract all @utility names from the frutjam source so we can safelist them
+// Tailwind v4 only emits @utility classes that appear in scanned content.
+// We inject them via @source inline(...) to ensure all components are always included.
+function extractUtilityNames(resolvedCSS) {
+  const names = []
+  const re = /@utility\s+([\w-]+\*?)\s*\{/g
+  let m
+  while ((m = re.exec(resolvedCSS)) !== null) {
+    names.push(m[1])
+  }
+  return [...new Set(names)]
+}
+
+// Get the resolved CSS (without prefix for CDN) to extract utility names
+import { readFileSync as _readFileSync } from "fs"
+import { join as _join, dirname as _dirname } from "path"
+function resolveImports(css, baseDir) {
+  return css.replace(/@import\s+["']([^"']+)["'];?\s*/g, (_, p) => {
+    const full = _join(baseDir, p)
+    return resolveImports(_readFileSync(full, "utf8"), _dirname(full))
+  })
+}
+const srcCSS = resolveImports(_readFileSync(_join(rootDir, "src/frutjam.css"), "utf8"), _join(rootDir, "src"))
+const utilityNames = extractUtilityNames(srcCSS)
+const safelist = utilityNames.join(" ")
+
+const css = `@import "tailwindcss";\n@source inline("${safelist}");`
 
 // 1. Build with Tailwind + autoprefixer
 const result = await postcss([

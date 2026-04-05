@@ -1,0 +1,34 @@
+@import "./sizes.css";
+
+@property --value {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: true;
+}
+
+@utility countdown {
+    --countdown--font-size: 3rem;
+
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    font-size: var(--countdown--font-size);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    vertical-align: middle;
+
+    span {
+        --value: 0;
+        display: inline-block;
+        overflow: hidden;
+        height: 1em;
+        line-height: 1em;
+
+        &::before {
+            content: counter(t, decimal-leading-zero);
+            counter-reset: t var(--value);
+            display: block;
+        }
+    }
+}

@@ -10,46 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking Changes
 
 - **`join`**: Removed `--join--radius` CSS variable from `btn`, `card`, `input`, `select`, and `textarea` — join corner radius is now derived automatically from each element's natural `border-radius`
-
-### Fixed
-
-- **`join`**: Fixed vertical join items incorrectly losing their inline-start border due to `join-horizontal` rules (applied by default via `@apply`) affecting all join elements; `join-horizontal` border rules are now scoped to non-vertical joins
-- **`join`**: Join now works automatically with any element — direction utilities selectively zero only the inner corners adjacent to neighbors, preserving each element's natural `border-radius` without requiring components to opt in
-- **`menu`**: Fixed asymmetric padding on `menu-item` in horizontal menus — `padding-inline-end` fallback corrected from `0` to `0.75rem`; internal variable renamed from `--menu-x--padding-inline-end` to `--menu-horizontal--padding-inline-end`
-- **`modal`**: Fixed modal going off-screen when combining placement classes (`modal-top`, `modal-start`, etc.) with slide animation classes (`modal-slide-up`, etc.)
-- **`popover`**: Fixed popovers appearing over the trigger button instead of beside it (changed to `position: fixed` with CSS anchor positioning)
-- **`popover`**: Fixed multiple popover instances on the same page anchoring to the wrong trigger by adding `anchor-scope: all` to the `popover` wrapper
-- **`popover`**: Fixed Firefox bug where hover popovers did not appear on the first hover
-- **`popover`**: Fixed hover popovers dismissing when the cursor moved from the trigger into the popover content
-
-### Changed
-
-- **`popover`**: Popovers without an explicit placement class now auto-flip to stay within the viewport using `position-try-fallbacks`; explicit placement classes (e.g. `popover-top-start`) remain strict and never flip
-
-## [2.1.0] - 2026-04-03
-
-### Added
-
-- **`kbd`**: New keyboard key component
-- **`loading`**: New loading spinner/indicator component
-- **`mask`**: New mask component with shape variants
-- **`range`**: New range slider input component
-- **`rating`**: New star rating component
-- **`select`**: New select dropdown component
-- **`skeleton`**: New skeleton loading placeholder component
-- **`stat`**: New stat/statistic display component
-- **`steps`**: New steps/progress tracker component with `steps-horizontal` and `steps-vertical` layout variants
-- **`tabs`**: New tabs navigation component
-- **`tag`**: New tag/chip component
-- **`textarea`**: New textarea component
-- **`timeline`**: New timeline component with `timeline-horizontal` and `timeline-vertical` layout variants, `timeline-snap-start`, and `timeline-snap-end`
-- **`toast`**: New toast notification container component with placement variants (`toast-top/middle/bottom`, `toast-start/center/end`)
-- **`toggle`**: New toggle switch component
-- **`chat`**: Added `chat-xl` size variant
-- **`divider`**: Added `divider-dotted` style variant
-
-### Breaking Changes
-
 - **`accordion`**: `accordion-body` renamed to `accordion-content`
 - **`alert`**: `alert-x` renamed to `alert-horizontal`; `alert-y` renamed to `alert-vertical`
 - **`card`**: `card-body` renamed to `card-content`; CSS variables `--card-body-padding` and `--card-body-font-size` renamed to `--card-content-padding` and `--card-content-font-size`
@@ -65,39 +25,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`popover`**: `popover-body` renamed to `popover-content`; `--color-popover-active` renamed to `--color-popover-border`; removed built-in arrow/caret
 - **`tooltip`**: `tooltip-body` renamed to `tooltip-content`; CSS variable `--tooltip-body` renamed to `--tooltip-content`
 
-### Changed
-
-- **`btn`**: `btn-square` and `btn-circle` now include `aspect-ratio: 1` for consistent square sizing; `btn-soft` now uses fallback CSS variables for better customization
-- **`divider`**: Added `--divider--flex-direction: row` as default in base; removed explicit `height` from base (height is now controlled by content and direction variants)
-- **`input`**: Soft variant placeholder opacity increased from 20% to 45% for better readability
-- **`popover`**: Simplified to use CSS anchor positioning only; removed arrow/caret element and transition complexity
-- **`preflight`**: Color scale generation refactored — all color scales (`base`, `neutral`, `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error`) now mix against `--color-on-*` instead of `--palette-shade-*-color` for more accurate theme-aware shades
-
-### Fixed
-
-- **`link`**: Fixed typo in `link-neutral` — `nuetral` corrected to `neutral` in color variable references
-
-## [2.0.0] - 2026-04-01
-
 ### Added
 
+- **`radial-progress`**: New circular progress indicator component with color and size variants (`radial-progress-xs` → `radial-progress-xl`)
+- **`swap`**: New CSS-only toggle component for switching between two elements; supports `swap-rotate` and `swap-flip` animation styles, and `swap-active` class for JS-controlled state
+- **`countdown`**: New countdown display component using CSS `@property` integer animation; supports sizes (`countdown-xs` → `countdown-xl`) and `decimal-leading-zero` formatting via CSS counters
+- **`pin-input`**: New PIN/OTP input component with `pin-input` wrapper and `pin-input-field` individual inputs; supports color and size variants
+- **`kbd`**: New keyboard key component
+- **`loading`**: New loading spinner/indicator component
+- **`mask`**: New mask component with shape variants
+- **`range`**: New range slider input component
+- **`rating`**: New star rating component
+- **`select`**: New select dropdown component
+- **`skeleton`**: New skeleton loading placeholder component
+- **`stat`**: New stat/statistic display component
+- **`steps`**: New steps/progress tracker component with `steps-horizontal` and `steps-vertical` layout variants
+- **`tabs`**: New tabs navigation component
+- **`tag`**: New tag/chip component
+- **`textarea`**: New textarea component
+- **`timeline`**: New timeline component with `timeline-horizontal` and `timeline-vertical` layout variants, `timeline-snap-start`, and `timeline-snap-end`
+- **`toast`**: New toast notification container component with placement variants (`toast-top/middle/bottom`, `toast-start/center/end`)
+- **`toggle`**: New toggle switch component
 - **`avatar`**: New component with size variants (`avatar-xs` → `avatar-2xl`), shape variants (`avatar-circle`, `avatar-square`, `avatar-rounded`), color variants, ring (`avatar-ring`), status indicators (`avatar-status`, `avatar-online`, `avatar-offline`, `avatar-busy`, `avatar-away`), mask shapes (`avatar-mask-squircle`, `avatar-mask-hexagon`, `avatar-mask-triangle`), and group layout (`avatar-group`)
-- **`chat`**: New component with `chat-start` / `chat-end` alignment, `chat-bubble`, `chat-avatar`, `chat-footer`, size variants (`chat-xs` → `chat-lg`), and color variants (`chat-bubble-primary`, `chat-bubble-error`, etc.)
-- **`hero`**: New component with `hero-body` for centered content and `hero-overlay` for background image overlays
-- **`footer`**: New component with `footer-title`, direction variants (`footer-x`, `footer-y`), and `footer-center` for centered layouts
+- **`chat`**: New component with `chat-start` / `chat-end` alignment, `chat-bubble`, `chat-avatar`, `chat-footer`, size variants (`chat-xs` → `chat-xl`), and color variants (`chat-bubble-primary`, `chat-bubble-error`, etc.)
+- **`hero`**: New component with `hero-content` for centered content and `hero-overlay` for background image overlays
+- **`footer`**: New component with `footer-title`, direction variants (`footer-horizontal`, `footer-vertical`), and `footer-center` for centered layouts
 - **`header`**: Added `header-start`, `header-center`, and `header-end` slot utilities for grid-based content placement, plus new state utilities `header-fixed`, `header-shadow`, `header-blur`, `header-transparent`, `header-solid`, and size variants `header-sm` and `header-lg`
 - **`plugin`**: Tailwind-compatible plugin that resolves imports, applies prefix, and injects custom themes
 - **`cdn`**: Minified CDN build with banner comment via `build:cdn` script
+- **`divider`**: Added `divider-dotted` style variant
 - **Tests**: Vitest unit test suite — 15/15 passing
 
 ### Changed
 
+- **`popover`**: Popovers without an explicit placement class now auto-flip to stay within the viewport using `position-try-fallbacks`; explicit placement classes (e.g. `popover-top-start`) remain strict and never flip
+- **`build`**: CDN build now uses `@source inline(...)` to explicitly safelist all registered utilities, ensuring all components are always included in the output regardless of content scanning
+- **`btn`**: `btn-square` and `btn-circle` now include `aspect-ratio: 1` for consistent square sizing; `btn-soft` now uses fallback CSS variables for better customization
+- **`divider`**: Added `--divider--flex-direction: row` as default in base; removed explicit `height` from base (height is now controlled by content and direction variants)
+- **`input`**: Soft variant placeholder opacity increased from 20% to 45% for better readability
+- **`popover`**: Simplified to use CSS anchor positioning only; removed arrow/caret element and transition complexity
+- **`preflight`**: Color scale generation refactored — all color scales now mix against `--color-on-*` instead of `--palette-shade-*-color` for more accurate theme-aware shades
 - **`@plugin` instead of `@import`**: Load Frutjam with `@plugin "frutjam"` instead of `@import "frutjam"`. Works with Vite, PostCSS, Next.js, or any Tailwind-compatible setup
 - **Independent prefix**: Frutjam prefix is now configured separately from Tailwind's own prefix — Tailwind's `prefix(tw)` adds `tw:` to Tailwind utilities (e.g., `tw:flex`), while Frutjam's `prefix: "fj"` adds `fj-` to Frutjam components (e.g., `fj-btn`). Both can coexist without conflict
 - **`header`**: Layout changed from flexbox to CSS grid (`1fr auto 1fr`) so `header-center` is always truly visually centered regardless of start/end slot widths
 
 ### Fixed
 
+- **`join`**: Fixed vertical join items incorrectly losing their inline-start border due to `join-horizontal` rules (applied by default via `@apply`) affecting all join elements; `join-horizontal` border rules are now scoped to non-vertical joins
+- **`join`**: Join now works automatically with any element — direction utilities selectively zero only the inner corners adjacent to neighbors, preserving each element's natural `border-radius` without requiring components to opt in
+- **`menu`**: Fixed asymmetric padding on `menu-item` in horizontal menus — `padding-inline-end` fallback corrected from `0` to `0.75rem`; internal variable renamed from `--menu-x--padding-inline-end` to `--menu-horizontal--padding-inline-end`
+- **`modal`**: Fixed modal going off-screen when combining placement classes (`modal-top`, `modal-start`, etc.) with slide animation classes (`modal-slide-up`, etc.)
+- **`popover`**: Fixed popovers appearing over the trigger button instead of beside it (changed to `position: fixed` with CSS anchor positioning)
+- **`popover`**: Fixed multiple popover instances on the same page anchoring to the wrong trigger by adding `anchor-scope: all` to the `popover` wrapper
+- **`popover`**: Fixed Firefox bug where hover popovers did not appear on the first hover
+- **`popover`**: Fixed hover popovers dismissing when the cursor moved from the trigger into the popover content
+- **`link`**: Fixed typo in `link-neutral` — `nuetral` corrected to `neutral` in color variable references
 - **`alert-pill`**: Fixed shape issue with `alert-pill` not appearing correctly
 
 ### Removed
@@ -500,9 +482,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.0...HEAD
-[2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.0...v2.1.0
-[2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.11.0...HEAD
 [1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
 [1.10.1]: https://github.com/nezanuha/frutjam/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/nezanuha/frutjam/compare/v1.9.1...v1.10.0
