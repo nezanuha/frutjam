@@ -5,11 +5,10 @@
 @utility popover-content {
   border-radius: var(--radius-popover);
   padding: 0.6rem;
-  display: var(--popover-hover--display, revert);
-  visibility: var(--popover-hover--visibility, hidden);
+  visibility: visible;
   opacity: var(--popover-hover--opacity, 0);
+  pointer-events: var(--popover-hover--pointer-events, none);
   z-index: 100;
-  pointer-events: auto;
 
   position-anchor: var(--popover--anchor-name);
   position-area: var(--popover--position-area, end span-end);
@@ -19,7 +18,8 @@
   margin-inline-start: var(--popover-placement--ms, 0);
   margin-inline-end: var(--popover-placement--me, 0);
 
-  position: absolute;
+  position: fixed;
+  position-try-fallbacks: var(--popover--position-try, none);
   background-color: var(--color-popover);
   outline-style: solid;
   outline-width: 1px;

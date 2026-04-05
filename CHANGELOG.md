@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- **`join`**: Removed `--join--radius` CSS variable from `btn`, `card`, `input`, `select`, and `textarea` — join corner radius is now derived automatically from each element's natural `border-radius`
+
+### Fixed
+
+- **`join`**: Fixed vertical join items incorrectly losing their inline-start border due to `join-horizontal` rules (applied by default via `@apply`) affecting all join elements; `join-horizontal` border rules are now scoped to non-vertical joins
+- **`join`**: Join now works automatically with any element — direction utilities selectively zero only the inner corners adjacent to neighbors, preserving each element's natural `border-radius` without requiring components to opt in
+- **`menu`**: Fixed asymmetric padding on `menu-item` in horizontal menus — `padding-inline-end` fallback corrected from `0` to `0.75rem`; internal variable renamed from `--menu-x--padding-inline-end` to `--menu-horizontal--padding-inline-end`
+- **`modal`**: Fixed modal going off-screen when combining placement classes (`modal-top`, `modal-start`, etc.) with slide animation classes (`modal-slide-up`, etc.)
+- **`popover`**: Fixed popovers appearing over the trigger button instead of beside it (changed to `position: fixed` with CSS anchor positioning)
+- **`popover`**: Fixed multiple popover instances on the same page anchoring to the wrong trigger by adding `anchor-scope: all` to the `popover` wrapper
+- **`popover`**: Fixed Firefox bug where hover popovers did not appear on the first hover
+- **`popover`**: Fixed hover popovers dismissing when the cursor moved from the trigger into the popover content
+
+### Changed
+
+- **`popover`**: Popovers without an explicit placement class now auto-flip to stay within the viewport using `position-try-fallbacks`; explicit placement classes (e.g. `popover-top-start`) remain strict and never flip
+
 ## [2.1.0] - 2026-04-03
 
 ### Added
