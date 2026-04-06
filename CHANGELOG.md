@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **`link`**: Underline now uses `background-image` gradient instead of `text-decoration` for consistent thickness; `link-hover` animates underline sliding in from left on hover and retracting left-to-right on unhover; `forced-colors` fallback restored for accessibility
+- **`radio`**: Fixed typo (`currerntcolor`), cleaned up duplicate `background-color` declaration, fixed `radio-disabled` state (was referencing undefined CSS vars), restored `radio-circle` / `radio-rounded` / `radio-square` shape variants, default radius now uses `--radius-radio` to match theme
+
 ### Breaking Changes
 
 

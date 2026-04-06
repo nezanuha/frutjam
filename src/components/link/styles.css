@@ -1,6 +1,13 @@
 @utility link-hover {
-    text-decoration-line: none;
+    background-position: right bottom;
+    background-size: 0% 1.5px;
+    /* hover-out: position snaps to right instantly (invisible at 100% size), then size shrinks right-anchored = left edge retreats right */
+    transition: background-size 300ms ease, background-position 0s, color 200ms ease-out;
+
     @variant hover {
-        text-decoration-line: underline;
+        background-position: left bottom;
+        background-size: 100% 1px;
+        /* hover-in: position snaps to left instantly (invisible at 0% size), then size grows left-anchored = right to right */
+        transition: background-size 300ms ease, background-position 0s, color 200ms ease-out;
     }
 }
