@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **`countdown`**: CSS variable renamed from `--value` to `--countdown-value` to avoid global `@property` collision
+- **`radial-progress`**: CSS variable renamed from `--value` to `--progress-value`; `--size` and `--thickness` remain unchanged
 - **`join`**: Removed `--join--radius` CSS variable from `btn`, `card`, `input`, `select`, and `textarea` — join corner radius is now derived automatically from each element's natural `border-radius`
 - **`accordion`**: `accordion-body` renamed to `accordion-content`
 - **`alert`**: `alert-x` renamed to `alert-horizontal`; `alert-y` renamed to `alert-vertical`
@@ -27,9 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`radial-progress`**: New circular progress indicator component with color and size variants (`radial-progress-xs` → `radial-progress-xl`)
+- **`status`**: New status dot component for presence/state indicators (online, offline, busy, etc.); supports color variants (`status-primary` → `status-error`) and size variants (`status-xs` → `status-xl`); uses `outline` ring separator for clean appearance on any background
+- **`indicator`**: New indicator/overlay component for positioning badges over other elements; supports placement modifiers (`indicator-start/end/center`, `indicator-top/middle/bottom`)
+- **`carousel`**: New scroll-snap carousel component with `carousel-item` children; supports `carousel-vertical`, `carousel-center`, and `carousel-end` variants
+- **`combobox`**: New searchable dropdown component with `combobox-list`, `combobox-option`, and `combobox-open` classes; supports color and size variants, open state via JS or `combobox-open` class
+- **`diff`**: New before/after comparison component; uses CSS grid + native `resize: horizontal` for zero-JS drag; `diff-item-1` clips the before content, `diff-item-2` shows the after content with a pill handle via `::after`
+- **`radial-progress`**: New circular progress indicator component; set progress via `--progress-value` (0–100), `--size` (default 5rem), `--thickness` (default 10% of size); supports color and size variants (`radial-progress-xs` → `radial-progress-xl`)
 - **`swap`**: New CSS-only toggle component for switching between two elements; supports `swap-rotate` and `swap-flip` animation styles, and `swap-active` class for JS-controlled state
-- **`countdown`**: New countdown display component using CSS `@property` integer animation; supports sizes (`countdown-xs` → `countdown-xl`) and `decimal-leading-zero` formatting via CSS counters
+- **`countdown`**: New countdown display component using CSS `@property` integer animation and translateY digit-strip technique; set `--countdown-value` on each `<span>` via JS; supports `--digits: 2` and `--digits: 3` CSS variables for multi-digit display via container style queries; sizes (`countdown-xs` → `countdown-xl`)
 - **`pin-input`**: New PIN/OTP input component with `pin-input` wrapper and `pin-input-field` individual inputs; supports color and size variants
 - **`kbd`**: New keyboard key component
 - **`loading`**: New loading spinner/indicator component

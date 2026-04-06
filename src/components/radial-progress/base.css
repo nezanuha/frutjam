@@ -2,16 +2,16 @@
 @import "./sizes.css";
 
 @utility radial-progress {
-    --radial-progress--size: 5rem;
-    --radial-progress--thickness: 0.5rem;
-    --radial-progress--value: 0;
+    --size: 5rem;
+    --thickness: calc(var(--size) * 0.1);
+    --progress-value: 0;
     --radial-progress--font-size: 1rem;
 
     --color-radial-progress: var(--color-primary);
     --color-radial-progress-track: var(--color-base-soft);
 
-    width: var(--radial-progress--size);
-    height: var(--radial-progress--size);
+    width: var(--size);
+    height: var(--size);
     border-radius: 9999px;
     display: inline-grid;
     place-items: center;
@@ -25,11 +25,11 @@
     background:
         radial-gradient(
             closest-side,
-            var(--color-base) calc(100% - var(--radial-progress--thickness)),
-            transparent calc(100% - var(--radial-progress--thickness))
+            var(--color-base) calc(100% - var(--thickness)),
+            transparent calc(100% - var(--thickness))
         ),
         conic-gradient(
-            var(--color-radial-progress) calc(var(--radial-progress--value) * 1%),
+            var(--color-radial-progress) calc(var(--progress-value) * 1%),
             var(--color-radial-progress-track) 0
         );
 }
