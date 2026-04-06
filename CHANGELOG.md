@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
-- **`pin-input`**: Component removed — use `fj-input fj-input-square` with a `flex gap-*` wrapper instead
 
 - **`countdown`**: CSS variable renamed from `--value` to `--countdown-value` to avoid global `@property` collision
 - **`radial-progress`**: CSS variable renamed from `--value` to `--progress-value`; `--size` and `--thickness` remain unchanged
@@ -39,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`radial-progress`**: New circular progress indicator component; set progress via `--progress-value` (0–100), `--size` (default 5rem), `--thickness` (default 10% of size); supports color and size variants (`radial-progress-xs` → `radial-progress-xl`)
 - **`swap`**: New CSS-only toggle component for switching between two elements; supports `swap-rotate` and `swap-flip` animation styles, and `swap-active` class for JS-controlled state
 - **`countdown`**: New countdown display component using CSS `@property` integer animation and translateY digit-strip technique; set `--countdown-value` on each `<span>` via JS; supports `--digits: 2` and `--digits: 3` CSS variables for multi-digit display via container style queries; sizes (`countdown-xs` → `countdown-xl`)
-- **`input`**: Added `input-square` modifier for square/PIN-style inputs; size variants (`input-xs` → `input-2xl`) now expose `--input--square-size` for per-size square dimensions
+- **`input`**: Added `input-square` modifier for square/PIN-style inputs — replaces the separate `pin-input` component; pairs with Tailwind `flex gap-*` wrapper; size variants automatically scale via `--input--square-size`
 - **`kbd`**: New keyboard key component
 - **`loading`**: New loading spinner/indicator component
 - **`mask`**: New mask component with shape variants
