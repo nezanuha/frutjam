@@ -5,6 +5,10 @@
   [data-theme] {
     --palette-shade-light-color: white;
     --palette-shade-dark-color: black;
+    --color-p: light-dark(
+        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
+        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
+      );
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color-scheme: var(--scheme-color, light);
@@ -45,10 +49,7 @@
     /* same as para-md or para */
     p {
       text-wrap-style: pretty;
-      color: light-dark(
-        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
-        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
-      );
+      color: var(--color-p);
       font-size: var(--text-base);
     }
 

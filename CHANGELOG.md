@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`link`**: Underline now uses `background-image` gradient instead of `text-decoration` for consistent thickness; `link-hover` animates underline sliding in from left on hover and retracting left-to-right on unhover; `forced-colors` fallback restored for accessibility
 - **`radio`**: Fixed typo (`currerntcolor`), cleaned up duplicate `background-color` declaration, fixed `radio-disabled` state (was referencing undefined CSS vars), restored `radio-circle` / `radio-rounded` / `radio-square` shape variants, default radius now uses `--radius-radio` to match theme
+- **`tag`**: `tag-remove` now uses `currentColor` for color and background — correctly inherits text color for all variants (solid, soft, outline); removed unused `--color-tag-active` variable
+- **`card`**: Added `--color-on-card` token (defaults to `--color-on-base`)
+- **`preflight`**: Paragraph color extracted into `--color-p` CSS variable on `[data-theme]` for reuse across components
+- **`typography`**: `--tw-prose-body` updated to use `--color-p`; `--tw-prose-hr` uses `--color-base-soft`; fixed `--tw-prose-code` from `--color-base` to `--color-on-base`
 
 ### Breaking Changes
 
