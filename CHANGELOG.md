@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (infrastructure)
+
+- **Source structure**: Reorganized `src/` — `preflight.css` renamed to `reboot.css` (browser reset + element defaults); `tokens.css` split out as pure CSS vars / color scales; animations moved to `base/animations/`; utilities flattened from `utilities/[name]/base.css` to `utilities/[name].css`; `theme/jams/` flattened to `theme/`; `typography.css` moved to `utilities/`; entry folder removed (build handled entirely in `index.js`)
+- **Plugin options**: Added `reset` (default `true`), `root` (default `":root"`), `logs` (default `true`), `include`, and `exclude` options to the PostCSS plugin
+- **`reset: false`**: Skips browser reset and element defaults (`p`, `code`, `strong`, etc.) — use alongside Bootstrap or other CSS frameworks to prevent style conflicts
+- **`root`**: Remaps all `:root` CSS var declarations to a custom selector (e.g. `".my-editor"` or `":host"`) for scoped/embedded use cases
+- **`logs: false`**: Suppresses the build-time console output
+- **`include` / `exclude`**: Whitelist or blacklist specific components and utilities (comma-separated string or array); components and utilities are now auto-discovered from the filesystem — no manual registry needed
+- **`build-cdn.mjs`**: Fixed broken `src/frutjam.css` reference; removed duplicate imports and duplicated `resolveImports`; utility extraction now runs frutjam plugin directly
+
 ### Changed
 
 - **`link`**: Underline now uses `background-image` gradient instead of `text-decoration` for consistent thickness; `link-hover` animates underline sliding in from left on hover and retracting left-to-right on unhover; `forced-colors` fallback restored for accessibility

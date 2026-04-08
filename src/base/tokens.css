@@ -1,100 +1,30 @@
-@import "./variants.css";
-
 @layer base {
   :root,
   [data-theme] {
     --palette-shade-light-color: white;
     --palette-shade-dark-color: black;
+
     --color-p: light-dark(
-        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
-        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
-      );
+      color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
+      color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
+    );
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color-scheme: var(--scheme-color, light);
     color: var(--color-on-base);
     background-color: var(--color-base);
 
-    *,
-    ::after,
-    ::backdrop,
-    ::before,
-    ::file-selector-button {
-      box-sizing: border-box;
-      border: 0 solid;
-      padding: 0;
-      margin: 0;
-    }
-
-    :host,
-    html {
-      line-height: 1.5;
-      font-family: var(
-        --default-font-family,
-        ui-sans-serif,
-        system-ui,
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol",
-        "Noto Color Emoji"
-      );
-      -webkit-tap-highlight-color: #0000;
-    }
-
-    main, footer {
-      background-color: var(--color-base);
-    }
-
-    /* same as para-md or para */
-    p {
-      text-wrap-style: pretty;
-      color: var(--color-p);
-      font-size: var(--text-base);
-    }
-
-    menu,
-    ol,
-    ul {
-      list-style: none;
-      color: light-dark(
-        color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
-        color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
-      );
-      font-size: var(--text-base);
-    }
-
-    strong{
-      color: var(--color-on-base);
-    }
-
-    code {
-      font-weight: 600;
-      background-color: var(--color-base-soft);
-      color: var(--color-on-base-soft);
-      padding: 0.2em 0.4em;
-      border-radius: calc(var(--border-radius) * 1.5); /* 0.375 rem */
-    }
-
-    img, video {
-      max-width: 100%;
-      height: auto;
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
     /* ── Base soft / active ─────────────────────────────────────────── */
     --color-base-soft: light-dark(
-        color-mix(in oklch, var(--color-on-base)  8%, var(--color-base) 92%),
-        color-mix(in oklch, var(--color-on-base) 16%, var(--color-base) 84%)
+      color-mix(in oklch, var(--color-on-base)  8%, var(--color-base) 92%),
+      color-mix(in oklch, var(--color-on-base) 16%, var(--color-base) 84%)
     );
     --color-on-base-soft: var(--color-on-base);
 
     --color-base-active: light-dark(
-        color-mix(in oklch, var(--color-on-base) 15%, var(--color-base) 85%),
-        color-mix(in oklch, var(--color-on-base) 28%, var(--color-base) 72%)
+      color-mix(in oklch, var(--color-on-base) 15%, var(--color-base) 85%),
+      color-mix(in oklch, var(--color-on-base) 28%, var(--color-base) 72%)
     );
 
     /* ── Base scale ──────────────────────────────────────────────────── */
@@ -115,8 +45,8 @@
     --color-on-neutral-soft: light-dark(var(--color-neutral-700), var(--color-neutral-300));
 
     --color-neutral-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-neutral) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-neutral) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-neutral) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-neutral) 85%)
     );
 
     /* ── Neutral scale ───────────────────────────────────────────────── */
@@ -137,8 +67,8 @@
     --color-on-primary-soft: light-dark(var(--color-primary-700), var(--color-primary-300));
 
     --color-primary-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-primary) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-primary) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-primary) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-primary) 85%)
     );
 
     /* ── Primary scale ───────────────────────────────────────────────── */
@@ -159,8 +89,8 @@
     --color-on-secondary-soft: light-dark(var(--color-secondary-700), var(--color-secondary-300));
 
     --color-secondary-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-secondary) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-secondary) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-secondary) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-secondary) 85%)
     );
 
     /* ── Secondary scale ─────────────────────────────────────────────── */
@@ -181,8 +111,8 @@
     --color-on-accent-soft: light-dark(var(--color-accent-700), var(--color-accent-300));
 
     --color-accent-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-accent) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-accent) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-accent) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-accent) 85%)
     );
 
     /* ── Accent scale ────────────────────────────────────────────────── */
@@ -203,8 +133,8 @@
     --color-on-info-soft: light-dark(var(--color-info-700), var(--color-info-300));
 
     --color-info-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-info) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-info) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-info) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-info) 85%)
     );
 
     /* ── Info scale ──────────────────────────────────────────────────── */
@@ -225,8 +155,8 @@
     --color-on-success-soft: light-dark(var(--color-success-700), var(--color-success-300));
 
     --color-success-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-success) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-success) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-success) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-success) 85%)
     );
 
     /* ── Success scale ───────────────────────────────────────────────── */
@@ -247,8 +177,8 @@
     --color-on-warning-soft: light-dark(var(--color-warning-700), var(--color-warning-300));
 
     --color-warning-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-warning) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-warning) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-warning) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-warning) 85%)
     );
 
     /* ── Warning scale ───────────────────────────────────────────────── */
@@ -269,8 +199,8 @@
     --color-on-error-soft: light-dark(var(--color-error-700), var(--color-error-300));
 
     --color-error-active: light-dark(
-        color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-error) 85%),
-        color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-error) 85%)
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-error) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-error) 85%)
     );
 
     /* ── Error scale ─────────────────────────────────────────────────── */

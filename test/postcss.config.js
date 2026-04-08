@@ -2,6 +2,20 @@ module.exports = {
   plugins: {
     "frutjam": {
       prefix: "fj",
+
+      // // Skip browser reset (use alongside Bootstrap, Tailwind base, etc.)
+      // // Default: true
+      // reset: false,
+
+      // // Scope CSS vars to a custom selector (e.g. Shadow DOM / web components)
+      // // Default: ":root"
+      // root: ":host",
+
+      // // Suppress console output
+      // // Default: true
+      // logs: false,
+
+      // Custom themes
       themes: {
         ocean: {
           "--color-primary": "oklch(60% 0.2 220)",
