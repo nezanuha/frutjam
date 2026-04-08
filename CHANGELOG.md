@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed (infrastructure)
 
+- **`@plugin "frutjam" { ... }` CSS syntax**: Plugin options (`prefix`, `reset`, `root`, `logs`, `include`, `exclude`) can now be configured directly in CSS via an `@plugin "frutjam" { ... }` block — CSS-level options override options passed to the PostCSS factory; the `@plugin` node is removed from the output
+- **Themes via `@layer theme`**: Custom themes can now be defined directly in CSS using `@layer theme { [data-theme="name"] { ... } }` — the `themes` option in `postcss.config.js` is no longer needed for theme definitions
+- **Per-component CDN files**: `build-cdn.mjs` now produces individual CSS files per component (`dist/components/button.css`, etc.), per utility (`dist/utilities/`), per theme (`dist/themes/darkberry.css`, `dist/themes/snowberry.css`), and a shared `dist/base.css` — compatible with jsDelivr combine URLs; component files contain only frutjam CSS (no Tailwind utility classes)
 - **Source structure**: Reorganized `src/` — `preflight.css` renamed to `reboot.css` (browser reset + element defaults); `tokens.css` split out as pure CSS vars / color scales; animations moved to `base/animations/`; utilities flattened from `utilities/[name]/base.css` to `utilities/[name].css`; `theme/jams/` flattened to `theme/`; `typography.css` moved to `utilities/`; entry folder removed (build handled entirely in `index.js`)
 - **Plugin options**: Added `reset` (default `true`), `root` (default `":root"`), `logs` (default `true`), `include`, and `exclude` options to the PostCSS plugin
 - **`reset: false`**: Skips browser reset and element defaults (`p`, `code`, `strong`, etc.) — use alongside Bootstrap or other CSS frameworks to prevent style conflicts

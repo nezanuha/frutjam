@@ -139,18 +139,53 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
 
 // ── Plugin ───────────────────────────────────────────────────────────────────
 
-export default function frutjam(options = {}) {
-  const prefix       = typeof options.prefix === "string" ? options.prefix.trim() : ""
-  const themes       = typeof options.themes === "object" ? options.themes : {}
-  const reset        = options.reset !== false
-  const rootSelector = typeof options.root === "string" ? options.root : ":root"
-  const logs         = options.logs !== false
-  const include      = parseList(options.include)
-  const exclude      = parseList(options.exclude)
+function parseAtPluginOptions(atRule) {
+  const opts = {}
+  atRule.each(node => {
+    if (node.type !== "decl") return
+    let val = node.value.trim()
+    if (val === "true") val = true
+    else if (val === "false") val = false
+    else if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) val = val.slice(1, -1)
+    opts[node.prop.trim()] = val
+  })
+  return opts
+}
 
+export default function frutjam(options = {}) {
   return {
     postcssPlugin: "frutjam",
     Once(root) {
+      // Collect @plugin "frutjam" { ... } blocks from the CSS
+      const atPluginNodes = []
+      root.each(node => {
+        if (
+          node.type === "atrule" &&
+          node.name === "plugin" &&
+          /^["']frutjam["']/.test(node.params.trim()) &&
+          node.nodes
+        ) atPluginNodes.push(node)
+      })
+
+      // CSS-level options override factory options
+      let cssOptions = {}
+      for (const node of atPluginNodes) {
+        Object.assign(cssOptions, parseAtPluginOptions(node))
+        node.remove()
+      }
+      const merged = { ...options, ...cssOptions }
+
+      const prefix       = typeof merged.prefix === "string" ? merged.prefix.trim() : ""
+      const themes       = typeof merged.themes === "object" ? merged.themes : {}
+      const reset        = merged.reset !== false
+      const rootSelector = typeof merged.root === "string" ? merged.root : ":root"
+      const logs         = merged.logs !== false
+      const include      = parseList(merged.include)
+      const exclude      = parseList(merged.exclude)
+
       const css = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
       root.append(postcss.parse(css).nodes)
       if (logs) console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
