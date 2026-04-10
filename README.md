@@ -54,14 +54,21 @@ In your main stylesheet:
 
 ## With Prefix
 
-To scope all Frutjam classes behind a prefix, configure it in `postcss.config.js`. The Frutjam prefix is independent of Tailwind’s own prefix.
+Configure the prefix directly in your CSS file — no `postcss.config.js` changes needed:
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+Or via `postcss.config.js` if you prefer:
 
 ```js
 module.exports = {
   plugins: {
-    "frutjam": {
-      prefix: "fj"
-    },
+    "frutjam": { prefix: "fj" },
     "@tailwindcss/postcss": {}
   }
 }
@@ -73,35 +80,26 @@ module.exports = {
 </button>
 ```
 
+## Plugin Options
+
+All options can be set in CSS via `@plugin "frutjam" { ... }` or in `postcss.config.js`:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `prefix` | `""` | Prefix all Frutjam class names (e.g. `fj` → `fj-btn`) |
+| `reset` | `true` | Include browser reset and element defaults |
+| `root` | `":root"` | Remap CSS var declarations to a custom selector (e.g. `":host"`) |
+| `logs` | `true` | Show build-time console output |
+| `include` | `[]` | Only include specific components/utilities |
+| `exclude` | `[]` | Exclude specific components/utilities |
+
 ## Custom Themes
 
-**Option 1 — Plugin options** (inject themes at build time via `postcss.config.js`):
-
-```js
-module.exports = {
-  plugins: {
-    "frutjam": {
-      prefix: "fj",
-      themes: {
-        blueberry: {
-          "--color-primary": "oklch(60% 0.2 220)",
-          "--color-on-primary": "oklch(98% 0.01 220)",
-          "--color-base": "oklch(98% 0.01 220)",
-          "--color-on-base": "oklch(20% 0.02 220)",
-          "--scheme-color": "light"
-        }
-      }
-    },
-    "@tailwindcss/postcss": {}
-  }
-}
-```
-
-**Option 2 — CSS** (define themes directly in your stylesheet):
+Define themes directly in your stylesheet using `@layer theme`:
 
 ```css
 @layer theme {
-  :is([data-theme="blueberry"]) {
+  [data-theme="blueberry"] {
     --scheme-color: light;
     --color-primary: oklch(60% 0.2 220);
     --color-on-primary: oklch(98% 0.01 220);

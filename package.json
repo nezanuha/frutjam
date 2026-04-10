@@ -3,9 +3,16 @@
   "version": "2.0.0",
   "description": "A utility-first CSS UI Library for Tailwind CSS",
   "type": "module",
-  "main": "index.js",
   "exports": {
-    ".": "./index.js"
+    ".": "./dist/plugin.js",
+    "./theme": "./src/theme/base.css",
+    "./postcss": "./index.js",
+    "./components/*": "./dist/components/*/index.js",
+    "./utilities/*": "./dist/utilities/*/index.js",
+    "./themes/*": "./dist/themes/*/index.js",
+    "./base/tokens": "./dist/base/tokens/index.js",
+    "./base/reboot": "./dist/base/reboot/index.js",
+    "./functions/addPrefix": "./dist/functions/addPrefix.js"
   },
   "files": [
     "index.js",
@@ -14,7 +21,9 @@
   ],
   "scripts": {
     "build:cdn": "node scripts/build-cdn.mjs",
-    "prepublishOnly": "node scripts/build-cdn.mjs"
+    "build:plugin": "node scripts/build-plugin.mjs",
+    "build": "node scripts/build-cdn.mjs && node scripts/build-plugin.mjs",
+    "prepublishOnly": "node scripts/build-cdn.mjs && node scripts/build-plugin.mjs"
   },
   "funding": "https://ko-fi.com/nezanuha",
   "repository": {
@@ -42,6 +51,9 @@
   "bugs": {
     "url": "https://github.com/nezanuha/frutjam/issues"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "peerDependencies": {
     "tailwindcss": "^4.2.2"
   },
@@ -49,7 +61,8 @@
     "@tailwindcss/postcss": "^4.2.2",
     "autoprefixer": "^10.4.27",
     "cssnano": "^7.1.4",
-    "postcss": "^8.5.8",
+    "postcss": "^8.5.9",
+    "postcss-js": "^5.1.0",
     "tailwindcss": "^4.2.2"
   }
 }

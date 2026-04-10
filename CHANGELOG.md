@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-04-10
+
+### Changed (infrastructure)
+
+- **`package.json`**: Removed `"main"` field (conflicted with `"exports"."."` pointing to `dist/plugin.js`); `"frutjam/postcss"` still resolves `index.js` for PostCSS usage; added `"engines": { "node": ">=18" }`; added `build:plugin` and `build` scripts; `prepublishOnly` now runs both CDN and plugin builds
+- **`build-plugin.mjs`**: New build script — compiles all components and utilities through Tailwind, converts CSS to JS objects via `postcss-js`, and outputs `dist/plugin.js` (bundled Tailwind v4 plugin), per-component `dist/components/*/index.js`, per-utility `dist/utilities/*/index.js`, per-theme `dist/themes/*/index.js`, and `dist/base/tokens/index.js` / `dist/base/reboot/index.js`
+
+### Fixed
+
+- **`--color-*-soft` dark mode**: Dark-mode soft colors (`--color-*-soft`) were near-invisible — previously resolved to `*-950` (80% black, nearly matching the page background); now computed as `color-mix(in srgb, var(--color-*) 20%, var(--color-base) 80%)` for a clearly distinguishable tinted surface; `in srgb` used instead of `oklch` to avoid hue-interpolation artifacts on themed dark backgrounds
+- **`--color-base-active` visibility**: Bumped light-mode mix from 15% → 20% and dark-mode from 28% → 35% so form control borders (radio, checkbox) and interactive states are visible
+- **`--color-body`**: Renamed from `--color-p` throughout (`tokens.css`, `reboot.css`, `typography.css`, `breadcrumb`) — name now reflects its use as general body text color, not just paragraphs
+- **`toggle`**: Track color changed from `--color-base-active` to `--color-base-300` — the "off" state needs a clearly visible track, not a subtle hover overlay
+- **`popover` placements**: Top and bottom `position-area` values replaced with explicit logical axis keywords (`block-start`, `block-end`, `span-inline-start`, `span-inline-end`) — Chrome was misinterpreting ambiguous `start`/`end` as the first value in a two-value `position-area` as inline-axis instead of block-axis, causing bottom placements to render over the trigger
+- **`breadcrumb`**: Hardcoded `light-dark(var(--color-base-900), var(--color-base-200))` replaced with `var(--color-body)` for theme-consistent text color; links now use gradient underline animation (matching `link` component) instead of `text-decoration`
+- **`btn-link`**: Underline replaced with sliding gradient animation — slides in from right on hover, retracts right-to-left on unhover (consistent with `link` component behavior)
+- **`card`**: Added `card-body` as backward-compatible alias for `card-content`; `card-footer` now uses `margin-block-start: auto` instead of top padding for proper flex positioning
+- **`divider-vertical`**: Added `align-self: stretch` so vertical dividers fill the height of their flex container; added `height` variable to base structure
+- **`menu-title`**: Fixed inverted `light-dark()` values — was showing light color in light mode and dark color in dark mode
+- **`modal`**: Replaced flat 1px shadow with a two-layer box-shadow (4px blur + 32px spread) for depth in both light and dark themes
+- **`textarea`**: `min-height` extracted to `--textarea--min-height` variable; each size variant now sets an appropriate min-height (xs: 3rem → 2xl: 10rem)
+- **`avatar`**: Removed mask shape utilities (`avatar-mask-squircle`, `avatar-mask-hexagon`, `avatar-mask-triangle`) — use Tailwind's `mask-*` utilities instead
+
 ## [Unreleased]
 
 ### Changed (infrastructure)
