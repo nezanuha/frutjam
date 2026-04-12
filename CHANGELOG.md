@@ -72,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`popover`** [BREAKING]: `popover-body` renamed to `popover-content`
 - **`tooltip`** [BREAKING]: `tooltip-body` renamed to `tooltip-content`
 - **`Independent prefix`** [BREAKING]: Frutjam prefix is now configured separately from Tailwind's own prefix — Tailwind's `prefix(tw)` adds `tw:` to Tailwind utilities (e.g., `tw:flex`), while Frutjam's `prefix: "fj"` adds `fj-` to Frutjam components (e.g., `fj-btn`). Both can coexist without conflict
+- **`container`** [BREAKING]: Renamed to `wrapper` to avoid conflict with Tailwind's built-in `container` utility; size variants follow the same pattern — `container-sm` → `wrapper-sm`, `container-full` → `wrapper-full`
 - **`popover`**: Popovers without an explicit placement class now auto-flip to stay within the viewport using `position-try-fallbacks`; explicit placement classes (e.g. `popover-top-start`) remain strict and never flip
 - **`popover`**: Simplified to use CSS anchor positioning only; removed arrow/caret element and transition complexity
 
