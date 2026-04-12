@@ -1,0 +1,36 @@
+@import "./colors.css";
+@import "./sizes.css";
+@import "./styles.css";
+
+/* Spinning ring */
+@utility loading {
+  --loading--size: 1.5rem;
+  --loading--color: var(--color-primary);
+  --loading--thickness: 2px;
+
+  display: inline-block;
+  width: var(--loading--size);
+  height: var(--loading--size);
+  border-radius: 9999px;
+  border-width: var(--loading--thickness);
+  border-style: solid;
+  border-color: --alpha(var(--loading--color) / 25%);
+  border-top-color: var(--loading--color);
+  animation: loading-spin 700ms linear infinite;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+@keyframes loading-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loading-pulse {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes loading-bars {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}

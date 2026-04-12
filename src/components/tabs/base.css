@@ -1,0 +1,89 @@
+@import "./styles.css";
+@import "./sizes.css";
+
+@utility tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0;
+
+  /* Separator sits between tab row (order:0) and content row (order:9999) */
+  &::after {
+    content: "";
+    width: 100%;
+    order: 1;
+    border-block-start: 1px solid var(--color-base-soft);
+  }
+}
+
+@utility tab {
+  --color-tab: var(--color-on-base);
+  --color-tab-active: var(--color-primary);
+  --tab--padding-inline: 1rem;
+  --tab--padding-block: 0.625rem;
+  --tab--font-size: 0.875rem;
+
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-inline: var(--tab--padding-inline);
+  padding-block: var(--tab--padding-block);
+  font-size: var(--tab--font-size);
+  font-weight: 500;
+  color: --alpha(var(--color-tab) / 60%);
+  cursor: pointer;
+  border-block-end: 2px solid transparent;
+  margin-block-end: -1px;
+  transition: color 200ms ease-in-out, border-color 200ms ease-in-out;
+  white-space: nowrap;
+  user-select: none;
+  background: transparent;
+  border-radius: 0;
+
+  /* Show aria-label as tab text when used on <input type="radio"> */
+  &::before {
+    content: attr(aria-label);
+  }
+
+  @variant hover {
+    color: var(--color-tab);
+  }
+
+  &:checked {
+    color: var(--color-tab-active);
+    border-block-end-color: var(--color-tab-active);
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@utility tab-active {
+  color: var(--color-tab-active);
+  border-block-end-color: var(--color-tab-active);
+  position: relative;
+  z-index: 1;
+}
+
+@utility tab-disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@utility tab-content {
+  display: none;
+  width: 100%;
+  order: 9999;
+
+  /* CSS-only: radio input is checked */
+  .tab:checked + & {
+    display: block;
+  }
+
+  /* JS-controlled: tab-active class on the tab */
+  .tab-active + & {
+    display: block;
+  }
+}

@@ -1,0 +1,56 @@
+/* Dot pulse variant */
+@utility loading-dots {
+  --loading--size: 0.5rem;
+  --loading--color: var(--color-primary);
+
+  display: inline-flex;
+  gap: calc(var(--loading--size) * 0.5);
+  align-items: center;
+  border-radius: 0;
+  border: none;
+  animation: none;
+  background: transparent;
+  width: auto;
+  height: auto;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: var(--loading--size);
+    height: var(--loading--size);
+    border-radius: 9999px;
+    background-color: var(--loading--color);
+    animation: loading-pulse 1s ease-in-out infinite;
+  }
+  &::before { animation-delay: -0.32s; }
+  &::after { animation-delay: 0s; }
+}
+
+/* Bars variant */
+@utility loading-bars {
+  --loading--size: 0.25rem;
+  --loading--color: var(--color-primary);
+
+  display: inline-flex;
+  gap: calc(var(--loading--size) * 0.75);
+  align-items: flex-end;
+  height: calc(var(--loading--size) * 5);
+  border-radius: 0;
+  border: none;
+  animation: none;
+  background: transparent;
+  width: auto;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: var(--loading--size);
+    background-color: var(--loading--color);
+    border-radius: 2px;
+    animation: loading-bars 1s ease-in-out infinite;
+  }
+  &::before { height: 60%; animation-delay: -0.15s; }
+  &::after { height: 100%; animation-delay: 0s; }
+}

@@ -1,0 +1,219 @@
+@layer base {
+  :root,
+  [data-theme] {
+    --palette-shade-light-color: white;
+    --palette-shade-dark-color: black;
+
+    --color-body: light-dark(
+      color-mix(in oklch, var(--palette-shade-light-color) 20%, var(--color-on-base) 80%),
+      color-mix(in oklch, var(--palette-shade-dark-color) 20%, var(--color-on-base) 80%)
+    );
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color-scheme: var(--scheme-color, light);
+    color: var(--color-on-base);
+    background-color: var(--color-base);
+
+    /* ── Base soft / active ─────────────────────────────────────────── */
+    --color-base-soft: light-dark(
+      color-mix(in oklch, var(--color-on-base)  8%, var(--color-base) 92%),
+      color-mix(in oklch, var(--color-on-base) 16%, var(--color-base) 84%)
+    );
+    --color-on-base-soft: var(--color-on-base);
+
+    --color-base-active: light-dark(
+      color-mix(in oklch, var(--color-on-base) 20%, var(--color-base) 80%),
+      color-mix(in oklch, var(--color-on-base) 35%, var(--color-base) 65%)
+    );
+
+    /* ── Base scale ──────────────────────────────────────────────────── */
+    --color-base-50:  color-mix(in oklch, var(--color-on-base)  4%, var(--color-base) 96%);
+    --color-base-100: color-mix(in oklch, var(--color-on-base)  8%, var(--color-base) 92%);
+    --color-base-200: color-mix(in oklch, var(--color-on-base) 16%, var(--color-base) 84%);
+    --color-base-300: color-mix(in oklch, var(--color-on-base) 26%, var(--color-base) 74%);
+    --color-base-400: color-mix(in oklch, var(--color-on-base) 36%, var(--color-base) 64%);
+    --color-base-500: var(--color-base);
+    --color-base-600: color-mix(in oklch, var(--color-on-base) 50%, var(--color-base) 50%);
+    --color-base-700: color-mix(in oklch, var(--color-on-base) 62%, var(--color-base) 38%);
+    --color-base-800: color-mix(in oklch, var(--color-on-base) 74%, var(--color-base) 26%);
+    --color-base-900: color-mix(in oklch, var(--color-on-base) 86%, var(--color-base) 14%);
+    --color-base-950: color-mix(in oklch, var(--color-on-base) 92%, var(--color-base)  8%);
+
+    /* ── Neutral soft / active ───────────────────────────────────────── */
+    --color-neutral-soft:    light-dark(var(--color-neutral-50), color-mix(in srgb, var(--color-neutral) 20%, var(--color-base) 80%));
+    --color-on-neutral-soft: light-dark(var(--color-neutral-700), var(--color-neutral-300));
+
+    --color-neutral-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-neutral) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-neutral) 85%)
+    );
+
+    /* ── Neutral scale ───────────────────────────────────────────────── */
+    --color-neutral-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-neutral) 20%);
+    --color-neutral-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-neutral) 35%);
+    --color-neutral-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-neutral) 50%);
+    --color-neutral-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-neutral) 65%);
+    --color-neutral-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-neutral) 82%);
+    --color-neutral-500: var(--color-neutral);
+    --color-neutral-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-neutral) 82%);
+    --color-neutral-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-neutral) 66%);
+    --color-neutral-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-neutral) 50%);
+    --color-neutral-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-neutral) 35%);
+    --color-neutral-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-neutral) 20%);
+
+    /* ── Primary soft / active ───────────────────────────────────────── */
+    --color-primary-soft:    light-dark(var(--color-primary-50), color-mix(in srgb, var(--color-primary) 20%, var(--color-base) 80%));
+    --color-on-primary-soft: light-dark(var(--color-primary-700), var(--color-primary-300));
+
+    --color-primary-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-primary) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-primary) 85%)
+    );
+
+    /* ── Primary scale ───────────────────────────────────────────────── */
+    --color-primary-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-primary) 20%);
+    --color-primary-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-primary) 35%);
+    --color-primary-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-primary) 50%);
+    --color-primary-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-primary) 65%);
+    --color-primary-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-primary) 82%);
+    --color-primary-500: var(--color-primary);
+    --color-primary-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-primary) 82%);
+    --color-primary-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-primary) 66%);
+    --color-primary-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-primary) 50%);
+    --color-primary-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-primary) 35%);
+    --color-primary-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-primary) 20%);
+
+    /* ── Secondary soft / active ─────────────────────────────────────── */
+    --color-secondary-soft:    light-dark(var(--color-secondary-50), color-mix(in srgb, var(--color-secondary) 20%, var(--color-base) 80%));
+    --color-on-secondary-soft: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+
+    --color-secondary-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-secondary) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-secondary) 85%)
+    );
+
+    /* ── Secondary scale ─────────────────────────────────────────────── */
+    --color-secondary-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-secondary) 20%);
+    --color-secondary-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-secondary) 35%);
+    --color-secondary-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-secondary) 50%);
+    --color-secondary-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-secondary) 65%);
+    --color-secondary-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-secondary) 82%);
+    --color-secondary-500: var(--color-secondary);
+    --color-secondary-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-secondary) 82%);
+    --color-secondary-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-secondary) 66%);
+    --color-secondary-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-secondary) 50%);
+    --color-secondary-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-secondary) 35%);
+    --color-secondary-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-secondary) 20%);
+
+    /* ── Accent soft / active ────────────────────────────────────────── */
+    --color-accent-soft:    light-dark(var(--color-accent-50), color-mix(in srgb, var(--color-accent) 20%, var(--color-base) 80%));
+    --color-on-accent-soft: light-dark(var(--color-accent-700), var(--color-accent-300));
+
+    --color-accent-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-accent) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-accent) 85%)
+    );
+
+    /* ── Accent scale ────────────────────────────────────────────────── */
+    --color-accent-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-accent) 20%);
+    --color-accent-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-accent) 35%);
+    --color-accent-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-accent) 50%);
+    --color-accent-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-accent) 65%);
+    --color-accent-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-accent) 82%);
+    --color-accent-500: var(--color-accent);
+    --color-accent-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-accent) 82%);
+    --color-accent-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-accent) 66%);
+    --color-accent-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-accent) 50%);
+    --color-accent-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-accent) 35%);
+    --color-accent-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-accent) 20%);
+
+    /* ── Info soft / active ──────────────────────────────────────────── */
+    --color-info-soft:    light-dark(var(--color-info-50), color-mix(in srgb, var(--color-info) 20%, var(--color-base) 80%));
+    --color-on-info-soft: light-dark(var(--color-info-700), var(--color-info-300));
+
+    --color-info-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-info) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-info) 85%)
+    );
+
+    /* ── Info scale ──────────────────────────────────────────────────── */
+    --color-info-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-info) 20%);
+    --color-info-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-info) 35%);
+    --color-info-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-info) 50%);
+    --color-info-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-info) 65%);
+    --color-info-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-info) 82%);
+    --color-info-500: var(--color-info);
+    --color-info-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-info) 82%);
+    --color-info-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-info) 66%);
+    --color-info-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-info) 50%);
+    --color-info-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-info) 35%);
+    --color-info-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-info) 20%);
+
+    /* ── Success soft / active ───────────────────────────────────────── */
+    --color-success-soft:    light-dark(var(--color-success-50), color-mix(in srgb, var(--color-success) 20%, var(--color-base) 80%));
+    --color-on-success-soft: light-dark(var(--color-success-700), var(--color-success-300));
+
+    --color-success-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-success) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-success) 85%)
+    );
+
+    /* ── Success scale ───────────────────────────────────────────────── */
+    --color-success-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-success) 20%);
+    --color-success-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-success) 35%);
+    --color-success-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-success) 50%);
+    --color-success-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-success) 65%);
+    --color-success-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-success) 82%);
+    --color-success-500: var(--color-success);
+    --color-success-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-success) 82%);
+    --color-success-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-success) 66%);
+    --color-success-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-success) 50%);
+    --color-success-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-success) 35%);
+    --color-success-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-success) 20%);
+
+    /* ── Warning soft / active ───────────────────────────────────────── */
+    --color-warning-soft:    light-dark(var(--color-warning-50), color-mix(in srgb, var(--color-warning) 20%, var(--color-base) 80%));
+    --color-on-warning-soft: light-dark(var(--color-warning-700), var(--color-warning-300));
+
+    --color-warning-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-warning) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-warning) 85%)
+    );
+
+    /* ── Warning scale ───────────────────────────────────────────────── */
+    --color-warning-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-warning) 20%);
+    --color-warning-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-warning) 35%);
+    --color-warning-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-warning) 50%);
+    --color-warning-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-warning) 65%);
+    --color-warning-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-warning) 82%);
+    --color-warning-500: var(--color-warning);
+    --color-warning-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-warning) 82%);
+    --color-warning-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-warning) 66%);
+    --color-warning-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-warning) 50%);
+    --color-warning-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-warning) 35%);
+    --color-warning-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-warning) 20%);
+
+    /* ── Error soft / active ─────────────────────────────────────────── */
+    --color-error-soft:    light-dark(var(--color-error-50), color-mix(in srgb, var(--color-error) 20%, var(--color-base) 80%));
+    --color-on-error-soft: light-dark(var(--color-error-700), var(--color-error-300));
+
+    --color-error-active: light-dark(
+      color-mix(in oklch, var(--palette-shade-dark-color)  15%, var(--color-error) 85%),
+      color-mix(in oklch, var(--palette-shade-light-color) 15%, var(--color-error) 85%)
+    );
+
+    /* ── Error scale ─────────────────────────────────────────────────── */
+    --color-error-50:  color-mix(in oklch, var(--palette-shade-light-color) 80%, var(--color-error) 20%);
+    --color-error-100: color-mix(in oklch, var(--palette-shade-light-color) 65%, var(--color-error) 35%);
+    --color-error-200: color-mix(in oklch, var(--palette-shade-light-color) 50%, var(--color-error) 50%);
+    --color-error-300: color-mix(in oklch, var(--palette-shade-light-color) 35%, var(--color-error) 65%);
+    --color-error-400: color-mix(in oklch, var(--palette-shade-light-color) 18%, var(--color-error) 82%);
+    --color-error-500: var(--color-error);
+    --color-error-600: color-mix(in oklch, var(--palette-shade-dark-color) 18%, var(--color-error) 82%);
+    --color-error-700: color-mix(in oklch, var(--palette-shade-dark-color) 34%, var(--color-error) 66%);
+    --color-error-800: color-mix(in oklch, var(--palette-shade-dark-color) 50%, var(--color-error) 50%);
+    --color-error-900: color-mix(in oklch, var(--palette-shade-dark-color) 65%, var(--color-error) 35%);
+    --color-error-950: color-mix(in oklch, var(--palette-shade-dark-color) 80%, var(--color-error) 20%);
+  }
+}

@@ -1,0 +1,87 @@
+@utility diff {
+    position: relative;
+    display: grid;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+    grid-template-rows: 1fr 1.8rem 1fr;
+    grid-template-columns: auto 1fr;
+    direction: ltr;
+    container-type: inline-size;
+    border-radius: calc(var(--border-radius) * 2);
+}
+
+@utility diff-resizer {
+    position: relative;
+    z-index: 2;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    height: 0.75rem;
+    width: 50cqi;
+    max-width: calc(100cqi - 1rem);
+    min-width: 1rem;
+    resize: horizontal;
+    overflow: hidden;
+    opacity: 0;
+    transform: scaleY(5) translate(0.32rem, 50%);
+    cursor: ew-resize;
+    transform-origin: 100% 100%;
+    clip-path: inset(calc(100% - 0.75rem) 0 0 calc(100% - 0.75rem));
+}
+
+@utility diff-item-1 {
+    position: relative;
+    z-index: 1;
+    grid-column-start: 1;
+    grid-row: 1 / span 3;
+    overflow: hidden;
+    border-right: 2px solid var(--color-base);
+
+    > * {
+        pointer-events: none;
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        height: 100%;
+        width: 100cqi;
+        max-width: none;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+@utility diff-item-2 {
+    position: relative;
+    grid-column-start: 1;
+    grid-row: 1 / span 3;
+
+    /* The pill handle */
+    &::after {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        inset-block-start: 50%;
+        inset-inline-end: 1px;
+        z-index: 2;
+        border-radius: 9999px;
+        width: 1.2rem;
+        height: 1.8rem;
+        background-color: var(--color-base);
+        border: 0.5px solid oklch(0 0 0 / 12%);
+        outline: 1px solid color-mix(in oklab, var(--color-on-base) 10%, transparent);
+        outline-offset: -3px;
+        translate: 50% -50%;
+    }
+
+    > * {
+        pointer-events: none;
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        height: 100%;
+        width: 100cqi;
+        max-width: none;
+        object-fit: cover;
+        object-position: center;
+    }
+}

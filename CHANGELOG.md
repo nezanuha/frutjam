@@ -7,14 +7,84 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-04-10
+
 ### Added
 
-- **`hero`**: Added a new `hero` component
-- **`footer`**: Added a new `footer` component
+- **`status`**: New status dot component for presence/state indicators (online, offline, busy, etc.); supports color variants (`status-primary` → `status-error`) and size variants (`status-xs` → `status-xl`); uses `outline` ring separator for clean appearance on any background
+- **`indicator`**: New indicator/overlay component for positioning badges over other elements; supports placement modifiers (`indicator-start/end/center`, `indicator-top/middle/bottom`)
+- **`carousel`**: New scroll-snap carousel component with `carousel-item` children; supports `carousel-vertical`, `carousel-center`, and `carousel-end` variants
+- **`combobox`**: New searchable dropdown component with `combobox-list`, `combobox-option`, and `combobox-open` classes; supports color and size variants, open state via JS or `combobox-open` class
+- **`diff`**: New before/after comparison component
+- **`radial-progress`**: New circular progress indicator component; set progress via `--value` (0–100); optionally override `--size` (default `5rem`) and `--thickness` (default 10% of size)
+- **`swap`**: New CSS-only toggle component for switching between two elements; supports `swap-rotate` and `swap-flip` animation styles, and `swap-active` class for JS-controlled state
+- **`countdown`**: New countdown component
+- **`input`**: Added `input-square` modifier for square/PIN-style inputs
+- **`kbd`**: New keyboard key component
+- **`loading`**: New loading spinner/indicator component
+- **`mask`**: New mask component with shape variants
+- **`range`**: New range slider input component
+- **`rating`**: New star rating component
+- **`select`**: New select dropdown component
+- **`skeleton`**: New skeleton loading placeholder component
+- **`stat`**: New stat/statistic display component
+- **`steps`**: New steps/progress tracker component with `steps-horizontal` and `steps-vertical` layout variants
+- **`tabs`**: New tabs navigation component
+- **`tag`**: New tag/chip component
+- **`textarea`**: New textarea component
+- **`timeline`**: New timeline component with `timeline-horizontal` and `timeline-vertical` layout variants, `timeline-snap-start`, and `timeline-snap-end`
+- **`toast`**: New toast notification container component with placement variants (`toast-top/middle/bottom`, `toast-start/center/end`)
+- **`toggle`**: New toggle switch component
+- **`avatar`**: New component with size variants (`avatar-xs` → `avatar-2xl`), shape variants (`avatar-circle`, `avatar-square`, `avatar-rounded`), color variants, ring (`avatar-ring`), status indicators (`avatar-status`, `avatar-online`, `avatar-offline`, `avatar-busy`, `avatar-away`), mask shapes (`avatar-mask-squircle`, `avatar-mask-hexagon`, `avatar-mask-triangle`), and group layout (`avatar-group`)
+- **`chat`**: New component with `chat-start` / `chat-end` alignment, `chat-bubble`, `chat-avatar`, `chat-footer`, size variants (`chat-xs` → `chat-xl`), and color variants (`chat-bubble-primary`, `chat-bubble-error`, etc.)
+- **`hero`**: New component with `hero-content` for centered content and `hero-overlay` for background image overlays
+- **`footer`**: New component with `footer-title`, direction variants (`footer-horizontal`, `footer-vertical`), and `footer-center` for centered layouts
+- **`header`**: Added `header-start`, `header-center`, and `header-end` slot utilities for grid-based content placement, plus new state utilities `header-fixed`, `header-shadow`, `header-blur`, `header-transparent`, `header-solid`, and size variants `header-sm` and `header-lg`
+- **`divider`**: Added `divider-dotted` style variant
+
+### Changed
+
+- **`@plugin`** [BREAKING]: Load Frutjam with `@plugin "frutjam"` instead of `@import "frutjam"`:
+  ```css
+  @plugin "frutjam";
+
+  /* or with options: */
+  @plugin "frutjam" {
+    prefix: fj;
+    reset: true;
+    root: :host;
+    themes: snowberry, darkberry;
+    include: button, card, alert;
+  }
+  ```
+- **`accordion`** [BREAKING]: `accordion-body` renamed to `accordion-content`
+- **`alert`** [BREAKING]: `alert-x` renamed to `alert-horizontal`; `alert-y` renamed to `alert-vertical`
+- **`card`** [BREAKING]: `card-body` renamed to `card-content`
+- **`divider`** [BREAKING]: `divider-x` renamed to `divider-horizontal`; `divider-y` renamed to `divider-vertical`
+- **`drawer`** [BREAKING]: `drawer-body` renamed to `drawer-content`
+- **`footer`** [BREAKING]: `footer-x` renamed to `footer-horizontal`; `footer-y` renamed to `footer-vertical`
+- **`header`** [BREAKING]: `header-body` renamed to `header-content`
+- **`hero`** [BREAKING]: `hero-body` renamed to `hero-content`
+- **`join`** [BREAKING]: `join-x` renamed to `join-horizontal`; `join-y` renamed to `join-vertical`
+- **`menu`** [BREAKING]: `menu-x` renamed to `menu-horizontal`; `menu-y` renamed to `menu-vertical`
+- **`modal`** [BREAKING]: `modal-body` renamed to `modal-content`; placement classes renamed — `modal-x-start/center/end` → `modal-start/center/end`; `modal-y-start/center/end` → `modal-top/middle/bottom`
+- **`navbar`** [BREAKING]: Placement classes renamed — `navbar-x-start/center/end` → `navbar-start/center/end`; `navbar-y-start/center/end` → `navbar-top/middle/bottom`; `navbar-y-center` → `navbar-middle`
+- **`popover`** [BREAKING]: `popover-body` renamed to `popover-content`
+- **`tooltip`** [BREAKING]: `tooltip-body` renamed to `tooltip-content`
+- **`Independent prefix`** [BREAKING]: Frutjam prefix is now configured separately from Tailwind's own prefix — Tailwind's `prefix(tw)` adds `tw:` to Tailwind utilities (e.g., `tw:flex`), while Frutjam's `prefix: "fj"` adds `fj-` to Frutjam components (e.g., `fj-btn`). Both can coexist without conflict
+- **`popover`**: Popovers without an explicit placement class now auto-flip to stay within the viewport using `position-try-fallbacks`; explicit placement classes (e.g. `popover-top-start`) remain strict and never flip
+- **`popover`**: Simplified to use CSS anchor positioning only; removed arrow/caret element and transition complexity
+
+### Removed
+
+- **`blackberry` theme**: Removed — only `snowberry` (light) and `darkberry` (dark) themes ship by default
 
 ### Fixed
 
-- **`alert-pill`**: Fix shape issue with alert-pill not appearing correctly
+- **`join`**: Join now works automatically with any element — direction utilities selectively zero only the inner corners adjacent to neighbors, preserving each element's natural `border-radius` without requiring components to opt in
+- **`popover`**: Fixed popovers appearing over the trigger button instead of beside it
+- **`link`**: Fixed typo in `link-neutral` — `nuetral` corrected to `neutral` in color variable references
+- **`alert-pill`**: Fixed shape issue with `alert-pill` not appearing correctly
 
 ## [1.11.0] - 2026-03-10
 
@@ -412,7 +482,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
 [1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
 [1.10.1]: https://github.com/nezanuha/frutjam/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/nezanuha/frutjam/compare/v1.9.1...v1.10.0

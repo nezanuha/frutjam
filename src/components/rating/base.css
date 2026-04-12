@@ -1,0 +1,77 @@
+@import "./colors.css";
+@import "./sizes.css";
+
+@utility rating {
+  display: inline-flex;
+  gap: 0.125rem;
+  align-items: center;
+}
+
+/* ─── Half-rating ───────────────────────────────────────────────────
+   Each .rate is half-width. The mask image is zoomed to 200% so
+   odd items show the left half of the shape, even items the right.
+   No extra classes needed on individual items — just add the shape
+   mask class (e.g. fj-mask-star) to every .rate item.
+─────────────────────────────────────────────────────────────────── */
+@utility rating-half {
+  gap: 0;
+
+  & .rate {
+    width: calc(var(--rate--size) / 2);
+    mask-size: 200%;
+    mask-position: left;
+  }
+
+  & .rate:nth-child(even) {
+    mask-position: right;
+  }
+}
+
+@utility rate {
+  /* Color tokens */
+  --color-rate: var(--color-warning);
+  --color-rate-empty: var(--color-base-soft);
+
+  /* Size */
+  --rate--size: 1.5rem;
+
+  /* Fill — toggled by checked/hover state */
+  --rate--fill: var(--color-rate-empty);
+
+  appearance: none;
+  cursor: pointer;
+  width: var(--rate--size);
+  height: var(--rate--size);
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: var(--rate--fill);
+  /* Shape comes from .mask + .mask-[shape] utilities */
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  transition: background-color 150ms ease-in-out;
+
+  /* Fill this item when checked */
+  @variant checked-or-aria-checked {
+    --rate--fill: var(--color-rate);
+  }
+
+  /* Fill all items before the checked one */
+  &:has(~ .rate:is(:checked, [aria-checked="true"])) {
+    --rate--fill: var(--color-rate);
+  }
+
+  /* Hover preview — fill this item and all items before the hovered one */
+  &:hover,
+  &:has(~ .rate:hover) {
+    --rate--fill: var(--color-rate);
+  }
+
+  @variant focus-visible {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: light-dark(var(--color-base-950), var(--color-base-50));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}

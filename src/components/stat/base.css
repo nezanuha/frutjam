@@ -1,0 +1,61 @@
+@import "./structure.css";
+@import "./colors.css";
+
+@utility stats {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border-radius: calc(var(--border-radius) * 3);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-base-soft);
+  background-color: var(--color-base);
+  overflow: hidden;
+  width: fit-content;
+}
+
+@utility stat {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 0.25rem 1rem;
+  padding: 1.25rem 1.5rem;
+
+  & + & {
+    border-inline-start: 1px solid var(--color-base-soft);
+  }
+}
+
+@utility stat-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: --alpha(var(--color-on-base) / 60%);
+  grid-column: 1;
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+@utility stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-on-base);
+  grid-column: 1;
+  grid-row: 2;
+  white-space: nowrap;
+}
+
+@utility stat-desc {
+  font-size: 0.75rem;
+  color: --alpha(var(--color-on-base) / 50%);
+  grid-column: 1;
+  grid-row: 3;
+}
+
+@utility stat-figure {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  justify-self: end;
+  color: var(--color-primary);
+}

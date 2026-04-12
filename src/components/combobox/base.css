@@ -1,0 +1,80 @@
+@import "./colors.css";
+@import "./sizes.css";
+
+@utility combobox {
+    --color-combobox: var(--color-base-soft);
+    --color-combobox-list: var(--color-base);
+    --color-on-combobox: var(--color-on-base);
+    --color-combobox-option-hover: var(--color-base-soft);
+    --color-combobox-option-active: var(--color-primary-soft);
+    --color-on-combobox-option-active: light-dark(var(--color-primary-800), var(--color-primary));
+
+    --combobox-list-padding: 0.375rem;
+    --combobox-option-padding-inline: 0.75rem;
+    --combobox-option-padding-block: 0.5rem;
+    --combobox-option-font-size: 0.875rem;
+    --combobox-option-radius: calc(var(--border-radius) * 1.5);
+
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@utility combobox-list {
+    position: absolute;
+    inset-block-start: calc(100% + 0.25rem);
+    inset-inline: 0;
+    z-index: 100;
+
+    background-color: var(--color-combobox-list);
+    border: 1px solid var(--color-combobox);
+    border-radius: calc(var(--border-radius) * 2);
+    padding: var(--combobox-list-padding);
+    margin: 0;
+    list-style: none;
+
+    max-height: 16rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.25rem);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+
+    box-shadow: 0 4px 16px --alpha(var(--color-base-950) / 10%);
+}
+
+@utility combobox-option {
+    padding-inline: var(--combobox-option-padding-inline);
+    padding-block: var(--combobox-option-padding-block);
+    font-size: var(--combobox-option-font-size);
+    border-radius: var(--combobox-option-radius);
+    color: var(--color-on-combobox);
+    cursor: pointer;
+    transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
+
+    @variant hover {
+        background-color: var(--color-combobox-option-hover);
+    }
+
+    &[aria-selected="true"],
+    &.combobox-option-active {
+        background-color: var(--color-combobox-option-active);
+        color: var(--color-on-combobox-option-active);
+    }
+}
+
+/* Open state — via JS class or :focus-within */
+@utility combobox-open {
+    .combobox-list {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}

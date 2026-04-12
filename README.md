@@ -8,21 +8,22 @@
 
 # Frutjam: Free & Open-Source Tailwind CSS UI Library
 
-[Frutjam](https://frutjam.com) is a lightweight, modern UI library built for speed. It provides prebuilt Tailwind CSS components and JavaScript-powered plugins that are completely free to use. No complex setup—just copy, paste, and build.
+[Frutjam](https://frutjam.com) is a lightweight, modern UI library built for speed. It provides prebuilt Tailwind CSS components that are completely free to use — pure CSS, no JavaScript required. Works with Vite, PostCSS, Next.js, or any framework.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg)](https://github.com/nezanuha/frutjam/stargazers)
 
 ## Pure CSS, no JavaScript needed. Framework-agnostic and fully compatible everywhere.
 
-**Frutjam** is a lightweight UI library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast. With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
+**Frutjam** is a UI component library built on top of **Tailwind CSS**, designed to help developers build accessible, SEO-friendly, and W3C-compliant interfaces—fast. With a wide selection of prebuilt components and themes, Frutjam makes it easy to hit the ground running or fully customize your design system.
 
 ---
 
 ## Key Features
 
 * 🧱 **Prebuilt UI Components** — Plug-and-play components to save time
-* 🎨 **Customizable Themes** — Use built-in themes or create your own
+* 🎨 **Customizable Themes** — Built-in themes plus custom theme injection
+* 🏷️ **Independent Prefix Support** — Scope Frutjam classes behind their own prefix (e.g. `fj-btn`), separate from Tailwind’s prefix
 * ♿ **Accessibility-First** — Follows accessibility best practices
 * 🔍 **SEO-Friendly** — Semantic markup optimized for search engines
 * ✅ **W3C Standards** — Clean, valid HTML structure
@@ -32,15 +33,15 @@
 
 ## Installation & Usage
 
-Import Tailwind CSS and Frutjam into your main stylesheet:
-
 ```bash
 npm install frutjam
 ```
 
+In your main stylesheet:
+
 ```css
 @import "tailwindcss";
-@import "frutjam";
+@plugin "frutjam";
 ```
 
 ## Basic Example
@@ -51,7 +52,72 @@ npm install frutjam
 </button>
 ```
 
-That’s it — you're ready to build with Frutjam components!
+## With Prefix
+
+Configure the prefix directly in your CSS file — no `postcss.config.js` changes needed:
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+Or via `postcss.config.js` if you prefer:
+
+```js
+module.exports = {
+  plugins: {
+    "frutjam": { prefix: "fj" },
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+
+```html
+<button class="fj-btn fj-btn-primary">
+  Launch App
+</button>
+```
+
+## Plugin Options
+
+All options can be set in CSS via `@plugin "frutjam" { ... }` or in `postcss.config.js`:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `prefix` | `""` | Prefix all Frutjam class names (e.g. `fj` → `fj-btn`) |
+| `reset` | `true` | Include browser reset and element defaults |
+| `root` | `":root"` | Remap CSS var declarations to a custom selector (e.g. `":host"`) |
+| `logs` | `true` | Show build-time console output |
+| `include` | `[]` | Only include specific components/utilities |
+| `exclude` | `[]` | Exclude specific components/utilities |
+
+## Custom Themes
+
+Define themes directly in your stylesheet using `@layer theme`:
+
+```css
+@layer theme {
+  [data-theme="blueberry"] {
+    --scheme-color: light;
+    --color-primary: oklch(60% 0.2 220);
+    --color-on-primary: oklch(98% 0.01 220);
+    --color-base: oklch(98% 0.01 220);
+    --color-on-base: oklch(20% 0.02 220);
+  }
+}
+```
+
+Apply any theme with a `data-theme` attribute:
+
+```html
+<body data-theme="blueberry">
+  ...
+</body>
+```
+
+That’s it — you’re ready to build with Frutjam components!
 
 ---
 

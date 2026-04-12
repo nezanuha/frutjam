@@ -1,0 +1,45 @@
+@utility swap-rotate {
+    .swap-on,
+    .swap-indeterminate {
+        rotate: 45deg;
+    }
+
+    &:has(input:checked),
+    &.swap-active {
+        .swap-off {
+            rotate: -45deg;
+        }
+
+        .swap-on,
+        .swap-indeterminate {
+            rotate: 0deg;
+        }
+    }
+}
+
+@utility swap-flip {
+    perspective: 16rem;
+
+    .swap-on,
+    .swap-indeterminate {
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+    }
+
+    .swap-off {
+        backface-visibility: hidden;
+        transform: rotateY(0deg);
+    }
+
+    &:has(input:checked),
+    &.swap-active {
+        .swap-off {
+            transform: rotateY(-180deg);
+        }
+
+        .swap-on,
+        .swap-indeterminate {
+            transform: rotateY(0deg);
+        }
+    }
+}

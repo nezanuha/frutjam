@@ -1,0 +1,141 @@
+@import "./variants.css";
+@import "./tokens.css";
+
+@layer base {
+
+  /* ── Box model ───────────────────────────────────────────────────── */
+  *,
+  ::after,
+  ::backdrop,
+  ::before,
+  ::file-selector-button {
+    box-sizing: border-box;
+    border: 0 solid;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ── Base typography ─────────────────────────────────────────────── */
+  :host,
+  html {
+    line-height: 1.5;
+    font-family: var(
+      --default-font-family,
+      ui-sans-serif,
+      system-ui,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji"
+    );
+    -webkit-tap-highlight-color: #0000;
+  }
+
+  body { line-height: inherit; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+
+  /* ── Table ───────────────────────────────────────────────────────── */
+  table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
+
+  /* ── Forms ───────────────────────────────────────────────────────── */
+  ::file-selector-button,
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background: 0 0;
+  }
+
+::file-selector-button,
+  button,
+  input:where([type="button"], [type="reset"], [type="submit"]) {
+    appearance: button;
+  }
+
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+
+  ::placeholder {
+    opacity: 1;
+    color: color-mix(in oklch, currentColor 50%, transparent);
+  }
+
+  /* ── Lists ───────────────────────────────────────────────────────── */
+  menu, ol, ul { list-style: none; }
+
+  /* ── Media ───────────────────────────────────────────────────────── */
+  audio, canvas, embed, iframe, img, object, svg, video {
+    display: block;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ── Misc ────────────────────────────────────────────────────────── */
+  textarea { resize: vertical; }
+
+  /* ── Element defaults (theme-aware) ─────────────────────────────── */
+  :root,
+  [data-theme] {
+    main, footer { background-color: var(--color-base); }
+
+    p {
+      text-wrap-style: pretty;
+      color: var(--color-body);
+      font-size: var(--text-base, 1rem);
+      line-height: 1.7;
+    }
+
+    menu, ol, ul {
+      color: var(--color-body);
+      font-size: var(--text-base, 1rem);
+    }
+
+    strong { color: var(--color-on-base); }
+
+    code {
+      font-weight: 600;
+      background-color: var(--color-base-soft);
+      color: var(--color-on-base-soft);
+      padding: 0.2em 0.4em;
+      border-radius: calc(var(--border-radius) * 1.5);
+    }
+
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      font-size: inherit;
+      border-radius: 0;
+    }
+  }
+
+}

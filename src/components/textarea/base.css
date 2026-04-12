@@ -1,0 +1,67 @@
+@import "./colors.css";
+@import "./sizes.css";
+@import "./styles.css";
+
+@utility textarea {
+    --radius-textarea: calc(var(--border-radius) * 2);
+
+    --color-textarea: var(--color-base-soft);
+    --color-on-textarea: var(--color-on-base-soft);
+
+    --color-textarea-active: var(--color-base-active);
+    --color-on-textarea-active: var(--color-on-base);
+
+    --textarea--inline: 0.75rem;
+    --textarea--block: 0.625rem;
+    --textarea--font-size: 1rem;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--color-textarea-active);
+    background-color: transparent;
+
+    padding-inline: var(--textarea--inline);
+    padding-block: var(--textarea--block);
+
+    font-size: var(--textarea--font-size);
+    color: var(--color-on-base);
+    display: block;
+    align-self: flex-start;
+    align-items: flex-start;
+    appearance: none;
+    border-radius: var(--radius-textarea);
+    vertical-align: middle;
+    white-space: pre-wrap;
+    position: relative;
+    font-weight: 500;
+    width: 100%;
+    min-height: var(--textarea--min-height, 5rem);
+    resize: vertical;
+    transition: border-color 250ms;
+    transition-timing-function: ease-in-out;
+
+    @variant placeholder {
+        font-size: var(--textarea--font-size);
+        color: --alpha(var(--color-on-base) / 30%);
+        font-weight: 400;
+    }
+
+    @variant focus-visible {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: light-dark(var(--color-base-950), var(--color-base-50));
+        outline-offset: 3px;
+    }
+
+    @variant focus-or-within {
+        border-color: light-dark(var(--color-base-800), --alpha(var(--color-base-300) / 80%));
+    }
+
+    @variant disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
+        background-color: var(--color-base-soft);
+        user-select: none;
+    }
+}

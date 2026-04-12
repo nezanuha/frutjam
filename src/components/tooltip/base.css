@@ -1,4 +1,3 @@
-@import "./safelist.css";
 @import "./colors.css";
 @import "./placement.css";
 @import "./structure.css";
@@ -9,11 +8,11 @@
 
     --color-tooltip: var(--color-neutral);
     --color-on-tooltip: var(--color-on-neutral);
-    --tooltip-body: calc(100% + 0.5rem);
+    --tooltip-content: calc(100% + 0.5rem);
     --tooltip-tail: calc(100% + 1px + 0.25rem);
     --radius-tooltip: calc(var(--border-radius) * 2);      /* 0.5rem */
 
-    & > [class*="tooltip-body"],
+    & > .tooltip-content,
     &[data-tip]:before {
       color: var(--color-on-tooltip);
       border-radius: var(--radius-tooltip);
@@ -34,7 +33,7 @@
       content: var(--tw-content);
 
       transform: translateX(-50%) translateY(var(--tooltip-placement, 0.25rem));
-      inset: auto auto var(--tooltip-body) 50%;
+      inset: auto auto var(--tooltip-content) 50%;
     }
 
     &:after {
@@ -56,7 +55,7 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      & > [class*="tooltip-body"],
+      & > .tooltip-content,
       &[data-tip]:before,
       &:after {
         transition:
@@ -65,11 +64,11 @@
       }
     }
 
-    &:is([data-tip]:not([data-tip=""]), :has([class*="tooltip-body"]:not(:empty))) {
-      &[class*="tooltip-open"],
+    &:is([data-tip]:not([data-tip=""]), :has(.tooltip-content:not(:empty))) {
+      &.tooltip-open,
       &:hover,
       &:has(:focus-visible) {
-        & > [class*="tooltip-body"],
+        & > .tooltip-content,
         &[data-tip]:before,
         &:after {
           opacity: 100%;

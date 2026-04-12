@@ -1,0 +1,61 @@
+@import "./colors.css";
+@import "./sizes.css";
+
+@utility toggle {
+    --radius-toggle: 9999px;
+    --color-toggle: var(--color-base-300);
+    --color-on-toggle: var(--color-on-base);
+    --color-toggle-checked: var(--color-primary);
+    --color-on-toggle-checked: var(--color-on-primary);
+
+    --toggle--width: 3rem;
+    --toggle--height: 1.5rem;
+    --toggle--thumb-size: calc(var(--toggle--height) - 0.375rem);
+
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    width: var(--toggle--width);
+    height: var(--toggle--height);
+    border-radius: var(--radius-toggle);
+    background-color: var(--color-toggle);
+    position: relative;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: background-color 200ms ease-in-out;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        inset-inline-start: 0.1875rem;
+        transform: translateY(-50%);
+        width: var(--toggle--thumb-size);
+        height: var(--toggle--thumb-size);
+        border-radius: 9999px;
+        background-color: white;
+        transition: inset-inline-start 200ms ease-in-out, transform 200ms ease-in-out;
+        box-shadow: 0 1px 3px oklch(0% 0 0 / 20%);
+    }
+
+    @variant checked-or-aria-checked {
+        background-color: var(--color-toggle-checked);
+
+        &::before {
+            inset-inline-start: calc(100% - var(--toggle--thumb-size) - 0.1875rem);
+        }
+    }
+
+    @variant focus-visible {
+        outline-width: 2px;
+        outline-style: solid;
+        outline-color: light-dark(var(--color-base-950), var(--color-base-50));
+        outline-offset: 3px;
+    }
+
+    @variant disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

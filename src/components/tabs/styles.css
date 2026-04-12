@@ -1,0 +1,98 @@
+/* Style variants for the tabs container */
+@utility tabs-box {
+  background-color: var(--color-base-soft);
+  border-radius: calc(var(--border-radius) * 2);
+  padding: 0.25rem;
+  border-block-end: none;
+  gap: 0.25rem;
+
+  &::after {
+    display: none;
+  }
+
+  & > .tab {
+    border-block-end: none;
+    border-radius: calc(var(--border-radius) * 1.5);
+    margin-block-end: 0;
+  }
+
+  & > .tab-active,
+  & > .tab:checked {
+    background-color: var(--color-base);
+    color: var(--color-on-base);
+    box-shadow: 0 1px 3px --alpha(oklch(0% 0 0) / 10%);
+  }
+}
+
+@utility tabs-bottom {
+  align-items: flex-start;
+  border-block-end: none;
+
+  /* Suppress the base tabs ::after — we use ::before instead (above the tab row) */
+  &::after {
+    display: none;
+  }
+
+  /* Separator above the tab row: order:-1 sits between content (order:-2) and tabs (order:0) */
+  &::before {
+    content: "";
+    width: 100%;
+    order: -1;
+    border-block-end: 1px solid var(--color-base-soft);
+  }
+
+  & > .tab {
+    border-block-end: none;
+    border-block-start: 2px solid transparent;
+    margin-block-end: 0;
+    margin-block-start: -1px;
+  }
+
+  & > .tab-active,
+  & > .tab:checked {
+    border-block-start-color: var(--color-tab-active);
+    position: relative;
+    z-index: 1;
+  }
+
+  & > .tab-content {
+    order: -2;
+  }
+}
+
+@utility tabs-lifted {
+  border-block-end: none;
+  gap: 0;
+
+  /* Shelf line: sits between tab row (order:0) and content row (order:9999) */
+  &::after {
+    content: "";
+    width: 100%;
+    order: 1;
+    border-block-start: 1px solid var(--color-base-soft);
+  }
+
+  & > .tab {
+    border: 1px solid transparent;
+    border-block-end: none;
+    border-radius: calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0 0;
+    margin-block-end: 0;
+  }
+
+  & > .tab-active,
+  & > .tab:checked {
+    color: var(--color-on-base);
+    border-color: var(--color-base-soft);
+    background-color: var(--color-base);
+    /* Break through the shelf line */
+    position: relative;
+    z-index: 1;
+    margin-block-end: -1px;
+  }
+
+  & > .tab-content {
+    border: 1px solid var(--color-base-soft);
+    border-block-start: none;
+    border-radius: 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2);
+  }
+}
