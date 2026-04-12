@@ -187,7 +187,7 @@ const baseCssRaw = [
 
 // Run through Tailwind so @custom-variant / @theme inline compile away correctly
 const baseCompiled = await runTailwind(baseCssRaw)
-writeDist(join(distDir, "base.css"), baseCompiled)
+writeDist(join(distDir, "base.css"), await minify(baseCompiled))
 
 // ── 3. Themes ─────────────────────────────────────────────────────────────────
 
@@ -197,7 +197,7 @@ for (const theme of ["darkberry", "snowberry"]) {
   const css = readFile(join(srcDir, `theme/default/${theme}.css`))
   // Plain CSS — @layer theme + CSS vars, no Tailwind syntax
   const compiled = await runPostCSS(css)
-  writeDist(join(distDir, `themes/${theme}.css`), compiled)
+  writeDist(join(distDir, `themes/${theme}.css`), await minify(compiled))
 }
 
 // ── 4. Components ─────────────────────────────────────────────────────────────
@@ -207,7 +207,7 @@ console.log("\n[components]")
 for (const [name, filePath] of Object.entries(REGISTRY.components)) {
   const css = resolveImports(readFile(filePath), dirname(filePath))
   const compiled = await buildModule(css)
-  writeDist(join(distDir, `components/${name}.css`), compiled)
+  writeDist(join(distDir, `components/${name}.css`), await minify(compiled))
 }
 
 // ── 5. Utilities ──────────────────────────────────────────────────────────────
@@ -217,7 +217,7 @@ console.log("\n[utilities]")
 for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
   const css = resolveImports(readFile(filePath), dirname(filePath))
   const compiled = await buildModule(css)
-  writeDist(join(distDir, `utilities/${name}.css`), compiled)
+  writeDist(join(distDir, `utilities/${name}.css`), await minify(compiled))
 }
 
 console.log(`\n🎉 CDN build complete!`)
