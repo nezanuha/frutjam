@@ -171,7 +171,6 @@ const fullResult = await postcss([
   autoprefixer(),
 ]).process(fullInput, { from: join(rootDir, "index.css") })
 
-writeDist(join(distDir, "frutjam.css"), fullResult.css)
 writeDist(join(distDir, "frutjam.min.css"), await minify(fullResult.css))
 
 // ── 2. Base ───────────────────────────────────────────────────────────────────
