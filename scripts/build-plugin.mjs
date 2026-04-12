@@ -94,11 +94,18 @@ const REGISTRY = buildRegistry()
 
 // ── Tailwind compilation ─────────────────────────────────────────────────────
 
+// @custom-variant is a compile-time Tailwind directive — strip any that survive compilation
+function stripCustomVariants(css) {
+  const root = postcss.parse(css)
+  root.walkAtRules("custom-variant", node => node.remove())
+  return root.toString()
+}
+
 async function runTailwind(css, base = rootDir) {
   const result = await postcss([tailwindcss({ base }), autoprefixer()]).process(css, {
     from: join(base, "index.css"),
   })
-  return result.css
+  return stripCustomVariants(result.css)
 }
 
 async function runPostCSS(css) {
@@ -143,8 +150,26 @@ function transformKeys(obj) {
   )
 }
 
+// postcss-js drops duplicate keys, so two @layer base blocks → only the last survives.
+// Merge all top-level at-rule blocks with the same name+params into one before objectifying.
+function mergeTopLevelAtRules(css) {
+  const root = postcss.parse(css)
+  const seen = new Map()
+  root.each(node => {
+    if (node.type !== "atrule") return
+    const key = `${node.name} ${node.params}`
+    if (seen.has(key)) {
+      seen.get(key).append(...node.clone().nodes)
+      node.remove()
+    } else {
+      seen.set(key, node)
+    }
+  })
+  return root.toString()
+}
+
 function cssToJsObject(cssString) {
-  const root = postcss.parse(cssString)
+  const root = postcss.parse(mergeTopLevelAtRules(cssString))
   const raw = postcssJs.objectify(root)
   return transformKeys(raw)
 }
@@ -282,7 +307,24 @@ writeDist(join(distDir, "functions/addPrefix.js"), [
   ``,
 ].join("\n"))
 
-// 6. Bundled plugin.js
+// 6. Theme config — extract @theme inline declarations to replicate in plugin.withOptions config
+//    so users don't need @import "frutjam/theme" for Tailwind color utilities (bg-base-200 etc.)
+const THEME_CONFIG = (() => {
+  const themeCss = readFile(join(srcDir, "theme/base.css"))
+  const root = postcss.parse(themeCss)
+  const colors = {}
+  root.walkAtRules("theme", node => {
+    if (!node.params.includes("inline")) return
+    node.walkDecls(decl => {
+      if (decl.prop.startsWith("--color-")) {
+        colors[decl.prop.slice("--color-".length)] = decl.value.trim()
+      }
+    })
+  })
+  return colors
+})()
+
+// 7. Bundled plugin.js
 console.log("\n[plugin.js]")
 
 const pluginJs = `${banner}
@@ -310,6 +352,9 @@ const COMPONENTS = ${toJSON(COMPONENTS)}
 
 const UTILITIES = ${toJSON(UTILITIES)}
 
+// Color name → CSS variable mapping (mirrors @theme inline in frutjam/theme)
+const THEME_CONFIG = ${toJSON(THEME_CONFIG)}
+
 // Prefix all class selectors in a selector string: ".tab" → ".fj-tab", "& > .tab" → "& > .fj-tab"
 function prefixClassesInSelector(sel, prefix) {
   return sel.replace(/\\.([\\.\\w-]+)/g, (_, name) => "." + prefix + name)
@@ -327,17 +372,33 @@ function addPrefix(obj, prefix) {
   )
 }
 
+// Recursively remap :root keys to a custom selector
+function remapRoot(obj, rootSelector) {
+  if (!rootSelector || rootSelector === ":root") return obj
+  return Object.fromEntries(
+    Object.entries(obj).map(([k, v]) => {
+      const newKey = k.replace(/:root\\b/g, rootSelector)
+      const newVal = (v && typeof v === "object") ? remapRoot(v, rootSelector) : v
+      return [newKey, newVal]
+    })
+  )
+}
+
 export default plugin.withOptions(
   (options = {}) => ({ addBase }) => {
     const {
       prefix    = "",
       reset     = false,
+      root      = ":root",
+      logs      = true,
       themes    = Object.keys(THEMES),
       include   = [],
       exclude   = [],
     } = typeof options === "string" ? {} : (options || {})
 
     const p = prefix ? prefix + "-" : ""
+
+    if (logs) console.log(\`\\x1b[36mfrutjam v${version}\\x1b[0m loaded\${prefix ? \` with prefix "\${prefix}-"\` : ""}\`)
 
     const shouldInclude = (name) => {
       if (include.length > 0 && exclude.length > 0) return include.includes(name) && !exclude.includes(name)
@@ -347,7 +408,7 @@ export default plugin.withOptions(
     }
 
     // Base
-    addBase(reset ? BASE_REBOOT : BASE_TOKENS)
+    addBase(remapRoot(reset ? BASE_REBOOT : BASE_TOKENS, root))
 
     // Themes
     const activeThemes = Array.isArray(themes) ? themes : [themes]
@@ -368,7 +429,14 @@ export default plugin.withOptions(
         addBase(p ? addPrefix(styles, p) : styles)
       }
     }
-  }
+  },
+  () => ({
+    theme: {
+      extend: {
+        colors: THEME_CONFIG
+      }
+    }
+  })
 )
 `
 

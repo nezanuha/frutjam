@@ -63,11 +63,18 @@ function buildRegistry() {
   return { components, utilities }
 }
 
+// @custom-variant is a compile-time Tailwind directive — strip any that survive compilation
+function stripCustomVariants(css) {
+  const root = postcss.parse(css)
+  root.walkAtRules("custom-variant", node => node.remove())
+  return root.toString()
+}
+
 async function runTailwind(css, base = rootDir) {
   const result = await postcss([tailwindcss({ base }), autoprefixer()]).process(css, {
     from: join(base, "index.css"),
   })
-  return result.css
+  return stripCustomVariants(result.css)
 }
 
 async function runPostCSS(css) {
