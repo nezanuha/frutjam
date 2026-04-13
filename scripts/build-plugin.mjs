@@ -267,21 +267,29 @@ for (const [name, filePath] of Object.entries(REGISTRY.components)) {
 }
 
 // 4. Utilities
+// Utilities that conflict with @layer utilities from Tailwind plugins (e.g. @tailwindcss/typography)
+// must be registered via addUtilities() so they land in @layer utilities, not @layer base.
+const UTILITIES_LAYER = new Set(['typography', 'headings', 'para', 'wrapper'])
+
 console.log("\n[utilities]")
 const UTILITIES = {}
+const UTILITIES_LATE = {}
 for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
   const css = resolveImports(readFile(filePath), dirname(filePath))
   const compiled = await buildModule(css)
-  UTILITIES[name] = cssToJsObject(compiled)
+  const jsObj = cssToJsObject(compiled)
+  const target = UTILITIES_LAYER.has(name) ? UTILITIES_LATE : UTILITIES
+  target[name] = jsObj
 
-  writeDist(join(distDir, `utilities/${name}/object.js`), `export default ${toJSON(UTILITIES[name])};\n`)
+  const addFn = UTILITIES_LAYER.has(name) ? "addUtilities" : "addBase"
+  writeDist(join(distDir, `utilities/${name}/object.js`), `export default ${toJSON(jsObj)};\n`)
   writeDist(join(distDir, `utilities/${name}/index.js`), [
     `import ${name.replace(/-/g, "_")} from './object.js';`,
     `import { addPrefix } from '../../functions/addPrefix.js';`,
     ``,
-    `export default ({ addBase, prefix = '' }) => {`,
+    `export default ({ ${addFn}, prefix = '' }) => {`,
     `  const prefixed = addPrefix(${name.replace(/-/g, "_")}, prefix);`,
-    `  addBase({ ...prefixed });`,
+    `  ${addFn}({ ...prefixed });`,
     `};`,
     ``,
   ].join("\n"))
@@ -352,6 +360,8 @@ const COMPONENTS = ${toJSON(COMPONENTS)}
 
 const UTILITIES = ${toJSON(UTILITIES)}
 
+const UTILITIES_LATE = ${toJSON(UTILITIES_LATE)}
+
 // Color name → CSS variable mapping (mirrors @theme inline in frutjam/theme)
 const THEME_CONFIG = ${toJSON(THEME_CONFIG)}
 
@@ -385,10 +395,10 @@ function remapRoot(obj, rootSelector) {
 }
 
 export default plugin.withOptions(
-  (options = {}) => ({ addBase }) => {
+  (options = {}) => ({ addBase, addUtilities }) => {
     const {
       prefix    = "",
-      reset     = false,
+      reset     = true,
       root      = ":root",
       logs      = true,
       themes    = Object.keys(THEMES),
@@ -427,6 +437,13 @@ export default plugin.withOptions(
     for (const [name, styles] of Object.entries(UTILITIES)) {
       if (shouldInclude(name)) {
         addBase(p ? addPrefix(styles, p) : styles)
+      }
+    }
+
+    // Utilities that must land in @layer utilities (e.g. prose-frutjam overrides @tailwindcss/typography)
+    for (const [name, styles] of Object.entries(UTILITIES_LATE)) {
+      if (shouldInclude(name)) {
+        addUtilities(p ? addPrefix(styles, p) : styles)
       }
     }
   },

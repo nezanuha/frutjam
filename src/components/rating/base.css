@@ -5,6 +5,14 @@
   display: inline-flex;
   gap: 0.125rem;
   align-items: center;
+
+  /* Hover preview: fill all stars, then un-fill those after the hovered one */
+  &:hover .rate {
+    --rate--fill: var(--color-rate);
+  }
+  &:hover .rate:hover ~ .rate {
+    --rate--fill: var(--color-rate-empty);
+  }
 }
 
 /* ─── Half-rating ───────────────────────────────────────────────────
@@ -61,9 +69,8 @@
     --rate--fill: var(--color-rate);
   }
 
-  /* Hover preview — fill this item and all items before the hovered one */
-  &:hover,
-  &:has(~ .rate:hover) {
+  /* Hover fill for this item (standalone use without .rating wrapper) */
+  &:hover {
     --rate--fill: var(--color-rate);
   }
 

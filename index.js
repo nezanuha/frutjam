@@ -7,6 +7,11 @@ const __filename = fileURLToPath(import.meta.url)
 const __dir = dirname(__filename)
 const srcDir = join(__dir, "src")
 
+// ── Keys that must be injected after Tailwind processes layers ───────────────
+// These files conflict with @layer utilities from Tailwind plugins (e.g. typography),
+// so they are injected via OnceExit into @layer utilities (or root if not found).
+const LATE_INJECT = new Set(['typography'])
+
 // ── Registry (built once at startup, not per build) ──────────────────────────
 
 function buildRegistry() {
@@ -111,6 +116,8 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
     const excludeSet = new Set(exclude)
     keys = keys.filter(k => !excludeSet.has(k))
   }
+  // LATE_INJECT keys are handled separately via OnceExit — skip them here
+  keys = keys.filter(k => !LATE_INJECT.has(k))
 
   // Base layer (full with reboot, or core without)
   const baseFiles = reset ? BASE_FULL : BASE_CORE
@@ -137,6 +144,21 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
   return css
 }
 
+function buildLateCSS(prefix, include, exclude) {
+  let keys = [...LATE_INJECT].filter(k => REGISTRY[k])
+  if (include.length > 0) {
+    keys = keys.filter(k => include.includes(k))
+  } else if (exclude.length > 0) {
+    const excludeSet = new Set(exclude)
+    keys = keys.filter(k => !excludeSet.has(k))
+  }
+  if (keys.length === 0) return ""
+  const css = keys
+    .map(k => resolveImports(readFile(REGISTRY[k]), dirname(REGISTRY[k])))
+    .join("\n")
+  return applyPrefix(css, prefix)
+}
+
 // ── Plugin ───────────────────────────────────────────────────────────────────
 
 function parseAtPluginOptions(atRule) {
@@ -156,6 +178,8 @@ function parseAtPluginOptions(atRule) {
 }
 
 export default function frutjam(options = {}) {
+  let _lateCss = ""
+
   return {
     postcssPlugin: "frutjam",
     Once(root) {
@@ -188,7 +212,25 @@ export default function frutjam(options = {}) {
 
       const css = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
       root.append(postcss.parse(css).nodes)
+      _lateCss = buildLateCSS(prefix, include, exclude)
       if (logs) console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
+    },
+    OnceExit(root) {
+      if (!_lateCss) return
+      // Inject into @layer utilities if it exists (correct cascade layer),
+      // otherwise append to root (unlayered CSS beats all @layer rules).
+      let utilLayer = null
+      root.each(node => {
+        if (node.type === "atrule" && node.name === "layer" && node.params === "utilities" && node.nodes) {
+          utilLayer = node
+        }
+      })
+      const nodes = postcss.parse(_lateCss).nodes
+      if (utilLayer) {
+        utilLayer.append(nodes)
+      } else {
+        root.append(nodes)
+      }
     }
   }
 }
