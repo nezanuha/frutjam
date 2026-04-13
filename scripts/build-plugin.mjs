@@ -258,38 +258,31 @@ for (const [name, filePath] of Object.entries(REGISTRY.components)) {
     `import ${name.replace(/-/g, "_")} from './object.js';`,
     `import { addPrefix } from '../../functions/addPrefix.js';`,
     ``,
-    `export default ({ addBase, prefix = '' }) => {`,
+    `export default ({ addUtilities, prefix = '' }) => {`,
     `  const prefixed = addPrefix(${name.replace(/-/g, "_")}, prefix);`,
-    `  addBase({ ...prefixed });`,
+    `  addUtilities({ ...prefixed });`,
     `};`,
     ``,
   ].join("\n"))
 }
 
-// 4. Utilities
-// Utilities that conflict with @layer utilities from Tailwind plugins (e.g. @tailwindcss/typography)
-// must be registered via addUtilities() so they land in @layer utilities, not @layer base.
-const UTILITIES_LAYER = new Set(['typography', 'headings', 'para', 'wrapper'])
-
+// 4. Utilities — all registered via addUtilities() so variants (lg:, hover:, etc.) work
 console.log("\n[utilities]")
 const UTILITIES = {}
-const UTILITIES_LATE = {}
 for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
   const css = resolveImports(readFile(filePath), dirname(filePath))
   const compiled = await buildModule(css)
   const jsObj = cssToJsObject(compiled)
-  const target = UTILITIES_LAYER.has(name) ? UTILITIES_LATE : UTILITIES
-  target[name] = jsObj
+  UTILITIES[name] = jsObj
 
-  const addFn = UTILITIES_LAYER.has(name) ? "addUtilities" : "addBase"
   writeDist(join(distDir, `utilities/${name}/object.js`), `export default ${toJSON(jsObj)};\n`)
   writeDist(join(distDir, `utilities/${name}/index.js`), [
     `import ${name.replace(/-/g, "_")} from './object.js';`,
     `import { addPrefix } from '../../functions/addPrefix.js';`,
     ``,
-    `export default ({ ${addFn}, prefix = '' }) => {`,
+    `export default ({ addUtilities, prefix = '' }) => {`,
     `  const prefixed = addPrefix(${name.replace(/-/g, "_")}, prefix);`,
-    `  ${addFn}({ ...prefixed });`,
+    `  addUtilities({ ...prefixed });`,
     `};`,
     ``,
   ].join("\n"))
@@ -360,8 +353,6 @@ const COMPONENTS = ${toJSON(COMPONENTS)}
 
 const UTILITIES = ${toJSON(UTILITIES)}
 
-const UTILITIES_LATE = ${toJSON(UTILITIES_LATE)}
-
 // Color name → CSS variable mapping (mirrors @theme inline in frutjam/theme)
 const THEME_CONFIG = ${toJSON(THEME_CONFIG)}
 
@@ -426,22 +417,15 @@ export default plugin.withOptions(
       if (activeThemes.includes(name)) addBase(styles)
     }
 
-    // Components
+    // Components — addUtilities so responsive/hover variants (lg:btn, hover:btn, etc.) work
     for (const [name, styles] of Object.entries(COMPONENTS)) {
       if (shouldInclude(name)) {
-        addBase(p ? addPrefix(styles, p) : styles)
+        addUtilities(p ? addPrefix(styles, p) : styles)
       }
     }
 
-    // Utilities
+    // Utilities — addUtilities so variants work and Tailwind IntelliSense shows completions
     for (const [name, styles] of Object.entries(UTILITIES)) {
-      if (shouldInclude(name)) {
-        addBase(p ? addPrefix(styles, p) : styles)
-      }
-    }
-
-    // Utilities that must land in @layer utilities (e.g. prose-frutjam overrides @tailwindcss/typography)
-    for (const [name, styles] of Object.entries(UTILITIES_LATE)) {
       if (shouldInclude(name)) {
         addUtilities(p ? addPrefix(styles, p) : styles)
       }
