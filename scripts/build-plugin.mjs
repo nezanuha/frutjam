@@ -95,9 +95,16 @@ const REGISTRY = buildRegistry()
 // ── Tailwind compilation ─────────────────────────────────────────────────────
 
 // @custom-variant is a compile-time Tailwind directive — strip any that survive compilation
-function stripCustomVariants(css) {
+// @layer properties is Tailwind's own @property block — already emitted by user's Tailwind build
+function stripTailwindInternals(css) {
   const root = postcss.parse(css)
   root.walkAtRules("custom-variant", node => node.remove())
+  root.walkAtRules("layer", node => {
+    if (node.params === "properties") node.remove()
+  })
+  // Tailwind emits bare @property declarations for --tw-* variables — already
+  // present in the user's own Tailwind build, don't duplicate in plugin output
+  root.walkAtRules("property", node => node.remove())
   return root.toString()
 }
 
@@ -105,7 +112,7 @@ async function runTailwind(css, base = rootDir) {
   const result = await postcss([tailwindcss({ base }), autoprefixer()]).process(css, {
     from: join(base, "index.css"),
   })
-  return stripCustomVariants(result.css)
+  return stripTailwindInternals(result.css)
 }
 
 async function runPostCSS(css) {
@@ -373,6 +380,19 @@ function addPrefix(obj, prefix) {
   )
 }
 
+// Split a CSS-in-JS object into utility class selectors and everything else.
+// addUtilities() only accepts single class selectors (e.g. ".btn"); at-rules
+// like @container, @keyframes, and non-class selectors must go to addBase().
+function splitStyles(styles) {
+  const base = {}
+  const utils = {}
+  for (const [k, v] of Object.entries(styles)) {
+    if (/^\\.[a-z]/.test(k)) utils[k] = v
+    else base[k] = v
+  }
+  return { base, utils }
+}
+
 // Recursively remap :root keys to a custom selector
 function remapRoot(obj, rootSelector) {
   if (!rootSelector || rootSelector === ":root") return obj
@@ -417,17 +437,24 @@ export default plugin.withOptions(
       if (activeThemes.includes(name)) addBase(styles)
     }
 
-    // Components — addUtilities so responsive/hover variants (lg:btn, hover:btn, etc.) work
+    // Components — class selectors via addUtilities (enables lg:/hover:/etc. variants),
+    // non-class rules (e.g. @container, @keyframes) via addBase
     for (const [name, styles] of Object.entries(COMPONENTS)) {
       if (shouldInclude(name)) {
-        addUtilities(p ? addPrefix(styles, p) : styles)
+        const s = p ? addPrefix(styles, p) : styles
+        const { base, utils } = splitStyles(s)
+        if (Object.keys(base).length) addBase(base)
+        if (Object.keys(utils).length) addUtilities(utils)
       }
     }
 
-    // Utilities — addUtilities so variants work and Tailwind IntelliSense shows completions
+    // Utilities — same split: class selectors via addUtilities, rest via addBase
     for (const [name, styles] of Object.entries(UTILITIES)) {
       if (shouldInclude(name)) {
-        addUtilities(p ? addPrefix(styles, p) : styles)
+        const s = p ? addPrefix(styles, p) : styles
+        const { base, utils } = splitStyles(s)
+        if (Object.keys(base).length) addBase(base)
+        if (Object.keys(utils).length) addUtilities(utils)
       }
     }
   },
