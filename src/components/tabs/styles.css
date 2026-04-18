@@ -1,19 +1,44 @@
 /* Style variants for the tabs container */
+
+/* Underline indicator — tabs sit on a full-width separator, active tab gets a colored bottom border */
+@utility tabs-underline {
+  align-items: flex-end;
+
+  /* Separator sits between tab row (order:0) and content row (order:9999) */
+  &::after {
+    content: "";
+    width: 100%;
+    order: 1;
+    border-block-start: 1px solid var(--color-base-soft);
+  }
+
+  & > .tab {
+    border-block-end: 2px solid transparent;
+    margin-block-end: -2px;
+  }
+
+  & > .tab-active,
+  & > .tab:checked {
+    border-block-end-color: var(--color-tab-active);
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Pill/box style — active tab gets an elevated background inside a tinted container */
 @utility tabs-box {
   background-color: var(--color-base-soft);
   border-radius: calc(var(--border-radius) * 2);
   padding: 0.25rem;
-  border-block-end: none;
   gap: 0.25rem;
+  align-items: center;
 
   &::after {
     display: none;
   }
 
   & > .tab {
-    border-block-end: none;
     border-radius: calc(var(--border-radius) * 1.5);
-    margin-block-end: 0;
   }
 
   & > .tab-active,
@@ -24,11 +49,11 @@
   }
 }
 
+/* Tabs positioned at the bottom, content above */
 @utility tabs-bottom {
   align-items: flex-start;
-  border-block-end: none;
 
-  /* Suppress the base tabs ::after — we use ::before instead (above the tab row) */
+  /* Suppress any ::after from tabs-underline if combined */
   &::after {
     display: none;
   }
@@ -42,10 +67,8 @@
   }
 
   & > .tab {
-    border-block-end: none;
     border-block-start: 2px solid transparent;
-    margin-block-end: 0;
-    margin-block-start: -1px;
+    margin-block-start: -2px;
   }
 
   & > .tab-active,
@@ -60,8 +83,9 @@
   }
 }
 
+/* Lifted card style — active tab has a raised border that merges with the content panel border */
 @utility tabs-lifted {
-  border-block-end: none;
+  align-items: flex-end;
   gap: 0;
 
   /* Shelf line: sits between tab row (order:0) and content row (order:9999) */
@@ -75,8 +99,10 @@
   & > .tab {
     border: 1px solid transparent;
     border-block-end: none;
-    border-radius: calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0 0;
-    margin-block-end: 0;
+
+    &:not(.btn) {
+      border-radius: calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) 0 0;
+    }
   }
 
   & > .tab-active,
@@ -92,7 +118,60 @@
 
   & > .tab-content {
     border: 1px solid var(--color-base-soft);
-    border-block-start: none;
+    /* Pull content up 1px so its left/right borders align with the active tab's borders.
+       The active tab (z-index:1, background-color) covers the top border at the tab's position. */
+    margin-block-start: -1px;
     border-radius: 0 calc(var(--border-radius) * 2) calc(var(--border-radius) * 2) calc(var(--border-radius) * 2);
+  }
+}
+
+/* Align tab row to the end (right in LTR) */
+@utility tabs-end {
+  justify-content: flex-end;
+}
+
+/* Vertical layout — tabs as a left-side column, content fills the right */
+@utility tabs-vertical {
+  --tabs--display: grid;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: start;
+
+  /* Suppress any ::after from tabs-underline if combined */
+  &::after {
+    display: none;
+  }
+
+  /* Full-height separator between tab column and content column.
+     Pseudo-element spans all grid rows so the line covers the full tab list height. */
+  &::before {
+    content: "";
+    grid-column: 2;
+    grid-row: 1 / span 999;
+    align-self: stretch;
+    border-inline-start: 1px solid var(--color-base-soft);
+    pointer-events: none;
+  }
+
+  & > .tab {
+    grid-column: 1;
+    width: 100%;
+    justify-content: flex-start;
+    border-inline-end: 2px solid transparent;
+    margin-inline-end: -2px;
+    border-radius: 0;
+  }
+
+  & > .tab-active,
+  & > .tab:checked {
+    border-inline-end-color: var(--color-tab-active);
+    position: relative;
+    z-index: 1;
+  }
+
+  & > .tab-content {
+    grid-column: 2;
+    grid-row: 1 / span 999;
+    /* separator is on ::before, not here, so it spans the full tab column height */
   }
 }

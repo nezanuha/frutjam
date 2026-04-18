@@ -4,6 +4,42 @@
 @utility join {
   display: inline-flex;
   align-items: stretch;
+  overflow: hidden;
+
+  /* Zero all corner variables — direction utilities restore first/last/only corners */
+  --join-ss: 0;
+  --join-se: 0;
+  --join-es: 0;
+  --join-ee: 0;
+
+  /* Apply corner variables to join-items (0 specificity via :where) */
+  :where(.join-item) {
+    border-start-start-radius: var(--join-ss, 0);
+    border-start-end-radius: var(--join-se, 0);
+    border-end-start-radius: var(--join-es, 0);
+    border-end-end-radius: var(--join-ee, 0);
+    /* Propagate computed corner radii to the first direct child interactive element.
+       Handles wrapper patterns (e.g. popover div wrapping a toggle button) by using
+       inherit — which reads the parent's already-resolved values, not the CSS variables. */
+    > :is(button, a, input, select):first-child {
+      border-start-start-radius: inherit;
+      border-start-end-radius: inherit;
+      border-end-start-radius: inherit;
+      border-end-end-radius: inherit;
+    }
+    /* Restore join vars for nested components (prevents variable leaking deeper) */
+    * {
+      --join-ss: var(--join-radius, calc(var(--border-radius) * 2));
+      --join-se: var(--join-radius, calc(var(--border-radius) * 2));
+      --join-es: var(--join-radius, calc(var(--border-radius) * 2));
+      --join-ee: var(--join-radius, calc(var(--border-radius) * 2));
+    }
+  }
+
+  /* Elevate focused items above siblings */
+  > :where(:focus, :has(:focus)) {
+    z-index: 1;
+  }
 
   @apply join-horizontal;
 }

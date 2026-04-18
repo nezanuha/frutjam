@@ -393,6 +393,16 @@ function splitStyles(styles) {
   return { base, utils }
 }
 
+// Sort utilities so base classes (shorter selectors) come before modifier/variant
+// classes (longer selectors). This ensures modifier styles are defined later in the
+// generated CSS and always win over base styles on same-specificity conflicts —
+// e.g. tabs-vertical's display:grid must override tabs's display:flex.
+function sortUtils(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).sort((a, b) => a[0].length - b[0].length || a[0].localeCompare(b[0]))
+  )
+}
+
 // Recursively remap :root keys to a custom selector
 function remapRoot(obj, rootSelector) {
   if (!rootSelector || rootSelector === ":root") return obj
@@ -444,7 +454,7 @@ export default plugin.withOptions(
         const s = p ? addPrefix(styles, p) : styles
         const { base, utils } = splitStyles(s)
         if (Object.keys(base).length) addBase(base)
-        if (Object.keys(utils).length) addUtilities(utils)
+        if (Object.keys(utils).length) addUtilities(sortUtils(utils))
       }
     }
 
@@ -454,7 +464,7 @@ export default plugin.withOptions(
         const s = p ? addPrefix(styles, p) : styles
         const { base, utils } = splitStyles(s)
         if (Object.keys(base).length) addBase(base)
-        if (Object.keys(utils).length) addUtilities(utils)
+        if (Object.keys(utils).length) addUtilities(sortUtils(utils))
       }
     }
   },

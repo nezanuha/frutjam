@@ -1,0 +1,135 @@
+@utility collapsible {
+  position: relative;
+
+  /* Open via JS class */
+  &.collapsible-open,
+  /* Open via checkbox inside */
+  &:has(> .collapsible-toggle:checked) {
+    & > .collapsible-content {
+      grid-template-rows: 1fr;
+    }
+  }
+}
+
+/* The trigger header — can be any element: <button>, <label>, <div>, <summary>, etc. */
+@utility collapsible-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+
+  list-style: none;
+  &::marker { content: none; }
+  &::-webkit-details-marker { display: none; }
+}
+
+/* The expandable body — collapsed by default.
+   Requires one direct child wrapper div for the grid animation to work. */
+@utility collapsible-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
+  transition: grid-template-rows 300ms ease;
+
+  & > * {
+    min-height: 0;
+  }
+}
+
+/* Hidden checkbox — associated via <label for="id">. Not visible, takes no space. */
+@utility collapsible-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Add a rotating chevron to collapsible-title */
+@utility collapsible-arrow {
+  &::after {
+    content: "";
+    display: inline-block;
+    flex-shrink: 0;
+    width: 0.4em;
+    height: 0.4em;
+    border-inline-end: 1.5px solid currentColor;
+    border-block-end: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 300ms ease;
+    margin-inline-start: auto;
+  }
+
+  .collapsible-open > &::after,
+  .collapsible:has(> .collapsible-toggle:checked) &::after {
+    transform: rotate(225deg);
+  }
+}
+
+/* Visible only when collapsible is open. Example: <span class="is-collapsible-open">Collapse</span> */
+@utility is-collapsible-open {
+  display: none;
+
+  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked)) &,
+  .collapsible-group:has(.collapsible-open) &,
+  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) & {
+    display: inline;
+  }
+}
+
+/* Visible only when collapsible is closed. Example: <span class="is-collapsible-close">Expand</span> */
+@utility is-collapsible-close {
+  display: inline;
+
+  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked)) &,
+  .collapsible-group:has(.collapsible-open) &,
+  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) & {
+    display: none;
+  }
+}
+
+/* Peek variant — shows a clipped preview with a gradient fade + overlay trigger.
+   Override --peek-height to control how much content is visible when collapsed. */
+@utility collapsible-peek {
+  & > .collapsible-content {
+    grid-template-rows: 1fr;
+    max-height: var(--peek-height, 8rem);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  &.collapsible-open,
+  &:has(> .collapsible-toggle:checked) {
+    & > .collapsible-content {
+      max-height: var(--peek-max-height, 99rem);
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+  }
+}
+
+/* Visible only when collapsible is open. Example: <label class="collapsible-overlay"> */
+@utility collapsible-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-block-end: 1.25rem;
+  cursor: pointer;
+
+  .collapsible-open > &,
+  .collapsible:has(> .collapsible-toggle:checked) & {
+    display: none;
+  }
+}
+
+/* Wrapper that lets labels/buttons outside .collapsible respond to its open/close state.
+   is-collapsible-open / is-collapsible-close anywhere inside this wrapper will react to state. */
+@utility collapsible-group {
+  position: relative;
+}

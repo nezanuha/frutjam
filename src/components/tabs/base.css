@@ -1,19 +1,7 @@
-@import "./styles.css";
-@import "./sizes.css";
-
 @utility tabs {
-  display: flex;
+  display: var(--tabs--display, flex);
   flex-wrap: wrap;
-  align-items: flex-end;
   gap: 0;
-
-  /* Separator sits between tab row (order:0) and content row (order:9999) */
-  &::after {
-    content: "";
-    width: 100%;
-    order: 1;
-    border-block-start: 1px solid var(--color-base-soft);
-  }
 }
 
 @utility tab {
@@ -32,38 +20,38 @@
   padding-block: var(--tab--padding-block);
   font-size: var(--tab--font-size);
   font-weight: 500;
-  color: --alpha(var(--color-tab) / 60%);
   cursor: pointer;
-  border-block-end: 2px solid transparent;
-  margin-block-end: -1px;
   transition: color 200ms ease-in-out, border-color 200ms ease-in-out;
   white-space: nowrap;
   user-select: none;
   background: transparent;
-  border-radius: 0;
 
-  /* Show aria-label as tab text when used on <input type="radio"> */
-  &::before {
+  /* Render aria-label as visible text when used on <input type="radio">.
+     Uses ::after so it coexists cleanly with btn's ::after on radio/checkbox
+     inputs — both target the same pseudo-element, last defined wins, single label shown. */
+  &::after {
     content: attr(aria-label);
   }
 
-  @variant hover {
-    color: var(--color-tab);
-  }
+  /* Tab-specific visual styles: only apply when NOT combined with btn.
+     When btn classes are present, btn controls colors and border-radius. */
+  &:not(.btn) {
+    border-radius: 0;
+    color: --alpha(var(--color-tab) / 60%);
 
-  &:checked {
-    color: var(--color-tab-active);
-    border-block-end-color: var(--color-tab-active);
-    position: relative;
-    z-index: 1;
+    @variant hover {
+      color: var(--color-tab);
+    }
+
+    &:checked {
+      color: var(--color-tab-active);
+    }
   }
 }
 
+/* Applied via JS when not using the radio pattern */
 @utility tab-active {
   color: var(--color-tab-active);
-  border-block-end-color: var(--color-tab-active);
-  position: relative;
-  z-index: 1;
 }
 
 @utility tab-disabled {
@@ -87,3 +75,6 @@
     display: block;
   }
 }
+
+@import "./styles.css";
+@import "./sizes.css";
