@@ -1,0 +1,146 @@
+<p>
+  Frutjam themes use CSS custom properties to define colors, spacing, and visual style. Each theme is a collection of variables that control how components appear. Switch between light, dark, or fruit-named custom themes without writing any component code.
+</p>
+
+<h2>Built-in Themes</h2>
+<p>Frutjam includes light and dark themes by default. Apply a theme using the <code>data-theme</code> attribute:</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="light">
+  <body>
+    <button class="btn btn-primary">Button</button>
+  </body>
+</html>
+</c-snippet>
+
+<p>Change the attribute value to switch themes immediately:</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="dark">
+  <!-- All components render with dark colors -->
+</html>
+</c-snippet>
+
+<h2>Available Themes</h2>
+<table class="table table-compact">
+  <thead>
+    <tr>
+      <th>Theme</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>light</td>
+      <td>Light background with dark text</td>
+    </tr>
+    <tr>
+      <td>dark</td>
+      <td>Dark background with light text</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Theme Switching</h2>
+<p>Switch themes dynamically by setting the <code>data-theme</code> attribute:</p>
+
+<c-snippet view="code" lang="html">
+<button onclick="switchTheme('dark')">Dark</button>
+<button onclick="switchTheme('light')">Light</button>
+
+<script>
+  function switchTheme(name) {
+    document.documentElement.setAttribute('data-theme', name);
+  }
+</script>
+</c-snippet>
+
+<p>Persist theme preference with localStorage:</p>
+
+<c-snippet view="code" lang="javascript">
+function switchTheme(name) {
+  document.documentElement.setAttribute('data-theme', name);
+  localStorage.setItem('frutjam-theme', name);
+}
+
+// Load saved theme on page load
+const saved = localStorage.getItem('frutjam-theme') || 'light';
+document.documentElement.setAttribute('data-theme', saved);
+</script>
+</c-snippet>
+
+<h2>Creating a Custom Theme</h2>
+<p>Define new themes by setting CSS variables. Frutjam provides a set of color and spacing variables you can customize:</p>
+
+<c-snippet view="code" lang="css">
+@layer theme {
+  :is([data-theme="blueberry"]) {
+    --color-base: oklch(98% 0.01 240);
+    --color-on-base: oklch(15% 0.05 240);
+    --color-primary: oklch(55% 0.25 240);
+    --color-secondary: oklch(70% 0.18 200);
+    --color-accent: oklch(75% 0.2 280);
+  }
+}
+</c-snippet>
+
+<p>Apply your custom theme by name:</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="blueberry">
+  <button class="btn btn-primary">Blueberry Theme</button>
+</html>
+</c-snippet>
+
+<h2>Theme Variables</h2>
+<p>Core variables every theme should define:</p>
+
+<ul>
+  <li><code>--color-base</code> - Background color</li>
+  <li><code>--color-on-base</code> - Text color on base</li>
+  <li><code>--color-primary</code> - Primary action color</li>
+  <li><code>--color-secondary</code> - Secondary action color</li>
+  <li><code>--color-accent</code> - Accent highlight color</li>
+  <li><code>--color-success</code> - Success feedback (green)</li>
+  <li><code>--color-warning</code> - Warning feedback (yellow)</li>
+  <li><code>--color-error</code> - Error feedback (red)</li>
+  <li><code>--color-info</code> - Neutral feedback (blue)</li>
+</ul>
+
+<h2>Nested Themes</h2>
+<p>Use different themes in different parts of the same page:</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="light">
+  <header>
+    <button class="btn btn-primary">Light Theme Button</button>
+  </header>
+
+  <section data-theme="dark">
+    <button class="btn btn-primary">Dark Theme Button</button>
+  </section>
+</html>
+</c-snippet>
+
+<h2>Naming Convention</h2>
+<p>Frutjam themes use fruit and jam-inspired names for custom themes:</p>
+
+<ul>
+  <li><strong>blueberry</strong> - Cool blue tones</li>
+  <li><strong>strawberry</strong> - Warm red tones</li>
+  <li><strong>honeydew</strong> - Fresh green tones</li>
+  <li><strong>apricot</strong> - Warm orange tones</li>
+  <li><strong>blackberry</strong> - Deep purple tones</li>
+  <li><strong>raspberry</strong> - Vibrant magenta tones</li>
+</ul>
+
+<h2>Best Practices</h2>
+
+<ul>
+  <li>Define all required variables in each theme for consistency</li>
+  <li>Use OKLCH color space for perceptually uniform colors</li>
+  <li>Test color contrast with accessibility tools</li>
+  <li>Test light and dark themes with actual users</li>
+  <li>Save theme preference to localStorage</li>
+  <li>Respect system preference (<code>prefers-color-scheme</code>)</li>
+</ul>
