@@ -1,14 +1,31 @@
 <p>
-  Avatar components display user profile images or initials in a compact, circular or customizable container. Built with Frutjam's CSS custom properties, avatars represent users, contributors, or team members across your interface. The avatar system supports multiple sizes, colors, shapes, status indicators, rings, and group arrangements—ideal for user lists, comments, team displays, and profile sections.
+  Avatar components display user profile images or initials in a compact, customizable container. Built with Frutjam's CSS custom properties, avatars represent users, contributors, or team members across your interface. The avatar system supports images and text, multiple sizes, colors, shapes, status indicators, rings, and group arrangements—ideal for user lists, comments, team displays, profile sections, and messaging interfaces.
 </p>
 
 <h2 id="basic-usage">Basic Usage</h2>
+<p>Create simple avatars with text initials or colors.</p>
 <c-snippet>
-<div class="avatar avatar-md avatar-primary">A</div>
+<div class="avatar avatar-md avatar-primary">AB</div>
+</c-snippet>
+
+<h2 id="avatar-images">Avatar with Images</h2>
+<p>Display user profile photos with automatic image fitting and responsive sizing.</p>
+<c-snippet>
+<div class="avatar avatar-sm">
+  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69dad0.webp" alt="User" />
+</div>
+
+<div class="avatar avatar-md">
+  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69dad0.webp" alt="User" />
+</div>
+
+<div class="avatar avatar-lg">
+  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69dad0.webp" alt="User" />
+</div>
 </c-snippet>
 
 <h2 id="avatar-sizes">Avatar Sizes</h2>
-<p>Use size variants to scale avatars from extra-small to 2x-large.</p>
+<p>Use size variants to scale avatars from extra-small (xs) to 2x-large (2xl) for different contexts.</p>
 <c-snippet>
 <div class="avatar avatar-xs avatar-primary">XS</div>
 <div class="avatar avatar-sm avatar-secondary">SM</div>
@@ -19,7 +36,7 @@
 </c-snippet>
 
 <h2 id="avatar-colors">Avatar Colors</h2>
-<p>Apply color variants to differentiate avatars by user type or status.</p>
+<p>Apply color variants to differentiate avatars by role, team, or status when not using images.</p>
 <c-snippet>
 <div class="avatar avatar-md avatar-primary">A</div>
 <div class="avatar avatar-md avatar-secondary">B</div>
@@ -32,15 +49,15 @@
 </c-snippet>
 
 <h2 id="avatar-shapes">Avatar Shapes</h2>
-<p>Choose from circular, rounded, or square shapes to match your design system.</p>
+<p>Choose from circular (default), rounded, or square shapes to match your design system.</p>
 <c-snippet>
-<div class="avatar avatar-md avatar-circle avatar-primary">●</div>
-<div class="avatar avatar-md avatar-rounded avatar-secondary">◇</div>
-<div class="avatar avatar-md avatar-square avatar-accent">■</div>
+<div class="avatar avatar-lg avatar-circle avatar-primary">●</div>
+<div class="avatar avatar-lg avatar-rounded avatar-secondary">◇</div>
+<div class="avatar avatar-lg avatar-square avatar-accent">■</div>
 </c-snippet>
 
 <h2 id="avatar-initials">Avatar with Initials</h2>
-<p>Display user initials for quick identification in user lists and team sections.</p>
+<p>Display user initials for quick identification in lists, comment threads, and team sections.</p>
 <c-snippet>
 <div class="avatar avatar-sm avatar-primary">JD</div>
 <div class="avatar avatar-md avatar-secondary">AR</div>
@@ -48,24 +65,40 @@
 <div class="avatar avatar-xl avatar-info">KL</div>
 </c-snippet>
 
-<h2 id="avatar-with-status">Avatar with Status</h2>
-<p>Combine avatars with status indicators to show user availability or presence.</p>
+<h2 id="avatar-with-status">Avatar with Status Indicator</h2>
+<p>Combine avatars with status badges to show user presence or availability (online, offline, busy, away).</p>
 <c-snippet>
-<div class="avatar avatar-md avatar-online avatar-primary">JD</div>
-<div class="avatar avatar-md avatar-offline avatar-secondary">AR</div>
-<div class="avatar avatar-md avatar-busy avatar-accent">MS</div>
-<div class="avatar avatar-md avatar-away avatar-info">KL</div>
+<div class="avatar avatar-md avatar-online avatar-primary">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">JD</div>
+  <div class="avatar-status"></div>
+</div>
+
+<div class="avatar avatar-md avatar-offline avatar-secondary">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">AR</div>
+  <div class="avatar-status"></div>
+</div>
+
+<div class="avatar avatar-md avatar-busy avatar-accent">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">MS</div>
+  <div class="avatar-status"></div>
+</div>
+
+<div class="avatar avatar-md avatar-away avatar-info">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">KL</div>
+  <div class="avatar-status"></div>
+</div>
 </c-snippet>
 
-<h2 id="avatar-with-ring">Avatar with Ring</h2>
-<p>Add decorative rings around avatars for emphasis or status highlighting.</p>
+<h2 id="avatar-with-ring">Avatar with Ring Border</h2>
+<p>Add decorative rings around avatars for emphasis, status highlighting, or visual separation.</p>
 <c-snippet>
 <div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
 <div class="avatar avatar-lg avatar-ring avatar-ring-secondary avatar-secondary">B</div>
 <div class="avatar avatar-xl avatar-ring avatar-ring-accent avatar-accent">C</div>
 </c-snippet>
 
-<h3>Ring Color Variants</h3>
+<h3 id="avatar-ring-colors">Ring Color Variants</h3>
+<p>Choose ring colors independently from avatar background colors.</p>
 <c-snippet>
 <div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
 <div class="avatar avatar-md avatar-ring avatar-ring-secondary avatar-secondary">B</div>
@@ -77,7 +110,7 @@
 </c-snippet>
 
 <h2 id="avatar-group">Avatar Group</h2>
-<p>Stack multiple avatars with overlapping to display team members or collaborators.</p>
+<p>Stack multiple avatars with automatic negative margin for overlapping display of team members and collaborators.</p>
 <c-snippet>
 <div class="avatar-group">
   <div class="avatar avatar-md avatar-primary">A</div>
@@ -87,7 +120,8 @@
 </div>
 </c-snippet>
 
-<h3>Avatar Group with Sizes</h3>
+<h3 id="avatar-group-sizes">Avatar Group with Different Sizes</h3>
+<p>Combine multiple sizes within a group for visual hierarchy.</p>
 <c-snippet>
 <div class="avatar-group">
   <div class="avatar avatar-sm avatar-primary">A</div>
@@ -96,21 +130,37 @@
 </div>
 </c-snippet>
 
-<h3>Avatar Group with Status</h3>
+<h3 id="avatar-group-status">Avatar Group with Status</h3>
+<p>Show availability status for each member in a team group.</p>
 <c-snippet>
 <div class="avatar-group">
-  <div class="avatar avatar-md avatar-online avatar-primary">A</div>
-  <div class="avatar avatar-md avatar-offline avatar-secondary">B</div>
-  <div class="avatar avatar-md avatar-busy avatar-accent">C</div>
+  <div class="avatar avatar-md avatar-online avatar-primary">
+    <div class="w-full h-full flex items-center justify-center font-bold">A</div>
+    <div class="avatar-status"></div>
+  </div>
+  <div class="avatar avatar-md avatar-offline avatar-secondary">
+    <div class="w-full h-full flex items-center justify-center font-bold">B</div>
+    <div class="avatar-status"></div>
+  </div>
+  <div class="avatar avatar-md avatar-busy avatar-accent">
+    <div class="w-full h-full flex items-center justify-center font-bold">C</div>
+    <div class="avatar-status"></div>
+  </div>
 </div>
 </c-snippet>
 
 <h2 id="avatar-combination">Combined Variants</h2>
-<p>Mix and match size, color, shape, status, and ring modifiers for flexible avatar configurations.</p>
+<p>Mix and match size, color, shape, status, and ring modifiers for complex avatar displays.</p>
 <c-snippet>
-<div class="avatar avatar-xl avatar-rounded avatar-ring avatar-ring-success avatar-success avatar-online">SK</div>
+<div class="avatar avatar-xl avatar-rounded avatar-ring avatar-ring-success avatar-success avatar-online">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">SK</div>
+  <div class="avatar-status"></div>
+</div>
 
 <div class="avatar avatar-lg avatar-square avatar-ring avatar-ring-primary avatar-primary">AB</div>
 
-<div class="avatar avatar-2xl avatar-circle avatar-ring avatar-ring-error avatar-error avatar-busy">MR</div>
+<div class="avatar avatar-2xl avatar-circle avatar-ring avatar-ring-error avatar-error avatar-busy">
+  <div class="w-full h-full flex items-center justify-center text-white font-bold">MR</div>
+  <div class="avatar-status"></div>
+</div>
 </c-snippet>
