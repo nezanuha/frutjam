@@ -1,0 +1,315 @@
+<p>
+  Frutjam includes 48 production-ready components organized by category. This guide covers component organization, naming conventions, composition patterns, and how to choose the right component for your use case.
+</p>
+
+<h2>Component Organization</h2>
+<p>Components are organized into these functional categories:</p>
+
+<h3>Form Components (8)</h3>
+<p>User input and form controls:</p>
+<ul>
+  <li><strong>Input</strong> - Text input fields</li>
+  <li><strong>Textarea</strong> - Multi-line text input</li>
+  <li><strong>Select</strong> - Dropdown selection</li>
+  <li><strong>Checkbox</strong> - Multiple selection</li>
+  <li><strong>Radio</strong> - Single selection</li>
+  <li><strong>Toggle</strong> - Binary on/off switch</li>
+  <li><strong>Range</strong> - Slider for numeric values</li>
+  <li><strong>Combobox</strong> - Searchable select input</li>
+</ul>
+
+<h3>Navigation Components (7)</h3>
+<p>Structural navigation and menus:</p>
+<ul>
+  <li><strong>Navbar</strong> - Top horizontal navigation</li>
+  <li><strong>Menu</strong> - Vertical action list</li>
+  <li><strong>Breadcrumb</strong> - Navigation hierarchy</li>
+  <li><strong>Tabs</strong> - Content tabs</li>
+  <li><strong>Steps</strong> - Sequential progress</li>
+  <li><strong>Sidebar</strong> - Side panel navigation</li>
+  <li><strong>Header</strong> - Page header with branding</li>
+</ul>
+
+<h3>Content Components (13)</h3>
+<p>Display and organize content:</p>
+<ul>
+  <li><strong>Card</strong> - Content container</li>
+  <li><strong>Badge</strong> - Small label</li>
+  <li><strong>Tag</strong> - Categorization tag</li>
+  <li><strong>Avatar</strong> - User profile image</li>
+  <li><strong>Divider</strong> - Visual separator</li>
+  <li><strong>Table</strong> - Data grid</li>
+  <li><strong>Chat</strong> - Message bubbles</li>
+  <li><strong>Hero</strong> - Large banner section</li>
+  <li><strong>Footer</strong> - Page footer</li>
+  <li><strong>Carousel</strong> - Image/content slider</li>
+  <li><strong>Timeline</strong> - Chronological display</li>
+  <li><strong>Stat</strong> - Metric display</li>
+  <li><strong>Indicator</strong> - Status badge overlay</li>
+</ul>
+
+<h3>Interactive Components (10)</h3>
+<p>User interaction and modals:</p>
+<ul>
+  <li><strong>Button</strong> - Clickable action</li>
+  <li><strong>Link</strong> - Styled hyperlink</li>
+  <li><strong>Modal</strong> - Dialog overlay</li>
+  <li><strong>Drawer</strong> - Side slide panel</li>
+  <li><strong>Popover</strong> - Floating content</li>
+  <li><strong>Tooltip</strong> - Context information</li>
+  <li><strong>Collapsible</strong> - Expandable section</li>
+  <li><strong>Swap</strong> - Toggle between states</li>
+  <li><strong>Join</strong> - Grouped adjacent items</li>
+  <li><strong>Accordion</strong> - Multiple collapse sections</li>
+</ul>
+
+<h3>Feedback Components (7)</h3>
+<p>User feedback and status:</p>
+<ul>
+  <li><strong>Alert</strong> - Information/warning/error message</li>
+  <li><strong>Progress</strong> - Progress bar</li>
+  <li><strong>Radial Progress</strong> - Circular progress</li>
+  <li><strong>Loading</strong> - Activity indicator</li>
+  <li><strong>Rating</strong> - Star rating</li>
+  <li><strong>Status</strong> - User/system status indicator</li>
+  <li><strong>Countdown</strong> - Time remaining</li>
+</ul>
+
+<h3>Utility Components (3)</h3>
+<p>Layout and presentation:</p>
+<ul>
+  <li><strong>Surface</strong> - Layered container</li>
+  <li><strong>Mask</strong> - Shape masking</li>
+  <li><strong>Diff</strong> - Side-by-side comparison</li>
+</ul>
+
+<h3>Text Components (1)</h3>
+<p>Typography utilities:</p>
+<ul>
+  <li><strong>Keyboard (KBD)</strong> - Keyboard key display</li>
+</ul>
+
+<h2>Naming Conventions</h2>
+<p>All components follow consistent naming patterns:</p>
+
+<h3>Base Classes</h3>
+<ul>
+  <li><code>.btn</code> - Base component (button)</li>
+  <li><code>.card</code> - Base component (card)</li>
+  <li><code>.input</code> - Base component (input)</li>
+  <li><code>.modal</code> - Base component (modal)</li>
+</ul>
+
+<h3>Variants</h3>
+<ul>
+  <li><code>.btn-primary</code> - Color variant</li>
+  <li><code>.btn-lg</code> - Size variant</li>
+  <li><code>.btn-outline</code> - Style variant</li>
+  <li><code>.btn-circle</code> - Shape variant</li>
+  <li><code>.btn-disabled</code> - State variant</li>
+</ul>
+
+<h3>Modifiers</h3>
+<ul>
+  <li><code>.btn-group</code> - Button grouping</li>
+  <li><code>.menu-item</code> - Menu item subcomponent</li>
+  <li><code>.card-title</code> - Card title subcomponent</li>
+  <li><code>.alert-title</code> - Alert title subcomponent</li>
+</ul>
+
+<h2>Component Composition</h2>
+<p>Build complex layouts by combining components:</p>
+
+<h3>Card with Image and Actions</h3>
+<c-snippet view="code" lang="html">
+<div class="card bg-base-100 shadow-xl">
+  <figure class="h-64 overflow-hidden">
+    <img src="image.jpg" alt="Product">
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Product Name</h2>
+    <p>Product description</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Learn More</button>
+    </div>
+  </div>
+</div>
+</c-snippet>
+
+<h3>Form with Multiple Inputs</h3>
+<c-snippet view="code" lang="html">
+<form class="space-y-4">
+  <label>
+    <span class="label-text">Email</span>
+    <input type="email" class="input input-bordered w-full">
+  </label>
+
+  <label>
+    <span class="label-text">Message</span>
+    <textarea class="textarea textarea-bordered w-full"></textarea>
+  </label>
+
+  <button type="submit" class="btn btn-primary w-full">Send</button>
+</form>
+</c-snippet>
+
+<h3>Navigation with Dropdown</h3>
+<c-snippet view="code" lang="html">
+<div class="navbar bg-base-100 shadow">
+  <div class="flex-1">
+    <span class="text-xl font-bold">Logo</span>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown dropdown-end">
+        <a tabindex="0">More</a>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 shadow rounded">
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Choosing Components</h2>
+
+<h3>For User Input</h3>
+<table class="table table-compact">
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Component</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single line text</td>
+      <td>Input</td>
+    </tr>
+    <tr>
+      <td>Multi-line text</td>
+      <td>Textarea</td>
+    </tr>
+    <tr>
+      <td>Choosing 1 from list</td>
+      <td>Select or Radio</td>
+    </tr>
+    <tr>
+      <td>Choosing multiple items</td>
+      <td>Checkbox</td>
+    </tr>
+    <tr>
+      <td>On/Off toggle</td>
+      <td>Toggle</td>
+    </tr>
+    <tr>
+      <td>Number in range</td>
+      <td>Range</td>
+    </tr>
+    <tr>
+      <td>Searchable list</td>
+      <td>Combobox</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>For Navigation</h3>
+<table class="table table-compact">
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Component</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top navigation</td>
+      <td>Navbar</td>
+    </tr>
+    <tr>
+      <td>Side navigation</td>
+      <td>Sidebar or Menu</td>
+    </tr>
+    <tr>
+      <td>Breadcrumb trail</td>
+      <td>Breadcrumb</td>
+    </tr>
+    <tr>
+      <td>Multi-step process</td>
+      <td>Steps</td>
+    </tr>
+    <tr>
+      <td>Switching content</td>
+      <td>Tabs</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>For Feedback</h3>
+<table class="table table-compact">
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Component</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Error/warning/info message</td>
+      <td>Alert</td>
+    </tr>
+    <tr>
+      <td>Linear progress</td>
+      <td>Progress</td>
+    </tr>
+    <tr>
+      <td>Circular progress</td>
+      <td>Radial Progress</td>
+    </tr>
+    <tr>
+      <td>Loading indicator</td>
+      <td>Loading</td>
+    </tr>
+    <tr>
+      <td>User satisfaction</td>
+      <td>Rating</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Component Dependencies</h2>
+<p>Most Frutjam components are independent. However, some combine well:</p>
+
+<ul>
+  <li><strong>Button + Icon</strong> - Icon buttons with tooltips</li>
+  <li><strong>Card + Badge</strong> - Cards with status badges</li>
+  <li><strong>Alert + Button</strong> - Actionable alerts</li>
+  <li><strong>Modal + Form</strong> - Confirmation dialogs</li>
+  <li><strong>Menu + Avatar</strong> - User dropdown menus</li>
+</ul>
+
+<h2>Component States</h2>
+<p>Most components support these state variations:</p>
+
+<ul>
+  <li><strong>Default</strong> - Base appearance</li>
+  <li><strong>Hover</strong> - Mouse over (desktop)</li>
+  <li><strong>Active</strong> - Currently selected or pressed</li>
+  <li><strong>Disabled</strong> - Inactive and unusable</li>
+  <li><strong>Loading</strong> - Async operation in progress</li>
+</ul>
+
+<h2>Accessibility by Component</h2>
+<p>All Frutjam components include:</p>
+
+<ul>
+  <li>Semantic HTML</li>
+  <li>ARIA attributes where needed</li>
+  <li>Keyboard navigation support</li>
+  <li>Focus indicators</li>
+  <li>Color contrast (WCAG AA)</li>
+  <li>Screen reader compatibility</li>
+</ul>

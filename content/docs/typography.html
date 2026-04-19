@@ -1,0 +1,74 @@
+
+<h2>1. Element Utilities</h2>
+<p>These classes are designed for direct use on HTML elements. Headings are optimized for weight and impact, while Paragraphs are optimized for readability.</p>
+<h3>Headings</h3>
+<p>Use <code>.heading-{size}</code> for titles and high-importance text.</p>
+<h4>The Standard Scale</h4>
+<p><code>heading-xs</code>, <code>heading-sm</code>, <code>heading-md</code>, <code>heading-base</code>, <code>heading-lg</code>, <code>heading-xl</code>, <code>heading-2xl</code>, <code>heading-3xl</code>, <code>heading-4xl</code>, <code>heading-5xl</code>, <code>heading-6xl</code>, <code>heading-7xl</code>, <code>heading-8xl</code>, <code>heading-9xl</code></p>
+<c-snippet class="flex-col items-start">
+<h1 class="heading-4xl">Gigantic Hero</h1>
+<h2 class="heading-3xl">Section Title</h2>
+<h3 class="heading-base">Small Subheading</h3>
+</c-snippet>
+<h4>Dynamic Precision (Any Number)</h4>
+<p>Frutjam allows you to break away from the scale. Use any numeric value to set a specific pixel size</p>
+<p><code>.heading-{number}</code> (e.g., <code>.heading-46</code>)</p>
+<c-snippet>
+    <h2 class="heading-46">Bespoke Heading</h2>
+</c-snippet>
+
+<h3>Paragraphs</h3>
+<p>Use <code>.para-{size}</code> for body text, descriptions, and UI labels</p>
+<h4>The Standard Scale</h4>
+<p><code>para-xs</code>, <code>para-sm</code>, <code>para-md</code>, <code>para-base</code>, <code>para-lg</code>, <code>para-xl</code>, <code>para-2xl</code>, <code>para-3xl</code>, <code>para-4xl</code>, <code>para-5xl</code>, <code>para-6xl</code>, <code>para-7xl</code>, <code>para-8xl</code>, <code>para-9xl</code></p>
+<c-snippet class="flex-col items-start">
+<p class="para-lg">This is a lead paragraph with extra breathing room.</p>
+<p class="para-base">This is your standard UI text size.</p>
+<p class="para-xs">Small footer or caption text.</p>
+</c-snippet>
+<h4>Dynamic Precision (Any Number)</h4>
+<p>Don't get stuck in a scale. Use any numeric value to dial in the exact pixel size your design demands.</p>
+<p><code>.para-{number}</code> (e.g., <code>.para-28</code>)</p>
+<c-snippet>
+    <p class="para-28">Editorial-style body text.</p>
+</c-snippet>
+
+<h3>Responsive Typography</h3>
+<p>Frutjam does not force "automatic" resizing. Instead, it gives you full control using Tailwind's mobile-first breakpoints. This ensures your design never "guesses" what your mobile layout should look like.</p>
+<h4>The Responsive Pattern</h4>
+<p>Always define your mobile size first (the base class), then use prefixes like <code>md:</code> or <code>lg:</code> to scale up for larger screens.</p>
+
+<c-snippet view="code">
+<h1 class="heading-2xl md:heading-5xl lg:heading-9xl">
+  Responsive Headline
+</h1>
+
+<p class="para-sm md:para-base lg:para-lg">
+  Body text that stays comfortable on all devices.
+</p>
+</c-snippet>
+
+
+<h2>2. Rich Text (Prose)</h2>
+<p>When you are rendering Markdown or content from a CMS, you can't manually add classes like <code>heading-lg</code> or <code>para-base</code> to every tag.</p>
+<p>Frutjam provides a bridge for the official <code>@tailwindcss/typography</code> plugin to ensure these "invisible" tags still look like Frutjam.</p>
+<h4>Setup</h4>
+<p>Ensure the plugin is active in your Tailwind v4 CSS:</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss";
+@import "frutjam";
+@plugin "@tailwindcss/typography";
+</c-snippet>
+<h4>Usage</h4>
+<p>Apply <code>.prose</code> to enable the plugin, and <code>.prose-frutjam</code> to inject the Frutjam design tokens.</p>
+<c-snippet class="flex-col items-start" view="code">
+<article class="prose prose-frutjam">
+  <h1>This Title Inherits Frutjam Styles</h1>
+  <p>Standard paragraphs now match your <code>para-base</code> aesthetics automatically.</p>
+  
+  <ul>
+    <li>Links use Frutjam accent colors</li>
+    <li>Blockquotes use Frutjam border colors</li>
+  </ul>
+</article>
+</c-snippet>

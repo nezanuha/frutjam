@@ -1,0 +1,186 @@
+<p>
+  Drawer components slide in from the sides of the viewport to reveal hidden navigation, filters, or additional content. Built on the native HTML dialog element with CSS animations, drawers provide a responsive way to manage layouts on mobile and desktop devices. The Frutjam drawer system supports customizable widths, smooth animations, and overlay backgrounds for professional sidebar navigation.
+</p>
+
+<h2>Basic Usage</h2>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="defaultDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="defaultDrawer">
+  <div class="drawer-body w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="defaultDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>      
+</c-snippet>
+
+<h2>Drawer Customization</h2>
+<p>The <code>.drawer-backdrop</code> provides a clickable background that closes the drawer when clicked outside the drawer, by removing this element by default prevent drawer not close when click outside.</p>
+
+<h3>Close on Backdrop Click</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="closeDrawerOnBackdropClick.show()">Open drawer</button>
+<dialog class="drawer" id="closeDrawerOnBackdropClick">
+  <div class="drawer-body w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="closeDrawerOnBackdropClick.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="closeDrawerOnBackdropClick.close()">Close Drawer via Backdrop</button>
+</dialog>
+</c-snippet>
+
+<h3>Prevent Close on Click Outside</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="preventCloseClickOutsideDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="preventCloseClickOutsideDrawer">
+  <div class="drawer-body w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="preventCloseClickOutsideDrawer.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+</dialog>
+</c-snippet>
+
+<h2>Drawer Placements</h2>
+<h3>Left Drawer (Start)</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="leftDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-start" id="leftDrawer">
+  <div class="drawer-body w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="leftDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+</c-snippet>
+
+<h3>Right Drawer (End)</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="rightDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-end" id="rightDrawer">
+  <div class="drawer-body w-full lg:w-56 p-4">
+    <ul class="menu w-full">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="rightDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+</c-snippet>
+
+<h3>Top Drawer</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="topDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-top" id="topDrawer">
+  <div class="drawer-body p-4">
+    <div class="heading-3xl mb-3">Contact us</div>
+    <form class="grid grid-cols-12 gap-3">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <button class="btn col-span-2">Submit</button>
+    </form>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="topDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+</c-snippet>
+
+<h3>Bottom Drawer</h3>
+<c-snippet>
+<button type="button" class="btn btn-sm" onclick="bottomDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-bottom" id="bottomDrawer">
+  <div class="drawer-body p-4">
+    <ul class="menu menu-md w-full">
+      <li>
+        <div class="accordion accordion-flush">
+          <details name="nav" open>
+            <summary><span class="heading-md">Dashboard</span></summary>
+            <div class="accordion-body">
+              <ul>
+                <li class="menu-item"><span>Overview</span></li>
+                <li class="menu-item">
+                  <span>Analytics</span>
+                  <div class="badge badge-xs badge-accent ml-1 uppercase">Live</div>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <details name="nav">
+            <summary><span class="heading-md">Settings</span></summary>
+            <div class="accordion-body">
+              <ul>
+                <li class="menu-item"><span>Profile</span></li>
+                <li class="menu-item"><span>Security</span></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="bottomDrawer.close()">Close Drawer viaBackdrop</button>
+</dialog>
+</c-snippet>

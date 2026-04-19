@@ -1,0 +1,75 @@
+<p>
+  Breadcrumb components show navigation hierarchy and help users understand their location within a website. Built with semantic HTML nav elements and ARIA landmarks for accessibility, breadcrumbs improve usability by allowing users to quickly navigate to parent sections. The Frutjam breadcrumb system automatically renders separators and supports custom separators for flexible styling.
+</p>
+
+<h2>Basic Usage</h2>
+<p>If no separator is provided, an arrow is shown between breadcrumb items automatically.</p>
+<c-snippet>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+</c-snippet>
+
+<h2>Breadcrumb Separators</h2>
+<h3>Breadcrumb with Text Separator</h3>
+<c-snippet>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+</c-snippet>
+
+<h3>Breadcrumb with Icon Separator</h3>
+<c-snippet>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+</c-snippet>
+
+<h2>Breadcrumb Accessibility</h2>
+<p>To ensure breadcrumbs are accessible to screen readers:</p>
+<ul>
+  <li>Wrap the structure in a <code>&lt;nav&gt;</code> element with an <code>aria-label="Breadcrumb"</code>.</li>
+  <li>The last item (current page) should use <code>aria-current="page"</code> and preferably be a <code>&lt;span&gt;</code> rather than a link.</li>
+  <li>Separators should be ignored by screen readers (often handled via CSS or <code>aria-hidden="true"</code> if using a physical element).</li>
+</ul>

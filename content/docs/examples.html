@@ -1,0 +1,441 @@
+<p>
+  Real-world examples showing how to combine Frutjam components to build complete user interfaces. These examples demonstrate best practices for layout, responsiveness, and accessibility.
+</p>
+
+<h2>Landing Page Hero</h2>
+<p>A complete hero section with navigation, headline, and CTA button:</p>
+
+<c-snippet view="code" lang="html">
+<div class="hero min-h-screen bg-gradient-to-r from-primary to-secondary text-white">
+  <!-- Navigation -->
+  <div class="navbar absolute top-0 left-0 right-0 bg-black bg-opacity-20">
+    <div class="flex-1">
+      <span class="text-2xl font-bold">Logo</span>
+    </div>
+    <ul class="menu menu-horizontal gap-4 hidden md:flex">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero-content text-center">
+    <div class="max-w-2xl">
+      <h1 class="heading-6xl font-bold mb-6">Build Faster with Frutjam</h1>
+      <p class="para-xl mb-8 opacity-90">A modern UI component library for web applications</p>
+      <div class="flex gap-4 justify-center flex-col md:flex-row">
+        <button class="btn btn-lg btn-white">Get Started</button>
+        <button class="btn btn-lg btn-outline btn-white">Learn More</button>
+      </div>
+    </div>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Product Card Grid</h2>
+<p>Responsive grid of product cards with images and pricing:</p>
+
+<c-snippet view="code" lang="html">
+<div class="container mx-auto px-4 py-12">
+  <h2 class="heading-3xl text-center mb-12">Featured Products</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Product Card 1 -->
+    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+      <figure class="h-48 bg-gray-200 overflow-hidden">
+        <img src="product-1.jpg" alt="Product 1" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between items-start">
+          <h3 class="card-title">Premium Widget</h3>
+          <span class="badge badge-primary">New</span>
+        </div>
+        <p class="text-sm opacity-75">High-quality product for modern applications</p>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-2xl font-bold">$99</span>
+          <button class="btn btn-sm btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 2 -->
+    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+      <figure class="h-48 bg-gray-200 overflow-hidden">
+        <img src="product-2.jpg" alt="Product 2" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <div class="flex justify-between items-start">
+          <h3 class="card-title">Deluxe Package</h3>
+          <span class="badge badge-success">Popular</span>
+        </div>
+        <p class="text-sm opacity-75">Everything you need in one package</p>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-2xl font-bold">$199</span>
+          <button class="btn btn-sm btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Card 3 -->
+    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+      <figure class="h-48 bg-gray-200 overflow-hidden">
+        <img src="product-3.jpg" alt="Product 3" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <h3 class="card-title">Ultimate Edition</h3>
+        <p class="text-sm opacity-75">Premium features and exclusive content</p>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-2xl font-bold">$299</span>
+          <button class="btn btn-sm btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Contact Form</h2>
+<p>Complete contact form with validation and success feedback:</p>
+
+<c-snippet view="code" lang="html">
+<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
+  <div class="card w-full max-w-md shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title text-2xl mb-6">Get in Touch</h2>
+
+      <form class="space-y-4">
+        <label>
+          <span class="label-text font-medium">Full Name</span>
+          <input type="text" class="input input-bordered w-full mt-2" placeholder="John Doe" required>
+        </label>
+
+        <label>
+          <span class="label-text font-medium">Email Address</span>
+          <input type="email" class="input input-bordered w-full mt-2" placeholder="john@example.com" required>
+        </label>
+
+        <label>
+          <span class="label-text font-medium">Subject</span>
+          <select class="select select-bordered w-full mt-2" required>
+            <option disabled selected>Choose a subject</option>
+            <option>General Inquiry</option>
+            <option>Support</option>
+            <option>Partnership</option>
+          </select>
+        </label>
+
+        <label>
+          <span class="label-text font-medium">Message</span>
+          <textarea class="textarea textarea-bordered w-full mt-2 h-24" placeholder="Your message..." required></textarea>
+        </label>
+
+        <label class="flex items-center gap-2 mt-4">
+          <input type="checkbox" class="checkbox" required>
+          <span class="label-text">I agree to the privacy policy</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary w-full mt-6">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Dashboard With Sidebar</h2>
+<p>Admin dashboard with sidebar navigation and stats cards:</p>
+
+<c-snippet view="code" lang="html">
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-base-200 border-r hidden md:block">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold">Dashboard</h1>
+    </div>
+    <ul class="menu p-4 text-base-content">
+      <li><a href="/dashboard" class="active">Overview</a></li>
+      <li><a href="/users">Users</a></li>
+      <li><a href="/analytics">Analytics</a></li>
+      <li><a href="/settings">Settings</a></li>
+      <li><a href="/logout" class="text-error">Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-auto">
+    <!-- Header -->
+    <header class="bg-base-100 border-b p-6 flex justify-between items-center">
+      <h2 class="heading-2xl">Welcome Back</h2>
+      <div class="avatar">
+        <div class="w-12 rounded-full bg-primary text-white flex items-center justify-center">JD</div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="p-6">
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div class="stat bg-base-100 shadow rounded-lg">
+          <div class="stat-title">Total Users</div>
+          <div class="stat-value text-primary">1,234</div>
+          <div class="stat-desc">↗︎ 12% from last month</div>
+        </div>
+        <div class="stat bg-base-100 shadow rounded-lg">
+          <div class="stat-title">Revenue</div>
+          <div class="stat-value text-success">$45,231</div>
+          <div class="stat-desc">↗︎ 23% from last month</div>
+        </div>
+        <div class="stat bg-base-100 shadow rounded-lg">
+          <div class="stat-title">Active Sessions</div>
+          <div class="stat-value">847</div>
+          <div class="stat-desc">Currently online</div>
+        </div>
+        <div class="stat bg-base-100 shadow rounded-lg">
+          <div class="stat-title">Conversion Rate</div>
+          <div class="stat-value text-warning">3.2%</div>
+          <div class="stat-desc">↘︎ 0.5% from last month</div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title">Revenue Trend</h3>
+            <!-- Chart would go here -->
+            <div class="h-64 bg-base-200 rounded flex items-center justify-center">
+              <span class="text-base-content opacity-50">Chart placeholder</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title">Top Pages</h3>
+            <!-- Chart would go here -->
+            <div class="h-64 bg-base-200 rounded flex items-center justify-center">
+              <span class="text-base-content opacity-50">Chart placeholder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</c-snippet>
+
+<h2>Pricing Table</h2>
+<p>Comparison table for different pricing tiers:</p>
+
+<c-snippet view="code" lang="html">
+<div class="container mx-auto px-4 py-12">
+  <div class="text-center mb-12">
+    <h2 class="heading-4xl mb-4">Simple, Transparent Pricing</h2>
+    <p class="para-lg opacity-75">Choose the plan that fits your needs</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Starter Plan -->
+    <div class="card bg-base-100 shadow-lg">
+      <div class="card-body">
+        <h3 class="card-title text-xl">Starter</h3>
+        <div class="my-6">
+          <div class="text-4xl font-bold">$29</div>
+          <p class="text-sm opacity-75">/month</p>
+        </div>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>5 projects</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Basic support</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>1GB storage</span>
+          </li>
+        </ul>
+        <button class="btn btn-outline w-full">Get Started</button>
+      </div>
+    </div>
+
+    <!-- Professional Plan (Featured) -->
+    <div class="card bg-primary text-primary-content shadow-2xl ring-2 ring-primary scale-105">
+      <div class="card-body">
+        <span class="badge badge-lg badge-accent">Most Popular</span>
+        <h3 class="card-title text-xl mt-4">Professional</h3>
+        <div class="my-6">
+          <div class="text-4xl font-bold">$79</div>
+          <p class="text-sm opacity-75">/month</p>
+        </div>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Unlimited projects</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Priority support</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>100GB storage</span>
+          </li>
+        </ul>
+        <button class="btn btn-secondary w-full">Get Started</button>
+      </div>
+    </div>
+
+    <!-- Enterprise Plan -->
+    <div class="card bg-base-100 shadow-lg">
+      <div class="card-body">
+        <h3 class="card-title text-xl">Enterprise</h3>
+        <div class="my-6">
+          <div class="text-2xl font-bold">Custom</div>
+          <p class="text-sm opacity-75">Contact sales</p>
+        </div>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Unlimited everything</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Dedicated support</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+            <span>Custom features</span>
+          </li>
+        </ul>
+        <button class="btn btn-outline w-full">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Blog Post List</h2>
+<p>Article listing with cards, filters, and pagination:</p>
+
+<c-snippet view="code" lang="html">
+<div class="container mx-auto px-4 py-12">
+  <h2 class="heading-3xl mb-8">Latest Articles</h2>
+
+  <!-- Filter -->
+  <div class="flex flex-col md:flex-row gap-4 mb-8">
+    <input type="text" class="input input-bordered flex-1" placeholder="Search articles...">
+    <select class="select select-bordered md:w-48">
+      <option selected>All Categories</option>
+      <option>Tutorial</option>
+      <option>News</option>
+      <option>Guide</option>
+    </select>
+  </div>
+
+  <!-- Article Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Article 1 -->
+    <article class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+      <figure class="h-40 bg-gray-300 overflow-hidden">
+        <img src="article-1.jpg" alt="Article cover" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <div class="flex gap-2 mb-2">
+          <span class="badge badge-sm">Tutorial</span>
+          <span class="text-xs opacity-50">3 min read</span>
+        </div>
+        <h3 class="card-title text-lg">Getting Started with Frutjam</h3>
+        <p class="text-sm opacity-75">Learn how to install and set up Frutjam in your project...</p>
+        <div class="card-actions justify-between items-center mt-4">
+          <span class="text-xs opacity-50">March 15, 2024</span>
+          <a href="#" class="btn btn-sm btn-ghost">Read More →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 2 -->
+    <article class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+      <figure class="h-40 bg-gray-300 overflow-hidden">
+        <img src="article-2.jpg" alt="Article cover" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <div class="flex gap-2 mb-2">
+          <span class="badge badge-sm badge-primary">News</span>
+          <span class="text-xs opacity-50">5 min read</span>
+        </div>
+        <h3 class="card-title text-lg">Frutjam v2.0 Released</h3>
+        <p class="text-sm opacity-75">Exciting new features and improvements in our latest release...</p>
+        <div class="card-actions justify-between items-center mt-4">
+          <span class="text-xs opacity-50">March 12, 2024</span>
+          <a href="#" class="btn btn-sm btn-ghost">Read More →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 3 -->
+    <article class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+      <figure class="h-40 bg-gray-300 overflow-hidden">
+        <img src="article-3.jpg" alt="Article cover" class="w-full h-full object-cover">
+      </figure>
+      <div class="card-body">
+        <div class="flex gap-2 mb-2">
+          <span class="badge badge-sm badge-accent">Guide</span>
+          <span class="text-xs opacity-50">8 min read</span>
+        </div>
+        <h3 class="card-title text-lg">Theming Guide: Create Custom Themes</h3>
+        <p class="text-sm opacity-75">Master the theming system and build beautiful custom themes...</p>
+        <div class="card-actions justify-between items-center mt-4">
+          <span class="text-xs opacity-50">March 8, 2024</span>
+          <a href="#" class="btn btn-sm btn-ghost">Read More →</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex justify-center gap-2">
+    <button class="btn btn-sm">« Previous</button>
+    <button class="btn btn-sm btn-active">1</button>
+    <button class="btn btn-sm">2</button>
+    <button class="btn btn-sm">3</button>
+    <button class="btn btn-sm">Next »</button>
+  </div>
+</div>
+</c-snippet>
+
+<h2>Key Patterns</h2>
+
+<h3>Responsive Grid Layout</h3>
+<c-snippet view="code" lang="html">
+<!-- 1 column on mobile, 2 on tablet, 3 on desktop -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- Items -->
+</div>
+</c-snippet>
+
+<h3>Centered Container</h3>
+<c-snippet view="code" lang="html">
+<div class="container mx-auto px-4">
+  <!-- Content with max-width and responsive padding -->
+</div>
+</c-snippet>
+
+<h3>Flexible Header</h3>
+<c-snippet view="code" lang="html">
+<header class="flex justify-between items-center p-4 md:p-6">
+  <div>Logo</div>
+  <nav class="hidden md:flex gap-6">Navigation</nav>
+  <button class="md:hidden">Menu</button>
+</header>
+</c-snippet>
+
+<h3>Status Badge</h3>
+<c-snippet view="code" lang="html">
+<div class="flex items-center gap-2">
+  <span class="badge badge-success">Active</span>
+  <span>User status</span>
+</div>
+</c-snippet>
