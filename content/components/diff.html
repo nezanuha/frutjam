@@ -2,21 +2,21 @@
   Diff components display differences between two versions of content, ideal for showing code changes, document revisions, or comparison views. Built with semantic HTML and color-coded styling, diffs help users understand what changed. The Frutjam diff system supports multiple types and styles—perfect for version control interfaces, revision history, and change tracking.
 </p>
 
-<h2 id="basic-usage">Basic Usage</h2>
+<h2>Basic Usage</h2>
 <p>Create a simple side-by-side diff with before and after states.</p>
 <c-snippet>
 <div class="diff aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center text-base-content/50">Before</div>
+    <div class="badge badge-lg w-full h-full bg-base-200">Before</div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center text-base-content/50">After</div>
+    <div class="badge badge-lg w-full h-full bg-base-100">After</div>
   </div>
   <div class="diff-resizer"></div>
 </div>
 </c-snippet>
 
-<h2 id="diff-text">Diff Text Comparison</h2>
+<h2>Diff Text Comparison</h2>
 <p>Display code or text changes with vertical layout for detailed comparison.</p>
 <c-snippet>
 <div class="diff diff-vertical h-64">
@@ -34,7 +34,7 @@ let count = 1;</pre>
 </div>
 </c-snippet>
 
-<h2 id="diff-colors">Diff with Color Coding</h2>
+<h2>Diff with Color Coding</h2>
 <p>Use semantic colors to highlight removed, added, or changed content.</p>
 <c-snippet>
 <div class="diff diff-sm">
@@ -48,77 +48,83 @@ let count = 1;</pre>
 </div>
 </c-snippet>
 
-<h2 id="diff-image-comparison">Image Comparison</h2>
+<h2>Image Comparison</h2>
 <p>Compare visual changes between before and after images with draggable resizer.</p>
 <c-snippet>
 <div class="diff aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-primary flex items-center justify-center text-white font-bold">Version 1</div>
+    <img src="https://img.daisyui.com/images/stock/photo-1494927633550-4155540c78af.webp" alt="Version 1" class="w-full h-full object-cover" />
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-secondary flex items-center justify-center text-white font-bold">Version 2</div>
+    <img src="https://img.daisyui.com/images/stock/photo-1500595046891-90c3de9cdb97.webp" alt="Version 2" class="w-full h-full object-cover" />
   </div>
   <div class="diff-resizer"></div>
 </div>
 </c-snippet>
 
-<h2 id="diff-sizes">Diff Sizes</h2>
+<h2>Diff Sizes</h2>
 <p>Apply different sizes to diffs for various use cases and screen layouts.</p>
 <c-snippet>
 <div class="diff diff-sm aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Small</div>
+    <div class="badge badge-md bg-base-200">Small</div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+    <div class="badge badge-md bg-base-100">Diff</div>
   </div>
   <div class="diff-resizer"></div>
 </div>
 
 <div class="diff diff-md aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Medium</div>
+    <div class="badge badge-lg bg-base-200">Medium</div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+    <div class="badge badge-lg bg-base-100">Diff</div>
   </div>
   <div class="diff-resizer"></div>
 </div>
 
 <div class="diff diff-lg aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Large</div>
+    <div class="badge badge-xl bg-primary">Large</div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+    <div class="badge badge-xl bg-secondary">Diff</div>
   </div>
   <div class="diff-resizer"></div>
 </div>
 </c-snippet>
 
-<h2 id="diff-combinations">Combined Variants</h2>
+<h2>Combined Variants</h2>
 <p>Mix different diff layouts and sizes for flexible comparisons.</p>
 <c-snippet>
 <div class="diff diff-md aspect-video">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-error bg-opacity-30 flex items-center justify-center font-mono text-sm">Removed<br/>- old code</div>
+    <div class="alert alert-error">
+      <span>Removed</span>
+      <pre class="text-xs">- old code</pre>
+    </div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-success bg-opacity-30 flex items-center justify-center font-mono text-sm">Added<br/>+ new code</div>
+    <div class="alert alert-success">
+      <span>Added</span>
+      <pre class="text-xs">+ new code</pre>
+    </div>
   </div>
   <div class="diff-resizer"></div>
 </div>
 
 <div class="diff diff-vertical h-80">
   <div class="diff-item-1">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center flex-col gap-2">
-      <span class="text-error">Original Version</span>
+    <div class="alert alert-info">
+      <span>Original Version</span>
       <pre class="text-xs">function old() {}</pre>
     </div>
   </div>
   <div class="diff-item-2">
-    <div class="w-full h-full bg-base-200 flex items-center justify-center flex-col gap-2">
-      <span class="text-success">Updated Version</span>
+    <div class="alert alert-success">
+      <span>Updated Version</span>
       <pre class="text-xs">async function new() {}</pre>
     </div>
   </div>
