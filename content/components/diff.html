@@ -2,7 +2,8 @@
   Diff components display differences between two versions of content, ideal for showing code changes, document revisions, or comparison views. Built with semantic HTML and color-coded styling, diffs help users understand what changed. The Frutjam diff system supports multiple types and styles—perfect for version control interfaces, revision history, and change tracking.
 </p>
 
-<h2>Basic Usage</h2>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Create a simple side-by-side diff with before and after states.</p>
 <c-snippet>
 <div class="diff aspect-video">
   <div class="diff-item-1">
@@ -15,35 +16,111 @@
 </div>
 </c-snippet>
 
-<h2>Diff Text</h2>
+<h2 id="diff-text">Diff Text Comparison</h2>
+<p>Display code or text changes with vertical layout for detailed comparison.</p>
 <c-snippet>
 <div class="diff diff-vertical h-64">
   <div class="diff-item-1">
-    <pre>
-const greeting = "Hello";
+    <pre>const greeting = "Hello";
 console.log(greeting);
-let count = 0;
-    </pre>
+let count = 0;</pre>
   </div>
   <div class="diff-item-2">
-    <pre>
-const greeting = "Hello World";
+    <pre>const greeting = "Hello World";
 console.log(greeting);
-let count = 1;
-    </pre>
+let count = 1;</pre>
   </div>
   <div class="diff-resizer"></div>
 </div>
 </c-snippet>
 
-<h2>Diff Colors</h2>
+<h2 id="diff-colors">Diff with Color Coding</h2>
+<p>Use semantic colors to highlight removed, added, or changed content.</p>
 <c-snippet>
 <div class="diff diff-sm">
   <div class="diff-item-1">
-    <div class="bg-error text-error-content p-4">Removed</div>
+    <div class="bg-error text-error-content p-4 font-mono">- const old = "value";</div>
   </div>
   <div class="diff-item-2">
-    <div class="bg-success text-success-content p-4">Added</div>
+    <div class="bg-success text-success-content p-4 font-mono">+ const new = "updated";</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+</c-snippet>
+
+<h2 id="diff-image-comparison">Image Comparison</h2>
+<p>Compare visual changes between before and after images with draggable resizer.</p>
+<c-snippet>
+<div class="diff aspect-video">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-primary flex items-center justify-center text-white font-bold">Version 1</div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-secondary flex items-center justify-center text-white font-bold">Version 2</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+</c-snippet>
+
+<h2 id="diff-sizes">Diff Sizes</h2>
+<p>Apply different sizes to diffs for various use cases and screen layouts.</p>
+<c-snippet>
+<div class="diff diff-sm aspect-video">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Small</div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+
+<div class="diff diff-md aspect-video">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Medium</div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+
+<div class="diff diff-lg aspect-video">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Large</div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center">Diff</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+</c-snippet>
+
+<h2 id="diff-combinations">Combined Variants</h2>
+<p>Mix different diff layouts and sizes for flexible comparisons.</p>
+<c-snippet>
+<div class="diff diff-md aspect-video">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-error bg-opacity-30 flex items-center justify-center font-mono text-sm">Removed<br/>- old code</div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-success bg-opacity-30 flex items-center justify-center font-mono text-sm">Added<br/>+ new code</div>
+  </div>
+  <div class="diff-resizer"></div>
+</div>
+
+<div class="diff diff-vertical h-80">
+  <div class="diff-item-1">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center flex-col gap-2">
+      <span class="text-error">Original Version</span>
+      <pre class="text-xs">function old() {}</pre>
+    </div>
+  </div>
+  <div class="diff-item-2">
+    <div class="w-full h-full bg-base-200 flex items-center justify-center flex-col gap-2">
+      <span class="text-success">Updated Version</span>
+      <pre class="text-xs">async function new() {}</pre>
+    </div>
   </div>
   <div class="diff-resizer"></div>
 </div>
