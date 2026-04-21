@@ -33,20 +33,20 @@ jobs:
 
           # Clone the private repo
           git clone $PRIVATE_REPO private-repo
-          
+
           # 1. Remove only the specific directories you want to replace
-          rm -rf "$SYNC_TARGET/docs" "$SYNC_TARGET/blocks" "$SYNC_TARGET/components"
+          rm -rf "private-repo/$SYNC_TARGET/docs" "private-repo/$SYNC_TARGET/blocks" "private-repo/$SYNC_TARGET/components"
 
           # 2. Recreate them to ensure a clean state
-          mkdir -p "$SYNC_TARGET/docs" "$SYNC_TARGET/blocks" "$SYNC_TARGET/components"
+          mkdir -p "private-repo/$SYNC_TARGET/docs" "private-repo/$SYNC_TARGET/blocks" "private-repo/$SYNC_TARGET/components"
 
           # 3. Copy only the content from those specific folders
           for dir in docs blocks components; do
-            if [ -d "../content/$dir" ]; then
-              cp -r "../content/$dir/"* "$SYNC_TARGET/$dir/"
+            if [ -d "content/$dir" ]; then
+              cp -r "content/$dir/"* "private-repo/$SYNC_TARGET/$dir/"
             fi
           done
-          
+
           # Commit and Push
           cd private-repo
           git config user.name "Docs Sync Bot"
