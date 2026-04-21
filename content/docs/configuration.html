@@ -1,0 +1,138 @@
+<h2>Basic Setup</h2>
+<p>Add Frutjam to your CSS file using the <code>@plugin</code> directive. No options are required — everything works out of the box.</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss";
+@plugin "frutjam";
+</c-snippet>
+
+<h2>Plugin Options</h2>
+<p>Customize Frutjam by passing options inside the <code>@plugin</code> block:</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+  reset: true;
+  root: :host;
+  include: button, card, alert;
+  /* or: */
+  exclude: table, timeline;
+}
+</c-snippet>
+
+<h3>prefix</h3>
+<p>Adds a prefix to all Frutjam class names to avoid conflicts with your own CSS.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  prefix: fj;
+}
+</c-snippet>
+<c-snippet view="code" lang="html">
+<button class="fj-btn fj-btn-primary">Send mail</button>
+</c-snippet>
+
+<h3>reset</h3>
+<p>Controls whether Frutjam injects base reboot styles. Defaults to <code>true</code>. Set to <code>false</code> if you manage your own CSS reset.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  reset: false;
+}
+</c-snippet>
+
+<h3>root</h3>
+<p>Changes the root selector that Frutjam targets for CSS variables. Defaults to <code>:root</code>. Use <code>:host</code> for Web Components or Shadow DOM.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  root: :host;
+}
+</c-snippet>
+
+<h3>include</h3>
+<p>Load only specific components instead of the full library. Useful for reducing output size in production.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  include: button, card, alert, badge;
+}
+</c-snippet>
+
+<h3>exclude</h3>
+<p>Load all components except the ones listed. Use when you only need to drop a few components from the full build.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  exclude: table, timeline, chat;
+}
+</c-snippet>
+
+<h2>Create a custom theme</h2>
+<p>To create your own theme, just assign your color values to the provided CSS variables within a <code>[data-theme="your-theme-name"]</code> selector</p>
+
+<h3>1. The "Automatic" Approach (Minimal)</h3>
+<p>In this version, we omit the <code>--color-on-*</code> variables. Frutjam detects the missing variables and calculates the optimal text color—usually flipping between a very light or very dark <code>OKLCH</code> value—to ensure the component remains accessible and readable.</p>
+<c-snippet view="code" lang="css">
+// In your tailwind.css file
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-error: oklch(0.577 0.245 27.325);
+    }
+}
+</c-snippet>
+
+<h3>2. The "Manual" Approach (Full Control)</h3>
+<p>In this version, we explicitly define the <code>--color-on-*</code> variables. This is ideal when you have specific brand guidelines (like using a tinted off-white instead of pure white) or when you want to achieve a specific "vibe," such as a low-contrast sophisticated look that still passes accessibility checks.</p>
+<c-snippet view="code" lang="css">
+// In your tailwind.css file
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-on-base:oklch(0.22 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-on-neutral: oklch(1 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-on-primary: oklch(96.2% 0.018 272.314);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-on-secondary: oklch(1 0 0);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-on-accent: oklch(1 0 0);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-on-info: oklch(0.15 0 0);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-on-success: oklch(0.15 0 0);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-on-warning: oklch(0.15 0 0);
+        --color-error: oklch(0.577 0.245 27.325);
+        --color-on-error: oklch(1 0 0);
+    }
+}
+</c-snippet>
+
+<p>To apply your custom theme to your project in your HTML, use <code>data-theme="your-theme-name"</code> to an HTML element.</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="your-theme-name">
+ ...
+</html>
+</c-snippet>
+
+<p>Themes can be nested—you can apply a specific theme to any section of your HTML, overriding the global theme for that area.</p>
+
+<c-snippet view="code" lang="html">
+<html data-theme="light">
+  <div data-theme="dark">
+    This div uses the dark theme.
+    <span data-theme="your-custom-theme">
+      This span uses the your-custom-theme
+    </span>
+  </div>
+</html>
+</c-snippet>
