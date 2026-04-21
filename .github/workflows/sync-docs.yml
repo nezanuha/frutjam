@@ -1,0 +1,62 @@
+name: Sync Content to Website
+on:
+  push:
+    paths:
+      - 'content/**' # Only runs when you change files in this folder
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Public Repo
+        uses: actions/checkout@v4
+
+      - name: Sync to Private Website Repo
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SYNC_DEPLOY_KEY }}
+
+      - name: Push to Private Repo
+        env:
+          PRIVATE_REPO: ${{ secrets.PRIVATE_REPO_URL }}
+          SYNC_TARGET: ${{ secrets.SYNC_TARGET_PATH }}
+          ALLOWED_PREFIX: ${{ secrets.ALLOWED_SYNC_PATH }}
+        run: |
+          # --- SECURITY GUARDRAIL ---
+          if [[ "$SYNC_TARGET" != "$ALLOWED_PREFIX"* ]]; then
+            echo "Security Error: SYNC_TARGET path '$SYNC_TARGET' is unauthorized!"
+            exit 1
+          fi
+
+          echo "::add-mask::${SYNC_TARGET}"
+          # --------------------------
+
+          # Clone the private repo
+          git clone $PRIVATE_REPO private-repo
+          
+          # 1. Remove only the specific directories you want to replace
+          rm -rf "$SYNC_TARGET/docs" "$SYNC_TARGET/blocks" "$SYNC_TARGET/components"
+
+          # 2. Recreate them to ensure a clean state
+          mkdir -p "$SYNC_TARGET/docs" "$SYNC_TARGET/blocks" "$SYNC_TARGET/components"
+
+          # 3. Copy only the content from those specific folders
+          for dir in docs blocks components; do
+            if [ -d "../content/$dir" ]; then
+              cp -r "../content/$dir/"* "$SYNC_TARGET/$dir/"
+            fi
+          done
+          
+          # Commit and Push
+          cd private-repo
+          git config user.name "Docs Sync Bot"
+          git config user.email "bot@github.com"
+
+          # Only commit if there are actual changes
+          if [[ -n $(git status -s) ]]; then
+            git add .
+            git commit -m "chore: auto-update docs from Frutjam Library"
+            git push
+          else
+            echo "No changes detected, skipping push."
+          fi
