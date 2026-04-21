@@ -1,0 +1,193 @@
+<p>
+  Frutjam uses CSS custom properties as design tokens for all colors. Every color is defined per theme and automatically works with Tailwind CSS utility classes — no extra configuration needed. Use them directly in your HTML with any Tailwind color utility.
+</p>
+
+<h2>Color Names</h2>
+<p>Frutjam defines the following semantic color roles. Each color has a matching <code>on-{color}</code> token for accessible foreground text.</p>
+<div class="alert alert-info mb-4">
+  <strong>WCAG AA Contrast Guaranteed.</strong> Every <code>on-{color}</code> pair is hand-tuned in OKLCH to pass WCAG AA contrast requirements. Unlike libraries that compute foreground colors automatically, Frutjam gives you explicit, verified pairs — so your components are accessible by design, not by chance.
+</div>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Color</th>
+        <th>Token</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="badge badge-sm bg-base border">base</span></td><td><code>--color-base</code></td><td>Page background</td></tr>
+      <tr><td><span class="badge badge-sm bg-neutral text-neutral-content">neutral</span></td><td><code>--color-neutral</code></td><td>Surfaces, sidebars, overlays</td></tr>
+      <tr><td><span class="badge badge-sm badge-primary">primary</span></td><td><code>--color-primary</code></td><td>Primary brand color</td></tr>
+      <tr><td><span class="badge badge-sm badge-secondary">secondary</span></td><td><code>--color-secondary</code></td><td>Secondary brand color</td></tr>
+      <tr><td><span class="badge badge-sm badge-accent">accent</span></td><td><code>--color-accent</code></td><td>Accent / highlight color</td></tr>
+      <tr><td><span class="badge badge-sm badge-info">info</span></td><td><code>--color-info</code></td><td>Informational messages</td></tr>
+      <tr><td><span class="badge badge-sm badge-success">success</span></td><td><code>--color-success</code></td><td>Success states</td></tr>
+      <tr><td><span class="badge badge-sm badge-warning">warning</span></td><td><code>--color-warning</code></td><td>Warning states</td></tr>
+      <tr><td><span class="badge badge-sm badge-error">error</span></td><td><code>--color-error</code></td><td>Error and destructive states</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Color Utility Classes</h2>
+<p>All Frutjam colors work with any Tailwind CSS color utility. Replace <code>{color}</code> with any color name from the table above.</p>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>bg-{color}</code></td><td>Background color</td></tr>
+      <tr><td><code>text-{color}</code></td><td>Text color</td></tr>
+      <tr><td><code>border-{color}</code></td><td>Border color</td></tr>
+      <tr><td><code>ring-{color}</code></td><td>Ring color</td></tr>
+      <tr><td><code>outline-{color}</code></td><td>Outline color</td></tr>
+      <tr><td><code>shadow-{color}</code></td><td>Shadow color</td></tr>
+      <tr><td><code>fill-{color}</code></td><td>SVG fill color</td></tr>
+      <tr><td><code>stroke-{color}</code></td><td>SVG stroke color</td></tr>
+      <tr><td><code>decoration-{color}</code></td><td>Text decoration color</td></tr>
+      <tr><td><code>caret-{color}</code></td><td>Input caret color</td></tr>
+      <tr><td><code>placeholder-{color}</code></td><td>Placeholder text color</td></tr>
+      <tr><td><code>divide-{color}</code></td><td>Divider border color</td></tr>
+    </tbody>
+  </table>
+</div>
+<c-snippet>
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+</c-snippet>
+
+<h4>Opacity Modifier</h4>
+<p>Control color opacity with the <code>/{value}</code> modifier, just like any Tailwind color.</p>
+<c-snippet>
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+</c-snippet>
+
+<h2>Theme CSS Variables</h2>
+<p>These are the root tokens you define when creating a custom theme. All other color tokens are computed automatically from these.</p>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>CSS Variable</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--scheme-color</code></td><td>Color scheme: <code>light</code> or <code>dark</code></td></tr>
+      <tr><td><code>--border-radius</code></td><td>Base border radius for components</td></tr>
+      <tr><td><code>--color-base</code></td><td>Page background color</td></tr>
+      <tr><td><code>--color-on-base</code></td><td>Default text color on base background</td></tr>
+      <tr><td><code>--color-neutral</code></td><td>Neutral surface color</td></tr>
+      <tr><td><code>--color-on-neutral</code></td><td>Text color on neutral surfaces</td></tr>
+      <tr><td><code>--color-primary</code></td><td>Primary brand color</td></tr>
+      <tr><td><code>--color-on-primary</code></td><td>Text color on primary backgrounds</td></tr>
+      <tr><td><code>--color-secondary</code></td><td>Secondary brand color</td></tr>
+      <tr><td><code>--color-on-secondary</code></td><td>Text color on secondary backgrounds</td></tr>
+      <tr><td><code>--color-accent</code></td><td>Accent color</td></tr>
+      <tr><td><code>--color-on-accent</code></td><td>Text color on accent backgrounds</td></tr>
+      <tr><td><code>--color-info</code></td><td>Info color</td></tr>
+      <tr><td><code>--color-on-info</code></td><td>Text color on info backgrounds</td></tr>
+      <tr><td><code>--color-success</code></td><td>Success color</td></tr>
+      <tr><td><code>--color-on-success</code></td><td>Text color on success backgrounds</td></tr>
+      <tr><td><code>--color-warning</code></td><td>Warning color</td></tr>
+      <tr><td><code>--color-on-warning</code></td><td>Text color on warning backgrounds</td></tr>
+      <tr><td><code>--color-error</code></td><td>Error color</td></tr>
+      <tr><td><code>--color-on-error</code></td><td>Text color on error backgrounds</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Computed Color Tokens</h2>
+<p>Frutjam automatically computes these tokens from your root theme variables — you don't set them manually. They are available for use in custom CSS.</p>
+
+<h3>Scale (50–950)</h3>
+<p>Every color generates a full 11-step tint/shade scale. Replace <code>{color}</code> with any color name.</p>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>CSS Variable</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--color-{color}-50</code></td><td>Lightest tint (4% color mix)</td></tr>
+      <tr><td><code>--color-{color}-100</code></td><td>Very light tint</td></tr>
+      <tr><td><code>--color-{color}-200</code></td><td>Light tint</td></tr>
+      <tr><td><code>--color-{color}-300</code></td><td>Medium-light tint</td></tr>
+      <tr><td><code>--color-{color}-400</code></td><td>Slight tint</td></tr>
+      <tr><td><code>--color-{color}-500</code></td><td>Base color (same as <code>--color-{color}</code>)</td></tr>
+      <tr><td><code>--color-{color}-600</code></td><td>Slight shade</td></tr>
+      <tr><td><code>--color-{color}-700</code></td><td>Medium shade</td></tr>
+      <tr><td><code>--color-{color}-800</code></td><td>Dark shade</td></tr>
+      <tr><td><code>--color-{color}-900</code></td><td>Very dark shade</td></tr>
+      <tr><td><code>--color-{color}-950</code></td><td>Darkest shade</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Soft &amp; Active</h3>
+<p>State-aware variants for interactive elements, automatically adapting to light and dark themes.</p>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>CSS Variable</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--color-{color}-soft</code></td><td>Subtle tinted background for soft variants</td></tr>
+      <tr><td><code>--color-on-{color}-soft</code></td><td>Text color for use on soft backgrounds</td></tr>
+      <tr><td><code>--color-{color}-active</code></td><td>Darkened/lightened shade for hover and active states</td></tr>
+      <tr><td><code>--color-body</code></td><td>Computed body text color (slightly softened from <code>on-base</code>)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Custom Theme Example</h2>
+<p>Override root tokens to create a custom theme. Frutjam computes all scales and states automatically.</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+</c-snippet>

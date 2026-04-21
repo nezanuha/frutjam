@@ -1,4 +1,71 @@
-<h2>1. Element Utilities</h2>
+<h2>Layout</h2>
+<p>
+  <code>.wrapper</code> is a responsive page layout utility that centers content horizontally and applies consistent horizontal padding across breakpoints. Use size variants to set a max-width constraint for different layout needs.
+</p>
+
+<h3>All Classes</h3>
+<p>All variants share the same responsive padding scale. Only the max-width differs.</p>
+<div class="overflow-x-auto">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Max Width</th>
+        <th>Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>wrapper</code></td><td>none</td><td>Full-width centered container</td></tr>
+      <tr><td><code>wrapper-xs</code></td><td>320px</td><td>Narrow dialogs or sidebars</td></tr>
+      <tr><td><code>wrapper-sm</code></td><td>640px</td><td>Single-column content</td></tr>
+      <tr><td><code>wrapper-md</code></td><td>768px</td><td>Articles and blog posts</td></tr>
+      <tr><td><code>wrapper-lg</code></td><td>1024px</td><td>Standard page layouts</td></tr>
+      <tr><td><code>wrapper-xl</code></td><td>1280px</td><td>Wide layouts</td></tr>
+      <tr><td><code>wrapper-2xl</code></td><td>1536px</td><td>Extra-wide layouts</td></tr>
+      <tr><td><code>wrapper-full</code></td><td>100%</td><td>Full-bleed with consistent padding</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Responsive Padding</h3>
+<p>All wrapper variants automatically scale horizontal padding across breakpoints — no extra utility classes needed.</p>
+<c-snippet view="code" lang="css">
+/* Applied to every wrapper variant */
+default  → padding-inline: 1rem   (16px)
+sm       → padding-inline: 2rem   (32px)
+lg       → padding-inline: 4rem   (64px)
+</c-snippet>
+
+<h3>Page Layout Example</h3>
+<p>Use <code>.wrapper-xl</code> on your main content area for a standard page layout.</p>
+<c-snippet view="code">
+<header class="bg-base-200">
+  <div class="wrapper-xl">
+    <nav class="navbar">...</nav>
+  </div>
+</header>
+
+<main class="wrapper-xl py-12">
+  <h1 class="heading-4xl">Page Title</h1>
+  <p class="para-base">Page content goes here.</p>
+</main>
+
+<footer class="bg-base-200">
+  <div class="wrapper-xl">...</div>
+</footer>
+</c-snippet>
+
+<h3>Article Layout Example</h3>
+<p>Use <code>.wrapper-md</code> for readable article or blog post layouts.</p>
+<c-snippet view="code">
+<article class="wrapper-md py-10 prose prose-frutjam">
+  <h1>Article Title</h1>
+  <p>Long-form content benefits from a narrower max-width for optimal line length.</p>
+</article>
+</c-snippet>
+
+<h2>Typography</h2>
+<h3>1. Element Utilities</h3>
 <p>These classes are designed for direct use on HTML elements. Headings are optimized for weight and impact, while Paragraphs are optimized for readability.</p>
 <h3>Headings</h3>
 <p>Use <code>.heading-{size}</code> for titles and high-importance text.</p>
@@ -48,26 +115,49 @@
 </c-snippet>
 
 
-<h2>2. Rich Text (Prose)</h2>
-<p>When you are rendering Markdown or content from a CMS, you can't manually add classes like <code>heading-lg</code> or <code>para-base</code> to every tag.</p>
-<p>Frutjam provides a bridge for the official <code>@tailwindcss/typography</code> plugin to ensure these "invisible" tags still look like Frutjam.</p>
+<h3>2. Rich Text (Prose)</h3>
+<p>When rendering Markdown or CMS content, you can't manually add classes like <code>heading-lg</code> to every tag. <code>prose-frutjam</code> is a wrapper that bridges the official <code>@tailwindcss/typography</code> plugin with Frutjam's design tokens — so unstyled HTML tags automatically inherit your theme's colors and typography.</p>
+
 <h4>Setup</h4>
-<p>Ensure the plugin is active in your Tailwind v4 CSS:</p>
+<p>Ensure both plugins are active in your Tailwind v4 CSS:</p>
 <c-snippet view="code" lang="css">
 @import "tailwindcss";
 @plugin "frutjam";
 @plugin "@tailwindcss/typography";
 </c-snippet>
+
 <h4>Usage</h4>
-<p>Apply <code>.prose</code> to enable the plugin, and <code>.prose-frutjam</code> to inject the Frutjam design tokens.</p>
-<c-snippet class="flex-col items-start" view="code">
-<article class="prose prose-frutjam">
-  <h1>This Title Inherits Frutjam Styles</h1>
-  <p>Standard paragraphs now match your <code>para-base</code> aesthetics automatically.</p>
-  
+<p>Add both <code>.prose</code> and <code>.prose-frutjam</code> to the wrapper element. <code>.prose</code> activates the typography plugin; <code>.prose-frutjam</code> maps Frutjam's theme tokens onto it.</p>
+<c-snippet view="code">
+<article class="prose prose-frutjam max-w-none">
+  <h1>Article Title</h1>
+  <p>Body text, links, and lists all inherit Frutjam theme colors automatically.</p>
   <ul>
-    <li>Links use Frutjam accent colors</li>
-    <li>Blockquotes use Frutjam border colors</li>
+    <li>Links use your primary color</li>
+    <li>Blockquote borders use your primary color</li>
+    <li>Headings, body, and captions use semantic on-base colors</li>
   </ul>
+</article>
+</c-snippet>
+
+<h4>What Gets Mapped</h4>
+<p>The wrapper overrides the following prose CSS variables with Frutjam tokens:</p>
+<c-snippet view="code" lang="css">
+/* prose-frutjam maps these automatically */
+body text      → --color-body
+headings       → --color-on-base
+links          → --color-primary
+blockquotes    → --color-on-base  (text), --color-primary (border)
+bullets        → --color-neutral
+code           → --color-on-base
+captions       → --color-on-neutral
+</c-snippet>
+
+<h4>Dark Mode</h4>
+<p>Add <code>.prose-invert</code> alongside <code>.prose-frutjam</code> for dark backgrounds — invert tokens are also mapped to Frutjam colors.</p>
+<c-snippet view="code">
+<article class="prose prose-frutjam prose-invert bg-neutral p-6 rounded-lg">
+  <h2>Dark Background Content</h2>
+  <p>Inverted tokens keep text legible on dark surfaces.</p>
 </article>
 </c-snippet>
