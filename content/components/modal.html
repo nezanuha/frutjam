@@ -5,8 +5,8 @@
 <h2>Basic Usage</h2>
 <p>Add a unique id to the <code>&lt;dialog id="myModal"&gt;</code> HTML element, then use that id in JavaScript to call <code>myModal.showModal()</code> to open the modal and <code>myModal.close()</code> to close the modal.</p>
 <c-snippet>
-<dialog class="modal modal-x-center lg:modal-y-center modal-slide-right lg:modal-slide-down" id="toggleModal">
-  <div class="modal-body">
+<dialog class="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down" id="toggleModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Dialog modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="toggleModal.close()">
@@ -28,7 +28,7 @@
 <p>The <code>.modal-backdrop</code> provides a clickable background that closes the modal when clicked outside the modal content.</p>
 <c-snippet>
 <dialog class="modal" id="backdropModal">
-  <div class="modal-body">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Dialog modal</div>
     </div>
@@ -48,8 +48,8 @@
 <h3>Modal slide from start (Horizontal)</h3>
 <p>Add the <code>modal-slide-start</code> utility to slide the modal horizontally from the start side; in left-to-right (LTR) layouts, it appears from the left, and in right-to-left (RTL) layouts, from the right.</p>
 <c-snippet>
-<dialog class="modal modal-x-center lg:modal-y-center modal-slide-start" id="slideStartModal">
-  <div class="modal-body">
+<dialog class="modal modal-center lg:modal-middle modal-slide-start" id="slideStartModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Slide start modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideStartModal.close()">
@@ -69,8 +69,8 @@
 <h3>Modal slide from end (Horizontal)</h3>
 <p>Add the <code>modal-slide-end</code> utility in modal component to slide the modal horizontally from the end side; in left-to-right (LTR) layouts, it appears from the right, and in right-to-left (RTL) layouts, from the left.</p>
 <c-snippet>
-<dialog class="modal modal-x-center lg:modal-y-center modal-slide-end" id="slideEndModal">
-  <div class="modal-body">
+<dialog class="modal modal-center lg:modal-middle modal-slide-end" id="slideEndModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Slide end modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideEndModal.close()">
@@ -90,8 +90,8 @@
 <h3>Slide from Bottom (Vertical): <code>modal-slide-up</code></h3>
 <p>Direction: Slides in vertically from the bottom</p>
 <c-snippet>
-<dialog class="modal modal-x-center lg:modal-y-center modal-slide-up" id="slideUpModal">
-  <div class="modal-body">
+<dialog class="modal modal-center lg:modal-middle modal-slide-up" id="slideUpModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Slide up modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideUpModal.close()">
@@ -111,8 +111,8 @@
 <h3>Slide from Top (Vertical)</h3>
 <p>Add the <code>modal-slide-down</code> utility in the modal component to slide in vertically from the top.</p>
 <c-snippet>
-<dialog class="modal modal-x-center lg:modal-y-center modal-slide-down" id="slideDownModal">
-  <div class="modal-body">
+<dialog class="modal modal-center lg:modal-middle modal-slide-down" id="slideDownModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Slide down modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideDownModal.close()">
@@ -131,8 +131,8 @@
 
 <h3>Example usage of sliding animation modal for notification</h3>
 <c-snippet>
-<dialog class="modal modal-x-end modal-y-start modal-slide-end" id="notificationSlideModal">
-  <div class="modal-body">
+<dialog class="modal modal-end modal-top modal-slide-end" id="notificationSlideModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Notification modal</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="notificationSlideModal.close()">
@@ -148,13 +148,13 @@
 </c-snippet>
 
 <h2>Modal placements</h2>
-<p>The modal component is by default positioned in the center of the screen, but it can be placed depending upon the use case using utility classes such as <code>modal-x-{position}</code> and <code>modal-y-{position}</code>, where <code>{position}</code> is start, center, or end. Placement is designed with RTL and LTR compatibility in mind, making the modal adaptable to different language directions and layouts.</p>
-<p>Use <code>modal-x-{position}</code> for horizontal placement and <code>modal-y-{position}</code> for vertical placement, where <code>{position}</code> can be <code>start</code>, <code>center</code>, or <code>end</code>. These classes are applied to the modal component.</p>
+<p>The modal component is by default positioned in the center of the screen, but it can be placed depending upon the use case using horizontal classes <code>modal-start</code>, <code>modal-center</code>, or <code>modal-end</code>, and vertical classes <code>modal-top</code>, <code>modal-middle</code>, or <code>modal-bottom</code>. Placement is designed with RTL and LTR compatibility in mind, making the modal adaptable to different language directions and layouts.</p>
+<p>Use <code>modal-start</code>, <code>modal-center</code>, or <code>modal-end</code> for horizontal placement and <code>modal-top</code>, <code>modal-middle</code>, or <code>modal-bottom</code> for vertical placement. These classes are applied to the modal component.</p>
 
 <h3>Top left modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-start modal-y-start" id="topLeftModal">
-  <div class="modal-body">
+<dialog class="modal modal-start modal-top" id="topLeftModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement top left</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topLeftModal.close()">
@@ -176,8 +176,8 @@
 
 <h3>Top center modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-center modal-y-start" id="topCenterModal">
-  <div class="modal-body">
+<dialog class="modal modal-center modal-top" id="topCenterModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement top center</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topCenterModal.close()">
@@ -199,8 +199,8 @@
 
 <h3>Top right modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-end modal-y-start" id="topEndModal">
-  <div class="modal-body">
+<dialog class="modal modal-end modal-top" id="topEndModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement top end</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topEndModal.close()">
@@ -222,8 +222,8 @@
 
 <h3>Center left modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-start modal-y-center" id="startCenterModal">
-  <div class="modal-body">
+<dialog class="modal modal-start modal-middle" id="startCenterModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement left center</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="startCenterModal.close()">
@@ -245,8 +245,8 @@
 
 <h3>Center right modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-end modal-y-center" id="endCenterModal">
-  <div class="modal-body">
+<dialog class="modal modal-end modal-middle" id="endCenterModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement right center</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="endCenterModal.close()">
@@ -268,8 +268,8 @@
 
 <h3>Bottom left modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-start modal-y-end" id="bottomStartModal">
-  <div class="modal-body">
+<dialog class="modal modal-start modal-bottom" id="bottomStartModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement bottom start</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomStartModal.close()">
@@ -291,8 +291,8 @@
 
 <h3>Bottom center modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-center modal-y-end" id="bottomCenterModal">
-  <div class="modal-body">
+<dialog class="modal modal-center modal-bottom" id="bottomCenterModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement bottom center</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomCenterModal.close()">
@@ -314,8 +314,8 @@
 
 <h3>Bottom right modal placement</h3>
 <c-snippet>
-<dialog class="modal modal-x-end modal-y-end" id="bottomEndModal">
-  <div class="modal-body">
+<dialog class="modal modal-end modal-bottom" id="bottomEndModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Modal placement bottom center</div>
       <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomEndModal.close()">
@@ -338,8 +338,8 @@
 <h2>Responsive positioning of modal for desktop and mobile screens</h2>
 <p>Depending on your use case, you can position the modal anywhere on desktop or mobile—for example, desktop center and mobile top center.</p>
 <c-snippet>
-<dialog class="modal modal-x-center modal-y-start lg:modal-x-center lg:modal-y-center" id="responsiveModal">
-  <div class="modal-body">
+<dialog class="modal modal-center modal-top lg:modal-center lg:modal-middle" id="responsiveModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Responsive modal</div>
     </div>
@@ -357,8 +357,8 @@
 <p>Place the modal wherever on the screen depending on the language direction (LTR or RTL).</p>
 <h3>Right-aligned and vertically centered in LTR and RTL</h3>
 <c-snippet>
-<dialog class="modal ltr:modal-x-end ltr:modal-y-center rtl:modal-x-start lg:modal-y-center" id="ltrModal">
-  <div class="modal-body">
+<dialog class="modal ltr:modal-end ltr:modal-middle rtl:modal-start lg:modal-middle" id="ltrModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Responsive modal</div>
     </div>
@@ -367,9 +367,9 @@
       Changing
       <code>dir="rtl"</code>
       in the HTML will have no effect on the modal's the position because the layout is controlled by utility classes:
-      <code>modal-x-end</code>
+      <code>modal-end</code>
       for the LTR variant and
-      <code>modal-x-start</code>
+      <code>modal-start</code>
       for the RTL variant.
     </p>
   </div>
@@ -382,8 +382,8 @@
 
 <h2>Place the modal based on screen size and language direction</h2>
 <c-snippet>
-<dialog class="modal ltr:modal-x-center lg:ltr:modal-x-start ltr:modal-y-start lg:ltr:modal-y-center rtl:modal-x-center lg:rtl:modal-x-start rtl:modal-y-end lg:rtl:modal-y-center" id="mixedModal">
-  <div class="modal-body">
+<dialog class="modal ltr:modal-center lg:ltr:modal-start ltr:modal-top lg:ltr:modal-middle rtl:modal-center lg:rtl:modal-start rtl:modal-bottom lg:rtl:modal-middle" id="mixedModal">
+  <div class="modal-content">
     <div class="flex justify-between items-center gap-3">
       <div class="font-medium heading-lg">Responsive modal</div>
     </div>

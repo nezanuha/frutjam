@@ -3,43 +3,62 @@
 </p>
 
 <h2>Basic Usage</h2>
+<p>Use the <code>sidebar</code> class on an <code>aside</code> element. Place it alongside your main content in a flex container.</p>
 <c-snippet>
-<div class="drawer">
-  <input id="my-drawer" type="checkbox" class="drawer-toggle">
-  <div class="drawer-content">
-    <label for="my-drawer" class="btn btn-primary drawer-button">Open Sidebar</label>
-  </div>
-  <div class="drawer-side">
-    <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 min-h-full bg-base-200">
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
-      <li><a>Sidebar Item 3</a></li>
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
     </ul>
-  </div>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
 </div>
 </c-snippet>
 
 <h2>Sidebar Navigation</h2>
+<p>A full navigation sidebar with grouped sections and active state styling.</p>
 <c-snippet>
-<div class="drawer">
-  <input id="sidebar-toggle" type="checkbox" class="drawer-toggle">
-  <div class="drawer-content">
-    <div class="navbar bg-base-100 border-b">
-      <label for="sidebar-toggle" class="btn btn-ghost btn-circle">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </label>
-      <span class="text-xl font-bold">Dashboard</span>
-    </div>
-  </div>
-  <div class="drawer-side">
-    <label for="sidebar-toggle" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      <li><a>Home</a></li>
-      <li><a>Profile</a></li>
-      <li><a>Settings</a></li>
-      <li><a>Logout</a></li>
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
     </ul>
-  </div>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
 </div>
+</c-snippet>
+
+<h2>Collapsible Sidebar</h2>
+<p>For mobile or overlay sidebars, combine the <code>sidebar</code> class with the <code>drawer drawer-start</code> dialog component.</p>
+<c-snippet>
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
 </c-snippet>
