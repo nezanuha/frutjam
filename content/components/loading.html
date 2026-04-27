@@ -2,6 +2,38 @@
   Loading components display visual indicators while content is being fetched or processed, keeping users informed and preventing perceived delays. Built with semantic HTML and smooth CSS animations, loading spinners communicate active background operations. The Frutjam loading system supports multiple styles, colors, and sizes—ideal for data tables, file uploads, form submissions, and asynchronous operations.
 </p>
 
+<div class="overflow-y-auto h-72">
+  <table class="table table-sm not-prose">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>loading</td><td><span class="badge badge-xs">Base</span></td><td>Spinning ring indicator, inherits text color by default</td></tr>
+      <tr><td>loading-dots</td><td><span class="badge badge-xs badge-success badge-soft">Style</span></td><td>Three pulsing dots</td></tr>
+      <tr><td>loading-bars</td><td><span class="badge badge-xs badge-success badge-soft">Style</span></td><td>Three animated vertical bars</td></tr>
+      <tr><td>loading-xs</td><td><span class="badge badge-xs badge-info badge-soft">Size</span></td><td>Extra small (1rem)</td></tr>
+      <tr><td>loading-sm</td><td><span class="badge badge-xs badge-info badge-soft">Size</span></td><td>Small (1.25rem)</td></tr>
+      <tr><td>loading-md</td><td><span class="badge badge-xs badge-info badge-soft">Size</span></td><td>Medium (1.5rem, default)</td></tr>
+      <tr><td>loading-lg</td><td><span class="badge badge-xs badge-info badge-soft">Size</span></td><td>Large (2rem)</td></tr>
+      <tr><td>loading-xl</td><td><span class="badge badge-xs badge-info badge-soft">Size</span></td><td>Extra large (2.5rem)</td></tr>
+      <tr><td>loading-base</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Muted base surface color</td></tr>
+      <tr><td>loading-current</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Explicitly inherits the current text color</td></tr>
+      <tr><td>loading-primary</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Primary theme color</td></tr>
+      <tr><td>loading-secondary</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Secondary theme color</td></tr>
+      <tr><td>loading-accent</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Accent theme color</td></tr>
+      <tr><td>loading-neutral</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Neutral theme color</td></tr>
+      <tr><td>loading-info</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Info semantic color</td></tr>
+      <tr><td>loading-success</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Success semantic color</td></tr>
+      <tr><td>loading-warning</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Warning semantic color</td></tr>
+      <tr><td>loading-error</td><td><span class="badge badge-xs badge-warning badge-soft">Color</span></td><td>Error semantic color</td></tr>
+    </tbody>
+  </table>
+</div>
+
 <h2>Basic Usage</h2>
 <c-snippet>
 <span class="loading"></span>
@@ -25,6 +57,7 @@
 
 <h2>Loading Colors</h2>
 <c-snippet>
+<span class="loading loading-base"></span>
 <span class="loading loading-primary"></span>
 <span class="loading loading-secondary"></span>
 <span class="loading loading-accent"></span>
@@ -35,6 +68,18 @@
 <span class="loading loading-neutral"></span>
 </c-snippet>
 
+<h2>Loading Current Color</h2>
+<c-snippet>
+<p class="text-primary flex items-center gap-2">
+  <span class="loading loading-sm"></span>
+  Inherits primary text color
+</p>
+<p class="text-error flex items-center gap-2">
+  <span class="loading loading-sm"></span>
+  Inherits error text color
+</p>
+</c-snippet>
+
 <h2>Loading in Button</h2>
 <c-snippet>
 <button class="btn gap-2">
@@ -43,14 +88,19 @@
 </button>
 
 <button class="btn btn-primary gap-2">
-  <span class="loading loading-sm"></span>
+  <span class="loading loading-sm loading-current"></span>
   Processing
+</button>
+
+<button class="btn btn-error gap-2">
+  <span class="loading loading-sm loading-current"></span>
+  Deleting
 </button>
 </c-snippet>
 
 <h2>Loading States</h2>
 <c-snippet>
-<div class="card w-96 bg-base-100 shadow-xl">
+<div class="card card-outline w-96">
   <div class="card-content">
     <h3 class="card-title">Loading Data</h3>
     <div class="flex items-center gap-2">

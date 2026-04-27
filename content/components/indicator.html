@@ -2,6 +2,28 @@
   Indicator components display status, badges, or notifications positioned on other elements. Built with absolute positioning and flexible styling, indicators overlay important information on cards, avatars, and buttons. The Frutjam indicator system supports multiple placements, sizes, and colors—ideal for notification badges, status markers, and visual cues.
 </p>
 
+<div class="overflow-y-auto h-72">
+  <table class="table table-sm not-prose">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>indicator</td><td><span class="badge badge-xs">Base</span></td><td>Relative-positioned wrapper for the indicator item</td></tr>
+      <tr><td>indicator-item</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Absolutely positioned badge or dot element</td></tr>
+      <tr><td>indicator-top</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the top edge</td></tr>
+      <tr><td>indicator-middle</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the vertical middle</td></tr>
+      <tr><td>indicator-bottom</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the bottom edge</td></tr>
+      <tr><td>indicator-start</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the left edge</td></tr>
+      <tr><td>indicator-center</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the horizontal center</td></tr>
+      <tr><td>indicator-end</td><td><span class="badge badge-xs badge-secondary badge-soft">Modifier</span></td><td>Positions item at the right edge</td></tr>
+    </tbody>
+  </table>
+</div>
+
 <h2>Basic Usage</h2>
 <c-snippet>
 <div class="indicator">
@@ -12,47 +34,58 @@
 
 <h2>Indicator Placements</h2>
 <c-snippet>
-<div class="indicator indicator-top indicator-start">
-  <span class="indicator-item badge badge-primary">Top Start</span>
-  <button class="btn">Button</button>
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
 </div>
+</c-snippet>
 
-<div class="indicator indicator-top indicator-center">
-  <span class="indicator-item badge badge-secondary">Top Center</span>
-  <button class="btn">Button</button>
+<h2>Indicator in Tabs</h2>
+<c-snippet>
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
 </div>
+</c-snippet>
 
-<div class="indicator indicator-top indicator-end">
-  <span class="indicator-item badge badge-accent">Top End</span>
-  <button class="btn">Button</button>
+<h2>Indicator on Input</h2>
+<c-snippet>
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
 </div>
+</c-snippet>
 
-<div class="indicator indicator-middle indicator-start">
-  <span class="indicator-item badge badge-info">Middle Start</span>
-  <button class="btn">Button</button>
-</div>
-
-<div class="indicator indicator-middle indicator-end">
-  <span class="indicator-item badge badge-success">Middle End</span>
-  <button class="btn">Button</button>
-</div>
-
-<div class="indicator indicator-bottom indicator-start">
-  <span class="indicator-item badge badge-warning">Bottom Start</span>
-  <button class="btn">Button</button>
-</div>
-
-<div class="indicator indicator-bottom indicator-end">
-  <span class="indicator-item badge badge-error">Bottom End</span>
-  <button class="btn">Button</button>
+<h2>Indicator on Image</h2>
+<c-snippet>
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
 </div>
 </c-snippet>
 
 <h2>Indicator on Cards</h2>
 <c-snippet>
-<div class="indicator w-full">
+<div class="indicator">
   <span class="indicator-item badge badge-success">New</span>
-  <div class="card w-full bg-base-100 shadow-xl">
+  <div class="card card-outline">
     <div class="card-content">
       <h2 class="card-title">Product Name</h2>
       <p>Product description and details go here.</p>
@@ -64,22 +97,15 @@
 <h2>Indicator on Avatar</h2>
 <c-snippet>
 <div class="indicator">
-  <span class="indicator-item badge indicator-top indicator-end badge-success"></span>
-  <div class="avatar">
-    <div class="w-12 bg-primary rounded-full flex items-center justify-center text-white">JS</div>
-  </div>
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
 </div>
 </c-snippet>
 
-<h2>Multiple Indicators</h2>
+<h2>Responsive Behavior</h2>
 <c-snippet>
 <div class="indicator">
-  <span class="indicator-item badge badge-lg">5</span>
-  <div class="card w-64 bg-base-100 shadow-xl">
-    <div class="card-content">
-      <h2 class="card-title">Notifications</h2>
-      <p>You have new updates</p>
-    </div>
-  </div>
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
 </div>
 </c-snippet>
