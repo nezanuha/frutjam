@@ -1,36 +1,13 @@
-@import "./colors.css";
-@import "./sizes.css";
-
-@utility combobox {
-    --color-combobox: var(--color-base-soft);
-    --color-combobox-list: var(--color-base);
-    --color-on-combobox: var(--color-on-base);
-    --color-combobox-option-hover: var(--color-base-soft);
-    --color-combobox-option-active: var(--color-primary-soft);
-    --color-on-combobox-option-active: light-dark(var(--color-primary-800), var(--color-primary));
-
-    --combobox-list-padding: 0.375rem;
-    --combobox-option-padding-inline: 0.75rem;
-    --combobox-option-padding-block: 0.5rem;
-    --combobox-option-font-size: 0.875rem;
-    --combobox-option-radius: calc(var(--border-radius) * 1.5);
-
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 @utility combobox-list {
     position: absolute;
     inset-block-start: calc(100% + 0.25rem);
     inset-inline: 0;
     z-index: 100;
 
-    background-color: var(--color-combobox-list);
-    border: 1px solid var(--color-combobox);
+    background-color: var(--color-base);
+    border: 1px solid var(--color-base-soft);
     border-radius: calc(var(--border-radius) * 2);
-    padding: var(--combobox-list-padding);
+    padding: 0.375rem;
     margin: 0;
     list-style: none;
 
@@ -50,31 +27,70 @@
     box-shadow: 0 4px 16px --alpha(var(--color-base-950) / 10%);
 }
 
-@utility combobox-option {
-    padding-inline: var(--combobox-option-padding-inline);
-    padding-block: var(--combobox-option-padding-block);
-    font-size: var(--combobox-option-font-size);
-    border-radius: var(--combobox-option-radius);
-    color: var(--color-on-combobox);
+@utility combobox-item {
+    --combobox-item-active-bg: var(--color-primary-soft);
+    --combobox-item-active-color: light-dark(var(--color-primary-800), var(--color-primary));
+
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
+    font-size: 0.875rem;
+    border-radius: calc(var(--border-radius) * 1.5);
+    color: var(--color-on-base);
     cursor: pointer;
     transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 
     @variant hover {
-        background-color: var(--color-combobox-option-hover);
+        background-color: var(--color-base-soft);
     }
 
     &[aria-selected="true"],
-    &.combobox-option-active {
-        background-color: var(--color-combobox-option-active);
-        color: var(--color-on-combobox-option-active);
+    &.combobox-item-active {
+        background-color: var(--combobox-item-active-bg);
+        color: var(--combobox-item-active-color);
     }
 }
 
-/* Open state — via JS class or :focus-within */
+/* Add to a wrapper element; shows the list */
 @utility combobox-open {
     .combobox-list {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
     }
+}
+
+/* Color variants — override the active item highlight */
+@utility combobox-primary {
+    --combobox-item-active-bg: var(--color-primary-soft);
+    --combobox-item-active-color: light-dark(var(--color-primary-800), var(--color-primary));
+}
+
+@utility combobox-secondary {
+    --combobox-item-active-bg: var(--color-secondary-soft);
+    --combobox-item-active-color: light-dark(var(--color-secondary-800), var(--color-secondary));
+}
+
+@utility combobox-accent {
+    --combobox-item-active-bg: var(--color-accent-soft);
+    --combobox-item-active-color: light-dark(var(--color-accent-800), var(--color-accent));
+}
+
+@utility combobox-info {
+    --combobox-item-active-bg: var(--color-info-soft);
+    --combobox-item-active-color: light-dark(var(--color-info-800), var(--color-info));
+}
+
+@utility combobox-success {
+    --combobox-item-active-bg: var(--color-success-soft);
+    --combobox-item-active-color: light-dark(var(--color-success-800), var(--color-success));
+}
+
+@utility combobox-warning {
+    --combobox-item-active-bg: var(--color-warning-soft);
+    --combobox-item-active-color: light-dark(var(--color-warning-800), var(--color-warning));
+}
+
+@utility combobox-error {
+    --combobox-item-active-bg: var(--color-error-soft);
+    --combobox-item-active-color: light-dark(var(--color-error-800), var(--color-error));
 }

@@ -1,57 +1,110 @@
 <p>
-  Combobox components combine text input with dropdown selection, allowing users to either type custom values or choose from a curated list. Built with native input elements and flexible styling, comboboxes support autocomplete and filtering. The Frutjam combobox system supports multiple sizes, colors, and states—ideal for searchable selections, command palettes, and intelligent inputs.
+  Combobox combines a text input with a dropdown list. Use the <code>input</code> component for the field — size, color, and state variants come from there. The <code>combobox-*</code> utilities handle only the dropdown list, items, and open state.
 </p>
 
 <h2>Basic Usage</h2>
+<p>Wrap an <code>input</code> and a <code>combobox-list</code> in a <code>relative</code> container. Add <code>combobox-open</code> to the wrapper to show the list — toggle it via JS or <code>:focus-within</code>.</p>
 <c-snippet>
-<input type="text" class="combobox" placeholder="Search or select...">
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
 </c-snippet>
 
-<h2>Combobox Sizes</h2>
+<h2>Open on Focus</h2>
+<p>Use <code>focus-within:combobox-open</code> on the wrapper to open the list when the input is focused — no JavaScript needed.</p>
 <c-snippet>
-<input type="text" class="combobox combobox-xs" placeholder="Extra Small">
-<input type="text" class="combobox combobox-sm" placeholder="Small">
-<input type="text" class="combobox combobox-md" placeholder="Medium">
-<input type="text" class="combobox combobox-lg" placeholder="Large">
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
 </c-snippet>
 
-<h2>Combobox Colors</h2>
+<h2>Sizes</h2>
+<p>Use <code>input-sm</code>, <code>input-lg</code>, etc. on the input field. The dropdown adapts naturally.</p>
 <c-snippet>
-<input type="text" class="combobox" placeholder="Default">
-<input type="text" class="combobox combobox-primary" placeholder="Primary">
-<input type="text" class="combobox combobox-secondary" placeholder="Secondary">
-<input type="text" class="combobox combobox-accent" placeholder="Accent">
-<input type="text" class="combobox combobox-info" placeholder="Info">
-<input type="text" class="combobox combobox-success" placeholder="Success">
-<input type="text" class="combobox combobox-warning" placeholder="Warning">
-<input type="text" class="combobox combobox-error" placeholder="Error">
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
 </c-snippet>
 
-<h2>Combobox with Options</h2>
+<h2>Colors</h2>
+<p>Use <code>input-primary</code> etc. on the input for the field color. Add the matching <code>combobox-primary</code> to the wrapper to tint the active item highlight.</p>
 <c-snippet>
-<label>
-  <span>Pick a framework</span>
-  <div class="relative combobox-open">
-    <input type="text" class="combobox w-full" placeholder="Search frameworks...">
-    <ul class="combobox-list">
-      <li class="combobox-option">React</li>
-      <li class="combobox-option combobox-option-active">Vue</li>
-      <li class="combobox-option">Angular</li>
-      <li class="combobox-option">Svelte</li>
-    </ul>
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+</c-snippet>
+
+<h2>Disabled</h2>
+<c-snippet>
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+</c-snippet>
+
+<h2>With Button</h2>
+<p>Compose with <code>join</code> to attach a search icon or trigger button.</p>
+<c-snippet>
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item w-full" placeholder="Search...">
   </div>
-</label>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
 </c-snippet>
 
-<h2>Disabled Combobox</h2>
+<h2>Items as Links or Buttons</h2>
+<p><code>combobox-item</code> works on any element — <code>&lt;li&gt;</code>, <code>&lt;a&gt;</code>, or <code>&lt;button&gt;</code>.</p>
 <c-snippet>
-<input type="text" class="combobox" placeholder="Disabled combobox" disabled>
-</c-snippet>
-
-<h2>Combobox with Search Icon</h2>
-<c-snippet>
-<div class="join">
-  <span class="join-item btn btn-soft">🔍</span>
-  <input type="text" class="combobox join-item w-full" placeholder="Search items...">
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
 </div>
 </c-snippet>

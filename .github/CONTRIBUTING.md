@@ -1,6 +1,6 @@
 # 🤝 Contributing to Frutjam
 
-Thank you for your interest in contributing to **Frutjam**! Whether you’re fixing bugs, improving documentation, or adding new features, your contributions help make this library better for everyone.
+Thank you for your interest in contributing to **Frutjam**! Whether you're fixing bugs, improving documentation, or adding new features, your contributions help make this library better for everyone.
 
 ---
 
@@ -11,7 +11,7 @@ Thank you for your interest in contributing to **Frutjam**! Whether you’re fix
 Click the **Fork** button on the [GitHub repo](https://github.com/nezanuha/frutjam) and clone your fork locally:
 
 ```bash
-git clone https://github.com/yourusername/frutjam.git
+git clone https://github.com/nezanuha/frutjam.git
 cd frutjam
 ````
 
@@ -49,9 +49,39 @@ git push origin fix/button-focus-state
 Open a pull request on the main repo. In your PR description, include:
 
 * What your change does
-* Why it’s needed
+* Why it's needed
 * Screenshots or code samples, if relevant
 
+---
+
+## 📝 Updating Component Content (`content/*`)
+
+Component documentation lives in `content/components/`. Each file is an HTML page that uses the `<c-snippet>` component to show live previews alongside syntax-highlighted code.
+
+### `<c-snippet>` — Code Snippet Component
+
+Show a live preview and code block for one language using the `lang` prop:
+
+```html
+<c-snippet>
+  <button class="btn">Click me</button>
+</c-snippet>
+
+<c-snippet lang="css">
+  .btn { color: red; }
+</c-snippet>
+
+<c-snippet lang="js">
+  console.log('hello');
+</c-snippet>
+```
+
+**Props:**
+
+| Prop | Values | Default | Description |
+|------|--------|---------|-------------|
+| `lang` | `html`, `css`, `js`, `python`, etc. | `html` | Language for syntax highlighting |
+| `view` | `both`, `preview`, `code` | `both` | What to display |
 ---
 
 ## 💡 Contribution Ideas

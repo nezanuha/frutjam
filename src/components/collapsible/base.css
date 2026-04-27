@@ -4,7 +4,9 @@
   /* Open via JS class */
   &.collapsible-open,
   /* Open via checkbox inside */
-  &:has(> .collapsible-toggle:checked) {
+  &:has(> .collapsible-toggle:checked),
+  /* Open via native <details> element */
+  &[open] {
     & > .collapsible-content {
       grid-template-rows: 1fr;
     }
@@ -65,7 +67,8 @@
   }
 
   .collapsible-open > &::after,
-  .collapsible:has(> .collapsible-toggle:checked) &::after {
+  .collapsible:has(> .collapsible-toggle:checked) &::after,
+  .collapsible[open] > &::after {
     transform: rotate(225deg);
   }
 }
@@ -74,9 +77,10 @@
 @utility is-collapsible-open {
   display: none;
 
-  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked)) &,
+  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked), .collapsible[open]) &,
   .collapsible-group:has(.collapsible-open) &,
-  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) & {
+  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) &,
+  .collapsible-group:has(.collapsible[open]) & {
     display: inline;
   }
 }
@@ -85,9 +89,10 @@
 @utility is-collapsible-close {
   display: inline;
 
-  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked)) &,
+  :is(.collapsible-open, .collapsible:has(> .collapsible-toggle:checked), .collapsible[open]) &,
   .collapsible-group:has(.collapsible-open) &,
-  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) & {
+  .collapsible-group:has(.collapsible > .collapsible-toggle:checked) &,
+  .collapsible-group:has(.collapsible[open]) & {
     display: none;
   }
 }

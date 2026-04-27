@@ -1,80 +1,155 @@
 <p>
-  Collapsible components allow users to expand and collapse sections of content, saving space while maintaining access to detailed information. Built with native HTML details and summary elements, collapsibles provide semantic, keyboard-accessible disclosure patterns. Perfect for FAQs, accordion sections, nested menus, and progressive information revelation.
+  Collapsible components allow users to expand and collapse sections of content. Built with a hidden checkbox pattern,
+  collapsibles work without any JavaScript and support animated transitions via CSS grid.
 </p>
 
 <h2>Basic Usage</h2>
+<p>A hidden checkbox drives the open/close state. The <code>label</code> triggers it; the <code>collapsible-content</code> div animates open.</p>
 <c-snippet>
-<details class="collapsible">
-  <summary class="collapsible-title">Click to expand</summary>
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-basic" />
+  <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
   <div class="collapsible-content">
-    <p>This content is hidden until expanded.</p>
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is hidden until expanded.
+      </div>
+    </div>
   </div>
-</details>
+</div>
+</c-snippet>
+
+<h2>With Arrow Indicator</h2>
+<p>Add <code>collapsible-arrow</code> to the label to get a rotating chevron that reflects open/close state.</p>
+<c-snippet>
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-arrow" />
+  <label for="col-arrow" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">What is Frutjam?</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        Frutjam is a Tailwind CSS v4 component library built with CSS utilities and a PostCSS plugin.
+      </div>
+    </div>
+  </div>
+</div>
 </c-snippet>
 
 <h2>Multiple Collapsibles</h2>
 <c-snippet>
-<details class="collapsible">
-  <summary class="collapsible-title">Section One</summary>
-  <div class="collapsible-content">
-    <p>Content for the first section goes here.</p>
+<div class="flex flex-col gap-2">
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-1" />
+    <label for="col-1" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section One</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the first section.</div>
+      </div>
+    </div>
   </div>
-</details>
 
-<details class="collapsible">
-  <summary class="collapsible-title">Section Two</summary>
-  <div class="collapsible-content">
-    <p>Content for the second section goes here.</p>
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-2" />
+    <label for="col-2" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Two</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the second section.</div>
+      </div>
+    </div>
   </div>
-</details>
 
-<details class="collapsible">
-  <summary class="collapsible-title">Section Three</summary>
-  <div class="collapsible-content">
-    <p>Content for the third section goes here.</p>
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-3" />
+    <label for="col-3" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Three</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the third section.</div>
+      </div>
+    </div>
   </div>
-</details>
+</div>
 </c-snippet>
 
-<h2>Collapsible with Color</h2>
-<p>Apply color to collapsible sections using Tailwind background and text utilities.</p>
+<h2>Open by Default</h2>
+<p>Add <code>checked</code> to the checkbox input to start the panel open.</p>
 <c-snippet>
-<details class="collapsible bg-primary/10">
-  <summary class="collapsible-title text-primary">Primary Section</summary>
-  <div class="collapsible-content">Primary content</div>
-</details>
-
-<details class="collapsible bg-secondary/10">
-  <summary class="collapsible-title text-secondary">Secondary Section</summary>
-  <div class="collapsible-content">Secondary content</div>
-</details>
-
-<details class="collapsible bg-accent/10">
-  <summary class="collapsible-title text-accent">Accent Section</summary>
-  <div class="collapsible-content">Accent content</div>
-</details>
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-open" checked />
+  <label for="col-open" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Open by default</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is visible on initial load.
+      </div>
+    </div>
+  </div>
+</div>
 </c-snippet>
 
-<h2>Initially Open</h2>
+<h2>JS Controlled</h2>
+<p>Toggle <code>collapsible-open</code> on the wrapper element instead of using a checkbox — useful when the trigger lives elsewhere.</p>
 <c-snippet>
-<details class="collapsible" open>
-  <summary class="collapsible-title">This section is open by default</summary>
+<div class="collapsible collapsible-open border border-base-soft rounded-lg" id="js-col">
+  <button
+    class="collapsible-title collapsible-arrow px-4 py-3 font-medium"
+    onclick="this.closest('.collapsible').classList.toggle('collapsible-open')"
+  >
+    Toggle via JS (starts open)
+  </button>
   <div class="collapsible-content">
-    <p>This content is visible on initial load.</p>
+    <div>
+      <div class="px-4 py-3 text-sm opacity-70 border-t border-base-soft">
+        No hidden checkbox needed — state is managed by the <code>collapsible-open</code> class.
+      </div>
+    </div>
   </div>
-</details>
+</div>
 </c-snippet>
 
-<h2>Nested Collapsibles</h2>
+<h2>Peek Variant</h2>
+<p>
+  <code>collapsible-peek</code> shows a clipped preview with a gradient fade and an overlay trigger.
+  Override <code>--peek-height</code> to control how much content is visible when collapsed.
+</p>
 <c-snippet>
-<details class="collapsible">
-  <summary class="collapsible-title">Parent Section</summary>
+<div class="collapsible collapsible-peek rounded-xl border border-base-soft" style="--peek-height: 5rem;">
+  <input type="checkbox" class="collapsible-toggle" id="col-peek" />
   <div class="collapsible-content">
-    <p>Parent content</p>
-    <details class="collapsible ml-4">
-      <summary class="collapsible-title">Nested Section</summary>
-      <div class="collapsible-content">Nested content goes here.</div>
-    </details>
+    <div class="p-4 text-sm leading-relaxed">
+      <p>Frutjam is a Tailwind CSS v4 component library built around a PostCSS plugin architecture. Every component is a set of <code>@utility</code> definitions that integrate natively with Tailwind's utility pipeline.</p>
+      <p class="mt-3">Theming is handled entirely through CSS custom properties. Swap themes by setting a <code>data-theme</code> attribute on any container, or override individual tokens inline.</p>
+      <p class="mt-3">Components ship with sensible defaults and are designed to compose cleanly.</p>
+    </div>
   </div>
-</details>
+  <label for="col-peek" class="collapsible-overlay">
+    <span class="btn btn-sm">Read more</span>
+  </label>
+</div>
+</c-snippet>
+
+<h2>External Trigger with collapsible-group</h2>
+<p>
+  Wrap a trigger and a collapsible in <code>collapsible-group</code> to let labels outside <code>.collapsible</code>
+  respond to its open/close state via <code>is-collapsible-open</code> and <code>is-collapsible-close</code>.
+</p>
+<c-snippet>
+<div class="collapsible-group border border-base-soft rounded-lg p-4 flex flex-col gap-3">
+  <div class="flex items-center justify-between">
+    <span class="font-medium">Section A</span>
+    <label for="cg-1" class="btn btn-sm btn-ghost">
+      <span class="is-collapsible-close">Expand</span>
+      <span class="is-collapsible-open">Collapse</span>
+    </label>
+  </div>
+  <div class="collapsible">
+    <input type="checkbox" class="collapsible-toggle" id="cg-1" />
+    <div class="collapsible-content">
+      <div>
+        <div class="text-sm opacity-70">
+          This content is toggled by the button above, which lives outside <code>.collapsible</code> but inside <code>.collapsible-group</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </c-snippet>
