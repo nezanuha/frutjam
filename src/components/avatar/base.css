@@ -13,6 +13,8 @@
   --avatar-ring-width: 0px;
   --avatar-ring-color: var(--color-primary);
   --avatar-ring-offset: 2px;
+  --avatar-status-color: transparent;
+  --avatar-status-visible: none;
 
   position: relative;
   display: inline-flex;
@@ -39,6 +41,20 @@
     /* overflow on img not parent — status won't get clipped */
     overflow: hidden;
   }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: var(--avatar-status-offset);
+    right: var(--avatar-status-offset);
+    width: var(--avatar-status-size);
+    height: var(--avatar-status-size);
+    border-radius: 9999px;
+    border: 2px solid var(--color-base);
+    background-color: var(--avatar-status-color);
+    z-index: 1;
+    display: var(--avatar-status-visible);
+  }
 }
 
 @utility avatar-ring {
@@ -46,40 +62,24 @@
   --avatar-ring-color: var(--avatar-bg);
 }
 
-@utility avatar-status {
-  position: absolute;
-  bottom: var(--avatar-status-offset);
-  right: var(--avatar-status-offset);
-  width: var(--avatar-status-size);
-  height: var(--avatar-status-size);
-  border-radius: 9999px;
-  border: 2px solid var(--color-base);
-  background-color: var(--color-base-400);
-  z-index: 1;
-}
-
 @utility avatar-online {
-  .avatar-status {
-    background-color: var(--color-success);
-  }
+  --avatar-status-color: var(--color-success);
+  --avatar-status-visible: block;
 }
 
 @utility avatar-offline {
-  .avatar-status {
-    background-color: var(--color-base-400);
-  }
+  --avatar-status-color: var(--color-base-400);
+  --avatar-status-visible: block;
 }
 
 @utility avatar-busy {
-  .avatar-status {
-    background-color: var(--color-error);
-  }
+  --avatar-status-color: var(--color-error);
+  --avatar-status-visible: block;
 }
 
 @utility avatar-away {
-  .avatar-status {
-    background-color: var(--color-warning);
-  }
+  --avatar-status-color: var(--color-warning);
+  --avatar-status-visible: block;
 }
 
 @utility avatar-group {
