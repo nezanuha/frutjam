@@ -54,6 +54,54 @@ Open a pull request on the main repo. In your PR description, include:
 
 ---
 
+## 🔁 The `@copy` Rule
+
+Frutjam ships a custom build-time rule called `@copy`. It lets one `@utility` block inline the CSS body of another, removing the need to repeat declarations or reach for `@apply`.
+
+### How it works
+
+`@copy <name>;` is replaced at build time with the **full CSS body** of the named `@utility` block. It is resolved by Frutjam's PostCSS plugin before anything reaches the browser — there is no runtime cost.
+
+```css
+@utility btn {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+@utility card {
+  @copy btn;          /* expands to the three declarations above */
+  background: var(--color-base);
+  border: 1px solid;
+}
+```
+
+After build, `card` is equivalent to:
+
+```css
+@utility card {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  background: var(--color-base);
+  border: 1px solid;
+}
+```
+
+### Rules and constraints
+
+- `@copy` must appear **inside a `@utility` block** — it is not valid at the top level or inside `@layer` directly.
+- The referenced utility must be defined somewhere in the CSS that Frutjam processes (any component or utility file in `src/`). Order does not matter — the full map is built before any `@copy` is resolved.
+- If the referenced utility name does not exist, the `@copy` line is left as-is in the output (no silent data loss).
+- Only the **body** is copied — not the `@utility` wrapper itself. Declarations land directly in the calling block.
+- `@copy` does not support chaining arguments or selectors — one name per statement.
+
+### When to use it
+
+Use `@copy` when a component genuinely shares a structural base with another and you want a single source of truth for those declarations. Avoid it as a shortcut for loose stylistic similarities — prefer explicit declarations when the relationship is coincidental.
+
+---
+
 ## 📝 Updating Component Content (`content/*`)
 
 Component documentation lives in `content/components/`. Each file is an HTML page that uses the `<c-snippet>` component to show live previews alongside syntax-highlighted code.
