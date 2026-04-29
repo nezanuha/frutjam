@@ -23,7 +23,7 @@
 
 * 🧱 **Prebuilt UI Components** — Plug-and-play components to save time
 * 🎨 **Customizable Themes** — Built-in themes plus custom theme injection
-* 🏷️ **Independent Prefix Support** — Scope Frutjam classes behind their own prefix (e.g. `fj-btn`), separate from Tailwind’s prefix
+* 🏷️ **Flexible Prefix Support** — Use Frutjam’s own prefix (`fj-btn`), Tailwind’s variant prefix (`tw:btn`), or both together (`tw:fj-btn`)
 * ♿ **Accessibility-First** — Follows accessibility best practices
 * 🔍 **SEO-Friendly** — Semantic markup optimized for search engines
 * ✅ **W3C Standards** — Clean, valid HTML structure
@@ -54,7 +54,7 @@ In your main stylesheet:
 
 ## With Prefix
 
-Configure the prefix directly in your CSS file — no `postcss.config.js` changes needed:
+**Frutjam prefix only** — renames Frutjam class names:
 
 ```css
 @import "tailwindcss";
@@ -63,21 +63,32 @@ Configure the prefix directly in your CSS file — no `postcss.config.js` change
 }
 ```
 
-Or via `postcss.config.js` if you prefer:
+```html
+<button class="fj-btn fj-btn-primary">Launch App</button>
+```
 
-```js
-module.exports = {
-  plugins: {
-    "frutjam": { prefix: "fj" },
-    "@tailwindcss/postcss": {}
-  }
+**Tailwind prefix only** — Tailwind's `prefix()` acts as a variant; all utilities (including Frutjam's) require it in HTML:
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+```
+
+```html
+<button class="tw:btn tw:btn-primary">Launch App</button>
+```
+
+**Both prefixes** — Frutjam renames its classes, Tailwind's variant prefix is required on top:
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
 }
 ```
 
 ```html
-<button class="fj-btn fj-btn-primary">
-  Launch App
-</button>
+<button class="tw:fj-btn tw:fj-btn-primary">Launch App</button>
 ```
 
 ## Plugin Options

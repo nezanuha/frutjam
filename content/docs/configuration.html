@@ -30,6 +30,42 @@
 <button class="fj-btn fj-btn-primary">Send mail</button>
 </c-snippet>
 
+<p>How prefix behaves depends on whether you also use Tailwind's <code>prefix()</code> option:</p>
+
+<h4>Frutjam prefix only</h4>
+<p>Frutjam class names are prefixed. Use them directly in HTML.</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+</c-snippet>
+<c-snippet view="code" lang="html">
+<button class="fj-btn">Button</button>
+</c-snippet>
+
+<h4>Tailwind prefix only</h4>
+<p>Tailwind's <code>prefix()</code> works as a variant — all utilities (including Frutjam's) require the prefix as a variant selector in HTML.</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+</c-snippet>
+<c-snippet view="code" lang="html">
+<button class="tw:btn">Button</button>
+</c-snippet>
+
+<h4>Both prefixes</h4>
+<p>Frutjam renames its classes (e.g. <code>fj-btn</code>), and Tailwind's variant prefix is required on top.</p>
+<c-snippet view="code" lang="css">
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
+}
+</c-snippet>
+<c-snippet view="code" lang="html">
+<button class="tw:fj-btn">Button</button>
+</c-snippet>
+
 <h3>reset</h3>
 <p>Controls whether Frutjam injects base reboot styles. Defaults to <code>true</code>. Set to <code>false</code> if you manage your own CSS reset.</p>
 <c-snippet view="code" lang="css">
