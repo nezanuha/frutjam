@@ -2,7 +2,7 @@ import postcss from "postcss"
 import tailwindcss from "@tailwindcss/postcss"
 import autoprefixer from "autoprefixer"
 import cssnano from "cssnano"
-import frutjam from "../index.js"
+import frutjam, { buildUtilityMap, resolveCopy } from "../index.js"
 import { writeFileSync, mkdirSync, readFileSync, readdirSync, statSync, existsSync } from "fs"
 import { fileURLToPath } from "url"
 import { dirname, join, basename, extname } from "path"
@@ -157,6 +157,12 @@ async function buildModule(cssContent) {
 const REGISTRY = buildRegistry()
 const distDir = join(rootDir, "dist")
 
+// Pre-built utility map — used to resolve @copy references across components/utilities
+const FULL_CONTEXT_MAP = buildUtilityMap(
+  [...Object.values(REGISTRY.components), ...Object.values(REGISTRY.utilities)]
+    .map(p => resolveImports(readFile(p), dirname(p))).join("\n")
+)
+
 // ── 1. Full bundle ────────────────────────────────────────────────────────────
 
 console.log(`\nBuilding frutjam v${version} CDN files...\n[full bundle]`)
@@ -204,7 +210,8 @@ for (const theme of ["darkberry", "snowberry"]) {
 console.log("\n[components]")
 
 for (const [name, filePath] of Object.entries(REGISTRY.components)) {
-  const css = resolveImports(readFile(filePath), dirname(filePath))
+  const raw = resolveImports(readFile(filePath), dirname(filePath))
+  const css = resolveCopy(raw, FULL_CONTEXT_MAP)
   const compiled = await buildModule(css)
   writeDist(join(distDir, `components/${name}.css`), await minify(compiled))
 }
@@ -214,7 +221,8 @@ for (const [name, filePath] of Object.entries(REGISTRY.components)) {
 console.log("\n[utilities]")
 
 for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
-  const css = resolveImports(readFile(filePath), dirname(filePath))
+  const raw = resolveImports(readFile(filePath), dirname(filePath))
+  const css = resolveCopy(raw, FULL_CONTEXT_MAP)
   const compiled = await buildModule(css)
   writeDist(join(distDir, `utilities/${name}.css`), await minify(compiled))
 }

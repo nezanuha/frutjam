@@ -2,6 +2,7 @@ import postcss from "postcss"
 import postcssJs from "postcss-js"
 import tailwindcss from "@tailwindcss/postcss"
 import autoprefixer from "autoprefixer"
+import { buildUtilityMap, resolveCopy } from "../index.js"
 import { writeFileSync, mkdirSync, readFileSync, readdirSync, statSync, existsSync } from "fs"
 import { fileURLToPath } from "url"
 import { dirname, join, basename, extname } from "path"
@@ -91,6 +92,12 @@ function buildRegistry() {
 }
 
 const REGISTRY = buildRegistry()
+
+// Pre-built utility map — used to resolve @copy references across components/utilities
+const FULL_CONTEXT_MAP = buildUtilityMap(
+  [...Object.values(REGISTRY.components), ...Object.values(REGISTRY.utilities)]
+    .map(p => resolveImports(readFile(p), dirname(p))).join("\n")
+)
 
 // ── Tailwind compilation ─────────────────────────────────────────────────────
 
@@ -256,7 +263,8 @@ for (const theme of ["darkberry", "snowberry"]) {
 console.log("\n[components]")
 const COMPONENTS = {}
 for (const [name, filePath] of Object.entries(REGISTRY.components)) {
-  const css = resolveImports(readFile(filePath), dirname(filePath))
+  const raw = resolveImports(readFile(filePath), dirname(filePath))
+  const css = resolveCopy(raw, FULL_CONTEXT_MAP)
   const compiled = await buildModule(css)
   COMPONENTS[name] = cssToJsObject(compiled)
 
@@ -277,7 +285,8 @@ for (const [name, filePath] of Object.entries(REGISTRY.components)) {
 console.log("\n[utilities]")
 const UTILITIES = {}
 for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
-  const css = resolveImports(readFile(filePath), dirname(filePath))
+  const raw = resolveImports(readFile(filePath), dirname(filePath))
+  const css = resolveCopy(raw, FULL_CONTEXT_MAP)
   const compiled = await buildModule(css)
   const jsObj = cssToJsObject(compiled)
   UTILITIES[name] = jsObj
@@ -429,13 +438,17 @@ export default plugin.withOptions(
 
     const p = prefix ? prefix + "-" : ""
 
-    if (logs) console.log(\`\\x1b[36mfrutjam v${version}\\x1b[0m loaded\${prefix ? \` with prefix "\${prefix}-"\` : ""}\`)
-
     const shouldInclude = (name) => {
       if (include.length > 0 && exclude.length > 0) return include.includes(name) && !exclude.includes(name)
       if (include.length > 0) return include.includes(name)
       if (exclude.length > 0) return !exclude.includes(name)
       return true
+    }
+
+    if (logs) {
+      const d = "\\x1b[2m", r = "\\x1b[0m"
+      const badge = "\\x1b[46m\\x1b[30m frutjam \\x1b[0m"
+      console.log("\\n" + badge + "  " + d + "v${version}" + r + "\\n")
     }
 
     // Base

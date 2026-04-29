@@ -6,6 +6,7 @@ import postcss from "postcss"
 const __filename = fileURLToPath(import.meta.url)
 const __dir = dirname(__filename)
 const srcDir = join(__dir, "src")
+const VERSION = JSON.parse(readFileSync(join(__dir, "package.json"), "utf8")).version
 
 // ── Keys that must be injected after Tailwind processes layers ───────────────
 // These files conflict with @layer utilities from Tailwind plugins (e.g. typography),
@@ -65,6 +66,31 @@ function applyPrefix(css, prefix) {
     (match, name) => name ? `.${prefix}-${name}` : match
   )
   return css
+}
+
+function buildUtilityMap(css) {
+  const map = new Map()
+  const pattern = /@utility\s+([\w-]+(?:\s*\*)?)\s*\{/g
+  let match
+  while ((match = pattern.exec(css)) !== null) {
+    const name = match[1].trim()
+    if (map.has(name)) continue
+    let depth = 0, bodyStart = -1
+    for (let i = match.index + match[0].length - 1; i < css.length; i++) {
+      if (css[i] === '{') {
+        if (depth === 0) bodyStart = i + 1
+        depth++
+      } else if (css[i] === '}') {
+        if (--depth === 0) { map.set(name, css.slice(bodyStart, i)); break }
+      }
+    }
+  }
+  return map
+}
+
+function resolveCopy(css, source = css) {
+  const map = source instanceof Map ? source : buildUtilityMap(source)
+  return css.replace(/@copy\s+([\w-]+)\s*;/g, (original, name) => map.get(name) ?? original)
 }
 
 function resolveImports(css, baseDir) {
@@ -130,7 +156,9 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
     .map(k => resolveImports(readFile(REGISTRY[k]), dirname(REGISTRY[k])))
     .join("\n")
 
-  let css = baseCss + "\n" + modulesCss
+  const combined = baseCss + "\n" + modulesCss
+  const utilMap = buildUtilityMap(combined)
+  let css = resolveCopy(combined, utilMap)
 
   if (rootSelector !== ":root") {
     css = css.replace(/:root\b/g, rootSelector)
@@ -141,10 +169,10 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
   const customThemes = buildCustomThemes(themes)
   if (customThemes) css += "\n\n" + customThemes
 
-  return css
+  return { css, utilMap }
 }
 
-function buildLateCSS(prefix, include, exclude) {
+function buildLateCSS(prefix, include, exclude, utilMap = new Map()) {
   let keys = [...LATE_INJECT].filter(k => REGISTRY[k])
   if (include.length > 0) {
     keys = keys.filter(k => include.includes(k))
@@ -153,9 +181,10 @@ function buildLateCSS(prefix, include, exclude) {
     keys = keys.filter(k => !excludeSet.has(k))
   }
   if (keys.length === 0) return ""
-  const css = keys
+  const raw = keys
     .map(k => resolveImports(readFile(REGISTRY[k]), dirname(REGISTRY[k])))
     .join("\n")
+  const css = resolveCopy(raw, utilMap)
   return applyPrefix(css, prefix)
 }
 
@@ -176,6 +205,8 @@ function parseAtPluginOptions(atRule) {
   })
   return opts
 }
+
+export { buildUtilityMap, resolveCopy }
 
 export default function frutjam(options = {}) {
   let _lateCss = ""
@@ -210,10 +241,14 @@ export default function frutjam(options = {}) {
       const include      = parseList(merged.include)
       const exclude      = parseList(merged.exclude)
 
-      const css = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
+      const { css, utilMap } = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
       root.append(postcss.parse(css).nodes)
-      _lateCss = buildLateCSS(prefix, include, exclude)
-      if (logs) console.log(`\x1b[36mfrutjam v2\x1b[0m loaded${prefix ? ` with prefix "${prefix}-"` : ""}`)
+      _lateCss = buildLateCSS(prefix, include, exclude, utilMap)
+      if (logs) {
+        const d = "\x1b[2m", r = "\x1b[0m"
+        const badge = "\x1b[46m\x1b[30m frutjam \x1b[0m"
+        console.log("\n" + badge + "  " + d + "v" + VERSION + r + "\n")
+      }
     },
     OnceExit(root) {
       if (!_lateCss) return

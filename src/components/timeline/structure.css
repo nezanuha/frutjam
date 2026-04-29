@@ -13,6 +13,8 @@
 @utility timeline-snap-start {
   & .timeline-item {
     grid-template-columns: 0 auto 1fr;
+    /* col1=0 + gap(1rem) + half-dot(0.5rem) = 1.5rem from left */
+    &::after { inset-inline-start: 1.5rem; }
   }
   & .timeline-start { display: none; }
 }
@@ -20,6 +22,8 @@
 @utility timeline-snap-end {
   & .timeline-item {
     grid-template-columns: 1fr auto 0;
+    /* col3=0 + gap(1rem) + half-dot(0.5rem) = 1.5rem from right */
+    &::after { inset-inline-start: calc(100% - 1.5rem); }
   }
   & .timeline-end { display: none; }
 }
