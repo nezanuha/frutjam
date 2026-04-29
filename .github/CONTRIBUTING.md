@@ -84,6 +84,69 @@ Show a live preview and code block for one language using the `lang` prop:
 | `view` | `both`, `preview`, `code` | `both` | What to display |
 ---
 
+## 🎨 Contributing a Theme
+
+Community themes live in [`content/assets/themes.css`](../content/assets/themes.css). Adding yours takes two steps.
+
+### Step 1 — Add your theme to `themes.css`
+
+Open `content/assets/themes.css` and append a new block inside `@layer theme`. Theme names must follow the **Berry naming convention** — a fruit or jam-inspired name ending in *berry* (e.g. `mangoberry`, `limeberry`, `cherryberry`).
+
+```css
+@layer theme {
+  :is([data-theme="mangoberry"]) {
+    --scheme-color: light;        /* "light" or "dark" */
+    --border-radius: 0.25rem;
+
+    --color-base: oklch(98% 0.015 80);
+    --color-on-base: oklch(22% 0.03 70);
+
+    --color-neutral: oklch(88% 0.025 75);
+    --color-on-neutral: oklch(24% 0.03 70);
+
+    --color-primary: oklch(70% 0.19 65);
+    --color-on-primary: oklch(20% 0.06 60);
+
+    --color-secondary: oklch(72% 0.16 40);
+    --color-on-secondary: oklch(20% 0.05 38);
+
+    --color-accent: oklch(76% 0.17 100);
+    --color-on-accent: oklch(20% 0.06 95);
+
+    --color-info: oklch(68% 0.17 237);
+    --color-on-info: oklch(18% 0.06 230);
+
+    --color-success: oklch(72% 0.18 150);
+    --color-on-success: oklch(20% 0.06 155);
+
+    --color-warning: oklch(82% 0.19 88);
+    --color-on-warning: oklch(24% 0.07 60);
+
+    --color-error: oklch(58% 0.23 25);
+    --color-on-error: oklch(97% 0.005 20);
+  }
+}
+```
+
+All color scales (50–950), soft, and active variants are computed automatically — you only define the tokens above.
+
+> **Contrast tip:** Every `on-{color}` pair must pass WCAG AA (4.5:1). Test your pairs at [oklch.com](https://oklch.com) before submitting.
+
+### Step 2 — Add a preview card to `themes.html`
+
+Open `content/docs/themes.html` and add a `<c-theme>` card to the grid at the top of the file, using the same name from Step 1.
+
+```html
+<div class="grid grid-cols-5 gap-3">
+  <!-- existing themes … -->
+  <c-theme theme="mangoberry"></c-theme>
+</div>
+```
+
+Open a pull request with both file changes and your theme will appear in the preview grid on the docs site.
+
+---
+
 ## 💡 Contribution Ideas
 
 * Fix bugs or inconsistencies
