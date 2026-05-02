@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0] - 2026-04-10
+## [2.0.0] - 2026-05-02
 
 ### Added
 
@@ -41,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`footer`**: New component with `footer-title`, direction variants (`footer-horizontal`, `footer-vertical`), and `footer-center` for centered layouts
 - **`header`**: Added `header-start`, `header-center`, and `header-end` slot utilities for grid-based content placement, plus new state utilities `header-fixed`, `header-shadow`, `header-blur`, `header-transparent`, `header-solid`, and size variants `header-sm` and `header-lg`
 - **`divider`**: Added `divider-dotted` style variant
+- **`frutjam/js`**: Vanilla ES module helpers for interactive components — `createModal`, `createDrawer`, `createCollapsible`, `createTooltip`, `createTabs`, `createToast`, `createCarousel`, `createCombobox`
+- **`frutjam/react`**: React hooks for the same set — `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`; each returns a `ref` + control methods with no extra dependencies
+- **Multi-framework code examples**: All 51 component doc pages now include HTML and React tabs in the Basic Usage snippet; `modal` and JS-controlled `tabs` additionally include Vue, Svelte, and Angular tabs where the wiring differs meaningfully
+- **Installation docs**: New sections for `frutjam/js` and `frutjam/react` in `content/docs/installation.html`, clearly positioned as optional helpers for non-native components
 
 ### Changed
 
