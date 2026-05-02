@@ -9,6 +9,38 @@ npm i -D frutjam
 @import "tailwindcss";
 @plugin "frutjam";
 </c-snippet>
+<h2>JavaScript &amp; React — Optional, Not Required</h2>
+<p>Frutjam is <strong>native-first and CSS-first</strong>. The vast majority of components — buttons, badges, cards, forms, alerts, and more — work with pure HTML and CSS, zero JavaScript needed. Native HTML elements like <code>&lt;dialog&gt;</code>, <code>&lt;details&gt;</code>, and <code>&lt;input type="checkbox"&gt;</code> handle interactivity where browsers already support it.</p>
+<p>A small number of components have no native HTML equivalent (toast notifications, combobox filtering, carousel controls). For those cases only, Frutjam ships lightweight optional helpers.</p>
+
+<h3>Vanilla JS — <code>frutjam/js</code></h3>
+<p>Framework-agnostic ES module helpers for the components that need them. Attach to any DOM element — no framework required.</p>
+<c-snippet lang="js" view="code">
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+</c-snippet>
+
+<h3>React Hooks — <code>frutjam/react</code></h3>
+<p>Thin React wrappers around the same native DOM calls. Each hook returns a <code>ref</code> you attach to the element and methods to control it — no extra dependencies beyond React itself.</p>
+<c-snippet lang="js" view="code">
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+</c-snippet>
+<p>Available for: <code>useModal</code>, <code>useDrawer</code>, <code>useCollapsible</code>, <code>useTooltip</code>, <code>useTabs</code>, <code>useToast</code>, <code>useCarousel</code>, <code>useCombobox</code>.</p>
+
 <h3>Using a CDN</h3>
 <p>Use the CDN version of the frutjam UI library for fast and easy integration without local setup. Use this CDN version of frutjam only for development purposes, not in production.</p>
 <c-snippet lang="html" view="code">

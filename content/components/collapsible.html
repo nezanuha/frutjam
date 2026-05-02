@@ -30,6 +30,7 @@
 <h2>Basic Usage</h2>
 <p>A hidden checkbox drives the open/close state. The <code>label</code> triggers it; the <code>collapsible-content</code> div animates open.</p>
 <c-snippet>
+<c-slot name="html">
 <div class="collapsible border border-base-soft rounded-lg">
   <input type="checkbox" class="collapsible-toggle" id="col-basic" />
   <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
@@ -41,6 +42,26 @@
     </div>
   </div>
 </div>
+</c-slot>
+<c-slot name="react">
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+      <button className="collapsible-title px-4 py-3 font-medium" onClick={collapsible.toggle}>Click to expand</button>
+      <div className="collapsible-content">
+        <div>
+          <div className="px-4 pb-3 text-sm opacity-70">
+            This content is hidden until expanded.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+</c-slot>
 </c-snippet>
 
 <h2>With Arrow Indicator</h2>

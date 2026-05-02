@@ -228,6 +228,7 @@
 <h2>JavaScript-controlled Tabs</h2>
 <p>For non-radio patterns (e.g. anchor links, dynamic content), add <code>tab-active</code> to the selected tab in JavaScript. The paired <code>tab-content</code> is shown via the <code>.tab-active + .tab-content</code> selector.</p>
 <c-snippet>
+<c-slot name="html">
 <div class="tabs tabs-box" id="js-tabs">
   <button class="tab tab-active" data-tab="0">Dashboard</button>
   <div class="tab-content pt-4">Dashboard panel — visible because this tab has <code>tab-active</code>.</div>
@@ -247,4 +248,96 @@
     });
   });
 </script>
+</c-slot>
+<c-slot name="react">
+import { useTabs } from 'frutjam/react'
+
+export default function TabsDemo() {
+  const tabs = useTabs(0)
+  return (
+    <div className="tabs tabs-box">
+      <button {...tabs.tabProps(0)}>Dashboard</button>
+      <div {...tabs.panelProps(0)} className="tab-content pt-4">Dashboard panel.</div>
+
+      <button {...tabs.tabProps(1)}>Reports</button>
+      <div {...tabs.panelProps(1)} className="tab-content pt-4">Reports panel.</div>
+
+      <button {...tabs.tabProps(2)}>Integrations</button>
+      <div {...tabs.panelProps(2)} className="tab-content pt-4">Integrations panel.</div>
+    </div>
+  )
+}
+</c-slot>
+<c-slot name="vue">
+<script setup>
+import { ref } from 'vue'
+const active = ref(0)
+</script>
+
+<template>
+  <div class="tabs tabs-box">
+    <button
+      v-for="(label, i) in ['Dashboard', 'Reports', 'Integrations']"
+      :key="i"
+      class="tab"
+      :class="{ 'tab-active': active === i }"
+      :aria-selected="active === i"
+      role="tab"
+      @click="active = i"
+    >{{ label }}</button>
+
+    <div class="tab-content pt-4" :hidden="active !== 0">Dashboard panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 1">Reports panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 2">Integrations panel.</div>
+  </div>
+</template>
+</c-slot>
+<c-slot name="svelte">
+<script>
+  let active = $state(0)
+  const labels = ['Dashboard', 'Reports', 'Integrations']
+</script>
+
+<div class="tabs tabs-box">
+  {#each labels as label, i}
+    <button
+      class="tab"
+      class:tab-active={active === i}
+      aria-selected={active === i}
+      role="tab"
+      onclick={() => active = i}
+    >{label}</button>
+    <div class="tab-content pt-4" hidden={active !== i}>{label} panel.</div>
+  {/each}
+</div>
+</c-slot>
+<c-slot name="angular">
+import { Component } from '@angular/core'
+import { NgFor } from '@angular/common'
+
+@Component({
+  selector: 'app-tabs',
+  standalone: true,
+  imports: [NgFor],
+  template: `
+    <div class="tabs tabs-box">
+      <button
+        *ngFor="let label of labels; let i = index"
+        class="tab"
+        [class.tab-active]="active === i"
+        [attr.aria-selected]="active === i"
+        role="tab"
+        (click)="active = i"
+      >{{ label }}</button>
+      <div class="tab-content pt-4" [hidden]="active !== 0">Dashboard panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 1">Reports panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 2">Integrations panel.</div>
+    </div>
+  `
+})
+export class TabsComponent {
+  labels = ['Dashboard', 'Reports', 'Integrations']
+  active = 0
+}
+</c-slot>
 </c-snippet>

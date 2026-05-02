@@ -29,6 +29,7 @@
 <h2>Basic Usage</h2>
 <p>Wrap an <code>input</code> and a <code>combobox-list</code> in a <code>relative</code> container. Add <code>combobox-open</code> to the wrapper to show the list — toggle it via JS or <code>:focus-within</code>.</p>
 <c-snippet>
+<c-slot name="html">
 <div class="relative w-64 combobox-open">
   <input type="text" class="input w-full" placeholder="Search or select...">
   <ul class="combobox-list">
@@ -38,6 +39,26 @@
     <li class="combobox-item">Svelte</li>
   </ul>
 </div>
+</c-slot>
+<c-slot name="react">
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+</c-slot>
 </c-snippet>
 
 <h2>Open on Focus</h2>

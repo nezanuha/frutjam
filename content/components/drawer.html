@@ -25,6 +25,7 @@
 
 <h2>Basic Usage</h2>
 <c-snippet>
+<c-slot name="html">
 <button type="button" class="btn btn-sm" onclick="defaultDrawer.show()">Open drawer</button>
 <dialog class="drawer" id="defaultDrawer">
   <div class="drawer-content w-full lg:w-56 p-4">
@@ -32,7 +33,7 @@
       <li class="menu-title"><span>Dashboard</span></li>
       <li><a class="menu-item">Overview</a></li>
       <li><a class="menu-item">Analytics</a></li>
-      
+
       <li class="menu-title mt-4"><span>Management</span></li>
       <li><a class="menu-item">Users</a></li>
       <li><a class="menu-item">Inventory</a></li>
@@ -40,7 +41,35 @@
     </ul>
   </div>
   <button type="button" class="drawer-backdrop" onclick="defaultDrawer.close()">Close Drawer via Backdrop</button>
-</dialog>      
+</dialog>
+</c-slot>
+<c-slot name="react">
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button type="button" className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <ul className="menu">
+            <li className="menu-title"><span>Dashboard</span></li>
+            <li><a className="menu-item">Overview</a></li>
+            <li><a className="menu-item">Analytics</a></li>
+
+            <li className="menu-title mt-4"><span>Management</span></li>
+            <li><a className="menu-item">Users</a></li>
+            <li><a className="menu-item">Inventory</a></li>
+            <li><a className="menu-item">Settings</a></li>
+          </ul>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close Drawer via Backdrop</button>
+      </dialog>
+    </>
+  )
+}
+</c-slot>
 </c-snippet>
 
 <h2>Drawer Customization</h2>

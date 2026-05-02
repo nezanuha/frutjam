@@ -25,11 +25,32 @@
 
 <h2>Basic Usage</h2>
 <c-snippet>
+<c-slot name="html">
 <div class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
 </div>
+</c-slot>
+<c-slot name="react">
+import { useToast } from 'frutjam/react'
+
+export default function ToastDemo() {
+  const toast = useToast()
+  return (
+    <>
+      <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
+      <div className="toast">
+        {toast.toasts.map(t => (
+          <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
+            <span>{t.message}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+</c-slot>
 </c-snippet>
 
 <h2>Toast Positions</h2>
