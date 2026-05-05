@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`accordion`**: Added `:focus-visible` outline on `<summary>` elements for keyboard navigation (WCAG 2.4.7)
+- **`carousel`**: `scroll-behavior: smooth` now respects `prefers-reduced-motion`; JS `scrollIntoView` also switches to instant scroll when motion is reduced (WCAG 2.3.3)
+- **`range`**: Added `:focus-visible` outline on `::-moz-range-thumb` so Firefox keyboard users see a focus indicator (WCAG 2.4.7)
+- **`frutjam/js` — `createToastManager`**: Container is initialized with `aria-live="polite"` and `aria-atomic="false"`; error/warning toasts receive `role="alert"`, all others receive `role="status"` so screen readers announce notifications (WCAG 4.1.3)
+- **`frutjam/js` — `createCollapsible`**: `open`, `close`, and `toggle` now sync `aria-expanded` on any `[aria-expanded]` trigger found inside the container (WCAG 4.1.2)
+- **`frutjam/js` — `createTabs`**: Sets `role="tablist/tab/tabpanel"` on elements, generates stable IDs, wires `aria-controls` / `aria-labelledby` between tabs and panels, manages `tabindex`, and adds Arrow / Home / End keyboard navigation (WCAG 1.3.1, 2.1.1)
+- **`frutjam/js` — `createCombobox`**: Auto-discovers or creates the listbox element, assigns `role="listbox"` and a stable ID, wires `aria-controls` and `aria-activedescendant` on the input, and assigns stable IDs to each option (WCAG 1.3.1)
+- **`frutjam/react` — `useCombobox`**: Added `listboxProps` (`role="listbox"`, `id`); `inputProps` now includes `aria-controls` and `aria-activedescendant`; each `optionProps` entry includes a stable `id` (WCAG 1.3.1)
+- **`frutjam/react` — `useTabs`**: Added `tablistProps`; `tabProps` now includes stable `id`, `aria-controls`, `aria-selected`, `tabIndex`, and an `onKeyDown` handler for Arrow / Home / End navigation; `panelProps` now includes stable `id`, `aria-labelledby`, and `tabIndex` (WCAG 1.3.1, 2.1.1)
+- **`frutjam/react` — `useCollapsible`**: `open`, `close`, and `toggle` now sync `aria-expanded` on any `[aria-expanded]` trigger inside the container ref (WCAG 4.1.2)
+
 ## [2.0.0] - 2026-05-02
 
 ### Added
