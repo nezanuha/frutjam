@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useId } from 'react'
 
 export function useCombobox({ items = [], filterFn } = {}) {
+  const uid = useId()
+  const listboxId = `${uid}-listbox`
+
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(-1)
@@ -11,6 +14,8 @@ export function useCombobox({ items = [], filterFn } = {}) {
     : items.filter((item) =>
         String(item.label ?? item).toLowerCase().includes(query.toLowerCase())
       )
+
+  const activeDescendant = activeIndex >= 0 ? `${uid}-option-${activeIndex}` : undefined
 
   const select = useCallback((item) => {
     const label = item.label ?? String(item)
@@ -53,11 +58,18 @@ export function useCombobox({ items = [], filterFn } = {}) {
       onKeyDown: handleKeyDown,
       onFocus: () => setOpen(true),
       onBlur: () => setTimeout(() => setOpen(false), 150),
+      role: 'combobox',
       'aria-expanded': open,
       'aria-autocomplete': 'list',
-      role: 'combobox',
+      'aria-controls': listboxId,
+      'aria-activedescendant': activeDescendant,
+    },
+    listboxProps: {
+      id: listboxId,
+      role: 'listbox',
     },
     optionProps: (item, index) => ({
+      id: `${uid}-option-${index}`,
       className: activeIndex === index ? 'combobox-option combobox-option-active' : 'combobox-option',
       role: 'option',
       'aria-selected': activeIndex === index,

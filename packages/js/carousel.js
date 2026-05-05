@@ -6,7 +6,8 @@ export function createCarousel(el) {
     const items = getItems()
     if (!items.length) return
     current = Math.max(0, Math.min(index, items.length - 1))
-    items[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    items[current].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest', inline: 'start' })
   }
 
   return {
