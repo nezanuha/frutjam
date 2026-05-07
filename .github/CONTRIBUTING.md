@@ -195,6 +195,88 @@ Open a pull request with both file changes and your theme will appear in the pre
 
 ---
 
+## 🎯 Cascade Specificity Rule
+
+All component CSS must follow a strict cascade priority so inline Tailwind utilities always win:
+
+```
+1. Inline class on the element   e.g. class="badge bg-red-600"  → (0,1,0)  always wins
+2. Parent component context      via CSS vars / color: inherit   → inherits naturally
+3. Root baseline                 :where(:root) element {}        → lowest
+```
+
+### The problem this solves
+
+Without this rule, a component rule like `.card-content p { font-size: 1rem }` has `(0,1,0)` specificity — the same as a user's inline class like `.text-sm`. Source order decides the winner randomly. Users can't reliably override component styles.
+
+### Three patterns — pick the right one
+
+**Pattern 1 — Descendant element rules: use `:where(&)` inside `@utility`**
+
+`&` resolves to the utility class. `:where(&)` zeros its specificity to `(0,0,0)`.
+
+```css
+/* ❌ Wrong — .card-content contributes (0,1,0) */
+@utility card-content {
+    p { font-size: 1rem; }
+    :where(p) { font-size: 1rem; }   /* still wrong — .card-content still contributes */
+}
+
+/* ✅ Correct — full selector is (0,0,0), any inline class on p wins */
+@utility card-content {
+    padding: 1rem;
+    :where(&) :where(p) { font-size: 1rem; }
+}
+```
+
+**Pattern 2 — CSS vars on descendants: set flat on parent utility**
+
+CSS custom properties inherit naturally down the DOM tree — no descendant selector needed at all.
+
+```css
+/* ❌ Wrong — .card-xs .card-content = (0,2,0) */
+@utility card-xs {
+    & .card-content { --card-content-padding: 0.5rem; }
+}
+
+/* ✅ Correct — var set on .card-xs, inherits to .card-content child */
+@utility card-xs {
+    --card-content-padding: 0.5rem;
+}
+```
+
+**Pattern 3 — State/variant overrides: use CSS vars on the base utility**
+
+When a modifier needs to override a property already set by the base utility, add a CSS var to the base and set it from the modifier.
+
+```css
+/* ❌ Wrong — .chat-end .chat-bubble = (0,2,0), user can't override */
+@utility chat-end {
+    & .chat-bubble { background-color: var(--color-primary); }
+}
+
+/* ✅ Correct — chat-bubble reads the var, chat-end sets it */
+@utility chat-bubble {
+    background-color: var(--chat-bubble-bg, var(--color-base-soft));
+}
+@utility chat-end {
+    --chat-bubble-bg: var(--color-primary);
+}
+```
+
+### Quick decision table
+
+| Situation | Pattern |
+|---|---|
+| Styles on the utility element itself | Inside `@utility` normally — no change needed |
+| Descendant element rules | `:where(&) :where(child) {}` inside `@utility` |
+| Only setting CSS vars on descendants | Flat on parent utility — no descendant selector at all |
+| Variant overrides a base utility property | CSS var on the base, set by the variant |
+
+> **Note:** Never write `@utility foo {}` with an empty body — Tailwind v4 requires at least one property per utility block.
+
+---
+
 ## 💡 Contribution Ideas
 
 * Fix bugs or inconsistencies
