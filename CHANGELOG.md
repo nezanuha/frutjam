@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`CONTRIBUTING.md`**: Added contribution guidelines covering branch naming, commit conventions, CSS authoring rules (cascade specificity, CSS variables, native-first approach), and PR checklist
 - **docs — JS & React helper examples**: Added `frutjam/js` and `frutjam/react` usage sections to `carousel`, `collapsible`, `combobox`, `drawer`, and `tooltip` component pages
+- **docs — `configuration`**: Expanded `reset` and `root` option docs with detailed explanations, a comparison table, and a scoped wrapper example for coexisting with other CSS frameworks
 
 ### Fixed
 
@@ -33,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`frutjam/react` — `useTabs`**: Added `tablistProps`; `tabProps` now includes stable `id`, `aria-controls`, `aria-selected`, `tabIndex`, and an `onKeyDown` handler for Arrow / Home / End navigation; `panelProps` now includes stable `id`, `aria-labelledby`, and `tabIndex` (WCAG 1.3.1, 2.1.1)
 - **`frutjam/react` — `useCollapsible`**: `open`, `close`, and `toggle` now sync `aria-expanded` on any `[aria-expanded]` trigger inside the container ref (WCAG 4.1.2)
 - **`popover`**: `popover-content` margins now default to `0`; each placement utility sets only the axis it needs (block margins for top/bottom, inline margins for start/end), eliminating unwanted cross-axis offset
+- **`typography`**: `--tw-prose-counters` now uses `var(--color-neutral)` instead of `var(--color-on-neutral)` to match list bullet color
 
 ## [2.0.0] - 2026-05-02
 

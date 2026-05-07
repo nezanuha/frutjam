@@ -67,7 +67,9 @@
 </c-snippet>
 
 <h3>reset</h3>
-<p>Controls whether Frutjam injects base reboot styles. Defaults to <code>true</code>. Set to <code>false</code> if you manage your own CSS reset.</p>
+<p>Controls whether Frutjam injects base element resets (reboot styles). Defaults to <code>true</code>.</p>
+<p>When <code>true</code>, Frutjam resets box model, typography, lists, media, and form elements — similar to Tailwind's preflight. When <code>false</code>, only the CSS variable tokens are injected; raw element styles are skipped entirely.</p>
+<p>Set to <code>false</code> when you are already using another CSS framework (Bootstrap, Bulma, etc.) or your own reset, to avoid conflicts on elements like <code>*</code>, <code>html</code>, <code>body</code>, <code>h1–h6</code>, and <code>button</code>.</p>
 <c-snippet view="code" lang="css">
 @plugin "frutjam" {
   reset: false;
@@ -75,11 +77,47 @@
 </c-snippet>
 
 <h3>root</h3>
-<p>Changes the root selector that Frutjam targets for CSS variables. Defaults to <code>:root</code>. Use <code>:host</code> for Web Components or Shadow DOM.</p>
+<p>The CSS selector where Frutjam registers its design token variables (<code>--color-primary</code>, <code>--color-base</code>, etc.). Defaults to <code>:root</code>.</p>
+<p>There are three useful values:</p>
+<table>
+  <thead>
+    <tr><th>Value</th><th>When to use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>:root</code></td><td>Default. Tokens are available globally across the whole page.</td></tr>
+    <tr><td><code>:host</code></td><td>Shadow DOM / Web Components. Scopes tokens inside the component so they don't leak out.</td></tr>
+    <tr><td>Any selector (e.g. <code>#app</code>)</td><td>Scopes tokens to a specific wrapper element. Useful when Frutjam coexists with another framework on the same page.</td></tr>
+  </tbody>
+</table>
+
+<h4>Default — global tokens</h4>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  root: :root;
+}
+</c-snippet>
+
+<h4>Shadow DOM / Web Components</h4>
 <c-snippet view="code" lang="css">
 @plugin "frutjam" {
   root: :host;
 }
+</c-snippet>
+
+<h4>Scoped to a wrapper element</h4>
+<p>If another framework already controls <code>:root</code> (e.g. Bootstrap sets its own <code>--bs-*</code> variables and body colors), point Frutjam at a container element instead. This moves <code>color</code>, <code>background-color</code>, and all CSS variables off <code>:root</code> so they only apply inside that wrapper.</p>
+<c-snippet view="code" lang="css">
+@plugin "frutjam" {
+  prefix: fj;
+  reset: false;
+  root: #my-app;
+}
+</c-snippet>
+<c-snippet view="code" lang="html">
+<div id="my-app" data-theme="blueberry">
+  <!-- Frutjam components here, Bootstrap outside -->
+  <button class="fj-btn fj-btn-primary">Send</button>
+</div>
 </c-snippet>
 
 <h3>include</h3>
