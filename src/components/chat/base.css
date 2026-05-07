@@ -10,21 +10,9 @@
   padding-block: 0.25rem;
 
   /* sent — align right */
-  &.chat-end {
-    grid-template-columns: 1fr auto;
-    direction: rtl;
-
-    .chat-bubble {
-      direction: ltr;
-      border-radius: 1rem 0.25rem 1rem 1rem;
-      background-color: var(--color-primary);
-      color: var(--color-on-primary);
-    }
-
-    .chat-footer {
-      direction: ltr;
-      text-align: end;
-    }
+  :where(&.chat-end) :where(.chat-footer) {
+    direction: ltr;
+    text-align: end;
   }
 }
 
@@ -36,6 +24,12 @@
 @utility chat-end {
   grid-template-columns: 1fr auto;
   direction: rtl;
+  --chat-bubble-bg: var(--color-primary);
+  --chat-bubble-color: var(--color-on-primary);
+  --chat-bubble-radius: 1rem 0.25rem 1rem 1rem;
+  :where(&) :where(.chat-bubble) {
+    direction: ltr;
+  }
 }
 
 @utility chat-avatar {
@@ -46,17 +40,20 @@
 @utility chat-bubble {
   --chat-bubble-bg: var(--color-base-soft);
   --chat-bubble-color: var(--color-on-base);
+  --chat-bubble-radius: 0.25rem 1rem 1rem 1rem;
+  --chat-bubble-padding-inline: 1rem;
+  --chat-bubble-padding-block: 0.625rem;
 
   grid-column: 2;
   position: relative;
   display: block;
   width: fit-content;
   max-width: min(20rem, 80%);
-  padding-inline: 1rem;
-  padding-block: 0.625rem;
+  padding-inline: var(--chat-bubble-padding-inline);
+  padding-block: var(--chat-bubble-padding-block);
   background-color: var(--chat-bubble-bg);
   color: var(--chat-bubble-color);
-  border-radius: 0.25rem 1rem 1rem 1rem;
+  border-radius: var(--chat-bubble-radius);
   font-size: var(--chat-bubble-font-size, 0.9375rem);
   line-height: 1.5;
   word-break: break-word;

@@ -11,7 +11,7 @@
 
 @utility timeline-item {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: var(--timeline-item--cols, 1fr auto 1fr);
   grid-template-rows: auto;
   align-items: start;
   gap: 0 1rem;
@@ -22,8 +22,8 @@
   &:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-inline-start: 50%;
-    transform: translateX(-50%);
+    inset-inline-start: var(--timeline-after--start, 50%);
+    transform: var(--timeline-after--transform, translateX(-50%));
     top: 1.75rem;    /* padding-block-start(0.75rem) + dot-height(1rem) */
     bottom: -0.75rem; /* reaches padding-block-start of next item */
     width: 2px;

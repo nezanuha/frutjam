@@ -23,15 +23,12 @@
 ─────────────────────────────────────────────────────────────────── */
 @utility rating-half {
   gap: 0;
+  --rate--width: calc(var(--rate--size) / 2);
+  --rate--mask-size: 200%;
+  --rate--mask-position: left;
 
-  & .rate {
-    width: calc(var(--rate--size) / 2);
-    mask-size: 200%;
-    mask-position: left;
-  }
-
-  & .rate:nth-child(even) {
-    mask-position: right;
+  :where(&) :where(.rate:nth-child(even)) {
+    --rate--mask-position: right;
   }
 }
 
@@ -48,15 +45,15 @@
 
   appearance: none;
   cursor: pointer;
-  width: var(--rate--size);
+  width: var(--rate--width, var(--rate--size));
   height: var(--rate--size);
   display: inline-block;
   flex-shrink: 0;
   background-color: var(--rate--fill);
   /* Shape comes from .mask + .mask-[shape] utilities */
-  mask-size: contain;
+  mask-size: var(--rate--mask-size, contain);
   mask-repeat: no-repeat;
-  mask-position: center;
+  mask-position: var(--rate--mask-position, center);
   transition: background-color 150ms ease-in-out;
 
   /* Fill this item when checked */

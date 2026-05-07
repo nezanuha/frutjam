@@ -15,9 +15,9 @@
     overflow-y: auto;
     scrollbar-width: thin;
 
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-0.25rem);
+    opacity: var(--combobox-list--opacity, 0);
+    pointer-events: var(--combobox-list--pointer-events, none);
+    transform: var(--combobox-list--transform, translateY(-0.25rem));
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 
     display: flex;
@@ -52,11 +52,9 @@
 
 /* Add to a wrapper element; shows the list */
 @utility combobox-open {
-    .combobox-list {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-    }
+    --combobox-list--opacity: 1;
+    --combobox-list--pointer-events: auto;
+    --combobox-list--transform: translateY(0);
 }
 
 /* Color variants — override the active item highlight */
