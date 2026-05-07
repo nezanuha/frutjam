@@ -8,7 +8,7 @@
     user-select: none;
     vertical-align: middle;
 
-    input[type="checkbox"] {
+    :where(&) :where(input[type="checkbox"]) {
         appearance: none;
         position: absolute;
         inset: 0;
@@ -17,9 +17,9 @@
         margin: 0;
     }
 
-    .swap-on,
-    .swap-off,
-    .swap-indeterminate {
+    :where(&) :where(.swap-on),
+    :where(&) :where(.swap-off),
+    :where(&) :where(.swap-indeterminate) {
         grid-column: 1;
         grid-row: 1;
         transition:
@@ -28,36 +28,36 @@
             transform 300ms ease-in-out;
     }
 
-    .swap-on,
-    .swap-indeterminate {
+    :where(&) :where(.swap-on),
+    :where(&) :where(.swap-indeterminate) {
         opacity: 0;
         pointer-events: none;
     }
 
-    .swap-off {
+    :where(&) :where(.swap-off) {
         opacity: 1;
     }
 
     &:has(input:checked),
     &.swap-active {
-        .swap-on {
+        :where(.swap-on) {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .swap-off {
+        :where(.swap-off) {
             opacity: 0;
             pointer-events: none;
         }
     }
 
     &:has(input:indeterminate) {
-        .swap-indeterminate {
+        :where(.swap-indeterminate) {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .swap-on {
+        :where(.swap-on) {
             opacity: 0;
             pointer-events: none;
         }

@@ -1,61 +1,46 @@
 @utility table-hover {
-    tbody tr {
+    :where(&) :where(tbody tr) {
         transition-property: background-color;
         transition-duration: 150ms;
         transition-timing-function: linear;
-
-        &:hover {
-            background-color: var(--color-table-soft);
-        }
+    }
+    :where(&) :where(tbody tr):hover {
+        background-color: var(--color-table-soft);
     }
 }
 
 @utility table-zebra {
-  tbody {
-    tr {
-      &:where(:nth-child(even)) {
+    :where(&) :where(tbody tr:nth-child(even)) {
         background-color: var(--color-table-soft);
-      }
     }
-  }
 }
 
 @utility table-zebra-rows {
-  tbody {
-    tr {
-      &:where(:nth-child(even)) {
+    :where(&) :where(tbody tr:nth-child(even)) {
         background-color: var(--color-table-soft);
-      }
     }
-  }
 }
 
 @utility table-zebra-cols {
-  tbody {
-    tr {
-      td:where(:nth-child(even)) {
+    :where(&) :where(tbody tr td:nth-child(even)) {
         background-color: var(--color-table-soft);
-      }
     }
-  }
 }
 
 @utility table-pin-rows {
-  thead {
-    tr {
-      position: sticky;
-      inset-block-start: 0;
-      background-color: var(--color-table);
-      z-index: 1;
+    :where(&) :where(thead tr) {
+        position: sticky;
+        inset-block-start: 0;
+        background-color: var(--color-table);
+        z-index: 1;
     }
-  }
 }
 
 @utility table-pin-cols {
-  tr th {
-    position: sticky;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    background-color: var(--color-table);
-  }
+    :where(&) :where(tr th) {
+        position: sticky;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        background-color: var(--color-table);
+    }
 }

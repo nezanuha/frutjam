@@ -1,17 +1,17 @@
 @utility swap-rotate {
-    .swap-on,
-    .swap-indeterminate {
+    :where(&) :where(.swap-on),
+    :where(&) :where(.swap-indeterminate) {
         rotate: 45deg;
     }
 
     &:has(input:checked),
     &.swap-active {
-        .swap-off {
+        :where(.swap-off) {
             rotate: -45deg;
         }
 
-        .swap-on,
-        .swap-indeterminate {
+        :where(.swap-on),
+        :where(.swap-indeterminate) {
             rotate: 0deg;
         }
     }
@@ -20,25 +20,25 @@
 @utility swap-flip {
     perspective: 16rem;
 
-    .swap-on,
-    .swap-indeterminate {
+    :where(&) :where(.swap-on),
+    :where(&) :where(.swap-indeterminate) {
         backface-visibility: hidden;
         transform: rotateY(180deg);
     }
 
-    .swap-off {
+    :where(&) :where(.swap-off) {
         backface-visibility: hidden;
         transform: rotateY(0deg);
     }
 
     &:has(input:checked),
     &.swap-active {
-        .swap-off {
+        :where(.swap-off) {
             transform: rotateY(-180deg);
         }
 
-        .swap-on,
-        .swap-indeterminate {
+        :where(.swap-on),
+        :where(.swap-indeterminate) {
             transform: rotateY(0deg);
         }
     }
