@@ -172,6 +172,47 @@ export default function CollapsibleDemo() {
 </div>
 </c-snippet>
 
+<h2>JS & React Helper</h2>
+<p>Use <code>createCollapsible</code> from <code>frutjam/js</code> or <code>useCollapsible</code> from <code>frutjam/react</code> for programmatic control and automatic <code>aria-expanded</code> sync on any trigger.</p>
+<c-snippet>
+<c-slot name="html">
+<button class="btn btn-sm mb-3" id="col-helper-btn">Toggle</button>
+<div class="collapsible border border-base-soft rounded-lg" id="js-collapsible">
+  <div class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createCollapsible } from 'frutjam/js'
+  const col = createCollapsible(document.getElementById('js-collapsible'))
+  document.getElementById('col-helper-btn').onclick = () => col.toggle()
+</script>
+</c-slot>
+<c-slot name="react">
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <>
+      <button className="btn btn-sm mb-3" onClick={collapsible.toggle}>Toggle</button>
+      <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+        <div className="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+        <div className="collapsible-content">
+          <div>
+            <div className="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+</c-slot>
+</c-snippet>
+
 <h2>External Trigger with collapsible-group</h2>
 <p>
   Wrap a trigger and a collapsible in <code>collapsible-group</code> to let labels outside <code>.collapsible</code>

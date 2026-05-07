@@ -72,6 +72,47 @@ export default function DrawerDemo() {
 </c-slot>
 </c-snippet>
 
+<h2>JS & React Helper</h2>
+<p>Use <code>createDrawer</code> from <code>frutjam/js</code> or <code>useDrawer</code> from <code>frutjam/react</code> when the trigger lives outside the drawer or you need programmatic control from anywhere in your code.</p>
+<c-snippet>
+<c-slot name="html">
+<button class="btn btn-sm" id="helper-open-btn">Open drawer</button>
+<dialog class="drawer" id="helper-drawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <p class="mb-4 text-sm opacity-70">Controlled via <code>createDrawer</code>.</p>
+    <button class="btn btn-sm" id="helper-close-btn">Close</button>
+  </div>
+  <button type="button" class="drawer-backdrop" id="helper-backdrop">Close</button>
+</dialog>
+<script type="module">
+  import { createDrawer } from 'frutjam/js'
+  const drawer = createDrawer(document.getElementById('helper-drawer'))
+  document.getElementById('helper-open-btn').onclick = () => drawer.open()
+  document.getElementById('helper-close-btn').onclick = () => drawer.close()
+  document.getElementById('helper-backdrop').onclick = () => drawer.close()
+</script>
+</c-slot>
+<c-slot name="react">
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <p className="mb-4 text-sm opacity-70">Controlled via useDrawer.</p>
+          <button className="btn btn-sm" onClick={drawer.close}>Close</button>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close</button>
+      </dialog>
+    </>
+  )
+}
+</c-slot>
+</c-snippet>
+
 <h2>Drawer Customization</h2>
 <p>The <code>.drawer-backdrop</code> provides a clickable background that closes the drawer when clicked outside the drawer, by removing this element by default prevent drawer not close when click outside.</p>
 

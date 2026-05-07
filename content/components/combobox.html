@@ -153,3 +153,50 @@ export default function ComboboxDemo() {
   </ul>
 </div>
 </c-snippet>
+
+<h2>JS & React Helper</h2>
+<p>Use <code>createCombobox</code> from <code>frutjam/js</code> or <code>useCombobox</code> from <code>frutjam/react</code> to get filtering, keyboard navigation (↑ ↓ Enter Escape), and full <code>aria-*</code> wiring out of the box. Listen for the <code>fj:select</code> event to handle selection.</p>
+<c-snippet>
+<c-slot name="html">
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-option" data-value="react">React</li>
+    <li class="combobox-option" data-value="vue">Vue</li>
+    <li class="combobox-option" data-value="angular">Angular</li>
+    <li class="combobox-option" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+</c-slot>
+<c-slot name="react">
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+</c-slot>
+</c-snippet>
