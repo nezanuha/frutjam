@@ -7,7 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`CONTRIBUTING.md`**: Added contribution guidelines covering branch naming, commit conventions, CSS authoring rules (cascade specificity, CSS variables, native-first approach), and PR checklist
+
 ### Fixed
+
+- **`avatar`**: Wrapped `img` and `.avatar` descendant selectors in `:where()` so inline classes always win (cascade specificity rule)
+- **`card`**: Wrapped `p` descendant selector in `:where()` in `card-content`; size utilities (`card-xs` → `card-xl`) now set CSS variables directly on the card instead of targeting `.card-content` and `.card-title` descendants
+- **`carousel`**: `carousel-center` and `carousel-end` now set `--carousel-item--snap` CSS variable instead of targeting `.carousel-item`; `carousel-vertical` wraps `.carousel-item` in `:where()`; `carousel-item` snap position is now customisable via `--carousel-item--snap`
+- **`chat`**: `chat-end` now sets bubble appearance via CSS variables (`--chat-bubble-bg`, `--chat-bubble-color`, `--chat-bubble-radius`) instead of targeting `.chat-bubble`; size utilities set `--chat-bubble-padding-inline/block` directly instead of targeting `.chat-bubble`
+- **`combobox`**: `combobox-open` now sets CSS variables (`--combobox-list--opacity`, `--combobox-list--pointer-events`, `--combobox-list--transform`) instead of targeting `.combobox-list`
+- **`countdown`**: Wrapped `span` descendant selector in `:where()`
+- **`diff`**: Wrapped `> *` descendant selectors in `:where()`
+- **`drawer`**: Wrapped `button` descendant selector in `:where()`
+- **`footer`**: Wrapped `> *` descendant selectors in `:where()`; extracted `footer-center` as a proper standalone `@utility`
+- **`join`**: Restored `& .join-item` selector specificity — `:where()` cannot be used here because join must override button border-radius to work correctly
+- **`rating`**: `rating-half` now sets `--rate--width`, `--rate--mask-size`, and `--rate--mask-position` CSS variables instead of targeting `.rate`; size utilities set `--rate--size` directly without targeting `.rate`
+- **`swap`**: Wrapped all descendant selectors (`.swap-on`, `.swap-off`, `.swap-indeterminate`, `input[type="checkbox"]`) in `:where()` across `base.css` and `styles.css`
+- **`table`**: Wrapped all descendant selectors in `:where()` across size and style utilities
+- **`timeline`**: `timeline-snap-start` and `timeline-snap-end` now set CSS variables (`--timeline-item--cols`, `--timeline-after--start`, `--timeline-after--transform`) instead of targeting `.timeline-item`; descendant selectors wrapped in `:where()`
+- **docs — `card`**: Moved `card-actions` inside `card-content` in the "Card with Actions" example
 
 - **`accordion`**: Added `:focus-visible` outline on `<summary>` elements for keyboard navigation (WCAG 2.4.7)
 - **`carousel`**: `scroll-behavior: smooth` now respects `prefers-reduced-motion`; JS `scrollIntoView` also switches to instant scroll when motion is reduced (WCAG 2.3.3)
