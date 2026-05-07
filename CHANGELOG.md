@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **`CONTRIBUTING.md`**: Added contribution guidelines covering branch naming, commit conventions, CSS authoring rules (cascade specificity, CSS variables, native-first approach), and PR checklist
+- **docs — JS & React helper examples**: Added `frutjam/js` and `frutjam/react` usage sections to `carousel`, `collapsible`, `combobox`, `drawer`, and `tooltip` component pages
 
 ### Fixed
 
