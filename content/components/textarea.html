@@ -112,3 +112,36 @@
   <span>Characters remaining</span>
 </label>
 </c-snippet>
+
+<h2>Advanced Markdown Editor</h2>
+<p>
+  Use <code>markdown-text-editor</code> to turn any textarea into a full markdown editor.
+  Two modes are available: <strong>plain</strong> (raw Markdown syntax) and <strong>hybrid</strong> (renders formatting live as you type).
+  For more configuration options see <a href="https://frutjam.com/plugins/markdown-editor">the plugin docs</a>.
+</p>
+
+<h3>Plain Mode</h3>
+<p>Displays raw Markdown syntax. Users write Markdown directly in the textarea.</p>
+<c-snippet>
+<c-slot name="html">
+<textarea id="plain-markdown-editor" class="textarea w-full" name="content"></textarea>
+</c-slot>
+<c-slot name="js">
+import MarkdownEditor from "markdown-text-editor";
+
+new MarkdownEditor('#plain-markdown-editor');
+</c-slot>
+</c-snippet>
+
+<h3>Hybrid Mode</h3>
+<p>Renders formatting live as you type — bold, headings, lists, and more appear styled inline.</p>
+<c-snippet>
+<c-slot name="html">
+<textarea id="hybrid-markdown-editor" class="textarea w-full" name="content"></textarea>
+</c-slot>
+<c-slot name="js">
+import MarkdownEditor from "markdown-text-editor";
+
+new MarkdownEditor('#hybrid-markdown-editor', { mode: 'hybrid' });
+</c-slot>
+</c-snippet>
