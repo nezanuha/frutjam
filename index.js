@@ -133,6 +133,41 @@ const BASE_CORE = [
 
 // ── Build ────────────────────────────────────────────────────────────────────
 
+// Scope one selector part (already split from a comma list) to rootSelector.
+// Returns an array of replacement selectors.
+// [data-theme] selectors become compound with rootSelector so theme variables
+// only apply when data-theme is set directly on the root element — no ancestor
+// inheritance, which would break the isolation guarantee of the root option.
+function scopeThemeSelector(sel, rootSelector) {
+  const t = sel.trimStart()
+  const lead = sel.slice(0, sel.length - t.length)
+
+  // Already remapped from :root (e.g. rootSelector:not([data-theme])) — keep as-is
+  if (t.startsWith(rootSelector)) return [sel]
+
+  // :is([data-theme="x"], [data-theme="y"]) — flatten into individual compound selectors
+  if (t.startsWith(":is([data-theme")) {
+    const values = []
+    const re = /\[data-theme=["']([^"']+)["']\]/g
+    let m
+    while ((m = re.exec(t)) !== null) values.push(m[1])
+    return values.map(v => `${lead}${rootSelector}[data-theme="${v}"]`)
+  }
+
+  // [data-theme="x"] — compound with rootSelector
+  if (/^\[data-theme=/.test(t)) {
+    const m = t.match(/^\[data-theme=["']([^"']+)["']\]/)
+    if (m) return [`${lead}${rootSelector}[data-theme="${m[1]}"]`]
+  }
+
+  // [data-theme] without value (base tokens) — compound with rootSelector
+  if (t.startsWith("[data-theme]")) {
+    return [`${lead}${rootSelector}[data-theme]`]
+  }
+
+  return [sel]
+}
+
 function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
   // Resolve which components+utilities to include
   let keys = Object.keys(REGISTRY)
@@ -168,6 +203,14 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
 
   const customThemes = buildCustomThemes(themes)
   if (customThemes) css += "\n\n" + customThemes
+
+  if (rootSelector !== ":root") {
+    const ast = postcss.parse(css)
+    ast.walkRules(rule => {
+      rule.selectors = rule.selectors.flatMap(sel => scopeThemeSelector(sel, rootSelector))
+    })
+    css = ast.toString()
+  }
 
   return { css, utilMap }
 }

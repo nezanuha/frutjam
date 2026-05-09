@@ -412,12 +412,59 @@ function sortUtils(obj) {
   )
 }
 
-// Recursively remap :root keys to a custom selector
+// Split a comma-separated selector list by top-level commas (ignores commas inside parentheses)
+function splitTopLevelCommas(str) {
+  const parts = []
+  let depth = 0, start = 0
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '(') depth++
+    else if (str[i] === ')') depth--
+    else if (str[i] === ',' && depth === 0) {
+      parts.push(str.slice(start, i))
+      start = i + 1
+    }
+  }
+  parts.push(str.slice(start))
+  return parts
+}
+
+// Scope one part of a comma-separated selector list to rootSelector.
+// Returns an array of replacement selectors.
+// [data-theme] selectors become compound with rootSelector so theme variables
+// only apply when data-theme is set directly on the root element — no ancestor
+// inheritance, which would break the isolation guarantee of the root option.
+function scopeThemePart(part, rootSelector) {
+  const t = part.trimStart()
+  const lead = part.slice(0, part.length - t.length)
+  if (t.startsWith(rootSelector)) return [part]
+  if (t.startsWith(':is([data-theme')) {
+    const values = []
+    const re = /\\[data-theme=["']([^"']+)["']\\]/g
+    let m
+    while ((m = re.exec(t)) !== null) values.push(m[1])
+    return values.map(function(v) { return lead + rootSelector + '[data-theme="' + v + '"]' })
+  }
+  if (/^\\[data-theme=/.test(t)) {
+    const m = t.match(/^\\[data-theme=["']([^"']+)["']\\]/)
+    if (m) return [lead + rootSelector + '[data-theme="' + m[1] + '"]']
+  }
+  if (t.startsWith('[data-theme]')) {
+    return [lead + rootSelector + '[data-theme]']
+  }
+  return [part]
+}
+
+// Recursively remap :root and scope [data-theme] selectors to a custom root selector
 function remapRoot(obj, rootSelector) {
   if (!rootSelector || rootSelector === ":root") return obj
   return Object.fromEntries(
     Object.entries(obj).map(([k, v]) => {
-      const newKey = k.replace(/:root\\b/g, rootSelector)
+      let newKey = k.replace(/:root\\b/g, rootSelector)
+      if (!newKey.startsWith('@')) {
+        newKey = splitTopLevelCommas(newKey).flatMap(function(part) {
+          return scopeThemePart(part, rootSelector)
+        }).join(',')
+      }
       const newVal = (v && typeof v === "object") ? remapRoot(v, rootSelector) : v
       return [newKey, newVal]
     })
@@ -457,7 +504,7 @@ export default plugin.withOptions(
     // Themes
     const activeThemes = Array.isArray(themes) ? themes : [themes]
     for (const [name, styles] of Object.entries(THEMES)) {
-      if (activeThemes.includes(name)) addBase(styles)
+      if (activeThemes.includes(name)) addBase(remapRoot(styles, root))
     }
 
     // Components — class selectors via addUtilities (enables lg:/hover:/etc. variants),
