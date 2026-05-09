@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-05-10
+
+### Fixed
+
+- **`root` option — theme selector scoping**: When a custom `root` selector is configured, `[data-theme]` selectors are now scoped to that root as compound selectors instead of remaining global. Previously, theme variable rules still targeted the page-level `:root`, causing CSS variable conflicts when the component was embedded in another page. Applies to both the PostCSS `@plugin` path and the Tailwind v4 plugin path.
+
 ## [2.0.1] - 2026-05-07
 
 ### Added
@@ -516,7 +522,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/nezanuha/frutjam/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/nezanuha/frutjam/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
 [1.11.0]: https://github.com/nezanuha/frutjam/compare/v1.10.1...v1.11.0
