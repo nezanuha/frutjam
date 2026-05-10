@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2026-05-10
+
+### Fixed
+
+- **UA default resets**: Components that target elements with significant browser UA defaults (`[popover]`, `<dialog>`, `<button>`, `<input>`, `<progress>`, `<table>`) now explicitly reset `border`, `inset`, `margin`, `color`, `appearance`, and `border-collapse` where applicable, so they render correctly regardless of the host page's CSS.
+
 ## [2.0.2] - 2026-05-10
 
 ### Fixed
@@ -522,7 +528,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.3...HEAD
+[2.0.3]: https://github.com/nezanuha/frutjam/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/nezanuha/frutjam/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/nezanuha/frutjam/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/nezanuha/frutjam/compare/v1.11.0...v2.0.0
