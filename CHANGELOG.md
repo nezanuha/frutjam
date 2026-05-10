@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2026-05-10
+
+### Fixed
+
+- **UA default resets (continued)**: `checkbox`, `radio`, and `tab` (radio input) now explicitly set `border: none` so browser UA and host-page CSS framework borders are suppressed when `appearance: none` removes native rendering. `breadcrumb-list` (`<ol>`) now sets `list-style: none; padding: 0; margin: 0` so breadcrumb items render without numbered bullets or extra indent when the global reset is disabled.
+
 ## [2.0.3] - 2026-05-10
 
 ### Fixed
@@ -528,7 +534,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.3...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.4...HEAD
+[2.0.4]: https://github.com/nezanuha/frutjam/compare/v2.0.3...v2.0.4
 [2.0.3]: https://github.com/nezanuha/frutjam/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/nezanuha/frutjam/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/nezanuha/frutjam/compare/v2.0.0...v2.0.1
