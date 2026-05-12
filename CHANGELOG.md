@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`menu-title`**: Color changed from `color-mix(in oklch, currentColor 50%, transparent)` to `var(--color-base-700)` to meet color contrast requirements.
+- **`stat-title`, `stat-desc`**: Colors changed from `--alpha(var(--color-on-base) / 60%)` and `--alpha(var(--color-on-base) / 50%)` to `var(--color-base-700)` to meet color contrast requirements.
+
 ## [2.0.4] - 2026-05-10
 
 ### Fixed
