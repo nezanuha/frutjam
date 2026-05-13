@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **`text-base` utility color**: `text-base` was not using the correct body color token. Updated to use `var(--color-body)` for consistent muted text across themes.
+- **Color contrast on `text-base`**: `text-base` had failing color contrast — it was using a raw base color instead of the body color token. Updated to use `var(--color-body)` so text meets contrast requirements in both light and dark themes.
 
 ## [2.1.0] - 2026-05-13
 
