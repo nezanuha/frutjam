@@ -9,8 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **`menu-title`**: Color changed from `color-mix(in oklch, currentColor 50%, transparent)` to `var(--color-base-700)` to meet color contrast requirements.
-- **`stat-title`, `stat-desc`**: Colors changed from `--alpha(var(--color-on-base) / 60%)` and `--alpha(var(--color-on-base) / 50%)` to `var(--color-base-700)` to meet color contrast requirements.
+- **Color contrast on text utilities**: `text-primary`, `text-success`, `text-warning`, and other semantic text color utilities had failing color contrast — now fixed. Text is readable in both light and dark themes.
+- **Color contrast on menu and stat labels**: `menu-title`, `stat-title`, and `stat-desc` had failing color contrast — now fixed. Labels are consistently legible regardless of the active theme.
+- **Text color inside `alert` and `chat-bubble`**: Paragraphs and list items inside alerts and chat bubbles now correctly inherit the component's text color instead of being overridden by global styles.
+- **Text color inside `card`**: Paragraphs inside cards now correctly inherit the card's text color instead of being overridden by global styles.
+- **Global style specificity**: Base styles for `p`, lists, and `strong` elements no longer override component or utility styles, so inline color utilities always win as expected.
 
 ## [2.0.4] - 2026-05-10
 
