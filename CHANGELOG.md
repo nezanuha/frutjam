@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-05-13
+
 ### Fixed
 
 - **Color contrast on `text-base`**: `text-base` had failing color contrast — it was using a raw base color instead of the body color token. Updated to use `var(--color-body)` so text meets contrast requirements in both light and dark themes.
@@ -572,7 +574,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/nezanuha/frutjam/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.6...v2.1.0
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.4...v2.0.5
