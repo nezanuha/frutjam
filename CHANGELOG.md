@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.5] - 2026-05-13
+
 ### Fixed
 
 - **`skeleton-text` shimmer animation**: `skeleton-text` was incorrectly hiding text and showing a blank bar instead of animating. It now shimmers over the visible text content as intended.
