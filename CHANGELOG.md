@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **UA default resets — interactive components**: `btn`, `badge`, `tag`, and `menu-item` now reset `text-decoration: none` so they render correctly when used as `<a>` elements inside prose or content areas. `btn` adds `vertical-align: middle` for consistent inline alignment when used on `<a>`. `menu-item` and `tag` add `appearance: none` to suppress browser button chrome when used on `<button>`. `tab` adds `text-decoration: none` for the same reason as `btn`.
+
 - **Color contrast on text utilities**: `text-primary`, `text-success`, `text-warning`, and other semantic text color utilities had failing color contrast — now fixed. Text is readable in both light and dark themes.
 - **Color contrast on menu and stat labels**: `menu-title`, `stat-title`, and `stat-desc` had failing color contrast — now fixed. Labels are consistently legible regardless of the active theme.
 - **Text color inside `alert` and `chat-bubble`**: Paragraphs and list items inside alerts and chat bubbles now correctly inherit the component's text color instead of being overridden by global styles.
