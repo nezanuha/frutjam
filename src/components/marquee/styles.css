@@ -1,0 +1,44 @@
+@utility marquee-fade {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-block: 0;
+    z-index: 1;
+    width: 4rem;
+  }
+
+  &::before {
+    inset-inline-start: 0;
+    background: linear-gradient(to right, var(--color-base), transparent);
+  }
+
+  &::after {
+    inset-inline-end: 0;
+    background: linear-gradient(to left, var(--color-base), transparent);
+  }
+}
+
+@utility marquee-pause {
+  &:hover {
+    --marquee--play-state: paused;
+  }
+}
+
+@utility marquee-reverse {
+  --marquee--direction: reverse;
+}
+
+@utility marquee-vertical {
+  flex-direction: column;
+  --marquee--axis: 0% calc(-100% - var(--marquee--gap));
+
+  :where(&) :where(.marquee-track) {
+    flex-direction: column;
+    min-height: 100%;
+    min-width: unset;
+  }
+}

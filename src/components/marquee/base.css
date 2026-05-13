@@ -1,0 +1,34 @@
+@import "./styles.css";
+@import "./speeds.css";
+
+@utility marquee {
+  --marquee--duration: 20s;
+  --marquee--gap: 1rem;
+  --marquee--play-state: running;
+  --marquee--direction: normal;
+  --marquee--axis: calc(-100% - var(--marquee--gap)) 0%;
+
+  display: flex;
+  gap: var(--marquee--gap);
+  overflow: hidden;
+  user-select: none;
+}
+
+@utility marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--marquee--gap);
+  min-width: 100%;
+  animation: marquee-scroll var(--marquee--duration) linear infinite;
+  animation-play-state: var(--marquee--play-state);
+  animation-direction: var(--marquee--direction);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-scroll {
+  from { translate: 0 0 }
+  to { translate: var(--marquee--axis) }
+}
