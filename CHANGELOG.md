@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.7] - 2026-05-13
+
+### Fixed
+
+- **Color contrast on `footer-title`**: `footer-title` was using `opacity: 60%` which reduced contrast across the entire element. Replaced with `color: inherit` so the title inherits its parent's color at full opacity.
+
 ## [2.0.6] - 2026-05-13
 
 ### Added
