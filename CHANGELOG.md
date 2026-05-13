@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Text-color semantic utilities in Tailwind v4 plugin path**: `text-primary`, `text-success`, `text-warning`, and other semantic text-color utilities were being silently overridden by Tailwind's theme-generated `text-{color}` utilities (which use the flat `--color-{color}-500` value). Base CSS is now excluded from prefixing, and text-color overrides are injected as plain CSS at the end of `@layer utilities` (PostCSS path) and registered via `matchUtilities` (Tailwind plugin path) so they always take precedence and the `light-dark()` contrast logic is preserved.
+- **Text-color utilities not applying**: `text-primary`, `text-success`, `text-warning`, and other semantic text-color utilities were not applying in some setups — the color appeared but without the correct light/dark contrast. Now fixed; these utilities work correctly in both light and dark mode regardless of your Tailwind configuration.
 
 ## [2.0.5] - 2026-05-13
 
