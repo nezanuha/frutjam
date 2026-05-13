@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2026-05-13
+
 ### Added
 
 - **CDN fields in `package.json`**: Added `unpkg` and `jsdelivr` fields pointing to `./dist/frutjam.min.css` so the minified stylesheet is served automatically by unpkg and jsDelivr CDNs.
@@ -556,7 +558,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.5...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.6...HEAD
+[2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.4...v2.0.5
 [2.0.4]: https://github.com/nezanuha/frutjam/compare/v2.0.3...v2.0.4
 [2.0.3]: https://github.com/nezanuha/frutjam/compare/v2.0.2...v2.0.3
