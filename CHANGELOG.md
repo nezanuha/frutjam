@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.7] - 2026-05-13
+## [2.1.0] - 2026-05-13
+
+### Added
+
+- **`marquee` component**: New pure-CSS infinite scrolling strip. Supports horizontal and vertical directions, pause-on-hover (`marquee-pause`), reverse playback (`marquee-reverse`), gradient fade edges (`marquee-fade`), and three speed presets (`marquee-slow`, `marquee-normal`, `marquee-fast`). Gap between items is controlled via `--marquee--gap` and is consistent at the loop seam. Respects `prefers-reduced-motion` automatically.
 
 ### Fixed
 
@@ -564,7 +568,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.0.6...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.6...v2.1.0
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.4...v2.0.5
 [2.0.4]: https://github.com/nezanuha/frutjam/compare/v2.0.3...v2.0.4
