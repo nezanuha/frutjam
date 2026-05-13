@@ -193,13 +193,19 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
 
   const combined = baseCss + "\n" + modulesCss
   const utilMap = buildUtilityMap(combined)
-  let css = resolveCopy(combined, utilMap)
+
+  // Base CSS (theme variables, token definitions, text-color overrides) must NOT be prefixed —
+  // the @utility text-* declarations target the same class names as Tailwind's theme-generated
+  // utilities and must stay unprefixed (e.g. text-primary, not fj-text-primary).
+  let resolvedBase = resolveCopy(baseCss, utilMap)
+  let resolvedModules = resolveCopy(modulesCss, utilMap)
 
   if (rootSelector !== ":root") {
-    css = css.replace(/:root\b/g, rootSelector)
+    resolvedBase = resolvedBase.replace(/:root\b/g, rootSelector)
+    resolvedModules = resolvedModules.replace(/:root\b/g, rootSelector)
   }
 
-  css = applyPrefix(css, prefix)
+  let css = resolvedBase + "\n" + applyPrefix(resolvedModules, prefix)
 
   const customThemes = buildCustomThemes(themes)
   if (customThemes) css += "\n\n" + customThemes
@@ -212,7 +218,17 @@ function buildCSS(prefix, themes, reset, rootSelector, include, exclude) {
     css = ast.toString()
   }
 
-  return { css, utilMap }
+  // Extract @utility text-* rules from base CSS and convert to plain CSS for late injection.
+  // In the PostCSS path, Tailwind's theme-generated text-{color} utilities take precedence over
+  // same-named @utility definitions. Injecting them as plain CSS at the end of @layer utilities
+  // via OnceExit ensures they appear after the theme-generated rules and therefore win.
+  const baseUtilMap = buildUtilityMap(resolvedBase)
+  const textColorOverrides = [...baseUtilMap.entries()]
+    .filter(([name]) => name.startsWith('text-'))
+    .map(([name, body]) => `.${name} {${body}}`)
+    .join('\n')
+
+  return { css, utilMap, textColorOverrides }
 }
 
 function buildLateCSS(prefix, include, exclude, utilMap = new Map()) {
@@ -284,9 +300,10 @@ export default function frutjam(options = {}) {
       const include      = parseList(merged.include)
       const exclude      = parseList(merged.exclude)
 
-      const { css, utilMap } = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
+      const { css, utilMap, textColorOverrides } = buildCSS(prefix, themes, reset, rootSelector, include, exclude)
       root.append(postcss.parse(css).nodes)
       _lateCss = buildLateCSS(prefix, include, exclude, utilMap)
+      if (textColorOverrides) _lateCss += '\n' + textColorOverrides
       if (logs) {
         const d = "\x1b[2m", r = "\x1b[0m"
         const badge = "\x1b[46m\x1b[30m frutjam \x1b[0m"

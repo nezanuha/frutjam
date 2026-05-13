@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **CDN fields in `package.json`**: Added `unpkg` and `jsdelivr` fields pointing to `./dist/frutjam.min.css` so the minified stylesheet is served automatically by unpkg and jsDelivr CDNs.
 
+### Fixed
+
+- **Text-color semantic utilities in Tailwind v4 plugin path**: `text-primary`, `text-success`, `text-warning`, and other semantic text-color utilities were being silently overridden by Tailwind's theme-generated `text-{color}` utilities (which use the flat `--color-{color}-500` value). Base CSS is now excluded from prefixing, and text-color overrides are injected as plain CSS at the end of `@layer utilities` (PostCSS path) and registered via `matchUtilities` (Tailwind plugin path) so they always take precedence and the `light-dark()` contrast logic is preserved.
+
 ## [2.0.5] - 2026-05-13
 
 ### Fixed

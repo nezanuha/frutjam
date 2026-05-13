@@ -341,6 +341,24 @@ const THEME_CONFIG = (() => {
   return colors
 })()
 
+// 6b. Text-color overrides — @utility text-{color} from theme/base.css use light-dark() for
+//     accessibility (readable contrast in both light and dark mode). These must be registered
+//     via addUtilities() WITHOUT a prefix so they override the theme-generated text-{color}
+//     utilities (which always use the flat --color-{color}-500 value).
+const TEXT_COLOR_OVERRIDES = (() => {
+  const themeCss = readFile(join(srcDir, "theme/base.css"))
+  const root = postcss.parse(themeCss)
+  const overrides = {}
+  root.walkAtRules("utility", node => {
+    if (!/^text-/.test(node.params.trim())) return
+    const className = `.${node.params.trim()}`
+    const declarations = {}
+    node.walkDecls(decl => { declarations[decl.prop] = decl.value })
+    if (Object.keys(declarations).length) overrides[className] = declarations
+  })
+  return overrides
+})()
+
 // 7. Bundled plugin.js
 console.log("\n[plugin.js]")
 
@@ -368,6 +386,11 @@ const THEMES = ${toJSON(THEMES)}
 const COMPONENTS = ${toJSON(COMPONENTS)}
 
 const UTILITIES = ${toJSON(UTILITIES)}
+
+// Text-color semantic overrides — registered without prefix so they override Tailwind's
+// theme-generated text-{color} utilities (which use --color-{color}-500 flat value).
+// These use light-dark() for automatic light/dark mode contrast without dark: variants.
+const TEXT_COLOR_OVERRIDES = ${toJSON(TEXT_COLOR_OVERRIDES)}
 
 // Color name → CSS variable mapping (mirrors @theme inline in frutjam/theme)
 const THEME_CONFIG = ${toJSON(THEME_CONFIG)}
@@ -472,7 +495,7 @@ function remapRoot(obj, rootSelector) {
 }
 
 export default plugin.withOptions(
-  (options = {}) => ({ addBase, addUtilities }) => {
+  (options = {}) => ({ addBase, addUtilities, matchUtilities, theme }) => {
     const {
       prefix    = "",
       reset     = true,
@@ -526,6 +549,15 @@ export default plugin.withOptions(
         if (Object.keys(base).length) addBase(base)
         if (Object.keys(utils).length) addUtilities(sortUtils(utils))
       }
+    }
+
+    // Text-color semantic overrides — use matchUtilities to override theme-generated text-{color}.
+    // addUtilities() cannot override theme utilities; matchUtilities() with explicit values can.
+    if (Object.keys(TEXT_COLOR_OVERRIDES).length) {
+      const values = Object.fromEntries(
+        Object.entries(TEXT_COLOR_OVERRIDES).map(([cls, style]) => [cls.slice('.text-'.length), style.color])
+      )
+      matchUtilities({ text: (value) => ({ color: value }) }, { values })
     }
   },
   () => ({
