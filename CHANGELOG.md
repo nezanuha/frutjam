@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **`skeleton-text` shimmer animation**: `skeleton-text` now applies a shimmer animation directly over visible text using `background-clip: text`, instead of replacing the text with a blank pill-shaped bar. The gradient fades from a ghostly 20% opacity version of the text color at the edges to the full text color at the shine point, matching the base `skeleton` animation.
+- **`skeleton-text` shimmer animation**: `skeleton-text` was incorrectly hiding text and showing a blank bar instead of animating. It now shimmers over the visible text content as intended.
 
 - **UA default resets — interactive components**: `btn`, `badge`, `tag`, and `menu-item` now reset `text-decoration: none` so they render correctly when used as `<a>` elements inside prose or content areas. `btn` adds `vertical-align: middle` for consistent inline alignment when used on `<a>`. `menu-item` and `tag` add `appearance: none` to suppress browser button chrome when used on `<button>`. `tab` adds `text-decoration: none` for the same reason as `btn`.
 
