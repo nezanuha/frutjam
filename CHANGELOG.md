@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **UA font inheritance on interactive components**: `btn`, `input`, `textarea`, and `select` now include `font: inherit` so they inherit the page font-family rather than silently falling back to the system UI font. The explicit `font-size` each utility already declares continues to take effect as before.
+- **`menu-item` UA resets for `<button>` usage**: `menu-item` now resets `background`, `border`, `font`, and `width` so it renders correctly when applied to a `<button>` element.
+- **`collapsible-title` UA resets for `<button>` usage**: `collapsible-title` now resets `background`, `border`, and `font` so it renders correctly when applied to a `<button>` element.
+
 ## [2.1.1] - 2026-05-13
 
 ### Fixed
