@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.2] - 2026-05-14
+
 ### Fixed
 
 - **UA font inheritance on interactive components**: `btn`, `input`, `textarea`, and `select` now include `font: inherit` so they inherit the page font-family rather than silently falling back to the system UI font. The explicit `font-size` each utility already declares continues to take effect as before.
@@ -580,7 +582,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.2...HEAD
+[2.1.2]: https://github.com/nezanuha/frutjam/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/nezanuha/frutjam/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.6...v2.1.0
 [2.0.5]: https://github.com/nezanuha/frutjam/compare/v2.0.5...v2.0.6
