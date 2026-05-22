@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`divider` label text wrapping**: Label text (e.g. "OR") no longer wraps when the divider is placed in a narrow container.
+
 ## [2.1.2] - 2026-05-14
 
 ### Fixed
