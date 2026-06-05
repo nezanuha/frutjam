@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`stats-horizontal` modifier**: New explicit horizontal layout variant for `stats`. Mirrors the default behavior as a named class, making it straightforward to switch between orientations with responsive variants (e.g. `stats-vertical md:stats-horizontal`).
+
 ### Fixed
 
+- **`stats-vertical` divider lines**: Dividers between stat items now render as horizontal lines when `stats-vertical` is applied. Previously, `border-inline-start` was used regardless of orientation, causing incorrect vertical lines.
 - **`divider` label text wrapping**: Label text (e.g. "OR") no longer wraps when the divider is placed in a narrow container.
 - **`btn` text wrapping**: Button text no longer wraps when placed in a narrow container.
 
