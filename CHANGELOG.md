@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] - 2026-06-07
+
+### Fixed
+
+- **`stats-horizontal` and `stats-vertical` divider lines**: Divider override rules are now placed inside the `stats-horizontal` / `stats-vertical` utilities as forward-nested `& .stat + .stat` rules. The previous approach used ancestor/backward nesting (`.stats-vertical & + &` inside `@utility stat`) which Tailwind v4's `addUtilities()` silently drops, causing dividers to render incorrectly when either modifier was applied via the plugin.
+
 ## [2.2.0] - 2026-06-06
 
 ### Added
