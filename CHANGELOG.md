@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-06-06
+
 ### Added
 
 - **`stats-horizontal` modifier**: New explicit horizontal layout variant for `stats`. Mirrors the default behavior as a named class, making it straightforward to switch between orientations with responsive variants (e.g. `stats-vertical md:stats-horizontal`).
@@ -592,7 +594,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.1.2...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/nezanuha/frutjam/compare/v2.1.2...v2.2.0
 [2.1.2]: https://github.com/nezanuha/frutjam/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/nezanuha/frutjam/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/nezanuha/frutjam/compare/v2.0.6...v2.1.0
