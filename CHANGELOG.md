@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`navbar` list item text wrapping in horizontal layouts**: Nav items no longer wrap text vertically in `navbar-start`, `navbar-center`, and `navbar-end` placements. Adds `white-space: nowrap` to `li` elements in horizontal navbar variants, consistent with the same rule on `btn`, `tab`, `menu`, and `breadcrumb-list`.
+
 ## [2.2.1] - 2026-06-07
 
 ### Fixed
