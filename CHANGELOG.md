@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.2] - 2026-07-01
+
 ### Fixed
 
 - **`navbar` list item text wrapping in horizontal layouts**: Nav items no longer wrap text vertically in `navbar-start`, `navbar-center`, and `navbar-end` placements. Adds `white-space: nowrap` to `li` elements in horizontal navbar variants, consistent with the same rule on `btn`, `tab`, `menu`, and `breadcrumb-list`.
@@ -604,7 +606,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/nezanuha/frutjam/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/nezanuha/frutjam/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/nezanuha/frutjam/compare/v2.1.2...v2.2.0
 [2.1.2]: https://github.com/nezanuha/frutjam/compare/v2.1.1...v2.1.2
