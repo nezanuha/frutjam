@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.3] - 2026-07-02
+
+### Fixed
+
+- **`navbar` horizontal placement li selector**: Fixed an invalid CSS selector in `navbar-start`, `navbar-center`, and `navbar-end` that caused `white-space: nowrap` to never apply to list items. The previous selector required a list item to be a direct child of two different elements simultaneously, which is impossible. The corrected selector properly targets list items inside the navbar list.
+
 ## [2.2.2] - 2026-07-01
 
 ### Fixed
@@ -606,7 +612,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.2...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.3...HEAD
+[2.2.3]: https://github.com/nezanuha/frutjam/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/nezanuha/frutjam/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/nezanuha/frutjam/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/nezanuha/frutjam/compare/v2.1.2...v2.2.0
