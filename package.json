@@ -1,7 +1,7 @@
 {
   "name": "frutjam",
   "version": "2.2.3",
-  "description": "A utility-first CSS UI Library for Tailwind CSS",
+  "description": "CSS-only Tailwind CSS v4 component library. 65+ accessible UI components, zero JavaScript, WCAG AA guaranteed. Free MCP server for AI editors included.",
   "type": "module",
   "exports": {
     ".": "./dist/plugin.js",
@@ -30,7 +30,8 @@
     "build:cdn": "node scripts/build-cdn.mjs",
     "build:plugin": "node scripts/build-plugin.mjs",
     "build": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs",
-    "prepublishOnly": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs",
+    "prepublishOnly": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node -e \"const fs=require('fs');fs.copyFileSync('README.md','README.github.md');fs.copyFileSync('README.npm.md','README.md');\"",
+    "postpublish": "node -e \"const fs=require('fs');fs.copyFileSync('README.github.md','README.md');fs.unlinkSync('README.github.md');\"",
     "postversion": "git push origin main --tags"
   },
   "funding": "https://ko-fi.com/nezanuha",

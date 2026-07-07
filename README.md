@@ -6,188 +6,184 @@
 
 ---
 
-# Frutjam — Free CSS-Only Tailwind CSS UI Component Library
+# Frutjam — CSS-Only Tailwind CSS UI Component Library
 
-**[Frutjam](https://frutjam.com)** is a free, open-source Tailwind CSS component library with 65+ production-ready UI components — **no JavaScript required**. Pure CSS, fully accessible, copy-paste friendly. Works with any stack: HTML, React, Vue, HTMX, Django, Laravel, Next.js, and more.
+**Frutjam** is a free, open-source Tailwind CSS v4 component library. 65+ production-ready UI components with **zero JavaScript**, guaranteed **WCAG AA accessibility**, and a free **MCP server for AI editors** (Cherry). Works with any framework: React, Vue, HTMX, Django, Laravel, plain HTML.
+
+🌐 **[frutjam.com](https://frutjam.com)** · 📦 **[npm](https://www.npmjs.com/package/frutjam)** · 🍒 **[Cherry MCP](https://frutjam.com/cherry)**
 
 ---
 
-## 🔗 Essential Links
+## What is Frutjam?
 
-| Resource | Link |
-|----------|------|
-| Website | [frutjam.com](https://frutjam.com) |
-| Documentation | [frutjam.com/docs](https://frutjam.com/docs) |
-| All Components | [frutjam.com/components](https://frutjam.com/components) |
-| UI Blocks | [frutjam.com/blocks](https://frutjam.com/blocks) |
-| Themes | [frutjam.com/themes](https://frutjam.com/themes) |
-| Changelog | [frutjam.com/blog](https://frutjam.com/blog) |
-| GitHub Repository | [nezanuha/frutjam](https://github.com/nezanuha/frutjam) |
-| npm Package | [npmjs.com/package/frutjam](https://www.npmjs.com/package/frutjam) |
-| Installation Guide | [frutjam.com/docs/installation](https://frutjam.com/docs/installation) |
+Frutjam is a **CSS-only Tailwind CSS component library** built for Tailwind CSS v4. You install it as a Tailwind plugin — one line in your CSS — and instantly get 65+ accessible, copy-paste UI components: buttons, modals, drawers, tabs, toasts, carousels, tables, forms, and more.
+
+Every component works with pure HTML and CSS. No JavaScript framework required. No build pipeline beyond Tailwind itself. Drop it into any stack and start building.
+
+---
+
+## Quick Install
+
+```bash
+npm install -D frutjam
+```
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+**That's it.** All 65+ components are available immediately. No imports, no config, no extra stylesheets.
 
 ---
 
 ## Why Frutjam?
 
-- **Zero JavaScript** — every component works with pure CSS. No `addEventListener`, no hydration, no runtime.
-- **65+ components** — buttons, modals, tabs, drawers, tooltips, carousels, and more — all ready to copy-paste.
-- **Accessible by default** — WCAG AA compliant. Keyboard navigable. Screen-reader friendly.
-- **Framework-agnostic** — drop it into React, Next.js, Vue, Svelte, HTMX, Django, Laravel, or plain HTML.
-- **Tailwind CSS native** — installed as a Tailwind plugin. Your existing Tailwind utilities work alongside it with zero conflicts.
-- **Themeable** — swap themes with a single `data-theme` attribute. Build your own in CSS.
-- **Lightweight** — only the components you use are included. No bloat.
+| | Frutjam | DaisyUI | Shadcn UI | Flowbite |
+|---|---|---|---|---|
+| Zero JavaScript | ✅ | ✅ | ❌ React required | ⚠️ Some JS |
+| Tailwind v4 native | ✅ | ⚠️ v3 + v4 | ⚠️ | ❌ |
+| WCAG AA guaranteed | ✅ Every component | ⚠️ | ⚠️ | ⚠️ |
+| OKLCH color system | ✅ | ❌ | ❌ | ❌ |
+| MCP server for AI editors | ✅ Cherry (free tier) | ✅ Blueprint (paid only) | ❌ | ❌ |
+| Framework-agnostic | ✅ | ✅ | ❌ React only | ⚠️ |
+| Copy-paste friendly | ✅ | ✅ | ✅ | ✅ |
+| MIT license | ✅ | ✅ | ✅ | ✅ |
+
+**The short version:** Frutjam is the only Tailwind v4-native component library with guaranteed WCAG AA accessibility, an OKLCH color system, and a free MCP server for AI-assisted development.
 
 ---
 
-## Installation
+## Key Features
 
-```bash
-npm install frutjam
-```
-
-In your main stylesheet:
-
-```css
-@import "tailwindcss";
-@plugin "frutjam";
-```
-
-That's it. All 50+ components are available immediately.
+- **Zero JavaScript** — every component works with pure CSS and semantic HTML. Native `<dialog>` for modals, `<details>` for accordions, CSS `:has()` for interactive states. No `addEventListener`, no hydration, no runtime.
+- **65+ components** — buttons, modals, tabs, drawers, tooltips, carousels, cards, alerts, toasts, tables, forms, and more. All production-ready.
+- **WCAG AA by default** — every color pair (`--color-primary` / `--color-on-primary`) is hand-tuned in OKLCH to meet WCAG AA contrast requirements. Semantic HTML throughout.
+- **Tailwind v4 native** — built as a Tailwind v4 plugin using `@plugin`. No legacy `tailwind.config.js`. OKLCH design tokens via CSS custom properties.
+- **Framework-agnostic** — works with React, Next.js, Vue, Nuxt, Svelte, HTMX, Django, Laravel Blade, Astro, Rails, plain HTML — anything that outputs HTML.
+- **Themeable** — swap themes with `data-theme="dark"`. Build custom themes in CSS with OKLCH tokens. Supports light, dark, and system preference automatically.
+- **Treeshaken** — only the components you use are included. Tailwind's engine removes unused styles at build time.
+- **CDN-ready** — no build step needed. Import directly from jsDelivr.
 
 ---
 
-## Quick Start
+## 🍒 Cherry MCP — AI Editor Integration
 
-```html
-<!-- Button -->
-<button class="btn btn-primary">Get Started</button>
+Cherry is Frutjam's **free MCP server** that gives AI coding assistants accurate, real-time access to Frutjam component docs.
 
-<!-- Badge -->
-<span class="badge badge-success">New</span>
+Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate Tailwind CSS class names — inventing classes that don't exist. Cherry solves this by feeding your AI editor the exact Frutjam specs at the moment it needs them.
 
-<!-- Card -->
-<div class="card">
-  <div class="card-body">
-    <h2 class="card-title">Hello Frutjam</h2>
-    <p>CSS-only Tailwind UI components.</p>
-  </div>
-</div>
+**Works with:** Claude Code · Cursor · VS Code · Windsurf · Zed · Cline · any MCP-compatible editor
 
-<!-- Modal (CSS-only, no JavaScript) -->
-<label for="my-modal" class="btn">Open Modal</label>
-<input type="checkbox" id="my-modal" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box">
-    <h3>Pure CSS modal — no JavaScript</h3>
-    <label for="my-modal" class="btn mt-4">Close</label>
-  </div>
-</div>
+```json
+{
+  "mcpServers": {
+    "frutjam": {
+      "command": "npx",
+      "args": ["-y", "frutjam-cherry"]
+    }
+  }
+}
 ```
+
+[**Get Cherry MCP →**](https://frutjam.com/cherry)
 
 ---
 
-## UI Components
+## Components
 
-65+ free, production-ready CSS-only Tailwind CSS components — categorized for easy browsing.
-
-All components are fully documented with live previews, copy-paste code, and accessibility notes.
+65+ free, production-ready CSS-only Tailwind CSS components:
 
 ### Inputs & Forms
-
 [Button](https://frutjam.com/components/button) · [Checkbox](https://frutjam.com/components/checkbox) · [Radio](https://frutjam.com/components/radio) · [Toggle](https://frutjam.com/components/toggle) · [Input](https://frutjam.com/components/input) · [Textarea](https://frutjam.com/components/textarea) · [Select](https://frutjam.com/components/select) · [Range](https://frutjam.com/components/range) · [Rating](https://frutjam.com/components/rating) · [Combobox](https://frutjam.com/components/combobox)
 
 ### Layout & Navigation
-
-[Navbar](https://frutjam.com/components/navbar) · [Sidebar](https://frutjam.com/components/sidebar) · [Drawer](https://frutjam.com/components/drawer) · [Menu](https://frutjam.com/components/menu) · [Breadcrumb](https://frutjam.com/components/breadcrumb) · [Tabs](https://frutjam.com/components/tabs) · [Steps](https://frutjam.com/components/steps) · [Footer](https://frutjam.com/components/footer) · [Header](https://frutjam.com/components/header) · [Join](https://frutjam.com/components/join)
+[Navbar](https://frutjam.com/components/navbar) · [Sidebar](https://frutjam.com/components/sidebar) · [Drawer](https://frutjam.com/components/drawer) · [Menu](https://frutjam.com/components/menu) · [Breadcrumb](https://frutjam.com/components/breadcrumb) · [Tabs](https://frutjam.com/components/tabs) · [Steps](https://frutjam.com/components/steps) · [Footer](https://frutjam.com/components/footer) · [Header](https://frutjam.com/components/header) · [Join](https://frutjam.com/components/join) · [Pagination](https://frutjam.com/components/pagination)
 
 ### Feedback & Overlay
-
 [Modal](https://frutjam.com/components/modal) · [Toast](https://frutjam.com/components/toast) · [Alert](https://frutjam.com/components/alert) · [Tooltip](https://frutjam.com/components/tooltip) · [Popover](https://frutjam.com/components/popover) · [Loading](https://frutjam.com/components/loading) · [Skeleton](https://frutjam.com/components/skeleton) · [Progress](https://frutjam.com/components/progress) · [Radial Progress](https://frutjam.com/components/radial-progress)
 
 ### Data Display
-
 [Card](https://frutjam.com/components/card) · [Table](https://frutjam.com/components/table) · [Stat](https://frutjam.com/components/stat) · [Badge](https://frutjam.com/components/badge) · [Tag](https://frutjam.com/components/tag) · [Avatar](https://frutjam.com/components/avatar) · [Indicator](https://frutjam.com/components/indicator) · [Diff](https://frutjam.com/components/diff) · [Timeline](https://frutjam.com/components/timeline) · [Chat](https://frutjam.com/components/chat)
 
 ### Typography & Decoration
-
 [Hero](https://frutjam.com/components/hero) · [Divider](https://frutjam.com/components/divider) · [Kbd](https://frutjam.com/components/kbd) · [Link](https://frutjam.com/components/link) · [Mask](https://frutjam.com/components/mask) · [Swap](https://frutjam.com/components/swap) · [Countdown](https://frutjam.com/components/countdown) · [Marquee](https://frutjam.com/components/marquee) · [Carousel](https://frutjam.com/components/carousel) · [Accordion](https://frutjam.com/components/accordion) · [Collapsible](https://frutjam.com/components/collapsible) · [Surface](https://frutjam.com/components/surface)
 
-**[Browse the full interactive component library →](https://frutjam.com/components)**
+[**Browse all components with live previews →**](https://frutjam.com/components)
 
 ---
 
-## With Prefix
-
-**Frutjam prefix** — renames all Frutjam class names:
-
-```css
-@import "tailwindcss";
-@plugin "frutjam" {
-  prefix: fj;
-}
-```
+## Usage Examples
 
 ```html
-<button class="fj-btn fj-btn-primary">Launch App</button>
-```
+<!-- Primary button -->
+<button class="btn btn-primary">Get Started</button>
 
-**Tailwind prefix** — Tailwind's `prefix()` acts as a variant across all utilities:
+<!-- Outline button with badge -->
+<button class="btn btn-outline">
+  Notifications
+  <span class="badge badge-primary">3</span>
+</button>
 
-```css
-@import "tailwindcss" prefix(tw);
-@plugin "frutjam";
-```
+<!-- CSS-only modal — no JavaScript -->
+<button popovertarget="my-modal" class="btn btn-primary">Open Modal</button>
+<dialog id="my-modal" popover class="modal">
+  <div class="modal-content">
+    <h3 class="heading-lg">Pure CSS modal</h3>
+    <p class="para">Zero JavaScript. Native browser popover API.</p>
+    <button popovertarget="my-modal" class="btn mt-4">Close</button>
+  </div>
+</dialog>
 
-```html
-<button class="tw:btn tw:btn-primary">Launch App</button>
-```
+<!-- Alert -->
+<div class="alert alert-success">
+  <p>Your changes have been saved.</p>
+</div>
 
-**Both prefixes** — Frutjam renames its classes, Tailwind variant prefix on top:
+<!-- Card -->
+<div class="card">
+  <div class="card-content">
+    <h2 class="heading-lg">Card title</h2>
+    <p class="para">Card content goes here.</p>
+  </div>
+</div>
 
-```css
-@import "tailwindcss" prefix(tw);
-@plugin "frutjam" {
-  prefix: fj;
-}
-```
+<!-- Input -->
+<div class="flex flex-col gap-2">
+  <label class="text-sm font-medium">Email</label>
+  <input type="email" class="input" placeholder="you@example.com">
+</div>
 
-```html
-<button class="tw:fj-btn tw:fj-btn-primary">Launch App</button>
+<!-- Badge variants -->
+<span class="badge badge-primary">Primary</span>
+<span class="badge badge-success badge-soft">Success</span>
+<span class="badge badge-error badge-outline">Error</span>
 ```
 
 ---
 
-## Plugin Options
+## Accessibility
 
-All options can be set in CSS via `@plugin "frutjam" { ... }` or in `postcss.config.js`:
+Frutjam is designed for WCAG AA compliance from the ground up:
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `prefix` | `""` | Prefix all Frutjam class names (e.g. `fj` → `fj-btn`) |
-| `reset` | `true` | Include browser reset and element defaults |
-| `root` | `":root"` | Remap CSS variable declarations to a custom selector (e.g. `":host"`) |
-| `logs` | `true` | Show build-time console output |
-| `include` | `[]` | Include only specific components or utilities |
-| `exclude` | `[]` | Exclude specific components or utilities |
+- **Color contrast** — every color token pair is hand-tuned in OKLCH to exceed WCAG AA 4.5:1 contrast ratio for text
+- **Semantic HTML** — native `<dialog>` for modals, `<details>` for accordions, `<nav>` for navigation, correct heading hierarchy
+- **Keyboard navigation** — all interactive components are fully keyboard accessible
+- **Screen reader support** — ARIA attributes included where native semantics are insufficient
+- **Focus management** — visible focus rings on all interactive elements, respects `prefers-reduced-motion`
 
 ---
 
 ## Themes
 
-Frutjam ships with a built-in default theme and supports unlimited custom themes. Apply any theme with a `data-theme` attribute:
-
 ```html
-<body data-theme="dark">...</body>
-<div data-theme="forest">...</div>
+<html data-theme="darkberry">
 ```
 
-Define your own theme in CSS using `@layer theme`:
-
 ```css
+/* Define your own theme */
 @layer theme {
   [data-theme="ocean"] {
-    --scheme-color: dark;
     --color-primary: oklch(60% 0.2 220);
     --color-on-primary: oklch(98% 0.01 220);
     --color-base: oklch(15% 0.02 220);
@@ -196,13 +192,24 @@ Define your own theme in CSS using `@layer theme`:
 }
 ```
 
-**[Explore all themes →](https://frutjam.com/themes)**
+[**Explore themes →**](https://frutjam.com/themes)
 
 ---
 
-## CDN (no build step)
+## Plugin Options
 
-Use Frutjam directly from a CDN — no Node.js, no build tools required:
+| Option | Default | Description |
+|--------|---------|-------------|
+| `prefix` | `""` | Prefix all Frutjam class names (e.g. `fj` → `fj-btn`) |
+| `reset` | `true` | Include browser reset and element defaults |
+| `root` | `":root"` | Remap CSS variable declarations to a custom selector |
+| `logs` | `true` | Show build-time console output |
+| `include` | `[]` | Include only specific components |
+| `exclude` | `[]` | Exclude specific components |
+
+---
+
+## CDN (No Build Step)
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam/dist/frutjam.min.css" />
@@ -212,11 +219,9 @@ Use Frutjam directly from a CDN — no Node.js, no build tools required:
 
 ## Framework Support
 
-Frutjam works anywhere Tailwind CSS runs — it has no JavaScript runtime dependency.
-
-| Framework | Supported |
-|-----------|-----------|
-| HTML / Static | ✅ |
+| Framework | Status |
+|-----------|--------|
+| HTML / Static sites | ✅ |
 | React / Next.js | ✅ |
 | Vue / Nuxt | ✅ |
 | Svelte / SvelteKit | ✅ |
@@ -224,38 +229,45 @@ Frutjam works anywhere Tailwind CSS runs — it has no JavaScript runtime depend
 | Django | ✅ |
 | Laravel / Blade | ✅ |
 | Astro | ✅ |
-| Any other framework | ✅ |
+| Ruby on Rails | ✅ |
+| Any HTML output | ✅ |
 
 ---
 
 ## Documentation
 
-Full documentation with live previews, copy-paste code, and API references:
+- [Getting Started](https://frutjam.com/docs/overview)
+- [Installation Guide](https://frutjam.com/docs/installation)
+- [Configuration](https://frutjam.com/docs/configuration)
+- [Theming](https://frutjam.com/docs/themes)
+- [Colors](https://frutjam.com/docs/colors)
+- [All Components](https://frutjam.com/components)
+- [UI Blocks](https://frutjam.com/blocks)
+- [Cherry MCP](https://frutjam.com/cherry)
 
-- **[Getting Started](https://frutjam.com/docs/overview)** — installation, setup, configuration
-- **[Components](https://frutjam.com/components)** — all 65+ components with live demos
-- **[Themes](https://frutjam.com/themes)** — built-in and custom themes
-- **[Blocks](https://frutjam.com/blocks)** — prebuilt page sections (hero, header, footer, and more)
+---
+
+## Community
+
+- [Discord](https://discord.gg/FvjytjQSSZ)
+- [X / Twitter](https://x.com/FrutjamUI)
+- [Write for Us](https://frutjam.com/write-for-us)
 
 ---
 
 ## Contributing
 
-Contributions are welcome and appreciated.
-
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/my-component`
 3. Commit your changes: `git commit -m 'Add my-component'`
-4. Push to the branch: `git push origin feature/my-component`
+4. Push: `git push origin feature/my-component`
 5. Open a Pull Request
-
-Please read the [contributing guidelines](.github/CONTRIBUTING.md) before submitting.
 
 ---
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+MIT — free for personal and commercial use. See [LICENSE](LICENSE).
 
 ---
 
