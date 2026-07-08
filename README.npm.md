@@ -2,7 +2,7 @@
 
 CSS-only Tailwind CSS v4 component library. 65+ accessible, copy-paste UI components — zero JavaScript, WCAG AA guaranteed, framework-agnostic.
 
-**[frutjam.com](https://frutjam.com)** · [Components](https://frutjam.com/components) · [Docs](https://frutjam.com/docs) · [Cherry MCP](https://frutjam.com/cherry)
+**[frutjam.com](https://frutjam.com)** · [Components](https://frutjam.com/components) · [Docs](https://frutjam.com/docs) · [Cherry MCP](https://frutjam.com/products/cherry)
 
 ---
 
@@ -92,7 +92,7 @@ Cherry is a free MCP server that gives Claude Code, Cursor, and VS Code accurate
 }
 ```
 
-[**Get Cherry →**](https://frutjam.com/cherry)
+[**Get Cherry →**](https://frutjam.com/products/cherry)
 
 ---
 
