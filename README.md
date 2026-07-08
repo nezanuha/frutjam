@@ -95,19 +95,66 @@ Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate 
 65+ free, production-ready CSS-only Tailwind CSS components:
 
 ### Inputs & Forms
-[Button](https://frutjam.com/components/button) · [Checkbox](https://frutjam.com/components/checkbox) · [Radio](https://frutjam.com/components/radio) · [Toggle](https://frutjam.com/components/toggle) · [Input](https://frutjam.com/components/input) · [Textarea](https://frutjam.com/components/textarea) · [Select](https://frutjam.com/components/select) · [Range](https://frutjam.com/components/range) · [Rating](https://frutjam.com/components/rating) · [Combobox](https://frutjam.com/components/combobox)
+- [Button](https://frutjam.com/components/button)
+- [Checkbox](https://frutjam.com/components/checkbox)
+- [Radio](https://frutjam.com/components/radio)
+- [Toggle](https://frutjam.com/components/toggle)
+- [Input](https://frutjam.com/components/input)
+- [Textarea](https://frutjam.com/components/textarea)
+- [Select](https://frutjam.com/components/select)
+- [Range](https://frutjam.com/components/range)
+- [Rating](https://frutjam.com/components/rating)
+- [Combobox](https://frutjam.com/components/combobox)
 
 ### Layout & Navigation
-[Navbar](https://frutjam.com/components/navbar) · [Sidebar](https://frutjam.com/components/sidebar) · [Drawer](https://frutjam.com/components/drawer) · [Menu](https://frutjam.com/components/menu) · [Breadcrumb](https://frutjam.com/components/breadcrumb) · [Tabs](https://frutjam.com/components/tabs) · [Steps](https://frutjam.com/components/steps) · [Footer](https://frutjam.com/components/footer) · [Header](https://frutjam.com/components/header) · [Join](https://frutjam.com/components/join) · [Pagination](https://frutjam.com/components/pagination)
+- [Navbar](https://frutjam.com/components/navbar)
+- [Sidebar](https://frutjam.com/components/sidebar)
+- [Drawer](https://frutjam.com/components/drawer)
+- [Menu](https://frutjam.com/components/menu)
+- [Breadcrumb](https://frutjam.com/components/breadcrumb)
+- [Tabs](https://frutjam.com/components/tabs)
+- [Steps](https://frutjam.com/components/steps)
+- [Footer](https://frutjam.com/components/footer)
+- [Header](https://frutjam.com/components/header)
+- [Join](https://frutjam.com/components/join)
+- [Pagination](https://frutjam.com/components/pagination)
 
 ### Feedback & Overlay
-[Modal](https://frutjam.com/components/modal) · [Toast](https://frutjam.com/components/toast) · [Alert](https://frutjam.com/components/alert) · [Tooltip](https://frutjam.com/components/tooltip) · [Popover](https://frutjam.com/components/popover) · [Loading](https://frutjam.com/components/loading) · [Skeleton](https://frutjam.com/components/skeleton) · [Progress](https://frutjam.com/components/progress) · [Radial Progress](https://frutjam.com/components/radial-progress)
+- [Modal](https://frutjam.com/components/modal)
+- [Toast](https://frutjam.com/components/toast)
+- [Alert](https://frutjam.com/components/alert)
+- [Tooltip](https://frutjam.com/components/tooltip)
+- [Popover](https://frutjam.com/components/popover)
+- [Loading](https://frutjam.com/components/loading)
+- [Skeleton](https://frutjam.com/components/skeleton)
+- [Progress](https://frutjam.com/components/progress)
+- [Radial Progress](https://frutjam.com/components/radial-progress)
 
 ### Data Display
-[Card](https://frutjam.com/components/card) · [Table](https://frutjam.com/components/table) · [Stat](https://frutjam.com/components/stat) · [Badge](https://frutjam.com/components/badge) · [Tag](https://frutjam.com/components/tag) · [Avatar](https://frutjam.com/components/avatar) · [Indicator](https://frutjam.com/components/indicator) · [Diff](https://frutjam.com/components/diff) · [Timeline](https://frutjam.com/components/timeline) · [Chat](https://frutjam.com/components/chat)
+- [Card](https://frutjam.com/components/card)
+- [Table](https://frutjam.com/components/table)
+- [Stat](https://frutjam.com/components/stat)
+- [Badge](https://frutjam.com/components/badge)
+- [Tag](https://frutjam.com/components/tag)
+- [Avatar](https://frutjam.com/components/avatar)
+- [Indicator](https://frutjam.com/components/indicator)
+- [Diff](https://frutjam.com/components/diff)
+- [Timeline](https://frutjam.com/components/timeline)
+- [Chat](https://frutjam.com/components/chat)
 
 ### Typography & Decoration
-[Hero](https://frutjam.com/components/hero) · [Divider](https://frutjam.com/components/divider) · [Kbd](https://frutjam.com/components/kbd) · [Link](https://frutjam.com/components/link) · [Mask](https://frutjam.com/components/mask) · [Swap](https://frutjam.com/components/swap) · [Countdown](https://frutjam.com/components/countdown) · [Marquee](https://frutjam.com/components/marquee) · [Carousel](https://frutjam.com/components/carousel) · [Accordion](https://frutjam.com/components/accordion) · [Collapsible](https://frutjam.com/components/collapsible) · [Surface](https://frutjam.com/components/surface)
+- [Hero](https://frutjam.com/components/hero)
+- [Divider](https://frutjam.com/components/divider)
+- [Kbd](https://frutjam.com/components/kbd)
+- [Link](https://frutjam.com/components/link)
+- [Mask](https://frutjam.com/components/mask)
+- [Swap](https://frutjam.com/components/swap)
+- [Countdown](https://frutjam.com/components/countdown)
+- [Marquee](https://frutjam.com/components/marquee)
+- [Carousel](https://frutjam.com/components/carousel)
+- [Accordion](https://frutjam.com/components/accordion)
+- [Collapsible](https://frutjam.com/components/collapsible)
+- [Surface](https://frutjam.com/components/surface)
 
 [**Browse all components with live previews →**](https://frutjam.com/components)
 
