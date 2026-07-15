@@ -322,7 +322,7 @@ MIT — free for personal and commercial use. See [LICENSE](LICENSE).
 
 If Frutjam saves you time, a star helps others find it.
 
-[![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg?style=social&label=Star&maxAge=2592000)](https://github.com/nezanuha/frutjam/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/nezanuha/frutjam.svg?style=social&label=Star&maxAge=2592000)](https://github.com/nezanuha/frutjam)
 
 ---
 
