@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.4] - 2026-07-18
+
 ### Fixed
 
 - **Inline code and hr styles overridden by Tailwind preflight**: Inline code padding and hr border were being overridden by Tailwind's universal preflight reset when placed outside a cascade layer. Both are now declared outside any layer so they always take effect regardless of how Tailwind is configured.
@@ -618,7 +620,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.3...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.4...HEAD
+[2.2.4]: https://github.com/nezanuha/frutjam/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/nezanuha/frutjam/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/nezanuha/frutjam/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/nezanuha/frutjam/compare/v2.2.0...v2.2.1
