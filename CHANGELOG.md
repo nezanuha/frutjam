@@ -7,13 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.2.4] - 2026-07-18
-
 ### Fixed
 
-- **`code` and `hr` cascade layer vulnerability**: Moved `hr { border-top-width }`, `code` background/padding/border-radius, and `pre code` resets outside `@layer base`. When users install Tailwind CSS with an unlayered `*` preflight reset (`padding: 0`, `margin: 0`, `border: 0 solid`), unlayered styles beat any `@layer base` rules regardless of specificity — causing `hr` elements to become invisible and inline `code` to lose its padding. Placing these rules outside any layer ensures they are unlayered and always win.
-- **`code` white-space wrapping**: Added `white-space: nowrap` to inline `code` elements so they never break mid-word inside table cells or narrow containers.
-- **`code` font-weight**: Removed the hardcoded `font-weight: 600` from `code` to allow natural font-weight inheritance.
+- **Inline code and hr styles overridden by Tailwind preflight**: Inline code padding and hr border were being overridden by Tailwind's universal preflight reset when placed outside a cascade layer. Both are now declared outside any layer so they always take effect regardless of how Tailwind is configured.
+- **Inline code word wrapping**: Inline code elements no longer break mid-word inside table cells or narrow containers.
+- **Inline code font weight**: Removed hardcoded bold weight from inline code to allow natural inheritance from the surrounding context.
 
 ## [2.2.3] - 2026-07-02
 
