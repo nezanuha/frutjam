@@ -1,12 +1,7 @@
 @utility collapsible {
   position: relative;
 
-  /* Open via JS class */
-  &.collapsible-open,
-  /* Open via checkbox inside */
-  &:has(> .collapsible-toggle:checked),
-  /* Open via native <details> element */
-  &[open] {
+  &:is(.collapsible-open, :has(> .collapsible-toggle:checked), [open]) {
     & > .collapsible-content {
       grid-template-rows: 1fr;
     }
@@ -110,13 +105,10 @@
     -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
   }
 
-  &.collapsible-open,
-  &:has(> .collapsible-toggle:checked) {
-    & > .collapsible-content {
-      max-height: var(--peek-max-height, 99rem);
-      mask-image: none;
-      -webkit-mask-image: none;
-    }
+  &:is(.collapsible-open, :has(> .collapsible-toggle:checked)) > .collapsible-content {
+    max-height: var(--peek-max-height, 99rem);
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 }
 

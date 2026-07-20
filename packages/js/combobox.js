@@ -6,7 +6,7 @@ export function createCombobox(el) {
 
   const uid = ++_comboboxIdCounter
   const listbox = el.querySelector('[role="listbox"]') ?? el.querySelector('.combobox-dropdown') ?? (() => {
-    const found = el.querySelector('.combobox-option, [role="option"]')
+    const found = el.querySelector('.combobox-item, [role="option"]')
     return found ? found.parentElement : null
   })()
 
@@ -18,7 +18,7 @@ export function createCombobox(el) {
     if (!input.getAttribute('aria-autocomplete')) input.setAttribute('aria-autocomplete', 'list')
   }
 
-  const allOptions = () => Array.from(el.querySelectorAll('[role="option"], .combobox-option'))
+  const allOptions = () => Array.from(el.querySelectorAll('[role="option"], .combobox-item'))
   const visibleOptions = () => allOptions().filter((o) => !o.hidden)
 
   function open() {
@@ -46,11 +46,11 @@ export function createCombobox(el) {
   function highlight(index) {
     const opts = visibleOptions()
     opts.forEach((o, i) => {
-      o.classList.remove('combobox-option-active')
+      o.classList.remove('combobox-item-active')
       if (!o.id) o.id = `fj-combobox-option-${uid}-${i}`
     })
     if (index >= 0 && opts[index]) {
-      opts[index].classList.add('combobox-option-active')
+      opts[index].classList.add('combobox-item-active')
       opts[index].scrollIntoView({ block: 'nearest' })
       input?.setAttribute('aria-activedescendant', opts[index].id)
     } else {
@@ -88,7 +88,7 @@ export function createCombobox(el) {
   })
 
   el.addEventListener('click', (e) => {
-    const opt = e.target.closest('[role="option"], .combobox-option')
+    const opt = e.target.closest('[role="option"], .combobox-item')
     if (opt) { select(opt); return }
     if (e.target === input) open()
   })

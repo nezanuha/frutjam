@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.5] - 2026-07-20
+
+### Fixed
+
+- **Tailwind 4.3.3 compatibility**: Active and expanded states stopped applying in `collapsible`, `combobox-item`, `drawer`, `swap`, `swap-rotate`, `swap-flip`, and `tooltip` after upgrading to Tailwind 4.3.3 ([tailwindlabs/tailwindcss#20124](https://github.com/tailwindlabs/tailwindcss/pull/20124)). Fixed by converting compound selectors inside `@utility` blocks to `:is()` syntax.
+- **`createCombobox` keyboard navigation invisible**: Arrow-key highlight was not visible — `highlight()` was toggling `combobox-option-active` which has no CSS. Changed to `combobox-item-active`.
+- **`createCombobox` item targeting**: JS queried `.combobox-option` while the CSS utility uses `.combobox-item`, requiring two classes per item. The helper now uses `.combobox-item` directly.
+- **Inline code wrapping**: Removed `white-space: nowrap` from inline `code` elements — it prevented wrapping but caused horizontal overflow in narrow containers and prose.
+
 ## [2.2.4] - 2026-07-18
 
 ### Fixed
@@ -620,7 +629,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.5...HEAD
+[2.2.5]: https://github.com/nezanuha/frutjam/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/nezanuha/frutjam/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/nezanuha/frutjam/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/nezanuha/frutjam/compare/v2.2.1...v2.2.2
