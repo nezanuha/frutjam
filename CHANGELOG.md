@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`header-fixed` not working**: Position modifiers are now applied via `--header-position` custom property so declaration order no longer matters.
+- **`header-blur` creating unwanted stacking context**: Default changed from `blur(0px)` to `none` — no filter is applied unless `header-blur` is explicitly used. Fixes drawers getting trapped inside the header's bounding box.
+- **Drawer rendering under fixed header**: Drawer `z-index` raised from `999` to `1000` so it always appears above the header.
+
 ## [2.2.5] - 2026-07-20
 
 ### Fixed
