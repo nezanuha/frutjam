@@ -138,6 +138,7 @@ Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate 
 - [Tag](https://frutjam.com/components/tag)
 - [Avatar](https://frutjam.com/components/avatar)
 - [Indicator](https://frutjam.com/components/indicator)
+- [Status](https://frutjam.com/components/status)
 - [Diff](https://frutjam.com/components/diff)
 - [Timeline](https://frutjam.com/components/timeline)
 - [Chat](https://frutjam.com/components/chat)
@@ -239,7 +240,7 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 }
 ```
 
-[**Explore themes →**](https://frutjam.com/themes)
+[**Explore themes →**](https://frutjam.com/docs/themes)
 
 ---
 
@@ -298,11 +299,15 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 
 - [Discord](https://discord.gg/FvjytjQSSZ)
 - [X / Twitter](https://x.com/FrutjamUI)
-- [Write for Us](https://frutjam.com/write-for-us)
+- [Write for Us](https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml)
 
 ---
 
 ## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for the component, documentation and
+translation workflows. The docs are published in 13 languages, and corrections
+to the machine-translated pages are especially welcome.
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/my-component`
