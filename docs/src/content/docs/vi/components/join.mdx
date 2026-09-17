@@ -1,0 +1,183 @@
+---
+name: "Tham gia"
+heading: "Tham gia thành phần"
+description: "CSS Tailwind chỉ có CSS ​​tham gia để nhóm các nút, đầu vào hoặc lựa chọn vào một thiết bị được kết nối. Ngang và dọc. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Tham gia - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Tailwind CSS Tham gia để có các điều khiển nút được nhóm, đầu vào được phân đoạn và các trường biểu mẫu kết hợp. Hợp nhất các đường viền liền mạch trong bố cục ngang hoặc dọc."
+order: 0
+related:
+  - "components/button"
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/join.webp"
+imageAlt: "Tham gia thành phần"
+createdAt: "2026-03-01T10:45:52.942552+00:00"
+updatedAt: "2026-07-13T09:44:07.609218+00:00"
+sourceHash: "d50a45b07ae7"
+translationHash: "f66aa25963dc"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS Tailwind chỉ có CSS ​​tham gia để nhóm các nút, đầu vào hoặc lựa chọn vào một thiết bị được kết nối. Ngang và dọc. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Nối các thành phần nhóm các mục liền kề lại với nhau bằng cách xóa khoảng cách và hợp nhất đường viền giữa các thành phần. Hệ thống nối Frutjam tạo ra các nhóm nút gắn kết, điều khiển được phân đoạn và kết hợp đầu vào. Hỗ trợ nhiều hướng và hoạt động liền mạch với các nút, đầu vào và các thành phần chọn lọc cho các nhóm điều khiển và bố cục biểu mẫu chuyên nghiệp.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| join | <span class="badge badge-xs">Căn cứ</span> | Nhóm các phần tử con bằng cách hợp nhất các đường viền của chúng |
+| join-item | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Phần tử con tham gia vào nhóm tham gia |
+| join-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Bố cục ngang (mặc định) |
+| join-vertical | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Bố cục xếp chồng theo chiều dọc |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+<Snippet>
+
+```html
+<div class="join">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+```jsx
+<div className="join">
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## Tham gia chỉ đường
+
+Kiểm soát hướng bố cục của các mục được nhóm bằng cách sử dụng các lớp tiện ích định hướng.
+
+### Tham gia theo chiều ngang
+
+Bố cục mặc định cho các nhóm nút và điều khiển cạnh nhau.
+
+<Snippet>
+
+```html
+<div class="join join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### Tham gia theo chiều dọc
+
+Xếp chồng **nối các mục** theo chiều dọc, lý tưởng cho thanh bên hoặc điều hướng dành riêng cho thiết bị di động.
+
+<Snippet>
+
+```html
+<div class="join join-vertical">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### Tham gia đáp ứng
+
+Tự động chuyển từ hàng dọc trên thiết bị di động sang hàng ngang trên máy tính để bàn bằng cách sử dụng **.join-vertical** và **.lg:join-horizontal**.
+
+<Snippet>
+
+```html
+<div class="join join-vertical lg:join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## Đầu vào được nhóm
+
+Kết hợp liền mạch các kiểu nhập văn bản với các nút hoặc biểu tượng để tạo thanh tìm kiếm và biểu mẫu đăng ký chuyên nghiệp.
+
+<Snippet>
+
+```html
+<div class="join">
+    <input class="input input-xs join-item" placeholder="Email" />
+    <button class="btn btn-xs join-item">Subscribe</button>
+</div>
+<div class="join">
+    <button class="btn btn-xs join-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+    </button>
+    <input type="search" class="input input-xs join-item" placeholder="Search...">
+</div>
+```
+
+</Snippet>
+
+## Nhóm nút radio
+
+Biến đầu vào radio tiêu chuẩn thành **nhóm điều khiển được phân đoạn** hoặc chuyển đổi bằng cách gói chúng trong vùng chứa Tham gia với các lớp nút.
+
+<Snippet>
+
+```html
+<div class="join">
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 1" />
+  <input class="join-item btn btn-outline" type="radio" name="options" checked aria-label="Radio 2" />
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 3" />
+</div>
+```
+
+</Snippet>
+
+## Thẻ được nhóm
+
+<Snippet>
+
+```html
+<div class="join">
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+</div>
+```
+
+</Snippet>

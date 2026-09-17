@@ -1,0 +1,183 @@
+---
+name: "Dołączyć"
+heading: "Dołącz do komponentu"
+description: "Tylko CSS Łączenie Tailwind CSS w celu grupowania przycisków, danych wejściowych lub wyborów w połączoną jednostkę. Poziome i pionowe. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Dołącz — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Tailwind CSS Join dla zgrupowanych kontrolek przycisków, segmentowanych danych wejściowych i połączonych pól formularzy. Płynnie łączy obramowania w układach poziomych lub pionowych."
+order: 0
+related:
+  - "components/button"
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/join.webp"
+imageAlt: "Dołącz komponent"
+createdAt: "2026-03-01T10:45:52.942552+00:00"
+updatedAt: "2026-07-13T09:44:07.609218+00:00"
+sourceHash: "d50a45b07ae7"
+translationHash: "03e7cf688ddc"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Tylko CSS Łączenie Tailwind CSS w celu grupowania przycisków, danych wejściowych lub wyborów w połączoną jednostkę. Poziome i pionowe. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Połącz komponenty, grupując sąsiadujące ze sobą elementy, usuwając odstępy i łącząc krawędzie pomiędzy elementami. System łączenia Frutjam tworzy spójne grupy przycisków, podzielone na segmenty elementy sterujące i kombinacje wejść. Obsługuje wiele kierunków i płynnie współpracuje z przyciskami, wejściami i elementami wyboru w celu uzyskania profesjonalnych układów formularzy i grup kontrolnych.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| join | <span class="badge badge-xs">Opierać</span> | Grupuje elementy podrzędne, łącząc ich obramowania |
+| join-item | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element podrzędny uczestniczący w grupie dołączania |
+| join-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Układ poziomy (domyślny) |
+| join-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pionowy układ skumulowany |
+
+</DocTable>
+
+## Podstawowe użycie
+
+<Snippet>
+
+```html
+<div class="join">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+```jsx
+<div className="join">
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## Dołącz do wskazówek
+
+Kontroluj orientację układu zgrupowanych elementów za pomocą kierunkowych klas użyteczności.
+
+### Połączenie poziome
+
+Domyślny układ obok siebie kontrolek i grup przycisków.
+
+<Snippet>
+
+```html
+<div class="join join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### Połączenie pionowe
+
+Układa **łączone elementy** w pionie, co idealnie sprawdza się w przypadku pasków bocznych lub nawigacji na urządzeniach mobilnych.
+
+<Snippet>
+
+```html
+<div class="join join-vertical">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### Responsywne dołączenie
+
+Automatycznie przełączaj się z pionowego stosu na urządzeniu mobilnym do poziomego rzędu na komputerze za pomocą **.join-vertical** i **.lg:join-horizontal**.
+
+<Snippet>
+
+```html
+<div class="join join-vertical lg:join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## Zgrupowane wejścia
+
+Bezproblemowo łącz wprowadzany tekst z przyciskami lub ikonami, aby tworzyć profesjonalne paski wyszukiwania i formularze subskrypcji.
+
+<Snippet>
+
+```html
+<div class="join">
+    <input class="input input-xs join-item" placeholder="Email" />
+    <button class="btn btn-xs join-item">Subscribe</button>
+</div>
+<div class="join">
+    <button class="btn btn-xs join-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+    </button>
+    <input type="search" class="input input-xs join-item" placeholder="Search...">
+</div>
+```
+
+</Snippet>
+
+## Grupy przycisków opcji
+
+Zamień standardowe wejścia radiowe w **segmentowaną kontrolkę** lub grupę przełączającą, zawijając je w kontenerze Join z klasami przycisków.
+
+<Snippet>
+
+```html
+<div class="join">
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 1" />
+  <input class="join-item btn btn-outline" type="radio" name="options" checked aria-label="Radio 2" />
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 3" />
+</div>
+```
+
+</Snippet>
+
+## Zgrupowane karty
+
+<Snippet>
+
+```html
+<div class="join">
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+</div>
+```
+
+</Snippet>

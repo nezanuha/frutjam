@@ -1,0 +1,767 @@
+---
+name: "弹出窗口"
+heading: "弹出组件"
+description: "仅 CSS Tailwind CSS 弹出窗口使用本机弹出窗口 API。用于工具提示和下拉菜单的浮动内容面板。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "Tailwind CSS 弹出窗口和下拉菜单 - 仅 CSS |Frutjam"
+metaDescription: "仅 CSS Tailwind CSS 弹出窗口和下拉菜单。原生 HTML Popover API、导航栏下拉菜单、配置文件菜单 — 无 JavaScript。 WCAG 可访问、Django、HTMX、Larave"
+order: 0
+related:
+  - "components/button"
+  - "components/tooltip"
+image: "https://cdn.frutjam.com/media/components/popover.webp"
+imageAlt: "Frutjam UI 的弹出框"
+createdAt: "2026-01-15T05:30:51.470004+00:00"
+updatedAt: "2026-07-13T09:43:43.541052+00:00"
+sourceHash: "959583800dce"
+translationHash: "69e587474ef4"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 弹出窗口使用本机弹出窗口 API。用于工具提示和下拉菜单的浮动内容面板。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+弹出框组件显示与触发元素相邻的上下文内容，而不占用永久屏幕空间。 Frutjam 弹出窗口系统基于原生 HTML Popover API 构建，支持单击和悬停触发器、可自定义定位和流畅的动画。非常适合下拉菜单、上下文菜单、用户配置文件菜单和无需页面导航的其他选项。
+
+仅 CSS，无需 JavaScript — 使用纯 HTML 和 Tailwind CSS 构建可访问的下拉菜单和上下文叠加层。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| popover | <span class="badge badge-xs">根据</span> | 将触发器和内容锚定在一起的包装器 |
+| popover-content | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 弹出窗口打开时显示浮动面板 |
+| popover-toggle | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 打开/关闭弹出窗口的触发元素 |
+| popover-hover | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 悬停时打开而不是单击 |
+| popover-top-start | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于上方，与起点对齐 |
+| popover-top-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于上方，居中 |
+| popover-top-end | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于上方，与末端对齐 |
+| popover-bottom-start | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于下方，与开头对齐 |
+| popover-bottom-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于下方，居中 |
+| popover-bottom-end | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于下方，与末尾对齐 |
+| popover-start-top | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于左侧，与顶部对齐 |
+| popover-start-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于左侧，垂直居中 |
+| popover-start-bottom | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于左侧，与底部对齐 |
+| popover-end-top | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于右侧，与顶部对齐 |
+| popover-end-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于右侧，垂直居中 |
+| popover-end-bottom | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 位于右侧，与底部对齐 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="defaultClickPopover" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="defaultClickPopover">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="defaultClickPopover" type="button" className="popover-toggle btn">Click here</button>
+  <div tabIndex="0" className="popover-content" popover id="defaultClickPopover">
+      <ul className="menu">
+        <li>
+          <a className="menu-item">About Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Career</a>
+        </li>
+        <li>
+          <a className="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 下拉式菜单
+
+使用 Popover 组件构建下拉菜单 - 导航下拉菜单、用户配置文件菜单和操作菜单 - 全部仅使用 CSS，无需 JavaScript。
+
+### 导航栏下拉菜单
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="navDropdown" type="button" class="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="navDropdown">
+    <ul class="menu">
+      <li><a class="menu-item">Components</a></li>
+      <li><a class="menu-item">Blocks</a></li>
+      <li><a class="menu-item">Templates</a></li>
+      <li><a class="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="navDropdown" type="button" className="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="navDropdown">
+    <ul className="menu">
+      <li><a className="menu-item">Components</a></li>
+      <li><a className="menu-item">Blocks</a></li>
+      <li><a className="menu-item">Templates</a></li>
+      <li><a className="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 用户个人资料下拉菜单
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" class="popover-toggle btn btn-ghost p-0">
+    <div class="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="profileDropdown">
+    <ul class="menu">
+      <li class="menu-title">John Doe</li>
+      <li><a class="menu-item">Profile</a></li>
+      <li><a class="menu-item">Settings</a></li>
+      <li><a class="menu-item">Billing</a></li>
+      <li><div class="divider my-0"></div></li>
+      <li><a class="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" className="popover-toggle btn btn-ghost p-0">
+    <div className="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="profileDropdown">
+    <ul className="menu">
+      <li className="menu-title">John Doe</li>
+      <li><a className="menu-item">Profile</a></li>
+      <li><a className="menu-item">Settings</a></li>
+      <li><a className="menu-item">Billing</a></li>
+      <li><div className="divider my-0"></div></li>
+      <li><a className="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 带图标的下拉菜单
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="iconDropdown" type="button" class="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="iconDropdown">
+    <ul class="menu">
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div class="divider my-0"></div></li>
+      <li>
+        <a class="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="iconDropdown" type="button" className="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="iconDropdown">
+    <ul className="menu">
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div className="divider my-0"></div></li>
+      <li>
+        <a className="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 弹出框交互行为
+
+默认情况下，单击交互用于打开和关闭弹出框组件。例如，对于超级菜单，您可以通过添加 `popover-hover` 类并删除 `popovertarget` 和 `popover` 属性来启用基于悬停的交互。这允许通过悬停逻辑而不是本机单击行为完全控制弹出窗口。
+
+### 本机点击触发器
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="nativeClickTrigger" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="nativeClickTrigger">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 悬停交互逻辑
+
+<Snippet>
+
+```html
+<div class="popover popover-hover">
+  <button type="button" class="popover-toggle btn">Hover me</button>
+  <div class="popover-content">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 弹出框定位选项（顶部、底部、开始、结束）
+
+使用我们灵活的放置逻辑将弹出窗口相对于其触发元素定位。弹出框放置是通过组合垂直（顶部、中心、底部）和水平（开始、中心、结束）对齐选项来创建的。
+
+### 顶部启动弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-top-start">
+  <button popovertarget="popoverTopStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 顶部中心弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-top-center">
+  <button popovertarget="popoverTopCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 顶端弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-top-end">
+  <button popovertarget="popoverTopEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 端顶弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-end-top">
+  <button popovertarget="popoverEndTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 端中心弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-end-center">
+  <button popovertarget="popoverEndCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 端底弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-end-bottom">
+  <button popovertarget="popoverEndBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 底部开始弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-start">
+  <button popovertarget="popoverBottomStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 底部中心弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-center">
+  <button popovertarget="popoverBottomCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 底端弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="popoverBottomEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 起始顶部弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-start-top">
+  <button popovertarget="popoverStartTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 开始中心弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-start-center">
+  <button popovertarget="popoverStartCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 开始-底部弹出位置
+
+<Snippet>
+
+```html
+<div class="popover popover-start-bottom">
+  <button popovertarget="popoverStartBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 在数据表内使用弹出窗口（操作菜单和确认）
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">E-commerce Dashboard</div>
+            <div class="text-sm opacity-50">Internal Tool</div>
+          </div>
+        </td>
+        <td>
+          Full Stack
+
+          <span class="badge badge-soft badge-sm">Admin Panel</span>
+        </td>
+        <td>Next.js</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable">
+              <ul class="menu menu-horizontal">
+                <li class="menu-title">Are you sure? delete this record!</li>
+                <li>
+                  <button class="btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">CI Pipeline</div>
+            <div class="text-sm opacity-50">Infrastructure</div>
+          </div>
+        </td>
+        <td>
+          DevOps
+
+          <span class="badge badge-soft badge-sm">Automation</span>
+        </td>
+        <td>GitHub Actions</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable2" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable2">
+              <ul class="menu menu-horizontal">
+                <li>
+                  <button class="menu-item btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="menu-item btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </tbody>
+
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+</Snippet>

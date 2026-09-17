@@ -1,0 +1,142 @@
+---
+name: "Bułka tarta"
+heading: "Składnik bułki tartej"
+description: "Nawigacja nawigacyjna CSS Tailwind, oparta wyłącznie na CSS, z niestandardowymi separatorami i dostępnymi znacznikami punktów orientacyjnych. WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym projektem Tailwind CSS v4."
+metaTitle: "Breadcrumb — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb wykorzystujący semantyczny HTML dla dostępnych, przyjaznych dla SEO ścieżek nawigacyjnych. Obsługuje niestandardowe separatory, ikony i responsywne układy."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Komponent Breadcrumb firmy Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "aedd07300b6b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nawigacja nawigacyjna CSS Tailwind, oparta wyłącznie na CSS, z niestandardowymi separatorami i dostępnymi znacznikami punktów orientacyjnych. WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym projektem Tailwind CSS v4.
+
+Komponenty Breadcrumb pokazują hierarchię nawigacji i pomagają użytkownikom zrozumieć ich lokalizację w witrynie. Zbudowane z semantycznych elementów nawigacyjnych HTML i punktów orientacyjnych ARIA zapewniających dostępność, bułka tarta poprawia użyteczność, umożliwiając użytkownikom szybkie nawigowanie do sekcji nadrzędnych. System nawigacyjny Frutjam automatycznie renderuje separatory i obsługuje niestandardowe separatory w celu elastycznej stylizacji.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Opierać</span> | Kontener nawigacyjny dla ścieżki nawigacyjnej |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Uporządkowana lista elementów nawigacyjnych |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Indywidualny element listy w menu nawigacyjnym |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element kotwicy w stylu łącza nawigacyjnego |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element oddzielający pomiędzy elementami |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Zaznacza bieżący (aktywny) element strony |
+
+</DocTable>
+
+## Podstawowe użycie
+
+Jeśli nie podano separatora, pomiędzy elementami menu nawigacyjnego automatycznie wyświetlana jest strzałka.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Separatory bułki tartej
+
+### Bułka tarta z separatorem tekstu
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Bułka tarta z separatorem ikon
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Dostępność nawigacyjna
+
+Aby zapewnić dostępność nawigacji dla czytników ekranu:
+
+-   Zawiń strukturę w element `<nav>` z elementem `aria-label="Breadcrumb"`.
+-   Ostatni element (bieżąca strona) powinien używać `aria-current="page"` i najlepiej być `<span>`, a nie linkiem.
+-   Czytniki ekranu powinny ignorować separatory (często obsługiwane przez CSS lub `aria-hidden="true"`, jeśli używany jest element fizyczny).

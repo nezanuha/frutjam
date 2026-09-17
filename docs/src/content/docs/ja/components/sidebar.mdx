@@ -1,0 +1,131 @@
+---
+name: "サイドバー"
+heading: "サイドバーコンポーネント"
+description: "サイド ナビゲーション パネル用の CSS のみの Tailwind CSS サイドバー。折りたたみ可能。ナビゲーション項目の状態とセクション見出しが表示されます。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "サイドバー - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS サイドバーには、折りたたみ可能なパネル、アイコン、ネストされたメニューが含まれます。管理レイアウトと複数セクションのアプリケーションのための応答性の高いダッシュボード ナビゲーション。"
+order: 0
+related:
+  - "components/navbar"
+  - "components/menu"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/sidebar_jTGiPHo.webp"
+imageAlt: "フルジャムによるサイドバー"
+createdAt: "2026-04-19T15:57:04.010698+00:00"
+updatedAt: "2026-07-13T09:43:30.099461+00:00"
+sourceHash: "80862f45041c"
+translationHash: "db541b6e8ed1"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+サイド ナビゲーション パネル用の CSS のみの Tailwind CSS サイドバー。折りたたみ可能。ナビゲーション項目の状態とセクション見出しが表示されます。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+サイドバー コンポーネントは、固定または折りたたみ可能なサイド パネルに主要なナビゲーションと補助コンテンツを編成します。セマンティック HTML で構築されたサイドバーは、メイン コンテンツのスペースを消費することなくナビゲーションを向上させます。 Frutjam サイドバー システムは、複数のレイアウト、幅、動作をサポートしており、管理ダッシュボード、ドキュメント サイト、複雑なアプリケーションに最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| sidebar | <span class="badge badge-xs">ベース</span> | ナビゲーションと補助コンテンツ用の固定サイドパネル |
+
+</DocTable>
+
+## 基本的な使い方
+
+`aside` 要素で `sidebar` クラスを使用します。これをフレックスコンテナ内のメインコンテンツの横に配置します。
+
+<Snippet>
+
+```html
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+```jsx
+<div className="flex min-h-90">
+  <aside className="sidebar w-64">
+    <ul className="menu p-4">
+      <li className="menu-title"><span>Menu</span></li>
+      <li><a className="menu-item">Sidebar Item 1</a></li>
+      <li><a className="menu-item">Sidebar Item 2</a></li>
+      <li><a className="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main className="flex-1 p-6">
+    <p className="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## サイドバーのナビゲーション
+
+グループ化されたセクションとアクティブな状態のスタイルを備えた完全なナビゲーション サイドバー。
+
+<Snippet>
+
+```html
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 折りたたみ可能なサイドバー
+
+モバイルまたはオーバーレイのサイドバーの場合は、`sidebar` クラスと `drawer drawer-start` ダイアログ コンポーネントを組み合わせます。
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
+```
+
+</Snippet>

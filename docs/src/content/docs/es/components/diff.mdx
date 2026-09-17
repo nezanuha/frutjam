@@ -1,0 +1,201 @@
+---
+name: "diferencia"
+heading: "Componente diferencial"
+description: "Visor de diferencias CSS Tailwind solo para CSS para comparar contenido uno al lado del otro con un divisor que se puede arrastrar. No se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Diff: componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Tailwind CSS Diff para comparaciones de contenido en paralelo. Diseños de tamaño variable y codificados por colores para revisiones de código, diferencias de documentos y seguimiento de cambios antes/después."
+order: 0
+related:
+  - "components/card"
+image: "https://cdn.frutjam.com/media/components/diff_epH7fIK.webp"
+imageAlt: "Diferencia por Frutjam"
+createdAt: "2026-04-19T15:56:39.193495+00:00"
+updatedAt: "2026-07-13T09:52:51.568886+00:00"
+sourceHash: "b789fcca1ab4"
+translationHash: "0b1e924e92ba"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Visor de diferencias CSS Tailwind solo para CSS para comparar contenido uno al lado del otro con un divisor que se puede arrastrar. No se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes Diff muestran diferencias entre dos versiones de contenido, ideales para mostrar cambios de código, revisiones de documentos o vistas comparativas. Construidas con HTML semántico y estilos codificados por colores, las diferencias ayudan a los usuarios a comprender qué cambió. El sistema de diferencias de Frutjam admite múltiples tipos y estilos, perfecto para interfaces de control de versiones, historial de revisiones y seguimiento de cambios.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| diff | <span class="badge badge-xs">Base</span> | Contenedor de comparación lado a lado con un divisor arrastrable |
+| diff-item-1 | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Panel izquierdo (antes) de la comparación |
+| diff-item-2 | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Panel derecho (después) de la comparación |
+| diff-resizer | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Controlador arrastrable para cambiar el tamaño de los dos paneles |
+
+</DocTable>
+
+## Uso básico
+
+Cree una diferencia simple en paralelo con los estados antes y después.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```jsx
+<figure className="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div className="diff-item-1" aria-label="Before">
+    <div className="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div className="diff-item-2" aria-label="After">
+    <div className="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div className="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```vue
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Comparación de texto diferencial
+
+Muestre los cambios de código o texto uno al lado del otro para una comparación detallada.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Code comparison: before and after changes">
+  <div class="diff-item-1" aria-label="Before: original code">
+    <div class="bg-base-100 p-4">
+    <pre>const greeting = "Hello";
+console.log(greeting);
+let count = 0;</pre>
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After: updated code">
+    <div class="bg-base-200 p-4">
+    <pre>const greeting = "Hello World";
+console.log(greeting);
+let count = 1;</pre>
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Diferencia con codificación de colores
+
+Utilice colores semánticos para resaltar contenido eliminado, agregado o modificado.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Color-coded diff: removed and added lines">
+  <div class="diff-item-1" aria-label="Removed line">
+    <div class="bg-error text-on-error p-4 font-mono">- const old = "value";</div>
+  </div>
+  <div class="diff-item-2" aria-label="Added line">
+    <div class="bg-success text-on-success p-4 font-mono">+ const updated = "value";</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Comparación de imágenes
+
+Compare los cambios visuales entre las imágenes de antes y después con el cambio de tamaño que se puede arrastrar.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Image comparison: color versus grayscale">
+  <div class="diff-item-1" aria-label="Before: color version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&width=800&height=450" alt="Original color photo" loading="lazy">
+  </div>
+  <div class="diff-item-2" aria-label="After: grayscale version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&saturation=-100&width=800&height=450" alt="Grayscale version of the same photo" loading="lazy">
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Tamaños de diferencias
+
+Controle el tamaño de la diferencia utilizando las utilidades de ancho y alto en el contenedor.
+
+<Snippet class="flex-col">
+
+```html
+<figure class="diff aspect-video w-64" tabindex="0" aria-label="Small diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-base font-bold">Small</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-base font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-96" tabindex="0" aria-label="Medium diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-2xl font-bold">Medium</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-2xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-full" tabindex="0" aria-label="Large diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-primary text-on-primary grid place-items-center text-4xl font-bold">Large</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-secondary text-on-secondary grid place-items-center text-4xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>

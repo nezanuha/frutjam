@@ -1,0 +1,336 @@
+---
+name: "Cajón"
+heading: "Componente del cajón"
+description: "Cajón CSS Tailwind solo para CSS que utiliza la opción de casilla de verificación nativa. Panel lateral deslizable para navegación o filtros sin JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Cajón - Componente CSS Tailwind solo CSS | Frutjam"
+metaDescription: "Cajón CSS Tailwind sin JS para navegación fuera del lienzo y barras laterales. Múltiples posiciones con soporte de superposición: accesible y compatible con dispositivos móviles sin JavaScript."
+order: 0
+related:
+  - "components/navbar"
+  - "components/modal"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/drawer.webp"
+imageAlt: "Componentes del cajón de Frutjam UI"
+createdAt: "2025-09-24T12:54:44.041482+00:00"
+updatedAt: "2026-07-13T09:52:37.256804+00:00"
+sourceHash: "ae342c908a8f"
+translationHash: "14c483a31f40"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Cajón CSS Tailwind solo para CSS que utiliza la opción de casilla de verificación nativa. Panel lateral deslizable para navegación o filtros sin JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes del cajón se deslizan desde los lados de la ventana gráfica para revelar navegación oculta, filtros o contenido adicional. Construidos sobre el elemento de diálogo HTML nativo con animaciones CSS, los cajones brindan una forma responsiva de administrar diseños en dispositivos móviles y de escritorio. El sistema de cajones Frutjam admite anchos personalizables, animaciones fluidas y fondos superpuestos para una navegación profesional en la barra lateral.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| drawer | <span class="badge badge-xs">Base</span> | Panel deslizable integrado en el elemento de diálogo nativo |
+| drawer-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de contenido interior del cajón |
+| drawer-backdrop | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Superposición detrás del cajón. |
+| drawer-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se desliza desde la izquierda |
+| drawer-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se desliza desde la derecha |
+| drawer-top | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se desliza desde arriba |
+| drawer-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se desliza desde abajo |
+
+</DocTable>
+
+## Uso básico
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="defaultDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="defaultDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="defaultDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+```jsx
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button type="button" className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <ul className="menu">
+            <li className="menu-title"><span>Dashboard</span></li>
+            <li><a className="menu-item">Overview</a></li>
+            <li><a className="menu-item">Analytics</a></li>
+
+            <li className="menu-title mt-4"><span>Management</span></li>
+            <li><a className="menu-item">Users</a></li>
+            <li><a className="menu-item">Inventory</a></li>
+            <li><a className="menu-item">Settings</a></li>
+          </ul>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close Drawer via Backdrop</button>
+      </dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Ayudante de JS y React
+
+Utilice `createDrawer` de `frutjam/js` o `useDrawer` de `frutjam/react` cuando el disparador se encuentre fuera del cajón o necesite control programático desde cualquier parte de su código.
+
+<Snippet>
+
+```html
+<button class="btn btn-sm" id="helper-open-btn">Open drawer</button>
+<dialog class="drawer" id="helper-drawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <p class="mb-4 text-sm opacity-70">Controlled via <code>createDrawer</code>.</p>
+    <button class="btn btn-sm" id="helper-close-btn">Close</button>
+  </div>
+  <button type="button" class="drawer-backdrop" id="helper-backdrop">Close</button>
+</dialog>
+<script type="module">
+  import { createDrawer } from 'frutjam/js'
+  const drawer = createDrawer(document.getElementById('helper-drawer'))
+  document.getElementById('helper-open-btn').onclick = () => drawer.open()
+  document.getElementById('helper-close-btn').onclick = () => drawer.close()
+  document.getElementById('helper-backdrop').onclick = () => drawer.close()
+</script>
+```
+
+```jsx
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <p className="mb-4 text-sm opacity-70">Controlled via useDrawer.</p>
+          <button className="btn btn-sm" onClick={drawer.close}>Close</button>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close</button>
+      </dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Personalización de cajones
+
+`.drawer-backdrop` proporciona un fondo en el que se puede hacer clic que cierra el cajón cuando se hace clic fuera del cajón. Al eliminar este elemento de forma predeterminada, se evita que el cajón no se cierre cuando se hace clic fuera.
+
+### Cerrar en fondo Haga clic
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="closeDrawerOnBackdropClick.show()">Open drawer</button>
+<dialog class="drawer" id="closeDrawerOnBackdropClick">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="closeDrawerOnBackdropClick.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="closeDrawerOnBackdropClick.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### Evitar cerrar al hacer clic afuera
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="preventCloseClickOutsideDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="preventCloseClickOutsideDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="preventCloseClickOutsideDrawer.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+</dialog>
+```
+
+</Snippet>
+
+## Colocaciones de cajones
+
+### Cajón izquierdo (Inicio)
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="leftDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-start" id="leftDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="leftDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### Cajón derecho (extremo)
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="rightDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-end" id="rightDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu w-full">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="rightDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### Cajón superior
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="topDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-top" id="topDrawer">
+  <div class="drawer-content p-4">
+    <div class="heading-3xl mb-3">Contact us</div>
+    <form class="grid grid-cols-12 gap-3">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <button class="btn col-span-2">Submit</button>
+    </form>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="topDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### Cajón inferior
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="bottomDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-bottom" id="bottomDrawer">
+  <div class="drawer-content p-4">
+    <ul class="menu menu-md w-full">
+      <li>
+        <div class="accordion accordion-flush">
+          <details name="nav" open>
+            <summary><span class="heading-md">Dashboard</span></summary>
+            <div class="accordion-content">
+              <ul>
+                <li class="menu-item"><span>Overview</span></li>
+                <li class="menu-item">
+                  <span>Analytics</span>
+                  <div class="badge badge-xs badge-accent ml-1 uppercase">Live</div>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <details name="nav">
+            <summary><span class="heading-md">Settings</span></summary>
+            <div class="accordion-content">
+              <ul>
+                <li class="menu-item"><span>Profile</span></li>
+                <li class="menu-item"><span>Security</span></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="bottomDrawer.close()">Close Drawer viaBackdrop</button>
+</dialog>
+```
+
+</Snippet>

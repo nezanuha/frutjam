@@ -1,0 +1,198 @@
+---
+name: "채팅"
+heading: "채팅 풍선 구성요소"
+description: "CSS 전용 Tailwind CSS 채팅 풍선 구성요소입니다. 아바타 및 타임스탬프 슬롯이 포함된 전송 및 수신 메시지의 시작 및 종료 위치입니다. WCAG AA는 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "채팅 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "시작/끝 정렬, 아바타, 타임스탬프 및 상태 표시기가 포함된 Tailwind CSS Chat Bubble. JavaScript 없이 접근 가능한 메시징 UI를 구축하세요."
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Frutjam의 채팅"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "0458f4b6a50b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS 전용 Tailwind CSS 채팅 풍선 구성요소입니다. 아바타 및 타임스탬프 슬롯이 포함된 전송 및 수신 메시지의 시작 및 종료 위치입니다. WCAG AA는 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+채팅 구성 요소는 읽을 수 있고 정리된 형식으로 대화 메시지를 표시합니다. 시맨틱 HTML과 유연한 레이아웃으로 구축된 채팅 풍선은 사용자와 시스템 메시지를 모두 나타냅니다. Frutjam 채팅 시스템은 다양한 색상, 정렬 및 스타일을 지원하므로 메시징 인터페이스, 고객 지원 패널 및 대화형 UI에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">베이스</span> | 단일 채팅 메시지 행의 래퍼 |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 스타일이 지정된 메시지 풍선 |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 메시지와 함께 표시되는 아바타 |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 풍선 위의 보낸 사람 이름 또는 메타데이터 |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 버블 아래의 타임스탬프 또는 상태 |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 풍선을 왼쪽으로 정렬합니다(수신 메시지). |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 풍선을 오른쪽으로 정렬합니다(발신 메시지). |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">크기</span> | 아주 작은 |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">크기</span> | 작은 |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">크기</span> | 중간(기본값) |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">크기</span> | 크기가 큰 |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">크기</span> | 특대 |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 기본 테마 색상 풍선 |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 보조 테마 색상 버블 |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 악센트 테마 색상 버블 |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 중립 테마 색상 버블 |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 정보 의미 색상 버블 |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 성공 의미 색상 버블 |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 경고 의미 색상 버블 |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 오류 의미 색상 버블 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## 아바타와 채팅
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## 채팅 크기
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## 채팅 스타일
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## 채팅 머리글 및 바닥글
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## 대화 스레드
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,267 @@
+---
+name: "Tipografía"
+heading: "Tipografía"
+description: "El sistema de tipografía solo CSS de Frutjam. Escalado de texto HTML semántico con Tailwind CSS v4, accesible WCAG, no se requiere JavaScript. Funciona con Django, HTMX, Laravel, React y cualquier framework."
+metaTitle: "Tipografía CSS Tailwind: estilos de texto HTML semánticos | mermelada de frutas"
+metaDescription: "Sistema tipográfico Frutjam. Escalado de texto HTML semántico con variables CSS, accesible WCAG, compatible con Tailwind CSS v4."
+order: 3
+related:
+  - "docs/themes"
+  - "docs/colors"
+image: "https://cdn.frutjam.com/media/docs/typography.webp"
+imageAlt: "Tipografía - Frutjam"
+createdAt: "2026-02-20T08:17:06.189826+00:00"
+updatedAt: "2026-07-13T09:55:52.442790+00:00"
+sourceHash: "38e2f93afbce"
+translationHash: "3c587ce4f384"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+El sistema de tipografía solo CSS de Frutjam. Escalado de texto HTML semántico con Tailwind CSS v4, accesible WCAG, no se requiere JavaScript. Funciona con Django, HTMX, Laravel, React y cualquier framework.
+
+El sistema de tipografía solo CSS de Frutjam para Tailwind CSS v4. Escala de encabezado y párrafo semántico, utilidades de diseño responsivo e integración de prosa: no se requiere JavaScript, se puede acceder a WCAG AA. Funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+## Disposición
+
+`.wrapper` es una utilidad de diseño de página responsiva que centra el contenido horizontalmente y aplica un relleno horizontal consistente en los puntos de interrupción. Utilice variantes de tamaño para establecer una restricción de ancho máximo para diferentes necesidades de diseño.
+
+### Todas las clases
+
+Todas las variantes comparten la misma escala de relleno de respuesta. Sólo difiere el ancho máximo.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Clase | Ancho máximo | Caso de uso |
+| --- | --- | --- |
+| `wrapper` | none | Contenedor centrado de ancho completo |
+| `wrapper-xs` | 320px | Cuadros de diálogo estrechos o barras laterales |
+| `wrapper-sm` | 640px | Contenido de una sola columna |
+| `wrapper-md` | 768px | Artículos y publicaciones de blog. |
+| `wrapper-lg` | 1024px | Diseños de página estándar |
+| `wrapper-xl` | 1280px | Diseños amplios |
+| `wrapper-2xl` | 1536px | Diseños extra anchos |
+| `wrapper-full` | 100% | Sangrado completo con acolchado consistente. |
+
+</DocTable>
+
+### Relleno responsivo
+
+Todas las variantes de contenedor escalan automáticamente el relleno horizontal a través de los puntos de interrupción, sin necesidad de clases de utilidad adicionales.
+
+<Snippet view="code">
+
+```css
+/* Applied to every wrapper variant */
+default  → padding-inline: 1rem   (16px)
+sm       → padding-inline: 2rem   (32px)
+lg       → padding-inline: 4rem   (64px)
+```
+
+</Snippet>
+
+### Ejemplo de diseño de página
+
+Usar `.wrapper-xl` en su área de contenido principal para obtener un diseño de página estándar.
+
+<Snippet view="code">
+
+```html
+<header class="bg-base-200">
+  <div class="wrapper-xl">
+    <nav class="navbar">...</nav>
+  </div>
+</header>
+
+<main class="wrapper-xl py-12">
+  <h1 class="heading-4xl">Page Title</h1>
+  <p class="para-base">Page content goes here.</p>
+</main>
+
+<footer class="bg-base-200">
+  <div class="wrapper-xl">...</div>
+</footer>
+```
+
+</Snippet>
+
+### Ejemplo de diseño de artículo
+
+Usar `.wrapper-md` para diseños legibles de artículos o publicaciones de blog.
+
+<Snippet view="code">
+
+```html
+<article class="wrapper-md py-10 prose prose-frutjam">
+  <h1>Article Title</h1>
+  <p>Long-form content benefits from a narrower max-width for optimal line length.</p>
+</article>
+```
+
+</Snippet>
+
+## Tipografía
+
+### 1\. Utilidades de elementos
+
+Estas clases están diseñadas para uso directo en elementos HTML. Los títulos están optimizados para el peso y el impacto, mientras que los párrafos están optimizados para la legibilidad.
+
+### Encabezamientos
+
+Usar `.heading-{size}` para títulos y textos de gran importancia.
+
+#### La escala estándar
+
+`heading-xs`, `heading-sm`, `heading-md`, `heading-base`, `heading-lg`, `heading-xl`, `heading-2xl`, `heading-3xl`, `heading-4xl`, `heading-5xl`, `heading-6xl`, `heading-7xl`, `heading-8xl`, `heading-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<h1 class="heading-4xl">Gigantic Hero</h1>
+<h2 class="heading-3xl">Section Title</h2>
+<h3 class="heading-base">Small Subheading</h3>
+```
+
+</Snippet>
+
+#### Precisión dinámica (cualquier número)
+
+Frutjam te permite romper con la balanza. Utilice cualquier valor numérico para establecer un tamaño de píxel específico
+
+`.heading-{number}` (p.ej., `.heading-46`)
+
+<Snippet>
+
+```html
+<h2 class="heading-46">Bespoke Heading</h2>
+```
+
+</Snippet>
+
+### Párrafos
+
+Usar `.para-{size}` para texto del cuerpo, descripciones y etiquetas de la interfaz de usuario
+
+#### La escala estándar
+
+`para-xs`, `para-sm`, `para-md`, `para-base`, `para-lg`, `para-xl`, `para-2xl`, `para-3xl`, `para-4xl`, `para-5xl`, `para-6xl`, `para-7xl`, `para-8xl`, `para-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<p class="para-lg">This is a lead paragraph with extra breathing room.</p>
+<p class="para-base">This is your standard UI text size.</p>
+<p class="para-xs">Small footer or caption text.</p>
+```
+
+</Snippet>
+
+#### Precisión dinámica (cualquier número)
+
+No te quedes atrapado en una báscula. Utilice cualquier valor numérico para marcar el tamaño de píxel exacto que exige su diseño.
+
+`.para-{number}` (p.ej., `.para-28`)
+
+<Snippet>
+
+```html
+<p class="para-28">Editorial-style body text.</p>
+```
+
+</Snippet>
+
+### Tipografía responsiva
+
+Frutjam no fuerza el cambio de tamaño "automático". En cambio, le brinda control total utilizando los puntos de interrupción móviles primero de Tailwind. Esto garantiza que su diseño nunca "adivine" cómo debería verse su diseño móvil.
+
+#### El patrón responsivo
+
+Defina siempre primero el tamaño de su dispositivo móvil (la clase base), luego use prefijos como `md:` o `lg:` para ampliarlo a pantallas más grandes.
+
+<Snippet view="code">
+
+```html
+<h1 class="heading-2xl md:heading-5xl lg:heading-9xl">
+  Responsive Headline
+</h1>
+
+<p class="para-sm md:para-base lg:para-lg">
+  Body text that stays comfortable on all devices.
+</p>
+```
+
+</Snippet>
+
+### 2\. Texto enriquecido (prosa)
+
+Al renderizar contenido Markdown o CMS, no puede agregar manualmente clases como `heading-lg` a cada etiqueta. `prose-frutjam` es un envoltorio que une lo oficial `@tailwindcss/typography` complemento con tokens de diseño de Frutjam, para que las etiquetas HTML sin estilo hereden automáticamente los colores y la tipografía de su tema.
+
+#### Configuración
+
+Asegúrese de que ambos complementos estén activos en su CSS Tailwind v4:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+@plugin "@tailwindcss/typography";
+```
+
+</Snippet>
+
+#### Uso
+
+Agrega ambos `.prose` y `.prose-frutjam` al elemento contenedor. `.prose` activa el complemento de tipografía; `.prose-frutjam` asigna las fichas temáticas de Frutjam a él.
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam max-w-none">
+  <h1>Article Title</h1>
+  <p>Body text, links, and lists all inherit Frutjam theme colors automatically.</p>
+  <ul>
+    <li>Links use your primary color</li>
+    <li>Blockquote borders use your primary color</li>
+    <li>Headings, body, and captions use semantic on-base colors</li>
+  </ul>
+</article>
+```
+
+</Snippet>
+
+#### Lo que se mapea
+
+El contenedor anula las siguientes variables CSS en prosa con tokens Frutjam:
+
+<Snippet view="code">
+
+```css
+/* prose-frutjam maps these automatically */
+body text      → --color-body
+headings       → --color-on-base
+links          → --color-primary
+blockquotes    → --color-on-base  (text), --color-primary (border)
+bullets        → --color-neutral
+code           → --color-on-base
+captions       → --color-on-neutral
+```
+
+</Snippet>
+
+#### Modo oscuro
+
+Agregar `.prose-invert` junto a `.prose-frutjam` para fondos oscuros: los tokens invertidos también se asignan a los colores de Frutjam.
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam prose-invert bg-neutral p-6 rounded-lg">
+  <h2>Dark Background Content</h2>
+  <p>Inverted tokens keep text legible on dark surfaces.</p>
+</article>
+```
+
+</Snippet>

@@ -1,0 +1,1186 @@
+---
+name: "Trình chỉnh sửa đánh dấu"
+heading: "Plugin đánh dấu hiệu suất cao, đầu tiên dành cho JavaScript"
+description: "Plugin soạn thảo văn bản Markdown biến vùng văn bản gốc thành bộ chỉnh sửa đầy đủ - không cần đồng bộ hóa. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào."
+metaTitle: "Plugin JavaScript soạn thảo văn bản Markdown | Frutjam"
+metaDescription: "Trình chỉnh sửa đánh dấu JavaScript nhẹ giúp nâng cao vùng văn bản của bạn mà không cần thay thế nó. Hoạt động nguyên trạng với Django, Laravel, Rails, PHP và Node.js. WYSIWYG, RTL."
+order: 0
+related:
+  - "components/textarea"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
+imageAlt: "Plugin JavaScript soạn thảo văn bản Markdown của Frutjam"
+createdAt: "2025-09-10T14:44:51.417170+00:00"
+updatedAt: "2026-07-18T13:00:27.167336+00:00"
+sourceHash: "dfa041018f60"
+translationHash: "6f48d2066754"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Plugin soạn thảo văn bản Markdown biến vùng văn bản gốc thành bộ chỉnh sửa đầy đủ - không cần đồng bộ hóa. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào.
+
+## Cài đặt
+
+#### NPM (các gói: Vite, webpack, Rollup, v.v.)
+
+<Snippet view="code">
+
+```bash
+npm install markdown-text-editor
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+import MarkdownEditor from 'markdown-text-editor';
+new MarkdownEditor('#markdown-editor');
+```
+
+</Snippet>
+
+TypeScript definitions ship with the package, so options, toolbar entries and variable shapes are checked and autocompleted with no extra install.
+
+#### CDN: mô-đun ES
+
+<Snippet view="code">
+
+```html
+<script type="module">
+  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+#### CDN: thẻ tập lệnh toàn cầu (IIFE)
+
+Không cần nhập - MarkdownEditor tự động có sẵn dưới dạng biến toàn cục.
+
+<Snippet view="code">
+
+```html
+<form action="/api/save" method="POST">
+  <textarea id="markdown-editor" name="content"># Hello World</textarea>
+  <button type="submit">Save Content</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+## Markdown Editor Demo
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
+
+## Bắt đầu nhanh
+
+Truyền một đối tượng tùy chọn để tùy chỉnh trình chỉnh sửa. Tất cả các tùy chọn đều là tùy chọn — bỏ qua bất kỳ tùy chọn nào để sử dụng giá trị mặc định.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+  placeholder: 'Write your markdown...',
+  toolbar: ['heading', 'bold', 'italic', 'strikethrough', 'ul', 'ol', 'checklist', 'blockquote', 'link', 'preview'],
+});
+```
+
+</Snippet>
+
+## The Philosophy: "Native-First"
+
+Most editors break the standard web workflow. **MarkdownEditor** embraces it. Because it sits directly on top of a `<textarea>`, you don't need to learn a new way to handle data.
+
+-   **No Data Binding Needed:** Works with `<form method="POST">` out of the box
+-   **Standard Access:** Use `document.getElementById('editor').value` just like a normal input.
+-   **Backend Agnostic:** Works with any backend (Python, Node.js, PHP, etc.) just like a normal form field
+
+## MarkdownEditor so với EasyMDE/SimpleMDE
+
+Hầu hết các trình soạn thảo đánh dấu JavaScript — EasyMDE, SimpleMDE, trình soạn thảo dựa trên CodeMirror — **thay thế `<textarea>`** của bạn bằng một phần tử tùy chỉnh. Điều đó có nghĩa là việc gửi biểu mẫu bị gián đoạn, `.value` không trả về kết quả nào và bạn phải viết thêm mã chỉ để đọc lại nội dung. **MarkdownEditor thì khác** — nó nâng cao vùng văn bản hiện có của bạn và không bao giờ thay thế nó.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Feature | MarkdownTrình chỉnh sửa | EasyMDE / SimpleMDE |
+| --- | --- | --- |
+| Vùng văn bản gốc được bảo tồn | ✅ | ❌ Đã thay thế |
+| Việc gửi biểu mẫu hoạt động như hiện trạng | ✅ | ❌ Yêu cầu thêm JS |
+| Nhận/đặt giá trị qua `.value` | ✅ | ❌ Cần có API tùy chỉnh |
+| Chế độ kết hợp WYSIWYG | ✅ | ❌ |
+| Tích hợp Tìm & Thay thế | ✅ | ❌ |
+| RTL support | ✅ | ❌ |
+| Tương thích CSP (không có JS nội tuyến) | ✅ | ❌ |
+| Không có xung đột CSS | ✅ | ❌ |
+| Chế độ tối / chủ đề | ✅ | Limited |
+| Kích thước gói | ~116KB | ~300KB+ |
+
+</DocTable>
+
+## Tích hợp khung
+
+Because **MarkdownEditor** preserves the native `<textarea>`, it integrates with every backend framework without any extra code. Your server receives the markdown content exactly as it would from any standard form field. For React and Vue it takes a few lines, covered at the end of this section.
+
+### Django
+
+Thêm `class` vào tiện ích vùng văn bản của bạn và khởi chạy trình chỉnh sửa — `request.POST['content']` hoạt động mà không cần thực hiện thêm bước nào.
+
+<Snippet view="code">
+
+```python
+# forms.py
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('.markdown-editor');
+// request.POST['content'] contains the markdown on submit
+```
+
+</Snippet>
+
+### Laravel
+
+Sử dụng `f.text_area` với một lớp — `$request->input('content')` nhận được mức giảm giá trực tiếp.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### Ruby on Rails
+
+Hoạt động ngay với `form_with` — `params[:content]` chứa phần đánh dấu. Đối với Turbo Drive, hãy sử dụng `turbo:load` thay vì `DOMContentLoaded`.
+
+<Snippet view="code">
+
+```javascript
+document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.markdown-editor:not([data-mde-init])').forEach(el => {
+        el.setAttribute('data-mde-init', 'true');
+        new MarkdownEditor(el);
+    });
+});
+```
+
+</Snippet>
+
+### Node.js / Express
+
+`req.body.content` nhận được điểm giảm khi gửi biểu mẫu — không có bước đồng bộ hóa, không có trích xuất tùy chỉnh.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor"></textarea>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### PHP
+
+`$_POST['content']` hoạt động chính xác như với bất kỳ vùng văn bản tiêu chuẩn nào — hãy thả nó vào và việc xử lý biểu mẫu hiện tại của bạn không cần thay đổi gì.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="save.php">
+  <textarea name="content" class="markdown-editor"></textarea>
+  <button type="submit">Save</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### React
+
+Create the editor in an effect and destroy it on unmount. Use `defaultValue` rather than `value`: the editor writes to the textarea directly, so a controlled binding would overwrite what the user is typing.
+
+<Snippet view="code">
+
+```javascript
+import { useEffect, useRef } from 'react';
+import MarkdownEditor from 'markdown-text-editor';
+
+function MarkdownField({ name, defaultValue = '', onChange }) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const editor = new MarkdownEditor(ref.current, { onChange });
+        return () => editor.destroy();
+    }, []);
+
+    return &lt;textarea ref={ref} name={name} defaultValue={defaultValue} /&gt;;
+}
+```
+
+</Snippet>
+
+Returning `editor.destroy()` from the effect also covers StrictMode, which runs effects twice in development and would otherwise leave two editors on one textarea. The empty dependency array is deliberate: options are read once when the editor is created, so re-running the effect would tear it down and rebuild it on every change.
+
+### Vue
+
+Same idea. Set the initial value once in `onMounted` and do not bind `:value`, or every keystroke emitted back through `v-model` would overwrite the textarea.
+
+<Snippet view="code">
+
+```javascript
+&lt;script setup&gt;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import MarkdownEditor from 'markdown-text-editor';
+
+const el = ref(null);
+const props = defineProps({ modelValue: { type: String, default: '' } });
+const emit = defineEmits(['update:modelValue']);
+let editor = null;
+
+onMounted(() => {
+    el.value.value = props.modelValue;
+    editor = new MarkdownEditor(el.value, {
+        onChange: value =&gt; emit('update:modelValue', value)
+    });
+});
+
+onBeforeUnmount(() =&gt; editor?.destroy());
+&lt;/script&gt;
+
+&lt;template&gt;&lt;textarea ref="el"&gt;&lt;/textarea&gt;&lt;/template&gt;
+```
+
+</Snippet>
+
+Used as `<MarkdownField v-model="content" />`. In a plain form you can skip `v-model` entirely and read the value from the textarea on submit, as with any other framework.
+
+## Cấu hình
+
+You can fully customize the editor's behavior and interface by passing an `options` object. If you omit an option, the **default** value is used.
+
+Options are read once, when the editor is constructed. Changing them afterwards has no effect — call `destroy()` and create a new editor instead.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Property | Kiểu | Mặc định | Mục đích |
+| --- | --- | --- | --- |
+| `mode` | `string` | `'plain'` | Đặt chế độ xem ban đầu. Sử dụng kết hợp để có trải nghiệm WYSIWYG hoặc đơn giản cho cú pháp thô. |
+| `placeholder` | `string` | `'Write...'` | Text shown when the editor is empty. |
+| `toolbar` | `array` | `[...]` | Defines which tools appear and in what order. |
+| `footer` | `false \| object` | all visible | Controls the status bar shown below the editor. Set to `false` to hide it entirely, or pass an object to toggle individual stats. |
+| `theme` | `string` | inherited | Đặt rõ ràng chủ đề của trình soạn thảo (sáng, tối, dâu tuyết, dâu đen). Nếu bị bỏ qua, trình chỉnh sửa sẽ kế thừa `data-theme` từ phần tử tổ tiên gần nhất hoặc chính `<textarea>`. |
+| `minHeight` | `number` | `200` | Minimum height in pixels the editor will shrink to when content is short. Pairs with `maxHeight` to set the auto-grow range. |
+| `maxHeight` | `number` | `500` | Maximum height in pixels the editor can grow to in non-fullscreen mode. Once content exceeds this height a scrollbar appears inside the editor. The editor also has a drag handle so users can manually resize it beyond this limit. |
+| `renderer` | `function` | `marked` | Replaces the markdown parser used for the preview. Receives the markdown string and must return an HTML string. |
+| `sanitizer` | `function` | `DOMPurify` | Replaces the HTML sanitizer. Receives the rendered HTML and must return the safe HTML to display. |
+| `onChange` | `function` | `undefined` | Lệnh gọi lại được thực hiện khi có bất kỳ thay đổi nội dung nào — gõ, thao tác trên thanh công cụ, hoàn tác/làm lại và tiếp tục danh sách. Nhận chuỗi đánh dấu hiện tại làm đối số duy nhất của nó. |
+
+</DocTable>
+
+### 🛠 Toolbar Customization
+
+The toolbar is modular. You can create a minimal experience or a full-featured power suite by modifying the array.
+
+#### Available Tools
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Category | Tool Keys |
+| --- | --- |
+| Typography | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
+| Lists | `ul` (bullet), `ol` (numbered), `checklist` |
+| Code | `code` (inline), `codeblock` (fenced block) |
+| Inserts | `hr` (horizontal rule), `table` (table template) |
+| Media | `link`, `image` |
+| Editing | `undo`, `redo`, `indent`, `outdent` |
+| View | `preview` |
+| Mẫu | `{ variables: [...] }`, configured inline |
+
+</DocTable>
+
+#### Tham khảo công cụ
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Dụng cụ | Sự miêu tả |
+| --- | --- |
+| `heading` | Mở menu thả xuống để chọn cấp tiêu đề H1–H6 |
+| `bold` | Cho phép định dạng văn bản in đậm. |
+| `italic` | Cho phép định dạng văn bản in nghiêng. |
+| `strikethrough` | Cho phép gạch ngang văn bản. |
+| `ol` | (Danh sách có thứ tự): Chuyển văn bản sang dạng danh sách đánh số. |
+| `ul` | (Danh sách không có thứ tự): Chuyển văn bản thành danh sách dấu đầu dòng. |
+| `checklist` | Thêm các hộp kiểm vào văn bản của bạn, giúp nó trở nên tuyệt vời cho các nhiệm vụ, danh sách việc cần làm hoặc theo dõi trạng thái hoàn thành. |
+| `blockquote` | Đánh dấu văn bản được trích dẫn hoặc nhấn mạnh. |
+| `code` | Bao văn bản đã chọn bằng dấu backticks đơn cho mã nội tuyến. Nhấp lại sẽ loại bỏ dấu tích ngược. |
+| `codeblock` | Bao bọc văn bản đã chọn trong khối mã có hàng rào ba dấu ngược. Nhấp chuột một lần nữa sẽ loại bỏ hàng rào. |
+| `hr` | Chèn một quy tắc ngang `---` vào vị trí con trỏ trên dòng riêng của nó. |
+| `table` | Chèn mẫu bảng đánh dấu 2x3 ban đầu vào vị trí con trỏ. |
+| `image` | Cho phép bạn chèn hình ảnh thông qua cú pháp đánh dấu. |
+| `link` | Cho phép bạn thêm siêu liên kết vào văn bản của mình. |
+| `undo` | Để đảo ngược những thay đổi cuối cùng. |
+| `redo` | Để áp dụng lại những thay đổi được hoàn tác gần đây nhất. |
+| `indent` | Để tăng mức độ thụt lề. |
+| `outdent` | Để giảm mức độ thụt lề. |
+| `preview` | Toggles a fullscreen side-by-side preview. Checkboxes in the preview pane are clickable and update the markdown source instantly. Press Escape to exit fullscreen. If a fixed header covers the editor in fullscreen, see `--mte-fullscreen-z-index`. |
+
+</DocTable>
+
+##### 💡 Implementation Tips:
+
+-   **Reordering**: The buttons appear in the exact order you list them in the array
+-   **Removing**: Simply omit any key (like `image`) from the array to disable that feature entirely for the user
+-   **Native Fallback**: If you don't provide a `placeholder` in JS, the plugin will automatically use the `placeholder` attribute from your HTML `<textarea>`
+
+### 📊 Footer (Status Bar)
+
+The footer sits below the editor and shows the cursor's **line**, **column**, the document's **character count**, and optionally the **word count** — all updated in real time. It is visible by default and each stat can be toggled independently.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Key | Kiểu | Mặc định | Sự miêu tả |
+| --- | --- | --- | --- |
+| `line` | `boolean` | `true` | Show the current line number. |
+| `col` | `boolean` | `true` | Show the current column number. |
+| `chars` | `boolean` | `true` | Show the total character count. |
+| `words` | `boolean` | `false` | Hiển thị tổng số từ. Tắt theo mặc định — đặt thành `true` để bật. |
+
+</DocTable>
+
+#### Usage Examples
+
+<Snippet view="code">
+
+```javascript
+// Default — line, col, and chars visible
+new MarkdownEditor('#editor');
+
+// Disable the footer entirely
+new MarkdownEditor('#editor', { footer: false });
+
+// Hide only character count
+new MarkdownEditor('#editor', { footer: { chars: false } });
+
+// Hide line and column, keep character count
+new MarkdownEditor('#editor', { footer: { line: false, col: false } });
+
+// Show only line number
+new MarkdownEditor('#editor', { footer: { col: false, chars: false } });
+
+// Enable word count alongside the defaults
+new MarkdownEditor('#editor', { footer: { words: true } });
+
+// Show word count only
+new MarkdownEditor('#editor', { footer: { line: false, col: false, chars: false, words: true } });
+```
+
+</Snippet>
+
+### 🔀 Chế độ chỉnh sửa
+
+**MarkdownEditor** cung cấp hai cách riêng biệt để viết và định dạng nội dung của bạn. Bạn có thể chuyển đổi giữa chế độ xem tập trung vào cú pháp truyền thống hoặc trải nghiệm hiện đại, ưu tiên hình ảnh.
+
+-   `plain` (**Mặc định**): Môi trường Markdown rõ ràng, hiệu suất cao trong đó hiển thị cú pháp (như `**bold**` hoặc `# heading`). Lý tưởng cho các nhà phát triển và những người theo chủ nghĩa thuần túy Markdown
+-   `hybrid`: Trải nghiệm lấy cảm hứng từ WYSIWYG giúp hiển thị định dạng (Đậm, Nghiêng, Tiêu đề) trong thời gian thực khi bạn nhập, trong khi vẫn duy trì cấu trúc Markdown cơ bản.
+
+<Snippet view="code">
+
+```javascript
+// Default initialization (Plain Mode)
+new MarkdownEditor('#markdown-editor');
+
+// Explicit Plain Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'plain'
+});
+
+// Hybrid (Visual) Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid'
+});
+```
+
+</Snippet>
+
+#### Xem trước chế độ kết hợp và đơn giản:
+
+##### Chế độ kết hợp
+
+Định dạng trực quan được hiển thị theo thời gian thực trong khi bạn nhập.
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
+
+##### Chế độ đơn giản (Mặc định)
+
+Tập trung vào cú pháp Markdown thô để có trải nghiệm nhẹ nhàng.
+
+<RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
+
+### 🌙 Chủ đề
+
+**MarkdownEditor** tự động kế thừa chủ đề của nó từ trang xung quanh — không cần cấu hình. Trình chỉnh sửa đọc `data-theme` từ tổ tiên gần nhất khi khởi tạo, do đó, nó luôn đồng bộ hóa với chủ đề trang web của bạn ngay từ đầu.
+
+#### Cách giải quyết chủ đề (thứ tự ưu tiên)
+
+1.  **`theme` option** — ghi đè rõ ràng được truyền trong đối tượng tùy chọn
+2.  **`data-theme` trên `<textarea>`** - được đặt trực tiếp trên phần tử
+3.  **`data-theme` trên bất kỳ tổ tiên** nào — ví dụ: `<html>`, `<body>` hoặc trình bao bọc `<div>`
+
+#### Chủ đề có sẵn
+
+`'light'` (mặc định), `'dark'`, `'snowberry'`, `'darkberry'`
+
+##### Tùy chọn 1 — kế thừa từ `<html>` hoặc bất kỳ tổ tiên nào (cấu hình không)
+
+<Snippet view="code">
+
+```html
+<html data-theme="dark">
+  ...
+  <textarea id="markdown-editor"></textarea>
+  <script>
+    new MarkdownEditor('#markdown-editor'); // picks up dark automatically
+  </script>
+```
+
+</Snippet>
+
+##### Tùy chọn 2 - đặt `data-theme` trực tiếp trên `<textarea>`
+
+<Snippet view="code">
+
+```html
+<textarea id="markdown-editor" data-theme="dark"></textarea>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+##### Tùy chọn 3 - tùy chọn `theme` rõ ràng (ghi đè mọi thứ)
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    theme: 'dark'
+});
+```
+
+</Snippet>
+
+#### 🎨 Chủ đề tùy chỉnh thông qua các biến CSS
+
+Bạn hoàn toàn có thể tùy chỉnh giao diện của trình chỉnh sửa bằng cách ghi đè các biến CSS của nó trên phần tử `.markdown-editor-wrapper` hoặc bất kỳ bộ chọn `[data-theme]` nào. Tất cả các màu đều sử dụng [không gian màu OKLCH](https://oklch.com) để mang lại kết quả đồng nhất về mặt nhận thức.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Biến | Mục đích | Ánh sáng mặc định | Mặc định tối |
+| --- | --- | --- | --- |
+| `--color-base` | Nền soạn thảo | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
+| `--color-on-base` | Màu văn bản chính | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
+| `--color-primary` | Giọng chính (thanh công cụ đang hoạt động, liên kết) | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
+| `--color-on-primary` | Văn bản trên bề mặt màu cơ bản | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
+| `--color-secondary` | Giọng phụ | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
+| `--color-accent` | Đánh dấu trọng âm (mã nội tuyến, in nghiêng) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-neutral` | Bề mặt trung tính (viền, vách ngăn) | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
+| `--color-error` | Màu trạng thái lỗi | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
+| `--border-radius` | Làm tròn góc của khung soạn thảo | `0.25rem` |
+
+</DocTable>
+
+##### Ví dụ về chủ đề tùy chỉnh
+
+Ghi đè bất kỳ biến nào trên `.markdown-editor-wrapper` sau khi trình soạn thảo khởi tạo hoặc xác định khối `[data-theme]` tùy chỉnh trong biểu định kiểu của bạn:
+
+<Snippet view="code">
+
+```css
+/* Override individual variables */
+.markdown-editor-wrapper {
+    --color-primary: oklch(60% 0.2 30);   /* orange accent */
+    --border-radius: 0.5rem;
+}
+
+/* Or define a full custom theme */
+[data-theme="brand"] .markdown-editor-wrapper,
+.markdown-editor-wrapper[data-theme="brand"] {
+    --color-base:       oklch(15% 0.01 250);
+    --color-on-base:    oklch(95% 0 0);
+    --color-primary:    oklch(65% 0.22 145);   /* green */
+    --color-on-primary: oklch(10% 0 0);
+    --color-accent:     oklch(75% 0.18 60);
+    --color-neutral:    oklch(80% 0 0);
+    --border-radius:    0.75rem;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', { theme: 'brand' });
+```
+
+</Snippet>
+
+### 🏷 Variables
+
+Adds a toolbar dropdown for inserting placeholders. Useful when the person writing a document is not the developer who defined the placeholder syntax, as with email, invoice or contract templates: they pick a readable name and the correct syntax is inserted for them.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', 'link',
+        { variables: [
+            { label: 'Customer Name', value: '{{customer.name}}' },
+            { label: 'Invoice No',    value: '{{invoice.number}}' }
+        ]},
+        'preview'
+    ]
+});
+```
+
+</Snippet>
+
+The tool is configured inline in the `toolbar` array, so its position among the other buttons is up to you. The button lists the labels, and clicking one inserts its `value` at the cursor, replacing any selection. Nothing is rendered if the list is empty.
+
+#### Sample values in the preview
+
+An entry given a `sample` shows that sample in the preview, while the textarea keeps the real placeholder. Entries without one appear as written, so you can mix both.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' },
+    { label: 'Invoice No',    value: '{{invoice.number}}' }
+]}
+
+// textarea : Hi {{customer.name}}, invoice {{invoice.number}}
+// preview  : Hi Hannes, invoice {{invoice.number}}
+```
+
+</Snippet>
+
+#### Grouping
+
+Give an entry `items` instead of a `value` to render a headed section. Grouped and flat entries can be mixed in one list.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Today', value: '{{today}}', sample: '10 September 2026' },
+    { label: 'Customer', items: [
+        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes' },
+        { label: 'Email', value: '{{customer.email}}', sample: 'hannes@example.com' }
+    ]},
+    { label: 'Invoice', items: [
+        { label: 'Number', value: '{{invoice.number}}' }
+    ]}
+]}
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **The editor never resolves variables.** It inserts text, and your application substitutes real values later, usually server-side. `sample` only affects what the preview displays.
+-   **Labels are shown as plain text**, so markup in a label is never rendered.
+-   **Malformed entries are skipped** rather than throwing, and the button is not rendered at all when nothing usable is configured.
+
+### 🖋 Custom Renderer
+
+The preview is rendered with [marked](https://marked.js.org) and sanitized with [DOMPurify](https://github.com/cure53/DOMPurify). Both can be replaced. Use this when your application already renders markdown with another library and you want the preview to match production exactly.
+
+Both options are plain functions that take a string and return a string, so any parser and any sanitizer works.
+
+<Snippet view="code">
+
+```javascript
+import MarkdownIt from 'markdown-it';
+import taskLists from 'markdown-it-task-lists';
+import MarkdownEditor from 'markdown-text-editor';
+
+const md = new MarkdownIt({ linkify: true, breaks: true }).use(taskLists);
+
+new MarkdownEditor('#markdown-editor', {
+    renderer: markdown => md.render(markdown)
+});
+```
+
+</Snippet>
+
+DOMPurify still runs on the output, so you keep XSS protection without configuring anything.
+
+#### Custom sanitizer
+
+Only needed when the default strips something your renderer emits. DOMPurify removes `<iframe>` by default, so video embeds need it allowed explicitly. DOMPurify must be imported in your own code, since the copy bundled with the editor is internal.
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    renderer:  markdown => md.render(markdown),
+    sanitizer: html => DOMPurify.sanitize(html, {
+        ADD_TAGS: ['iframe'],
+        ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder']
+    })
+});
+```
+
+</Snippet>
+
+Using a script tag instead of a bundler, load DOMPurify alongside the editor:
+
+<Snippet view="code">
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dompurify"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **Preview only.** Hybrid mode's live formatting uses a separate internal renderer and is not affected.
+-   **Task lists need plugin support.** Clickable checkboxes are found by looking for `input[type="checkbox"]` in the output, so markdown-it needs `markdown-it-task-lists`. The editor logs a warning if it detects task list syntax and no checkboxes.
+-   **Both must be synchronous** and return a string. An `async` function writes `[object Promise]` into the preview.
+-   **Replacing the sanitizer replaces your protection.** A pass-through such as `html => html` disables sanitizing entirely and is only safe for fully trusted content.
+
+### 🎨 Styling Internal Elements
+
+CSS variables cover most theming because they inherit, so setting one on `.markdown-editor-wrapper` reaches the toolbar, buttons, preview and footer. Reach for a class name only when no variable exposes what you need.
+
+<Snippet view="code">
+
+```css
+/* Variables set on the wrapper inherit down to every child */
+.markdown-editor-wrapper {
+    --border-radius: 12px;   /* rounds the editor and its toolbar buttons */
+    --color-primary: oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Class reference
+
+These class names are stable and safe to style against.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Lớp học | Element |
+| --- | --- |
+| `.markdown-editor-wrapper` | Outer container wrapping the whole editor |
+| `.toolbar` | Toolbar strip above the editing area |
+| `.markdown-btn` | Individual toolbar button |
+| `.preview-btn` | The preview / fullscreen toggle button |
+| `.editor-layout` | Grid holding the editing area and preview side by side |
+| `.textarea-wrapper` | Wrapper around the editing area |
+| `.editor-textarea` | The underlying textarea element |
+| `.display-layer` | Rendered formatting layer, hybrid mode only |
+| `.preview-wrapper` | Preview column |
+| `.preview-content` | Rendered markdown inside the preview |
+| `.editor-footer` | Status bar below the editor |
+| `.find-replace-panel` | Find and replace panel |
+
+</DocTable>
+
+<Snippet view="code">
+
+```css
+/* Some variables are set by the component on itself, which beats an
+   inherited value. Target the element directly for those. */
+.markdown-editor-wrapper .markdown-btn {
+    --btn--font-size: 0.875rem;
+}
+
+/* And use classes for anything no variable exposes */
+.markdown-editor-wrapper .toolbar {
+    border-bottom: 2px solid oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Targeting one editor
+
+With several editors on one page, target one of them with `data-editor`. The wrapper mirrors the id of its `<textarea>`, so `<textarea id="notes">` gives you `[data-editor="notes"]`. The id itself stays on the textarea, so `getElementById` keeps working.
+
+<Snippet view="code">
+
+```css
+/* one editor only */
+[data-editor="notes"] {
+    --border-radius: 0;
+}
+```
+
+</Snippet>
+
+### 🪟 Fullscreen & Layering (z-index)
+
+In fullscreen the editor uses `z-index: 10000`, which clears the layers most UI frameworks reserve for fixed headers and overlays. If a fixed header or sidebar still covers the editor, raise this value.
+
+Override it with `--mte-fullscreen-z-index`. The value applies only in fullscreen, and it inherits, so setting it on any ancestor covers every editor beneath it.
+
+<Snippet view="code">
+
+```css
+/* every editor on the page */
+.markdown-editor-wrapper {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* one section only - the value inherits down */
+#admin-panel {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* a single editor, by its textarea id */
+[data-editor="notes"] {
+    --mte-fullscreen-z-index: 20000;
+}
+```
+
+</Snippet>
+
+## API nội dung
+
+One of the core strengths of **MarkdownEditor** is that it keeps the underlying `<textarea>` perfectly synchronized. Whether you are using a modern JavaScript framework or a traditional backend like **Django, PHP, or Laravel**, the workflow remains simple and native.
+
+### Đọc và viết nội dung
+
+#### 1\. The Native Way (Recommended)
+
+Because the editor enhances a standard textarea, you can use familiar DOM methods. This is the fastest way to interact with your data without learning a new API.
+
+<Snippet view="code">
+
+```javascript
+// Retrieve content via ID
+const markdown = document.getElementById('markdown-editor').value;
+
+// Set content via ID (The editor UI updates automatically)
+document.getElementById('markdown-editor').value = "# New Heading Content";
+```
+
+</Snippet>
+
+#### 2\. Using a Variable Reference
+
+Nếu bạn có một tham chiếu đến phần tử vùng văn bản, bạn có thể sử dụng nó trực tiếp - không cần API dành riêng cho thư viện.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Retrieve content
+const markdown = textarea.value;
+
+// Set content (the editor UI reflects this immediately)
+textarea.value = "## Updated via JS";
+```
+
+</Snippet>
+
+#### 3\. Đặt nội dung ban đầu phía máy chủ
+
+Cách được đề xuất để đặt nội dung ban đầu là trực tiếp trong HTML `<textarea>` - cách này hoạt động tự nhiên với mọi khung phụ trợ (Django, Laravel, Rails, PHP, v.v.) và trình chỉnh sửa tự động hiển thị nội dung đó trên init.
+
+<Snippet view="code">
+
+```html
+<!-- Recommended: set content server-side -->
+<textarea id="markdown-editor"># Hello World</textarea>
+```
+
+</Snippet>
+
+To read or update content at runtime, use the native `textarea` value. Call `editor.render()` after an update to refresh the preview and hybrid layer.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Read
+const markdown = textarea.value;
+
+// Update at runtime
+textarea.value = '# New content';
+editor.render();
+```
+
+</Snippet>
+
+#### 4\. Xé trình soạn thảo — `destroy()`
+
+Call `editor.destroy()` to remove the editor DOM wrapper and restore the original `<textarea>` to its position in the document. Useful in single-page applications when unmounting a view.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor');
+
+// Remove the editor and restore the plain textarea
+editor.destroy();
+```
+
+</Snippet>
+
+### Reacting to changes with `onChange`
+
+Pass an `onChange` callback to be notified on every content change. Receives the current markdown string.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        console.log('Content changed:', value.length, 'characters');
+    }
+});
+```
+
+</Snippet>
+
+#### Draft auto-save with `localStorage`
+
+Use `onChange` to save a draft on every keystroke. Restore it by pre-filling the textarea before initialising the editor.
+
+<Snippet view="code">
+
+```javascript
+const DRAFT_KEY = 'my-page-draft';
+
+// Restore saved draft before init (only if textarea starts empty)
+const textarea = document.getElementById('markdown-editor');
+const saved = localStorage.getItem(DRAFT_KEY);
+if (saved && !textarea.value) textarea.value = saved;
+
+// Save on every change
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        localStorage.setItem(DRAFT_KEY, value);
+    }
+});
+
+// Clear draft after successful form submission
+document.querySelector('form').addEventListener('submit', () => {
+    localStorage.removeItem(DRAFT_KEY);
+});
+```
+
+</Snippet>
+
+### Gửi biểu mẫu
+
+Because **MarkdownEditor** is built directly on the native `<textarea>`, it is compatible with every backend framework (Django, Laravel, PHP, Ruby on Rails, etc.) right out of the box.
+
+This is where the "Native-First" philosophy shines. You don't need to manually sync data before submitting a form. The browser treats the editor exactly like a standard input field.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="/api/submit">
+  <textarea id="markdown-editor" name="content" class="h-48" rows="5">
+    # Initial Content
+  </textarea>
+
+  <button type="submit">Submit to Server</button>
+</form>
+
+<script>
+  // Just initialize it. That's it.
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+<RawHtml html={"<p class=\"text-sm\"><strong>Note:</strong> MarkdownEditor plugin initialization mandatory</p>"} />
+
+Just use a standard HTML `<form>`. The `name` attribute on the textarea is what your server will use to identify the content.
+
+##### 🚀 Why it's a Game-Changer for Backends
+
+Vì trình chỉnh sửa giữ nguyên hành vi `<textarea>` gốc nên máy chủ của bạn xử lý dữ liệu dưới dạng chuỗi tiêu chuẩn. Không cần thêm logic nào—không có `preventDefault()` và không có cấu trúc `FormData` thủ công.
+
+##### 💡 Why this is a "Killer Feature":
+
+Most editors (like Quill, Editor.js, simpleMDE, easyMDE) save data in complex JSON structures. If a developer uses those, they have to rewrite their database schema and their rendering logic.
+
+With **MarkdownEditor**, a developer can take an old website, replace a plain `<textarea>` with your editor, and the **backend doesn't even know it changed**. It just receives the same raw text it always did, but the user gets a 10x better experience.
+
+<DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
+
+| Framework / Language | How to access the Markdown content |
+| --- | --- |
+| PHP | `$_POST['content']` |
+| Django | `request.POST.get('content')` |
+| Node.js (Express) | `req.body.content` |
+| Laravel | `$request->input('content')` |
+| Ruby on Rails | `params[:content]` |
+
+</DocTable>
+
+## 🖼️ Tải lên hình ảnh nâng cao
+
+Xử lý nguyên bản việc tải lên hình ảnh—thay vì dựa vào các chuỗi Base64 chậm và tốn nhiều bộ nhớ—là một thắng lợi đáng kể cho cả hiệu suất và SEO.
+
+### Configuration Options
+
+The image tool supports a `fileInput` configuration to handle direct server uploads.
+
+-   `accept`: Define an array of allowed image formats (e.g., 'webp', 'avif')
+-   `uploadUrl`: Specify the backend endpoint where the `File` object will be sent via `POST`
+-   `params`: Optional object to send additional data (like CSRF tokens, user IDs, or folder names) alongside the image file
+
+### Usage example (Full Config)
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  placeholder: 'Start writing...',
+  toolbar: [
+    'link',
+    {
+      image: {
+        fileInput: {
+            accept: ['webp', 'avif'], // restrict the image upload format
+            uploadUrl: '/api/upload', // Your upload endpoint
+            params: {
+                _token: 'your_csrf_token_here', // Essential for Laravel/Django
+                folder: 'blog_posts'
+            }
+        },
+        // Supports boolean: true/false OR object: { required: true }
+        altInput: { required: true }
+      }
+    },
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 📡 Tích hợp máy chủ
+
+#### Yêu cầu
+
+The editor sends a `POST` request as `multipart/form-data`. By default, it includes:
+
+-   `image_file`: The actual file object
+-   `image_alt`: The alt text entered by the user
+-   ...plus any custom data defined in the `params` object
+
+#### Phản hồi bắt buộc
+
+To confirm a successful upload and insert the image into the editor, your server **must** return the following JSON structure:
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp"
+}
+```
+
+</Snippet>
+
+**Note**: Ensure you use the key `image_path` for the URL of the uploaded image.
+
+### Xác thực văn bản thay thế hình ảnh (`altInput`)
+
+Để đảm bảo nội dung của bạn vẫn có thể truy cập được và thân thiện với SEO, **MarkdownEditor** thực thi xác thực văn bản thay thế theo mặc định.
+
+-   **Hành vi mặc định**: Nếu `altInput` không được xác định, nó sẽ mặc định là `{ required: true }`
+-   **Thực thi khả năng truy cập**: Người dùng sẽ bị ngăn chèn hình ảnh cho đến khi mô tả thay thế được cung cấp
+
+#### 1\. Mặc định (Không cần cấu hình)
+
+<Snippet view="code">
+
+```javascript
+// Alt text is REQUIRED by default
+image: {
+  fileInput: { uploadUrl: '/api/upload' }
+}
+```
+
+</Snippet>
+
+#### 2\. Viết tắt (Tắt xác thực)
+
+Nếu bạn muốn cho phép hình ảnh không có mô tả, chỉ cần đặt boolean thành `false`.
+
+<Snippet view="code">
+
+```javascript
+image: {
+  altInput: false // Users can now skip the alt text field
+}
+```
+
+</Snippet>
+
+#### 3\. Dựa trên đối tượng (Rõ ràng)
+
+<Snippet view="code">
+
+```javascript
+image: {
+    altInput: {
+        required: false // Disables alt text validation — users can skip the alt field
+    }
+}
+```
+
+</Snippet>
+
+### Sử dụng hình ảnh tiêu chuẩn (Không có `fileInput`)
+
+Nếu `fileInput` không được định cấu hình, trình chỉnh sửa sẽ mặc định sử dụng phương thức dựa trên URL đơn giản. Điều này lý tưởng nếu người dùng của bạn chủ yếu liên kết đến các máy chủ hình ảnh bên ngoài.
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  toolbar: [
+    'link',
+    'image',
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 💡 Tại sao nên sử dụng thông số?
+
+Trong các framework như Laravel hoặc Django, bạn không thể tải tệp lên mà không có mã thông báo CSRF. Bằng cách thêm `_token` vào đối tượng `params`, yêu cầu của bạn sẽ chuyển qua phần mềm trung gian bảo mật của chương trình phụ trợ một cách liền mạch, duy trì triết lý "Zero Logic" cho bộ điều khiển phía máy chủ của bạn.
+
+## ⌨️ Phím tắt
+
+Các hành động định dạng phổ biến có thể được kích hoạt trực tiếp từ bàn phím mà không cần chạm vào thanh công cụ. Mỗi phím tắt cũng được hiển thị trong chú giải công cụ của nút thanh công cụ tương ứng.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Phím tắt | Hoạt động |
+| --- | --- |
+| `Ctrl + B`  /  `⌘ B` | Chuyển đổi **Đậm** |
+| `Ctrl + I`  /  `⌘ I` | Chuyển đổi *nghiêng* |
+| `Ctrl + K`  /  `⌘ K` | Chèn liên kết |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | Chuyển đổi `Mã` nội tuyến |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Chuyển đổi ~~Gạch ngang~~ |
+| `Ctrl + Z`  /  `⌘ Z` | Hoàn tác |
+| `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Làm lại |
+| `Tab` | Thụt lề các dòng đã chọn |
+| `Shift + Tab` | Nhô ra các dòng đã chọn |
+| `Ctrl + F`  /  `⌘ F` | Mở bảng Tìm kiếm |
+| `Ctrl + H`  /  `⌘ H` | Mở bảng Tìm & Thay thế |
+| `Escape` | Đóng Tìm bảng điều khiển/Thoát xem trước toàn màn hình |
+
+</DocTable>
+
+## 🔍 Tìm & Thay thế
+
+Bảng điều khiển tìm và thay thế tích hợp có sẵn bên trong trình chỉnh sửa — không cần tiện ích mở rộng trình duyệt hoặc công cụ riêng biệt.
+
+-   Nhấn `Ctrl + F` (hoặc `⌘ F`) để mở bảng **Tìm**
+-   Nhấn `Ctrl + H` (hoặc `⌘ H`) để mở **Tìm & Thay thế bảng điều khiển**
+-   Tìm kiếm **không phân biệt chữ hoa chữ thường** và hiển thị bộ đếm kết quả khớp trực tiếp (ví dụ: *3 trên 12*)
+-   Điều hướng các kết quả khớp bằng các nút **▲ / ▼** hoặc `Enter` / `Shift + Enter`
+-   **Thay thế** thay thế kết quả được đánh dấu hiện tại; **Thay thế tất cả** thay thế mọi lần xuất hiện cùng một lúc
+-   Nhấn `Escape` để đóng bảng và trả tiêu điểm về trình chỉnh sửa
+
+Bảng điều khiển nổi ở góc trên bên phải của khu vực nội dung trình soạn thảo và không làm gián đoạn quá trình viết.
+
+## Đặc trưng
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như <code>&lt;textarea&gt;</code> tiêu chuẩn. Không có API phức tạp—chỉ cần sử dụng thuộc tính <code>value</code> hoặc <code>name</code>. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid &amp; Plain Modes</h2><p class=\"para-sm\">Chuyển đổi giữa trải nghiệm <strong>Hybrid (WYSIWYG)</strong> để chỉnh sửa hình ảnh hoặc chế độ <strong>Plain Markdown</strong> để có cảm giác viết mã truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">Gói <strong>~116KB</strong> nhỏ được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột — vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Nâng cao khả năng đọc với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ hóa với cài đặt hệ thống của bạn hoặc thư viện <strong>Giao diện người dùng Frutjam</strong> để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra - nhấn <code>Enter</code> và trình chỉnh sửa tiếp tục mẫu. Các hộp kiểm trong khung xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động ngay lập tức thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup) — không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accessible by Default</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn — mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-ép</code> trên nút chuyển đổi xem trước, <code>disabled</code> và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero CSS Conflicts</h2><p class=\"para-sm\">Các kiểu trình soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ để trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm &amp; Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm &amp; thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả — mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Preview</h2><p class=\"para-sm\">Bản xem trước được hiển thị sẽ được lọc qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ — không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
+
+## Ví dụ về cấu hình đầy đủ
+
+Sử dụng ví dụ toàn diện này để khởi tạo **MarkdownEditor** với tất cả các tính năng chính, bao gồm sắp xếp thanh công cụ tùy chỉnh và xử lý tải lên hình ảnh nâng cao.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid',
+    placeholder: 'Start writing...',
+    footer: {
+        line: true,
+        col: true,
+        chars: true,
+        words: true,
+    },
+    onChange(value) {
+        console.log('Content updated:', value.length, 'characters');
+    },
+    toolbar: [
+        'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
+        'ul', 'ol', 'checklist',
+        'code', 'codeblock', 'hr', 'table',
+        {
+            image: {
+                fileInput: {
+                    accept: ['webp', 'avif', 'png'],
+                    uploadUrl: '/api/upload'
+                }
+            }
+        },
+        'link', 'undo', 'redo', 'indent', 'outdent', 'preview'
+    ],
+});
+
+// Read content natively
+const markdown = document.getElementById('markdown-editor').value;
+
+// destroy() when the view unmounts (SPAs)
+// editor.destroy();
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Tìm thấy điều này hữu ích?</p><p class=\"text-sm\">Ngôi sao GitHub giúp các nhà phát triển khác khám phá trình soạn thảo. Đó là một phần của <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. Một ngôi sao ở đó cũng giúp ích.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Sao trên GitHub</a></div>"} />

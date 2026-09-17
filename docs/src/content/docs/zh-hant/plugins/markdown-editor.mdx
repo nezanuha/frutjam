@@ -1,0 +1,1192 @@
+---
+name: "降價編輯器"
+heading: "適用於 JavaScript 的原生優先權、高效能 Markdown 插件"
+description: "Markdown 文字編輯器插件，可將本機文字區域轉換為完整的編輯套件 - 無需同步。所見即所得和純 Markdown 模式、即時預覽、尋找和替換、RTL 支援、深色模式。適用於 Django、Laravel、Rails、Node.js、PHP 和任何堆疊。"
+metaTitle: "Markdown 文字編輯器 JavaScript 外掛程式 |Frutjam"
+metaDescription: "輕量級 JavaScript Markdown 編輯器，無需替換即可增強文字區域。依原樣與 Django、Laravel、Rails、PHP 和 Node.js 配合使用。所見即所得，RTL。"
+order: 0
+related:
+  - "components/textarea"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
+imageAlt: "Frutjam 的 Markdown 文字編輯器 JavaScript 插件"
+createdAt: "2025-09-10T14:44:51.417170+00:00"
+updatedAt: "2026-07-18T13:00:27.167336+00:00"
+sourceHash: "dfa041018f60"
+translationHash: "47e514dab57a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Markdown 文字編輯器插件，可將本機文字區域轉換為完整的編輯套件 - 無需同步。所見即所得和純 Markdown 模式、即時預覽、尋找和替換、RTL 支援、深色模式。適用於 Django、Laravel、Rails、Node.js、PHP 和任何堆疊。
+
+## 安裝
+
+#### NPM（捆綁器：Vite、webpack、Rollup 等）
+
+<Snippet view="code">
+
+```bash
+npm install markdown-text-editor
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+import MarkdownEditor from 'markdown-text-editor';
+new MarkdownEditor('#markdown-editor');
+```
+
+</Snippet>
+
+TypeScript definitions ship with the package, so options, toolbar entries and variable shapes are checked and autocompleted with no extra install.
+
+#### CDN：ES模組
+
+<Snippet view="code">
+
+```html
+<script type="module">
+  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+#### CDN：全域腳本標籤（IIFE）
+
+無需導入 - MarkdownEditor 可自動作為全域變數使用。
+
+<Snippet view="code">
+
+```html
+<form action="/api/save" method="POST">
+  <textarea id="markdown-editor" name="content"># Hello World</textarea>
+  <button type="submit">Save Content</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+## Markdown 編輯器演示
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
+
+## 快速入門
+
+傳遞一個選項物件來自訂編輯器。所有選項都是可選的 - 省略任何選項即可使用預設值。
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+  placeholder: 'Write your markdown...',
+  toolbar: ['heading', 'bold', 'italic', 'strikethrough', 'ul', 'ol', 'checklist', 'blockquote', 'link', 'preview'],
+});
+```
+
+</Snippet>
+
+## 理念：“本土第一”
+
+大多數編輯器都打破了標準的網路工作流程。 **MarkdownEditor** 擁抱它。 由於它直接位於 `<textarea>` 之上，因此您無需學習處理資料的新方法。
+
+-   **無需資料綁定：**開箱即用 `<form method="POST">`
+-   **標準存取：**像普通輸入一樣使用`document.getElementById('editor').value`。
+-   **與後端無關：**可與任何後端（Python、Node.js、PHP 等）配合使用，就像普通表單欄位一樣
+
+## MarkdownEditor 與 EasyMDE / SimpleMDE
+
+大多數 JavaScript Markdown 編輯器（EasyMDE、SimpleMDE、基於 CodeMirror 的編輯器） **將 `<textarea>`** 替換為自訂元素。這表示表單提交中斷，`.value` 不傳回任何內容，並且您必須編寫額外的程式碼才能讀回內容。 **MarkdownEditor 與** 不同 — 它增強了您現有的文字區域，並且從不取代它。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 特徵 | Markdown編輯器 | EasyMDE / SimpleMDE |
+| --- | --- | --- |
+| 保留本機文字區域 | ✅ | ❌ 更換 |
+| 表單提交按原樣工作 | ✅ | ❌需要額外的JS |
+| 透過 `.value` 取得/設定值 | ✅ | ❌ 需要自訂API |
+| WYSIWYG hybrid mode | ✅ | ❌ |
+| 內建尋找和替換 | ✅ | ❌ |
+| RTL 支持 | ✅ | ❌ |
+| 相容於 CSP（無內聯 JS） | ✅ | ❌ |
+| 零 CSS 衝突 | ✅ | ❌ |
+| 深色模式/主題 | ✅ | 有限的 |
+| 捆綁尺寸 | 〜116KB | ~300KB+ |
+
+</DocTable>
+
+## 框架整合
+
+Because **MarkdownEditor** preserves the native `<textarea>`, it integrates with every backend framework without any extra code. Your server receives the markdown content exactly as it would from any standard form field. For React and Vue it takes a few lines, covered at the end of this section.
+
+### Django
+
+將 `class` 新增至您的文字區域小工具並初始化編輯器 - `request.POST['content']` 無需額外步驟即可運作。
+
+<Snippet view="code">
+
+```python
+# forms.py
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('.markdown-editor');
+// request.POST['content'] contains the markdown on submit
+```
+
+</Snippet>
+
+### Laravel
+
+將 `f.text_area` 與類別一起使用 — `$request->input('content')` 直接接收降價。
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### Ruby on Rails
+
+開箱即用，可與 `form_with` 搭配使用 — `params[:content]` 包含降價。對於 Turbo Drive，請使用 `turbo:load` 而不是 `DOMContentLoaded`。
+
+<Snippet view="code">
+
+```javascript
+document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.markdown-editor:not([data-mde-init])').forEach(el => {
+        el.setAttribute('data-mde-init', 'true');
+        new MarkdownEditor(el);
+    });
+});
+```
+
+</Snippet>
+
+### Node.js / Express
+
+`req.body.content` 接收表單提交時的降價 — 無同步步驟，無自訂提取。
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor"></textarea>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### PHP
+
+`$_POST['content']` 的工作方式與任何標準文字區域完全相同 - 將其放入，您現有的表單處理需要零更改。
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="save.php">
+  <textarea name="content" class="markdown-editor"></textarea>
+  <button type="submit">Save</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### React
+
+Create the editor in an effect and destroy it on unmount. Use `defaultValue` rather than `value`: the editor writes to the textarea directly, so a controlled binding would overwrite what the user is typing.
+
+<Snippet view="code">
+
+```javascript
+import { useEffect, useRef } from 'react';
+import MarkdownEditor from 'markdown-text-editor';
+
+function MarkdownField({ name, defaultValue = '', onChange }) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const editor = new MarkdownEditor(ref.current, { onChange });
+        return () => editor.destroy();
+    }, []);
+
+    return &lt;textarea ref={ref} name={name} defaultValue={defaultValue} /&gt;;
+}
+```
+
+</Snippet>
+
+從效果中返回 `editor.destroy()` 也涵蓋了 StrictMode，它在開發過程中運行效果兩次，否則會在一個文字區域上留下兩個編輯器。空依賴數組是故意的：創建編輯器時會讀取一次選項，因此重新運行效果會拆除它並在每次更改時重建它。
+
+### Vue
+
+Same idea. Set the initial value once in `onMounted` and do not bind `:value`, or every keystroke emitted back through `v-model` would overwrite the textarea.
+
+<Snippet view="code">
+
+```javascript
+&lt;script setup&gt;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import MarkdownEditor from 'markdown-text-editor';
+
+const el = ref(null);
+const props = defineProps({ modelValue: { type: String, default: '' } });
+const emit = defineEmits(['update:modelValue']);
+let editor = null;
+
+onMounted(() => {
+    el.value.value = props.modelValue;
+    editor = new MarkdownEditor(el.value, {
+        onChange: value =&gt; emit('update:modelValue', value)
+    });
+});
+
+onBeforeUnmount(() =&gt; editor?.destroy());
+&lt;/script&gt;
+
+&lt;template&gt;&lt;textarea ref="el"&gt;&lt;/textarea&gt;&lt;/template&gt;
+```
+
+</Snippet>
+
+Used as `<MarkdownField v-model="content" />`. In a plain form you can skip `v-model` entirely and read the value from the textarea on submit, as with any other framework.
+
+## 配置
+
+您可以透過傳遞 `options` 物件來完全自訂編輯器的行為和介面。如果省略選項，則使用**預設**值。
+
+Options are read once, when the editor is constructed. Changing them afterwards has no effect — call `destroy()` and create a new editor instead.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 財產 | 類型 | 預設 | 目的 |
+| --- | --- | --- | --- |
+| `mode` | `string` | `'plain'` | 設定初始視圖。使用混合以獲得WYSIWYG的體驗，或使用普通的原始語法。 |
+| `placeholder` | `string` | `'Write...'` | 編輯器為空時顯示的文字。 |
+| `toolbar` | `array` | `[...]` | 定義顯示哪些工具以及顯示順序。 |
+| `footer` | `false \| object` | 全部可見 | 控制編輯器下方顯示的狀態列。設定為 `false` 以完全隱藏它，或傳遞一個物件來切換單一統計資訊。 |
+| `theme` | `string` | 遺傳 | 明確設定編輯器主題（淺色、深色、雪莓、黑莓）。如果省略，編輯器將從最近的祖先元素或 `<textarea>` 本身繼承 `data-theme`。 |
+| `minHeight` | `number` | `200` | 當內容較短時，編輯器將縮小到的最小高度（以像素為單位）。與 `maxHeight` 配對以設定自動增長範圍。 |
+| `maxHeight` | `number` | `500` | 編輯器在非全螢幕模式下可以增長到的最大高度（以像素為單位）。一旦內容超過此高度，編輯器內就會出現捲軸。該編輯器還有一個拖曳手柄，因此使用者可以手動將其大小調整到超出此限制。 |
+| `renderer` | `function` | `marked` | Replaces the markdown parser used for the preview. Receives the markdown string and must return an HTML string. |
+| `sanitizer` | `function` | `DOMPurify` | Replaces the HTML sanitizer. Receives the rendered HTML and must return the safe HTML to display. |
+| `onChange` | `function` | `undefined` | 每次內容變更時都會觸發回調 - 鍵入、工具列操作、撤銷/重做和清單延續。接收目前的 markdown 字串作為其唯一的參數。 |
+
+</DocTable>
+
+### 🛠 工具列自訂
+
+工具列是模組化的。您可以透過修改陣列來創建最低限度的體驗或功能齊全的電源套件。
+
+#### 可用工具
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 類別 | 工具鍵 |
+| --- | --- |
+| 版式 | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
+| 清單 | `ul` (子彈), `ol` (編號的), `checklist` |
+| 程式碼 | `code` (排隊), `codeblock` (圍欄塊) |
+| 刀片 | `hr` (水平線), `table` (表格模板) |
+| 媒體 | `link`, `image` |
+| 編輯 | `undo`, `redo`, `indent`, `outdent` |
+| 看法 | `preview` |
+| 範本 | `{ variables: [...] }`, configured inline |
+
+</DocTable>
+
+#### 工具參考
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 工具 | 描述 |
+| --- | --- |
+| `heading` | 開啟下拉式選單以選擇標題等級 H1–H6 |
+| `bold` | 啟用粗體文字格式。 |
+| `italic` | 啟用斜體文字格式。 |
+| `strikethrough` | 允許文字刪除線。 |
+| `ol` | （有序列表）：將文字轉換為編號清單格式。 |
+| `ul` | （無序列表）：將文字轉換為項目符號清單。 |
+| `checklist` | 在文字中新增複選框，使其非常適合任務、待辦事項清單或追蹤完成狀態。 |
+| `blockquote` | 反白顯示引用或強調的文字。 |
+| `code` | 將選定的文字包含在單一反引號中以實現內聯代碼。再次點選可刪除反引號。 |
+| `codeblock` | 將選定的文字包裝在三重反引號圍欄代碼區塊中。再次點選可移除柵欄。 |
+| `hr` | 在遊標位置插入一條 `---` 水平線。 |
+| `table` | 在遊標位置插入起始 2x3 Markdown 表格範本。 |
+| `image` | 讓您透過 Markdown 語法插入圖片。 |
+| `link` | 允許您向文字添加超連結。 |
+| `undo` | 撤銷最後的變更。 |
+| `redo` | 重新套用上次撤銷的變更。 |
+| `indent` | 增加縮排等級。 |
+| `outdent` | 降低壓痕等級。 |
+| `preview` | 切換全螢幕並排預覽。預覽窗格中的核取方塊可按一下並立即更新 Markdown 來源。按 Esc 鍵退出全螢幕。如果固定標題覆蓋全螢幕編輯器，請參閱 `--mte-fullscreen-z-index`。 |
+
+</DocTable>
+
+##### 💡實施技巧：
+
+-   **重新排序**：按鈕會依照您在陣列中列出的確切順序顯示
+-   **刪除**：只需從陣列中省略任何鍵（例如`image`）即可為使用者完全停用該功能
+-   **原生後備**：如果您未在 JS 中提供 `placeholder`，外掛程式將自動使用 HTML `<textarea>` 中的 `placeholder` 屬性
+
+### 📊 頁腳（狀態列）
+
+頁腳位於編輯器下方，顯示遊標的 **line**、**column**、文件的 **字元計數** 以及可選的 **字計數** — 所有這些均即時更新。預設情況下它是可見的，並且每個統計資料都可以獨立切換。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 鑰匙 | 類型 | 預設 | 描述 |
+| --- | --- | --- | --- |
+| `line` | `boolean` | `true` | 顯示目前行號。 |
+| `col` | `boolean` | `true` | 顯示目前的列號。 |
+| `chars` | `boolean` | `true` | 顯示總字元數。 |
+| `words` | `boolean` | `false` | 顯示總字數。預設為關閉 — 設定為 `true` 以啟用。 |
+
+</DocTable>
+
+#### 使用範例
+
+<Snippet view="code">
+
+```javascript
+// Default — line, col, and chars visible
+new MarkdownEditor('#editor');
+
+// Disable the footer entirely
+new MarkdownEditor('#editor', { footer: false });
+
+// Hide only character count
+new MarkdownEditor('#editor', { footer: { chars: false } });
+
+// Hide line and column, keep character count
+new MarkdownEditor('#editor', { footer: { line: false, col: false } });
+
+// Show only line number
+new MarkdownEditor('#editor', { footer: { col: false, chars: false } });
+
+// Enable word count alongside the defaults
+new MarkdownEditor('#editor', { footer: { words: true } });
+
+// Show word count only
+new MarkdownEditor('#editor', { footer: { line: false, col: false, chars: false, words: true } });
+```
+
+</Snippet>
+
+### 🔀 編輯模式
+
+**MarkdownEditor** 提供兩種不同的方式來撰寫和格式化內容。您可以在傳統的以語法為中心的視圖或現代的視覺優先體驗之間切換。
+
+-   `plain`（**預設**）：乾淨、高效能的 Markdown 環境，其中語法（如 `**bold**` 或 `# heading`）可見。開發人員和 Markdown 純粹主義者的理想選擇
+-   `hybrid`：WYSIWYG的體驗，可在您鍵入時即時呈現格式（粗體、斜體、標題），同時仍保持底層 Markdown 結構。
+
+<Snippet view="code">
+
+```javascript
+// Default initialization (Plain Mode)
+new MarkdownEditor('#markdown-editor');
+
+// Explicit Plain Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'plain'
+});
+
+// Hybrid (Visual) Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid'
+});
+```
+
+</Snippet>
+
+#### 混合和普通模式預覽：
+
+##### 混合模式
+
+當您鍵入時，視覺格式會即時呈現。
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
+
+##### 普通模式（預設）
+
+專注於原始 Markdown 語法以提供輕量級體驗。
+
+<RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
+
+### 🌙 主題化
+
+**MarkdownEditor** 自動從周圍頁面繼承其主題 - 無需配置。編輯器在初始化時從最近的祖先讀取`data-theme`，因此它與您網站的主題保持同步。
+
+#### 主題如何解決（優先順序）
+
+1.  **`theme` option** - 在選項物件中傳遞的明確覆蓋
+2.  `<textarea>` 上的 **`data-theme` — 直接在元素上設定**
+**-   任何祖先的**`資料主題`** - 例如`<html>`、`<body>` 或包裝 `<div>`**
+
+**
+
+#### 可用主題
+
+`'light'`（預設）、`'dark'`、`'snowberry'`、`'darkberry'`
+
+##### 選項 1 — 從 `<html>` 或任何祖先繼承（零配置）
+
+<Snippet view="code">
+
+```html
+<html data-theme="dark">
+  ...
+  <textarea id="markdown-editor"></textarea>
+  <script>
+    new MarkdownEditor('#markdown-editor'); // picks up dark automatically
+  </script>
+```
+
+</Snippet>
+
+##### 選項 2 — 直接在 `<textarea>` 上設定 `data-theme`
+
+<Snippet view="code">
+
+```html
+<textarea id="markdown-editor" data-theme="dark"></textarea>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+##### 選項 3 — 明確 `theme` 選項（涵蓋所有內容）
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    theme: 'dark'
+});
+```
+
+</Snippet>
+
+#### 🎨 透過 CSS 變數自訂主題
+
+您可以透過覆寫 `.markdown-editor-wrapper` 元素或任何 `[data-theme]` 選擇器上的 CSS 變數來完全自訂編輯器的外觀。所有顏色均使用 [OKLCH 色彩空間](https://oklch.com) 以獲得統一的感知結果。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 多變的 | 目的 | 淺色預設 | 深色預設 |
+| --- | --- | --- | --- |
+| `--color-base` | 編輯背景 | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
+| `--color-on-base` | 主要文字顏色 | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
+| `--color-primary` | 主要重音（工具列活動，連結） | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
+| `--color-on-primary` | 原色表面上的文字 | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
+| `--color-secondary` | 次要口音 | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
+| `--color-accent` | 反白顯示重音符號（內聯代碼，斜體） | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-neutral` | 中性表面（邊界、分隔線） | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
+| `--color-error` | 錯誤狀態顏色 | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
+| `--border-radius` | 編輯器框架的圓角 | `0.25rem` |
+
+</DocTable>
+
+##### 自訂主題範例
+
+編輯器初始化後覆蓋 .markdown-editor-wrapper 上的任何變量，或在樣式表中定義自訂 `[data-theme]` 區塊：
+
+<Snippet view="code">
+
+```css
+/* Override individual variables */
+.markdown-editor-wrapper {
+    --color-primary: oklch(60% 0.2 30);   /* orange accent */
+    --border-radius: 0.5rem;
+}
+
+/* Or define a full custom theme */
+[data-theme="brand"] .markdown-editor-wrapper,
+.markdown-editor-wrapper[data-theme="brand"] {
+    --color-base:       oklch(15% 0.01 250);
+    --color-on-base:    oklch(95% 0 0);
+    --color-primary:    oklch(65% 0.22 145);   /* green */
+    --color-on-primary: oklch(10% 0 0);
+    --color-accent:     oklch(75% 0.18 60);
+    --color-neutral:    oklch(80% 0 0);
+    --border-radius:    0.75rem;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', { theme: 'brand' });
+```
+
+</Snippet>
+
+### 🏷 Variables
+
+Adds a toolbar dropdown for inserting placeholders. Useful when the person writing a document is not the developer who defined the placeholder syntax, as with email, invoice or contract templates: they pick a readable name and the correct syntax is inserted for them.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', 'link',
+        { variables: [
+            { label: 'Customer Name', value: '{{customer.name}}' },
+            { label: 'Invoice No',    value: '{{invoice.number}}' }
+        ]},
+        'preview'
+    ]
+});
+```
+
+</Snippet>
+
+The tool is configured inline in the `toolbar` array, so its position among the other buttons is up to you. The button lists the labels, and clicking one inserts its `value` at the cursor, replacing any selection. Nothing is rendered if the list is empty.
+
+#### Sample values in the preview
+
+An entry given a `sample` shows that sample in the preview, while the textarea keeps the real placeholder. Entries without one appear as written, so you can mix both.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' },
+    { label: 'Invoice No',    value: '{{invoice.number}}' }
+]}
+
+// textarea : Hi {{customer.name}}, invoice {{invoice.number}}
+// preview  : Hi Hannes, invoice {{invoice.number}}
+```
+
+</Snippet>
+
+#### Grouping
+
+Give an entry `items` instead of a `value` to render a headed section. Grouped and flat entries can be mixed in one list.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Today', value: '{{today}}', sample: '10 September 2026' },
+    { label: 'Customer', items: [
+        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes' },
+        { label: 'Email', value: '{{customer.email}}', sample: 'hannes@example.com' }
+    ]},
+    { label: 'Invoice', items: [
+        { label: 'Number', value: '{{invoice.number}}' }
+    ]}
+]}
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **The editor never resolves variables.** It inserts text, and your application substitutes real values later, usually server-side. `sample` only affects what the preview displays.
+-   **Labels are shown as plain text**, so markup in a label is never rendered.
+-   **Malformed entries are skipped** rather than throwing, and the button is not rendered at all when nothing usable is configured.
+
+### 🖋 Custom Renderer
+
+The preview is rendered with [marked](https://marked.js.org) and sanitized with [DOMPurify](https://github.com/cure53/DOMPurify). Both can be replaced. Use this when your application already renders markdown with another library and you want the preview to match production exactly.
+
+Both options are plain functions that take a string and return a string, so any parser and any sanitizer works.
+
+<Snippet view="code">
+
+```javascript
+import MarkdownIt from 'markdown-it';
+import taskLists from 'markdown-it-task-lists';
+import MarkdownEditor from 'markdown-text-editor';
+
+const md = new MarkdownIt({ linkify: true, breaks: true }).use(taskLists);
+
+new MarkdownEditor('#markdown-editor', {
+    renderer: markdown => md.render(markdown)
+});
+```
+
+</Snippet>
+
+DOMPurify still runs on the output, so you keep XSS protection without configuring anything.
+
+#### Custom sanitizer
+
+Only needed when the default strips something your renderer emits. DOMPurify removes `<iframe>` by default, so video embeds need it allowed explicitly. DOMPurify must be imported in your own code, since the copy bundled with the editor is internal.
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    renderer:  markdown => md.render(markdown),
+    sanitizer: html => DOMPurify.sanitize(html, {
+        ADD_TAGS: ['iframe'],
+        ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder']
+    })
+});
+```
+
+</Snippet>
+
+Using a script tag instead of a bundler, load DOMPurify alongside the editor:
+
+<Snippet view="code">
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dompurify"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **Preview only.** Hybrid mode's live formatting uses a separate internal renderer and is not affected.
+-   **Task lists need plugin support.** Clickable checkboxes are found by looking for `input[type="checkbox"]` in the output, so markdown-it needs `markdown-it-task-lists`. The editor logs a warning if it detects task list syntax and no checkboxes.
+-   **Both must be synchronous** and return a string. An `async` function writes `[object Promise]` into the preview.
+-   **Replacing the sanitizer replaces your protection.** A pass-through such as `html => html` disables sanitizing entirely and is only safe for fully trusted content.
+
+### 🎨 設定內部元素的樣式
+
+CSS variables cover most theming because they inherit, so setting one on `.markdown-editor-wrapper` reaches the toolbar, buttons, preview and footer. Reach for a class name only when no variable exposes what you need.
+
+<Snippet view="code">
+
+```css
+/* Variables set on the wrapper inherit down to every child */
+.markdown-editor-wrapper {
+    --border-radius: 12px;   /* rounds the editor and its toolbar buttons */
+    --color-primary: oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### 類別參考
+
+這些類別名稱是穩定且安全的樣式。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 班級 | 元素 |
+| --- | --- |
+| `.markdown-editor-wrapper` | Outer container wrapping the whole editor |
+| `.toolbar` | Toolbar strip above the editing area |
+| `.markdown-btn` | 單獨的工具列按鈕 |
+| `.preview-btn` | The preview / fullscreen toggle button |
+| `.editor-layout` | Grid holding the editing area and preview side by side |
+| `.textarea-wrapper` | 編輯區域周圍的包裝 |
+| `.editor-textarea` | The underlying textarea element |
+| `.display-layer` | 渲染格式化圖層，僅限混合模式 |
+| `.preview-wrapper` | 預覽專欄 |
+| `.preview-content` | 在預覽中渲染的 Markdown |
+| `.editor-footer` | 編輯器下方的狀態列 |
+| `.find-replace-panel` | 尋找並取代面板 |
+
+</DocTable>
+
+<Snippet view="code">
+
+```css
+/* Some variables are set by the component on itself, which beats an
+   inherited value. Target the element directly for those. */
+.markdown-editor-wrapper .markdown-btn {
+    --btn--font-size: 0.875rem;
+}
+
+/* And use classes for anything no variable exposes */
+.markdown-editor-wrapper .toolbar {
+    border-bottom: 2px solid oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### 定位一位編輯者
+
+一頁上有多個編輯器，使用 `data-editor` 定位其中一個。包裝器鏡像其 `<textarea>` 的 id，因此 `<textarea id="notes">` 為您提供 `[data-editor="notes"]`。 id 本身保留在文字區域上，因此 `getElementById` 繼續工作。
+
+<Snippet view="code">
+
+```css
+/* one editor only */
+[data-editor="notes"] {
+    --border-radius: 0;
+}
+```
+
+</Snippet>
+
+### 🪟 全螢幕 & 分層（z 索引）
+
+在全螢幕中，編輯器使用 `z-index: 10000`，這會清除大多數 UI 框架為固定標題和覆蓋層保留的圖層。如果固定標題或側邊欄仍然覆蓋編輯器，請提高此值。
+
+使用 `--mte-fullscreen-z-index` 覆寫它。該值僅適用於全屏，並且會繼承，因此在任何祖先上設置它都會覆蓋其下面的每個編輯器。
+
+<Snippet view="code">
+
+```css
+/* every editor on the page */
+.markdown-editor-wrapper {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* one section only - the value inherits down */
+#admin-panel {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* a single editor, by its textarea id */
+[data-editor="notes"] {
+    --mte-fullscreen-z-index: 20000;
+}
+```
+
+</Snippet>
+
+## 內容API
+
+**MarkdownEditor** 的核心優勢之一是它保持底層 `<textarea>` 完美同步。無論您使用現代 JavaScript 框架還是傳統後端（例如 Django、PHP 或 Laravel），工作流程都保持簡單且原生。
+
+### 閱讀和寫作內容
+
+#### 1\. The Native Way（推薦）
+
+由於編輯器增強了標準文字區域，因此您可以使用熟悉的 DOM 方法。這是無需學習新 API 即可與資料互動的最快方式。
+
+<Snippet view="code">
+
+```javascript
+// Retrieve content via ID
+const markdown = document.getElementById('markdown-editor').value;
+
+// Set content via ID (The editor UI updates automatically)
+document.getElementById('markdown-editor').value = "# New Heading Content";
+```
+
+</Snippet>
+
+#### 2\. 使用變數引用
+
+如果您有對 textarea 元素的引用，則可以直接使用它 - 不需要特定於庫的 API。
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Retrieve content
+const markdown = textarea.value;
+
+// Set content (the editor UI reflects this immediately)
+textarea.value = "## Updated via JS";
+```
+
+</Snippet>
+
+#### 3\. 伺服器端設定初始內容
+
+設定初始內容的建議方法是直接在 `<textarea>` HTML 中 - 這自然適用於每個後端框架（Django、Laravel、Rails、PHP 等），並且編輯器會在 init 時自動呈現它。
+
+<Snippet view="code">
+
+```html
+<!-- Recommended: set content server-side -->
+<textarea id="markdown-editor"># Hello World</textarea>
+```
+
+</Snippet>
+
+若要在執行時間讀取或更新內容，請使用本機 `textarea` 值。更新後呼叫 `editor.render()` 以刷新預覽層和混合層。
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Read
+const markdown = textarea.value;
+
+// Update at runtime
+textarea.value = '# New content';
+editor.render();
+```
+
+</Snippet>
+
+#### 4\. 拆除編輯器－`destroy()`
+
+呼叫 `editor.destroy()` 刪除編輯器 DOM 包裝器並將原始 `<textarea>` 還原到其在文件中的位置。在單頁應用程式中卸載視圖時很有用。
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor');
+
+// Remove the editor and restore the plain textarea
+editor.destroy();
+```
+
+</Snippet>
+
+### 使用 `onChange` 回應更改
+
+傳遞 `onChange` 回呼以在每次內容變更時收到通知。接收目前的 Markdown 字串。
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        console.log('Content changed:', value.length, 'characters');
+    }
+});
+```
+
+</Snippet>
+
+#### 使用 `localStorage` 自動儲存草稿
+
+使用 `onChange` 在每次按鍵時儲存草稿。在初始化編輯器之前透過預先填充文字區域來恢復它。
+
+<Snippet view="code">
+
+```javascript
+const DRAFT_KEY = 'my-page-draft';
+
+// Restore saved draft before init (only if textarea starts empty)
+const textarea = document.getElementById('markdown-editor');
+const saved = localStorage.getItem(DRAFT_KEY);
+if (saved && !textarea.value) textarea.value = saved;
+
+// Save on every change
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        localStorage.setItem(DRAFT_KEY, value);
+    }
+});
+
+// Clear draft after successful form submission
+document.querySelector('form').addEventListener('submit', () => {
+    localStorage.removeItem(DRAFT_KEY);
+});
+```
+
+</Snippet>
+
+### 表格提交
+
+由於 **MarkdownEditor** 直接建立在原生 `<textarea>` 上，因此它開箱即用，與每個後端框架（Django、Laravel、PHP、Ruby on Rails 等）相容。
+
+這就是「本地優先」理念的閃光點。您無需在提交表單之前手動同步資料。瀏覽器將編輯器視為標準輸入欄位。
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="/api/submit">
+  <textarea id="markdown-editor" name="content" class="h-48" rows="5">
+    # Initial Content
+  </textarea>
+
+  <button type="submit">Submit to Server</button>
+</form>
+
+<script>
+  // Just initialize it. That's it.
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+<RawHtml html={"<p class=\"text-sm\"><strong>注意：</strong> MarkdownEditor 外掛程式必須初始化</p>"} />
+
+只需使用標準 HTML `<form>`。文字區域上的 `name` 屬性是您的伺服器將用來識別內容的屬性。
+
+##### 🚀 為什麼它會改變後端的遊戲規則
+
+由於編輯器保留本機 `<textarea>` 行為，因此您的伺服器將資料作為標準字串處理。所需的額外邏輯為零，無需 `preventDefault()` 也無需手動建構 `FormData`。
+
+##### 💡 為什麼這是一個「殺手級功能」：
+
+大多數編輯器（如 Quill、Editor.js、simpleMDE、easyMDE）以複雜的 JSON 結構保存資料。如果開發人員使用這些，他們必須重寫他們的資料庫模式和渲染邏輯。
+
+透過 **MarkdownEditor**，開發人員可以使用舊網站，用編輯器取代普通的 `<textarea>`，而**後端甚至不知道它發生了變化**。它只是收到與往常相同的原始文本，但用戶獲得了 10 倍更好的體驗。
+
+<DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
+
+| 框架/語言 | 如何存取 Markdown 內容 |
+| --- | --- |
+| PHP | `$_POST['content']` |
+| Django | `request.POST.get('content')` |
+| Node.js (Express) | `req.body.content` |
+| Laravel | `$request->input('content')` |
+| Ruby on Rails | `params[:content]` |
+
+</DocTable>
+
+## 🖼️ 高級圖片上傳
+
+本地處理圖像上傳（而不是依賴緩慢且佔用大量記憶體的 Base64 字串）對於效能和 SEO 來說都是一個重大勝利。
+
+### 配置選項
+
+圖像工具支援 `fileInput` 配置來處理直接伺服器上傳。
+
+-   `accept`：定義允許的影像格式陣列（例如「webp」、「avif」）
+-   `uploadUrl`：指定將透過 `POST` 傳送 `File` 物件的後端端點
+-   `params`：可選對象，用於與映像檔一起傳送附加資料（例如 CSRF 令牌、使用者 ID 或資料夾名稱）
+
+### 使用範例（完整配置）
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  placeholder: 'Start writing...',
+  toolbar: [
+    'link',
+    {
+      image: {
+        fileInput: {
+            accept: ['webp', 'avif'], // restrict the image upload format
+            uploadUrl: '/api/upload', // Your upload endpoint
+            params: {
+                _token: 'your_csrf_token_here', // Essential for Laravel/Django
+                folder: 'blog_posts'
+            }
+        },
+        // Supports boolean: true/false OR object: { required: true }
+        altInput: { required: true }
+      }
+    },
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 📡 伺服器集成
+
+#### 請求
+
+編輯器以 `multipart/form-data` 形式傳送 `POST` 請求。預設情況下，它包括：
+
+-   `image_file`：實際的文件對象
+-   `image_alt`：使用者輸入的替代文本
+-   ...加上 `params` 物件中定義的任何自訂數據
+
+#### 所需的回應
+
+若要確認上傳成功並將映像插入編輯器，您的伺服器**必須**傳回以下 JSON 結構：
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp"
+}
+```
+
+</Snippet>
+
+**注意**：確保使用 `image_path` 鍵作為上傳圖像的 URL。
+
+### 圖像替代文字驗證 (`altInput`)
+
+為了確保您的內容保持可訪問性和 SEO 友善性，**MarkdownEditor** 預設強制執行替代文字驗證。
+
+-   **預設行為**：如果未定義`altInput`，則預設為`{ required: true }`
+-   **強制輔助使用**：在提供替代說明之前，使用者將無法插入影像
+
+#### 1.預設（無需配置）
+
+<Snippet view="code">
+
+```javascript
+// Alt text is REQUIRED by default
+image: {
+  fileInput: { uploadUrl: '/api/upload' }
+}
+```
+
+</Snippet>
+
+#### 2\. 速記（禁用驗證）
+
+如果您想允許沒有描述的圖像，只需將布林值設為 `false` 即可。
+
+<Snippet view="code">
+
+```javascript
+image: {
+  altInput: false // Users can now skip the alt text field
+}
+```
+
+</Snippet>
+
+#### 3\. 基於物件（顯）
+
+<Snippet view="code">
+
+```javascript
+image: {
+    altInput: {
+        required: false // Disables alt text validation — users can skip the alt field
+    }
+}
+```
+
+</Snippet>
+
+### 標準影像使用（無 `fileInput`）
+
+如果未配置 `fileInput`，則編輯器預設為簡單的基於 URL 的模式。如果您的用戶主要連結到外部圖像主機，那麼這是理想的選擇。
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  toolbar: [
+    'link',
+    'image',
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 💡 為什麼要使用參數？
+
+在 Laravel 或 Django 等框架中，如果沒有 CSRF 令牌，則無法上傳檔案。透過將 `_token` 新增至 `params` 對象，您的請求將無縫地通過後端的安全中介軟體，從而維護伺服器端控制器的「零邏輯」理念。
+
+## ⌨️ 鍵盤快速鍵
+
+常見的格式化操作可以直接從鍵盤觸發，無需觸摸工具列。每個快捷方式也顯示在對應的工具列按鈕的工具提示中。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 捷徑 | 行動 |
+| --- | --- |
+| `Ctrl + B`  /  `⌘ B` | 切換**粗體** |
+| `Ctrl + I`  /  `⌘ I` | 切換*斜體* |
+| `Ctrl + K`  /  `⌘ K` | 插入連結 |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | 切換內聯`代碼` |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | 切換~~刪除線~~ |
+| `Ctrl + Z`  /  `⌘ Z` | 撤銷 |
+| `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | 重做 |
+| `Tab` | 縮排選定的行 |
+| `Shift + Tab` | 減少縮排選定的行 |
+| `Ctrl + F`  /  `⌘ F` | 打開尋找面板 |
+| `Ctrl + H`  /  `⌘ H` | 打開尋找和取代面板 |
+| `Escape` | 關閉查找面板/退出全螢幕預覽 |
+
+</DocTable>
+
+## 🔍 找出並找到代替
+
+編輯器內提供內建尋找和取代面板 - 無需瀏覽器擴充功能或單獨的工具。
+
+-   按下 `Ctrl + F`（或 `⌘ F`）開啟**尋找**面板
+-   按`Ctrl + H`（或`⌘ H`）開啟**尋找和尋找視窗。更換面板**
+**-   搜尋**不區分大小寫**並顯示即時比賽計數器（例如*3 / 12*）
+-   使用 **▲ / ▼** 按鈕或 `Enter` / `Shift + Enter` 導覽匹配項
+-   **替換**替換目前反白顯示的匹配項； **全部替換**一次替換所有出現的內容
+-   按 `Escape` 關閉面板並將焦點返回編輯器**
+
+**
+
+此面板浮動在編輯器內容區域的右上角，不會中斷寫入。
+
+## 特徵
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 原生表單集成</h2><p class=\"para-sm\">工作原理與標準 <code>&lt;textarea&gt;</code> 完全相同。沒有複雜的 API — 只需使用 <code>value</code> 或 <code>name</code> 屬性。它「只適用於」PHP、Django 或 Node.js 中的標準 HTML 表單提交。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高級圖片上傳</h2><p class=\"para-sm\">透過 API 設定本機伺服器上傳。透過在您自己的 CDN 上託管圖像，避免使用繁重的 Base64 字串，以確保更快的頁面加載和卓越的 SEO。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 混合模式和普通模式</h2><p class=\"para-sm\">在用於視覺化編輯的<strong>混合 (WYSIWYG)</strong> 體驗和用於傳統編碼感覺的<strong>純 Markdown</strong> 模式之間切換。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">一個針對「重內容」進行最佳化的小型 <strong>~116KB</strong> 套件。處理大量文件和大文件，不會出現任何輸入延遲或效能下降。去抖動預覽更新、快取樣式計算和無衝突鍵盤處理 - 因此 Tab 和 Enter 總是只做一件事。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 內建 RTL 支持</h2><p class=\"para-sm\">阿拉伯語、烏爾都語和波斯語等從右到左語言的本機支援。非常適合建立全球可訪問的應用程式。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 語法高亮</h2><p class=\"para-sm\">透過清晰的程式碼和 Markdown 格式增強可讀性。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 自適應主題</h2><p class=\"para-sm\">包括自動深色模式支援。它與您的系統設定或 <strong>Frutjam UI</strong> 庫同步，以提供無縫的視覺體驗。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 智能編輯</h2><p class=\"para-sm\">GitHub 風格的自動清單延續，適用於有序清單、無序列表和清單 - 按 Enter 鍵，編輯器將繼續該模式。預覽窗格中的核取方塊可點選並立即同步回 Markdown 來源。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全響應</h2><p class=\"para-sm\">流暢、行動優先的使用者介面，完美適應桌上型電腦、平板電腦和智慧型手機，隨時隨地進行編輯。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 普遍支持</h2><p class=\"para-sm\">與 <strong>ESM、UMD、CommonJS 和 IIFE</strong> 相容。透過 CDN (<code>&lt;script src&gt;</code>)、npm 或任何捆綁器（Vite、webpack、Rollup）開箱即用 — 無需額外配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 預設可訪問</h2><p class=\"para-sm\">內建完整的 ARIA 支援 - 工具列地標、帶標籤的預覽區域、螢幕閱讀器友好的按鈕、預覽切換上的 <code>aria-pressed</code>、非活動工具上的 <code>disabled</code> 和 <code>aria-disabled</code>，以及模態關閉時正確的焦點恢復。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ 零 CSS 衝突</h2><p class=\"para-sm\">編輯器樣式的範圍完全限於 <code>.markdown-editor-wrapper</code>。 Tailwind 的全域預檢被排除，因此編輯器可以安全地與 Bootstrap、Tailwind 或任何其他框架一起使用，而不會破壞它們的風格。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 鍵盤快速鍵</h2><p class=\"para-sm\"><code>Ctrl+B</code>、<code>Ctrl+I</code>、<code>Ctrl+K</code>、<code>Ctrl+`</code>、<code>Ctrl+Shift+S</code> — 無需觸控滑鼠的常見格式化操作。每個快捷方式都顯示在工具列按鈕的工具提示中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 找出並找到代替</h2><p class=\"para-sm\">按 <code>Ctrl+F</code> 進行尋找或按<code>Ctrl+H</code> 開啟尋找&amp;代替。不區分大小寫的搜索，具有即時匹配計數器、下一個/上一個導航、單一替換和全部替換 - 無需離開編輯器。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 安全預覽</h2><p class=\"para-sm\">渲染的預覽在寫入 DOM 之前透過 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> 進行清理。精心設計的 Markdown 輸入中的腳本標籤、內聯事件處理程序和惡意 URL 都會自動刪除——無需配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️即時預覽</h2><p class=\"para-sm\">在您鍵入時查看立即呈現的 Markdown。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 輕鬆集成</h2><p class=\"para-sm\">只需最少的設定即可無縫整合到任何 Web 專案中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 可自訂的工具列</h2><p class=\"para-sm\">動態配置和重新排序工具列選項，例如粗體、斜體等。</p></div></div></div>"} />
+
+## 完整配置範例
+
+使用這個綜合範例來初始化 **MarkdownEditor** 的所有主要功能，包括自訂工具列排序和進階映像上傳處理。
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid',
+    placeholder: 'Start writing...',
+    footer: {
+        line: true,
+        col: true,
+        chars: true,
+        words: true,
+    },
+    onChange(value) {
+        console.log('Content updated:', value.length, 'characters');
+    },
+    toolbar: [
+        'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
+        'ul', 'ol', 'checklist',
+        'code', 'codeblock', 'hr', 'table',
+        {
+            image: {
+                fileInput: {
+                    accept: ['webp', 'avif', 'png'],
+                    uploadUrl: '/api/upload'
+                }
+            }
+        },
+        'link', 'undo', 'redo', 'indent', 'outdent', 'preview'
+    ],
+});
+
+// Read content natively
+const markdown = document.getElementById('markdown-editor').value;
+
+// destroy() when the view unmounts (SPAs)
+// editor.destroy();
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">覺得有用嗎？</p><p class=\"text-sm\">GitHub 之星可以幫助其他開發人員發現該編輯器。它是 <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a> 的一部分。那裡的明星也有幫助。</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">在 GitHub 上加星標</a></div>"} />
+
+****

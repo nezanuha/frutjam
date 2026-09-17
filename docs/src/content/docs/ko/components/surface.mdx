@@ -1,0 +1,139 @@
+---
+name: "표면"
+heading: "표면 구성요소"
+description: "테마가 있는 배경 및 텍스트 색상을 컨테이너에 적용하기 위한 CSS 전용 Tailwind CSS 표면입니다. 모든 색상 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "표면 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "계층화된 콘텐츠 컨테이너 및 시각적 깊이 계층 구조를 위한 Tailwind CSS 표면. 카드 대안 및 중첩 레이아웃을 위한 다양한 고도 수준 및 모양."
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Frutjam의 표면"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "9ed2ec626ae2"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+테마가 있는 배경 및 텍스트 색상을 컨테이너에 적용하기 위한 CSS 전용 Tailwind CSS 표면입니다. 모든 색상 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+표면 구성 요소는 계층화된 시각적 계층 구조와 콘텐츠 컨테이너를 생성하는 다목적 레이아웃 기본 요소입니다. 의미론적 HTML로 구축된 표면은 유연한 깊이와 스타일 옵션을 제공합니다. Frutjam 표면 시스템은 다양한 크기, 모양 및 레이어를 지원하므로 카드 대체, 콘텐츠 블록 및 중첩 레이아웃에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">베이스</span> | 베이스 표면 용기 |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 고도 1(미묘) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 고도 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 테두리가 보이는 투명 채우기 |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 점선 테두리 스타일 |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 적당히 둥근 모서리 |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">크기</span> | 매우 작은 패딩 |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">크기</span> | 작은 패딩 |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">크기</span> | 중간 패딩(기본값) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">크기</span> | 큰 패딩 |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">크기</span> | 초대형 패딩 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## 표면층
+
+기본 색상과 전경 색상을 혼합하여 깊이 계층 구조를 만들려면 `surface-1` 및 `surface-2`를 사용하세요.
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## 표면 모양
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## 테두리 스타일
+
+테두리로 정의된 투명 컨테이너에는 `surface-outline` 또는 `surface-dashed`를 사용하세요. 배경이 명시적으로 투명하기 때문에 컬러 레이어 안에 중첩되면 올바르게 작동합니다.
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 표면 크기
+
+크기 유틸리티는 `--surface--padding`을 통해 내부 패딩을 설정합니다. Tailwind `p-*` 유틸리티와 결합하지 마십시오. 변수를 재정의하고 크기 클래스를 무효화합니다.
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## 내포된 표면
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,162 @@
+---
+name: "入力"
+heading: "入力コンポーネント"
+description: "CSS のみの Tailwind CSS 入力。プライマリ、セカンダリ、アクセント、セマンティック カラー バリアントが含まれます。サイズは xs ～ xl、プレフィックスとサフィックスのアドオン スロット、ゴースト スタイル。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "入力 - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind ネイティブ HTML セマンティクスを使用した CSS 入力。ラベル、エラー状態、アイコン、プレフィックス/サフィックス、およびアクセス可能なテーマ対応フォーム フィールドの複数のサイズ。"
+order: 0
+related:
+  - "components/checkbox"
+  - "components/radio"
+  - "components/select"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/input.webp"
+imageAlt: "Frutjam UI ライブラリによる入力コンポーネント"
+createdAt: "2025-09-25T06:27:57.143571+00:00"
+updatedAt: "2026-07-13T09:51:57.442661+00:00"
+sourceHash: "a37cf64717e1"
+translationHash: "9cb33fd97fdb"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS 入力。プライマリ、セカンダリ、アクセント、セマンティック カラー バリアントが含まれます。サイズは xs ～ xl、プレフィックスとサフィックスのアドオン スロット、ゴースト スタイル。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+入力コンポーネントは、テキスト フィールド、電子メール、パスワード、その他の入力タイプを通じてユーザー データを取得します。 Frutjam 入力システムは、複数のサイズ、色、検証状態に対応する Tailwind CSS スタイルを備えたセマンティック HTML フォーム コントロールを提供します。アクセシビリティと応答性の高い動作を考慮して設計されており、入力はフォーム検証ライブラリおよびフレームワークとシームレスに統合されます。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| input | <span class="badge badge-xs">ベース</span> | スタイル付きのテキスト入力フィールド |
+| input-outline | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 境界線が見える透明な塗りつぶし |
+| input-soft | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 落ち着いた色合いの背景 |
+| input-ghost | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 焦点を合わせるまで境界線が表示されない |
+| input-dashed | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 破線の境界線スタイル |
+| input-square | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 境界半径なし |
+| input-disabled | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 非入力要素の無効な外観 |
+| input-xs | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 極小 |
+| input-sm | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 小さい |
+| input-md | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 中 (デフォルト) |
+| input-lg | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 大きい |
+| input-xl | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 特大 |
+| input-2xl | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 特大×2 |
+| input-primary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 主要テーマの色の境界線 |
+| input-secondary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 二次テーマの色の境界線 |
+| input-accent | <span class="badge badge-xs badge-warning badge-soft">色</span> | アクセントテーマカラーのボーダー |
+| input-neutral | <span class="badge badge-xs badge-warning badge-soft">色</span> | ニュートラルテーマカラーの境界線 |
+| input-info | <span class="badge badge-xs badge-warning badge-soft">色</span> | 情報セマンティックカラーボーダー |
+| input-success | <span class="badge badge-xs badge-warning badge-soft">色</span> | 成功のセマンティックカラーボーダー |
+| input-warning | <span class="badge badge-xs badge-warning badge-soft">色</span> | 警告セマンティックカラー境界線 |
+| input-error | <span class="badge badge-xs badge-warning badge-soft">色</span> | エラーセマンティックカラーボーダー |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<input type="text" placeholder="Enter your text here" class="input">
+```
+
+```jsx
+<input type="text" placeholder="Enter your text here" className="input">
+```
+
+</Snippet>
+
+## 入力サイズ
+
+<Snippet>
+
+```html
+<input type="text" class="input input-xs" placeholder="Xsmall">
+<input type="text" class="input input-sm" placeholder="Small">
+<input type="text" class="input input-md" placeholder="Medium">
+<input type="text" class="input input-lg" placeholder="Large">
+<input type="text" class="input input-xl" placeholder="Xlarge">
+<input type="text" class="input input-2xl" placeholder="2XLarge">
+```
+
+</Snippet>
+
+## 入力色
+
+<Snippet>
+
+```html
+<input type="text" class="input" placeholder="Default">
+<input type="text" class="input input-primary" placeholder="Primary">
+<input type="text" class="input input-secondary" placeholder="Secondary">
+<input type="text" class="input input-accent" placeholder="Accent">
+<input type="text" class="input input-neutral" placeholder="Neutral">
+<input type="text" class="input input-info" placeholder="Info">
+<input type="text" class="input input-success" placeholder="Success">
+<input type="text" class="input input-warning" placeholder="Warning">
+<input type="text" class="input input-error" placeholder="Error">
+```
+
+</Snippet>
+
+## 入力スタイル
+
+<Snippet>
+
+```html
+<input type="text" class="input" placeholder="Default">
+<input type="text" class="input input-outline" placeholder="Outline">
+<input type="text" class="input input-soft" placeholder="Soft">
+<input type="text" class="input input-dashed" placeholder="Dashed">
+<input type="text" class="input input-ghost" placeholder="Ghost">
+```
+
+</Snippet>
+
+## 入力正方形
+
+OTP フィールドや PIN フィールドなどの固定幅の 1 文字入力には、`input-square` を使用します。
+
+<Snippet>
+
+```html
+<input type="text" class="input input-square input-xs" maxlength="1" placeholder="0">
+<input type="text" class="input input-square input-sm" maxlength="1" placeholder="0">
+<input type="text" class="input input-square input-md" maxlength="1" placeholder="0">
+<input type="text" class="input input-square input-lg" maxlength="1" placeholder="0">
+```
+
+</Snippet>
+
+## 無効な入力
+
+<Snippet>
+
+```html
+<input type="text" class="input" placeholder="Enabled input">
+<input type="text" class="input input-disabled" placeholder="Disabled input" disabled>
+```
+
+</Snippet>
+
+## ラベル付き入力
+
+<Snippet>
+
+```html
+<label>
+  <span>Email address</span>
+  <input type="email" class="input input-outline w-full" placeholder="you@example.com">
+</label>
+
+<label>
+  <span>Password</span>
+  <input type="password" class="input input-outline input-primary w-full" placeholder="Enter password">
+</label>
+```
+
+</Snippet>

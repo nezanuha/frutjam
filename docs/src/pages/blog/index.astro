@@ -1,0 +1,71 @@
+---
+/** frutjam.com's frontend/templates/frontend/pages/blog_list.html (25 per page). */
+import Base from '@/layouts/Base.astro';
+import { publishedPosts } from '@/lib/site';
+
+const blogs = (await publishedPosts()).slice(0, 25);
+const pagination = { hasPrevious: false, hasNext: false, number: 1, numPages: 1 };
+---
+
+<Base path="/blog">
+<main id="main-content" class=" py-3.5 surface surface-outline border-0 border-r grid grid-cols-14">
+            <nav aria-label="Breadcrumb" class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-1 breadcrumb mb-3 px-5 lg:px-8">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="breadcrumb-link">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span aria-current="page" class="breadcrumb-current">Blog</span>
+                    </li>
+                </ol>
+            </nav>
+            <article class="col-span-14 prose prose-headings:font-bold prose-frutjam max-w-none px-5 lg:px-8">
+                <h1>Frutjam Blog | CSS-Only Tailwind CSS Guides</h1>
+                <p>Guides and tutorials on CSS-only Tailwind CSS components, accessible UI patterns, WCAG compliance, and framework-agnostic frontend development with Django, HTMX, Laravel, and more.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8 not-prose">
+                    {blogs.map((blog) => (
+                    <a href={`/blog/${blog.id}`} class="card card-outline shadow-sm">
+                        <figure>
+                            <picture>
+                                <source
+                                    media="(max-width: 599px)"
+                                    srcset={`${blog.data.image}?width=480&height=270&crop_gravity=center&format=webp`}>
+                                <source
+                                    media="(max-width: 1023px)"
+                                    srcset={`${blog.data.image}?width=768&height=432&crop_gravity=center&format=webp`}>
+                                <img
+                                    src={`${blog.data.image}?width=400&height=225&crop_gravity=center`}
+                                    alt={blog.data.imageAlt}
+                                    width="400"
+                                    height="225"
+                                    loading="lazy"
+                                >
+                            </picture>
+                        </figure>
+                        <div class="card-content">
+                            <h2 class="card-title">{blog.data.title}</h2>
+                            <p>{blog.data.description}</p>
+                        </div>
+                    </a>
+                    ))}
+                </div>
+                <nav aria-label="Blog pagination" class="not-prose flex items-center justify-between mt-4">
+                    {pagination.hasPrevious ? (
+                        <a href={`?page=${pagination.number - 1}`} class="btn btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                            Previous
+                        </a>
+                    ) : <span></span>}
+
+                    <span class="para-sm text-base-content/60">Page {pagination.number} of {pagination.numPages}</span>
+
+                    {pagination.hasNext ? (
+                        <a href={`?page=${pagination.number + 1}`} class="btn btn-sm">
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    ) : <span></span>}
+                </nav>
+            </article>
+</main>
+</Base>

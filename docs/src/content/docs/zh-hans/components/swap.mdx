@@ -1,0 +1,187 @@
+---
+name: "交换"
+heading: "交换组件"
+description: "仅 CSS Tailwind CSS 交换用于在两个元素之间切换。翻转、旋转和淡入淡出动画，无需 JavaScript。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "Swap - 纯 CSS Tailwind CSS 组件 |Frutjam"
+metaDescription: "无需 JS 的 Tailwind CSS 交换，具有淡入淡出、旋转和翻转动画。在主题切换、图标转换和加载状态的内容状态之间切换。"
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Frutjam 交换"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "c11a5f537791"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 交换用于在两个元素之间切换。翻转、旋转和淡入淡出动画，无需 JavaScript。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+交换组件通过平滑的动画在两个内容状态之间切换，以响应用户交互。交换采用语义 HTML 和 CSS 转换构建，无需 JavaScript 即可实现优雅的状态更改。 Frutjam 交换系统支持多种动画样式 - 非常适合主题切换、模式切换、加载状态和交互式插图。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">根据</span> | 复选框驱动的两种状态切换包装器 |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">风格</span> | 在状态之间轮换 |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">风格</span> | 在具有 3D 效果的状态之间翻转 |
+
+</DocTable>
+
+## 基本用法
+
+使用复选框来切换状态，创建与表情符号或文本内容的简单交换。
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## 交换动画
+
+对视觉过渡应用不同的动画样式：淡入淡出（默认）、旋转和翻转。
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## 与 SVG 图标交换
+
+使用 SVG 图标通过流畅的动画实现视觉状态变化。
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## 交换为按钮
+
+将交换功能与按钮组件样式相结合以实现交互式切换。
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## 交换为徽章
+
+创建紧凑的切换徽章以进行状态或类别切换。
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## 组合交换变体
+
+混合不同的动画样式和内容类型以实现复杂的切换场景。
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

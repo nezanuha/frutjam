@@ -1,0 +1,442 @@
+---
+name: "타임라인"
+heading: "타임라인 구성요소"
+description: "시간순 이벤트 목록을 위한 CSS 전용 Tailwind CSS 타임라인입니다. 아이콘, 콘텐츠, 연결선 슬롯이 있는 세로 레이아웃입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "타임라인 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "연대순 이벤트, 이정표 및 프로세스 단계에 대한 Tailwind CSS 타임라인입니다. 기록 UI용 아이콘과 커넥터가 포함된 수직 및 수평 레이아웃입니다."
+order: 0
+related:
+  - "components/steps"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/timeline_ebTSNTA.webp"
+imageAlt: "Frutjam의 타임라인"
+createdAt: "2026-04-19T15:57:24.076920+00:00"
+updatedAt: "2026-07-13T09:44:19.242151+00:00"
+sourceHash: "cec5e1744f4f"
+translationHash: "cc957f0c7695"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+시간순 이벤트 목록을 위한 CSS 전용 Tailwind CSS 타임라인입니다. 아이콘, 콘텐츠, 연결선 슬롯이 있는 세로 레이아웃입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+타임라인 구성 요소는 일련의 이벤트, 이정표 또는 설명 진행을 시간순으로 표시합니다. 의미론적 HTML로 구축된 타임라인은 사용자가 과거 진행 상황과 프로젝트 단계를 이해하는 데 도움이 됩니다. Frutjam 타임라인 시스템은 다양한 방향, 색상 및 항목 스타일을 지원하므로 프로젝트 기록, 릴리스 노트 및 여정 지도에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| timeline | <span class="badge badge-xs">베이스</span> | 시간순으로 정렬된 이벤트 목록 |
+| timeline-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 개별 이벤트 행 — 각 `<li>`에 배치 |
+| timeline-start | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 타임라인 축 앞에 배치된 콘텐츠 |
+| timeline-middle | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 타임라인 축 중심에 있는 점 |
+| timeline-end | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 타임라인 축 뒤에 배치된 콘텐츠 |
+| timeline-horizontal | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 수평 레이아웃 |
+| timeline-vertical | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 세로 레이아웃(기본값) |
+| timeline-snap-start | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 시작 열을 숨깁니다. 점이 왼쪽 가장자리에 정렬됩니다. |
+| timeline-snap-end | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 끝 열을 숨깁니다. 점이 오른쪽 가장자리에 맞춰 정렬됩니다. |
+| timeline-primary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 기본 색상 점 및 연결선 - `timeline-item`에 배치 |
+| timeline-secondary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 보조 색상 점 및 연결선 - `timeline-item`에 배치 |
+| timeline-accent | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 강조 색상 점 및 연결선 - `timeline-item`에 배치 |
+| timeline-neutral | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 중간색 점 및 연결선 - `timeline-item`에 배치 |
+| timeline-info | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 정보 색상 점 및 커넥터 - `timeline-item`에 배치 |
+| timeline-success | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 성공 색상 점 및 커넥터 — `timeline-item`에 배치 |
+| timeline-warning | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 경고 색상 점 및 커넥터 - `timeline-item`에 배치 |
+| timeline-error | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 오류 색상 점 및 커넥터 - `timeline-item`에 배치 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```jsx
+<ul className="timeline timeline-vertical">
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Project started</div>
+      <div className="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Beta released</div>
+      <div className="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Today</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">v2.0 launched</div>
+      <div className="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```vue
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 색상이 있는 타임라인
+
+각 `timeline-item`에 색상 수정자를 추가하여 점과 그 점에서 이어지는 연결선의 색상을 지정합니다.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start text-sm opacity-60">Step 1</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Primary</div></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start text-sm opacity-60">Step 2</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Secondary</div></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start text-sm opacity-60">Step 3</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Success</div></div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start text-sm opacity-60">Step 4</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Warning</div></div>
+  </li>
+  <li class="timeline-item timeline-error">
+    <div class="timeline-start text-sm opacity-60">Step 5</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Error</div></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 교대 측면
+
+각 항목의 `timeline-start`와 `timeline-end` 사이에 대체 콘텐츠를 추가하여 지그재그 레이아웃을 만듭니다.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Design phase</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Development</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-accent">
+    <div class="timeline-start">
+      <div class="font-semibold">Testing</div>
+      <div class="text-sm opacity-60">May 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launch</div>
+      <div class="text-sm opacity-60">Jun 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 투톤 커넥터
+
+각 항목의 연결선은 해당 색상을 상속하여 서로 다른 색상의 단계 간에 원활한 전환을 만듭니다.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-info">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Planned</div>
+      <div class="text-sm opacity-60">Backlog item created</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Progress</div>
+      <div class="text-sm opacity-60">Development started</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Review</div>
+      <div class="text-sm opacity-60">Awaiting approval</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Done</div>
+      <div class="text-sm opacity-60">Shipped to production</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 시작 쪽만
+
+모든 것을 축 왼쪽으로 푸시하려면 `timeline-end`가 비어 있는 `timeline-start`에만 콘텐츠를 배치하세요.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Requirements gathered</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Prototype built</div>
+      <div class="text-sm opacity-60">Feb 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start">
+      <div class="font-semibold">Shipped</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 끝 쪽만
+
+모든 콘텐츠가 오른쪽에 오도록 점을 왼쪽 가장자리로 밀어 넣으려면 `timeline-snap-start`를 사용하세요.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 리치 카드 콘텐츠
+
+`border rounded-box p-3` 블록으로 콘텐츠를 래핑하여 각 타임라인 이벤트에 카드와 같은 모양을 제공합니다.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jan 15, 2024</div>
+        <div class="font-semibold">Project Kickoff</div>
+        <p class="text-sm opacity-70 mt-1">Team assembled, goals defined, and roadmap approved by stakeholders.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Mar 1, 2024</div>
+        <div class="font-semibold">Alpha Released</div>
+        <p class="text-sm opacity-70 mt-1">Internal testing began with 12 pilot users across 3 departments.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jun 10, 2024</div>
+        <div class="font-semibold">v1.0 General Availability</div>
+        <p class="text-sm opacity-70 mt-1">Public launch with full documentation, support, and SLA guarantees.</p>
+      </div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 스냅 시작
+
+목록에서 `timeline-snap-start`를 사용하여 시작 열을 숨기고 점을 왼쪽 가장자리에 정렬하세요.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 스냅 종료
+
+목록에서 `timeline-snap-end`를 사용하여 끝 열을 숨기고 점을 오른쪽 가장자리에 정렬하세요.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>

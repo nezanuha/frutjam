@@ -1,0 +1,211 @@
+---
+name: "그림 물감"
+heading: "컬러 시스템"
+description: "Frutjam의 색상 시스템은 기본적으로 WCAG AA 명암비를 충족하도록 설계된 시맨틱 CSS 토큰을 사용합니다. JavaScript가 없고 어두운 모드를 인식하며 Tailwind CSS v4와 호환됩니다. Django, HTMX, Laravel 및 모든 CSS 전용 스택에서 작동합니다."
+metaTitle: "Tailwind CSS 색상 시스템 -WCAG 액세스 가능 색상 | Frutjam"
+metaDescription: "의미론적 토큰을 기반으로 구축된 Frutjam 색상 시스템. WCAG AA/AAA 준수, 다크 모드 인식, CSS 사용자 정의 속성, Tailwind CSS v4 호환."
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "컬러 시스템 - Frutjam"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "4ee071fd26bf"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam의 색상 시스템은 기본적으로 WCAG AA 명암비를 충족하도록 설계된 시맨틱 CSS 토큰을 사용합니다. JavaScript가 없고 어두운 모드를 인식하며 Tailwind CSS v4와 호환됩니다. Django, HTMX, Laravel 및 모든 CSS 전용 스택에서 작동합니다.
+
+Frutjam은 모든 색상에 대한 디자인 토큰으로 CSS 사용자 정의 속성을 사용합니다. 모든 색상은 테마별로 정의되며 Tailwind CSS 유틸리티 클래스와 자동으로 작동하므로 추가 구성이 필요하지 않습니다. CSS 전용이며 JavaScript가 필요하지 않습니다. 모든 색상 쌍에서 WCAG AA 대비가 보장되며 Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다.
+
+## 색상 이름
+
+Frutjam은 다음과 같은 의미적 색상 역할을 정의합니다. 각 색상에는 액세스 가능한 전경 텍스트에 대해 일치하는 `on-{color}` 토큰이 있습니다.
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>WCAG AA 대비가 보장됩니다.</strong> 모든 <code>on-{color}</code> 쌍은 WCAG AA 대비 요구 사항을 통과하도록 OKLCH에서 수동으로 조정됩니다. 전경색을 자동으로 계산하는 라이브러리와 달리 Frutjam은 명시적이고 검증된 쌍을 제공하므로 우연이 아닌 설계에 따라 구성 요소에 액세스할 수 있습니다.</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 색상 | 토큰 | 목적 |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | 페이지 배경 |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | 표면, 사이드바, 오버레이 |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | 기본 브랜드 색상 |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | 보조 브랜드 색상 |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | 악센트/하이라이트 컬러 |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | 정보 메시지 |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | 성공 상태 |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | 경고 상태 |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | 오류 및 파괴적인 상태 |
+
+</DocTable>
+
+## 색상 유틸리티 클래스
+
+모든 Frutjam 색상은 Tailwind CSS 색상 유틸리티와 함께 ​​작동합니다. `{color}`를 위 표의 색상 이름으로 바꾸세요.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 수업 | 설명 |
+| --- | --- |
+| `bg-{color}` | 배경색 |
+| `text-{color}` | 텍스트 색상 |
+| `border-{color}` | 테두리 색상 |
+| `ring-{color}` | 링 색상 |
+| `outline-{color}` | 외곽선 색상 |
+| `shadow-{color}` | 그림자 색상 |
+| `fill-{color}` | SVG 채우기 색상 |
+| `stroke-{color}` | SVG 스트로크 색상 |
+| `decoration-{color}` | 텍스트 장식 색상 |
+| `caret-{color}` | 캐럿 색상 입력 |
+| `placeholder-{color}` | 자리 표시자 텍스트 색상 |
+| `divide-{color}` | 구분선 테두리 색상 |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### 불투명도 수정자
+
+Tailwind 색상과 마찬가지로 `/{value}` 수정자를 사용하여 색상 불투명도를 제어합니다.
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## 테마 CSS 변수
+
+이는 사용자 정의 테마를 생성할 때 정의하는 루트 토큰입니다. 다른 모든 색상 토큰은 이들로부터 자동으로 계산됩니다.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 변수 | 설명 |
+| --- | --- |
+| `--scheme-color` | 색 구성표: `light` 또는 `dark` |
+| `--border-radius` | 구성요소의 기본 테두리 반경 |
+| `--color-base` | 페이지 배경색 |
+| `--color-on-base` | 기본 배경의 기본 텍스트 색상 |
+| `--color-neutral` | 중립 표면 색상 |
+| `--color-on-neutral` | 중립 표면의 텍스트 색상 |
+| `--color-primary` | 기본 브랜드 색상 |
+| `--color-on-primary` | 기본 배경의 텍스트 색상 |
+| `--color-secondary` | 보조 브랜드 색상 |
+| `--color-on-secondary` | 보조 배경의 텍스트 색상 |
+| `--color-accent` | 악센트 색상 |
+| `--color-on-accent` | 강조 배경의 텍스트 색상 |
+| `--color-info` | 정보 색상 |
+| `--color-on-info` | 정보 배경의 텍스트 색상 |
+| `--color-success` | 성공 색상 |
+| `--color-on-success` | 성공 배경의 텍스트 색상 |
+| `--color-warning` | 경고 색상 |
+| `--color-on-warning` | 경고 배경의 텍스트 색상 |
+| `--color-error` | 오류 색상 |
+| `--color-on-error` | 오류 배경의 텍스트 색상 |
+
+</DocTable>
+
+## 계산된 색상 토큰
+
+Frutjam은 루트 테마 변수에서 이러한 토큰을 자동으로 계산하므로 수동으로 설정하지 않습니다. 사용자 정의 CSS에서 사용할 수 있습니다.
+
+### 규모(50~950)
+
+모든 색상은 완전한 11단계 색조/음영 스케일을 생성합니다. `{color}`를 원하는 색상 이름으로 바꾸세요.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 변수 | 설명 |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | 매우 밝은 색조 |
+| `--color-{color}-200` | 밝은 색조 |
+| `--color-{color}-300` | 중간 정도의 밝은 색조 |
+| `--color-{color}-400` | 약간의 색조 |
+| `--color-{color}-500` | 기본 색상(`--color-{color}`와 동일) |
+| `--color-{color}-600` | 약간의 그늘 |
+| `--color-{color}-700` | 중간색 |
+| `--color-{color}-800` | 어두운 그늘 |
+| `--color-{color}-900` | 매우 어두운 그늘 |
+| `--color-{color}-950` | 가장 어두운 그늘 |
+
+</DocTable>
+
+### 소프트& 활동적인
+
+밝은 테마와 어두운 테마에 자동으로 적응하는 대화형 요소에 대한 상태 인식 변형입니다.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 변수 | 설명 |
+| --- | --- |
+| `--color-{color}-soft` | 부드러운 변형을 위한 미묘한 색조의 배경 |
+| `--color-on-{color}-soft` | 부드러운 배경에 사용할 텍스트 색상 |
+| `--color-{color}-active` | 호버 및 활성 상태에 대한 어둡거나 밝은 음영 |
+| `--color-body` | 계산된 본문 텍스트 색상(`on-base`에서 약간 부드러워짐) |
+
+</DocTable>
+
+## 사용자 정의 테마 예
+
+사용자 정의 테마를 생성하려면 루트 토큰을 재정의하세요. Frutjam은 모든 스케일과 상태를 자동으로 계산합니다.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

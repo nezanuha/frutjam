@@ -1,0 +1,228 @@
+---
+name: "Barre de navigation"
+heading: "Composant de barre de navigation"
+description: "Barre de navigation CSS Tailwind uniquement en CSS avec marque, liens de navigation et emplacements d'action. Variantes collantes et transparentes. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
+metaTitle: "Navbar - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaDescription: "Barre de navigation CSS Tailwind avec des mises en page collantes, réactives et prêtes à être déroulantes. HTML sémantique avec prise en charge mobile pour une navigation de site accessible et adaptée aux thèmes."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Composants de la barre de navigation par Frutjam UI"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "6acea544cf19"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Barre de navigation CSS Tailwind uniquement en CSS avec marque, liens de navigation et emplacements d'action. Variantes collantes et transparentes. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+Les composants de la barre de navigation affichent des listes de navigation horizontales pour la structure du site et la navigation des utilisateurs. Construit avec des éléments de navigation et de liste HTML sémantiques, le système de barre de navigation Frutjam prend en charge plusieurs mises en page, un comportement réactif et l'intégration de menus imbriqués. Accessibles et navigables au clavier, les barres de navigation sont idéales pour la navigation sur le site principal, le fil d'Ariane et les interfaces à onglets.
+
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Classe | Taper | Description |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Base</span> | Conteneur de la barre de navigation horizontale |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Liste horizontale des liens de navigation |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Emplacement gauche pour le logo ou le premier groupe de navigation |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Fente centrale pour la navigation principale |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Emplacement droit pour les actions et les contrôles |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne la barre de navigation en haut de la fenêtre |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Centré verticalement au sein d'un parent |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne la barre de navigation en bas de la fenêtre |
+
+</DocTable>
+
+## Barre de navigation
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Emplacements dans la barre de navigation
+
+Le composant navbar est par défaut positionné au début (à gauche dans LTR). Utilisez `navbar-start`, `navbar-center` ou `navbar-end` pour l'alignement horizontal, et `navbar-top`, `navbar-middle` ou `navbar-bottom` pour l'alignement vertical. Le placement est compatible RTL.
+
+Utilisez des classes de placement horizontal pour aligner la liste de la barre de navigation le long de l'axe X et des classes de placement vertical lorsque la barre de navigation a une hauteur personnalisée.
+
+### Emplacements horizontaux
+
+Contrôlez la façon dont la `navbar-list` se situe le long de l'axe X. Ceux-ci sont compatibles RTL (Début/Fin au lieu de Gauche/Droite).
+
+#### Aligner horizontalement vers la gauche (début)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Aligner horizontalement au centre
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Aligner horizontalement vers la droite (fin)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Emplacements verticaux
+
+Contrôlez l’alignement le long de l’axe Y. Ceci est particulièrement utile lorsque la barre de navigation a une hauteur personnalisée.
+
+#### Aligner verticalement vers le haut (début)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Aligner verticalement au centre
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Aligner verticalement vers le bas (extrémité)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

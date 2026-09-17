@@ -1,0 +1,372 @@
+---
+name: "Encabezamiento"
+heading: "Componente de encabezado"
+description: "Encabezado de página CSS Tailwind solo para CSS: diseño de la barra superior con espacios para marca, navegación y acción. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Encabezado: componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Encabezado CSS Tailwind con diseños adhesivos, responsivos y de marca. Estructura semántica HTML5 con espacios de navegación y acción para encabezados de sitios web modernos."
+order: 0
+related:
+  - "components/navbar"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/header.webp"
+imageAlt: "Componentes de encabezado de Frutjam UI"
+createdAt: "2025-10-19T16:28:28.883219+00:00"
+updatedAt: "2026-07-13T09:50:47.565715+00:00"
+sourceHash: "86308c29d2db"
+translationHash: "a0b09f88c180"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Encabezado de página CSS Tailwind solo para CSS: diseño de la barra superior con espacios para marca, navegación y acción. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes de encabezado crean áreas principales de navegación y marca consistentes para su sitio web o aplicación. Construido con elementos de encabezado HTML semánticos, el sistema de encabezado Frutjam combina logotipos, enlaces de navegación y acciones del usuario en una barra cohesiva y responsiva. Admite múltiples diseños, opciones de alineación y se integra perfectamente con menús desplegables y funciones de búsqueda.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| header | <span class="badge badge-xs">Base</span> | Contenedor de la barra de navegación superior |
+| header-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Diseño de cuadrícula de tres columnas (inicio/centro/final) |
+| header-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Ranura izquierda, normalmente contiene el logotipo. |
+| header-center | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Ranura central para enlaces de navegación |
+| header-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Ranura adecuada para acciones y controles. |
+| header-sticky | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se pega a la parte superior al desplazarse |
+| header-fixed | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Posición fija, siempre visible. |
+| header-solid | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Fondo opaco sólido |
+| header-transparent | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | fondo transparente |
+| header-blur | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Efecto de desenfoque de vidrio esmerilado |
+| header-shadow | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Agrega una sombra paralela debajo del encabezado |
+| header-sm | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Altura pequeña (compacta) |
+| header-lg | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Gran altura |
+
+</DocTable>
+
+## Uso básico
+
+El encabezado utiliza una cuadrícula de tres columnas a través de `header-content`: `header-start` (logotipo), `header-center` (navegación centrada opcional) y `header-end` (acciones y alternancia móvil).
+
+<Snippet>
+
+```html
+<header class="header">
+  <div class="header-content">
+    <div class="header-start">
+      <a class="heading-2xl flex items-center" title="frutjam">
+        <svg width="32" height="32" class="mr-3 h-8" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <desc>Frutjam logo</desc>
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+          </g>
+        </svg>
+        <span>Frutjam</span>
+      </a>
+    </div>
+    <div class="header-center"></div>
+    <div class="header-end">
+      <nav class="navbar hidden lg:flex">
+        <ul class="navbar-list gap-x-6">
+          <li><a class="link link-xs link-hover">About</a></li>
+          <li><a class="link link-xs link-hover">Pricing</a></li>
+          <li><a class="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+      <div class="lg:hidden">
+        <button type="button" class="btn btn-sm btn-ghost" onclick="headerToggleMenu1.show()">
+          <span class="sr-only">Menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="10" y2="10"></line>
+            <line x1="4" x2="20" y1="20" y2="20"></line>
+          </svg>
+        </button>
+        <dialog class="drawer drawer-bottom" id="headerToggleMenu1">
+          <div class="drawer-content">
+            <ul class="menu p-4">
+              <li><a class="menu-item">About</a></li>
+              <li>
+                <div class="accordion accordion-flush">
+                  <details>
+                    <summary>Resources</summary>
+                    <div class="accordion-content">
+                      <ul>
+                        <li><a class="menu-item">Help center</a></li>
+                        <li><a class="menu-item">Products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </li>
+              <li><a class="menu-item">Pricing</a></li>
+            </ul>
+          </div>
+          <button type="button" class="drawer-backdrop" onclick="headerToggleMenu1.close()">Close Drawer via Backdrop</button>
+        </dialog>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+```jsx
+<header className="header">
+  <div className="header-content">
+    <div className="header-start">
+      <a className="heading-2xl flex items-center" title="frutjam">
+        <svg width="32" height="32" className="mr-3 h-8" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <desc>Frutjam logo</desc>
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+          </g>
+        </svg>
+        <span>Frutjam</span>
+      </a>
+    </div>
+    <div className="header-center"></div>
+    <div className="header-end">
+      <nav className="navbar hidden lg:flex">
+        <ul className="navbar-list gap-x-6">
+          <li><a className="link link-xs link-hover">About</a></li>
+          <li><a className="link link-xs link-hover">Pricing</a></li>
+          <li><a className="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+      <div className="lg:hidden">
+        <button type="button" className="btn btn-sm btn-ghost" onClick={() => headerToggleMenu1.show()}>
+          <span className="sr-only">Menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="10" y2="10"></line>
+            <line x1="4" x2="20" y1="20" y2="20"></line>
+          </svg>
+        </button>
+        <dialog className="drawer drawer-bottom" id="headerToggleMenu1">
+          <div className="drawer-content">
+            <ul className="menu p-4">
+              <li><a className="menu-item">About</a></li>
+              <li>
+                <div className="accordion accordion-flush">
+                  <details>
+                    <summary>Resources</summary>
+                    <div className="accordion-content">
+                      <ul>
+                        <li><a className="menu-item">Help center</a></li>
+                        <li><a className="menu-item">Products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </li>
+              <li><a className="menu-item">Pricing</a></li>
+            </ul>
+          </div>
+          <button type="button" className="drawer-backdrop" onClick={() => headerToggleMenu1.close()}>Close Drawer via Backdrop</button>
+        </dialog>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+</Snippet>
+
+## Alineación de la barra de navegación
+
+### Navegación centrada
+
+Coloque el navegador dentro de `header-center` para fijarlo en la columna del medio. El conmutador móvil permanece en `header-end`.
+
+<Snippet>
+
+```html
+<header class="header">
+  <div class="header-content">
+    <div class="header-start">
+      <a class="heading-2xl flex items-center" title="frutjam">
+        <svg width="32" height="32" class="mr-3 h-8" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <desc>Frutjam logo</desc>
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+          </g>
+        </svg>
+        <span>Frutjam</span>
+      </a>
+    </div>
+    <div class="header-center">
+      <nav class="navbar hidden lg:flex">
+        <ul class="navbar-list gap-x-6">
+          <li><a class="link link-xs link-hover">About</a></li>
+          <li><a class="link link-xs link-hover">Pricing</a></li>
+          <li><a class="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-end">
+      <div class="lg:hidden">
+        <button type="button" class="btn btn-sm btn-ghost" onclick="headerToggleMenu2.show()">
+          <span class="sr-only">Menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="10" y2="10"></line>
+            <line x1="4" x2="20" y1="20" y2="20"></line>
+          </svg>
+        </button>
+        <dialog class="drawer drawer-bottom" id="headerToggleMenu2">
+          <div class="drawer-content">
+            <ul class="menu p-4">
+              <li><a class="menu-item">About</a></li>
+              <li>
+                <div class="accordion accordion-flush">
+                  <details>
+                    <summary>Resources</summary>
+                    <div class="accordion-content">
+                      <ul>
+                        <li><a class="menu-item">Help center</a></li>
+                        <li><a class="menu-item">Products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </li>
+              <li><a class="menu-item">Pricing</a></li>
+            </ul>
+          </div>
+          <button type="button" class="drawer-backdrop" onclick="headerToggleMenu2.close()">Close Drawer via Backdrop</button>
+        </dialog>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+</Snippet>
+
+### Navegación centrada con botones de acción
+
+Coloque los botones de acción junto al interruptor móvil dentro de `header-end`. Ambos están ocultos/mostrados con clases receptivas.
+
+<Snippet>
+
+```html
+<header class="header">
+  <div class="header-content">
+    <div class="header-start">
+      <a class="heading-2xl flex items-center" title="frutjam">
+        <svg width="32" height="32" class="mr-3 h-8" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <desc>Frutjam logo</desc>
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+          </g>
+        </svg>
+        <span>Frutjam</span>
+      </a>
+    </div>
+    <div class="header-center">
+      <nav class="navbar hidden lg:flex">
+        <ul class="navbar-list gap-x-6">
+          <li><a class="link link-xs link-hover">About</a></li>
+          <li><a class="link link-xs link-hover">Pricing</a></li>
+          <li><a class="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-end">
+      <div class="hidden lg:flex gap-x-2">
+        <a class="btn btn-outline btn-sm">Login</a>
+        <a class="btn btn-primary btn-sm">Sign up</a>
+      </div>
+      <div class="lg:hidden">
+        <button type="button" class="btn btn-sm btn-ghost" onclick="headerToggleMenu3.show()">
+          <span class="sr-only">Menu</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="10" y2="10"></line>
+            <line x1="4" x2="20" y1="20" y2="20"></line>
+          </svg>
+        </button>
+        <dialog class="drawer drawer-bottom" id="headerToggleMenu3">
+          <div class="drawer-content">
+            <ul class="menu p-4">
+              <li><a class="menu-item">About</a></li>
+              <li>
+                <div class="accordion accordion-flush">
+                  <details>
+                    <summary>Resources</summary>
+                    <div class="accordion-content">
+                      <ul>
+                        <li><a class="menu-item">Help center</a></li>
+                        <li><a class="menu-item">Products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </li>
+              <li><a class="menu-item">Pricing</a></li>
+            </ul>
+          </div>
+          <button type="button" class="drawer-backdrop" onclick="headerToggleMenu3.close()">Close Drawer via Backdrop</button>
+        </dialog>
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+</Snippet>
+
+## Efecto de desenfoque
+
+Agrega `header-blur` para aplicar un desenfoque de fondo de vidrio esmerilado. Combínelo con `header-sticky` o `header-fixed` para que el efecto sea visible a medida que el contenido se desplaza debajo del encabezado.
+
+<Snippet>
+
+```html
+<header class="header header-sticky header-blur">
+  <div class="header-content">
+    <div class="header-start">
+      <a class="heading-2xl" title="frutjam">Frutjam</a>
+    </div>
+    <div class="header-center"></div>
+    <div class="header-end">
+      <nav class="navbar hidden lg:flex">
+        <ul class="navbar-list gap-x-6">
+          <li><a class="link link-xs link-hover">About</a></li>
+          <li><a class="link link-xs link-hover">Pricing</a></li>
+          <li><a class="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+```
+
+```jsx
+<header className="header header-sticky header-blur">
+  <div className="header-content">
+    <div className="header-start">
+      <a className="heading-2xl" title="frutjam">Frutjam</a>
+    </div>
+    <div className="header-center"></div>
+    <div className="header-end">
+      <nav className="navbar hidden lg:flex">
+        <ul className="navbar-list gap-x-6">
+          <li><a className="link link-xs link-hover">About</a></li>
+          <li><a className="link link-xs link-hover">Pricing</a></li>
+          <li><a className="link link-xs link-hover">Services</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+```
+
+</Snippet>

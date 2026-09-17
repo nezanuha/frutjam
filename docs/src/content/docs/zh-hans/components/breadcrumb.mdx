@@ -1,0 +1,142 @@
+---
+name: "面包屑"
+heading: "面包屑组件"
+description: "纯 CSS Tailwind CSS 面包屑导航，具有自定义分隔符和可访问的地标标记。 WCAG AA，适用于 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 项目。"
+metaTitle: "Breadcrumb - 纯 CSS Tailwind CSS 组件 |弗鲁贾姆"
+metaDescription: "Tailwind CSS Breadcrumb 使用语义 HTML 来实现可访问、SEO 友好的导航路径。支持自定义分隔符、图标和响应式布局。"
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Frutjam 的面包屑组件"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "2d9633675295"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+纯 CSS Tailwind CSS 面包屑导航，具有自定义分隔符和可访问的地标标记。 WCAG AA，适用于 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 项目。
+
+面包屑组件显示导航层次结构并帮助用户了解他们在网站中的位置。面包屑使用语义 HTML 导航元素和 ARIA 地标构建以实现可访问性，允许用户快速导航到父部分，从而提高可用性。 Frutjam 面包屑系统自动呈现分隔符并支持自定义分隔符以实现灵活的样式。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">根据</span> | 面包屑路径的导航容器 |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 面包屑项目的有序列表 |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 面包屑中的单个列表项 |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 锚点元素样式为面包屑链接 |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 项目之间的分隔符元素 |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 标记当前（活动）页面项目 |
+
+</DocTable>
+
+## 基本用法
+
+如果未提供分隔符，则面包屑项目之间会自动显示一个箭头。
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## 面包屑分离器
+
+### 带有文本分隔符的面包屑导航
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### 带图标分隔符的面包屑导航
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## 面包屑导航辅助功能
+
+为了确保屏幕阅读器可以访问面包屑：
+
+- 将结构包裹在 `<nav>` 元素与 `aria-label="Breadcrumb"`.
+- 最后一项（当前页面）应该使用 `aria-current="page"` 并且优选地是 `<span>` 而不是链接。
+- 屏幕阅读器应忽略分隔符（通常通过 CSS 或 `aria-hidden="true"` 如果使用物理元件）。

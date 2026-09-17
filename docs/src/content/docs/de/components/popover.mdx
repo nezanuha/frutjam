@@ -1,0 +1,767 @@
+---
+name: "Popover"
+heading: "Popover-Komponente"
+description: "Nur CSS-Tailwind-CSS-Popover unter Verwendung der nativen Popover-API. Schwebendes Inhaltsfeld für Tooltips und Dropdowns. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Tailwind CSS Popover & Dropdown-Menü – Nur CSS | Frutjam"
+metaDescription: "Nur CSS-Tailwind-CSS-Popover und Dropdown-Menü. Native HTML-Popover-API, Dropdown-Menüs in der Navigationsleiste, Profilmenüs – kein JavaScript. WCAG zugänglich, Django, HTMX, Larave"
+order: 0
+related:
+  - "components/button"
+  - "components/tooltip"
+image: "https://cdn.frutjam.com/media/components/popover.webp"
+imageAlt: "Popover-Blöcke von Frutjam UI"
+createdAt: "2026-01-15T05:30:51.470004+00:00"
+updatedAt: "2026-07-13T09:43:43.541052+00:00"
+sourceHash: "959583800dce"
+translationHash: "01887d742288"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind-CSS-Popover unter Verwendung der nativen Popover-API. Schwebendes Inhaltsfeld für Tooltips und Dropdowns. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Popover-Komponenten zeigen kontextbezogene Inhalte neben Triggerelementen an, ohne permanenten Bildschirmplatz zu belegen. Das Frutjam-Popover-System basiert auf der nativen HTML-Popover-API und unterstützt Klick- und Hover-Trigger, anpassbare Positionierung und flüssige Animationen. Perfekt für Dropdown-Menüs, Kontextmenüs, Benutzerprofilmenüs und zusätzliche Optionen ohne Seitennavigation.
+
+Nur CSS, kein JavaScript erforderlich – erstellen Sie barrierefreie Dropdown-Menüs und kontextbezogene Overlays mit reinem HTML und Tailwind CSS. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| popover | <span class="badge badge-xs">Base</span> | Wrapper, der Trigger und Inhalt miteinander verankert |
+| popover-content | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Schwebendes Panel wird angezeigt, wenn das Popover geöffnet ist |
+| popover-toggle | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Auslöseelement, das das Popover öffnet/schließt |
+| popover-hover | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Wird beim Hover statt beim Klicken geöffnet |
+| popover-top-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Oben positioniert, auf den Start ausgerichtet |
+| popover-top-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Oben positioniert, zentriert |
+| popover-top-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Oben positioniert, zum Ende hin ausgerichtet |
+| popover-bottom-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Unten positioniert, am Anfang ausgerichtet |
+| popover-bottom-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Unten positioniert, zentriert |
+| popover-bottom-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Unten positioniert, am Ende ausgerichtet |
+| popover-start-top | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Nach links positioniert, nach oben ausgerichtet |
+| popover-start-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Links positioniert, vertikal zentriert |
+| popover-start-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Nach links positioniert, nach unten ausgerichtet |
+| popover-end-top | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Nach rechts positioniert, nach oben ausgerichtet |
+| popover-end-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Rechts positioniert, vertikal zentriert |
+| popover-end-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Nach rechts positioniert, nach unten ausgerichtet |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="defaultClickPopover" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="defaultClickPopover">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="defaultClickPopover" type="button" className="popover-toggle btn">Click here</button>
+  <div tabIndex="0" className="popover-content" popover id="defaultClickPopover">
+      <ul className="menu">
+        <li>
+          <a className="menu-item">About Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Career</a>
+        </li>
+        <li>
+          <a className="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Dropdown-Menü
+
+Verwenden Sie die Popover-Komponente, um Dropdown-Menüs zu erstellen – Navigations-Dropdowns, Benutzerprofilmenüs und Aktionsmenüs – alles nur CSS, ohne dass JavaScript erforderlich ist.
+
+### Dropdown-Menü in der Navigationsleiste
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="navDropdown" type="button" class="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="navDropdown">
+    <ul class="menu">
+      <li><a class="menu-item">Components</a></li>
+      <li><a class="menu-item">Blocks</a></li>
+      <li><a class="menu-item">Templates</a></li>
+      <li><a class="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="navDropdown" type="button" className="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="navDropdown">
+    <ul className="menu">
+      <li><a className="menu-item">Components</a></li>
+      <li><a className="menu-item">Blocks</a></li>
+      <li><a className="menu-item">Templates</a></li>
+      <li><a className="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Dropdown-Liste „Benutzerprofil“.
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" class="popover-toggle btn btn-ghost p-0">
+    <div class="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="profileDropdown">
+    <ul class="menu">
+      <li class="menu-title">John Doe</li>
+      <li><a class="menu-item">Profile</a></li>
+      <li><a class="menu-item">Settings</a></li>
+      <li><a class="menu-item">Billing</a></li>
+      <li><div class="divider my-0"></div></li>
+      <li><a class="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" className="popover-toggle btn btn-ghost p-0">
+    <div className="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="profileDropdown">
+    <ul className="menu">
+      <li className="menu-title">John Doe</li>
+      <li><a className="menu-item">Profile</a></li>
+      <li><a className="menu-item">Settings</a></li>
+      <li><a className="menu-item">Billing</a></li>
+      <li><div className="divider my-0"></div></li>
+      <li><a className="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Dropdown mit Symbolen
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="iconDropdown" type="button" class="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="iconDropdown">
+    <ul class="menu">
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div class="divider my-0"></div></li>
+      <li>
+        <a class="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="iconDropdown" type="button" className="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="iconDropdown">
+    <ul className="menu">
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div className="divider my-0"></div></li>
+      <li>
+        <a className="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Popover-Interaktionsverhalten
+
+Standardmäßig werden Klickinteraktionen zum Öffnen und Schließen der Popover-Komponente verwendet. Für Megamenüs können Sie beispielsweise Hover-basierte Interaktion aktivieren, indem Sie die Klasse `popover-hover` hinzufügen und die Attribute `popovertarget` und `popover` entfernen. Dadurch kann das Popover vollständig über die Hover-Logik und nicht über das native Klickverhalten gesteuert werden.
+
+### Nativer Klick-Trigger
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="nativeClickTrigger" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="nativeClickTrigger">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Hover-Interaktionslogik
+
+<Snippet>
+
+```html
+<div class="popover popover-hover">
+  <button type="button" class="popover-toggle btn">Hover me</button>
+  <div class="popover-content">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Popover-Positionierungsoptionen (Oben, Unten, Anfang, Ende)
+
+Positionieren Sie Ihre Popovers relativ zu ihren Auslöseelementen mithilfe unserer flexiblen Platzierungslogik. Die Popover-Platzierung wird durch die Kombination vertikaler (oben, Mitte, unten) und horizontaler (Anfang, Mitte, Ende) Ausrichtungsoptionen erstellt.
+
+### Top-Start-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-top-start">
+  <button popovertarget="popoverTopStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Popover-Position oben in der Mitte
+
+<Snippet>
+
+```html
+<div class="popover popover-top-center">
+  <button popovertarget="popoverTopCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Popover-Position am oberen Ende
+
+<Snippet>
+
+```html
+<div class="popover popover-top-end">
+  <button popovertarget="popoverTopEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### End-Top-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-end-top">
+  <button popovertarget="popoverEndTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### End-Center-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-end-center">
+  <button popovertarget="popoverEndCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### End-Bottom-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-end-bottom">
+  <button popovertarget="popoverEndBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Popover-Position von unten beginnend
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-start">
+  <button popovertarget="popoverBottomStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Popover-Position unten in der Mitte
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-center">
+  <button popovertarget="popoverBottomCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Popover-Position am unteren Ende
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="popoverBottomEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Start-Top-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-start-top">
+  <button popovertarget="popoverStartTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Start-Center-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-start-center">
+  <button popovertarget="popoverStartCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Start-Unten-Popover-Position
+
+<Snippet>
+
+```html
+<div class="popover popover-start-bottom">
+  <button popovertarget="popoverStartBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Verwenden von Popovers in Datentabellen (Aktionsmenüs und Bestätigungen)
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">E-commerce Dashboard</div>
+            <div class="text-sm opacity-50">Internal Tool</div>
+          </div>
+        </td>
+        <td>
+          Full Stack
+
+          <span class="badge badge-soft badge-sm">Admin Panel</span>
+        </td>
+        <td>Next.js</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable">
+              <ul class="menu menu-horizontal">
+                <li class="menu-title">Are you sure? delete this record!</li>
+                <li>
+                  <button class="btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">CI Pipeline</div>
+            <div class="text-sm opacity-50">Infrastructure</div>
+          </div>
+        </td>
+        <td>
+          DevOps
+
+          <span class="badge badge-soft badge-sm">Automation</span>
+        </td>
+        <td>GitHub Actions</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable2" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable2">
+              <ul class="menu menu-horizontal">
+                <li>
+                  <button class="menu-item btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="menu-item btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </tbody>
+
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+</Snippet>

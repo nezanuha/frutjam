@@ -1,0 +1,19 @@
+---
+/** Translated category pages: /ja/components, /de/docs, … */
+import Base from '@/layouts/Base.astro';
+import CategoryPage from '@/components/CategoryPage.astro';
+import { CATEGORIES, type Category } from '@/lib/site';
+import { TRANSLATED_LANGS, langUrl } from '@/lib/i18n';
+
+export function getStaticPaths() {
+  return TRANSLATED_LANGS.flatMap((lang) =>
+    CATEGORIES.map((category) => ({ params: { lang, category: category.slug }, props: { category, lang } }))
+  );
+}
+
+const { category, lang } = Astro.props as { category: Category; lang: string };
+---
+
+<Base path={langUrl(lang, `/${category.slug}`)} sidebar>
+<CategoryPage category={category} lang={lang} />
+</Base>

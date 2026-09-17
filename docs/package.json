@@ -1,27 +1,35 @@
 {
-  "name": "frutjam-docs",
+  "name": "frutjam-website",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "migrate": "node scripts/migrate-content.mjs",
-    "export-blog": "python scripts/export-blog.py"
+    "i18n:status": "node scripts/i18n-status.mjs",
+    "i18n:translate": "node scripts/i18n-translate.mjs",
+    "i18n:check": "node scripts/i18n-structure.mjs",
+    "i18n:sync": "node scripts/i18n-sync.mjs",
+    "test": "node --test \"scripts/*.test.mjs\""
   },
   "dependencies": {
-    "@astrojs/sitemap": "latest",
-    "@astrojs/starlight": "latest",
+    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/mdx": "latest",
     "astro": "latest",
-    "sharp": "latest",
-    "starlight-blog": "latest"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "frutjam": "^2.2.5",
-    "tailwindcss": "^4.3.3"
+    "markdown-text-editor": "^1.7.0",
+    "shiki": "latest"
   },
   "engines": {
     "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "frutjam": "^2.2.5",
+    "pagefind": "^1.5.2",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "turndown": "^7.2.4"
   }
 }

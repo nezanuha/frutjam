@@ -1,0 +1,183 @@
+---
+name: "インジケータ"
+heading: "インジケーターコンポーネント"
+description: "要素の隅にバッジまたはドットをオーバーレイするための CSS 専用 Tailwind CSS インジケーター。カラーバリエーションと配置。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "インジケーター - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind 通知バッジとステータス オーバーレイの CSS インジケーター。アバター、ボタン、カードの 9 つの配置位置 - JavaScript は必要ありません。"
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Frutjam によるインジケーター"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "dde6f36c7c5f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+要素の隅にバッジまたはドットをオーバーレイするための CSS 専用 Tailwind CSS インジケーター。カラーバリエーションと配置。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+インジケーター コンポーネントは、他の要素上に配置されたステータス、バッジ、または通知を表示します。絶対配置と柔軟なスタイルを使用して構築されたインジケーターは、カード、アバター、ボタン上の重要な情報をオーバーレイします。 Frutjam インジケーター システムは、複数の配置、サイズ、色をサポートしており、通知バッジ、ステータス マーカー、視覚的な合図に最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">ベース</span> | インジケーター項目の相対位置ラッパー |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 絶対に配置されたバッジまたはドット要素 |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目を上端に配置します |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目を垂直方向の中央に配置します |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目を下端に配置します |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目を左端に配置します |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | アイテムを水平方向の中央に配置します |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目を右端に配置します |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## インジケーターの配置
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## タブ内のインジケーター
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## 入力時のインジケーター
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## 画像上のインジケーター
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## カード上のインジケーター
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## アバターのインジケーター
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## 応答的な動作
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

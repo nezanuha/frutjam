@@ -1,0 +1,201 @@
+---
+name: "Fark"
+heading: "Fark Bileşeni"
+description: "Sürüklenebilir bir ayırıcıyla yan yana içerik karşılaştırması için yalnızca CSS Tailwind CSS fark görüntüleyici. JavaScript gerekmez. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Diff - Yalnızca CSS'de Arka Rüzgar CSS Bileşeni | Frutjam"
+metaDescription: "Yan yana içerik karşılaştırmaları için Tailwind CSS Diff. Kod incelemeleri, belge farklılıkları ve değişiklik öncesi/sonrası takibi için yeniden boyutlandırılabilir, renk kodlu düzenler."
+order: 0
+related:
+  - "components/card"
+image: "https://cdn.frutjam.com/media/components/diff_epH7fIK.webp"
+imageAlt: "Frutjam'dan fark"
+createdAt: "2026-04-19T15:56:39.193495+00:00"
+updatedAt: "2026-07-13T09:52:51.568886+00:00"
+sourceHash: "b789fcca1ab4"
+translationHash: "f72ece1b9ce0"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Sürüklenebilir bir ayırıcıyla yan yana içerik karşılaştırması için yalnızca CSS Tailwind CSS fark görüntüleyici. JavaScript gerekmez. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Fark bileşenleri, içeriğin iki sürümü arasındaki farkları görüntüler; kod değişikliklerini, belge revizyonlarını veya karşılaştırma görünümlerini göstermek için idealdir. Anlamsal HTML ve renk kodlu stil ile oluşturulan farklar, kullanıcıların nelerin değiştiğini anlamalarına yardımcı olur. Frutjam diff sistemi birden fazla türü ve stili destekler; sürüm kontrol arayüzleri, revizyon geçmişi ve değişiklik takibi için mükemmeldir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| diff | <span class="badge badge-xs">Temel</span> | Sürüklenebilir bölücüye sahip yan yana karşılaştırma kapsayıcısı |
+| diff-item-1 | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Karşılaştırmanın sol (önceki) bölmesi |
+| diff-item-2 | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Karşılaştırmanın sağ (sonra) bölmesi |
+| diff-resizer | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İki bölmeyi yeniden boyutlandırmak için sürüklenebilir tutamaç |
+
+</DocTable>
+
+## Temel Kullanım
+
+Önceki ve sonraki durumlarla basit bir yan yana fark oluşturun.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```jsx
+<figure className="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div className="diff-item-1" aria-label="Before">
+    <div className="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div className="diff-item-2" aria-label="After">
+    <div className="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div className="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```vue
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Fark Metin Karşılaştırması
+
+Ayrıntılı karşılaştırma için kod veya metin değişikliklerini yan yana görüntüleyin.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Code comparison: before and after changes">
+  <div class="diff-item-1" aria-label="Before: original code">
+    <div class="bg-base-100 p-4">
+    <pre>const greeting = "Hello";
+console.log(greeting);
+let count = 0;</pre>
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After: updated code">
+    <div class="bg-base-200 p-4">
+    <pre>const greeting = "Hello World";
+console.log(greeting);
+let count = 1;</pre>
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Renk Kodlaması ile Fark
+
+Kaldırılan, eklenen veya değiştirilen içeriği vurgulamak için anlamsal renkleri kullanın.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Color-coded diff: removed and added lines">
+  <div class="diff-item-1" aria-label="Removed line">
+    <div class="bg-error text-on-error p-4 font-mono">- const old = "value";</div>
+  </div>
+  <div class="diff-item-2" aria-label="Added line">
+    <div class="bg-success text-on-success p-4 font-mono">+ const updated = "value";</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Görüntü Karşılaştırma
+
+Sürüklenebilir yeniden boyutlandırıcıyla önceki ve sonraki görüntüler arasındaki görsel değişiklikleri karşılaştırın.
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Image comparison: color versus grayscale">
+  <div class="diff-item-1" aria-label="Before: color version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&width=800&height=450" alt="Original color photo" loading="lazy">
+  </div>
+  <div class="diff-item-2" aria-label="After: grayscale version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&saturation=-100&width=800&height=450" alt="Grayscale version of the same photo" loading="lazy">
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## Fark Boyutları
+
+Kaptaki genişlik ve yükseklik yardımcı programlarını kullanarak fark boyutunu kontrol edin.
+
+<Snippet class="flex-col">
+
+```html
+<figure class="diff aspect-video w-64" tabindex="0" aria-label="Small diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-base font-bold">Small</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-base font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-96" tabindex="0" aria-label="Medium diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-2xl font-bold">Medium</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-2xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-full" tabindex="0" aria-label="Large diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-primary text-on-primary grid place-items-center text-4xl font-bold">Large</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-secondary text-on-secondary grid place-items-center text-4xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>

@@ -1,0 +1,156 @@
+---
+name: "Kroki"
+heading: "Składnik kroków"
+description: "Tylko CSS Kroki CSS Tailwind dla wieloetapowych kreatorów i wskaźników postępu. Układ poziomy i pionowy, warianty kolorystyczne na stopień. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Kroki — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Kroki CSS Tailwind dotyczące przepływów kreatorów, ścieżek realizacji transakcji i wdrażania. Układy poziome i pionowe z ponumerowanymi ikonami i stanami ukończonych kroków."
+order: 0
+related:
+  - "components/timeline"
+  - "components/progress"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/steps_OMegeLA.webp"
+imageAlt: "Kroki autorstwa Frutjama"
+createdAt: "2026-04-19T15:57:12.346672+00:00"
+updatedAt: "2026-07-13T09:38:52.291564+00:00"
+sourceHash: "f9d28f064de3"
+translationHash: "0d8a08e676ec"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Tylko CSS Kroki CSS Tailwind dla wieloetapowych kreatorów i wskaźników postępu. Układ poziomy i pionowy, warianty kolorystyczne na stopień. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Komponenty kroków wizualizują wieloetapowe procesy, przewodniki lub przepływy pracy, wyświetlając kolejne etapy. Zbudowane z semantycznego kodu HTML i elastycznych układów, kroki pokazują postęp dzięki kreatorom konfiguracji, samouczkom i złożonym procedurom. System kroków Frutjam obsługuje wiele rozmiarów, kolorów, struktur i stanów ukończenia — idealnie nadaje się do kreatorów formularzy, przewodników instalacji i śledzenia postępu.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| steps | <span class="badge badge-xs">Opierać</span> | Kontener na uporządkowaną listę kroków |
+| step | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Indywidualny element kroku z numerowanym znacznikiem |
+| steps-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Układ poziomy (domyślny) |
+| steps-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pionowy układ skumulowany |
+| step-primary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Podstawowy znacznik koloru motywu |
+| step-secondary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Dodatkowy znacznik koloru motywu |
+| step-accent | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Marker koloru motywu akcentującego |
+| step-neutral | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Marker w neutralnym kolorze motywu |
+| step-info | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Informacje semantyczny znacznik koloru |
+| step-success | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Semantyczny znacznik koloru sukcesu |
+| step-warning | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Ostrzeżenie semantyczny znacznik koloru |
+| step-error | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Błąd semantycznego znacznika koloru |
+
+</DocTable>
+
+## Podstawowe użycie
+
+<Snippet>
+
+```html
+<ul class="steps">
+  <li class="step">Shipping</li>
+  <li class="step step-primary">Payment</li>
+  <li class="step">Confirmation</li>
+</ul>
+```
+
+```jsx
+<ul className="steps">
+  <li className="step">Shipping</li>
+  <li className="step step-primary">Payment</li>
+  <li className="step">Confirmation</li>
+</ul>
+```
+
+</Snippet>
+
+## Układ kroków
+
+<Snippet>
+
+```html
+<ul class="steps steps-horizontal">
+  <li class="step">Step 1</li>
+  <li class="step step-primary">Step 2</li>
+  <li class="step">Step 3</li>
+</ul>
+```
+
+</Snippet>
+
+## Kolory kroków
+
+<Snippet>
+
+```html
+<ul class="steps">
+  <li class="step step-primary">Primary</li>
+  <li class="step step-secondary">Secondary</li>
+  <li class="step step-accent">Accent</li>
+  <li class="step step-info">Info</li>
+  <li class="step step-success">Success</li>
+  <li class="step step-warning">Warning</li>
+  <li class="step step-error">Error</li>
+</ul>
+```
+
+</Snippet>
+
+## Pionowe stopnie
+
+<Snippet>
+
+```html
+<ul class="steps steps-vertical">
+  <li class="step step-primary">Account setup</li>
+  <li class="step step-primary">Personal info</li>
+  <li class="step">Payment method</li>
+  <li class="step">Confirmation</li>
+</ul>
+```
+
+</Snippet>
+
+## Kroki z opisem
+
+<Snippet>
+
+```html
+<div class="space-y-4">
+  <div>
+    <ul class="steps w-full">
+      <li class="step step-primary">Register</li>
+      <li class="step step-primary">Verify Email</li>
+      <li class="step">Choose Plan</li>
+      <li class="step">Complete</li>
+    </ul>
+    <div class="grid grid-cols-4 gap-4 mt-4 text-xs text-center">
+      <div>Create account</div>
+      <div>Check your inbox</div>
+      <div>Select pricing</div>
+      <div>Get started</div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Reagujące kroki
+
+<Snippet>
+
+```html
+<ul class="steps w-full">
+  <li class="step step-primary">Order placed</li>
+  <li class="step step-primary">Processing</li>
+  <li class="step">Shipped</li>
+  <li class="step">Delivered</li>
+</ul>
+```
+
+</Snippet>

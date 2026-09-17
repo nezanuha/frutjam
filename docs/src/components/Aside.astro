@@ -1,0 +1,104 @@
+---
+/** frutjam.com's templates/cotton/frontend/aside.html */
+import { docUrl, isEnglishOnly, pageNavs } from '@/lib/site';
+import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  place: 'sidebar' | 'header';
+}
+
+const { place } = Astro.props;
+const { lang, path } = splitLang(Astro.url.pathname);
+const t = useTranslations(lang);
+const [, currentCategory] = path.split('/');
+const navs = await pageNavs(lang);
+---
+
+<ul class="menu menu-md w-full">
+  <li>
+      <a href={langUrl(lang, "/docs/overview")} class="menu-item">
+        <span class="badge badge-success badge-square badge-soft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+        </span>
+        Introduction
+      </a>
+  </li>
+  <li>
+      <a href={langUrl(lang, "/docs/installation")} class="menu-item">
+        <span class="badge badge-primary badge-square badge-soft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+        </span>
+        Installation
+      </a>
+  </li>
+  <li>
+      <a href={langUrl(lang, "/components")} class="menu-item">
+        <span class="badge badge-secondary badge-square badge-soft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/><path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z"/><path d="M8.916 17.912a1 1 0 0 0 0 1.415l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.415l-2.377-2.376a1 1 0 0 0-1.414 0z"/><path d="M8.916 4.674a1 1 0 0 0 0 1.414l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/></svg>
+        </span>
+        Components
+      </a>
+  </li>
+  <li>
+      <a href={langUrl(lang, "/blocks")} class="menu-item">
+        <span class="badge badge-accent badge-square badge-soft">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z"/><path d="m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845"/></svg>
+        </span>
+        {t("Blocks")}
+      </a>
+  </li>
+  <li>
+    <a href={langUrl(lang, "/products/cherry")} class="menu-item">
+      <span class="badge badge-error badge-square badge-soft">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z"/><path d="M12 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z"/><path d="M7 14c3.22-2.91 4.29-8.75 5-12 1.66 2.38 4.94 9 5 12"/><path d="M22 9c-4.29 0-7.14-2.33-10-7 5.71 0 10 4.67 10 7Z"/></svg>
+      </span>
+      Cherry MCP
+    </a>
+  </li>
+   <li><div class="divider divider-dotted"></div></li>
+  <li>
+    <div class="accordion accordion-flush">
+      {navs.map((category) => (
+      <details open={currentCategory === category.slug} name={`site-navigation-${place}`}>
+        <summary>
+          <span class="heading-md">
+            {category.name}
+          </span>
+        </summary>
+        <div class="accordion-content">
+          <ul >
+            {category.docs.map((page) => (
+            <li>
+              <a href={docUrl(page)} class:list={[{ 'menu-active': path === `/${page.id.split('/').slice(1).join('/')}` }, 'menu-item']}>{page.data.name}
+                {page.data.status && (
+                  <div class="badge badge-xs badge-outline ml-1 uppercase">{page.data.status}</div>
+                )}
+              </a>
+            </li>
+            ))}
+          </ul>
+        </div>
+      </details>
+      ))}
+    </div>
+    <div class="divider divider-dotted"></div>
+  </li>
+  <li>
+    <a href="https://play.tailwindcss.com/EtZ5y0s86G" target="_blank" rel="noopener noreferrer" class="menu-item">{t("Playground")}</a>
+  </li>
+  <li>
+    <a href={langUrl(lang, "/llms.txt")} class="menu-item">llms.txt</a>
+  </li>
+  {place === 'header' && (
+  <Fragment>
+  <li><div class="divider"></div></li>
+  <li><a href={langUrl(lang, "/blocks")} class="menu-item">{t("Blocks")}</a></li>
+  <li><a href={langUrl(lang, "/products/cherry")} class="menu-item">🍒 Cherry MCP</a></li>
+  <li><div class="divider"></div></li>
+  <li>{!isEnglishOnly(path) && <LanguageSwitcher popoverId="langSwitcherMobile" direction="popover-top-end" />}</li>
+  <li><div class="divider"></div></li>
+  <li><a href="https://nezanuha.com/contact" class="menu-item btn btn-primary btn-sm">{t("Contact us")}</a></li>
+  </Fragment>
+  )}
+</ul>

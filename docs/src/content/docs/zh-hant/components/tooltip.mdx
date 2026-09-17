@@ -1,0 +1,345 @@
+---
+name: "工具提示"
+heading: "工具提示組件"
+description: "僅限 CSS Tailwind CSS 工具提示，具有頂部、底部、左側和右側位置。顏色變體，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "工具提示 - 僅 CSS 的 Tailwind CSS 元件 |弗魯賈姆"
+metaDescription: "僅 CSS 的 Tailwind CSS 工具提示，具有多個位置和顏色變體。用於 UI 指導的可存取懸停和焦點提示 — 無需 JavaScript。"
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Frutjam 的工具提示組件"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "ae6128b59fb1"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅限 CSS Tailwind CSS 工具提示，具有頂部、底部、左側和右側位置。顏色變體，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+當使用者將滑鼠停留在某個元素上或將注意力集中在某個元素上時，工具提示元件會顯示附加資訊。工具提示採用語義 HTML 屬性和 CSS 構建，可提供特定於上下文的幫助，而不會使介面混亂，從而增強使用者體驗。 Frutjam 工具提示系統支援多個位置、自訂內容和流暢的動畫，以實現無縫資訊發現。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+**注意：** 工具提示依賴於 `:hover` 和 `:focus`，**不適用於觸控/移動設備**。對於行動優先佈局，請使用響應式變體 `lg:tooltip` 因此工具提示僅在桌面（大螢幕及以上）上啟動。在較小的螢幕上，考慮使用不同的顯示模式，例如 [彈出視窗](https://frutjam.com/components/popover) 或者 [莫代爾](https://frutjam.com/components/modal).
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">根據</span> | 揭示的包裝 `data-tip` 懸停/焦點上的內容 |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 工具提示氣泡內的自訂 HTML 內容 |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在觸發器上方開啟（預設） |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在觸發器下方打開 |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在扳機左側打開 |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在扳機右側打開 |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 開啟邏輯起始端 |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 打開到邏輯端 |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 主要主題顏色氣泡 |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 次要主題彩色氣泡 |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 口音主題顏色氣泡 |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 中性主題色泡泡 |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息語意顏色氣泡 |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功語意彩色氣泡 |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告語意顏色氣泡 |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 錯誤語意顏色氣泡 |
+
+</DocTable>
+
+## 工具提示
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## 自訂工具提示內容
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## 帶有圖示的工具提示
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## 強制開啟工具提示
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## 工具提示定位選項
+
+### 頂部位置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### 正確的安置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### 結束放置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### 底部放置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### 左側放置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### 開始安置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## 工具提示顏色變體
+
+### 原色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### 次要顏色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### 強調色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### 訊息顏色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### 成功色彩
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### 警告色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### 錯誤顏色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### 中性色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## 響應式工具提示
+
+僅在大螢幕上顯示 `lg:tooltip`
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## JS 和 React 助手
+
+使用 `createTooltip` 從 `frutjam/js` 或者 `useTooltip` 從 `frutjam/react` 以程式設計方式顯示或隱藏工具提示 - 對於導遊或觸發的幫助文字很有用。
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

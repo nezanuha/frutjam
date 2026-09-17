@@ -1,0 +1,117 @@
+---
+name: "Kurulum"
+heading: "Kurulum"
+description: "Yalnızca CSS'ye özel Tailwind CSS kullanıcı arayüzü kitaplığı olan Frutjam'ı birkaç dakika içinde yükleyin. İki içe aktarma, sıfır JavaScript, kutudan çıktığı gibi WCAG ile erişilebilen bileşenler. Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır."
+metaTitle: "Frutjam'ı yükleyin | Yalnızca CSS Tailwind CSS Kullanıcı Arayüzü Kitaplığı | Frutjam"
+metaDescription: "Frutjam'a özel CSS Tailwind CSS kullanıcı arayüzü kitaplığını yükleyin. İki içe aktarma, sıfır JavaScript, Tailwind v4 uyumlu. Django, HTMX, Laravel ve React ile çalışır."
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "Kurulum - Frutjam"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "d2f9aa3476e4"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Yalnızca CSS'ye özel Tailwind CSS kullanıcı arayüzü kitaplığı olan Frutjam'ı birkaç dakika içinde yükleyin. İki içe aktarma, sıfır JavaScript, kutudan çıktığı gibi WCAG ile erişilebilen bileşenler. Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+## Tailwind CSS projesine Frutjam UI kütüphanesi nasıl kurulur?
+
+Bilgisayarınızda çalışan bir [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) projesinin yanı sıra [Node](https://nodejs.org/en/download) ve NPM'nin yüklü olduğundan emin olun. Frutjam, Tailwind sürüm 4 ile çalışır.
+
+### Aşağıdaki komutu çalıştırarak frutjam'ı Node paketi olarak yükleyin:
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+`@plugin` yönergesini kullanarak Frutjam'ı `input.css` dosyanıza ekleyin:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript ve React – İsteğe Bağlı, Gerekli Değil
+
+Frutjam **yerel öncelikli ve CSS önceliklidir**. Bileşenlerin büyük çoğunluğu (düğmeler, rozetler, kartlar, formlar, uyarılar ve daha fazlası) saf HTML ve CSS ile çalışır, hiçbir JavaScript gerektirmez. `<dialog>`, `<details>` ve `<input type="checkbox">` gibi yerel HTML öğeleri, tarayıcıların zaten desteklediği durumlarda etkileşimi yönetir. Tüm bileşenlere WCAG AA kullanıma hazırdır ve Django, HTMX, Laravel, React, Next.js ve herhangi bir yığınla çalışır.
+
+Az sayıda bileşenin yerel HTML eşdeğeri yoktur (kısmen bildirimler, birleşik giriş kutusu filtreleme, atlıkarınca kontrolleri). Frutjam yalnızca bu durumlar için hafif, isteğe bağlı yardımcılar gönderir.
+
+### Vanilya JS — `frutjam/js`
+
+İhtiyaç duyan bileşenler için çerçeveden bağımsız ES modülü yardımcıları. Herhangi bir DOM öğesine ekleyin; çerçeve gerekmez.
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### Tepki Kancaları — `frutjam/react`
+
+Aynı yerel DOM çağrılarının etrafındaki ince React sarmalayıcıları. Her kanca, öğeye eklediğiniz bir `ref` ve onu kontrol etme yöntemlerini döndürür; React'ın kendisinden başka ekstra bağımlılık yoktur.
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+Şunlar için kullanılabilir: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+
+### CDN kullanma
+
+Yerel kurulum gerektirmeden hızlı ve kolay entegrasyon için frutjam UI kitaplığının CDN sürümünü kullanın. Frutjam'ın bu CDN sürümünü yalnızca geliştirme amacıyla kullanın, üretimde değil.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## Sonraki Adımlar
+
+Kurulduktan sonra, Frutjam'ı çalışırken görmek için [button bileşeni](/components/button)'i deneyin veya [bileşen kitaplığının tamamını](/components) keşfedin.
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI Düzenleyici Entegrasyonu</p><h3 class=\"card-title mb-2\">Claude Code, Cursor veya başka bir AI düzenleyiciyi mi kullanıyorsunuz?</h3><p class=\"para-sm mb-3\">Cherry MCP, Frutjam'ın tüm bileşen kitaplığını doğrudan AI editörünüzün bağlamına getirir; doğru sınıf adları, canlı belgeler, kopyala-yapıştır gerektirmez.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP hakkında bilgi edinin →</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">Frutjam'ın CSS öncelikli yaklaşımının ardındaki düşünceyi anlamak ister misiniz? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Neden bu şekilde oluşturduğumuzu okuyun →</a></p>"} />

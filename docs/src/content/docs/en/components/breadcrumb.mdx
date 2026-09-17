@@ -1,0 +1,140 @@
+---
+name: "Breadcrumb"
+heading: "Breadcrumb Component"
+description: "CSS-only Tailwind CSS breadcrumb navigation with custom separators and accessible landmark markup. WCAG AA, works with Django, HTMX, Laravel, React, and any Tailwind CSS v4 project."
+metaTitle: "Breadcrumb - CSS-Only Tailwind CSS Component | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb using semantic HTML for accessible, SEO-friendly navigation trails. Supports custom separators, icons, and responsive layouts."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Breadcrumb Component by Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS-only Tailwind CSS breadcrumb navigation with custom separators and accessible landmark markup. WCAG AA, works with Django, HTMX, Laravel, React, and any Tailwind CSS v4 project.
+
+Breadcrumb components show navigation hierarchy and help users understand their location within a website. Built with semantic HTML nav elements and ARIA landmarks for accessibility, breadcrumbs improve usability by allowing users to quickly navigate to parent sections. The Frutjam breadcrumb system automatically renders separators and supports custom separators for flexible styling.
+
+CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic — works with Django, HTMX, Laravel, React, and any stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Class | Type | Description |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Base</span> | Navigation container for breadcrumb trail |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Ordered list of breadcrumb items |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Individual list item in the breadcrumb |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Anchor element styled as a breadcrumb link |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Separator element between items |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Marks the current (active) page item |
+
+</DocTable>
+
+## Basic Usage
+
+If no separator is provided, an arrow is shown between breadcrumb items automatically.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Breadcrumb Separators
+
+### Breadcrumb with Text Separator
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Breadcrumb with Icon Separator
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Breadcrumb Accessibility
+
+To ensure breadcrumbs are accessible to screen readers:
+
+-   Wrap the structure in a `<nav>` element with an `aria-label="Breadcrumb"`.
+-   The last item (current page) should use `aria-current="page"` and preferably be a `<span>` rather than a link.
+-   Separators should be ignored by screen readers (often handled via CSS or `aria-hidden="true"` if using a physical element).

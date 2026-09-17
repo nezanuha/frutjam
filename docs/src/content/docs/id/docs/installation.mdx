@@ -1,0 +1,117 @@
+---
+name: "Instalasi"
+heading: "Instalasi"
+description: "Instal Frutjam, pustaka Tailwind CSS UI khusus CSS, dalam hitungan menit. Dua impor, tanpa JavaScript, komponen yang dapat diakses WCAG secara langsung. Bekerja dengan Django, HTMX, Laravel, React, dan proyek Tailwind CSS v4 apa pun."
+metaTitle: "Instal Frutjam | Pustaka UI CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Instal pustaka Tailwind CSS UI khusus Frutjam CSS. Dua impor, tanpa JavaScript, kompatibel dengan Tailwind v4. Bekerja dengan Django, HTMX, Laravel, dan React."
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "Instalasi - Frutjam"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "b19ce8ae2dbc"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Instal Frutjam, pustaka Tailwind CSS UI khusus CSS, dalam hitungan menit. Dua impor, tanpa JavaScript, komponen yang dapat diakses WCAG secara langsung. Bekerja dengan Django, HTMX, Laravel, React, dan proyek Tailwind CSS v4 apa pun.
+
+## How to install Frutjam UI library in Tailwind CSS project?
+
+Make sure you have a working [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) project installed, as well as [Node](https://nodejs.org/en/download) and NPM on your computer. Frutjam works with Tailwind version 4.
+
+### Install frutjam as a Node package by running the following command:
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+Add Frutjam to your `input.css` using the `@plugin` directive:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript & React — Opsional, Tidak Wajib
+
+Frutjam adalah **native-first dan CSS-first**. Sebagian besar komponen — tombol, lencana, kartu, formulir, peringatan, dan lainnya — berfungsi dengan HTMX dan CSS murni, tanpa memerlukan JavaScript. Elemen HTMX asli seperti `<dialog>`, `<details>`, dan `<input type="checkbox">` menangani interaktivitas yang sudah didukung oleh browser. Semua komponen adalah WCAG AA yang dapat diakses langsung dan bekerja dengan Django, HTMX, Laravel, React, Next.js, dan tumpukan apa pun.
+
+A small number of components have no native HTML equivalent (toast notifications, combobox filtering, carousel controls). For those cases only, Frutjam ships lightweight optional helpers.
+
+### Vanila JS — `frutjam/js`
+
+Pembantu modul ES framework-agnostic untuk komponen yang membutuhkannya. Lampirkan ke elemen DOM apa pun — tidak diperlukan kerangka kerja.
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### Kait Reaksi — `frutjam/react`
+
+Pembungkus React yang tipis di sekitar panggilan DOM asli yang sama. Setiap hook mengembalikan `ref` yang Anda lampirkan ke elemen dan metode untuk mengendalikannya — tidak ada ketergantungan tambahan selain React itu sendiri.
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+Available for: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+
+### Using a CDN
+
+Use the CDN version of the frutjam UI library for fast and easy integration without local setup. Use this CDN version of frutjam only for development purposes, not in production.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## Next Steps
+
+Setelah terinstal, coba komponen [button](/components/button) untuk melihat Frutjam beraksi, atau jelajahi perpustakaan komponen [lengkap](/components).
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI Editor Integration</p><h3 class=\"card-title mb-2\">Using Claude Code, Cursor, or another AI editor?</h3><p class=\"para-sm mb-3\">Cherry MCP menghadirkan pustaka komponen lengkap Frutjam langsung ke konteks editor AI Anda — nama kelas yang akurat, dokumen langsung, tanpa salin-tempel.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Learn about Cherry MCP →</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">Ingin memahami pemikiran di balik pendekatan Frutjam yang mengutamakan CSS? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Baca mengapa kami membuatnya seperti ini →</a></p>"} />

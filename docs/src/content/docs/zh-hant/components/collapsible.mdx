@@ -1,0 +1,296 @@
+---
+name: "可折疊"
+heading: "可折疊組件"
+description: "僅 CSS Tailwind CSS 可折疊面板使用原生 `<details>` 元素。無需 JavaScript 即可顯示和隱藏內容部分。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Collapsible - 僅 CSS Tailwind CSS 元件 |弗魯賈姆"
+metaDescription: "無需 JS 的 Tailwind CSS 可折疊，使用本機詳細資料/摘要。常見問題、巢狀導航和可擴展內容部分的可存取揭露。"
+order: 0
+related:
+  - "components/tabs"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/collapsible_pOIxxIe.webp"
+imageAlt: "Frutjam 可折疊"
+createdAt: "2026-04-19T15:56:32.406115+00:00"
+updatedAt: "2026-07-13T09:43:01.618283+00:00"
+sourceHash: "faedd5abd13e"
+translationHash: "497f7c6653af"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS-only Tailwind CSS 可折疊面板使用原生 `<details>` 元素。無需 JavaScript 即可顯示和隱藏內容部分。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+可折疊組件允許使用者展開和折疊內容部分。可折疊元素採用隱藏複選框模式構建，無需任何 JavaScript 即可工作，並支援透過 CSS 網格進行動畫過渡。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| collapsible | <span class="badge badge-xs">根據</span> | 由隱藏複選框驅動的可折疊容器 |
+| collapsible-toggle | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 控制開啟/關閉狀態的隱藏複選框輸入 |
+| collapsible-title | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 切換可折疊的可點擊標籤 |
+| collapsible-content | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 開啟時顯示動畫內容區域 |
+| collapsible-arrow | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在標題中加入旋轉箭頭指示符 |
+| collapsible-group | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 手風琴式分組可折疊物品的包裝 |
+| collapsible-overlay | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 抽屜式可折疊物品的覆蓋層變體 |
+| collapsible-peek | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 折疊時顯示內容一瞥 |
+| is-collapsible-open | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | JS應用程式類別強制開啟狀態 |
+| is-collapsible-close | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | JS應用程式類別強制關閉狀態 |
+
+</DocTable>
+
+## 基本用法
+
+隱藏的複選框驅動開啟/關閉狀態。這 `label` 觸發它；這 `collapsible-content` div 動畫開啟。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-basic" />
+  <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is hidden until expanded.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+      <button className="collapsible-title px-4 py-3 font-medium" onClick={collapsible.toggle}>Click to expand</button>
+      <div className="collapsible-content">
+        <div>
+          <div className="px-4 pb-3 text-sm opacity-70">
+            This content is hidden until expanded.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## 附箭頭指示器
+
+添加 `collapsible-arrow` 到標籤以獲得反映開啟/關閉狀態的旋轉 V 形。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-arrow" />
+  <label for="col-arrow" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">What is Frutjam?</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        Frutjam is a Tailwind CSS v4 component library built with CSS utilities and a PostCSS plugin.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 多個折疊件
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-2">
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-1" />
+    <label for="col-1" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section One</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the first section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-2" />
+    <label for="col-2" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Two</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the second section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-3" />
+    <label for="col-3" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Three</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the third section.</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 預設開啟
+
+添加 `checked` 到複選框輸入以開始開啟面板。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-open" checked />
+  <label for="col-open" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Open by default</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is visible on initial load.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS控制
+
+切換 `collapsible-open` 在包裝元素上而不是使用複選框——當觸發器位於其他地方時很有用。
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-open border border-base-soft rounded-lg" id="js-col">
+  <button
+    class="collapsible-title collapsible-arrow px-4 py-3 font-medium"
+    onclick="this.closest('.collapsible').classList.toggle('collapsible-open')"
+  >
+    Toggle via JS (starts open)
+  </button>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 py-3 text-sm opacity-70 border-t border-base-soft">
+        No hidden checkbox needed — state is managed by the <code>collapsible-open</code> class.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 窺視變體
+
+`collapsible-peek` 顯示漸變淡入淡出和疊加觸發器的剪輯預覽。覆蓋 `--peek-height` 控制折疊時可見的內容量。
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-peek rounded-xl border border-base-soft" style="--peek-height: 5rem;">
+  <input type="checkbox" class="collapsible-toggle" id="col-peek" />
+  <div class="collapsible-content">
+    <div class="p-4 text-sm leading-relaxed">
+      <p>Frutjam is a Tailwind CSS v4 component library built around a PostCSS plugin architecture. Every component is a set of <code>@utility</code> definitions that integrate natively with Tailwind's utility pipeline.</p>
+      <p class="mt-3">Theming is handled entirely through CSS custom properties. Swap themes by setting a <code>data-theme</code> attribute on any container, or override individual tokens inline.</p>
+      <p class="mt-3">Components ship with sensible defaults and are designed to compose cleanly.</p>
+    </div>
+  </div>
+  <label for="col-peek" class="collapsible-overlay">
+    <span class="btn btn-sm">Read more</span>
+  </label>
+</div>
+```
+
+</Snippet>
+
+## JS 和 React 助手
+
+使用 `createCollapsible` 從 `frutjam/js` 或者 `useCollapsible` 從 `frutjam/react` 用於程式控制和自動 `aria-expanded` 在任何觸發器上同步。
+
+<Snippet>
+
+```html
+<button class="btn btn-sm mb-3" id="col-helper-btn">Toggle</button>
+<div class="collapsible border border-base-soft rounded-lg" id="js-collapsible">
+  <div class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createCollapsible } from 'frutjam/js'
+  const col = createCollapsible(document.getElementById('js-collapsible'))
+  document.getElementById('col-helper-btn').onclick = () => col.toggle()
+</script>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <>
+      <button className="btn btn-sm mb-3" onClick={collapsible.toggle}>Toggle</button>
+      <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+        <div className="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+        <div className="collapsible-content">
+          <div>
+            <div className="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## 帶有可折疊組的外部觸發器
+
+將扳機和可折疊的東西包裹起來 `collapsible-group` 讓標籤在外面 `.collapsible` 透過響應其開啟/關閉狀態 `is-collapsible-open` 和 `is-collapsible-close`.
+
+<Snippet>
+
+```html
+<div class="collapsible-group border border-base-soft rounded-lg p-4 flex flex-col gap-3">
+  <div class="flex items-center justify-between">
+    <span class="font-medium">Section A</span>
+    <label for="cg-1" class="btn btn-sm btn-ghost">
+      <span class="is-collapsible-close">Expand</span>
+      <span class="is-collapsible-open">Collapse</span>
+    </label>
+  </div>
+  <div class="collapsible">
+    <input type="checkbox" class="collapsible-toggle" id="cg-1" />
+    <div class="collapsible-content">
+      <div>
+        <div class="text-sm opacity-70">
+          This content is toggled by the button above, which lives outside <code>.collapsible</code> but inside <code>.collapsible-group</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

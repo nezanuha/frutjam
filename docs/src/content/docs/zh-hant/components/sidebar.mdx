@@ -1,0 +1,131 @@
+---
+name: "側邊欄"
+heading: "側邊欄組件"
+description: "僅 CSS Tailwind CSS 側邊欄，用於側面導覽面板。可折疊，帶有導航項目狀態和部分標題。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "側邊欄 - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS 側邊欄附有可折疊面板、圖示和嵌套選單。適用於管理佈局和多部分應用程式的響應式儀表板導航。"
+order: 0
+related:
+  - "components/navbar"
+  - "components/menu"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/sidebar_jTGiPHo.webp"
+imageAlt: "Frutjam 側邊欄"
+createdAt: "2026-04-19T15:57:04.010698+00:00"
+updatedAt: "2026-07-13T09:43:30.099461+00:00"
+sourceHash: "80862f45041c"
+translationHash: "9717f2d2c15d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 側邊欄，用於側面導覽面板。可折疊，帶有導航項目狀態和部分標題。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+側邊欄組件在固定或可折疊的側面板中組織主要導航和輔助內容。側邊欄採用語義 HTML 構建，可在不佔用主要內容空間的情況下改善導航。 Frutjam 側邊欄系統支援多種佈局、寬度和行為，非常適合管理儀表板、文件網站和複雜應用程式。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| sidebar | <span class="badge badge-xs">根據</span> | 用於導航和輔助內容的固定側面板 |
+
+</DocTable>
+
+## 基本用法
+
+在 `aside` 元素上使用 `sidebar` 類別。將其與主要內容一起放置在彈性容器中。
+
+<Snippet>
+
+```html
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+```jsx
+<div className="flex min-h-90">
+  <aside className="sidebar w-64">
+    <ul className="menu p-4">
+      <li className="menu-title"><span>Menu</span></li>
+      <li><a className="menu-item">Sidebar Item 1</a></li>
+      <li><a className="menu-item">Sidebar Item 2</a></li>
+      <li><a className="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main className="flex-1 p-6">
+    <p className="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 側邊欄導航
+
+帶有分組部分和活動狀態樣式的完整導覽側邊欄。
+
+<Snippet>
+
+```html
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 可折疊側邊欄
+
+對於移動側邊欄或覆蓋側邊欄，請將 `sidebar` 類別與 `drawer drawer-start` 對話方塊組件結合。
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
+```
+
+</Snippet>

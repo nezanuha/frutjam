@@ -1,0 +1,228 @@
+---
+name: "導覽列"
+heading: "導覽列組件"
+description: "僅 CSS Tailwind CSS 導覽欄，包含品牌、導覽連結和操作槽。粘性和透明變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "導覽列 - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS 導覽列具有黏性、響應式和下拉就緒佈局。具有行動支援的語意 HTML，可實現可存取的、主題感知的網站導覽。"
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Frutjam UI 的導覽列元件"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "0e2c4a439ef4"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 導覽欄，包含品牌、導覽連結和操作槽。粘性和透明變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+導覽列元件顯示網站結構和使用者導覽的水平導覽清單。 Frutjam 導覽列系統採用語義 HTML 導覽和清單元素構建，支援多種佈局、響應式行為和嵌套選單整合。導航列可存取且可透過鍵盤導航，是主網站導航、麵包屑和選項卡介面的理想選擇。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">根據</span> | 水平導覽列容器 |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 導航連結的水平列表 |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 用於徽標或第一個導航組的左側插槽 |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 主導航的中心槽 |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 用於操作和控制的右側插槽 |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將導覽列放置在視窗的頂部 |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在父項內垂直居中 |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將導覽列放置在視窗的底部 |
+
+</DocTable>
+
+## 導覽列
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## 導覽列展示位置
+
+導覽列元件預設位於開頭（LTR 中的左側）。使用 `navbar-start`、`navbar-center` 或 `navbar-end` 進行水平對齊，使用 `navbar-top`、`navbar-middle` 或 `navbar-bottom` 進行垂直對齊。放置是 RTL 友善的。
+
+使用水平放置類別沿 X 軸對齊導覽列列表，並在導覽列具有自訂高度時使用垂直放置類別。
+
+### 水平放置
+
+控制 `navbar-list` 沿 X 軸的位置。這些是 RTL 友好的（開始/結束而不是左/右）。
+
+#### 水平向左對齊（開始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 水平對齊到中心
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 水平向右對齊（末端）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### 垂直放置
+
+控制沿 Y 軸的對齊方式。當導覽列具有自訂高度時，這特別有用。
+
+#### 垂直對齊到頂部（開始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直對齊到中心
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直對齊到底部（末端）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

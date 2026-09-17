@@ -1,0 +1,198 @@
+---
+name: "Sohbet"
+heading: "Sohbet Balonu Bileşeni"
+description: "Yalnızca CSS'ye özgü Tailwind CSS sohbet balonu bileşeni. Avatar ve zaman damgası yuvalarıyla birlikte gönderilen ve alınan mesajlar için başlangıç ​​ve bitiş konumları. WCAG AA, Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Sohbet - Yalnızca CSS'ye Özel Tailwind CSS Bileşeni | Frutjam"
+metaDescription: "Başlangıç/bitiş hizalaması, avatarlar, zaman damgaları ve durum göstergeleri içeren Tailwind CSS Sohbet Balonu. JavaScript olmadan erişilebilir mesajlaşma kullanıcı arayüzleri oluşturun."
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Frutjam'dan sohbet"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "09da0b3a9ff1"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Yalnızca CSS'ye özgü Tailwind CSS sohbet balonu bileşeni. Avatar ve zaman damgası yuvalarıyla birlikte gönderilen ve alınan mesajlar için başlangıç ​​ve bitiş konumları. WCAG AA, Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Sohbet bileşenleri, konuşma mesajlarını okunabilir, düzenli bir biçimde görüntüler. Anlamsal HTML ve esnek düzenlerle oluşturulan sohbet balonları, hem kullanıcı hem de sistem mesajlarını temsil eder. Frutjam sohbet sistemi birden fazla rengi, hizalamayı ve stili destekler; mesajlaşma arayüzleri, müşteri destek panelleri ve konuşma amaçlı kullanıcı arayüzü için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">Temel</span> | Tek bir sohbet mesajı satırı için sarmalayıcı |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Tarz mesaj balonu |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Avatar mesajın yanında görüntüleniyor |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Balonun üzerindeki gönderenin adı veya meta verileri |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Balonun altındaki zaman damgası veya durum |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Balonu sola hizalar (gelen mesaj) |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Balonu sağa hizalar (giden mesaj) |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Ekstra küçük |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Küçük |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Orta (varsayılan) |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Büyük |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Ekstra büyük |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Birincil tema renk balonu |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İkincil tema renk balonu |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Vurgu teması renk balonu |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Nötr tema renk balonu |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Bilgi anlamsal renk balonu |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Başarı anlamsal renk balonu |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Uyarı anlamsal renk balonu |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Hata anlamsal renk balonu |
+
+</DocTable>
+
+## Temel Kullanım
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## Avatar'la sohbet et
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## Sohbet Boyutları
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## Sohbet Stilleri
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## Sohbet Üstbilgisi ve Altbilgisi
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## Konuşma Konusu
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

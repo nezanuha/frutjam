@@ -1,0 +1,139 @@
+---
+name: "Surface"
+heading: "Composant de surface"
+description: "Surface CSS Tailwind uniquement CSS pour appliquer des couleurs d'arrière-plan et de texte thématiques à un conteneur. Toutes les variantes de couleurs. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
+metaTitle: "Surface - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaDescription: "Tailwind CSS Surface pour les conteneurs de contenu en couches et la hiérarchie de profondeur visuelle. Plusieurs niveaux d'élévation et formes pour les alternatives de cartes et les mises en page imbriquées."
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Surface par Frutjam"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "88c671488869"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Surface CSS Tailwind uniquement CSS pour appliquer des couleurs d'arrière-plan et de texte thématiques à un conteneur. Toutes les variantes de couleurs. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+Les composants de surface sont des primitives de mise en page polyvalentes qui créent des hiérarchies visuelles en couches et des conteneurs de contenu. Construites avec du HTML sémantique, les surfaces offrent des options flexibles de profondeur et de style. Le système de surface Frutjam prend en charge plusieurs tailles, formes et couches, ce qui est idéal pour les alternatives de cartes, les blocs de contenu et les mises en page imbriquées.
+
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Classe | Taper | Description |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">Base</span> | Base surface container |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">Style</span> | Elevation level 1 (subtle) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">Style</span> | Elevation level 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">Style</span> | Remplissage transparent avec bordure visible |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">Style</span> | Style de bordure en pointillés |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">Style</span> | Moderately rounded corners |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Rembourrage très petit |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Petit rembourrage |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Rembourrage moyen (par défaut) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Grand rembourrage |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Rembourrage extra large |
+
+</DocTable>
+
+## Utilisation de base
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## Surface Layers
+
+Use `surface-1` and `surface-2` to create depth hierarchy by mixing the base color with the foreground color.
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## Surface Shapes
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## Border Styles
+
+Use `surface-outline` or `surface-dashed` for transparent containers defined by a border. These work correctly when nested inside colored layers because the background is explicitly transparent.
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Surface Sizes
+
+Les utilitaires de taille définissent le remplissage interne via `--surface--padding`. Ne combinez pas avec les utilitaires Tailwind `p-*` : ils remplaceront la variable et annuleront la classe de taille.
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## Nested Surfaces
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

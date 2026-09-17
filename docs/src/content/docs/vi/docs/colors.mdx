@@ -1,0 +1,211 @@
+---
+name: "Màu sắc"
+heading: "Hệ màu"
+description: "Hệ thống màu của Frutjam sử dụng mã thông báo CSS ngữ nghĩa được thiết kế để đáp ứng tỷ lệ tương phản WCAG AA ngay lập tức. Không có JavaScript, nhận biết chế độ tối, tương thích với Tailwind CSS v4. Hoạt động với Django, HTMX, Laravel và mọi ngăn xếp chỉ có CSS."
+metaTitle: "Hệ thống màu CSS Tailwind -WCAG Màu có thể truy cập | Frutjam"
+metaDescription: "Hệ thống màu Frutjam được xây dựng trên các mã thông báo ngữ nghĩa. Tuân thủ WCAG AA/AAA, nhận biết chế độ tối, thuộc tính tùy chỉnh CSS, tương thích với Tailwind CSS v4."
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "Hệ màu - Frutjam"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "ec092cfc6994"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Hệ thống màu của Frutjam sử dụng mã thông báo CSS ngữ nghĩa được thiết kế để đáp ứng tỷ lệ tương phản WCAG AA ngay lập tức. Không có JavaScript, nhận biết chế độ tối, tương thích với Tailwind CSS v4. Hoạt động với Django, HTMX, Laravel và mọi ngăn xếp chỉ có CSS.
+
+Frutjam sử dụng các thuộc tính tùy chỉnh CSS làm mã thông báo thiết kế cho tất cả các màu. Mỗi màu được xác định theo chủ đề và tự động hoạt động với các lớp tiện ích CSS của Tailwind — không cần cấu hình bổ sung. Chỉ CSS, không cần JavaScript. Độ tương phản WCAG AA được đảm bảo trên mọi cặp màu, hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào.
+
+## Tên màu
+
+Frutjam xác định các vai trò màu ngữ nghĩa sau đây. Mỗi màu có một mã thông báo `on-{color}` phù hợp để văn bản nền trước có thể truy cập được.
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\">Đảm bảo độ tương phản <strong>WCAG AA.</strong> Mỗi cặp <code>on-{color}</code> đều được điều chỉnh thủ công trong OKLCH để đáp ứng các yêu cầu về độ tương phản WCAG AA. Không giống như các thư viện tự động tính toán màu nền trước, Frutjam cung cấp cho bạn các cặp rõ ràng, đã được xác minh — để các thành phần của bạn có thể truy cập được theo thiết kế chứ không phải ngẫu nhiên.</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Màu sắc | Mã thông báo | Mục đích |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | Nền trang |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | Bề mặt, thanh bên, lớp phủ |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | Màu thương hiệu chính |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | Màu thương hiệu phụ |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | Màu nhấn/nổi bật |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | tin nhắn thông tin |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | Trạng thái thành công |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | Trạng thái cảnh báo |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | Lỗi và trạng thái phá hủy |
+
+</DocTable>
+
+## Các lớp tiện ích màu sắc
+
+Tất cả các màu Frutjam đều hoạt động với mọi tiện ích màu CSS Tailwind. Thay thế `{color}` bằng bất kỳ tên màu nào trong bảng trên.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Lớp học | Sự miêu tả |
+| --- | --- |
+| `bg-{color}` | Màu nền |
+| `text-{color}` | Màu văn bản |
+| `border-{color}` | Màu viền |
+| `ring-{color}` | Màu nhẫn |
+| `outline-{color}` | Màu phác thảo |
+| `shadow-{color}` | Màu bóng |
+| `fill-{color}` | Màu tô SVG |
+| `stroke-{color}` | Màu nét SVG |
+| `decoration-{color}` | Màu sắc trang trí văn bản |
+| `caret-{color}` | Màu dấu mũ đầu vào |
+| `placeholder-{color}` | Màu văn bản giữ chỗ |
+| `divide-{color}` | Màu đường viền ngăn cách |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### Công cụ sửa đổi độ mờ
+
+Kiểm soát độ mờ của màu bằng công cụ sửa đổi `/{value}`, giống như bất kỳ màu Tailwind nào.
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## Biến CSS chủ đề
+
+Đây là các mã thông báo gốc mà bạn xác định khi tạo chủ đề tùy chỉnh. Tất cả các mã thông báo màu khác được tính toán tự động từ những mã này.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Biến CSS | Sự miêu tả |
+| --- | --- |
+| `--scheme-color` | Bảng màu: `light` hoặc `dark` |
+| `--border-radius` | Bán kính đường viền cơ sở cho các thành phần |
+| `--color-base` | Màu nền trang |
+| `--color-on-base` | Màu văn bản mặc định trên nền cơ sở |
+| `--color-neutral` | Màu bề mặt trung tính |
+| `--color-on-neutral` | Màu văn bản trên bề mặt trung tính |
+| `--color-primary` | Màu thương hiệu chính |
+| `--color-on-primary` | Màu văn bản trên nền chính |
+| `--color-secondary` | Màu thương hiệu phụ |
+| `--color-on-secondary` | Màu văn bản trên nền phụ |
+| `--color-accent` | Màu nhấn |
+| `--color-on-accent` | Màu văn bản trên nền có điểm nhấn |
+| `--color-info` | Màu thông tin |
+| `--color-on-info` | Màu văn bản trên nền thông tin |
+| `--color-success` | Màu thành công |
+| `--color-on-success` | Màu văn bản trên nền thành công |
+| `--color-warning` | Màu cảnh báo |
+| `--color-on-warning` | Màu văn bản trên nền cảnh báo |
+| `--color-error` | Lỗi màu |
+| `--color-on-error` | Text color on error backgrounds |
+
+</DocTable>
+
+## Computed Color Tokens
+
+Frutjam tự động tính toán các mã thông báo này từ các biến chủ đề gốc của bạn — bạn không đặt chúng theo cách thủ công. Chúng có sẵn để sử dụng trong CSS tùy chỉnh.
+
+### Scale (50–950)
+
+Every color generates a full 11-step tint/shade scale. Replace `{color}` with any color name.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Biến CSS | Sự miêu tả |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | Very light tint |
+| `--color-{color}-200` | Light tint |
+| `--color-{color}-300` | Medium-light tint |
+| `--color-{color}-400` | Slight tint |
+| `--color-{color}-500` | Base color (same as `--color-{color}`) |
+| `--color-{color}-600` | Slight shade |
+| `--color-{color}-700` | Medium shade |
+| `--color-{color}-800` | Dark shade |
+| `--color-{color}-900` | Very dark shade |
+| `--color-{color}-950` | Darkest shade |
+
+</DocTable>
+
+### Soft & Active
+
+State-aware variants for interactive elements, automatically adapting to light and dark themes.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Biến CSS | Sự miêu tả |
+| --- | --- |
+| `--color-{color}-soft` | Subtle tinted background for soft variants |
+| `--color-on-{color}-soft` | Text color for use on soft backgrounds |
+| `--color-{color}-active` | Darkened/lightened shade for hover and active states |
+| `--color-body` | Computed body text color (slightly softened from `on-base`) |
+
+</DocTable>
+
+## Custom Theme Example
+
+Override root tokens to create a custom theme. Frutjam computes all scales and states automatically.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

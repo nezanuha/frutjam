@@ -1,0 +1,183 @@
+---
+name: "指標"
+heading: "指標組件"
+description: "純 CSS Tailwind CSS 指示器，用於在任何元素角落疊加徽章或點。顏色變體和定位。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "指示器 - 僅 CSS Tailwind CSS 元件 |Frutjam"
+metaDescription: "用於通知徽章和狀態疊加層的 Tailwind CSS 指示器。頭像、按鈕和卡片的九個放置位置 - 無需 JavaScript。"
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Frutjam 指標"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "613d24ec0984"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+純 CSS Tailwind CSS 指示器，用於在任何元素角落疊加徽章或點。顏色變體和定位。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+指示器組件顯示位於其他元素上的狀態、徽章或通知。指示器採用絕對定位和靈活的樣式構建，可覆蓋卡片、頭像和按鈕上的重要資訊。 Frutjam 指示器系統支援多種位置、尺寸和顏色，非常適合通知徽章、狀態標記和視覺提示。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">根據</span> | 指標項的相對定位包裝 |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 絕對定位的徽章或點元素 |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將項目放置在頂部邊緣 |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將項目定位在垂直中間 |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將項目放置在底部邊緣 |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將項目定位在左邊緣 |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將項目放置在水平中心 |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 將物品放置在右邊緣 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## 指標放置
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## 選項卡中的指示器
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## 輸入指示燈
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## 影像上的指示器
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## 卡片上的指示器
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 頭像上的指示器
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## 回應行為
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

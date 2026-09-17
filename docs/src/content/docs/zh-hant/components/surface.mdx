@@ -1,0 +1,139 @@
+---
+name: "表面"
+heading: "表面成分"
+description: "僅 CSS Tailwind CSS 表面，用於將主題背景和文字顏色應用到容器。所有顏色變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Surface - 僅 CSS Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS Surface 用於分層內容容器和視覺深度層次結構。用於卡片替代和嵌套佈局的多個標高級別和形狀。"
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Frutjam 的表面"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "f378a8865af0"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 表面，用於將主題背景和文字顏色應用到容器。所有顏色變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+表面元件是多功能的佈局基元，可建立分層的視覺層次結構和內容容器。表面採用語義 HTML 構建，提供靈活的深度和樣式選項。 Frutjam 表面系統支援多種尺寸、形狀和層，非常適合卡片替代、內容塊和嵌套佈局。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">根據</span> | 基面容器 |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">風格</span> | 海拔高度 1（微妙） |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">風格</span> | 海拔 2 級 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">風格</span> | 帶有可見邊框的透明填充 |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">風格</span> | 虛線邊框樣式 |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">風格</span> | 邊角適度圓潤 |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 超小襯墊 |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小填充 |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中等填充（預設） |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大填充 |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 超大襯墊 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## 表面層
+
+使用 `surface-1` 和 `surface-2` 透過混合基底色與前景色來建立深度層次結構。
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## 表面形狀
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## 邊框樣式
+
+對於由邊框定義的透明容器，請使用 `surface-outline` 或 `surface-dashed`。當嵌套在彩色圖層內時，它們可以正常工作，因為背景是明確透明的。
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 表面尺寸
+
+大小實用程式透過 `--surface--padding` 設定內部填滿。不要與 Tailwind `p-*` 實用程式結合使用 - 它們會覆蓋變數並破壞尺寸類別。
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## 嵌套曲面
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

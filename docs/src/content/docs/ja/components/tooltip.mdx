@@ -1,0 +1,345 @@
+---
+name: "ツールチップ"
+heading: "ツールチップコンポーネント"
+description: "CSS のみの Tailwind CSS ツールチップは上下左右に配置されます。カラーバリエーション、JavaScriptは必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "ツールチップ - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "複数の配置と色のバリエーションを備えた CSS のみの Tailwind CSS ツールチップ。 UI ガイダンスのためのアクセス可能なホバーとフォーカスのヒント - JavaScript は必要ありません。"
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Frutjam によるツールチップ コンポーネント"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "36e7cf96b55d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS ツールチップは上下左右に配置されます。カラーバリエーション、JavaScriptは必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+ツールチップ コンポーネントは、ユーザーが要素の上にマウスを移動するか要素にフォーカスすると、追加情報を表示します。セマンティック HTML 属性と CSS を使用して構築されたツールチップは、インターフェイスを煩雑にすることなくコンテキスト固有のヘルプを提供することでユーザー エクスペリエンスを向上させます。 Frutjam ツールチップ システムは、複数の位置、カスタム コンテンツ、スムーズなアニメーションをサポートし、シームレスな情報発見を実現します。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+**注:** ツールチップは `:hover` と `:focus` に依存していますが、**タッチ/モバイル デバイスでは利用できません**。モバイル ファースト レイアウトの場合は、レスポンシブ バリアント `lg:tooltip` を使用して、ツールヒントがデスクトップ (大画面以上) でのみアクティブになるようにします。小さい画面では、[ポップオーバー](https://frutjam.com/components/popover)や[モーダル](https://frutjam.com/components/modal)など、別の開示パターンの使用を検討してください。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">ベース</span> | ホバー/フォーカス時に `data-tip` コンテンツを表示するラッパー |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ツールチップバブル内のカスタム HTML コンテンツ |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | トリガーの上で開きます (デフォルト) |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | トリガーの下で開きます |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | トリガーの左側に開きます |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | トリガーの右側に開きます |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 論理スタート側に開きます |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 論理エンド側に開きます |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 主要テーマカラーバブル |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 二次テーマのカラーバブル |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">色</span> | アクセントテーマカラーバブル |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">色</span> | ニュートラルテーマカラーバブル |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">色</span> | 情報セマンティックカラーバブル |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">色</span> | 成功のセマンティック カラー バブル |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">色</span> | 警告セマンティックカラーバブル |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">色</span> | エラー セマンティック カラー バブル |
+
+</DocTable>
+
+## ツールチップ
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## カスタムツールチップコンテンツ
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## アイコン付きのツールチップ
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## ツールチップを強制的に開く
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## ツールチップの配置オプション
+
+### 上部の配置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### 適切な配置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### 端部の配置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### 下部の配置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### 左の配置
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### 配置の開始
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## ツールチップのカラーバリエーション
+
+### 原色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### 二次色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### アクセントカラー
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### 情報の色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### サクセスカラー
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### 警告色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### エラーの色
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### ニュートラルカラー
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## レスポンシブツールチップ
+
+`lg:tooltip` を使用して大きな画面でのみ表示します
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## JS と React ヘルパー
+
+`frutjam/js` の `createTooltip` または `frutjam/react` の `useTooltip` を使用して、ツールチップをプログラムで表示または非表示にします。ガイド付きツアーやトリガーされたヘルプ テキストに役立ちます。
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

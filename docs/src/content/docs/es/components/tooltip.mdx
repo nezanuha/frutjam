@@ -1,0 +1,345 @@
+---
+name: "Información sobre herramientas"
+heading: "Componente de información sobre herramientas"
+description: "Información sobre herramientas CSS de Tailwind solo CSS con ubicación superior, inferior, izquierda y derecha. Variantes de color, no se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Información sobre herramientas: componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Información sobre herramientas CSS de Tailwind solo para CSS con múltiples ubicaciones y variantes de color. Sugerencias de enfoque y desplazamiento accesibles para orientación en la interfaz de usuario; no se requiere JavaScript."
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Componentes de información sobre herramientas de Frutjam"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "9b7ad114b8dc"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Información sobre herramientas CSS de Tailwind solo CSS con ubicación superior, inferior, izquierda y derecha. Variantes de color, no se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes de información sobre herramientas muestran información adicional cuando los usuarios pasan el cursor sobre un elemento o se centran en él. Creadas con atributos HTML semánticos y CSS, la información sobre herramientas mejora la experiencia del usuario al brindar ayuda específica del contexto sin saturar la interfaz. El sistema de información sobre herramientas de Frutjam admite múltiples posiciones, contenido personalizado y animaciones fluidas para un descubrimiento de información fluido.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+**Nota:** la información sobre herramientas se basa en `:hover` y `:focus`, que **no están disponibles en dispositivos táctiles/móviles**. Para diseños orientados a dispositivos móviles, utilice la variante responsiva `lg:tooltip` para que la información sobre herramientas solo se active en el escritorio (pantallas grandes y superiores). En pantallas más pequeñas, considere utilizar un patrón de divulgación diferente, como un [popover](https://frutjam.com/components/popover) o un [modal](https://frutjam.com/components/modal).
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">Base</span> | Envoltorio que revela contenido de `data-tip` al pasar el cursor/enfocar |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Contenido HTML personalizado dentro de la burbuja de información sobre herramientas |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre encima del gatillo (predeterminado) |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre debajo del gatillo. |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre a la izquierda del gatillo. |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre a la derecha del gatillo. |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre en el lado de inicio lógico. |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Se abre al lado final lógico. |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color del tema principal |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color del tema secundario |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color del tema de acento |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color de tema neutro |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color semántica de información |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color semántica de éxito |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color semántica de advertencia |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Burbuja de color semántica de error |
+
+</DocTable>
+
+## Información sobre herramientas
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Contenido de información sobre herramientas personalizado
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Información sobre herramientas con icono
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## Forzar descripción emergente de apertura
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## Opciones de posicionamiento de información sobre herramientas
+
+### Ubicación superior
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### Colocación correcta
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### Colocación final
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### Colocación inferior
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### Colocación izquierda
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### Iniciar colocación
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## Variantes de color de información sobre herramientas
+
+### Color primario
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### Color secundario
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### Color de acento
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### Color de información
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### Color del éxito
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### Color de advertencia
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### Color de error
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### Color neutro
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## Información sobre herramientas responsivas
+
+Mostrar solo en pantallas grandes con `lg:tooltip`
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Ayudante de JS y React
+
+Utilice `createTooltip` de `frutjam/js` o `useTooltip` de `frutjam/react` para mostrar u ocultar información sobre herramientas mediante programación, lo que resulta útil para visitas guiadas o texto de ayuda activado.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

@@ -1,0 +1,142 @@
+---
+name: "ブレッドクラム"
+heading: "ブレッドクラムコンポーネント"
+description: "CSS のみの Tailwind CSS ブレッドクラム ナビゲーション。カスタム セパレーターとアクセス可能なランドマーク マークアップを備えています。 WCAG AA は、Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。"
+metaTitle: "ブレッドクラム - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS ブレッドクラムは、セマンティック HTML を使用して、アクセスしやすく SEO に適したナビゲーション トレイルを実現します。カスタム区切り文字、アイコン、レスポンシブ レイアウトをサポートします。"
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Frutjam によるブレッドクラム コンポーネント"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "1f3ab6655794"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS ブレッドクラム ナビゲーション。カスタム セパレーターとアクセス可能なランドマーク マークアップを備えています。 WCAG AA は、Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+ブレッドクラム コンポーネントはナビゲーション階層を表示し、ユーザーが Web サイト内の位置を理解するのに役立ちます。アクセシビリティのためにセマンティック HTML ナビゲーション要素と ARIA ランドマークを使用して構築されたブレッドクラムにより、ユーザーが親セクションにすばやく移動できるようになり、使いやすさが向上します。 Frutjam ブレッドクラム システムはセパレータを自動的にレンダリングし、柔軟なスタイル設定のためのカスタム セパレータをサポートします。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">ベース</span> | ブレッドクラムトレイルのナビゲーションコンテナ |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ブレッドクラム項目の順序付きリスト |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ブレッドクラム内の個々のリスト項目 |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | パンくずリンクとしてスタイル設定されたアンカー要素 |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 項目間の区切り要素 |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 現在の (アクティブな) ページ項目をマークします。 |
+
+</DocTable>
+
+## 基本的な使い方
+
+区切り文字が指定されていない場合は、ブレッドクラム項目の間に矢印が自動的に表示されます。
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## ブレッドクラムセパレーター
+
+### テキスト区切り付きのブレッドクラム
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### アイコン区切り付きのブレッドクラム
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## ブレッドクラムのアクセシビリティ
+
+スクリーン リーダーがパンくずリストにアクセスできるようにするには:
+
+-   `aria-label="Breadcrumb"` を使用して、構造を `<nav>` 要素で囲みます。
+-   最後の項目 (現在のページ) は `aria-current="page"` を使用する必要があり、できればリンクではなく `<span>` を使用してください。
+-   セパレータはスクリーン リーダーによって無視される必要があります (物理要素を使用する場合は、CSS または `aria-hidden="true"` を介して処理されることがよくあります)。

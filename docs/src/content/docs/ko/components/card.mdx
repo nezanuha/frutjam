@@ -1,0 +1,431 @@
+---
+name: "카드"
+heading: "카드 구성요소"
+description: "윤곽선, 그림자 및 평면 스타일이 포함된 CSS 전용 Tailwind CSS 카드입니다. 소형, 기본 및 대형 크기입니다. 카드 내용, 카드 제목, 카드 바닥글 슬롯. WCAG AA는 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "카드 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "머리글, 본문, 바닥글 섹션이 포함된 Tailwind CSS 카드입니다. 제품 및 콘텐츠 컨테이너에 대한 이미지 오버레이, 가로 레이아웃, 테마 변형을 지원합니다."
+order: 0
+related:
+  - "components/stat"
+  - "blocks/pricing"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/card.webp"
+imageAlt: "Frutjam의 카드 구성 요소"
+createdAt: "2025-09-09T13:33:54.604017+00:00"
+updatedAt: "2026-07-13T09:49:33.249427+00:00"
+sourceHash: "d857f4862d7c"
+translationHash: "afdaa3b86203"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+윤곽선, 그림자 및 평면 스타일이 포함된 CSS 전용 Tailwind CSS 카드입니다. 소형, 기본 및 대형 크기입니다. 카드 내용, 카드 제목, 카드 바닥글 슬롯. WCAG AA는 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+카드 구성요소는 관련 정보를 시각적으로 응집력 있는 단일 단위로 결합하는 다목적 컨테이너입니다. 의미 있는 HTML과 유연한 콘텐츠 영역으로 구축된 카드는 콘텐츠를 계층적으로 구성하고 다양한 레이아웃에 맞게 조정됩니다. Frutjam 카드 시스템은 제품 쇼케이스, 블로그 게시물, 사용후기 및 대시보드 요소에 대해 다양한 색상 변형, 크기 및 스타일을 제공합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| card | <span class="badge badge-xs">베이스</span> | 모서리가 둥근 높은 콘텐츠 컨테이너 |
+| card-outline | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 테두리가 보이는 투명 채우기 |
+| card-dashed | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 점선 테두리 스타일 |
+| card-title | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 카드 내부의 제목 요소 |
+| card-content | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 카드의 패딩된 콘텐츠 영역 |
+| card-actions | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 버튼 및 작업 컨트롤의 바닥글 영역 |
+| card-xs | <span class="badge badge-xs badge-info badge-soft">크기</span> | 매우 작은 패딩 |
+| card-sm | <span class="badge badge-xs badge-info badge-soft">크기</span> | 작은 패딩 |
+| card-md | <span class="badge badge-xs badge-info badge-soft">크기</span> | 중간 패딩(기본값) |
+| card-lg | <span class="badge badge-xs badge-info badge-soft">크기</span> | 큰 패딩 |
+| card-xl | <span class="badge badge-xs badge-info badge-soft">크기</span> | 초대형 패딩 |
+| card-primary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 기본 테마 색상 |
+| card-secondary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 보조 테마 색상 |
+| card-accent | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 악센트 테마 색상 |
+| card-neutral | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 중립 테마 색상 |
+| card-info | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 정보 의미 색상 |
+| card-success | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 성공 의미 색상 |
+| card-warning | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 경고 의미 색상 |
+| card-error | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 오류 의미 색상 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="card shadow w-88">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=600&height=400" alt="Card Image" loading="lazy" />
+  </figure>
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>The Card component is a versatile container for combining related information into a single, visually appealing unit.</p>
+  </div>
+</div>
+```
+
+```jsx
+<div className="card shadow w-88">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=600&height=400" alt="Card Image" loading="lazy" />
+  </figure>
+  <div className="card-content">
+    <h2 className="card-title">Card Title</h2>
+    <p>The Card component is a versatile container for combining related information into a single, visually appealing unit.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 액션이 포함된 카드
+
+버튼과 액션 컨트롤을 위한 바닥글 영역을 추가하려면 `card-actions`를 사용하세요.
+
+<Snippet>
+
+```html
+<div class="card card-md shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>A card with an actions footer for user interactions like buttons and links.</p>
+    <div class="card-actions">
+      <button class="btn btn-primary">Accept</button>
+      <button class="btn">Dismiss</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 카드 크기
+
+다양한 콘텐츠 밀도와 사용 사례에 맞게 5가지 크기 변형 중에서 선택하세요.
+
+<Snippet>
+
+```html
+<div class="card card-xs card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Extra Small</h2>
+    <p>Compact card for minimal content.</p>
+  </div>
+</div>
+
+<div class="card card-sm card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Small</h2>
+    <p>Small card for condensed information.</p>
+  </div>
+</div>
+
+<div class="card card-md card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Medium</h2>
+    <p>Medium card for standard content.</p>
+  </div>
+</div>
+
+<div class="card card-lg card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Large</h2>
+    <p>Large card for prominent content display.</p>
+  </div>
+</div>
+
+<div class="card card-xl card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Extra Large</h2>
+    <p>Extra large card for expansive content layouts.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 카드 색상
+
+시각적 차별화와 의미적 의미를 위해 카드에 색상 변형을 적용합니다.
+
+<Snippet>
+
+```html
+<div class="card card-md">
+  <div class="card-content">
+    <h2 class="card-title">Default</h2>
+    <p>Base card color using default theme background.</p>
+  </div>
+</div>
+
+<div class="card card-md card-primary">
+  <div class="card-content">
+    <h2 class="card-title">Primary</h2>
+    <p>Primary color card for featured content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Secondary</h2>
+    <p>Secondary color card for supporting content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-accent">
+  <div class="card-content">
+    <h2 class="card-title">Accent</h2>
+    <p>Accent color card for emphasis.</p>
+  </div>
+</div>
+
+<div class="card card-md card-info">
+  <div class="card-content">
+    <h2 class="card-title">Info</h2>
+    <p>Information card for helpful content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-success">
+  <div class="card-content">
+    <h2 class="card-title">Success</h2>
+    <p>Success card for positive outcomes.</p>
+  </div>
+</div>
+
+<div class="card card-md card-warning">
+  <div class="card-content">
+    <h2 class="card-title">Warning</h2>
+    <p>Warning card for caution messages.</p>
+  </div>
+</div>
+
+<div class="card card-md card-error">
+  <div class="card-content">
+    <h2 class="card-title">Error</h2>
+    <p>Error card for error notifications.</p>
+  </div>
+</div>
+
+<div class="card card-md card-neutral">
+  <div class="card-content">
+    <h2 class="card-title">Neutral</h2>
+    <p>Neutral card for balanced design.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 사용자 정의 배경 및 텍스트 색상
+
+전체 색상 제어를 위해 카드에서 Tailwind 배경 및 텍스트 색상 유틸리티를 직접 사용하세요.
+
+<Snippet>
+
+```html
+<div class="card bg-primary text-on-primary w-88">
+  <div class="card-content">
+    <h2 class="card-title">Custom Colors</h2>
+    <p>Apply any background and text color using Tailwind utilities.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 카드 스타일
+
+시각적 구별을 위해 카드에 다양한 테두리 및 스타일 변형을 적용합니다.
+
+### 개요 카드
+
+<Snippet>
+
+```html
+<div class="card card-md card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Outline Style</h2>
+    <p>Cards with visible borders for subtle separation from background.</p>
+  </div>
+</div>
+
+<div class="card card-md card-outline card-primary">
+  <div class="card-content">
+    <h2 class="card-title">Primary Outline</h2>
+    <p>Outline card with primary color border.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 대시 카드
+
+<Snippet>
+
+```html
+<div class="card card-md card-dashed">
+  <div class="card-content">
+    <h2 class="card-title">Dashed Style</h2>
+    <p>Cards with dashed borders for visual interest.</p>
+  </div>
+</div>
+
+<div class="card card-md card-dashed card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Secondary Dashed</h2>
+    <p>Dashed card with secondary color border.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 이미지가 포함된 카드
+
+시각적 요소가 포함된 콘텐츠의 경우 카드와 그림을 결합합니다.
+
+### 상단 이미지
+
+<Snippet>
+
+```html
+<div class="card card-md w-88 shadow-sm">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=600&height=400" alt="Blog Post" loading="lazy" />
+  </figure>
+  <div class="card-content">
+    <h2 class="card-title">Blog Post Card</h2>
+    <p>Display articles with featured images, titles, and summaries for content discovery.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 하단 이미지
+
+<Snippet>
+
+```html
+<div class="card card-md w-88 shadow-sm">
+  <div class="card-content">
+    <h2 class="card-title">Image Below Content</h2>
+    <p>Place images after content for reverse visual hierarchy.</p>
+  </div>
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=600&height=400" alt="Footer Image" loading="lazy" />
+  </figure>
+</div>
+```
+
+</Snippet>
+
+## 가격 카드
+
+기능과 클릭 유도 문구 버튼을 사용하여 가격 책정 계층을 보여줍니다.
+
+<Snippet>
+
+```html
+<div class="card card-lg card-outline">
+  <div class="card-content gap-4">
+    <div>
+      <h2 class="card-title">Startup Plan</h2>
+      <div class="flex items-baseline gap-2">
+        <span class="text-3xl font-bold">$49</span>
+        <span class="text-sm text-on-base/60">/month</span>
+      </div>
+    </div>
+    <div class="divider my-0"></div>
+    <ul class="flex flex-col gap-3">
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>25 websites</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>150 templates</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>Advanced eCommerce</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-error badge-sm opacity-50">✗</span>
+        <span class="opacity-50">Unlimited storage</span>
+      </li>
+    </ul>
+    <button class="btn btn-primary w-full">Get Started</button>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 반응형 카드 레이아웃
+
+다양한 화면 크기에 맞게 조정되는 유연한 카드 레이아웃을 만드세요.
+
+<Snippet>
+
+```html
+<div class="card card-lg w-160 shadow-sm">
+  <div class="grid grid-cols-12 gap-0">
+    <div class="col-span-12 lg:col-span-5">
+      <figure class="h-64">
+        <picture>
+          <source media="(max-width: 1024px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=427">
+          <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=600&height=400" alt="Layout Image" class="w-full h-full object-cover" loading="lazy" />
+        </picture>
+      </figure>
+    </div>
+    <div class="col-span-12 lg:col-span-7">
+      <div class="card-content">
+        <h2 class="card-title">Responsive Layout</h2>
+        <p>On desktop, image and content display side by side. On mobile, they stack vertically for optimal viewing experience.</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 결합된 변형
+
+맞춤형 카드 디자인을 위해 크기, 색상 및 스타일 변형을 혼합하고 일치시킵니다.
+
+<Snippet>
+
+```html
+<div class="card card-lg card-primary card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Large Primary Outline</h2>
+    <p>Combination of large size, primary color, and outline style.</p>
+  </div>
+</div>
+
+<div class="card card-sm card-dashed card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Small Secondary Dashed</h2>
+    <p>Compact card with dashed border in secondary color.</p>
+  </div>
+</div>
+
+<div class="card card-xl card-accent">
+  <div class="card-content">
+    <h2 class="card-title">Extra Large Accent</h2>
+    <p>Prominent card with accent color for feature display.</p>
+  </div>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,228 @@
+---
+name: "Gezinme çubuğu"
+heading: "Gezinme Çubuğu Bileşeni"
+description: "Markaya, gezinme bağlantılarına ve eylem yuvalarına sahip, yalnızca CSS'ye özel Tailwind CSS gezinme çubuğu. Yapışkan ve şeffaf çeşitleri. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Navbar - Yalnızca CSS-Arka Rüzgar CSS Bileşeni | Frutjam"
+metaDescription: "Yapışkan, duyarlı ve açılır menüye hazır düzenlere sahip Tailwind CSS Gezinme Çubuğu. Erişilebilir, temaya duyarlı site navigasyonu için mobil destekli Semantik HTML."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Frutjam UI'dan Navbar bileşenleri"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "b5312d979571"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Markaya, gezinme bağlantılarına ve eylem yuvalarına sahip, yalnızca CSS'ye özel Tailwind CSS gezinme çubuğu. Yapışkan ve şeffaf çeşitleri. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Gezinti çubuğu bileşenleri, site yapısı ve kullanıcı gezinmesi için yatay gezinme listelerini görüntüler. Semantik HTML gezinme ve liste öğeleriyle oluşturulan Frutjam gezinme çubuğu sistemi, birden fazla düzeni, duyarlı davranışı ve iç içe menü entegrasyonunu destekler. Erişilebilir ve klavyeyle gezinilebilen gezinme çubukları, ana sitede gezinme, içerik kırıntıları ve sekme arayüzleri için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Temel</span> | Yatay gezinme çubuğu kapsayıcısı |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Gezinme bağlantılarının yatay listesi |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Logo veya ilk gezinme grubu için sol yuva |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Ana navigasyon için orta yuva |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Eylemler ve kontroller için doğru yuva |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Gezinme çubuğunu görünümün üst kısmına konumlandırır |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Bir ebeveynin içinde dikey olarak ortalanmış |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Gezinti çubuğunu görünümün alt kısmına konumlandırır |
+
+</DocTable>
+
+## Gezinme çubuğu
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Gezinme Çubuğu Yerleşimleri
+
+Gezinme çubuğu bileşeni varsayılan olarak başlangıçta konumlandırılmıştır (LTR'de solda). Yatay hizalama için `navbar-start`, `navbar-center` veya `navbar-end`'i ve dikey hizalama için `navbar-top`, `navbar-middle` veya `navbar-bottom`'u kullanın. Yerleştirme RTL dostudur.
+
+Gezinme çubuğu listesini X ekseni boyunca hizalamak için yatay yerleştirme sınıflarını ve gezinme çubuğu özel bir yüksekliğe sahip olduğunda dikey yerleştirme sınıflarını kullanın.
+
+### Yatay Yerleşimler
+
+`navbar-list`'in X ekseni boyunca nasıl oturacağını kontrol edin. Bunlar RTL dostudur (Sol/Sağ yerine Başlangıç/Bitiş).
+
+#### Yatay olarak sola hizalayın (başlat)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Yatay olarak merkeze hizalayın
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Yatay olarak sağa hizala (son)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Dikey Yerleşimler
+
+Y ekseni boyunca hizalamayı kontrol edin. Bu, özellikle gezinme çubuğunun özel bir yüksekliği olduğunda kullanışlıdır.
+
+#### Dikey olarak üste hizalayın (başlangıç)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Dikey olarak merkeze hizalayın
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Alt tarafa (uç) dikey olarak hizalayın
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

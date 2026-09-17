@@ -1,0 +1,139 @@
+---
+name: "Permukaan"
+heading: "Komponen Permukaan"
+description: "Permukaan CSS Tailwind khusus CSS untuk menerapkan latar belakang bertema dan warna teks ke wadah. Semua varian warna. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Surface - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tailwind CSS Surface untuk wadah konten berlapis dan hierarki kedalaman visual. Berbagai tingkat ketinggian dan bentuk untuk alternatif kartu dan tata letak bersarang."
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Permukaan oleh Frutjam"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "14fc8e54a8fc"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Permukaan CSS Tailwind khusus CSS untuk menerapkan latar belakang bertema dan warna teks ke wadah. Semua varian warna. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen permukaan adalah tata letak primitif serbaguna yang membuat hierarki visual berlapis dan wadah konten. Dibangun dengan HTML semantik, permukaan memberikan opsi kedalaman dan gaya yang fleksibel. Sistem permukaan Frutjam mendukung berbagai ukuran, bentuk, dan lapisan—ideal untuk alternatif kartu, blok konten, dan tata letak bersarang.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">Basis</span> | Wadah permukaan dasar |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Ketinggian level 1 (halus) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Ketinggian tingkat 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Isian transparan dengan batas yang terlihat |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Gaya perbatasan putus-putus |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Sudut agak membulat |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan ekstra kecil |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan kecil |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan sedang (default) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan besar |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan ekstra besar |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## Lapisan Permukaan
+
+Gunakan `surface-1` dan `surface-2` untuk membuat hierarki kedalaman dengan mencampurkan warna dasar dengan warna latar depan.
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## Bentuk Permukaan
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## Gaya Perbatasan
+
+Gunakan `surface-outline` atau `surface-dashed` untuk container transparan yang ditentukan oleh pembatas. Ini berfungsi dengan benar ketika disarangkan di dalam lapisan berwarna karena latar belakangnya transparan secara eksplisit.
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Ukuran Permukaan
+
+Utilitas ukuran mengatur padding internal melalui `--surface--padding`. Jangan gabungkan dengan utilitas Tailwind `p-*`—utilitas tersebut akan menggantikan variabel dan mengalahkan kelas ukuran.
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## Permukaan Bersarang
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

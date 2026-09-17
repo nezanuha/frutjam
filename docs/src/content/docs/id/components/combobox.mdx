@@ -1,0 +1,264 @@
+---
+name: "kotak kombo"
+heading: "Komponen Kotak Kombo"
+description: "Kotak kombo Tailwind CSS khusus CSS dengan pemfilteran penelusuran langsung dan daftar tarik-turun yang dapat diakses. Navigasi keyboard, varian warna. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Combobox - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Kotak Kombo CSS Tailwind dengan dropdown yang dapat dicari dan dukungan pelengkapan otomatis. Pemfilteran yang dapat diakses keyboard dan opsi khusus untuk kontrol formulir tingkat lanjut."
+order: 0
+related:
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/combobox_rPhtDO2.webp"
+imageAlt: "Kotak Kombo oleh Frutjam"
+createdAt: "2026-04-19T15:56:34.839959+00:00"
+updatedAt: "2026-07-13T09:46:15.510068+00:00"
+sourceHash: "309b51fd688c"
+translationHash: "748e7db7821b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Kotak kombo Tailwind CSS khusus CSS dengan pemfilteran penelusuran langsung dan daftar tarik-turun yang dapat diakses. Navigasi keyboard, varian warna. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Combobox menggabungkan input teks dengan daftar dropdown. Gunakan komponen `input` untuk bidang — varian ukuran, warna, dan status berasal dari sana. Utilitas `combobox-*` hanya menangani daftar dropdown, item, dan status terbuka.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| combobox-list | <span class="badge badge-xs">Basis</span> | Wadah daftar tarik-turun untuk opsi kotak kombo |
+| combobox-item | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opsi individual di dalam daftar dropdown |
+| combobox-open | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menampilkan daftar dropdown saat diterapkan ke pembungkus |
+| combobox-primary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Sorotan warna tema utama untuk item |
+| combobox-secondary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Sorotan warna tema sekunder untuk item |
+| combobox-accent | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Sorotan warna tema aksen untuk item |
+| combobox-info | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Info sorotan warna semantik |
+| combobox-success | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Sorotan warna semantik sukses |
+| combobox-warning | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Sorotan warna semantik peringatan |
+| combobox-error | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Kesalahan sorotan warna semantik |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Bungkus `input` dan `combobox-list` dalam wadah `relative`. Tambahkan `combobox-open` ke pembungkus untuk menampilkan daftar — alihkan melalui JS atau `:focus-within`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Buka pada Fokus
+
+Gunakan `focus-within:combobox-open` pada wrapper untuk membuka daftar ketika input terfokus — tidak diperlukan JavaScript.
+
+<Snippet>
+
+```html
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Ukuran
+
+Gunakan `input-sm`, `input-lg`, dll. pada kolom input. Dropdown beradaptasi secara alami.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Warna
+
+Gunakan `input-primary` dll. pada input untuk warna bidang. Tambahkan `combobox-primary` yang cocok ke pembungkus untuk mewarnai sorotan item aktif.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Dengan disabilitas
+
+<Snippet>
+
+```html
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+```
+
+</Snippet>
+
+## Dengan Tombol
+
+Tulis dengan `join` untuk melampirkan ikon pencarian atau tombol pemicu.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item" placeholder="Search...">
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Item sebagai Tautan atau Tombol
+
+`combobox-item` berfungsi pada elemen apa pun — `<li>`, `<a>`, atau `<button>`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## JS & Pembantu React
+
+Gunakan `createCombobox` dari `frutjam/js` atau `useCombobox` dari `frutjam/react` untuk mendapatkan pemfilteran, navigasi keyboard (↑ ↓ Enter Escape), dan wiring `aria-*` lengkap. Dengarkan event `fj:select` untuk menangani seleksi.
+
+<Snippet>
+
+```html
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-item" data-value="react">React</li>
+    <li class="combobox-item" data-value="vue">Vue</li>
+    <li class="combobox-item" data-value="angular">Angular</li>
+    <li class="combobox-item" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>

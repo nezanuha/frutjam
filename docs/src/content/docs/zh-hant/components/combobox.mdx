@@ -1,0 +1,264 @@
+---
+name: "組合框"
+heading: "組合框組件"
+description: "僅 CSS Tailwind CSS 組合框，具有即時搜尋過濾和可存取的下拉清單。鍵盤導航，顏色變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Combobox - 僅 CSS 的 Tailwind CSS 元件 |弗魯賈姆"
+metaDescription: "Tailwind CSS 組合方塊具有可搜尋下拉式選單和自動完成支援。用於進階表單控制項的鍵盤可存取過濾和自訂選項。"
+order: 0
+related:
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/combobox_rPhtDO2.webp"
+imageAlt: "Frutjam 的組合框"
+createdAt: "2026-04-19T15:56:34.839959+00:00"
+updatedAt: "2026-07-13T09:46:15.510068+00:00"
+sourceHash: "309b51fd688c"
+translationHash: "c979350afff9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 組合框，具有即時搜尋過濾和可存取的下拉清單。鍵盤導航，顏色變體。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+組合方塊將文字輸入與下拉清單組合在一起。使用 `input` 欄位的組件－大小、顏色和狀態變體都來自那裡。這 `combobox-*` 實用程式僅處理下拉清單、項目和開啟狀態。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| combobox-list | <span class="badge badge-xs">根據</span> | 組合方塊選項的下拉清單容器 |
+| combobox-item | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 下拉清單中的單一選項 |
+| combobox-open | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 應用於包裝器時顯示下拉列表 |
+| combobox-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 項目的主要主題顏色突出顯示 |
+| combobox-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 項目的次要主題顏色突出顯示 |
+| combobox-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 項目的強調主題顏色突出顯示 |
+| combobox-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息語意顏色高亮 |
+| combobox-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功語意色彩高亮 |
+| combobox-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告語意顏色突出顯示 |
+| combobox-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 錯誤語意顏色突出顯示 |
+
+</DocTable>
+
+## 基本用法
+
+包裹一個 `input` 和一個 `combobox-list` 在一個 `relative` 容器。添加 `combobox-open` 到包裝器以顯示清單 - 透過 JS 切換它或 `:focus-within`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## 焦點打開
+
+使用 `focus-within:combobox-open` 當輸入對焦時，在包裝器上打開清單 - 不需要 JavaScript。
+
+<Snippet>
+
+```html
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 尺寸
+
+使用 `input-sm`, `input-lg`輸入欄位上的 等。下拉式選單會自然適應。
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 顏色
+
+使用 `input-primary` 等等關於字段顏色的輸入。新增匹配項 `combobox-primary` 到包裝器以對活動項目高亮進行著色。
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 殘障人士
+
+<Snippet>
+
+```html
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+```
+
+</Snippet>
+
+## 帶按鈕
+
+撰寫與 `join` 附加搜尋圖示或觸發按鈕。
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item" placeholder="Search...">
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 作為連結或按鈕的項目
+
+`combobox-item` 適用於任何元素 - `<li>`, `<a>`， 或者 `<button>`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## JS 和 React 助手
+
+使用 `createCombobox` 從 `frutjam/js` 或者 `useCombobox` 從 `frutjam/react` 獲得過濾、鍵盤導航（↑ ↓ Enter Escape）和完整 `aria-*` 開箱即用的接線。聽聽 `fj:select` 處理選擇的事件。
+
+<Snippet>
+
+```html
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-item" data-value="react">React</li>
+    <li class="combobox-item" data-value="vue">Vue</li>
+    <li class="combobox-item" data-value="angular">Angular</li>
+    <li class="combobox-item" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>

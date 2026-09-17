@@ -1,0 +1,297 @@
+---
+name: "Carrousel"
+heading: "Composant carrousel"
+description: "Carrousel CSS Tailwind uniquement CSS utilisant scroll-snap. Disposition des diapositives horizontales avec commandes de navigation et aucun JavaScript requis. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
+metaTitle: "Carousel - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaDescription: "Carrousel CSS Tailwind sans JS utilisant le scroll-snap CSS. Fonction tactile avec commandes de navigation et indicateurs pour les galeries d'images et les curseurs de contenu."
+order: 0
+related:
+  - "components/button"
+  - "components/indicator"
+image: "https://cdn.frutjam.com/media/components/carousel_j3ks8GX.webp"
+imageAlt: "Carrousel par Frutjam"
+createdAt: "2026-04-19T15:56:06.116976+00:00"
+updatedAt: "2026-07-13T09:50:30.911335+00:00"
+sourceHash: "8044c8196719"
+translationHash: "23210e04f65b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Carrousel CSS Tailwind uniquement CSS utilisant scroll-snap. Disposition des diapositives horizontales avec commandes de navigation et aucun JavaScript requis. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+Les composants du carrousel affichent plusieurs éléments dans un conteneur rotatif ou déroulant, idéal pour présenter des images, des témoignages, des galeries de produits ou du contenu en vedette. Construits avec du HTML sémantique et un comportement de défilement fluide, les carrousels prennent en charge les mises en page horizontales et verticales avec un alignement instantané. Le système de carrousel Frutjam est parfait pour les sections de héros, les galeries de produits, les affichages de témoignages et les curseurs de contenu.
+
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Classe | Taper | Description |
+| --- | --- | --- |
+| carousel | <span class="badge badge-xs">Base</span> | Conteneur à défilement horizontal avec comportement d'accrochage |
+| carousel-item | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Diapositive individuelle à l'intérieur du carrousel |
+| carousel-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Direction de défilement vertical |
+| carousel-center | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Aligner l'alignement au centre de chaque élément |
+| carousel-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Alignement instantané à la fin de chaque élément |
+
+</DocTable>
+
+## Utilisation de base
+
+Créez un carrousel horizontal simple avec des éléments déroulants.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-4 p-4 bg-base-100">
+  <div class="carousel-item w-96">
+    <div class="badge badge-primary">Featured</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-secondary">Popular</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-accent">Trending</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="carousel w-full gap-4 p-4 bg-base-100">
+  <div className="carousel-item w-96">
+    <div className="badge badge-primary">Featured</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-secondary">Popular</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-accent">Trending</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Carrousel avec images
+
+Affichez des galeries d'images avec un défilement fluide et un dimensionnement réactif.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-2">
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=800&height=450" alt="Image 1" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=800&height=450" alt="Image 2" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=800&height=450" alt="Image 3" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Centre du carrousel aligné
+
+Affichez les éléments du carrousel avec un alignement central et un espacement entre les cartes.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-center gap-4 p-4 bg-base-200 rounded-lg">
+  <div class="carousel-item">
+    <div class="card card-primary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 1</h2>
+        <p>Featured product or content</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-secondary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 2</h2>
+        <p>Popular selection</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-accent w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 3</h2>
+        <p>Trending now</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Carrousel vertical
+
+Créez un carrousel vertical pour faire défiler les éléments de haut en bas.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-vertical h-96 gap-2 p-2 bg-base-100">
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-primary">Item 1</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-secondary">Item 2</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-accent">Item 3</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-info">Item 4</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Carrousel avec navigation
+
+Ajoutez des boutons pour la navigation manuelle entre les éléments du carrousel à l’aide de liens d’ancrage.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="slide1" class="carousel-item relative w-full">
+    <div class="badge badge-primary w-full h-32">Slide 1</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide2" class="carousel-item relative w-full">
+    <div class="badge badge-secondary w-full h-32">Slide 2</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide1" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide3" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide3" class="carousel-item relative w-full">
+    <div class="badge badge-accent w-full h-32">Slide 3</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide4" class="carousel-item relative w-full">
+    <div class="badge badge-info w-full h-32">Slide 4</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide3" class="btn btn-circle btn-sm" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <a href="#slide1" class="btn btn-circle btn-sm" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Carrousel avec indicateurs de points
+
+Utilisez de petits boutons de badge comme indicateurs de navigation pour plusieurs éléments du carrousel.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="item1" class="carousel-item w-full">
+    <div class="badge badge-primary w-full h-32">1</div>
+  </div>
+  <div id="item2" class="carousel-item w-full">
+    <div class="badge badge-secondary w-full h-32">2</div>
+  </div>
+  <div id="item3" class="carousel-item w-full">
+    <div class="badge badge-accent w-full h-32">3</div>
+  </div>
+  <div id="item4" class="carousel-item w-full">
+    <div class="badge badge-info w-full h-32">4</div>
+  </div>
+  <div class="flex justify-center gap-2 pt-4">
+    <a href="#item1" class="btn btn-xs btn-outline">1</a>
+    <a href="#item2" class="btn btn-xs btn-outline">2</a>
+    <a href="#item3" class="btn btn-xs btn-outline">3</a>
+    <a href="#item4" class="btn btn-xs btn-outline">4</a>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Aide JS et React
+
+Utilisez `createCarousel` depuis `frutjam/js` ou `useCarousel` depuis `frutjam/react` pour parcourir les diapositives par programme - respecte automatiquement `prefers-reduced-motion`.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-3">
+  <button class="btn btn-sm" id="carousel-prev">← Prev</button>
+  <button class="btn btn-sm" id="carousel-next">Next →</button>
+</div>
+<div class="carousel w-full" id="js-carousel">
+  <div class="carousel-item w-full"><div class="badge badge-primary w-full h-32">Slide 1</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-secondary w-full h-32">Slide 2</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-accent w-full h-32">Slide 3</div></div>
+</div>
+<script type="module">
+  import { createCarousel } from 'frutjam/js'
+  const carousel = createCarousel(document.getElementById('js-carousel'))
+  document.getElementById('carousel-prev').onclick = () => carousel.prev()
+  document.getElementById('carousel-next').onclick = () => carousel.next()
+</script>
+```
+
+```jsx
+import { useCarousel } from 'frutjam/react'
+
+export default function CarouselDemo() {
+  const carousel = useCarousel()
+  return (
+    <>
+      <div className="flex gap-2 mb-3">
+        <button className="btn btn-sm" onClick={carousel.prev}>← Prev</button>
+        <button className="btn btn-sm" onClick={carousel.next}>Next →</button>
+      </div>
+      <div ref={carousel.ref} className="carousel w-full">
+        <div className="carousel-item w-full"><div className="badge badge-primary w-full h-32">Slide 1</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-secondary w-full h-32">Slide 2</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-accent w-full h-32">Slide 3</div></div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

@@ -1,0 +1,253 @@
+---
+name: "통계"
+heading: "통계 구성 요소"
+description: "측정항목 표시를 위한 CSS 전용 Tailwind CSS 통계입니다. 값, 레이블, 설명 및 아이콘 슬롯입니다. 반응형 그리드 레이아웃. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "Stat - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "대시보드 및 KPI 표시를 위한 Tailwind CSS 통계입니다. 명확한 측정항목 및 분석 프레젠테이션을 위한 제목, 값, 추세 표시기 및 아이콘 지원."
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Frutjam의 통계"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "44f6677e4c60"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+측정항목 표시를 위한 CSS 전용 Tailwind CSS 통계입니다. 값, 레이블, 설명 및 아이콘 슬롯입니다. 반응형 그리드 레이아웃. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+통계 구성요소는 핵심 지표와 수치 데이터를 명확하고 체계적인 형식으로 표시합니다. 시맨틱 HTML과 유연한 레이아웃으로 구축된 통계는 중요한 비즈니스 지표와 분석을 전달합니다. Frutjam 통계 시스템은 대시보드, 성과 보고서 및 데이터 요약에 이상적인 다양한 배열과 스타일을 지원합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">베이스</span> | 하나 이상의 통계 항목을 담는 컨테이너 |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 제목, 값, 설명이 포함된 개별 통계 항목 |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 통계 값 위의 라벨 |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 큰 기본 숫자 또는 텍스트 값 |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 값 아래에 보충 설명 |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 통계 옆에 있는 아이콘 또는 아바타 |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 통계 항목을 나란히 정렬합니다(기본값) |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 통계 항목을 수직으로 쌓습니다. |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 기본 테마 색상 |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 보조 테마 색상 |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 강조 테마 색상 |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 중립 테마 색상 |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값에 대한 정보 의미 색상 |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 성공 의미 색상 |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값에 대한 경고 의미 색상 |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 통계 값의 오류 의미 색상 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## 다중 통계
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 아이콘이 포함된 통계
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 수평 통계
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 수직 통계
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 색상 변형
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 의미론적 색상 변형
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

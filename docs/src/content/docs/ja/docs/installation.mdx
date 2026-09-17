@@ -1,0 +1,117 @@
+---
+name: "インストール"
+heading: "インストール"
+description: "CSS 専用の Tailwind CSS UI ライブラリである Frutjam を数分でインストールします。 2 つのインポート、ゼロ JavaScript、すぐに使える WCAG アクセス可能なコンポーネント。 Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。"
+metaTitle: "Frutjam をインストールする | CSS のみの Tailwind CSS UI ライブラリ |Frutjam"
+metaDescription: "Frutjam CSS 専用の Tailwind CSS UI ライブラリをインストールします。 2 つのインポート、JavaScript なし、Tailwind v4 互換。 Django、HTMX、Laravel、React で動作します。"
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "インスタレーション - フルジャム"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "85a5fda73093"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS 専用の Tailwind CSS UI ライブラリである Frutjam を数分でインストールします。 2 つのインポート、ゼロ JavaScript、すぐに使える WCAG アクセス可能なコンポーネント。 Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+## Tailwind CSS プロジェクトに Frutjam UI ライブラリをインストールするにはどうすればよいですか?
+
+コンピュータ上に動作する [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) プロジェクト、および [ノード](https://nodejs.org/en/download) および NPM がインストールされていることを確認してください。 Frutjam は Tailwind バージョン 4 で動作します。
+
+### 次のコマンドを実行して、frutjam をノード パッケージとしてインストールします。
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+`@plugin` ディレクティブを使用して、Frutjam を `input.css` に追加します。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript & React — オプション、必須ではありません
+
+Frutjam は**ネイティブファーストかつ CSS ファースト**です。ボタン、バッジ、カード、フォーム、アラートなどのコンポーネントの大部分は、純粋な HTML と CSS で動作し、JavaScript は必要ありません。 `<dialog>`、`<details>`、`<input type="checkbox">` などのネイティブ HTML 要素は、ブラウザーがすでにサポートしている対話機能を処理します。すべてのコンポーネントはすぐに WCAG AA にアクセスでき、Django、HTMX、Laravel、React、Next.js、およびあらゆるスタックで動作します。
+
+少数のコンポーネントには、ネイティブ HTML に相当するものがありません (トースト通知、コンボボックス フィルタリング、カルーセル コントロール)。そのような場合にのみ、Frutjam には軽量のオプション ヘルパーが付属しています。
+
+### バニラ JS — `frutjam/js`
+
+必要なコンポーネント用のフレームワークに依存しない ES モジュール ヘルパー。任意の DOM 要素にアタッチします。フレームワークは必要ありません。
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### 反応フック — `frutjam/react`
+
+同じネイティブ DOM 呼び出しを囲む Thin React ラッパー。各フックは、要素にアタッチした `ref` とそれを制御するメソッドを返します。React 自体以外の追加の依存関係はありません。
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+使用可能な対象: `useModal`、`useDrawer`、`useCollapsible`、`useTooltip`、`useTabs`、`useToast`、`useCarousel`、`useCombobox`。
+
+### CDN の使用
+
+frutjam UI ライブラリの CDN バージョンを使用すると、ローカル設定なしで迅速かつ簡単に統合できます。 frutjam のこの CDN バージョンは、運用環境ではなく、開発目的でのみ使用してください。
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## 次のステップ
+
+インストールしたら、 [ボタン コンポーネント](/components/button) を試して Frutjam の動作を確認するか、完全な [コンポーネント ライブラリ](/components) を調べてください。
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AIエディターの統合</p><h3 class=\"card-title mb-2\">Claude コード、Cursor、または別の AI エディターを使用していますか?</h3><p class=\"para-sm mb-3\">Cherry MCP は、Frutjam の完全なコンポーネント ライブラリを AI エディタのコンテキストに直接導入します。正確なクラス名、ライブ ドキュメント、コピー＆ペーストは不要です。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP について詳しく知る→</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">Frutjam の CSS ファーストのアプローチの背後にある考え方を理解したいですか? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">この方法で構築した理由を読む→</a></p>"} />

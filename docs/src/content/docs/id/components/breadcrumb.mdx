@@ -1,0 +1,142 @@
+---
+name: "Remah roti"
+heading: "Komponen Remah Roti"
+description: "Navigasi runut tautan CSS Tailwind khusus CSS dengan pemisah khusus dan markup landmark yang dapat diakses. WCAG AA, bekerja dengan Django, HTMX, Laravel, React, dan proyek Tailwind CSS v4 apa pun."
+metaTitle: "Breadcrumb - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb menggunakan HTML semantik untuk jalur navigasi yang mudah diakses dan ramah SEO. Mendukung pemisah khusus, ikon, dan tata letak responsif."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Komponen Breadcrumb oleh Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "e2f0232cfe4f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Navigasi runut tautan CSS Tailwind khusus CSS dengan pemisah khusus dan markup landmark yang dapat diakses. WCAG AA, bekerja dengan Django, HTMX, Laravel, React, dan proyek Tailwind CSS v4 apa pun.
+
+Komponen Breadcrumb menunjukkan hierarki navigasi dan membantu pengguna memahami lokasi mereka dalam situs web. Dibangun dengan elemen navigasi HTML semantik dan penanda ARIA untuk aksesibilitas, remah roti meningkatkan kegunaan dengan memungkinkan pengguna menavigasi dengan cepat ke bagian induk. Sistem remah roti Frutjam secara otomatis merender pemisah dan mendukung pemisah khusus untuk penataan gaya yang fleksibel.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Basis</span> | Wadah navigasi untuk jejak remah roti |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Daftar item remah roti yang dipesan |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Item daftar individual di remah roti |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Elemen jangkar ditata sebagai tautan remah roti |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Elemen pemisah antar item |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menandai item halaman saat ini (aktif). |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Jika tidak ada pemisah yang disediakan, panah akan ditampilkan di antara item remah roti secara otomatis.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Pemisah Remah Roti
+
+### Remah roti dengan Pemisah Teks
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Remah roti dengan Pemisah Ikon
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Aksesibilitas Breadcrumb
+
+Untuk memastikan remah roti dapat diakses oleh pembaca layar:
+
+-   Gabungkan struktur dalam elemen `<nav>` dengan `aria-label="Breadcrumb"`.
+-   Item terakhir (halaman saat ini) harus menggunakan `aria-current="page"` dan sebaiknya berupa `<span>` daripada tautan.
+-   Pemisah harus diabaikan oleh pembaca layar (sering ditangani melalui CSS atau `aria-hidden="true"` jika menggunakan elemen fisik).

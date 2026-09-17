@@ -1,0 +1,156 @@
+---
+name: "Schritte"
+heading: "Schritte-Komponente"
+description: "Nur CSS Tailwind CSS-Schritte für mehrstufige Assistenten und Fortschrittsanzeigen. Horizontales und vertikales Layout, Farbvarianten pro Schritt. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Schritte – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS-Schritte für Assistentenabläufe, Checkout-Trichter und Onboarding. Horizontale und vertikale Layouts mit nummerierten Symbolen und abgeschlossenen Schrittzuständen."
+order: 0
+related:
+  - "components/timeline"
+  - "components/progress"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/steps_OMegeLA.webp"
+imageAlt: "Schritte von Frutjam"
+createdAt: "2026-04-19T15:57:12.346672+00:00"
+updatedAt: "2026-07-13T09:38:52.291564+00:00"
+sourceHash: "f9d28f064de3"
+translationHash: "6f6ec7831c8d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS Tailwind CSS-Schritte für mehrstufige Assistenten und Fortschrittsanzeigen. Horizontales und vertikales Layout, Farbvarianten pro Schritt. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Schrittkomponenten visualisieren mehrstufige Prozesse, Anleitungen oder Arbeitsabläufe, indem sie aufeinanderfolgende Phasen anzeigen. Die mit semantischem HTML und flexiblen Layouts erstellten Schritte zeigen den Fortschritt durch Einrichtungsassistenten, Tutorials und komplexe Verfahren an. Das Frutjam-Schrittesystem unterstützt mehrere Größen, Farben, Strukturen und Fertigstellungsstatus – ideal für Formularassistenten, Installationsanleitungen und Fortschrittsverfolgung.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| steps | <span class="badge badge-xs">Base</span> | Container für eine geordnete Liste von Schritten |
+| step | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Einzelnes Schrittelement mit einer nummerierten Markierung |
+| steps-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Horizontales Layout (Standard) |
+| steps-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Vertikal gestapeltes Layout |
+| step-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Farbmarkierung für das Hauptthema |
+| step-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Farbmarkierung für sekundäres Thema |
+| step-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Farbmarkierung für Akzentthemen |
+| step-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Neutraler Themenfarbmarker |
+| step-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Info-semantischer Farbmarker |
+| step-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Erfolgssemantischer Farbmarker |
+| step-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantischer Warnfarbmarker |
+| step-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Fehlersemantischer Farbmarker |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<ul class="steps">
+  <li class="step">Shipping</li>
+  <li class="step step-primary">Payment</li>
+  <li class="step">Confirmation</li>
+</ul>
+```
+
+```jsx
+<ul className="steps">
+  <li className="step">Shipping</li>
+  <li className="step step-primary">Payment</li>
+  <li className="step">Confirmation</li>
+</ul>
+```
+
+</Snippet>
+
+## Stufenlayout
+
+<Snippet>
+
+```html
+<ul class="steps steps-horizontal">
+  <li class="step">Step 1</li>
+  <li class="step step-primary">Step 2</li>
+  <li class="step">Step 3</li>
+</ul>
+```
+
+</Snippet>
+
+## Schrittfarben
+
+<Snippet>
+
+```html
+<ul class="steps">
+  <li class="step step-primary">Primary</li>
+  <li class="step step-secondary">Secondary</li>
+  <li class="step step-accent">Accent</li>
+  <li class="step step-info">Info</li>
+  <li class="step step-success">Success</li>
+  <li class="step step-warning">Warning</li>
+  <li class="step step-error">Error</li>
+</ul>
+```
+
+</Snippet>
+
+## Vertikale Schritte
+
+<Snippet>
+
+```html
+<ul class="steps steps-vertical">
+  <li class="step step-primary">Account setup</li>
+  <li class="step step-primary">Personal info</li>
+  <li class="step">Payment method</li>
+  <li class="step">Confirmation</li>
+</ul>
+```
+
+</Snippet>
+
+## Schritte mit Beschreibung
+
+<Snippet>
+
+```html
+<div class="space-y-4">
+  <div>
+    <ul class="steps w-full">
+      <li class="step step-primary">Register</li>
+      <li class="step step-primary">Verify Email</li>
+      <li class="step">Choose Plan</li>
+      <li class="step">Complete</li>
+    </ul>
+    <div class="grid grid-cols-4 gap-4 mt-4 text-xs text-center">
+      <div>Create account</div>
+      <div>Check your inbox</div>
+      <div>Select pricing</div>
+      <div>Get started</div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Reaktionsfähige Schritte
+
+<Snippet>
+
+```html
+<ul class="steps w-full">
+  <li class="step step-primary">Order placed</li>
+  <li class="step step-primary">Processing</li>
+  <li class="step">Shipped</li>
+  <li class="step">Delivered</li>
+</ul>
+```
+
+</Snippet>

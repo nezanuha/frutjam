@@ -1,0 +1,198 @@
+---
+name: "Chatten"
+heading: "Chat-Blasen-Komponente"
+description: "Nur CSS-basierte Tailwind-CSS-Chat-Blasenkomponente. Start- und Endpositionen für gesendete und empfangene Nachrichten, mit Avatar- und Zeitstempel-Slots. WCAG AA, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Chat – Nur CSS-Tailwind CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS-Chat-Blase mit Start-/Endausrichtung, Avataren, Zeitstempeln und Statusanzeigen. Erstellen Sie barrierefreie Messaging-Benutzeroberflächen ohne JavaScript."
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Chat von Frutjam"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "016d8a651973"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-basierte Tailwind-CSS-Chat-Blasenkomponente. Start- und Endpositionen für gesendete und empfangene Nachrichten, mit Avatar- und Zeitstempel-Slots. WCAG AA, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Chat-Komponenten zeigen Konversationsnachrichten in einem lesbaren, organisierten Format an. Chat-Blasen wurden mit semantischem HTML und flexiblen Layouts erstellt und stellen sowohl Benutzer- als auch Systemnachrichten dar. Das Frutjam-Chat-System unterstützt mehrere Farben, Ausrichtungen und Stile – ideal für Messaging-Schnittstellen, Kundensupport-Panels und Konversations-UIs.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">Base</span> | Wrapper für eine einzelne Chat-Nachrichtenzeile |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Gestylte Nachrichtenblase |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Avatar wird neben der Nachricht angezeigt |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Absendername oder Metadaten über der Blase |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Zeitstempel oder Status unterhalb der Blase |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Richtet die Blase nach links aus (eingehende Nachricht) |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Richtet die Sprechblase rechts aus (ausgehende Nachricht) |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra klein |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Klein |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittel (Standard) |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Groß |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra groß |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Farbblase des Hauptthemas |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Sekundärthema-Farbblase |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Akzentthema-Farbblase |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Farbblase mit neutralem Thema |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Info semantische Farbblase |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Erfolgssemantische Farbblase |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Warnende semantische Farbblase |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Fehlersemantische Farbblase |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## Chatten Sie mit Avatar
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## Chat-Größen
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## Chat-Stile
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## Chat-Kopf- und Fußzeile
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## Konversationsthread
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

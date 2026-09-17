@@ -1,223 +1,229 @@
 ---
-import config from 'virtual:starlight/user-config';
-import Search       from 'virtual:starlight/components/Search';
-import SiteTitle    from 'virtual:starlight/components/SiteTitle';
-import SocialIcons  from 'virtual:starlight/components/SocialIcons';
-import ThemeSelect  from 'virtual:starlight/components/ThemeSelect';
+/** frutjam.com's templates/cotton/frontend/header.html */
+import Aside from './Aside.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { FRUTJAM_VERSION, isEnglishOnly } from '@/lib/site';
+import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
 
-const shouldRenderSearch =
-  config.pagefind ||
-  config.components.Search !== '@astrojs/starlight/components/Search.astro';
-
-const NAV = [
-  { label: 'Docs',       href: '/docs/overview' },
-  { label: 'Components', href: '/components/button' },
-  { label: 'Blocks',     href: '/blocks/header' },
-  { label: 'Blog',       href: '/blog' },
-];
+const englishOnly = isEnglishOnly(Astro.url.pathname);
+const { lang } = splitLang(Astro.url.pathname);
+const t = useTranslations(lang);
 ---
 
-<div class="header-content fj-header">
-  <div class="header-start">
-    <SiteTitle />
-  </div>
-
-  <div class="header-center">
-    <nav class="navbar fj-header-nav" aria-label="Main navigation">
-      <ul class="navbar-list gap-x-6">
-        {NAV.map((item) => (
-          <li>
-            <a class="link link-xs link-hover" href={item.href}>{item.label}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
-
-  <div class="header-end">
-    {shouldRenderSearch && (
-      <div class="fj-header-search print:hidden">
-        <Search />
-      </div>
-    )}
-
-    <div class="fj-header-actions print:hidden">
-      <div class="sl-flex social-icons">
-        <SocialIcons />
-      </div>
-      <ThemeSelect />
+<header class="header header-sticky">
+  <div class="header-content px-4 lg:px-8">
+    <div class="header-start">
+        <a href={langUrl(lang, "/")} class="font-semibold text-xl flex items-center" title="frutjam">
+          <svg width="32" height="32" class="h-8 mr-2" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+              <desc>Frutjam logo</desc>
+              <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+              <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+                  <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+                  <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+              </g>
+          </svg>
+          <span>Frutjam</span>
+        </a>
+        <div class="badge badge-xs">v{FRUTJAM_VERSION}</div>
     </div>
 
-    <details class="fj-header-menu print:hidden">
-      <summary aria-label="Menu">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
-             stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
-             aria-hidden="true">
-          <path d="M4.5 7.5h15M4.5 12h15M4.5 16.5h15" />
-        </svg>
-      </summary>
-      <div class="fj-header-menu__panel">
-        <nav aria-label="Site">
-          <ul>
-            {NAV.map((item) => (
-              <li><a href={item.href}>{item.label}</a></li>
-            ))}
-          </ul>
-        </nav>
-        <div class="fj-header-menu__prefs">
-          <ThemeSelect />
-          <div class="sl-flex social-icons"><SocialIcons /></div>
+    <div class="header-end">
+        <!-- for large screen -->
+        <div>
+          <nav class="navbar navbar-center navbar-end">
+            <ul class="navbar-list gap-x-6">
+              <li>
+                <button type="button" class="btn btn-xs btn-outline btn-pill" onclick="openSearch()" aria-label="Search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                  <span class="hidden lg:block">{t("Search...")}</span>
+                  <kbd class="kbd kbd-sm ms-4 hidden lg:inline">⌘K</kbd>
+                </button>
+              </li>
+              <li class="hidden lg:inline">
+                <a href={langUrl(lang, "/docs")} class="link link-xs link-hover">{t("Docs")}</a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href={langUrl(lang, "/components")} class="link link-xs link-hover">{t("Components")}</a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href={langUrl(lang, "/blocks")} class="link link-xs link-hover">{t("Blocks")}</a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href={langUrl(lang, "/plugins")} class="link link-xs link-hover">{t("Plugins")}</a>
+              </li>
+              <li class="hidden lg:inline">
+                <div class="popover popover-bottom-start">
+                  <button type="button" popovertarget="productsPopover" class="popover-toggle link link-xs link-hover flex items-center gap-1">
+                    {t("Products")}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                  </button>
+                  <div tabindex="0" class="popover-content" id="productsPopover" popover>
+                    <ul class="menu menu-sm min-w-44">
+                      <li>
+                        <a href={langUrl(lang, "/products/cherry")} class="menu-item">
+                          <span>🍒</span> Cherry MCP
+                          <span class="badge badge-primary badge-xs badge-soft ml-auto">AI</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="h-full hidden lg:inline">
+                <div class="divider divider-vertical h-full"></div>
+              </li>
+              <li class="hidden lg:inline">
+                <a href="https://github.com/nezanuha/frutjam" class="btn btn-sm btn-ghost btn-square btn-rounded">
+                  <span class="sr-only">Frutjam GitHub</span>
+                  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                    <title>GitHub</title>
+                    <path fill="currentColor"
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                  </svg>
+                </a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href="https://www.npmjs.com/package/frutjam" class="btn btn-sm btn-ghost btn-square btn-rounded">
+                  <span class="sr-only">Frutjam NPM</span>
+                  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                    <title>npm</title>
+                    <path fill="currentColor"
+                      d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z" />
+                  </svg>
+                </a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href="https://discord.gg/FvjytjQSSZ" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost btn-square btn-rounded">
+                  <span class="sr-only">Frutjam Discord</span>
+                  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                    <title>Discord</title>
+                    <path fill="currentColor"
+                      d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942.0209-.0407.0012-.0895-.0407-.1067-.6514-.2476-1.2723-.5495-1.8722-.8923-.0462-.0277-.0499-.1123-.0055-.1646.1259-.094.2518-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1199.099.2458.1981.3728.2924.0444.0523.0407.1369-.0055.1646-.5999.3428-1.2208.6447-1.8722.8923-.0419.0162-.0605.0660-.0407.1067.3529.698.7644 1.3628 1.226 1.9932a.077.077 0 00.0842.0276c1.9601-.6066 3.9486-1.5219 6.0014-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
+                  </svg>
+                </a>
+              </li>
+              <li class="hidden lg:inline">
+                <a href="https://x.com/FrutjamUI" class="btn btn-sm btn-ghost btn-square btn-rounded">
+                  <span class="sr-only">Frutjam X</span>
+                  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                    <title>X</title>
+                    <path fill="currentColor"
+                      d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                  </svg>
+                </a>
+              </li>
+              <li class="h-full hidden lg:inline">
+                <div class="divider divider-vertical h-full"></div>
+              </li>
+              <li class="hidden lg:inline">
+                <div class="popover popover-bottom-start">
+                    <button type="button" popovertarget="themeSelectorPopover" class="popover-toggle btn btn-outline btn-soft btn-xs btn-square join-item theme-selection" aria-label="Theme">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                    </button>
+                    <div tabindex="0" class="popover-content" id="themeSelectorPopover" popover>
+                        <ul class="menu menu-sm">
+                            <li>
+                               <label for="popover-snowberry-theme" class="menu-item snowberry-theme">
+                                  <input type="radio" name="theme" id="popover-snowberry-theme" value="snowberry" class="hidden">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>
+                                  {t("Snowberry")}
+                                </label>
+                            </li>
+                            <li>
+                              <label for="popover-darkberry-theme" class="menu-item darkberry-theme">
+                                <input type="radio" name="theme" id="popover-darkberry-theme" value="darkberry" class="hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                                {t("Darkberry")}
+                              </label>
+                            </li>
+                            <li>
+                              <label for="popover-system-theme" class="menu-item system-theme">
+                                <input type="radio" name="theme" id="popover-system-theme" value="system" class="hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                                {t("System")}
+                              </label>
+                            </li>
+                            <li>
+                              <div class="divider my-1"></div>
+                              <a href={langUrl(lang, "/docs/themes")} class="menu-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                                  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                                  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                                  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                                  <path
+                                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                                </svg>
+                                {t("Try More Themes")}
+                              </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              </li>
+              <li class="hidden lg:inline">
+                {!englishOnly && <LanguageSwitcher />}
+              </li>
+            </ul>
+          </nav>
         </div>
-      </div>
-    </details>
+
+        <!-- for small screen -->
+        <div class="block lg:hidden">
+          <button type="button" class="btn-base btn-sm btn-ghost" onclick="toggleMenu.show()">
+            <span class="sr-only">Menu</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" x2="20" y1="10" y2="10"></line>
+              <line x1="4" x2="20" y1="20" y2="20"></line>
+            </svg>
+          </button>
+          <dialog class="drawer drawer-bottom" id="toggleMenu">
+            <div class="drawer-content space-y-2 p-4">
+              <Aside place="header" />
+            </div>
+            <button type="button" class="drawer-backdrop" onclick="toggleMenu.close()">Close Drawer via Backdrop</button>
+          </dialog>
+        </div>
+    </div>
   </div>
-</div>
+</header>
 
-<script>
-  const closeMenus = (except?: EventTarget | null) => {
-    for (const menu of document.querySelectorAll('details.fj-header-menu[open]')) {
-      if (!except || !menu.contains(except as Node)) menu.removeAttribute('open');
-    }
-  };
-  document.addEventListener('click', (e) => closeMenus(e.target));
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    closeMenus();
-    const s = document.querySelector('details.fj-header-menu > summary');
-    if (s instanceof HTMLElement) s.focus();
-  });
-  document.addEventListener('pageshow', () => closeMenus());
-</script>
-
-<style>
-  :global(.page > .header) {
-    display: block;
-    padding-block: 0;
-    height: var(--sl-nav-height);
-  }
-
-  .fj-header.header-content {
-    padding-inline: 0;
-    gap: 1rem;
-  }
-
-  .fj-header-nav { display: none; }
-
-  .fj-header-nav :global(.link) {
-    color: var(--sl-color-gray-3);
-    font-weight: 500;
-    white-space: nowrap;
-    transition: color 0.15s ease;
-  }
-
-  .fj-header-nav :global(.link:hover) {
-    color: var(--sl-color-white);
-  }
-
-  .fj-header-search {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    max-width: 16rem;
-  }
-
-  .fj-header-search :global(site-search),
-  .fj-header-search :global(button[data-open-modal]) {
-    width: 100%;
-  }
-
-  .fj-header-actions {
-    display: none;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .social-icons {
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .social-icons::after {
-    content: '';
-    height: 1.25rem;
-    border-inline-end: 1px solid var(--sl-color-hairline);
-  }
-
-  @media (min-width: 64rem) {
-    .fj-header-nav     { display: flex; }
-    .fj-header-actions { display: flex; }
-    .fj-header-menu    { display: none; }
-  }
-
-  /* Mobile search: square icon button */
-  @media (max-width: 63.99rem) {
-    .fj-header-search { flex: none; max-width: none; width: auto; }
-    .fj-header-search :global(site-search),
-    .fj-header-search :global(button[data-open-modal]) { width: 2.25rem; }
-    .fj-header-search :global(button[data-open-modal]) {
-      height: 2.25rem; padding: 0; justify-content: center;
-    }
-    .fj-header-search :global(button[data-open-modal] kbd) { display: none; }
-  }
-
-  /* Mobile menu */
-  .fj-header-menu { position: relative; }
-
-  .fj-header-menu > summary {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.375rem;
-    color: var(--sl-color-gray-2);
-    cursor: pointer;
-  }
-
-  .fj-header-menu > summary::-webkit-details-marker { display: none; }
-
-  .fj-header-menu > summary:hover {
-    color: var(--sl-color-white);
-    background: var(--sl-color-gray-6);
-  }
-
-  .fj-header-menu__panel {
-    position: absolute;
-    inset-inline-end: 0;
-    top: calc(100% + 0.5rem);
-    z-index: 50;
-    min-width: 12rem;
-    padding: 0.5rem;
-    border: 1px solid var(--sl-color-hairline);
-    border-radius: 0.5rem;
-    background: var(--sl-color-bg);
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
-  }
-
-  .fj-header-menu__panel ul { list-style: none; margin: 0; padding: 0; }
-
-  .fj-header-menu__panel a {
-    display: block;
-    padding: 0.5rem 0.625rem;
-    border-radius: 0.375rem;
-    color: var(--sl-color-gray-2);
-    font-size: 0.9rem;
-    text-decoration: none;
-  }
-
-  .fj-header-menu__panel a:hover {
-    background: var(--sl-color-gray-6);
-    color: var(--sl-color-white);
-  }
-
-  .fj-header-menu__prefs {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-    padding-top: 0.625rem;
-    border-top: 1px solid var(--sl-color-hairline);
-  }
-</style>
+<dialog class="modal" id="themeSelectorModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Theme</div>
+    </div>
+    <div class="divider my-3"></div>
+    <ul class="menu w-full">
+      <li>
+        <div class="menu-item">
+            <input type="radio" name="theme" id="snowberry-theme" value="snowberry" class="radio">
+            <label for="snowberry-theme">{t("Snowberry")}</label>
+        </div>
+      </li>
+      <li>
+        <div class="menu-item">
+          <input type="radio" name="theme" id="darkberry-theme" value="darkberry" class="radio">
+          <label for="darkberry-theme">{t("Darkberry")}</label>
+        </div>
+      </li>
+      <li>
+        <div class="menu-item">
+          <input type="radio" name="theme" id="blueberry-theme" value="blueberry" class="radio">
+          <label for="blueberry-theme">Blueberry</label>
+        </div>
+      </li>
+      <li>
+        <div class="menu-item">
+          <input type="radio" name="theme" id="system-theme" value="system" class="radio">
+          <label for="system-theme">{t("System")}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="themeSelectorModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>

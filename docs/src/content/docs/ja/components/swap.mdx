@@ -1,0 +1,187 @@
+---
+name: "スワップ"
+heading: "コンポーネントを交換する"
+description: "CSS のみの Tailwind 2 つの要素を切り替えるための CSS スワップ。 JavaScript を使用せずにアニメーションを反転、回転、フェードできます。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "スワップ - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "JS フリーの Tailwind CSS フェード、回転、反転アニメーションを備えたスワップ。テーマの切り替え、アイコンの遷移、読み込み状態のコンテンツ状態を切り替えます。"
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "フルジャムによるスワップ"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "e58e06150611"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind 2 つの要素を切り替えるための CSS スワップ。 JavaScript を使用せずにアニメーションを反転、回転、フェードできます。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+スワップ コンポーネントは、ユーザー インタラクションに応じてスムーズなアニメーションで 2 つのコンテンツ状態を切り替えます。セマンティック HTML および CSS トランジションを使用して構築されたスワップにより、JavaScript を使用せずにエレガントな状態変更が可能になります。 Frutjam スワップ システムは、テーマの切り替え、モードの切り替え、状態の読み込み、およびインタラクティブなイラストに最適な複数のアニメーション スタイルをサポートしています。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">ベース</span> | チェックボックス駆動の 2 状態トグル ラッパー |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 状態間を回転します |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 3D 効果で状態を切り替えます |
+
+</DocTable>
+
+## 基本的な使い方
+
+状態を切り替えるチェックボックスを使用して、絵文字またはテキスト コンテンツとの単純なスワップを作成します。
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## アニメーションを入れ替える
+
+視覚的なトランジションにさまざまなアニメーション スタイルを適用します: フェード (デフォルト)、回転、反転。
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## SVGアイコンと入れ替える
+
+SVG アイコンを使用すると、滑らかなアニメーションで視覚的な状態を変更できます。
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## ボタンとして交換
+
+スワップ機能とボタン コンポーネントのスタイルを組み合わせて、インタラクティブな切り替えを実現します。
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## バッジとして交換
+
+ステータスまたはカテゴリを切り替えるためのコンパクトなトグルバッジを作成します。
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## 結合されたスワップのバリアント
+
+複雑な切り替えシナリオでは、さまざまなアニメーション スタイルとコンテンツ タイプを組み合わせます。
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

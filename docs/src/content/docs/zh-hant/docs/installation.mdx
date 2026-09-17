@@ -1,0 +1,117 @@
+---
+name: "安裝"
+heading: "安裝"
+description: "只需幾分鐘即可安裝 Frutjam，這是純 CSS 的 Tailwind CSS UI 庫。兩次導入、零 JavaScript、開箱即用的 WCAG 可存取元件。適用於 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 專案。"
+metaTitle: "安裝Frutjam |僅 CSS Tailwind CSS UI 庫 |弗魯賈姆"
+metaDescription: "安裝僅限 Frutjam CSS 的 Tailwind CSS UI 庫。兩次導入，零 JavaScript，相容於 Tailwind v4。適用於 Django、HTMX、Laravel 和 React。"
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "安裝 - Frutjam"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "cda30d0bccef"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+只需幾分鐘即可安裝 Frutjam，這是純 CSS 的 Tailwind CSS UI 庫。兩次導入、零 JavaScript、開箱即用的 WCAG 可存取元件。適用於 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 專案。
+
+## 如何在 Tailwind CSS 專案中安裝 Frutjam UI 庫？
+
+確保你有一份工作 [順風 CSS](https://tailwindcss.com/docs/installation/using-vite) 項目已安裝，以及 [節點](https://nodejs.org/en/download) 和 NPM 在您的電腦上。 Frutjam 可與 Tailwind 版本 4 搭配使用。
+
+### 透過執行以下命令將 frutjam 安裝為節點包：
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+將Frutjam 加入您的 `input.css` 使用 `@plugin` 指示：
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript 和 React——可選，非必需
+
+Frutjam 是**原生優先和 CSS 優先**。絕大多數元件（按鈕、徽章、卡片、表單、警報等）都可使用純 HTML 和 CSS，無需任何 JavaScript。原生 HTML 元素如 `<dialog>`, `<details>`， 和 `<input type="checkbox">` 處理瀏覽器已經支援的互動性。所有组件均可通过 WCAG AA 开箱即用，并可与 Django、HTMX、Laravel、React、Next.js 和任何堆栈配合使用。
+
+少數元件沒有本機 HTML 等效項（toast 通知、組合方塊過濾、輪播控制）。僅針對這些情況，Frutjam 提供了輕量級可選助手。
+
+### 香草 JS — `frutjam/js`
+
+與框架無關的 ES 模組助手，用於需要它們的組件。附加到任何 DOM 元素 — 無需框架。
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### 反應鉤子—— `frutjam/react`
+
+圍繞相同的本機 DOM 調用的精簡 React 包裝器。每個鉤子返回一個 `ref` 你附加到元素和方法來控制它——除了 React 本身之外沒有額外的依賴項。
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+適用於： `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+
+### 使用 CDN
+
+使用 frutjam UI 庫的 CDN 版本可快速輕鬆地集成，無需本地設定。將此 CDN 版本的 frutjam 僅用於開發目的，不得用於生產。
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## 下一步
+
+安裝後，嘗試 [按鈕組件](/components/button) 觀看 Frutjam 的實際應用，或探索完整的 [元件庫](/components).
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI編輯器集成</p><h3 class=\"card-title mb-2\">使用 Claude Code、Cursor 或其他 AI 編輯器？</h3><p class=\"para-sm mb-3\">Cherry MCP 將 Frutjam 的完整組件庫直接帶入您的 AI 編輯器上下文中 — 準確的類名稱、實時文檔，無需複製粘貼。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">了解 Cherry MCP →</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">想要了解 Frutjam CSS 優先方法背後的想法嗎？ <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">閱讀我們為什麼這樣建構它→</a></p>"} />

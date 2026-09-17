@@ -1,0 +1,142 @@
+---
+name: "Migaja de pan"
+heading: "Componente de ruta de navegación"
+description: "Navegación de ruta de navegación CSS Tailwind solo con CSS con separadores personalizados y marcas de puntos de referencia accesibles. WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier proyecto Tailwind CSS v4."
+metaTitle: "Breadcrumb: componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb que utiliza HTML semántico para rutas de navegación accesibles y compatibles con SEO. Admite separadores personalizados, íconos y diseños responsivos."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Componente de ruta de navegación de Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "75ead81b6225"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Navegación de ruta de navegación CSS Tailwind solo con CSS con separadores personalizados y marcas de puntos de referencia accesibles. WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier proyecto Tailwind CSS v4.
+
+Los componentes de ruta de navegación muestran la jerarquía de navegación y ayudan a los usuarios a comprender su ubicación dentro de un sitio web. Construidas con elementos de navegación HTML semánticos y puntos de referencia ARIA para accesibilidad, las rutas de navegación mejoran la usabilidad al permitir a los usuarios navegar rápidamente a las secciones principales. El sistema de ruta de navegación de Frutjam genera automáticamente separadores y admite separadores personalizados para un estilo flexible.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Base</span> | Contenedor de navegación para ruta de navegación |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Lista ordenada de elementos de ruta de navegación |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Elemento de lista individual en la ruta de navegación |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Elemento de anclaje con estilo de enlace de ruta de navegación |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Elemento separador entre artículos |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Marca el elemento de la página actual (activo) |
+
+</DocTable>
+
+## Uso básico
+
+Si no se proporciona ningún separador, se muestra automáticamente una flecha entre los elementos de la ruta de navegación.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Separadores de pan rallado
+
+### Ruta de navegación con separador de texto
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Ruta de navegación con separador de iconos
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Accesibilidad de ruta de navegación
+
+Para garantizar que las rutas de navegación sean accesibles para los lectores de pantalla:
+
+-   Envuelva la estructura en un elemento `<nav>` con un `aria-label="Breadcrumb"`.
+-   El último elemento (página actual) debe usar `aria-current="page"` y preferiblemente ser un `<span>` en lugar de un enlace.
+-   Los lectores de pantalla deben ignorar los separadores (a menudo manejados mediante CSS o `aria-hidden="true"` si se usa un elemento físico).

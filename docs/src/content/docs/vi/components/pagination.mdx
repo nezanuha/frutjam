@@ -1,0 +1,343 @@
+---
+name: "Phân trang"
+heading: "Phân trang"
+description: "Phân trang CSS Tailwind chỉ bằng CSS cho các trang được đánh số, mũi tên trước/tiếp theo, khoảng trống dấu chấm lửng, đầu vào radio có thể truy cập và lựa chọn nhảy trang. Không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Phân trang CSS Tailwind - Thành phần chỉ dành cho CSS | Frutjam"
+metaDescription: "Phân trang CSS Tailwind chỉ bằng CSS. Các trang được đánh số, mũi tên trước/tiếp theo, chọn nhảy trang — không có JavaScript. WCAG có thể truy cập, hoạt động với Django, HTMLX, Laravel, React."
+order: 0
+status: "new"
+related: []
+image: "https://cdn.frutjam.com/media/components/pagination.webp"
+imageAlt: "Thành phần phân trang CSS Tailwind — đánh số trang, điều hướng trước/tiếp theo"
+createdAt: "2026-06-17T06:55:07.407515+00:00"
+updatedAt: "2026-07-13T09:48:03.517730+00:00"
+sourceHash: "c5fb9da052ff"
+translationHash: "a171bfcf6d3b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Phân trang CSS Tailwind chỉ bằng CSS cho các trang được đánh số, mũi tên trước/tiếp theo, khoảng trống dấu chấm lửng, đầu vào radio có thể truy cập và lựa chọn nhảy trang. Không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần phân trang cho phép người dùng điều hướng giữa các trang nội dung - kết quả tìm kiếm, bảng dữ liệu, kho lưu trữ bài viết và danh sách sản phẩm. Được xây dựng bằng cách kết hợp các thành phần [Tham gia](/components/join) và [Nút](/components/button), phân trang Frutjam không yêu cầu JavaScript và không cần CSS bổ sung. Hỗ trợ các trang được đánh số, mũi tên trước/tiếp theo, khoảng trống dấu ba chấm, đầu vào radio có thể truy cập và chọn nhảy trang.
+
+Chỉ CSS, không cần JavaScript — xây dựng khả năng phân trang có thể truy cập bằng HTML thuần túy và CSS Tailwind. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React, Next.js và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| join | <span class="badge badge-xs">Căn cứ</span> | Nhóm các nút vào một dải phân trang được kết nối |
+| join-item | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mỗi nút trang hoặc đầu vào bên trong liên kết |
+| btn-active | <span class="badge badge-xs badge-secondary badge-soft">State</span> | Làm nổi bật trang hiện tại |
+| btn-disabled | <span class="badge badge-xs badge-secondary badge-soft">State</span> | Dấu chấm lửng không tương tác hoặc trang không có sẵn |
+
+</DocTable>
+
+## Phân trang cơ bản
+
+Một dải trang được đánh số với một trang đang hoạt động. Áp dụng **btn-active** để đánh dấu trang hiện tại. Sử dụng thẻ neo thay vì nút cho các liên kết trang do máy chủ hiển thị.
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn">1</button>
+  <button class="join-item btn btn-active">2</button>
+  <button class="join-item btn">3</button>
+  <button class="join-item btn">4</button>
+  <button class="join-item btn">5</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn">1</button>
+  <button className="join-item btn btn-active">2</button>
+  <button className="join-item btn">3</button>
+  <button className="join-item btn">4</button>
+  <button className="join-item btn">5</button>
+</div>
+```
+
+</Snippet>
+
+### Sizes
+
+Phân trang kế thừa tất cả các kích thước nút. Sử dụng **btn-xs** hoặc **btn-sm** cho các bảng nhỏ gọn và **btn-lg** cho giao diện cảm ứng đầu tiên.
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3 items-start">
+  <div class="join">
+    <button class="join-item btn btn-xs">1</button>
+    <button class="join-item btn btn-xs btn-active">2</button>
+    <button class="join-item btn btn-xs">3</button>
+    <button class="join-item btn btn-xs">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn btn-sm">1</button>
+    <button class="join-item btn btn-sm btn-active">2</button>
+    <button class="join-item btn btn-sm">3</button>
+    <button class="join-item btn btn-sm">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn">1</button>
+    <button class="join-item btn btn-active">2</button>
+    <button class="join-item btn">3</button>
+    <button class="join-item btn">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn btn-lg">1</button>
+    <button class="join-item btn btn-lg btn-active">2</button>
+    <button class="join-item btn btn-lg">3</button>
+    <button class="join-item btn btn-lg">4</button>
+  </div>
+</div>
+```
+
+```jsx
+<div className="flex flex-col gap-3 items-start">
+  <div className="join">
+    <button className="join-item btn btn-xs">1</button>
+    <button className="join-item btn btn-xs btn-active">2</button>
+    <button className="join-item btn btn-xs">3</button>
+    <button className="join-item btn btn-xs">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn btn-sm">1</button>
+    <button className="join-item btn btn-sm btn-active">2</button>
+    <button className="join-item btn btn-sm">3</button>
+    <button className="join-item btn btn-sm">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn">1</button>
+    <button className="join-item btn btn-active">2</button>
+    <button className="join-item btn">3</button>
+    <button className="join-item btn">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn btn-lg">1</button>
+    <button className="join-item btn btn-lg btn-active">2</button>
+    <button className="join-item btn btn-lg">3</button>
+    <button className="join-item btn btn-lg">4</button>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Với dấu ba chấm
+
+Sử dụng **btn-disabled** để tạo khoảng cách dấu chấm lửng giữa nhiều trang. Trình đọc màn hình bỏ qua các nút bị tắt để ghép nối với `aria-hidden="true"` trên dấu chấm lửng.
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn">1</button>
+  <button class="join-item btn">2</button>
+  <button class="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button class="join-item btn btn-active">12</button>
+  <button class="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button class="join-item btn">99</button>
+  <button class="join-item btn">100</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn">1</button>
+  <button className="join-item btn">2</button>
+  <button className="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button className="join-item btn btn-active">12</button>
+  <button className="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button className="join-item btn">99</button>
+  <button className="join-item btn">100</button>
+</div>
+```
+
+</Snippet>
+
+## Điều hướng Trước/Tiếp theo
+
+Phân trang dựa trên mũi tên là mẫu phổ biến nhất cho blog, danh sách sản phẩm và bất kỳ nguồn cấp dữ liệu được phân trang nào mà việc hiển thị số trang chính xác là không thực tế.
+
+### Với các biểu tượng mũi tên
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn" aria-label="Previous page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="join-item btn">Page 12</button>
+  <button class="join-item btn" aria-label="Next page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn" aria-label="Previous page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button className="join-item btn">Page 12</button>
+  <button className="join-item btn" aria-label="Next page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+```
+
+</Snippet>
+
+### Chiều rộng bằng nhau Trước / Tiếp theo
+
+Sử dụng trình bao bọc **grid Grid-cols-2** trên vùng chứa kết nối để cung cấp cho cả hai nút chiều rộng bằng nhau — lý tưởng cho bố cục ưu tiên thiết bị di động và thanh phân trang có chiều rộng đầy đủ.
+
+<Snippet>
+
+```html
+<div class="join grid grid-cols-2 w-72">
+  <button class="join-item btn btn-outline">← Previous</button>
+  <button class="join-item btn btn-outline">Next →</button>
+</div>
+```
+
+```jsx
+<div className="join grid grid-cols-2 w-72">
+  <button className="join-item btn btn-outline">← Previous</button>
+  <button className="join-item btn btn-outline">Next →</button>
+</div>
+```
+
+</Snippet>
+
+### Với Đầu tiên / Cuối cùng
+
+Thêm các nút mũi tên kép để cho phép người dùng chuyển trực tiếp đến trang đầu tiên hoặc trang cuối cùng. Hữu ích cho các bảng dữ liệu có hàng trăm trang.
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-ghost btn-sm" aria-label="First page">«</button>
+  <button class="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <button class="join-item btn btn-sm">4</button>
+  <button class="join-item btn btn-sm btn-active">5</button>
+  <button class="join-item btn btn-sm">6</button>
+  <button class="join-item btn btn-sm" aria-label="Next page">›</button>
+  <button class="join-item btn btn-ghost btn-sm" aria-label="Last page">»</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-ghost btn-sm" aria-label="First page">«</button>
+  <button className="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <button className="join-item btn btn-sm">4</button>
+  <button className="join-item btn btn-sm btn-active">5</button>
+  <button className="join-item btn btn-sm">6</button>
+  <button className="join-item btn btn-sm" aria-label="Next page">›</button>
+  <button className="join-item btn btn-ghost btn-sm" aria-label="Last page">»</button>
+</div>
+```
+
+</Snippet>
+
+## Phân trang vô tuyến có thể truy cập
+
+Sử dụng đầu vào `type="radio"` làm mục kết hợp để chọn trang chỉ có CSS, có thể điều hướng hoàn toàn bằng bàn phím mà không có JavaScript. Mỗi đầu vào hoạt động như một nút có thể nhấn trong khi vẫn giữ trạng thái đã chọn ở trạng thái dạng gốc.
+
+<Snippet>
+
+```html
+<div class="join">
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="1" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="2" checked />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="3" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="4" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="5" />
+</div>
+```
+
+```jsx
+<div className="join">
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="1" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="2" defaultChecked />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="3" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="4" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="5" />
+</div>
+```
+
+</Snippet>
+
+## Phân trang bằng cách nhảy trang
+
+Kết hợp các nút nối, nút và lựa chọn cho thanh phân trang nhỏ gọn cho phép người dùng chuyển trực tiếp đến bất kỳ trang nào — phổ biến trong bảng thông tin quản trị viên, giao diện CMS và ứng dụng nặng dữ liệu. Không cần JavaScript cho chính lựa chọn đó; ghép nối với HTMLX hoặc gửi biểu mẫu để điều hướng phía máy chủ.
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <select class="join-item select select-sm" aria-label="Go to page">
+    <option>Page 1</option>
+    <option>Page 2</option>
+    <option selected>Page 3</option>
+    <option>Page 4</option>
+    <option>Page 5</option>
+  </select>
+  <button class="join-item btn btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <select className="join-item select select-sm" aria-label="Go to page">
+    <option>Page 1</option>
+    <option>Page 2</option>
+    <option>Page 3</option>
+    <option>Page 4</option>
+    <option>Page 5</option>
+  </select>
+  <button className="join-item btn btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+</Snippet>
+
+## Phong cách phác thảo
+
+Sử dụng **btn-outline** trên tất cả các nút để có hình ảnh nhẹ nhàng hơn, phù hợp với các phần nội dung phụ và thanh bên.
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-outline btn-sm" aria-label="Previous page">‹</button>
+  <button class="join-item btn btn-outline btn-sm">1</button>
+  <button class="join-item btn btn-outline btn-sm btn-active">2</button>
+  <button class="join-item btn btn-outline btn-sm">3</button>
+  <button class="join-item btn btn-outline btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-outline btn-sm" aria-label="Previous page">‹</button>
+  <button className="join-item btn btn-outline btn-sm">1</button>
+  <button className="join-item btn btn-outline btn-sm btn-active">2</button>
+  <button className="join-item btn btn-outline btn-sm">3</button>
+  <button className="join-item btn btn-outline btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+</Snippet>

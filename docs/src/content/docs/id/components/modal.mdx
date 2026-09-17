@@ -1,0 +1,656 @@
+---
+name: "Modal"
+heading: "Komponen Modal"
+description: "Modal CSS Tailwind khusus CSS yang menggunakan elemen `<dialog>` asli. Ukuran responsif, latar belakang, dan perangkap fokus. Tidak ada JavaScript untuk penggunaan dasar. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "CSS Tailwind Modal Khusus CSS | Dialog asli | Frutjam"
+metaDescription: "Modal Tailwind khusus CSS menggunakan dialog HTML asli. Sembilan posisi, empat animasi slide, dan dukungan LTR/RTL. Tidak diperlukan plugin JavaScript."
+order: 0
+related:
+  - "components/alert"
+  - "components/button"
+  - "components/drawer"
+image: "https://cdn.frutjam.com/media/components/modal.webp"
+imageAlt: "Komponen modal oleh Frutjam UI"
+createdAt: "2025-09-09T07:16:50.473923+00:00"
+updatedAt: "2026-07-13T09:47:25.637221+00:00"
+sourceHash: "a773621a390c"
+translationHash: "fdf64f5ab4a4"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Modal CSS Tailwind khusus CSS yang menggunakan elemen `<dialog>` asli. Ukuran responsif, latar belakang, dan perangkap fokus. Tidak ada JavaScript untuk penggunaan dasar. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen modal menampilkan informasi penting atau meminta tindakan pengguna dalam jendela overlay yang terfokus. Dibangun di atas elemen dialog HTML semantik, modals mendukung animasi, pemosisian yang dapat disesuaikan, dan hamparan latar belakang. Sistem modal Frutjam dapat diakses sepenuhnya dengan navigasi keyboard dan fokus jebakan, menjadikannya ideal untuk konfirmasi, formulir, dan dialog peringatan.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| modal | <span class="badge badge-xs">Basis</span> | Wadah hamparan dialog layar penuh |
+| modal-content | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Panel bagian dalam dengan padding dan latar belakang |
+| modal-backdrop | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Hamparan latar belakang klik untuk menutup |
+| modal-top | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menyelaraskan konten ke bagian atas layar |
+| modal-bottom | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menyelaraskan konten ke bagian bawah layar |
+| modal-start | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Sejajarkan konten ke kiri |
+| modal-end | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Sejajarkan konten ke kanan |
+| modal-center | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Berpusat secara horizontal |
+| modal-middle | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Berpusat secara vertikal |
+| modal-slide-up | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Animasi pintu masuk slide-up |
+| modal-slide-down | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Animasi pintu masuk geser ke bawah |
+| modal-slide-start | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Slide-in dari animasi kiri |
+| modal-slide-end | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Slide-in dari animasi kanan |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Tambahkan id unik ke elemen HTML `<dialog id="myModal">`, lalu gunakan id tersebut di JavaScript untuk memanggil `myModal.showModal()` untuk membuka modal dan `myModal.close()` untuk menutup modal.
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down" id="toggleModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Dialog modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="toggleModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Press Esc key or close button to close the modal</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="toggleModal.close()">Close Modal via Backdrop</button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="toggleModal.showModal()">Show Modal</button>
+```
+
+```jsx
+import { useModal } from 'frutjam/react'
+
+export default function ModalDemo() {
+  const modal = useModal()
+  return (
+    <>
+      <button type="button" className="btn btn-xs" onClick={modal.open}>Show Modal</button>
+      <dialog ref={modal.ref} className="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down">
+        <div className="modal-content">
+          <div className="flex justify-between items-center gap-3">
+            <div className="font-medium heading-lg">Dialog modal</div>
+            <button type="button" className="btn btn-xs btn-square btn-rounded btn-ghost" onClick={modal.close}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div className="divider my-3"></div>
+          <p className="para">Press Esc key or close button to close the modal</p>
+        </div>
+        <button type="button" className="modal-backdrop" onClick={modal.close}>Close Modal via Backdrop</button>
+      </dialog>
+    </>
+  )
+}
+```
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const dialogRef = ref(null)
+</script>
+
+<template>
+  <button type="button" class="btn btn-xs" @click="dialogRef.showModal()">Show Modal</button>
+  <dialog ref="dialogRef" class="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down">
+    <div class="modal-content">
+      <div class="flex justify-between items-center gap-3">
+        <div class="font-medium heading-lg">Dialog modal</div>
+        <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" @click="dialogRef.close()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="divider my-3"></div>
+      <p class="para">Press Esc key or close button to close the modal</p>
+    </div>
+    <button type="button" class="modal-backdrop" @click="dialogRef.close()">Close Modal via Backdrop</button>
+  </dialog>
+</template>
+```
+
+```svelte
+<script>
+  let dialog = $state(null)
+</script>
+
+<button type="button" class="btn btn-xs" onclick={() => dialog.showModal()}>Show Modal</button>
+<dialog bind:this={dialog} class="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Dialog modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick={() => dialog.close()}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Press Esc key or close button to close the modal</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick={() => dialog.close()}>Close Modal via Backdrop</button>
+</dialog>
+```
+
+```angular
+import { Component, ViewChild, ElementRef } from '@angular/core'
+
+@Component({
+  selector: 'app-modal',
+  standalone: true,
+  template: `
+    <button type="button" class="btn btn-xs" (click)="dialog.nativeElement.showModal()">Show Modal</button>
+    <dialog #dialog class="modal modal-center lg:modal-middle modal-slide-end lg:modal-slide-down">
+      <div class="modal-content">
+        <div class="flex justify-between items-center gap-3">
+          <div class="font-medium heading-lg">Dialog modal</div>
+          <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" (click)="dialog.nativeElement.close()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="divider my-3"></div>
+        <p class="para">Press Esc key or close button to close the modal</p>
+      </div>
+      <button type="button" class="modal-backdrop" (click)="dialog.nativeElement.close()">Close Modal via Backdrop</button>
+    </dialog>
+  `
+})
+export class ModalComponent {
+  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>
+}
+```
+
+</Snippet>
+
+## Tutup modal saat klik di luar
+
+`.modal-backdrop` menyediakan latar belakang yang dapat diklik yang menutup modal ketika diklik di luar konten modal.
+
+<Snippet>
+
+```html
+<dialog class="modal" id="backdropModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Dialog modal</div>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Press Esc key or click outside to close the modal</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="backdropModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="backdropModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+## Animasi Slide Modal
+
+Geser masuk dan keluar dengan lancar dari atas, bawah, awal (kiri di LTR, kanan di RTL), atau akhir (kanan di LTR, kiri di RTL) dengan kelas utilitas arah berikut: `modal-slide-top`, `modal-slide-bottom`, `modal-slide-start`, dan `modal-slide-end` di komponen modal. Animasi ini meningkatkan pengalaman pengguna melalui penggunaan transisi dinamis berdasarkan posisi modal.
+
+### Modal slide dari awal (Horizontal)
+
+Tambahkan utilitas `modal-slide-start` untuk menggeser modal secara horizontal dari sisi awal; pada tata letak kiri-ke-kanan (LTR), muncul dari kiri, dan pada tata letak kanan-ke-kiri (RTL), muncul dari kanan.
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center lg:modal-middle modal-slide-start" id="slideStartModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Slide start modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideStartModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Horizontally slides the modal in and out from the start side.</p>
+  </div>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="slideStartModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Modal slide dari ujung (Horizontal)
+
+Tambahkan utilitas `modal-slide-end` di komponen modal untuk menggeser modal secara horizontal dari sisi ujung; pada tata letak kiri-ke-kanan (LTR), muncul dari kanan, dan pada tata letak kanan-ke-kiri (RTL), muncul dari kiri.
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center lg:modal-middle modal-slide-end" id="slideEndModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Slide end modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideEndModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Horizontally slides the modal in and out from the end side.</p>
+  </div>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="slideEndModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Geser dari Bawah (Vertikal): `modal-slide-up`
+
+Arah: Geser secara vertikal dari bawah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center lg:modal-middle modal-slide-up" id="slideUpModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Slide up modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideUpModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Vertically slides the modal in and out from the bottom.</p>
+  </div>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="slideUpModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Geser dari Atas (Vertikal)
+
+Tambahkan utilitas `modal-slide-down` di komponen modal untuk meluncur secara vertikal dari atas.
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center lg:modal-middle modal-slide-down" id="slideDownModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Slide down modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="slideDownModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Vertically slides the modal in and out from the top.</p>
+  </div>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="slideDownModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Contoh penggunaan modal animasi geser untuk notifikasi
+
+<Snippet>
+
+```html
+<dialog class="modal modal-end modal-top modal-slide-end" id="notificationSlideModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Notification modal</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="notificationSlideModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="notificationSlideModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+## Penempatan modal
+
+Komponen modal secara default diposisikan di tengah layar, namun dapat ditempatkan tergantung pada kasus penggunaan menggunakan kelas horizontal `modal-start`, `modal-center`, atau `modal-end`, dan kelas vertikal `modal-top`, `modal-middle`, atau `modal-bottom`. Penempatannya dirancang dengan mempertimbangkan kompatibilitas RTL dan LTR, membuat modal dapat beradaptasi dengan arah dan tata letak bahasa yang berbeda.
+
+Gunakan `modal-start`, `modal-center`, atau `modal-end` untuk penempatan horizontal dan `modal-top`, `modal-middle`, atau `modal-bottom` untuk penempatan vertikal. Kelas-kelas ini diterapkan pada komponen modal.
+
+### Penempatan modal kiri atas
+
+<Snippet>
+
+```html
+<dialog class="modal modal-start modal-top" id="topLeftModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement top left</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topLeftModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the top left corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="topLeftModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="topLeftModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal tengah atas
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center modal-top" id="topCenterModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement top center</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topCenterModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the top center corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="topCenterModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="topCenterModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal kanan atas
+
+<Snippet>
+
+```html
+<dialog class="modal modal-end modal-top" id="topEndModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement top end</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="topEndModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the top end corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="topEndModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="topEndModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal kiri tengah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-start modal-middle" id="startCenterModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement left center</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="startCenterModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the start center corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="startCenterModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="startCenterModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal kanan tengah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-end modal-middle" id="endCenterModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement right center</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="endCenterModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the end center corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="endCenterModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="endCenterModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal kiri bawah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-start modal-bottom" id="bottomStartModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement bottom start</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomStartModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the bottom start corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="bottomStartModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="bottomStartModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal tengah bawah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center modal-bottom" id="bottomCenterModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement bottom center</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomCenterModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the bottom center corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="bottomCenterModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="bottomCenterModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+### Penempatan modal kanan bawah
+
+<Snippet>
+
+```html
+<dialog class="modal modal-end modal-bottom" id="bottomEndModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Modal placement bottom center</div>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="bottomEndModal.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Modal placed at the bottom center corner of the screen</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="bottomEndModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="bottomEndModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+## Penempatan modal yang responsif untuk layar desktop dan seluler
+
+Bergantung pada kasus penggunaan Anda, Anda dapat memposisikan modal di mana saja di desktop atau seluler—misalnya, pusat desktop dan pusat atas seluler.
+
+<Snippet>
+
+```html
+<dialog class="modal modal-center modal-top lg:modal-center lg:modal-middle" id="responsiveModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Responsive modal</div>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Resize the modal to a small screen to see the change in modal position.</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="responsiveModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="responsiveModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+## Penempatan modal berdasarkan arah bahasa
+
+Tempatkan modal dimanapun di layar tergantung pada arah bahasa (LTR atau RTL).
+
+### Rata kanan dan terpusat secara vertikal di LTR dan RTL
+
+<Snippet>
+
+```html
+<dialog class="modal ltr:modal-end ltr:modal-middle rtl:modal-start lg:modal-middle" id="ltrModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Responsive modal</div>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">
+      Changing
+      <code>dir="rtl"</code>
+      in the HTML will have no effect on the modal's the position because the layout is controlled by utility classes:
+      <code>modal-end</code>
+      for the LTR variant and
+      <code>modal-start</code>
+      for the RTL variant.
+    </p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="ltrModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="ltrModal.showModal()">Show Modal</button>
+```
+
+</Snippet>
+
+## Tempatkan modal berdasarkan ukuran layar dan arah bahasa
+
+<Snippet>
+
+```html
+<dialog class="modal ltr:modal-center lg:ltr:modal-start ltr:modal-top lg:ltr:modal-middle rtl:modal-center lg:rtl:modal-start rtl:modal-bottom lg:rtl:modal-middle" id="mixedModal">
+  <div class="modal-content">
+    <div class="flex justify-between items-center gap-3">
+      <div class="font-medium heading-lg">Responsive modal</div>
+    </div>
+    <div class="divider my-3"></div>
+    <p class="para">Change the screen and screen direction to see the change in modal position.</p>
+  </div>
+  <button type="button" class="modal-backdrop" onclick="mixedModal.close()">
+    Close Modal via Backdrop
+  </button>
+</dialog>
+<button type="button" class="btn btn-xs" onclick="mixedModal.showModal()">Show Modal</button>
+```
+
+</Snippet>

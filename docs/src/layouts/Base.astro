@@ -1,0 +1,164 @@
+---
+/**
+ * frutjam.com's page shell: templates/cotton/frontend/base.html and body.html,
+ * with the head partials (meta_basic, link_relationships, resource_css,
+ * script_core). Page-specific head tags come from src/lib/head.ts.
+ */
+import '@/styles/main.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Aside from '@/components/Aside.astro';
+import { headTags } from '@/lib/head';
+import { SITE, isEnglishOnly } from '@/lib/site';
+import { DEFAULT_LANG, LANGUAGES, langUrl, splitLang } from '@/lib/i18n';
+
+interface Props {
+  /** URL path, e.g. "/components/button"; selects the page's head tags. */
+  path: string;
+  /** Pages whose template included head/link_relationships.html. */
+  links?: boolean;
+  /** Category and doc pages carry the navigation sidebar. */
+  sidebar?: boolean;
+}
+
+const { path, links = true, sidebar = false } = Astro.props;
+const tags = await headTags(path);
+const canonical = path === '/' ? SITE : `${SITE}${path}`;
+const englishOnly = isEnglishOnly(path);
+const { lang, path: basePath } = splitLang(path);
+const locale = (LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0]).ogLocale;
+const isMarkdownEditor = basePath === '/plugins/markdown-editor';
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir="ltr" data-theme="darkberry">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    {tags.map(({ tag, attrs, content }) =>
+      tag === 'title' ? <title>{content}</title>
+      : tag === 'script' ? <script is:inline type="application/ld+json" set:html={content} />
+      : tag === 'link' ? <link {...attrs} />
+      : <meta {...attrs} />
+    )}
+    <meta name="author" content="Nezanuha" />
+    <meta property="og:site_name" content="Frutjam" />
+    <meta property="og:locale" content={locale} />
+    <meta name="twitter:site" content="@FrutjamUI" />
+    <meta name="apple-mobile-web-app-title" content="Frutjam" />
+
+    {links && <link rel="canonical" href={canonical} />}
+    {links && !englishOnly && (
+      <Fragment>
+        {LANGUAGES.map((language) => (
+          <link rel="alternate" hreflang={language.code} href={`${SITE}${langUrl(language.code, basePath)}`.replace(/\/$/, '')} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={`${SITE}${langUrl(DEFAULT_LANG, basePath)}`.replace(/\/$/, '')} />
+      </Fragment>
+    )}
+    <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preload" href="/static/frontend/fonts/gNMKW3F-SZuj7xmf-HY.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <script is:inline type="importmap">{"imports": {"frutjam/js": "/_frutjam/js/index.js"}}</script>
+
+    <script is:inline>
+      (function() {
+      const savedTheme = localStorage.getItem('selected-theme') || 'system';
+      let themeToApply = savedTheme;
+
+      if (savedTheme === 'system') {
+          themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'darkberry'
+          : 'snowberry';
+      }
+
+      document.documentElement.setAttribute('data-theme', themeToApply);
+
+      document.addEventListener('DOMContentLoaded', () => {
+          const activeElement = document.querySelector(`.${savedTheme}-theme`);
+
+          if (activeElement) {
+              activeElement.classList.add('menu-active');
+              const radio = activeElement.querySelector('input[type="radio"]');
+              if (radio) radio.checked = true;
+          }
+      });
+      })();
+    </script>
+  </head>
+  <body class="font-primary bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed [--pattern-fg:var(--color-base-950)]/5 dark:[--pattern-fg:var(--color-base-200)]/5">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded focus:bg-white dark:focus:bg-black focus:text-black dark:focus:text-white focus:ring-2 focus:ring-blue-600 focus:outline-none">Skip to main content</a>
+    <div class="sticky top-0 z-999">
+      {isMarkdownEditor ? (
+        <Fragment>
+          <div role="alert" id="github-star-banner" class="flex items-center bg-primary-soft text-on-primary-soft text-xs py-2 px-4">
+            <div class="flex-1"></div>
+            <div class="flex flex-wrap items-center justify-center gap-2 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <span>Found this useful? Star Markdown Editor on GitHub. It's how others discover it.</span>
+              <a href="https://github.com/nezanuha/markdown-text-editor" target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-primary btn-pill">Star on GitHub</a>
+            </div>
+            <div class="flex-1 flex justify-end">
+              <button type="button" onclick="document.getElementById('github-star-banner').remove(); localStorage.setItem('fj-star-banner-md', '1')" class="btn btn-xs btn-primary btn-ghost btn-active btn-square btn-rounded" aria-label="Dismiss">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
+          </div>
+          <script is:inline>if(localStorage.getItem('fj-star-banner-md'))document.getElementById('github-star-banner').remove();</script>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div role="alert" id="github-star-banner" class="flex items-center bg-primary-soft text-on-primary-soft text-xs py-2 px-4">
+            <div class="flex-1"></div>
+            <div class="flex flex-wrap items-center justify-center gap-2 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <span>Found this useful? Star Frutjam on GitHub. It's how others discover it.</span>
+              <a href="https://github.com/nezanuha/frutjam" target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-primary btn-pill">Star on GitHub</a>
+            </div>
+            <div class="flex-1 flex justify-end">
+              <button type="button" onclick="document.getElementById('github-star-banner').remove(); localStorage.setItem('fj-star-banner', '1')" class="btn btn-xs btn-primary btn-ghost btn-active btn-square btn-rounded" aria-label="Dismiss">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
+          </div>
+          <script is:inline>if(localStorage.getItem('fj-star-banner'))document.getElementById('github-star-banner').remove();</script>
+        </Fragment>
+      )}
+      <Header />
+    </div>
+    <div class="grid grid-cols-12 lg:px-4">
+      {sidebar ? (
+        <Fragment>
+          <div class="hidden lg:block col-span-2">
+            <aside class="sidebar gap-y-2 px-2 top-24 py-5 h-[calc(100vh-6rem)] overflow-y-auto">
+              <Aside place="sidebar" />
+            </aside>
+          </div>
+          <div class="col-span-12 lg:col-span-10">
+            <slot />
+            <Footer />
+          </div>
+        </Fragment>
+      ) : (
+        <div class="col-span-12 relative">
+          <slot />
+          <Footer />
+        </div>
+      )}
+    </div>
+    {import.meta.env.PROD && (
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXRKTW2T" height="0" width="0" class="invisible hidden"></iframe></noscript>
+    )}
+    <script>
+      import '@/scripts/app';
+    </script>
+  </body>
+</html>

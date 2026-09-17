@@ -1,0 +1,150 @@
+---
+name: "Temas"
+heading: "Tematización"
+description: "El sistema de temas solo CSS de Frutjam utiliza variables CSS y un único atributo de datos. Cambie temas claros, oscuros y personalizados sin JavaScript. Tokens de color WCAG AA integrados, funcionan con Django, HTMX, Laravel y cualquier proyecto Tailwind CSS v4."
+metaTitle: "Temas CSS Tailwind: variables CSS y modo oscuro | Frutjam"
+metaDescription: "Tematización de Frutjam con variables CSS. Temas claros, oscuros y personalizados: no se requiere JavaScript, actualizaciones instantáneas, compatible con Tailwind CSS v4."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Temas - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "831353aca6b7"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+El sistema de temas solo CSS de Frutjam utiliza variables CSS y un único atributo de datos. Cambie temas claros, oscuros y personalizados sin JavaScript. Tokens de color WCAG AA integrados, funcionan con Django, HTMX, Laravel y cualquier proyecto Tailwind CSS v4.
+
+Frutjam se entrega con un sistema de temática Berry: un conjunto de temas con nombre basados ​​en los valores de color de OKLCH. Aplique un tema a toda su aplicación o anide temas dentro de secciones específicas usando el atributo `data-theme`. Solo CSS, no se requiere JavaScript, accesible a WCAG AA: funciona con Django, HTMX, Laravel, React y cualquier proyecto Tailwind CSS v4.
+
+<ThemeCards />
+
+## Temas incorporados
+
+Frutjam incluye dos temas integrados listos para usar:
+
+### Baya de nieve (ligera)
+
+El tema claro predeterminado. Se aplica automáticamente cuando no se establece ningún `data-theme`.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Mora oscura (oscura)
+
+El tema oscuro incorporado.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Aplicar un tema
+
+Agregue `data-theme` a cualquier elemento HTML. El tema llega a todos los niños.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Temas anidados
+
+Los temas se pueden anidar: un elemento secundario anula el tema principal de su subárbol.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Variante del modo oscuro
+
+Utilice el prefijo `dark:` de Tailwind: se activa tanto en `data-theme="dark"` como en `data-theme="darkberry"`.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Temas personalizados
+
+Cree su propio tema definiendo variables CSS dentro de un selector `[data-theme]`. Consulte la página [Configuración](/docs/configuration) para obtener la referencia completa de las variables.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

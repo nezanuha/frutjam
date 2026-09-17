@@ -1,0 +1,150 @@
+---
+name: "Thèmes"
+heading: "Thématisation"
+description: "Le système de thèmes CSS uniquement de Frutjam utilise des variables CSS et un seul attribut de données. Changez de thème clair, sombre et personnalisé sans JavaScript. Les jetons de couleur WCAG AA intégrés fonctionnent avec Django, HTMX, Laravel et tout projet Tailwind CSS v4."
+metaTitle: "Thème CSS Tailwind - Variables CSS et mode sombre | Frutjam"
+metaDescription: "Thématisation Frutjam avec variables CSS. Thèmes clairs, sombres et personnalisés - aucun JavaScript requis, mises à jour instantanées, compatible Tailwind CSS v4."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Thèmes - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "b10e35973033"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Le système de thèmes CSS uniquement de Frutjam utilise des variables CSS et un seul attribut de données. Changez de thème clair, sombre et personnalisé sans JavaScript. Les jetons de couleur WCAG AA intégrés fonctionnent avec Django, HTMX, Laravel et tout projet Tailwind CSS v4.
+
+Frutjam est livré avec un système de thème Berry – un ensemble de thèmes nommés basés sur les valeurs de couleur OKLCH. Appliquez un thème à l'ensemble de votre application ou imbriquez des thèmes dans des sections spécifiques à l'aide de l'attribut `data-theme`. CSS uniquement, aucun JavaScript requis, WCAG AA accessible – fonctionne avec Django, HTMX, Laravel, React et tout projet Tailwind CSS v4.
+
+<ThemeCards />
+
+## Thèmes intégrés
+
+Frutjam comprend deux thèmes intégrés prêts à l'emploi :
+
+### Symphorine (léger)
+
+Le thème de lumière par défaut. Appliqué automatiquement lorsqu'aucun `data-theme` n'est défini.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Baie noire (foncée)
+
+Le thème sombre intégré.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Appliquer un thème
+
+Ajoutez `data-theme` à n'importe quel élément HTML. Le thème s’applique à tous les enfants.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Thèmes imbriqués
+
+Les thèmes peuvent être imbriqués : un élément enfant remplace le thème parent pour son sous-arbre.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Variante du mode sombre
+
+Utilisez le préfixe `dark:` de Tailwind — il s'active à la fois sur `data-theme="dark"` et `data-theme="darkberry"`.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Thèmes personnalisés
+
+Créez votre propre thème en définissant des variables CSS dans un sélecteur `[data-theme]`. Consultez la page [Configuration](/docs/configuration) pour la référence complète des variables.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

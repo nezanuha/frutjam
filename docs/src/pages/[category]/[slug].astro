@@ -1,0 +1,21 @@
+---
+/** English doc pages: /components/button. Translations live under /<lang>/. */
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import DocPage from '@/components/DocPage.astro';
+import { categoryOf, docUrl, langOf, slugOf, type Doc } from '@/lib/site';
+import { DEFAULT_LANG } from '@/lib/i18n';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  return docs
+    .filter((doc) => langOf(doc) === DEFAULT_LANG)
+    .map((doc) => ({ params: { category: categoryOf(doc), slug: slugOf(doc) }, props: { doc } }));
+}
+
+const { doc } = Astro.props as { doc: Doc };
+---
+
+<Base path={docUrl(doc)} sidebar>
+<DocPage doc={doc} />
+</Base>

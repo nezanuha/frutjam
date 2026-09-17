@@ -1,0 +1,228 @@
+---
+name: "Thanh điều hướng"
+heading: "Thành phần thanh điều hướng"
+description: "Thanh điều hướng CSS Tailwind chỉ có CSS ​​với thương hiệu, liên kết điều hướng và vùng hành động. Các biến thể dính và trong suốt. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Thanh điều hướng - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Thanh điều hướng CSS Tailwind với bố cục hấp dẫn, phản hồi nhanh và sẵn sàng thả xuống. HTML ngữ nghĩa với sự hỗ trợ trên thiết bị di động để điều hướng trang web theo chủ đề, có thể truy cập được."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Các thành phần thanh điều hướng của Frutjam UI"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "0aa2d183bd8f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Thanh điều hướng CSS Tailwind chỉ có CSS ​​với thương hiệu, liên kết điều hướng và vùng hành động. Các biến thể dính và trong suốt. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần thanh điều hướng hiển thị danh sách điều hướng ngang cho cấu trúc trang web và điều hướng người dùng. Được xây dựng bằng các phần tử danh sách và điều hướng HTML ngữ nghĩa, hệ thống thanh điều hướng Frutjam hỗ trợ nhiều bố cục, hành vi phản hồi và tích hợp menu lồng nhau. Các thanh điều hướng có thể truy cập và điều hướng bằng bàn phím là lý tưởng cho việc điều hướng trang web chính, đường dẫn và giao diện tab.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Căn cứ</span> | Vùng chứa thanh điều hướng ngang |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Danh sách ngang các liên kết điều hướng |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Khe bên trái cho logo hoặc nhóm điều hướng đầu tiên |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Khe trung tâm cho điều hướng chính |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Right slot for actions and controls |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Đặt thanh điều hướng ở đầu khung nhìn |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Căn giữa theo chiều dọc trong cha mẹ |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Vị trí thanh điều hướng ở cuối khung nhìn |
+
+</DocTable>
+
+## Thanh điều hướng
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Vị trí thanh điều hướng
+
+Thành phần thanh điều hướng theo mặc định được đặt ở vị trí bắt đầu (bên trái trong LTR). Sử dụng `navbar-start`, `navbar-center` hoặc `navbar-end` để căn chỉnh theo chiều ngang và `navbar-top`, `navbar-middle` hoặc `navbar-bottom` để căn chỉnh theo chiều dọc. Vị trí thân thiện với RTL.
+
+Sử dụng các lớp vị trí theo chiều ngang để căn chỉnh danh sách thanh điều hướng dọc theo trục X và các lớp vị trí theo chiều dọc khi thanh điều hướng có chiều cao tùy chỉnh.
+
+### Vị trí ngang
+
+Kiểm soát cách `navbar-list` nằm dọc theo trục X. Đây là những tính năng thân thiện với RTL (Bắt đầu/Kết thúc thay vì Trái/Phải).
+
+#### Căn ngang sang trái (bắt đầu)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Căn chỉnh theo chiều ngang vào trung tâm
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Căn ngang về bên phải (cuối)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Vị trí dọc
+
+Kiểm soát căn chỉnh dọc theo trục Y. Điều này đặc biệt hữu ích khi thanh điều hướng có chiều cao tùy chỉnh.
+
+#### Căn dọc lên trên cùng (bắt đầu)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Căn chỉnh theo chiều dọc vào trung tâm
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Căn dọc về phía dưới (cuối)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

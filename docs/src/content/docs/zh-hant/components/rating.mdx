@@ -1,0 +1,384 @@
+---
+name: "等級"
+heading: "評級成分"
+description: "僅 CSS Tailwind CSS 星級和心率組件。尺寸 xs-xl，半星支持，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "評級 - 僅 CSS Tailwind CSS 組件 |Frutjam"
+metaDescription: "使用本機 HTML 輸入的 Tailwind CSS 評級。自訂星星數量、大小和顏色，並為評論和回饋表提供半星和唯讀支援。"
+order: 0
+related:
+  - "components/card"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/rating_x3zw2Oc.webp"
+imageAlt: "Frutjam 評級"
+createdAt: "2026-04-19T15:56:59.561383+00:00"
+updatedAt: "2026-07-13T09:49:46.450237+00:00"
+sourceHash: "df4e216fac60"
+translationHash: "3b96d4d07c2e"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 星級和心率組件。尺寸 xs-xl，半星支持，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+評級組件允許使用者透過為產品、服務或內容分配星級或數位評級來提供回饋。評級採用語意 HTML 輸入和互動式樣式構建，可傳達使用者滿意度和品質回饋。 Frutjam 評級系統支援多種樣式、顏色和尺寸，非常適合產品評論、使用者回饋表和滿意度調查。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| rating | <span class="badge badge-xs">根據</span> | 一組基於無線電的評級輸入的容器 |
+| rate | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 單獨的星號/圖示輸入元素 |
+| rating-half | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 啟用半星選擇 |
+| rating-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小號（1rem 星星） |
+| rating-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小（1.25rem 星星） |
+| rating-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（1.5rem 星，預設） |
+| rating-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大（2雷姆星） |
+| rating-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 超大號（2.5rem 星星） |
+| rate-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 主要主題顏色 |
+| rate-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 次要主題色 |
+| rate-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 強調主題顏色 |
+| rate-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 中性主題色 |
+| rate-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息語意顏色 |
+| rate-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功語意色 |
+| rate-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告語意顏色 |
+| rate-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 錯誤語意顏色 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="rating">
+  <input type="radio" name="rating" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rating" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rating" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rating" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rating" class="rate mask mask-star rate-warning" value="5">
+</div>
+```
+
+```jsx
+<div className="rating">
+  <input type="radio" name="rating" className="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rating" className="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rating" className="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rating" className="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rating" className="rate mask mask-star rate-warning" value="5">
+</div>
+```
+
+</Snippet>
+
+## 評級形狀
+
+<Snippet>
+
+```html
+<div class="rating">
+  <input type="radio" name="shape-star" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="shape-star" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="shape-star" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="shape-star" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="shape-star" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-star2" class="rate mask mask-star-2 rate-warning" value="1">
+  <input type="radio" name="shape-star2" class="rate mask mask-star-2 rate-warning" value="2">
+  <input type="radio" name="shape-star2" class="rate mask mask-star-2 rate-warning" value="3" checked>
+  <input type="radio" name="shape-star2" class="rate mask mask-star-2 rate-warning" value="4">
+  <input type="radio" name="shape-star2" class="rate mask mask-star-2 rate-warning" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-heart" class="rate mask mask-heart rate-error" value="1">
+  <input type="radio" name="shape-heart" class="rate mask mask-heart rate-error" value="2">
+  <input type="radio" name="shape-heart" class="rate mask mask-heart rate-error" value="3">
+  <input type="radio" name="shape-heart" class="rate mask mask-heart rate-error" value="4" checked>
+  <input type="radio" name="shape-heart" class="rate mask mask-heart rate-error" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-circle" class="rate mask mask-circle rate-primary" value="1">
+  <input type="radio" name="shape-circle" class="rate mask mask-circle rate-primary" value="2">
+  <input type="radio" name="shape-circle" class="rate mask mask-circle rate-primary" value="3" checked>
+  <input type="radio" name="shape-circle" class="rate mask mask-circle rate-primary" value="4">
+  <input type="radio" name="shape-circle" class="rate mask mask-circle rate-primary" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-diamond" class="rate mask mask-diamond rate-accent" value="1">
+  <input type="radio" name="shape-diamond" class="rate mask mask-diamond rate-accent" value="2">
+  <input type="radio" name="shape-diamond" class="rate mask mask-diamond rate-accent" value="3" checked>
+  <input type="radio" name="shape-diamond" class="rate mask mask-diamond rate-accent" value="4">
+  <input type="radio" name="shape-diamond" class="rate mask mask-diamond rate-accent" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-squircle" class="rate mask mask-squircle rate-secondary" value="1">
+  <input type="radio" name="shape-squircle" class="rate mask mask-squircle rate-secondary" value="2">
+  <input type="radio" name="shape-squircle" class="rate mask mask-squircle rate-secondary" value="3" checked>
+  <input type="radio" name="shape-squircle" class="rate mask mask-squircle rate-secondary" value="4">
+  <input type="radio" name="shape-squircle" class="rate mask mask-squircle rate-secondary" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="shape-hexagon" class="rate mask mask-hexagon rate-success" value="1">
+  <input type="radio" name="shape-hexagon" class="rate mask mask-hexagon rate-success" value="2">
+  <input type="radio" name="shape-hexagon" class="rate mask mask-hexagon rate-success" value="3" checked>
+  <input type="radio" name="shape-hexagon" class="rate mask mask-hexagon rate-success" value="4">
+  <input type="radio" name="shape-hexagon" class="rate mask mask-hexagon rate-success" value="5">
+</div>
+```
+
+</Snippet>
+
+## 半評級
+
+<Snippet>
+
+```html
+<div class="rating rating-half">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="0.5">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="1.5">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="2.5" checked>
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="3">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="3.5">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="4.5">
+  <input type="radio" name="half-star" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating rating-half">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="0.5">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="1">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="1.5">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="2">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="2.5">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="3" checked>
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="3.5">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="4">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="4.5">
+  <input type="radio" name="half-heart" class="rate mask mask-heart rate-error" value="5">
+</div>
+
+<div class="rating rating-half">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="0.5">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="1">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="1.5">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="2">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="2.5" checked>
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="3">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="3.5">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="4">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="4.5">
+  <input type="radio" name="half-diamond" class="rate mask mask-diamond rate-accent" value="5">
+</div>
+```
+
+</Snippet>
+
+## 僅顯示
+
+在最後填滿的項目上使用 `aria-checked="true"` — CSS 會自動填入所有先前的項目。
+
+<Snippet>
+
+```html
+<div class="rating" aria-label="3 out of 5 stars">
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="true"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+</div>
+
+<div class="rating" aria-label="4 out of 5 hearts">
+  <div class="rate mask mask-heart rate-error" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-heart rate-error" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-heart rate-error" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-heart rate-error" role="radio" aria-checked="true"></div>
+  <div class="rate mask mask-heart rate-error" role="radio" aria-checked="false"></div>
+</div>
+
+<div class="rating rating-half" aria-label="2.5 out of 5 stars">
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="true"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+  <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+</div>
+```
+
+</Snippet>
+
+## 評級顏色
+
+<Snippet>
+
+```html
+<div class="rating">
+  <input type="radio" name="rc1" class="rate mask mask-star rate-primary" value="1">
+  <input type="radio" name="rc1" class="rate mask mask-star rate-primary" value="2">
+  <input type="radio" name="rc1" class="rate mask mask-star rate-primary" value="3">
+  <input type="radio" name="rc1" class="rate mask mask-star rate-primary" value="4" checked>
+  <input type="radio" name="rc1" class="rate mask mask-star rate-primary" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc2" class="rate mask mask-star rate-secondary" value="1">
+  <input type="radio" name="rc2" class="rate mask mask-star rate-secondary" value="2">
+  <input type="radio" name="rc2" class="rate mask mask-star rate-secondary" value="3" checked>
+  <input type="radio" name="rc2" class="rate mask mask-star rate-secondary" value="4">
+  <input type="radio" name="rc2" class="rate mask mask-star rate-secondary" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc3" class="rate mask mask-star rate-accent" value="1">
+  <input type="radio" name="rc3" class="rate mask mask-star rate-accent" value="2">
+  <input type="radio" name="rc3" class="rate mask mask-star rate-accent" value="3" checked>
+  <input type="radio" name="rc3" class="rate mask mask-star rate-accent" value="4">
+  <input type="radio" name="rc3" class="rate mask mask-star rate-accent" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc4" class="rate mask mask-star rate-neutral" value="1">
+  <input type="radio" name="rc4" class="rate mask mask-star rate-neutral" value="2">
+  <input type="radio" name="rc4" class="rate mask mask-star rate-neutral" value="3" checked>
+  <input type="radio" name="rc4" class="rate mask mask-star rate-neutral" value="4">
+  <input type="radio" name="rc4" class="rate mask mask-star rate-neutral" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc5" class="rate mask mask-star rate-info" value="1">
+  <input type="radio" name="rc5" class="rate mask mask-star rate-info" value="2">
+  <input type="radio" name="rc5" class="rate mask mask-star rate-info" value="3" checked>
+  <input type="radio" name="rc5" class="rate mask mask-star rate-info" value="4">
+  <input type="radio" name="rc5" class="rate mask mask-star rate-info" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc6" class="rate mask mask-star rate-success" value="1">
+  <input type="radio" name="rc6" class="rate mask mask-star rate-success" value="2">
+  <input type="radio" name="rc6" class="rate mask mask-star rate-success" value="3" checked>
+  <input type="radio" name="rc6" class="rate mask mask-star rate-success" value="4">
+  <input type="radio" name="rc6" class="rate mask mask-star rate-success" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc7" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rc7" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rc7" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rc7" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rc7" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating">
+  <input type="radio" name="rc8" class="rate mask mask-heart rate-error" value="1">
+  <input type="radio" name="rc8" class="rate mask mask-heart rate-error" value="2">
+  <input type="radio" name="rc8" class="rate mask mask-heart rate-error" value="3" checked>
+  <input type="radio" name="rc8" class="rate mask mask-heart rate-error" value="4">
+  <input type="radio" name="rc8" class="rate mask mask-heart rate-error" value="5">
+</div>
+```
+
+</Snippet>
+
+## 評級大小
+
+<Snippet>
+
+```html
+<div class="rating rating-xs">
+  <input type="radio" name="rs1" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rs1" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rs1" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rs1" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rs1" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating rating-sm">
+  <input type="radio" name="rs2" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rs2" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rs2" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rs2" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rs2" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating rating-md">
+  <input type="radio" name="rs3" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rs3" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rs3" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rs3" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rs3" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating rating-lg">
+  <input type="radio" name="rs4" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rs4" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rs4" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rs4" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rs4" class="rate mask mask-star rate-warning" value="5">
+</div>
+
+<div class="rating rating-xl">
+  <input type="radio" name="rs5" class="rate mask mask-star rate-warning" value="1">
+  <input type="radio" name="rs5" class="rate mask mask-star rate-warning" value="2">
+  <input type="radio" name="rs5" class="rate mask mask-star rate-warning" value="3" checked>
+  <input type="radio" name="rs5" class="rate mask mask-star rate-warning" value="4">
+  <input type="radio" name="rs5" class="rate mask mask-star rate-warning" value="5">
+</div>
+```
+
+</Snippet>
+
+## 只讀評級
+
+<Snippet>
+
+```html
+<div class="flex gap-2 items-center">
+  <div class="rating rating-sm" aria-label="5 out of 5 stars">
+    <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+    <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+    <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+    <div class="rate mask mask-star rate-warning" role="radio" aria-checked="false"></div>
+    <div class="rate mask mask-star rate-warning" role="radio" aria-checked="true"></div>
+  </div>
+  <span class="text-sm">5 out of 5</span>
+</div>
+```
+
+</Snippet>
+
+## 帶有標籤的評級
+
+<Snippet>
+
+```html
+<label>
+  <span class="block text-sm font-medium mb-2">Rate your experience</span>
+  <div class="rating">
+    <input type="radio" name="experience" class="rate mask mask-star rate-warning" value="1">
+    <input type="radio" name="experience" class="rate mask mask-star rate-warning" value="2">
+    <input type="radio" name="experience" class="rate mask mask-star rate-warning" value="3">
+    <input type="radio" name="experience" class="rate mask mask-star rate-warning" value="4">
+    <input type="radio" name="experience" class="rate mask mask-star rate-warning" value="5">
+  </div>
+</label>
+```
+
+</Snippet>

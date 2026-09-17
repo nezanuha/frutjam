@@ -1,0 +1,201 @@
+---
+name: "差異"
+heading: "差異組件"
+description: "僅 CSS 的 Tailwind CSS diff 檢視器，用於與可拖曳分隔符號進行並排內容比較。無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Diff - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS Diff 用於並排內容比較。可調整大小、顏色編碼的佈局，用於程式碼審查、文件差異以及更改前後追蹤。"
+order: 0
+related:
+  - "components/card"
+image: "https://cdn.frutjam.com/media/components/diff_epH7fIK.webp"
+imageAlt: "Frutjam 的差異"
+createdAt: "2026-04-19T15:56:39.193495+00:00"
+updatedAt: "2026-07-13T09:52:51.568886+00:00"
+sourceHash: "b789fcca1ab4"
+translationHash: "edace2f3d1cb"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS 的 Tailwind CSS diff 檢視器，用於與可拖曳分隔符號進行並排內容比較。無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+差異元件顯示兩個版本內容之間的差異，非常適合顯示程式碼變更、文件修訂或比較視圖。差異採用語義 HTML 和顏色編碼樣式構建，可幫助使用者了解更改的內容。 Frutjam diff 系統支援多種類型和樣式—非常適合版本控制介面、修訂歷史記錄和變更追蹤。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| diff | <span class="badge badge-xs">根據</span> | 帶有可拖曳分隔線的並排比較容器 |
+| diff-item-1 | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 比較的左（前）窗格 |
+| diff-item-2 | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 比較的右（後）窗格 |
+| diff-resizer | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 可拖曳手把來調整兩個窗格的大小 |
+
+</DocTable>
+
+## 基本用法
+
+建立一個簡單的並排比較之前和之後的狀態。
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```jsx
+<figure className="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div className="diff-item-1" aria-label="Before">
+    <div className="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div className="diff-item-2" aria-label="After">
+    <div className="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div className="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+```vue
+<figure class="diff aspect-video" tabindex="0" aria-label="Before and after comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-100 grid place-items-center text-4xl font-bold">
+      Before
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-200 grid place-items-center text-4xl font-bold">
+      After
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## 差異文字比較
+
+並排顯示程式碼或文字變更以進行詳細比較。
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Code comparison: before and after changes">
+  <div class="diff-item-1" aria-label="Before: original code">
+    <div class="bg-base-100 p-4">
+    <pre>const greeting = "Hello";
+console.log(greeting);
+let count = 0;</pre>
+    </div>
+  </div>
+  <div class="diff-item-2" aria-label="After: updated code">
+    <div class="bg-base-200 p-4">
+    <pre>const greeting = "Hello World";
+console.log(greeting);
+let count = 1;</pre>
+    </div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## 與顏色編碼的差異
+
+使用語意顏色突出顯示已刪除、新增或變更的內容。
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Color-coded diff: removed and added lines">
+  <div class="diff-item-1" aria-label="Removed line">
+    <div class="bg-error text-on-error p-4 font-mono">- const old = "value";</div>
+  </div>
+  <div class="diff-item-2" aria-label="Added line">
+    <div class="bg-success text-on-success p-4 font-mono">+ const updated = "value";</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## 影像比較
+
+使用可拖曳的縮放器比較前後影像之間的視覺變化。
+
+<Snippet>
+
+```html
+<figure class="diff aspect-video" tabindex="0" aria-label="Image comparison: color versus grayscale">
+  <div class="diff-item-1" aria-label="Before: color version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&width=800&height=450" alt="Original color photo" loading="lazy">
+  </div>
+  <div class="diff-item-2" aria-label="After: grayscale version">
+    <img src="https://cdn.frutjam.com/images/photo-5.jpg?format=webp&saturation=-100&width=800&height=450" alt="Grayscale version of the same photo" loading="lazy">
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>
+
+## 尺寸差異
+
+使用容器上的寬度和高度實用程式控制差異大小。
+
+<Snippet class="flex-col">
+
+```html
+<figure class="diff aspect-video w-64" tabindex="0" aria-label="Small diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-base font-bold">Small</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-base font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-96" tabindex="0" aria-label="Medium diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-base-200 grid place-items-center text-2xl font-bold">Medium</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-base-100 grid place-items-center text-2xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+
+<figure class="diff aspect-video w-full" tabindex="0" aria-label="Large diff comparison">
+  <div class="diff-item-1" aria-label="Before">
+    <div class="bg-primary text-on-primary grid place-items-center text-4xl font-bold">Large</div>
+  </div>
+  <div class="diff-item-2" aria-label="After">
+    <div class="bg-secondary text-on-secondary grid place-items-center text-4xl font-bold">Diff</div>
+  </div>
+  <div class="diff-resizer" role="slider" aria-label="Comparison slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0"></div>
+</figure>
+```
+
+</Snippet>

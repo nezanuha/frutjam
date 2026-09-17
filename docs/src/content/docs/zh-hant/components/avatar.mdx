@@ -1,0 +1,285 @@
+---
+name: "阿凡達"
+heading: "頭像組件"
+description: "僅限 CSS Tailwind CSS 頭像，用於個人資料圖像。尺寸為 xs-xl，組堆疊和在線/離線狀態指示器。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Avatar - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS Avatar 帶有圖片、縮寫和圖示變體。支援堆疊組、狀態指示器和多種尺寸—零 JavaScript 需求。"
+order: 0
+related:
+  - "components/card"
+  - "components/chat"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/avatar.webp"
+imageAlt: "阿凡達"
+createdAt: "2026-04-19T14:07:05.251307+00:00"
+updatedAt: "2026-07-13T09:44:52.714387+00:00"
+sourceHash: "50115002de51"
+translationHash: "345fb4297116"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅限 CSS Tailwind CSS 頭像，用於個人資料圖像。尺寸為 xs-xl，組堆疊和在線/離線狀態指示器。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+Avatar 元件在一個緊湊的、可自訂的容器中顯示使用者個人資料圖像或姓名首字母。頭像使用 Frutjam 的 CSS 自訂屬性構建，代表介面上的使用者、貢獻者或團隊成員。頭像系統支援圖像和文字、多種尺寸、顏色、形狀、狀態指示器、環和群組排列，非常適合使用者清單、評論、團隊顯示、個人資料部分和訊息傳遞介面。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| avatar | <span class="badge badge-xs">根據</span> | 帶有縮寫或圖像的圓形頭像容器 |
+| avatar-group | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 多個頭像重疊堆疊 |
+| avatar-ring | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 在頭像周圍添加彩色環形邊框 |
+| avatar-circle | <span class="badge badge-xs badge-success badge-soft">風格</span> | 全圓形（預設） |
+| avatar-rounded | <span class="badge badge-xs badge-success badge-soft">風格</span> | 圓角矩形形狀 |
+| avatar-square | <span class="badge badge-xs badge-success badge-soft">風格</span> | 方形，無圓角 |
+| avatar-online | <span class="badge badge-xs badge-success badge-soft">風格</span> | 綠色在線狀態指示燈 |
+| avatar-away | <span class="badge badge-xs badge-success badge-soft">風格</span> | 黃色離開狀態指示燈 |
+| avatar-busy | <span class="badge badge-xs badge-success badge-soft">風格</span> | 紅色忙狀態指示燈 |
+| avatar-offline | <span class="badge badge-xs badge-success badge-soft">風格</span> | 灰色離線狀態指示燈 |
+| avatar-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小號 |
+| avatar-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小的 |
+| avatar-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（預設） |
+| avatar-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大的 |
+| avatar-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特大號 |
+| avatar-2xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 2x 超大號 |
+| avatar-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 主要主題顏色 |
+| avatar-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 次要主題色 |
+| avatar-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 強調主題顏色 |
+| avatar-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 中性主題色 |
+| avatar-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息語意顏色 |
+| avatar-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功語意色 |
+| avatar-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告語意顏色 |
+| avatar-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 錯誤語意顏色 |
+| avatar-ring-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 原色戒指 |
+| avatar-ring-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 輔助色戒指 |
+| avatar-ring-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 戒指採用強調色 |
+| avatar-ring-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 中性色戒指 |
+| avatar-ring-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息顏色的戒指 |
+| avatar-ring-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功色戒指 |
+| avatar-ring-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告色環 |
+| avatar-ring-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 戒指顏色錯誤 |
+
+</DocTable>
+
+## 基本用法
+
+使用文字縮寫或顏色建立簡單的頭像。
+
+<Snippet>
+
+```html
+<div class="avatar">AB</div>
+```
+
+```jsx
+<div className="avatar">AB</div>
+```
+
+</Snippet>
+
+## 頭像與影像
+
+透過自動影像調整和響應式尺寸調整來顯示使用者個人資料照片。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-sm">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=32&height=32&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+
+<div class="avatar avatar-md">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=40&height=40&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+
+<div class="avatar avatar-lg">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=56&height=56&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+```
+
+</Snippet>
+
+## 頭像尺寸
+
+使用尺寸變體將頭像從超小 (xs) 縮放到 2 倍大 (2xl)，以適應不同的環境。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-xs avatar-primary">XS</div>
+<div class="avatar avatar-sm avatar-secondary">SM</div>
+<div class="avatar avatar-md avatar-accent">MD</div>
+<div class="avatar avatar-lg avatar-primary">LG</div>
+<div class="avatar avatar-xl avatar-secondary">XL</div>
+<div class="avatar avatar-2xl avatar-accent">2XL</div>
+```
+
+</Snippet>
+
+## 頭像顏色
+
+不使用圖像時，應用顏色變體以按角色、團隊或狀態區分化身。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-primary">A</div>
+<div class="avatar avatar-md avatar-secondary">B</div>
+<div class="avatar avatar-md avatar-accent">C</div>
+<div class="avatar avatar-md avatar-info">D</div>
+<div class="avatar avatar-md avatar-neutral">E</div>
+<div class="avatar avatar-md avatar-success">F</div>
+<div class="avatar avatar-md avatar-warning">G</div>
+<div class="avatar avatar-md avatar-error">H</div>
+```
+
+</Snippet>
+
+## 頭像形狀
+
+選擇圓形（預設）、圓形或方形形狀以符合您的設計系統。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-lg avatar-circle avatar-primary">●</div>
+<div class="avatar avatar-lg avatar-rounded avatar-secondary">◇</div>
+<div class="avatar avatar-lg avatar-square avatar-accent">■</div>
+```
+
+</Snippet>
+
+## 帶有姓名縮寫的頭像
+
+顯示使用者姓名縮寫，以便在清單、評論線程和團隊部分中快速識別。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-sm avatar-primary">JD</div>
+<div class="avatar avatar-md avatar-secondary">AR</div>
+<div class="avatar avatar-lg avatar-accent">MS</div>
+<div class="avatar avatar-xl avatar-info">KL</div>
+```
+
+</Snippet>
+
+## 帶有狀態指示器的頭像
+
+將頭像與狀態徽章結合，以顯示使用者的狀態或可用性（線上、離線、忙碌、離開）。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-online avatar-primary">JD</div>
+
+<div class="avatar avatar-md avatar-offline avatar-secondary">AR</div>
+
+<div class="avatar avatar-md avatar-busy avatar-accent">MS</div>
+
+<div class="avatar avatar-md avatar-away avatar-info">KL</div>
+```
+
+</Snippet>
+
+## 帶有環形邊框的頭像
+
+在頭像周圍添加裝飾環以強調、突出地位或視覺分隔。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
+<div class="avatar avatar-lg avatar-ring avatar-ring-secondary avatar-secondary">B</div>
+<div class="avatar avatar-xl avatar-ring avatar-ring-accent avatar-accent">C</div>
+```
+
+</Snippet>
+
+### 戒指顏色變體
+
+選擇獨立於頭像背景顏色的戒指顏色。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-secondary avatar-secondary">B</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-accent avatar-accent">C</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-info avatar-info">D</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-success avatar-success">E</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-warning avatar-warning">F</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-error avatar-error">G</div>
+```
+
+</Snippet>
+
+## 阿凡達集團
+
+使用自動負邊距堆疊多個頭像，以重疊顯示團隊成員和協作者。
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-md avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-secondary">B</div>
+  <div class="avatar avatar-md avatar-accent">C</div>
+  <div class="avatar avatar-md avatar-info">D</div>
+</div>
+```
+
+</Snippet>
+
+### 不同大小的頭像組
+
+將多個尺寸組合到一個群組中以實現視覺層次結構。
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-sm avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-secondary">B</div>
+  <div class="avatar avatar-lg avatar-accent">C</div>
+</div>
+```
+
+</Snippet>
+
+### 具有狀態的頭像組
+
+顯示團隊群組中每位成員的空閒狀態。
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-md avatar-online avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-offline avatar-secondary">B</div>
+  <div class="avatar avatar-md avatar-busy avatar-accent">C</div>
+</div>
+```
+
+</Snippet>
+
+## 組合變體
+
+混合並匹配尺寸、顏色、形狀、狀態和戒指修飾符，以實現複雜的頭像顯示。
+
+<Snippet>
+
+```html
+<div class="avatar avatar-xl avatar-rounded avatar-ring avatar-ring-success avatar-success avatar-online">SK</div>
+
+<div class="avatar avatar-lg avatar-square avatar-ring avatar-ring-primary avatar-primary">AB</div>
+
+<div class="avatar avatar-2xl avatar-circle avatar-ring avatar-ring-error avatar-error avatar-busy">MR</div>
+```
+
+</Snippet>

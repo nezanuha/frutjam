@@ -1,0 +1,117 @@
+---
+name: "Installation"
+heading: "Installation"
+description: "Installez Frutjam, la bibliothèque d'interface utilisateur CSS Tailwind uniquement CSS, en quelques minutes. Deux importations, zéro JavaScript, composants accessibles aux WCAG prêts à l'emploi. Fonctionne avec Django, HTMX, Laravel, React et tout projet Tailwind CSS v4."
+metaTitle: "Installer Frutjam | Bibliothèque d'interface utilisateur CSS Tailwind uniquement en CSS | Frutjam"
+metaDescription: "Installez la bibliothèque d'interface utilisateur CSS Frutjam uniquement CSS Tailwind. Deux importations, zéro JavaScript, compatible Tailwind v4. Fonctionne avec Django, HTMX, Laravel et React."
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "Installation - Frutjam"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "ca3e4465f27a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Installez Frutjam, la bibliothèque d'interface utilisateur CSS Tailwind uniquement CSS, en quelques minutes. Deux importations, zéro JavaScript, composants accessibles aux WCAG prêts à l'emploi. Fonctionne avec Django, HTMX, Laravel, React et tout projet Tailwind CSS v4.
+
+## Comment installer la bibliothèque Frutjam UI dans le projet Tailwind CSS ?
+
+Assurez-vous d'avoir un projet [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) fonctionnel installé, ainsi que [Node](https://nodejs.org/en/download) et NPM sur votre ordinateur. Frutjam fonctionne avec Tailwind version 4.
+
+### Installez frutjam en tant que package Node en exécutant la commande suivante :
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+Ajoutez Frutjam à votre `input.css` en utilisant la directive `@plugin` :
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript et amp; React - Facultatif, non obligatoire
+
+Frutjam est **native-first et CSS-first**. La grande majorité des composants (boutons, badges, cartes, formulaires, alertes, etc.) fonctionnent avec du HTMX et du CSS purs, aucun JavaScript n'est nécessaire. Les éléments HTMX natifs tels que `<dialog>`, `<details>` et `<input type="checkbox">` gèrent l'interactivité là où les navigateurs la prennent déjà en charge. Tous les composants sont WCAG AA accessibles immédiatement et fonctionnent avec Django, HTMX, Laravel, React, Next.js et n'importe quelle pile.
+
+Un petit nombre de composants n'ont pas d'équivalent HTML natif (notifications toast, filtrage combobox, contrôles carrousel). Pour ces cas uniquement, Frutjam fournit des aides facultatives légères.
+
+### Vanille JS — `frutjam/js`
+
+Assistants de module ES indépendants du framework pour les composants qui en ont besoin. Attachez-le à n’importe quel élément DOM – aucun framework requis.
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### Crochets React — `frutjam/react`
+
+Thin React enveloppe les mêmes appels DOM natifs. Chaque hook renvoie un `ref` que vous attachez à l'élément et aux méthodes pour le contrôler – aucune dépendance supplémentaire au-delà de React lui-même.
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+Disponible pour : `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+
+### Utiliser un CDN
+
+Utilisez la version CDN de la bibliothèque frutjam UI pour une intégration rapide et facile sans configuration locale. Utilisez cette version CDN de frutjam uniquement à des fins de développement, pas en production.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## Prochaines étapes
+
+Une fois installé, essayez le composant [button](/components/button) pour voir Frutjam en action, ou explorez la bibliothèque complète de composants [](/components).
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Intégration de l'éditeur IA</p><h3 class=\"card-title mb-2\">Vous utilisez Claude Code, Cursor ou un autre éditeur d'IA&nbsp;?</h3><p class=\"para-sm mb-3\">Cherry MCP apporte la bibliothèque complète de composants de Frutjam directement dans le contexte de votre éditeur d'IA&nbsp;: noms de classe précis, documents en direct, pas de copier-coller.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">En savoir plus sur Cherry MCP →</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">Vous voulez comprendre la réflexion derrière l’approche CSS-first de Frutjam&nbsp;? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Lisez pourquoi nous l'avons construit de cette façon →</a></p>"} />

@@ -1,0 +1,17 @@
+---
+/** English category pages: /components, /docs, /blocks, /plugins. */
+import Base from '@/layouts/Base.astro';
+import CategoryPage from '@/components/CategoryPage.astro';
+import { CATEGORIES, type Category } from '@/lib/site';
+import { DEFAULT_LANG } from '@/lib/i18n';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((category) => ({ params: { category: category.slug }, props: { category } }));
+}
+
+const { category } = Astro.props as { category: Category };
+---
+
+<Base path={`/${category.slug}`} sidebar>
+<CategoryPage category={category} lang={DEFAULT_LANG} />
+</Base>

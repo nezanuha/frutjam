@@ -1,0 +1,1048 @@
+---
+name: "테이블"
+heading: "테이블 구성 요소"
+description: "얼룩말 줄무늬, 컴팩트 및 기본 크기, 고정된 열 및 행 가리키기 상태가 포함된 CSS 전용 Tailwind CSS 테이블입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "테이블 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "줄무늬 행, 고정 헤더 및 컴팩트한 크기를 갖춘 Tailwind CSS 테이블입니다. 대시보드 및 목록에 액세스 가능하고 응답성이 뛰어난 데이터 표시를 위한 시맨틱 HTML입니다."
+order: 0
+related:
+  - "components/checkbox"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/table.webp"
+imageAlt: "Frutjam UI의 테이블 구성 요소"
+createdAt: "2025-12-16T06:38:11.238653+00:00"
+updatedAt: "2026-07-13T09:40:02.589227+00:00"
+sourceHash: "008ca3a93198"
+translationHash: "591cca47b86f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+얼룩말 줄무늬, 컴팩트 및 기본 크기, 고정된 열 및 행 가리키기 상태가 포함된 CSS 전용 Tailwind CSS 테이블입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+테이블 구성 요소는 구조화된 데이터를 행과 열로 구성하고 표시합니다. 의미 있는 HTML 테이블 요소와 Tailwind CSS 스타일로 구축된 테이블은 정렬, 줄무늬 행, 호버 효과 및 반응형 오버플로 처리를 지원합니다. Frutjam 테이블 시스템은 적절한 헤더 연결을 통해 액세스할 수 있으며 데이터 시각화 프레임워크와 원활하게 작동합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| table | <span class="badge badge-xs">베이스</span> | 일정한 간격으로 스타일이 지정된 HTML 테이블 |
+| table-zebra | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 대체 행 배경색 |
+| table-zebra-rows | <span class="badge badge-xs badge-success badge-soft">스타일</span> | tbody 행에서만 대체 행 배경 |
+| table-zebra-cols | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 열 배경색 교대 |
+| table-hover | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 마우스를 올리면 행을 강조 표시합니다. |
+| table-pin-rows | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 스크롤하는 동안 머리글과 바닥글 행을 고정합니다. |
+| table-pin-cols | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 스크롤하는 동안 첫 번째 열과 마지막 열 고정 |
+| table-xs | <span class="badge badge-xs badge-info badge-soft">크기</span> | 매우 작은 행 패딩 |
+| table-sm | <span class="badge badge-xs badge-info badge-soft">크기</span> | 작은 행 패딩 |
+| table-md | <span class="badge badge-xs badge-info badge-soft">크기</span> | 중간 행 패딩(기본값) |
+| table-lg | <span class="badge badge-xs badge-info badge-soft">크기</span> | 큰 행 패딩 |
+| table-xl | <span class="badge badge-xs badge-info badge-soft">크기</span> | 초대형 행 패딩 |
+
+</DocTable>
+
+## 테이블
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Smartphone</td>
+        <td>$699</td>
+        <td>Electronics</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td>Wireless Headphones</td>
+        <td>$150</td>
+        <td>Accessories</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Laptop</td>
+        <td>$1200</td>
+        <td>Electronics</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+```jsx
+<div className="overflow-x-auto w-full">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+      <tr>
+        <th>1</th>
+        <td>Smartphone</td>
+        <td>$699</td>
+        <td>Electronics</td>
+      </tr>
+      {/* row 2 */}
+      <tr>
+        <th>2</th>
+        <td>Wireless Headphones</td>
+        <td>$150</td>
+        <td>Accessories</td>
+      </tr>
+      {/* row 3 */}
+      <tr>
+        <th>3</th>
+        <td>Laptop</td>
+        <td>$1200</td>
+        <td>Electronics</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블 크기
+
+### 테이블 특소 `(table-xs)`
+
+아래 테이블 크기 예에서는 `table-xs`(매우 작음)를 사용합니다. `table-xs`, `table-sm`, `table-md`, `table-lg`, `table-xl` 등 `table-{size}` 유틸리티 클래스를 사용하여 테이블 크기를 조정할 수 있습니다. 이 클래스는 매우 컴팩트한 레이아웃부터 더 넓고 읽기 쉬운 테이블까지 다양합니다.
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table table-xs">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Framework</th>
+        <th>Creator</th>
+        <th>Core Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Next.js</td>
+        <td>Vercel</td>
+        <td>React-based SSR (Server-Side Rendering) & Static Site Generation</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td>Vue 3</td>
+        <td>Evan You</td>
+        <td>Progressive JavaScript Framework for building UIs</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Svelte</td>
+        <td>Rich Harris</td>
+        <td>Compiles to minimal vanilla JavaScript for fast performance</td>
+      </tr>
+      <!-- row 4 -->
+      <tr>
+        <th>4</th>
+        <td>Remix</td>
+        <td>Ryan Florence, Michael Jackson</td>
+        <td>React Framework focused on user experience and performance</td>
+      </tr>
+      <!-- row 5 -->
+      <tr>
+        <th>5</th>
+        <td>Astro</td>
+        <td>Fred K. Schott</td>
+        <td>Builds fast websites using components from React, Vue, Svelte, etc.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블 얼룩말(줄무늬) 행
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table table-zebra">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Tokyo</td>
+        <td>Japan</td>
+        <td>37.4 million</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td>New York</td>
+        <td>USA</td>
+        <td>8.4 million</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Paris</td>
+        <td>France</td>
+        <td>2.1 million</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블 얼룩말(줄무늬) 열
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table table-zebra-cols">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Tokyo</td>
+        <td>Japan</td>
+        <td>37.4 million</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td>New York</td>
+        <td>USA</td>
+        <td>8.4 million</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Paris</td>
+        <td>France</td>
+        <td>2.1 million</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블에 마우스를 올리면 행이 강조표시됩니다.
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table table-hover">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>Tokyo</td>
+        <td>Japan</td>
+        <td>37.4 million</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td>New York</td>
+        <td>USA</td>
+        <td>8.4 million</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Paris</td>
+        <td>France</td>
+        <td>2.1 million</td>
+      </tr>
+            <tr>
+        <th>3</th>
+        <td>Paris</td>
+        <td>France</td>
+        <td>2.1 million</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 고정된(고정된) 헤더 행이 있는 테이블
+
+<Snippet>
+
+```html
+<div class="h-96 overflow-x-auto">
+  <table class="table table-pin-rows">
+    <thead>
+      <tr><th>A</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Apple</td></tr>
+      <tr><td>Apricot</td></tr>
+      <tr><td>Avocado</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Banana</td></tr>
+      <tr><td>Blackberry</td></tr>
+      <tr><td>Blueberry</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>C</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cherry</td></tr>
+      <tr><td>Coconut</td></tr>
+      <tr><td>Cranberry</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>D</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Date</td></tr>
+      <tr><td>Dragon Fruit</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>G</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Grape</td></tr>
+      <tr><td>Guava</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>K</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Kiwi</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>M</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mango</td></tr>
+      <tr><td>Melon</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>O</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Orange</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>P</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Papaya</td></tr>
+      <tr><td>Pineapple</td></tr>
+      <tr><td>Pomegranate</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>S</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Strawberry</td></tr>
+    </tbody>
+
+    <thead>
+      <tr><th>W</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Watermelon</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블 고정(고정) 열 가로 스크롤
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-96">
+    <table class="table table-xs table-pin-cols">
+        <thead>
+            <tr>
+                <th>#</th>
+                <td>Framework</td>
+                <td>Type</td>
+                <td>Maintained By</td>
+                <td>Learning Curve</td>
+                <td>First Release</td>
+                <td>Popularity</td>
+                <th>Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <td>React</td>
+                <td>Library</td>
+                <td>Meta</td>
+                <td>Medium</td>
+                <td>2013</td>
+                <td>Very High</td>
+                <th>1</th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>Angular</td>
+                <td>Framework</td>
+                <td>Google</td>
+                <td>High</td>
+                <td>2016</td>
+                <td>High</td>
+                <th>2</th>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td>Vue</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2014</td>
+                <td>High</td>
+                <th>3</th>
+            </tr>
+            <tr>
+                <th>4</th>
+                <td>Svelte</td>
+                <td>Compiler</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2016</td>
+                <td>Medium</td>
+                <th>4</th>
+            </tr>
+            <tr>
+                <th>5</th>
+                <td>Next.js</td>
+                <td>Framework</td>
+                <td>Vercel</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Very High</td>
+                <th>5</th>
+            </tr>
+            <tr>
+                <th>6</th>
+                <td>Nuxt</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Medium</td>
+                <th>6</th>
+            </tr>
+            <tr>
+                <th>7</th>
+                <td>SolidJS</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2020</td>
+                <td>Growing</td>
+                <th>7</th>
+            </tr>
+            <tr>
+                <th>8</th>
+                <td>Ember</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>High</td>
+                <td>2011</td>
+                <td>Low</td>
+                <th>8</th>
+            </tr>
+            <tr>
+                <th>9</th>
+                <td>Backbone</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2010</td>
+                <td>Low</td>
+                <th>9</th>
+            </tr>
+            <tr>
+                <th>10</th>
+                <td>Alpine.js</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Very Low</td>
+                <td>2019</td>
+                <td>Medium</td>
+                <th>10</th>
+            </tr>
+            <tr>
+                <th>11</th>
+                <td>Preact</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2015</td>
+                <td>Medium</td>
+                <th>11</th>
+            </tr>
+            <tr>
+                <th>12</th>
+                <td>Lit</td>
+                <td>Library</td>
+                <td>Google</td>
+                <td>Low</td>
+                <td>2018</td>
+                <td>Growing</td>
+                <th>12</th>
+            </tr>
+            <tr>
+                <th>13</th>
+                <td>Meteor</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2012</td>
+                <td>Low</td>
+                <th>13</th>
+            </tr>
+            <tr>
+                <th>14</th>
+                <td>Aurelia</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Low</td>
+                <th>14</th>
+            </tr>
+            <tr>
+                <th>15</th>
+                <td>Qwik</td>
+                <td>Framework</td>
+                <td>Builder.io</td>
+                <td>Medium</td>
+                <td>2022</td>
+                <td>Growing</td>
+                <th>15</th>
+            </tr>
+            <tr>
+                <th>16</th>
+                <td>Fresh</td>
+                <td>Framework</td>
+                <td>Deno</td>
+                <td>Low</td>
+                <td>2022</td>
+                <td>Growing</td>
+                <th>16</th>
+            </tr>
+            <tr>
+                <th>17</th>
+                <td>Remix</td>
+                <td>Framework</td>
+                <td>Shopify</td>
+                <td>Medium</td>
+                <td>2021</td>
+                <td>High</td>
+                <th>17</th>
+            </tr>
+            <tr>
+                <th>18</th>
+                <td>Astro</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2021</td>
+                <td>High</td>
+                <th>18</th>
+            </tr>
+            <tr>
+                <th>19</th>
+                <td>Marko</td>
+                <td>Framework</td>
+                <td>eBay</td>
+                <td>Medium</td>
+                <td>2014</td>
+                <td>Low</td>
+                <th>19</th>
+            </tr>
+            <tr>
+                <th>20</th>
+                <td>Inferno</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Low</td>
+                <th>20</th>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <td>Framework</td>
+                <td>Type</td>
+                <td>Maintained By</td>
+                <td>Learning Curve</td>
+                <td>First Release</td>
+                <td>Popularity</td>
+                <th>Rank</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+```
+
+</Snippet>
+
+## 테이블 고정 열 행
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto h-96 w-96">
+    <table class="table table-xs table-pin-rows table-pin-cols">
+        <thead>
+            <tr>
+                <th>#</th>
+                <td>Framework</td>
+                <td>Type</td>
+                <td>Maintained By</td>
+                <td>Learning Curve</td>
+                <td>First Release</td>
+                <td>Popularity</td>
+                <th>Rank</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <td>React</td>
+                <td>Library</td>
+                <td>Meta</td>
+                <td>Medium</td>
+                <td>2013</td>
+                <td>Very High</td>
+                <th>1</th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>Angular</td>
+                <td>Framework</td>
+                <td>Google</td>
+                <td>High</td>
+                <td>2016</td>
+                <td>High</td>
+                <th>2</th>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td>Vue</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2014</td>
+                <td>High</td>
+                <th>3</th>
+            </tr>
+            <tr>
+                <th>4</th>
+                <td>Svelte</td>
+                <td>Compiler</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2016</td>
+                <td>Medium</td>
+                <th>4</th>
+            </tr>
+            <tr>
+                <th>5</th>
+                <td>Next.js</td>
+                <td>Framework</td>
+                <td>Vercel</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Very High</td>
+                <th>5</th>
+            </tr>
+            <tr>
+                <th>6</th>
+                <td>Nuxt</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Medium</td>
+                <th>6</th>
+            </tr>
+            <tr>
+                <th>7</th>
+                <td>SolidJS</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2020</td>
+                <td>Growing</td>
+                <th>7</th>
+            </tr>
+            <tr>
+                <th>8</th>
+                <td>Ember</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>High</td>
+                <td>2011</td>
+                <td>Low</td>
+                <th>8</th>
+            </tr>
+            <tr>
+                <th>9</th>
+                <td>Backbone</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2010</td>
+                <td>Low</td>
+                <th>9</th>
+            </tr>
+            <tr>
+                <th>10</th>
+                <td>Alpine.js</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Very Low</td>
+                <td>2019</td>
+                <td>Medium</td>
+                <th>10</th>
+            </tr>
+            <tr>
+                <th>11</th>
+                <td>Preact</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2015</td>
+                <td>Medium</td>
+                <th>11</th>
+            </tr>
+            <tr>
+                <th>12</th>
+                <td>Lit</td>
+                <td>Library</td>
+                <td>Google</td>
+                <td>Low</td>
+                <td>2018</td>
+                <td>Growing</td>
+                <th>12</th>
+            </tr>
+            <tr>
+                <th>13</th>
+                <td>Meteor</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2012</td>
+                <td>Low</td>
+                <th>13</th>
+            </tr>
+            <tr>
+                <th>14</th>
+                <td>Aurelia</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Low</td>
+                <th>14</th>
+            </tr>
+            <tr>
+                <th>15</th>
+                <td>Qwik</td>
+                <td>Framework</td>
+                <td>Builder.io</td>
+                <td>Medium</td>
+                <td>2022</td>
+                <td>Growing</td>
+                <th>15</th>
+            </tr>
+            <tr>
+                <th>16</th>
+                <td>Fresh</td>
+                <td>Framework</td>
+                <td>Deno</td>
+                <td>Low</td>
+                <td>2022</td>
+                <td>Growing</td>
+                <th>16</th>
+            </tr>
+            <tr>
+                <th>17</th>
+                <td>Remix</td>
+                <td>Framework</td>
+                <td>Shopify</td>
+                <td>Medium</td>
+                <td>2021</td>
+                <td>High</td>
+                <th>17</th>
+            </tr>
+            <tr>
+                <th>18</th>
+                <td>Astro</td>
+                <td>Framework</td>
+                <td>Open Source</td>
+                <td>Low</td>
+                <td>2021</td>
+                <td>High</td>
+                <th>18</th>
+            </tr>
+            <tr>
+                <th>19</th>
+                <td>Marko</td>
+                <td>Framework</td>
+                <td>eBay</td>
+                <td>Medium</td>
+                <td>2014</td>
+                <td>Low</td>
+                <th>19</th>
+            </tr>
+            <tr>
+                <th>20</th>
+                <td>Inferno</td>
+                <td>Library</td>
+                <td>Open Source</td>
+                <td>Medium</td>
+                <td>2016</td>
+                <td>Low</td>
+                <th>20</th>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <td>Framework</td>
+                <td>Type</td>
+                <td>Maintained By</td>
+                <td>Learning Curve</td>
+                <td>First Release</td>
+                <td>Popularity</td>
+                <th>Rank</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+```
+
+</Snippet>
+
+## 확인란 선택이 포함된 표
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">Landing Page Redesign</div>
+            <div class="text-sm opacity-50">Production</div>
+          </div>
+        </td>
+        <td>
+          Frontend
+          
+          <span class="badge badge-soft badge-sm">UI / UX</span>
+        </td>
+        <td>Tailwind CSS</td>
+        <th>
+          <button class="btn btn-primary btn-xs">details</button>
+        </th>
+      </tr>
+
+      <!-- row 2 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">Auth API Service</div>
+            <div class="text-sm opacity-50">Backend</div>
+          </div>
+        </td>
+        <td>
+          API
+          
+          <span class="badge badge-soft badge-sm">Authentication</span>
+        </td>
+        <td>Node.js</td>
+        <th>
+          <button class="btn btn-primary btn-xs">details</button>
+        </th>
+      </tr>
+
+      <!-- row 3 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">E-commerce Dashboard</div>
+            <div class="text-sm opacity-50">Internal Tool</div>
+          </div>
+        </td>
+        <td>
+          Full Stack
+          
+          <span class="badge badge-soft badge-sm">Admin Panel</span>
+        </td>
+        <td>Next.js</td>
+        <th>
+          <button class="btn btn-primary btn-xs">details</button>
+        </th>
+      </tr>
+
+      <!-- row 4 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">CI Pipeline</div>
+            <div class="text-sm opacity-50">Infrastructure</div>
+          </div>
+        </td>
+        <td>
+          DevOps
+          
+          <span class="badge badge-soft badge-sm">Automation</span>
+        </td>
+        <td>GitHub Actions</td>
+        <th>
+          <button class="btn btn-primary btn-xs">details</button>
+        </th>
+      </tr>
+    </tbody>
+
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+</Snippet>

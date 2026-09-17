@@ -1,0 +1,442 @@
+---
+name: "Oś czasu"
+heading: "Komponent osi czasu"
+description: "Oś czasu CSS Tailwind, zawierająca wyłącznie chronologiczne listy wydarzeń. Układ pionowy z ikonami, treścią i miejscami na linie łączące. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Oś czasu — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Oś czasu CSS Tailwind przedstawiająca wydarzenia chronologiczne, kamienie milowe i etapy procesu. Układy pionowe i poziome z ikonami i złączami dla interfejsów użytkownika historii."
+order: 0
+related:
+  - "components/steps"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/timeline_ebTSNTA.webp"
+imageAlt: "Oś czasu autorstwa Frutjama"
+createdAt: "2026-04-19T15:57:24.076920+00:00"
+updatedAt: "2026-07-13T09:44:19.242151+00:00"
+sourceHash: "cec5e1744f4f"
+translationHash: "f14cbcf2140b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Oś czasu CSS Tailwind, zawierająca wyłącznie chronologiczne listy wydarzeń. Układ pionowy z ikonami, treścią i miejscami na linie łączące. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Komponenty osi czasu przedstawiają sekwencję wydarzeń, kamieni milowych lub postępu narracji w porządku chronologicznym. Osie czasu, zbudowane w oparciu o semantyczny kod HTML, pomagają użytkownikom zrozumieć historyczny postęp i fazy projektu. System osi czasu Frutjam obsługuje wiele kierunków, kolorów i stylów elementów — idealnie nadaje się do historii projektu, informacji o wydaniu i map podróży.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| timeline | <span class="badge badge-xs">Opierać</span> | Uporządkowana lista wydarzeń chronologicznych |
+| timeline-item | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Indywidualny rząd zdarzeń — umieść na każdym `<li>` |
+| timeline-start | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Treść umieszczona przed osią czasu |
+| timeline-middle | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Kropka wyśrodkowana na osi czasu |
+| timeline-end | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Treść umieszczona za osią czasu |
+| timeline-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Układ poziomy |
+| timeline-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Układ pionowy (domyślny) |
+| timeline-snap-start | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Ukrywa kolumnę początkową — kropka wyrównuje się do lewej krawędzi |
+| timeline-snap-end | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Ukrywa kolumnę końcową — kropka wyrównuje się do prawej krawędzi |
+| timeline-primary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Kropka i złącze koloru podstawowego — umieść na `timeline-item` |
+| timeline-secondary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Dodatkowa kolorowa kropka i złącze — umieść na `timeline-item` |
+| timeline-accent | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Kolorowa kropka akcentująca i złącze — umieść na `timeline-item` |
+| timeline-neutral | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Neutralny kolor kropki i złącza — umieść na `timeline-item` |
+| timeline-info | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Kolorowa kropka informacyjna i złącze — umieść na `timeline-item` |
+| timeline-success | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Kolorowa kropka i złącze sukcesu — umieść na `timeline-item` |
+| timeline-warning | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Ostrzegawcza kolorowa kropka i złącze — umieść na `timeline-item` |
+| timeline-error | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Błąd koloru kropki i złącza — umieść na `timeline-item` |
+
+</DocTable>
+
+## Podstawowe użycie
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```jsx
+<ul className="timeline timeline-vertical">
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Project started</div>
+      <div className="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Beta released</div>
+      <div className="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Today</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">v2.0 launched</div>
+      <div className="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```vue
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Timeline with Colors
+
+Add a color modifier to each `timeline-item` to color its dot and the connector line trailing from it.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start text-sm opacity-60">Step 1</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Primary</div></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start text-sm opacity-60">Step 2</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Secondary</div></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start text-sm opacity-60">Step 3</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Success</div></div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start text-sm opacity-60">Step 4</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Warning</div></div>
+  </li>
+  <li class="timeline-item timeline-error">
+    <div class="timeline-start text-sm opacity-60">Step 5</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Error</div></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Alternating Sides
+
+Alternate content between `timeline-start` and `timeline-end` on each item to create a zigzag layout.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Design phase</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Development</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-accent">
+    <div class="timeline-start">
+      <div class="font-semibold">Testing</div>
+      <div class="text-sm opacity-60">May 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launch</div>
+      <div class="text-sm opacity-60">Jun 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Two-Toned Connectors
+
+Each item's connector line inherits its color, creating seamless transitions between differently-colored steps.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-info">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Planned</div>
+      <div class="text-sm opacity-60">Backlog item created</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Progress</div>
+      <div class="text-sm opacity-60">Development started</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Review</div>
+      <div class="text-sm opacity-60">Awaiting approval</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Done</div>
+      <div class="text-sm opacity-60">Shipped to production</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Start Side Only
+
+Place content only in `timeline-start` with an empty `timeline-end` to push everything to the left of the axis.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Requirements gathered</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Prototype built</div>
+      <div class="text-sm opacity-60">Feb 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start">
+      <div class="font-semibold">Shipped</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## End Side Only
+
+Use `timeline-snap-start` to push the dot to the left edge with all content on the right.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Rich Card Content
+
+Wrap content in a `border rounded-box p-3` block to give each timeline event a card-like appearance.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jan 15, 2024</div>
+        <div class="font-semibold">Project Kickoff</div>
+        <p class="text-sm opacity-70 mt-1">Team assembled, goals defined, and roadmap approved by stakeholders.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Mar 1, 2024</div>
+        <div class="font-semibold">Alpha Released</div>
+        <p class="text-sm opacity-70 mt-1">Internal testing began with 12 pilot users across 3 departments.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jun 10, 2024</div>
+        <div class="font-semibold">v1.0 General Availability</div>
+        <p class="text-sm opacity-70 mt-1">Public launch with full documentation, support, and SLA guarantees.</p>
+      </div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Snap Start
+
+Use `timeline-snap-start` on the list to hide the start column and align the dot to the left edge.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Snap End
+
+Use `timeline-snap-end` on the list to hide the end column and align the dot to the right edge.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>

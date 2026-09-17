@@ -1,0 +1,183 @@
+---
+name: "Indikator"
+heading: "Indikatorkomponente"
+description: "Nur CSS-Tailwind-CSS-Indikator zum Überlagern von Abzeichen oder Punkten an jeder Elementecke. Farbvarianten und Positionierung. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Indikator – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind-CSS-Indikator für Benachrichtigungs-Badges und Status-Overlays. Neun Platzierungspositionen für Avatare, Schaltflächen und Karten – kein JavaScript erforderlich."
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Indikator von Frutjam"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "7fe92458ae57"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind-CSS-Indikator zum Überlagern von Abzeichen oder Punkten an jeder Elementecke. Farbvarianten und Positionierung. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Indikatorkomponenten zeigen Status, Abzeichen oder Benachrichtigungen an, die auf anderen Elementen positioniert sind. Die Indikatoren sind mit absoluter Positionierung und flexiblem Design ausgestattet und überlagern wichtige Informationen auf Karten, Avataren und Schaltflächen. Das Frutjam-Indikatorsystem unterstützt mehrere Platzierungen, Größen und Farben – ideal für Benachrichtigungsausweise, Statusmarkierungen und visuelle Hinweise.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">Base</span> | Relativ positionierter Wrapper für das Indikatorelement |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Absolut positioniertes Abzeichen oder Punktelement |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element am oberen Rand |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element in der vertikalen Mitte |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element am unteren Rand |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element am linken Rand |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element in der horizontalen Mitte |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Positioniert das Element am rechten Rand |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## Indikatorplatzierungen
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## Indikator in Tabs
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## Anzeige am Eingang
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## Indikator auf dem Bild
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## Indikator auf Karten
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Anzeige auf Avatar
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## Reaktionsverhalten
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,285 @@
+---
+name: "Avatar"
+heading: "Avatar-Komponente"
+description: "Nur CSS-Tailwind-CSS-Avatar für Profilbilder. Größen XS-XL, Gruppenstapelung und Online-/Offline-Statusanzeige. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Avatar – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS-Avatar mit Bild-, Initialen- und Symbolvarianten. Unterstützt gestapelte Gruppen, Statusanzeigen und mehrere Größen – kein JavaScript erforderlich."
+order: 0
+related:
+  - "components/card"
+  - "components/chat"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/avatar.webp"
+imageAlt: "Avatar"
+createdAt: "2026-04-19T14:07:05.251307+00:00"
+updatedAt: "2026-07-13T09:44:52.714387+00:00"
+sourceHash: "50115002de51"
+translationHash: "697d4066c622"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind-CSS-Avatar für Profilbilder. Größen XS-XL, Gruppenstapelung und Online-/Offline-Statusanzeige. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Avatar-Komponenten zeigen Benutzerprofilbilder oder Initialen in einem kompakten, anpassbaren Container an. Mit den benutzerdefinierten CSS-Eigenschaften von Frutjam erstellt, repräsentieren Avatare Benutzer, Mitwirkende oder Teammitglieder auf Ihrer Benutzeroberfläche. Das Avatar-System unterstützt Bilder und Text, verschiedene Größen, Farben, Formen, Statusanzeigen, Ringe und Gruppenanordnungen – ideal für Benutzerlisten, Kommentare, Teamanzeigen, Profilabschnitte und Messaging-Schnittstellen.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| avatar | <span class="badge badge-xs">Base</span> | Runder Avatar-Container mit Initialen oder Bild |
+| avatar-group | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Überlappender Stapel mehrerer Avatare |
+| avatar-ring | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Fügt einen farbigen Ringrahmen um den Avatar hinzu |
+| avatar-circle | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Vollständig kreisförmige Form (Standard) |
+| avatar-rounded | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Abgerundete Rechteckform |
+| avatar-square | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Quadratische Form ohne Rundung |
+| avatar-online | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Grüne Online-Statusanzeige |
+| avatar-away | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Gelbe Abwesenheitsstatusanzeige |
+| avatar-busy | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Rote Besetztstatusanzeige |
+| avatar-offline | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Graue Offline-Statusanzeige |
+| avatar-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra klein |
+| avatar-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Klein |
+| avatar-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittel (Standard) |
+| avatar-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Groß |
+| avatar-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra groß |
+| avatar-2xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | 2x extra groß |
+| avatar-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Primäre Designfarbe |
+| avatar-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Sekundäre Themenfarbe |
+| avatar-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Akzentfarbe des Themas |
+| avatar-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Neutrale Themenfarbe |
+| avatar-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Infofarbe |
+| avatar-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Erfolgsfarbe |
+| avatar-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Warnungsfarbe |
+| avatar-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Fehlerfarbe |
+| avatar-ring-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Primärfarbe |
+| avatar-ring-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Sekundärfarbe |
+| avatar-ring-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Akzentfarbe |
+| avatar-ring-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in neutraler Farbe |
+| avatar-ring-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Infofarbe |
+| avatar-ring-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Erfolgsfarbe |
+| avatar-ring-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Warnfarbe |
+| avatar-ring-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Ring in Fehlerfarbe |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+Erstellen Sie einfache Avatare mit Textinitialen oder Farben.
+
+<Snippet>
+
+```html
+<div class="avatar">AB</div>
+```
+
+```jsx
+<div className="avatar">AB</div>
+```
+
+</Snippet>
+
+## Avatar mit Bildern
+
+Zeigen Sie Benutzerprofilfotos mit automatischer Bildanpassung und reaktionsfähiger Größenanpassung an.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-sm">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=32&height=32&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+
+<div class="avatar avatar-md">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=40&height=40&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+
+<div class="avatar avatar-lg">
+  <img src="https://cdn.frutjam.com/images/avatar-1.jpg?format=webp&width=56&height=56&face_crop=true" alt="Strawbery" loading="lazy" />
+</div>
+```
+
+</Snippet>
+
+## Avatar-Größen
+
+Verwenden Sie Größenvarianten, um Avatare für verschiedene Kontexte von extraklein (xs) auf 2x-groß (2xl) zu skalieren.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-xs avatar-primary">XS</div>
+<div class="avatar avatar-sm avatar-secondary">SM</div>
+<div class="avatar avatar-md avatar-accent">MD</div>
+<div class="avatar avatar-lg avatar-primary">LG</div>
+<div class="avatar avatar-xl avatar-secondary">XL</div>
+<div class="avatar avatar-2xl avatar-accent">2XL</div>
+```
+
+</Snippet>
+
+## Avatar-Farben
+
+Wenden Sie Farbvarianten an, um Avatare nach Rolle, Team oder Status zu unterscheiden, wenn Sie keine Bilder verwenden.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-primary">A</div>
+<div class="avatar avatar-md avatar-secondary">B</div>
+<div class="avatar avatar-md avatar-accent">C</div>
+<div class="avatar avatar-md avatar-info">D</div>
+<div class="avatar avatar-md avatar-neutral">E</div>
+<div class="avatar avatar-md avatar-success">F</div>
+<div class="avatar avatar-md avatar-warning">G</div>
+<div class="avatar avatar-md avatar-error">H</div>
+```
+
+</Snippet>
+
+## Avatar-Formen
+
+Wählen Sie je nach Designsystem zwischen kreisförmigen (Standard), abgerundeten oder quadratischen Formen.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-lg avatar-circle avatar-primary">●</div>
+<div class="avatar avatar-lg avatar-rounded avatar-secondary">◇</div>
+<div class="avatar avatar-lg avatar-square avatar-accent">■</div>
+```
+
+</Snippet>
+
+## Avatar mit Initialen
+
+Zeigen Sie Benutzerinitialen zur schnellen Identifizierung in Listen, Kommentarthreads und Teamabschnitten an.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-sm avatar-primary">JD</div>
+<div class="avatar avatar-md avatar-secondary">AR</div>
+<div class="avatar avatar-lg avatar-accent">MS</div>
+<div class="avatar avatar-xl avatar-info">KL</div>
+```
+
+</Snippet>
+
+## Avatar mit Statusanzeige
+
+Kombinieren Sie Avatare mit Statusabzeichen, um die Anwesenheit oder Verfügbarkeit des Benutzers anzuzeigen (online, offline, beschäftigt, abwesend).
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-online avatar-primary">JD</div>
+
+<div class="avatar avatar-md avatar-offline avatar-secondary">AR</div>
+
+<div class="avatar avatar-md avatar-busy avatar-accent">MS</div>
+
+<div class="avatar avatar-md avatar-away avatar-info">KL</div>
+```
+
+</Snippet>
+
+## Avatar mit Ringrand
+
+Fügen Sie dekorative Ringe um Avatare hinzu, um sie hervorzuheben, den Status hervorzuheben oder sie optisch zu trennen.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
+<div class="avatar avatar-lg avatar-ring avatar-ring-secondary avatar-secondary">B</div>
+<div class="avatar avatar-xl avatar-ring avatar-ring-accent avatar-accent">C</div>
+```
+
+</Snippet>
+
+### Ringfarbvarianten
+
+Wählen Sie Ringfarben unabhängig von den Avatar-Hintergrundfarben.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-md avatar-ring avatar-ring-primary avatar-primary">A</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-secondary avatar-secondary">B</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-accent avatar-accent">C</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-info avatar-info">D</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-success avatar-success">E</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-warning avatar-warning">F</div>
+<div class="avatar avatar-md avatar-ring avatar-ring-error avatar-error">G</div>
+```
+
+</Snippet>
+
+## Avatar-Gruppe
+
+Stapeln Sie mehrere Avatare mit automatischem negativen Rand für eine überlappende Anzeige von Teammitgliedern und Mitarbeitern.
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-md avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-secondary">B</div>
+  <div class="avatar avatar-md avatar-accent">C</div>
+  <div class="avatar avatar-md avatar-info">D</div>
+</div>
+```
+
+</Snippet>
+
+### Avatar-Gruppe mit unterschiedlichen Größen
+
+Kombinieren Sie mehrere Größen innerhalb einer Gruppe für eine visuelle Hierarchie.
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-sm avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-secondary">B</div>
+  <div class="avatar avatar-lg avatar-accent">C</div>
+</div>
+```
+
+</Snippet>
+
+### Avatar-Gruppe mit Status
+
+Zeigen Sie den Verfügbarkeitsstatus für jedes Mitglied in einer Teamgruppe an.
+
+<Snippet>
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-md avatar-online avatar-primary">A</div>
+  <div class="avatar avatar-md avatar-offline avatar-secondary">B</div>
+  <div class="avatar avatar-md avatar-busy avatar-accent">C</div>
+</div>
+```
+
+</Snippet>
+
+## Kombinierte Varianten
+
+Kombinieren Sie Größe, Farbe, Form, Status und Ringmodifikatoren für komplexe Avatar-Anzeigen.
+
+<Snippet>
+
+```html
+<div class="avatar avatar-xl avatar-rounded avatar-ring avatar-ring-success avatar-success avatar-online">SK</div>
+
+<div class="avatar avatar-lg avatar-square avatar-ring avatar-ring-primary avatar-primary">AB</div>
+
+<div class="avatar avatar-2xl avatar-circle avatar-ring avatar-ring-error avatar-error avatar-busy">MR</div>
+```
+
+</Snippet>

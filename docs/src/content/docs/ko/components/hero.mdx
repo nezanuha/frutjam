@@ -1,0 +1,186 @@
+---
+name: "영웅"
+heading: "영웅 구성요소"
+description: "랜딩 페이지용 CSS 전용 Tailwind CSS 히어로 섹션입니다. 제목, 설명, CTA가 중앙에 배치된 전체 너비 레이아웃입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "Hero - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "중앙 정렬, 분할 및 오버레이 레이아웃이 포함된 Tailwind CSS Hero 섹션. 전환율이 높은 랜딩 페이지를 위한 CTA 버튼 및 미디어 지원을 갖춘 시맨틱 HTML입니다."
+order: 0
+related:
+  - "blocks/hero"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/hero_AHU0GAE.webp"
+imageAlt: "Frutjam의 영웅"
+createdAt: "2026-04-19T15:56:44.073112+00:00"
+updatedAt: "2026-07-13T09:49:08.433774+00:00"
+sourceHash: "60b35eb90e72"
+translationHash: "35ed736e2e54"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+랜딩 페이지용 CSS 전용 Tailwind CSS 히어로 섹션입니다. 제목, 설명, CTA가 중앙에 배치된 전체 너비 레이아웃입니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+히어로 구성 요소는 매력적인 시각적 요소와 메시지로 페이지나 제품을 소개하는 눈길을 끄는 전체 너비 섹션을 만듭니다. 시맨틱 HTML과 유연한 레이아웃으로 구축된 히어로 섹션은 사용자 참여의 분위기를 조성합니다. Frutjam Hero 시스템은 다양한 배경, 오버레이 및 반응형 정렬을 지원하므로 랜딩 페이지, 제품 출시 및 눈에 띄는 발표에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| hero | <span class="badge badge-xs">베이스</span> | 중앙에 콘텐츠가 있는 전체 너비 섹션 |
+| hero-content | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | Flex 레이아웃이 있는 내부 콘텐츠 영역 |
+| hero-overlay | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 배경 이미지용 반투명 오버레이 |
+
+</DocTable>
+
+## 기본 사용법
+
+중앙에 텍스트 콘텐츠와 클릭 유도 문구가 포함된 간단한 히어로 섹션을 만듭니다.
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Hello there</h1>
+      <p class="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="hero min-h-screen bg-base-200">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="text-5xl font-bold">Hello there</h1>
+      <p className="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button className="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 오버레이가 있는 영웅
+
+텍스트 가독성 향상을 위해 배경 이미지가 있는 히어로 섹션에 색상 오버레이를 추가합니다.
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-on-neutral">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Featured Content</h1>
+      <p class="mb-5">Combine gradient backgrounds with overlay effects for visual depth.</p>
+      <button class="btn btn-primary">Explore</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 영웅 레이아웃
+
+다양한 콘텐츠 배열로 반응형 히어로 섹션을 만듭니다.
+
+### 이미지가 있는 영웅(콘텐츠 + 이미지)
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=480&height=360" alt="Product" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Amazing Product</h1>
+      <p class="py-6">Display product images alongside descriptive content for engaging hero sections on larger screens.</p>
+      <button class="btn btn-primary">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 이미지를 지닌 영웅(역방향)
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=480&height=360" alt="Showcase" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Showcase</h1>
+      <p class="py-6">Reverse layout places image on the right side for alternative visual hierarchy.</p>
+      <button class="btn btn-primary">View Details</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 폼을 갖춘 영웅
+
+전환 중심의 랜딩 페이지를 위해 히어로 섹션을 가입 또는 문의 양식과 결합하세요.
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left max-w-md">
+      <h1 class="text-5xl font-bold">Subscribe Now</h1>
+      <p class="py-6">Join our community and get updates on the latest features and news.</p>
+    </div>
+    <div class="card bg-base-100 shadow-xl shrink-0 w-full max-w-sm">
+      <div class="card-content">
+        <h2 class="card-title">Get Started</h2>
+        <input type="email" placeholder="Enter your email" class="input input-outline w-full mb-4">
+        <button class="btn btn-primary w-full">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 영웅 반응형 스태킹
+
+히어로 섹션은 모바일에서 자동으로 쌓이고 더 큰 화면에서는 가로로 정렬됩니다.
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col">
+    <div class="text-center max-w-lg">
+      <h1 class="text-4xl md:text-5xl font-bold">Responsive Hero</h1>
+      <p class="py-6">This layout automatically adapts to different screen sizes for optimal viewing on all devices.</p>
+      <button class="btn btn-primary">Get Started</button>
+      <button class="btn btn-ghost">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,157 @@
+---
+name: "吐司"
+heading: "吐司组件"
+description: "仅 CSS Tailwind CSS toast 用于通知定位 - 顶部、底部、开始、结束和中心放置。没有用于布局的 JavaScript。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "Toast - 仅 CSS 的 Tailwind CSS 组件 |Frutjam"
+metaDescription: "Tailwind CSS Toast 具有可配置的位置和堆叠。用于可访问、非侵入式用户通知的成功、错误、警告和信息变体。"
+order: 0
+related:
+  - "components/alert"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
+imageAlt: "Frutjam 的吐司"
+createdAt: "2026-04-19T15:57:25.964725+00:00"
+updatedAt: "2026-07-13T09:53:05.411034+00:00"
+sourceHash: "9ce87a99d8b9"
+translationHash: "ab36cea204a2"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS toast 用于通知定位 - 顶部、底部、开始、结束和中心放置。没有用于布局的 JavaScript。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+Toast 组件在屏幕边缘显示简短的、非侵入性的通知。 Toast 采用固定定位和警报组件构建，可传达系统反馈，例如成功确认、错误消息或状态更新。 Frutjam toast 系统支持六个放置位置 - 非常适合表单提交、异步操作和实时通知。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| toast | <span class="badge badge-xs">根据</span> | 固定位置通知容器 |
+| toast-top | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 锚定到视口顶部 |
+| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 锚定到视口底部（默认） |
+| toast-start | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 锚点向左 |
+| toast-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 水平居中 |
+| toast-end | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 锚点位于右侧（默认） |
+| toast-middle | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 垂直居中 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="toast">
+  <div class="alert alert-info">
+    <span>New message arrived.</span>
+  </div>
+</div>
+```
+
+```jsx
+import { useToast } from 'frutjam/react'
+
+export default function ToastDemo() {
+  const toast = useToast()
+  return (
+    <>
+      <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
+      <div className="toast">
+        {toast.toasts.map(t => (
+          <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
+            <span>{t.message}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## 敬酒姿势
+
+### 最高职位
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-start">
+  <div class="alert alert-info"><span>Top Start</span></div>
+</div>
+
+<div class="toast toast-top toast-center">
+  <div class="alert alert-info"><span>Top Center</span></div>
+</div>
+
+<div class="toast toast-top toast-end">
+  <div class="alert alert-info"><span>Top End</span></div>
+</div>
+```
+
+</Snippet>
+
+### 底部位置
+
+<Snippet>
+
+```html
+<div class="toast toast-bottom toast-start">
+  <div class="alert alert-info"><span>Bottom Start</span></div>
+</div>
+
+<div class="toast toast-bottom toast-center">
+  <div class="alert alert-info"><span>Bottom Center</span></div>
+</div>
+
+<div class="toast toast-bottom toast-end">
+  <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+## 吐司颜色
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>File saved successfully.</span>
+  </div>
+  <div class="alert alert-warning">
+    <span>Storage is almost full.</span>
+  </div>
+  <div class="alert alert-error">
+    <span>Connection failed.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>Update available.</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 多次吐司
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>Profile updated.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>2 new notifications.</span>
+  </div>
+</div>
+```
+
+</Snippet>

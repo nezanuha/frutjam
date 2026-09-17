@@ -1,0 +1,211 @@
+---
+name: "Renkler"
+heading: "Renk Sistemi"
+description: "Frutjam'ın renk sistemi, WCAG AA kontrast oranlarını kutudan çıkar çıkmaz karşılamak üzere tasarlanmış anlamsal CSS belirteçlerini kullanır. JavaScript yok, karanlık mod uyumlu, Tailwind CSS v4 ile uyumlu. Django, HTMX, Laravel ve yalnızca CSS yığınlarıyla çalışır."
+metaTitle: "Tailwind CSS Renk Sistemi -WCAG Erişilebilir Renkler | Frutjam"
+metaDescription: "Anlamsal belirteçler üzerine kurulu Frutjam renk sistemi. WCAG AA/AAA uyumlu, karanlık mod uyumlu, CSS özel özellikleri, Tailwind CSS v4 uyumlu."
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "Renk Sistemi - Frutjam"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "ae204ff3aab9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam'ın renk sistemi, WCAG AA kontrast oranlarını kutudan çıkar çıkmaz karşılamak üzere tasarlanmış anlamsal CSS belirteçlerini kullanır. JavaScript yok, karanlık mod uyumlu, Tailwind CSS v4 ile uyumlu. Django, HTMX, Laravel ve yalnızca CSS yığınlarıyla çalışır.
+
+Frutjam, tüm renkler için tasarım belirteçleri olarak CSS özel özelliklerini kullanır. Her renk, temaya göre tanımlanır ve Tailwind CSS yardımcı program sınıflarıyla otomatik olarak çalışır; ekstra yapılandırmaya gerek yoktur. Yalnızca CSS, JavaScript gerekmez. WCAG AA kontrastı her renk çiftinde garanti edilir; Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+## Renk İsimleri
+
+Frutjam aşağıdaki anlamsal renk rollerini tanımlar. Her rengin, erişilebilir ön plan metni için eşleşen bir `on-{color}` belirteci vardır.
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>WCAG AA Kontrast Garantilidir.</strong> Her <code>on-{color}</code> çifti, WCAG AA kontrast gereksinimlerini karşılayacak şekilde OKLCH'de elle ayarlanmıştır. Ön plan renklerini otomatik olarak hesaplayan kitaplıkların aksine, Frutjam size açık ve doğrulanmış çiftler sunar; böylece bileşenlerinize tesadüfen değil, tasarım gereği erişilebilir olur.</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Renk | Jeton | Amaç |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | Sayfa arka planı |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | Yüzeyler, kenar çubukları, kaplamalar |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | Birincil marka rengi |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | İkincil marka rengi |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | Vurgu / vurgu rengi |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | Bilgilendirici mesajlar |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | Başarı durumları |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | Uyarı durumları |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | Hata ve yıkıcı durumlar |
+
+</DocTable>
+
+## Renk Yardımcı Program Sınıfları
+
+Tüm Frutjam renkleri herhangi bir Tailwind CSS renk yardımcı programıyla çalışır. `{color}`'i yukarıdaki tablodaki herhangi bir renk adıyla değiştirin.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Sınıf | Tanım |
+| --- | --- |
+| `bg-{color}` | Arka plan rengi |
+| `text-{color}` | Metin rengi |
+| `border-{color}` | Kenarlık rengi |
+| `ring-{color}` | Halka rengi |
+| `outline-{color}` | Anahat rengi |
+| `shadow-{color}` | Gölge rengi |
+| `fill-{color}` | SVG dolgu rengi |
+| `stroke-{color}` | SVG kontur rengi |
+| `decoration-{color}` | Metin dekorasyon rengi |
+| `caret-{color}` | Giriş düzeltme işareti rengi |
+| `placeholder-{color}` | Yer tutucu metin rengi |
+| `divide-{color}` | Bölücü kenarlık rengi |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### Opaklık Değiştirici
+
+Herhangi bir Tailwind renginde olduğu gibi, renk opaklığını `/{value}` değiştiricisiyle kontrol edin.
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## Tema CSS Değişkenleri
+
+Bunlar, özel bir tema oluştururken tanımladığınız kök belirteçlerdir. Diğer tüm renk belirteçleri bunlardan otomatik olarak hesaplanır.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS Değişkeni | Tanım |
+| --- | --- |
+| `--scheme-color` | Renk şeması: `light` veya `dark` |
+| `--border-radius` | Bileşenler için taban kenarlık yarıçapı |
+| `--color-base` | Sayfa arka plan rengi |
+| `--color-on-base` | Temel arka planda varsayılan metin rengi |
+| `--color-neutral` | Nötr yüzey rengi |
+| `--color-on-neutral` | Nötr yüzeylerde metin rengi |
+| `--color-primary` | Birincil marka rengi |
+| `--color-on-primary` | Birincil arka planlarda metin rengi |
+| `--color-secondary` | İkincil marka rengi |
+| `--color-on-secondary` | İkincil arka planlarda metin rengi |
+| `--color-accent` | Vurgu rengi |
+| `--color-on-accent` | Vurgulu arka planlarda metin rengi |
+| `--color-info` | Bilgi rengi |
+| `--color-on-info` | Bilgi arka planlarındaki metin rengi |
+| `--color-success` | Başarı rengi |
+| `--color-on-success` | Başarı arka planlarındaki metin rengi |
+| `--color-warning` | Uyarı rengi |
+| `--color-on-warning` | Uyarı arka planlarındaki metin rengi |
+| `--color-error` | Hata rengi |
+| `--color-on-error` | Hata arka planlarındaki metin rengi |
+
+</DocTable>
+
+## Hesaplanan Renk Belirteçleri
+
+Frutjam bu belirteçleri kök tema değişkenlerinizden otomatik olarak hesaplar; bunları manuel olarak ayarlamazsınız. Özel CSS'de kullanılabilirler.
+
+### Ölçek (50–950)
+
+Her renk, 11 adımlı tam bir renk tonu/gölge ölçeği oluşturur. `{color}`'i herhangi bir renk adıyla değiştirin.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS Değişkeni | Tanım |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | Çok hafif renk tonu |
+| `--color-{color}-200` | Açık renk tonu |
+| `--color-{color}-300` | Orta-açık renk tonu |
+| `--color-{color}-400` | Hafif renk tonu |
+| `--color-{color}-500` | Temel renk (`--color-{color}` ile aynı) |
+| `--color-{color}-600` | Hafif gölge |
+| `--color-{color}-700` | Orta gölge |
+| `--color-{color}-800` | Koyu gölge |
+| `--color-{color}-900` | Çok koyu gölge |
+| `--color-{color}-950` | En koyu gölge |
+
+</DocTable>
+
+### Yumuşak ve Aktif
+
+Açık ve koyu temalara otomatik olarak uyum sağlayan, etkileşimli öğeler için durum bilinçli değişkenler.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS Değişkeni | Tanım |
+| --- | --- |
+| `--color-{color}-soft` | Yumuşak çeşitler için ince renkli arka plan |
+| `--color-on-{color}-soft` | Yumuşak arka planlarda kullanım için metin rengi |
+| `--color-{color}-active` | Fareyle üzerine gelme ve etkin durumlar için koyulaştırılmış/açıklaştırılmış gölge |
+| `--color-body` | Hesaplanan gövde metni rengi (`on-base`'den biraz yumuşatılmıştır) |
+
+</DocTable>
+
+## Özel Tema Örneği
+
+Özel bir tema oluşturmak için kök belirteçlerini geçersiz kılın. Frutjam tüm ölçekleri ve durumları otomatik olarak hesaplar.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

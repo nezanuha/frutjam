@@ -1,0 +1,267 @@
+---
+name: "版式"
+heading: "版式"
+description: "Frutjam 的纯 CSS 版式系统。使用 Tailwind CSS v4 进行语义 HTML 文本缩放，可访问 WCAG，无需 JavaScript。适用于 Django、HTMX、Laravel、React 和任何框架。"
+metaTitle: "Tailwind CSS 版式 - 语义 HTML 文本样式 |Frutjam"
+metaDescription: "Frutjam 排版系统。使用 CSS 变量进行语义 HTML 文本缩放，可访问 WCAG，兼容 Tailwind CSS v4。"
+order: 3
+related:
+  - "docs/themes"
+  - "docs/colors"
+image: "https://cdn.frutjam.com/media/docs/typography.webp"
+imageAlt: "版式 - Frutjam"
+createdAt: "2026-02-20T08:17:06.189826+00:00"
+updatedAt: "2026-07-13T09:55:52.442790+00:00"
+sourceHash: "38e2f93afbce"
+translationHash: "5270a9cf21a7"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam 的纯 CSS 版式系统。使用 Tailwind CSS v4 进行语义 HTML 文本缩放，可访问 WCAG，无需 JavaScript。适用于 Django、HTMX、Laravel、React 和任何框架。
+
+Frutjam 针对 Tailwind CSS v4 的纯 CSS 版式系统。语义标题和段落比例、响应式布局实用程序和散文集成 — 无需 JavaScript，可访问 WCAG AA。适用于 Django、HTMX、Laravel、React 和任何堆栈。
+
+## 布局
+
+`.wrapper` 是一个响应式页面布局实用程序，它将内容水平居中并在断点之间应用一致的水平填充。使用大小变体为不同的布局需求设置最大宽度约束。
+
+### 所有课程
+
+所有变体共享相同的响应式填充比例。仅最大宽度不同。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 班级 | 最大宽度 | 使用案例 |
+| --- | --- | --- |
+| `wrapper` | none | 全宽居中容器 |
+| `wrapper-xs` | 320px | 狭窄的对话框或侧边栏 |
+| `wrapper-sm` | 640px | 单列内容 |
+| `wrapper-md` | 768px | 文章和博客文章 |
+| `wrapper-lg` | 1024px | 标准页面布局 |
+| `wrapper-xl` | 1280px | 宽布局 |
+| `wrapper-2xl` | 1536px | 超宽布局 |
+| `wrapper-full` | 100% | 全出血且内边距一致 |
+
+</DocTable>
+
+### 响应式填充
+
+所有包装器变体都会自动缩放跨断点的水平填充 - 不需要额外的实用程序类。
+
+<Snippet view="code">
+
+```css
+/* Applied to every wrapper variant */
+default  → padding-inline: 1rem   (16px)
+sm       → padding-inline: 2rem   (32px)
+lg       → padding-inline: 4rem   (64px)
+```
+
+</Snippet>
+
+### 页面布局示例
+
+在主要内容区域使用 `.wrapper-xl` 以获得标准页面布局。
+
+<Snippet view="code">
+
+```html
+<header class="bg-base-200">
+  <div class="wrapper-xl">
+    <nav class="navbar">...</nav>
+  </div>
+</header>
+
+<main class="wrapper-xl py-12">
+  <h1 class="heading-4xl">Page Title</h1>
+  <p class="para-base">Page content goes here.</p>
+</main>
+
+<footer class="bg-base-200">
+  <div class="wrapper-xl">...</div>
+</footer>
+```
+
+</Snippet>
+
+### 文章布局示例
+
+使用 `.wrapper-md` 进行可读的文章或博客文章布局。
+
+<Snippet view="code">
+
+```html
+<article class="wrapper-md py-10 prose prose-frutjam">
+  <h1>Article Title</h1>
+  <p>Long-form content benefits from a narrower max-width for optimal line length.</p>
+</article>
+```
+
+</Snippet>
+
+## 版式
+
+### 1\. 元素实用程序
+
+这些类设计用于直接在 HTML 元素上使用。标题针对重量和影响力进行了优化，而段落则针对可读性进行了优化。
+
+### 标题
+
+使用 `.heading-{size}` 作为标题和高重要性文本。
+
+#### 标准量表
+
+`heading-xs`、`heading-sm`、`heading-md`、`heading-base`、`heading-lg`、`heading-xl`、`heading-2xl`、`heading-3xl`、`heading-4xl`、 `heading-5xl`、`heading-6xl`、`heading-7xl`、`heading-8xl`、`heading-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<h1 class="heading-4xl">Gigantic Hero</h1>
+<h2 class="heading-3xl">Section Title</h2>
+<h3 class="heading-base">Small Subheading</h3>
+```
+
+</Snippet>
+
+#### 动态精度（任意数字）
+
+Frutjam 让您摆脱规模。使用任何数值来设置特定的像素大小
+
+`.heading-{number}`（例如，`.heading-46`）
+
+<Snippet>
+
+```html
+<h2 class="heading-46">Bespoke Heading</h2>
+```
+
+</Snippet>
+
+### 段落
+
+使用 `.para-{size}` 作为正文、说明和 UI 标签
+
+#### 标准量表
+
+`para-xs`、`para-sm`、`para-md`、`para-base`、`para-lg`、`para-xl`、`para-2xl`、`para-3xl`、`para-4xl`、`para-5xl`、 `para-6xl`、`para-7xl`、`para-8xl`、`para-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<p class="para-lg">This is a lead paragraph with extra breathing room.</p>
+<p class="para-base">This is your standard UI text size.</p>
+<p class="para-xs">Small footer or caption text.</p>
+```
+
+</Snippet>
+
+#### 动态精度（任意数字）
+
+不要被秤困住。使用任何数值来拨入您的设计所需的确切像素大小。
+
+`.para-{number}`（例如，`.para-28`）
+
+<Snippet>
+
+```html
+<p class="para-28">Editorial-style body text.</p>
+```
+
+</Snippet>
+
+### 响应式排版
+
+Frutjam 不会强制“自动”调整大小。相反，它让您可以使用 Tailwind 的移动优先断点进行完全控制。这可以确保您的设计永远不会“猜测”您的移动布局应该是什么样子。
+
+#### 响应式模式
+
+始终首先定义您的移动设备尺寸（基类），然后使用 `md:` 或 `lg:` 等前缀来放大以适应更大的屏幕。
+
+<Snippet view="code">
+
+```html
+<h1 class="heading-2xl md:heading-5xl lg:heading-9xl">
+  Responsive Headline
+</h1>
+
+<p class="para-sm md:para-base lg:para-lg">
+  Body text that stays comfortable on all devices.
+</p>
+```
+
+</Snippet>
+
+### 2.富文本（散文）
+
+渲染 Markdown 或 CMS 内容时，您无法手动向每个标签添加诸如 `heading-lg` 之类的类。 `prose-frutjam` 是一个包装器，它将官方 `@tailwindcss/typography` 插件与 Frutjam 的设计令牌连接起来 - 因此无样式的 HTML 标签会自动继承主题的颜色和版式。
+
+#### 设置
+
+确保这两个插件在您的 Tailwind v4 CSS 中都处于活动状态：
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+@plugin "@tailwindcss/typography";
+```
+
+</Snippet>
+
+#### 用法
+
+将 `.prose` 和 `.prose-frutjam` 添加到包装元素中。 `.prose` 激活版式插件； `.prose-frutjam` 将 Frutjam 的主题标记映射到它上面。
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam max-w-none">
+  <h1>Article Title</h1>
+  <p>Body text, links, and lists all inherit Frutjam theme colors automatically.</p>
+  <ul>
+    <li>Links use your primary color</li>
+    <li>Blockquote borders use your primary color</li>
+    <li>Headings, body, and captions use semantic on-base colors</li>
+  </ul>
+</article>
+```
+
+</Snippet>
+
+#### 映射什么
+
+包装器使用 Frutjam 标记覆盖以下散文 CSS 变量：
+
+<Snippet view="code">
+
+```css
+/* prose-frutjam maps these automatically */
+body text      → --color-body
+headings       → --color-on-base
+links          → --color-primary
+blockquotes    → --color-on-base  (text), --color-primary (border)
+bullets        → --color-neutral
+code           → --color-on-base
+captions       → --color-on-neutral
+```
+
+</Snippet>
+
+#### 深色模式
+
+添加 `.prose-invert` 与 `.prose-frutjam` 一起用于深色背景 - 反转标记也映射到 Frutjam 颜色。
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam prose-invert bg-neutral p-6 rounded-lg">
+  <h2>Dark Background Content</h2>
+  <p>Inverted tokens keep text legible on dark surfaces.</p>
+</article>
+```
+
+</Snippet>

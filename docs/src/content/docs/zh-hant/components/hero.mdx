@@ -1,0 +1,186 @@
+---
+name: "英雄"
+heading: "英雄組件"
+description: "僅限 CSS Tailwind CSS 登陸頁面英雄部分。全角佈局，標題、描述和 CTA 居中。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Hero - 純 CSS Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS Hero 部分具有居中、分割和疊加佈局。具有 CTA 按鈕和媒體支援的語義 HTML，可實現高轉換率的登陸頁面。"
+order: 0
+related:
+  - "blocks/hero"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/hero_AHU0GAE.webp"
+imageAlt: "Frutjam 的英雄"
+createdAt: "2026-04-19T15:56:44.073112+00:00"
+updatedAt: "2026-07-13T09:49:08.433774+00:00"
+sourceHash: "60b35eb90e72"
+translationHash: "cc1272215306"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅限 CSS Tailwind CSS 登陸頁面英雄部分。全角佈局，標題、描述和 CTA 居中。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+英雄組件創建引人注目的全角部分，透過引人注目的視覺效果和訊息傳遞來介紹您的頁面或產品。英雄部分採用語義 HTML 和靈活的佈局構建，為用戶參與定下了基調。 Frutjam 英雄系統支援多種背景、疊加和響應式對齊，非常適合登陸頁面、產品發布和重要公告。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| hero | <span class="badge badge-xs">根據</span> | 內容居中的全角部分 |
+| hero-content | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 具有彈性佈局的內部內容區域 |
+| hero-overlay | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 背景影像的半透明疊加 |
+
+</DocTable>
+
+## 基本用法
+
+建立一個簡單的英雄部分，其中包含居中的文字內容和號召性用語。
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Hello there</h1>
+      <p class="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="hero min-h-screen bg-base-200">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="text-5xl font-bold">Hello there</h1>
+      <p className="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button className="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 覆蓋英雄
+
+為具有背景圖像的英雄部分添加顏色疊加，以提高文字可讀性。
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-on-neutral">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Featured Content</h1>
+      <p class="mb-5">Combine gradient backgrounds with overlay effects for visual depth.</p>
+      <button class="btn btn-primary">Explore</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 英雄佈局
+
+創建具有不同內容安排的響應式英雄部分。
+
+### 英雄與圖像（內容+圖像）
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=480&height=360" alt="Product" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Amazing Product</h1>
+      <p class="py-6">Display product images alongside descriptive content for engaging hero sections on larger screens.</p>
+      <button class="btn btn-primary">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 英雄與圖像（反向）
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=480&height=360" alt="Showcase" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Showcase</h1>
+      <p class="py-6">Reverse layout places image on the right side for alternative visual hierarchy.</p>
+      <button class="btn btn-primary">View Details</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 英雄與形式
+
+將英雄部分與註冊表單或聯絡表單結合起來，形成以轉換為重點的登陸頁面。
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left max-w-md">
+      <h1 class="text-5xl font-bold">Subscribe Now</h1>
+      <p class="py-6">Join our community and get updates on the latest features and news.</p>
+    </div>
+    <div class="card bg-base-100 shadow-xl shrink-0 w-full max-w-sm">
+      <div class="card-content">
+        <h2 class="card-title">Get Started</h2>
+        <input type="email" placeholder="Enter your email" class="input input-outline w-full mb-4">
+        <button class="btn btn-primary w-full">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 英雄響應式堆疊
+
+英雄部分會自動堆疊在行動裝置上，並在較大的螢幕上水平排列。
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col">
+    <div class="text-center max-w-lg">
+      <h1 class="text-4xl md:text-5xl font-bold">Responsive Hero</h1>
+      <p class="py-6">This layout automatically adapts to different screen sizes for optimal viewing on all devices.</p>
+      <button class="btn btn-primary">Get Started</button>
+      <button class="btn btn-ghost">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

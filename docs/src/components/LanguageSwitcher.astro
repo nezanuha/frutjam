@@ -1,0 +1,46 @@
+---
+/**
+ * frutjam.com's templates/frontend/tags/language_switcher.html, with the
+ * language list Django's i18n_tags built: the same page in each language,
+ * hidden on the English-only pages (blog, legal, write-for-us).
+ */
+import { LANGUAGES, langUrl, splitLang } from '@/lib/i18n';
+import { isEnglishOnly } from '@/lib/site';
+
+interface Props {
+  popoverId?: string;
+  direction?: string;
+}
+
+const { popoverId = 'langSwitcherPopover', direction = 'popover-bottom-end' } = Astro.props;
+const { lang, path } = splitLang(Astro.url.pathname);
+const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
+const languages = isEnglishOnly(Astro.url.pathname)
+  ? []
+  : LANGUAGES.map((l) => ({ ...l, url: langUrl(l.code, path), active: l.code === lang }));
+---
+
+{languages.length > 0 && (
+<div class:list={['popover', direction]}>
+  <button type="button" popovertarget={popoverId} class="popover-toggle btn btn-outline btn-soft btn-xs" aria-label="Switch language">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+    {current.label}
+  </button>
+  <div tabindex="0" class="popover-content" id={popoverId} popover>
+    <ul class="menu menu-sm min-w-36">
+      {languages.map((language) => (
+      <li>
+        <a
+          href={language.url}
+          class:list={['menu-item', { 'menu-active': language.active }]}
+          hreflang={language.code}
+          aria-current={language.active ? 'true' : undefined}
+        >
+          {language.label}
+        </a>
+      </li>
+      ))}
+    </ul>
+  </div>
+</div>
+)}

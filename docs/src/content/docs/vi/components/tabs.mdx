@@ -1,0 +1,417 @@
+---
+name: "Tab"
+heading: "Thành phần tab"
+description: "Các tab CSS Tailwind chỉ có CSS ​​với các biến thể kiểu đường viền, nâng lên, đóng hộp và hình viên thuốc. Trạng thái và kích thước hoạt động, không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Tab - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Các tab CSS Tailwind không có JS với các biến thể được đóng hộp, có viền, nâng lên và gạch chân. Chuyển đổi bảng điều khiển có thể truy cập để sắp xếp các phần nội dung và điều hướng."
+order: 0
+related:
+  - "components/sidebar"
+  - "components/steps"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/tabs_MzMB24m.webp"
+imageAlt: "Tab của Frutjam"
+createdAt: "2026-04-19T15:57:18.973682+00:00"
+updatedAt: "2026-07-13T09:51:31.366697+00:00"
+sourceHash: "dfa9e692606c"
+translationHash: "2849d64b6b3b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Các tab CSS Tailwind chỉ có CSS ​​với các biến thể kiểu đường viền, nâng lên, đóng hộp và hình viên thuốc. Trạng thái và kích thước hoạt động, không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần tab sắp xếp nội dung thành các phần riêng biệt mà người dùng có thể chuyển đổi giữa các phần mà không cần rời khỏi trang. Được xây dựng bằng các mẫu đầu vào vô tuyến và HTML ngữ nghĩa, các tab cung cấp khả năng điều hướng trực quan để nhóm các thông tin liên quan. Hệ thống tab Frutjam hỗ trợ nhiều kích thước, kiểu và hướng bố cục—chỉ CSS hoặc được kiểm soát bằng JavaScript—làm cho nó trở nên lý tưởng cho bảng điều khiển, tài liệu và giao diện theo thẻ.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| tabs | <span class="badge badge-xs">Căn cứ</span> | Vùng chứa cho một nhóm đầu vào tab và bảng nội dung |
+| tab | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Đầu vào radio tab riêng lẻ |
+| tab-content | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Bảng nội dung được liên kết với một tab |
+| tab-active | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Buộc trạng thái hoạt động/đã chọn trên một tab (đối với các tab do JS kiểm soát) |
+| tab-disabled | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Giao diện bị vô hiệu hóa cho một tab |
+| tabs-underline | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Kiểu chỉ báo gạch chân |
+| tabs-lifted | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Kiểu tab nâng lên giống như thẻ |
+| tabs-box | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Tab kiểu viên thuốc đóng hộp |
+| tabs-vertical | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Bố cục tab dọc với các tab ở cột bên trái |
+| tabs-end | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Căn chỉnh hàng tab về cuối (ngay trong LTR) |
+| tabs-bottom | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Đặt các tab bên dưới bảng nội dung |
+| tabs-xs | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Phần đệm tab cực nhỏ |
+| tabs-sm | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Phần đệm tab nhỏ |
+| tabs-md | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Khoảng đệm tab trung bình (mặc định) |
+| tabs-lg | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Phần đệm tab lớn |
+| tabs-xl | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Phần đệm tab cực lớn |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+Các tab mặc định sử dụng kiểu gạch chân khi hoạt động đơn giản với đầu vào radio. Mỗi đầu vào `tab` được ghép nối với bảng `nội dung tab` ngay sau nó.
+
+<Snippet>
+
+```html
+<div class="tabs">
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">
+    <p>Overview content: a high-level summary of features, metrics, or status. This panel is visible by default.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">
+    <p>Details content: in-depth information such as configuration options, data breakdown, or extended documentation.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">
+    <p>Activity content: a timeline, event log, or recent changes relevant to this section.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kiểu tab
+
+Sử dụng `tabs-underline`, `tabs-box` hoặc `tabs-lifted` để thay đổi kiểu trực quan của dải tab.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="style-underline" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Underline style — a colored bottom border marks the active tab against a full-width separator line.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-box">
+  <input type="radio" name="style-box" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Box style — the active tab gets a raised background inside a tinted pill container.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-lifted">
+  <input type="radio" name="style-lifted" class="tab" aria-label="Overview" checked>
+  <div class="tab-content p-4">Lifted style — the active tab appears as a card tab with borders that merge into the content panel below.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Details">
+  <div class="tab-content p-4">Details panel.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Activity">
+  <div class="tab-content p-4">Activity panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Kích thước tab
+
+Chia tỷ lệ phần đệm tab từ `tabs-xs` thành `tabs-xl` để phù hợp với mật độ bố cục của bạn.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-xs">
+  <input type="radio" name="size-xs" class="tab" aria-label="Extra Small" checked>
+  <div class="tab-content pt-3">Extra small tabs</div>
+  <input type="radio" name="size-xs" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-sm">
+  <input type="radio" name="size-sm" class="tab" aria-label="Small" checked>
+  <div class="tab-content pt-3">Small tabs</div>
+  <input type="radio" name="size-sm" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-md">
+  <input type="radio" name="size-md" class="tab" aria-label="Medium" checked>
+  <div class="tab-content pt-3">Medium tabs (default)</div>
+  <input type="radio" name="size-md" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-lg">
+  <input type="radio" name="size-lg" class="tab" aria-label="Large" checked>
+  <div class="tab-content pt-3">Large tabs</div>
+  <input type="radio" name="size-lg" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-xl">
+  <input type="radio" name="size-xl" class="tab" aria-label="Extra Large" checked>
+  <div class="tab-content pt-3">Extra large tabs</div>
+  <input type="radio" name="size-xl" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+```
+
+</Snippet>
+
+## Tab có nút
+
+Kết hợp `tab` với `btn` để hiển thị các tab dưới dạng các nút được tạo kiểu. Lớp `btn` đảm nhận màu sắc và bán kính đường viền trong khi logic chọn tab vẫn được giữ nguyên.
+
+<Snippet>
+
+```html
+<div class="tabs gap-2">
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Home" checked>
+  <div class="tab-content pt-4">
+    <p>Home — your primary landing panel with quick access to key actions and a summary view.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Profile">
+  <div class="tab-content pt-4">
+    <p>Profile — manage personal information, preferences, and account details.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Settings">
+  <div class="tab-content pt-4">
+    <p>Settings — configure notifications, privacy options, and connected integrations.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tab bị vô hiệu hóa
+
+Thêm thuộc tính `tab-disabled` và `disabled` để ngăn tương tác với một tab.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Available" checked>
+  <div class="tab-content pt-4">This tab is active and accessible.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab tab-disabled" aria-label="Unavailable" disabled>
+  <div class="tab-content pt-4">This content is not reachable.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Another">
+  <div class="tab-content pt-4">Another available tab panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Tab dọc
+
+`tabs-vertical` chuyển sang bố cục dạng lưới với các tab ở cột bên trái và nội dung ở cột bên phải. Một dòng phân cách có chiều cao đầy đủ được tự động thêm vào giữa các cột.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-vertical">
+  <input type="radio" name="vertical" class="tab" aria-label="General" checked>
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">General Settings</h3>
+    <p>Manage your display name, language preference, and time zone.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Security">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Security</h3>
+    <p>Update your password, enable two-factor authentication, and review active sessions.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Notifications">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Notifications</h3>
+    <p>Choose which events trigger email, push, or in-app notifications.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Billing">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Billing</h3>
+    <p>View invoices, update your payment method, and manage your subscription plan.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Các tab ở dưới cùng
+
+`tabs-bottom` lật bố cục để nội dung xuất hiện phía trên dải tab, hữu ích cho các thanh điều hướng kiểu di động hoặc thanh công cụ phía dưới.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-bottom tabs-underline">
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Feed" checked>
+  <div class="tab-content pb-4">
+    <p>Feed — latest posts and updates from people you follow.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Explore">
+  <div class="tab-content pb-4">
+    <p>Explore — discover trending topics, creators, and recommended content.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Saved">
+  <div class="tab-content pb-4">
+    <p>Saved — articles and posts you bookmarked for later.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Các tab được căn chỉnh để kết thúc
+
+`tabs-end` đẩy dải tab sang bên phải (cuối) của vùng chứa, hữu ích cho các menu hành động hoặc điều hướng phụ.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-end">
+  <input type="radio" name="end-tabs" class="tab" aria-label="Week" checked>
+  <div class="tab-content pt-4">Weekly view — aggregated metrics for the past 7 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Month">
+  <div class="tab-content pt-4">Monthly view — trend analysis over the past 30 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Year">
+  <div class="tab-content pt-4">Yearly view — annual summary and year-over-year comparison.</div>
+</div>
+```
+
+</Snippet>
+
+## Tab do JavaScript kiểm soát
+
+Đối với các mẫu không phải radio (ví dụ: liên kết neo, nội dung động), hãy thêm `tab-active` vào tab đã chọn trong JavaScript. `tab-content` được ghép nối được hiển thị thông qua bộ chọn `.tab-active + .tab-content`.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-box" id="js-tabs">
+  <button class="tab tab-active" data-tab="0">Dashboard</button>
+  <div class="tab-content pt-4">Dashboard panel — visible because this tab has <code>tab-active</code>.</div>
+
+  <button class="tab" data-tab="1">Reports</button>
+  <div class="tab-content pt-4">Reports panel.</div>
+
+  <button class="tab" data-tab="2">Integrations</button>
+  <div class="tab-content pt-4">Integrations panel.</div>
+</div>
+
+<script>
+  document.querySelectorAll('#js-tabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#js-tabs .tab').forEach(t => t.classList.remove('tab-active'));
+      tab.classList.add('tab-active');
+    });
+  });
+</script>
+```
+
+```jsx
+import { useTabs } from 'frutjam/react'
+
+export default function TabsDemo() {
+  const tabs = useTabs(0)
+  return (
+    <div className="tabs tabs-box">
+      <button {...tabs.tabProps(0)}>Dashboard</button>
+      <div {...tabs.panelProps(0)} className="tab-content pt-4">Dashboard panel.</div>
+
+      <button {...tabs.tabProps(1)}>Reports</button>
+      <div {...tabs.panelProps(1)} className="tab-content pt-4">Reports panel.</div>
+
+      <button {...tabs.tabProps(2)}>Integrations</button>
+      <div {...tabs.panelProps(2)} className="tab-content pt-4">Integrations panel.</div>
+    </div>
+  )
+}
+```
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const active = ref(0)
+</script>
+
+<template>
+  <div class="tabs tabs-box">
+    <button
+      v-for="(label, i) in ['Dashboard', 'Reports', 'Integrations']"
+      :key="i"
+      class="tab"
+      :class="{ 'tab-active': active === i }"
+      :aria-selected="active === i"
+      role="tab"
+      @click="active = i"
+    >{{ label }}</button>
+
+    <div class="tab-content pt-4" :hidden="active !== 0">Dashboard panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 1">Reports panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 2">Integrations panel.</div>
+  </div>
+</template>
+```
+
+```svelte
+<script>
+  let active = $state(0)
+  const labels = ['Dashboard', 'Reports', 'Integrations']
+</script>
+
+<div class="tabs tabs-box">
+  {#each labels as label, i}
+    <button
+      class="tab"
+      class:tab-active={active === i}
+      aria-selected={active === i}
+      role="tab"
+      onclick={() => active = i}
+    >{label}</button>
+    <div class="tab-content pt-4" hidden={active !== i}>{label} panel.</div>
+  {/each}
+</div>
+```
+
+```angular
+import { Component } from '@angular/core'
+import { NgFor } from '@angular/common'
+
+@Component({
+  selector: 'app-tabs',
+  standalone: true,
+  imports: [NgFor],
+  template: `
+    <div class="tabs tabs-box">
+      <button
+        *ngFor="let label of labels; let i = index"
+        class="tab"
+        [class.tab-active]="active === i"
+        [attr.aria-selected]="active === i"
+        role="tab"
+        (click)="active = i"
+      >{{ label }}</button>
+      <div class="tab-content pt-4" [hidden]="active !== 0">Dashboard panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 1">Reports panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 2">Integrations panel.</div>
+    </div>
+  `
+})
+export class TabsComponent {
+  labels = ['Dashboard', 'Reports', 'Integrations']
+  active = 0
+}
+```
+
+</Snippet>

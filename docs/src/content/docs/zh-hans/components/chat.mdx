@@ -1,0 +1,198 @@
+---
+name: "聊天"
+heading: "聊天气泡组件"
+description: "仅 CSS Tailwind CSS 聊天气泡组件。发送和接收消息的开始和结束位置，带有头像和时间戳槽。 WCAG AA，适用于 Django、HTMX、Laravel、React 和任何堆栈。"
+metaTitle: "聊天 - 仅 CSS Tailwind CSS 组件 |Frutjam"
+metaDescription: "Tailwind CSS 聊天气泡，具有开始/结束对齐、头像、时间戳和状态指示器。无需 JavaScript 即可构建可访问的消息传递 UI。"
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Frutjam 聊天"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "e538b9c9808a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 聊天气泡组件。发送和接收消息的开始和结束位置，带有头像和时间戳槽。 WCAG AA，适用于 Django、HTMX、Laravel、React 和任何堆栈。
+
+聊天组件以可读、有组织的格式显示对话消息。聊天气泡采用语义 HTML 和灵活的布局构建，代表用户和系统消息。 Frutjam 聊天系统支持多种颜色、对齐方式和样式，非常适合消息传递界面、客户支持面板和对话式 UI。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">根据</span> | 单个聊天消息行的包装 |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 风格化的消息气泡 |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 头像显示在消息旁边 |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 气泡上方的发件人名称或元数据 |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 气泡下方的时间戳或状态 |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 将气泡向左对齐（传入消息） |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 将气泡向右对齐（传出消息） |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小号 |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小的 |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（默认） |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大的 |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特大号 |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 主要主题颜色气泡 |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 次要主题彩色气泡 |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 口音主题颜色气泡 |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 中性主题色泡泡 |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 信息语义颜色气泡 |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 成功语义彩色气泡 |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 警告语义颜色气泡 |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 错误语义颜色气泡 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## 与头像聊天
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## 聊天尺寸
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## 聊天风格
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## 聊天页眉和页脚
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## 对话主题
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

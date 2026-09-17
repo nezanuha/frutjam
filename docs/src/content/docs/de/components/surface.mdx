@@ -1,0 +1,139 @@
+---
+name: "Oberfläche"
+heading: "Oberflächenkomponente"
+description: "Nur CSS-basierte Tailwind-CSS-Oberfläche zum Anwenden thematischer Hintergrund- und Textfarben auf einen Container. Alle Farbvarianten. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Surface – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS-Oberfläche für mehrschichtige Inhaltscontainer und visuelle Tiefenhierarchie. Mehrere Höhenebenen und Formen für Kartenalternativen und verschachtelte Layouts."
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Oberfläche von Frutjam"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "4a226ee90e99"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-basierte Tailwind-CSS-Oberfläche zum Anwenden thematischer Hintergrund- und Textfarben auf einen Container. Alle Farbvarianten. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Oberflächenkomponenten sind vielseitige Layout-Primitive, die geschichtete visuelle Hierarchien und Inhaltscontainer erstellen. Mit semantischem HTML erstellte Oberflächen bieten flexible Tiefen- und Gestaltungsoptionen. Das Frutjam-Oberflächensystem unterstützt mehrere Größen, Formen und Ebenen – ideal für Kartenalternativen, Inhaltsblöcke und verschachtelte Layouts.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">Base</span> | Grundflächenbehälter |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Höhenstufe 1 (subtil) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Höhenstufe 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Transparente Füllung mit sichtbarem Rand |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Gestrichelter Randstil |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Mäßig abgerundete Ecken |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra kleine Polsterung |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Kleine Polsterung |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittlere Polsterung (Standard) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Große Polsterung |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra große Polsterung |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## Oberflächenschichten
+
+Verwenden Sie `surface-1` und `surface-2`, um eine Tiefenhierarchie zu erstellen, indem Sie die Grundfarbe mit der Vordergrundfarbe mischen.
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## Oberflächenformen
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## Rahmenstile
+
+Verwenden Sie `surface-outline` oder `surface-dashed` für transparente Container, die durch einen Rahmen definiert sind. Diese funktionieren ordnungsgemäß, wenn sie in farbigen Ebenen verschachtelt sind, da der Hintergrund explizit transparent ist.
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Oberflächengrößen
+
+Größendienstprogramme legen die interne Polsterung über `--surface--padding` fest. Nicht mit Tailwind `p-*`\-Dienstprogrammen kombinieren – diese überschreiben die Variable und machen die Größenklasse zunichte.
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## Verschachtelte Oberflächen
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

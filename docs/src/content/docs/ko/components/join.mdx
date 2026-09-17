@@ -1,0 +1,183 @@
+---
+name: "가입하다"
+heading: "구성요소 결합"
+description: "버튼, 입력 또는 선택 항목을 연결된 단위로 그룹화하기 위한 CSS 전용 Tailwind CSS 조인입니다. 수평 및 수직. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "조인 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "그룹화된 버튼 컨트롤, 분할된 입력 및 결합된 양식 필드를 위한 Tailwind CSS Join입니다. 수평 또는 수직 레이아웃에서 테두리를 원활하게 병합합니다."
+order: 0
+related:
+  - "components/button"
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/join.webp"
+imageAlt: "조인 구성요소"
+createdAt: "2026-03-01T10:45:52.942552+00:00"
+updatedAt: "2026-07-13T09:44:07.609218+00:00"
+sourceHash: "d50a45b07ae7"
+translationHash: "6d9de024a2ce"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+버튼, 입력 또는 선택 항목을 연결된 단위로 그룹화하기 위한 CSS 전용 Tailwind CSS 조인입니다. 수평 및 수직. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+요소 사이의 간격을 제거하고 테두리를 병합하여 구성 요소를 인접한 항목으로 그룹화합니다. Frutjam 조인 시스템은 응집력 있는 버튼 그룹, 분할된 컨트롤 및 입력 조합을 생성합니다. 다양한 방향을 지원하고 전문적인 양식 레이아웃 및 컨트롤 그룹을 위한 버튼, 입력 및 선택 요소와 원활하게 작동합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| join | <span class="badge badge-xs">베이스</span> | 테두리를 병합하여 하위 요소를 그룹화합니다. |
+| join-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 조인 그룹에 참여하는 하위 요소 |
+| join-horizontal | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 가로 레이아웃(기본값) |
+| join-vertical | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 수직 스택 레이아웃 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="join">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+```jsx
+<div className="join">
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+    <button className="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## 길찾기 참여
+
+방향 유틸리티 클래스를 사용하여 그룹화된 항목의 레이아웃 방향을 제어합니다.
+
+### 수평 조인
+
+병렬 컨트롤 및 버튼 그룹의 기본 레이아웃입니다.
+
+<Snippet>
+
+```html
+<div class="join join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### 수직 결합
+
+**항목 결합**을 세로로 쌓아서 사이드바 또는 모바일 전용 탐색에 적합합니다.
+
+<Snippet>
+
+```html
+<div class="join join-vertical">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+### 반응형 조인
+
+**.join-vertical** 및 **.lg:join-horizontal**을 사용하여 모바일의 세로 스택에서 데스크톱의 가로 행으로 자동 전환합니다.
+
+<Snippet>
+
+```html
+<div class="join join-vertical lg:join-horizontal">
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+    <button class="join-item btn btn-outline">Button</button>
+</div>
+```
+
+</Snippet>
+
+## 그룹화된 입력
+
+텍스트 입력을 버튼이나 아이콘과 원활하게 결합하여 전문 검색창과 구독 양식을 만듭니다.
+
+<Snippet>
+
+```html
+<div class="join">
+    <input class="input input-xs join-item" placeholder="Email" />
+    <button class="btn btn-xs join-item">Subscribe</button>
+</div>
+<div class="join">
+    <button class="btn btn-xs join-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+    </button>
+    <input type="search" class="input input-xs join-item" placeholder="Search...">
+</div>
+```
+
+</Snippet>
+
+## 라디오 버튼 그룹
+
+표준 라디오 입력을 **분할된 컨트롤**로 전환하거나 버튼 클래스가 있는 Join 컨테이너에 래핑하여 그룹을 전환합니다.
+
+<Snippet>
+
+```html
+<div class="join">
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 1" />
+  <input class="join-item btn btn-outline" type="radio" name="options" checked aria-label="Radio 2" />
+  <input class="join-item btn btn-outline" type="radio" name="options" aria-label="Radio 3" />
+</div>
+```
+
+</Snippet>
+
+## 그룹화된 카드
+
+<Snippet>
+
+```html
+<div class="join">
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+<div class="join-item card shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>
+      The Card component is a versatile container for combining related information, such as images, titles, and actions, into a single, visually appealing unit.
+    </p>
+    <div class="flex justify-end">
+      <button type="button" class="btn btn-primary btn-sm">Buy Now</button>
+    </div>
+  </div>
+</div>
+</div>
+```
+
+</Snippet>

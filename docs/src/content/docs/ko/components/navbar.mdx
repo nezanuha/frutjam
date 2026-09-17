@@ -1,0 +1,228 @@
+---
+name: "Navbar"
+heading: "탐색바 구성요소"
+description: "브랜드, 탐색 링크 및 작업 슬롯이 포함된 CSS 전용 Tailwind CSS 탐색 모음입니다. 끈적하고 투명한 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "Navbar - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "고정적이고 반응성이 뛰어나며 드롭다운 지원 레이아웃을 갖춘 Tailwind CSS Navbar입니다. 접근 가능한 테마 인식 사이트 탐색을 위한 모바일 지원 기능을 갖춘 시맨틱 HTML입니다."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Frutjam UI의 Navbar 구성 요소"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "91f6769fd52a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+브랜드, 탐색 링크 및 작업 슬롯이 포함된 CSS 전용 Tailwind CSS 탐색 모음입니다. 끈적하고 투명한 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+Navbar 구성 요소는 사이트 구조 및 사용자 탐색을 위한 수평 탐색 목록을 표시합니다. 시맨틱 HTML 탐색 및 목록 요소로 구축된 Frutjam 탐색 모음 시스템은 다중 레이아웃, 반응형 동작 및 중첩 메뉴 통합을 지원합니다. 접근 가능하고 키보드 탐색이 가능한 탐색 모음은 기본 사이트 탐색, 이동 경로 및 탭 인터페이스에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">베이스</span> | 가로 탐색 모음 컨테이너 |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 탐색 링크의 가로 목록 |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 로고 또는 첫 번째 탐색 그룹을 위한 왼쪽 슬롯 |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 기본 탐색용 중앙 슬롯 |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 작업 및 컨트롤을 위한 오른쪽 슬롯 |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 뷰포트 상단에 탐색바를 배치합니다. |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 상위 항목 내에서 수직 중앙에 위치 |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 뷰포트 하단에 탐색바를 배치합니다. |
+
+</DocTable>
+
+## Navbar
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Navbar 배치
+
+navbar 구성 요소는 기본적으로 시작 부분(LTR의 왼쪽)에 위치합니다. 가로 정렬에는 `navbar-start`, `navbar-center` 또는 `navbar-end`를 사용하고 세로 정렬에는 `navbar-top`, `navbar-middle` 또는 `navbar-bottom`을 사용하세요. 배치는 RTL 친화적입니다.
+
+탐색 모음 목록을 X축을 따라 정렬하려면 가로 배치 클래스를 사용하고, 탐색 모음에 사용자 정의 높이가 있는 경우 세로 배치 클래스를 사용하세요.
+
+### 수평 배치
+
+`navbar-list`가 X축을 따라 배치되는 방식을 제어합니다. 이는 RTL 친화적입니다(왼쪽/오른쪽 대신 시작/끝).
+
+#### 수평으로 왼쪽으로 정렬(시작)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 중앙에 수평 정렬
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 수평으로 오른쪽(끝)으로 정렬
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### 수직 배치
+
+Y축을 따라 정렬을 제어합니다. 이는 탐색 표시줄에 사용자 정의 높이가 있는 경우 특히 유용합니다.
+
+#### 위쪽으로 수직 정렬(시작)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 중앙에 수직으로 정렬
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 아래쪽(끝)에 수직 정렬
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

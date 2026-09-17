@@ -1,0 +1,211 @@
+---
+name: "颜色"
+heading: "色彩系统"
+description: "Frutjam 的颜色系统使用语义 CSS 标记，旨在满足开箱即用的 WCAG AA 对比度。无需 JavaScript，支持深色模式，兼容 Tailwind CSS v4。适用于 Django、HTMX、Laravel 和任何纯 CSS 堆栈。"
+metaTitle: "Tailwind CSS 颜色系统 -WCAG 无障碍颜色 |Frutjam"
+metaDescription: "基于语义标记构建的 Frutjam 颜色系统。符合 WCAG AA/AAA 标准、深色模式感知、CSS 自定义属性、Tailwind CSS v4 兼容。"
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "颜色系统 - Frutjam"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "b5bac7aadcf9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam 的颜色系统使用语义 CSS 标记，旨在满足开箱即用的 WCAG AA 对比度。无需 JavaScript，支持深色模式，兼容 Tailwind CSS v4。适用于 Django、HTMX、Laravel 和任何纯 CSS 堆栈。
+
+Frutjam 使用 CSS 自定义属性作为所有颜色的设计标记。每种颜色都是根据主题定义的，并自动与 Tailwind CSS 实用程序类一起使用 - 无需额外配置。仅 CSS，无需 JavaScript。 WCAG AA 对比度保证每个颜色对，适用于 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 项目。
+
+## 颜色名称
+
+Frutjam 定义了以下语义颜色角色。每种颜色都有一个匹配的 `on-{color}` 标记，用于可访问的前景文本。
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>保证 WCAG AA 对比度。</strong>每对 <code>on-{color}</code> 均在 OKLCH 中手动调整，以通过 WCAG AA 对比度要求。与自动计算前景色的库不同，Frutjam 为您提供明确的、经过验证的颜色对 - 因此您的组件可以通过设计而不是偶然访问。</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 颜色 | 代币 | 目的 |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | 页面背景 |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | 表面、侧边栏、覆盖层 |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | 主要品牌颜色 |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | 次品牌色 |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | 强调/突出显示颜色 |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | 信息性消息 |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | 成功状态 |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | 警告状态 |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | 错误和破坏性状态 |
+
+</DocTable>
+
+## 颜色实用程序类
+
+所有 Frutjam 颜色均可与任何 Tailwind CSS 颜色实用程序配合使用。将 `{color}` 替换为上表中的任何颜色名称。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 班级 | 描述 |
+| --- | --- |
+| `bg-{color}` | 背景颜色 |
+| `text-{color}` | 文字颜色 |
+| `border-{color}` | 边框颜色 |
+| `ring-{color}` | 戒指颜色 |
+| `outline-{color}` | 轮廓颜色 |
+| `shadow-{color}` | 阴影颜色 |
+| `fill-{color}` | SVG 填充颜色 |
+| `stroke-{color}` | SVG 描边颜色 |
+| `decoration-{color}` | 文字装饰颜色 |
+| `caret-{color}` | 输入插入符号颜色 |
+| `placeholder-{color}` | 占位符文本颜色 |
+| `divide-{color}` | 分隔线边框颜色 |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### 不透明度修改器
+
+使用 `/{value}` 修饰符控制颜色不透明度，就像任何 Tailwind 颜色一样。
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## 主题 CSS 变量
+
+这些是您在创建自定义主题时定义的根标记。所有其他颜色标记都是根据这些自动计算的。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 变量 | 描述 |
+| --- | --- |
+| `--scheme-color` | 配色方案：`light` 或 `dark` |
+| `--border-radius` | 组件的基础边框半径 |
+| `--color-base` | 页面背景颜色 |
+| `--color-on-base` | 基本背景上的默认文本颜色 |
+| `--color-neutral` | 中性表面颜色 |
+| `--color-on-neutral` | 中性表面上的文本颜色 |
+| `--color-primary` | 主要品牌颜色 |
+| `--color-on-primary` | 主要背景上的文本颜色 |
+| `--color-secondary` | 次品牌色 |
+| `--color-on-secondary` | 辅助背景上的文本颜色 |
+| `--color-accent` | 强调色 |
+| `--color-on-accent` | 强调背景上的文本颜色 |
+| `--color-info` | 信息颜色 |
+| `--color-on-info` | 信息背景上的文本颜色 |
+| `--color-success` | 成功色 |
+| `--color-on-success` | 成功背景上的文字颜色 |
+| `--color-warning` | 警告色 |
+| `--color-on-warning` | 警告背景上的文本颜色 |
+| `--color-error` | 错误颜色 |
+| `--color-on-error` | 错误背景上的文本颜色 |
+
+</DocTable>
+
+## 计算颜色标记
+
+Frutjam 会根据您的根主题变量自动计算这些标记 - 您无需手动设置它们。它们可用于自定义 CSS。
+
+### 规模 (50–950)
+
+每种颜色都会生成完整的 11 级色调/色调等级。将 `{color}` 替换为任何颜色名称。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 变量 | 描述 |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | 色调非常浅 |
+| `--color-{color}-200` | 浅色调 |
+| `--color-{color}-300` | 中浅色调 |
+| `--color-{color}-400` | 轻微色调 |
+| `--color-{color}-500` | 基色（与 `--color-{color}` 相同） |
+| `--color-{color}-600` | 轻微阴影 |
+| `--color-{color}-700` | 中等阴影 |
+| `--color-{color}-800` | 深色阴影 |
+| `--color-{color}-900` | 非常暗的阴影 |
+| `--color-{color}-950` | 最暗的阴影 |
+
+</DocTable>
+
+### 软&积极的
+
+交互式元素的状态感知变体，自动适应浅色和深色主题。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 变量 | 描述 |
+| --- | --- |
+| `--color-{color}-soft` | 柔和的变体的微妙有色背景 |
+| `--color-on-{color}-soft` | 用于柔和背景的文本颜色 |
+| `--color-{color}-active` | 悬停和活动状态的深色/浅色阴影 |
+| `--color-body` | 计算出的正文文本颜色（从 `on-base` 稍微柔化） |
+
+</DocTable>
+
+## 自定义主题示例
+
+覆盖根令牌以创建自定义主题。 Frutjam 自动计算所有尺度和状态。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

@@ -1,0 +1,67 @@
+---
+/**
+ * The theme preview grid on /docs/themes, built from the CSS itself.
+ *
+ * Adding a community theme is then a CSS-only change: define it in
+ * src/styles/themes.css and its card appears here, in every language, with the
+ * copy button carrying that theme's own declarations.
+ *
+ * Snowberry and Darkberry ship inside the frutjam package rather than this
+ * file, so they are listed first and have nothing to copy — as on the Django
+ * site, whose <c-theme> tag this replaces.
+ */
+import themesCss from '@/styles/themes.css?raw';
+
+interface Props {
+  /** Themes that come with the library and have no CSS to copy. */
+  builtIn?: string[];
+}
+
+const { builtIn = ['snowberry', 'darkberry'] } = Astro.props;
+
+/** Every `:is([data-theme="name"]) { … }` block, in the order the file lists them. */
+const community = [...themesCss.matchAll(/:is\(\[data-theme="([^"]+)"\]\)\s*(\{[^}]+\})/g)].map(([, name, declarations]) => ({
+  name,
+  css: `:is([data-theme="${name}"]) ${declarations}`,
+}));
+
+const themes = [
+  ...builtIn.map((name) => ({ name, css: '' })),
+  ...community.filter((theme) => !builtIn.includes(theme.name)),
+];
+
+const title = (name: string) => name[0].toUpperCase() + name.slice(1);
+---
+
+<div class="grid grid-cols-5 gap-3">
+  {themes.map((theme) => (
+  <label for={`theme-${theme.name}`}>
+    <div class="card card-sm card-outline" data-theme={theme.name}>
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <div class="card-title">{title(theme.name)}</div>
+                <input type="radio" name="theme" class="radio radio-square radio-primary radio-sm"
+                    id={`theme-${theme.name}`} value={theme.name} />
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="avatar-group">
+                    <div class="avatar avatar-sm avatar-primary">P</div>
+                    <div class="avatar avatar-sm avatar-secondary">S</div>
+                    <div class="avatar avatar-sm avatar-accent">A</div>
+                </div>
+                <div class="divider divider-vertical px-2"></div>
+                <div class="tooltip tooltip-bottom" data-tip="Copy">
+                    <button type="button" class="btn btn-square btn-xs copy-clipboard" data-clipboard={theme.css} aria-label="Copy theme code">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </label>
+  ))}
+</div>

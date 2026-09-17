@@ -1,0 +1,183 @@
+---
+name: "Gösterge"
+heading: "Gösterge Bileşeni"
+description: "Rozetlerin veya noktaların herhangi bir öğe köşesine yerleştirilmesi için yalnızca CSS'ye özgü Tailwind CSS göstergesi. Renk çeşitleri ve konumlandırma. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Gösterge - Yalnızca CSS'de Arka Rüzgar CSS Bileşeni | Frutjam"
+metaDescription: "Bildirim rozetleri ve durum katmanları için Tailwind CSS Göstergesi. Avatarlar, düğmeler ve kartlar için dokuz yerleştirme konumu; JavaScript gerekmez."
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Frutjam'dan gösterge"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "f954d19da5f9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Rozetlerin veya noktaların herhangi bir öğe köşesine yerleştirilmesi için yalnızca CSS'ye özgü Tailwind CSS göstergesi. Renk çeşitleri ve konumlandırma. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Gösterge bileşenleri, diğer öğelerin üzerinde konumlanan durumu, rozetleri veya bildirimleri görüntüler. Mutlak konumlandırma ve esnek stil ile oluşturulan göstergeler, kartlar, avatarlar ve düğmeler üzerindeki önemli bilgileri üst üste getirir. Frutjam gösterge sistemi birden fazla yerleşimi, boyutu ve rengi destekler; bildirim rozetleri, durum işaretleri ve görsel ipuçları için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">Temel</span> | Gösterge öğesi için göreceli konumlandırılmış sarmalayıcı |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kesinlikle konumlandırılmış rozet veya nokta öğesi |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi üst kenarda konumlandırır |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi dikey olarak ortaya konumlandırır |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi alt kenarda konumlandırır |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi sol kenarda konumlandırır |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi yatay merkeze konumlandırır |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeyi sağ kenarda konumlandırır |
+
+</DocTable>
+
+## Temel Kullanım
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## Gösterge Yerleşimleri
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## Sekmelerdeki Gösterge
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## Giriş Göstergesi
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## Resimdeki Gösterge
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## Kartlardaki Gösterge
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Avatardaki Gösterge
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## Duyarlı Davranış
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

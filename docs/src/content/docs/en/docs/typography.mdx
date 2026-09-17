@@ -1,0 +1,265 @@
+---
+name: "Typography"
+heading: "Typography"
+description: "Frutjam's CSS-only typography system. Semantic HTML text scaling with Tailwind CSS v4, WCAG accessible, no JavaScript required. Works with Django, HTMX, Laravel, React, and any framework."
+metaTitle: "Tailwind CSS Typography -Semantic HTML Text Styles | Frutjam"
+metaDescription: "Frutjam typography system. Semantic HTML text scaling with CSS variables, WCAG accessible, Tailwind CSS v4 compatible."
+order: 3
+related:
+  - "docs/themes"
+  - "docs/colors"
+image: "https://cdn.frutjam.com/media/docs/typography.webp"
+imageAlt: "Typography - Frutjam"
+createdAt: "2026-02-20T08:17:06.189826+00:00"
+updatedAt: "2026-07-13T09:55:52.442790+00:00"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam's CSS-only typography system. Semantic HTML text scaling with Tailwind CSS v4, WCAG accessible, no JavaScript required. Works with Django, HTMX, Laravel, React, and any framework.
+
+Frutjam's CSS-only typography system for Tailwind CSS v4. Semantic heading and paragraph scale, responsive layout utilities, and prose integration — no JavaScript required, WCAG AA accessible. Works with Django, HTMX, Laravel, React, and any stack.
+
+## Layout
+
+`.wrapper` is a responsive page layout utility that centers content horizontally and applies consistent horizontal padding across breakpoints. Use size variants to set a max-width constraint for different layout needs.
+
+### All Classes
+
+All variants share the same responsive padding scale. Only the max-width differs.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Class | Max Width | Use Case |
+| --- | --- | --- |
+| `wrapper` | none | Full-width centered container |
+| `wrapper-xs` | 320px | Narrow dialogs or sidebars |
+| `wrapper-sm` | 640px | Single-column content |
+| `wrapper-md` | 768px | Articles and blog posts |
+| `wrapper-lg` | 1024px | Standard page layouts |
+| `wrapper-xl` | 1280px | Wide layouts |
+| `wrapper-2xl` | 1536px | Extra-wide layouts |
+| `wrapper-full` | 100% | Full-bleed with consistent padding |
+
+</DocTable>
+
+### Responsive Padding
+
+All wrapper variants automatically scale horizontal padding across breakpoints — no extra utility classes needed.
+
+<Snippet view="code">
+
+```css
+/* Applied to every wrapper variant */
+default  → padding-inline: 1rem   (16px)
+sm       → padding-inline: 2rem   (32px)
+lg       → padding-inline: 4rem   (64px)
+```
+
+</Snippet>
+
+### Page Layout Example
+
+Use `.wrapper-xl` on your main content area for a standard page layout.
+
+<Snippet view="code">
+
+```html
+<header class="bg-base-200">
+  <div class="wrapper-xl">
+    <nav class="navbar">...</nav>
+  </div>
+</header>
+
+<main class="wrapper-xl py-12">
+  <h1 class="heading-4xl">Page Title</h1>
+  <p class="para-base">Page content goes here.</p>
+</main>
+
+<footer class="bg-base-200">
+  <div class="wrapper-xl">...</div>
+</footer>
+```
+
+</Snippet>
+
+### Article Layout Example
+
+Use `.wrapper-md` for readable article or blog post layouts.
+
+<Snippet view="code">
+
+```html
+<article class="wrapper-md py-10 prose prose-frutjam">
+  <h1>Article Title</h1>
+  <p>Long-form content benefits from a narrower max-width for optimal line length.</p>
+</article>
+```
+
+</Snippet>
+
+## Typography
+
+### 1\. Element Utilities
+
+These classes are designed for direct use on HTML elements. Headings are optimized for weight and impact, while Paragraphs are optimized for readability.
+
+### Headings
+
+Use `.heading-{size}` for titles and high-importance text.
+
+#### The Standard Scale
+
+`heading-xs`, `heading-sm`, `heading-md`, `heading-base`, `heading-lg`, `heading-xl`, `heading-2xl`, `heading-3xl`, `heading-4xl`, `heading-5xl`, `heading-6xl`, `heading-7xl`, `heading-8xl`, `heading-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<h1 class="heading-4xl">Gigantic Hero</h1>
+<h2 class="heading-3xl">Section Title</h2>
+<h3 class="heading-base">Small Subheading</h3>
+```
+
+</Snippet>
+
+#### Dynamic Precision (Any Number)
+
+Frutjam allows you to break away from the scale. Use any numeric value to set a specific pixel size
+
+`.heading-{number}` (e.g., `.heading-46`)
+
+<Snippet>
+
+```html
+<h2 class="heading-46">Bespoke Heading</h2>
+```
+
+</Snippet>
+
+### Paragraphs
+
+Use `.para-{size}` for body text, descriptions, and UI labels
+
+#### The Standard Scale
+
+`para-xs`, `para-sm`, `para-md`, `para-base`, `para-lg`, `para-xl`, `para-2xl`, `para-3xl`, `para-4xl`, `para-5xl`, `para-6xl`, `para-7xl`, `para-8xl`, `para-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<p class="para-lg">This is a lead paragraph with extra breathing room.</p>
+<p class="para-base">This is your standard UI text size.</p>
+<p class="para-xs">Small footer or caption text.</p>
+```
+
+</Snippet>
+
+#### Dynamic Precision (Any Number)
+
+Don't get stuck in a scale. Use any numeric value to dial in the exact pixel size your design demands.
+
+`.para-{number}` (e.g., `.para-28`)
+
+<Snippet>
+
+```html
+<p class="para-28">Editorial-style body text.</p>
+```
+
+</Snippet>
+
+### Responsive Typography
+
+Frutjam does not force "automatic" resizing. Instead, it gives you full control using Tailwind's mobile-first breakpoints. This ensures your design never "guesses" what your mobile layout should look like.
+
+#### The Responsive Pattern
+
+Always define your mobile size first (the base class), then use prefixes like `md:` or `lg:` to scale up for larger screens.
+
+<Snippet view="code">
+
+```html
+<h1 class="heading-2xl md:heading-5xl lg:heading-9xl">
+  Responsive Headline
+</h1>
+
+<p class="para-sm md:para-base lg:para-lg">
+  Body text that stays comfortable on all devices.
+</p>
+```
+
+</Snippet>
+
+### 2\. Rich Text (Prose)
+
+When rendering Markdown or CMS content, you can't manually add classes like `heading-lg` to every tag. `prose-frutjam` is a wrapper that bridges the official `@tailwindcss/typography` plugin with Frutjam's design tokens — so unstyled HTML tags automatically inherit your theme's colors and typography.
+
+#### Setup
+
+Ensure both plugins are active in your Tailwind v4 CSS:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+@plugin "@tailwindcss/typography";
+```
+
+</Snippet>
+
+#### Usage
+
+Add both `.prose` and `.prose-frutjam` to the wrapper element. `.prose` activates the typography plugin; `.prose-frutjam` maps Frutjam's theme tokens onto it.
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam max-w-none">
+  <h1>Article Title</h1>
+  <p>Body text, links, and lists all inherit Frutjam theme colors automatically.</p>
+  <ul>
+    <li>Links use your primary color</li>
+    <li>Blockquote borders use your primary color</li>
+    <li>Headings, body, and captions use semantic on-base colors</li>
+  </ul>
+</article>
+```
+
+</Snippet>
+
+#### What Gets Mapped
+
+The wrapper overrides the following prose CSS variables with Frutjam tokens:
+
+<Snippet view="code">
+
+```css
+/* prose-frutjam maps these automatically */
+body text      → --color-body
+headings       → --color-on-base
+links          → --color-primary
+blockquotes    → --color-on-base  (text), --color-primary (border)
+bullets        → --color-neutral
+code           → --color-on-base
+captions       → --color-on-neutral
+```
+
+</Snippet>
+
+#### Dark Mode
+
+Add `.prose-invert` alongside `.prose-frutjam` for dark backgrounds — invert tokens are also mapped to Frutjam colors.
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam prose-invert bg-neutral p-6 rounded-lg">
+  <h2>Dark Background Content</h2>
+  <p>Inverted tokens keep text legible on dark surfaces.</p>
+</article>
+```
+
+</Snippet>

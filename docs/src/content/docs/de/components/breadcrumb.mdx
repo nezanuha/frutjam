@@ -1,0 +1,142 @@
+---
+name: "Semmelbrösel"
+heading: "Breadcrumb-Komponente"
+description: "Nur CSS-CSS-Breadcrumb-Navigation von Tailwind mit benutzerdefinierten Trennzeichen und zugänglichem Markup für Orientierungspunkte. WCAG AA funktioniert mit Django, HTMX, Laravel, React und jedem Tailwind CSS v4-Projekt."
+metaTitle: "Breadcrumb – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb nutzt semantisches HTML für barrierefreie, SEO-freundliche Navigationspfade. Unterstützt benutzerdefinierte Trennzeichen, Symbole und responsive Layouts."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Breadcrumb-Komponente von Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "12e0fc0eda8a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-CSS-Breadcrumb-Navigation von Tailwind mit benutzerdefinierten Trennzeichen und zugänglichem Markup für Orientierungspunkte. WCAG AA funktioniert mit Django, HTMX, Laravel, React und jedem Tailwind CSS v4-Projekt.
+
+Breadcrumb-Komponenten zeigen die Navigationshierarchie und helfen Benutzern, ihre Position innerhalb einer Website zu verstehen. Breadcrumbs basieren auf semantischen HTML-Navigationselementen und ARIA-Markierungen für Barrierefreiheit und verbessern die Benutzerfreundlichkeit, indem sie Benutzern eine schnelle Navigation zu übergeordneten Abschnitten ermöglichen. Das Frutjam-Breadcrumb-System rendert automatisch Trennzeichen und unterstützt benutzerdefinierte Trennzeichen für flexibles Styling.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Base</span> | Navigationscontainer für Breadcrumb-Trail |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Geordnete Liste der Breadcrumb-Elemente |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Einzelnes Listenelement im Breadcrumb |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Ankerelement im Stil eines Breadcrumb-Links |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Trennelement zwischen Elementen |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Markiert das aktuelle (aktive) Seitenelement |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+Wenn kein Trennzeichen angegeben ist, wird zwischen den Breadcrumb-Elementen automatisch ein Pfeil angezeigt.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Brotkrümeltrenner
+
+### Breadcrumb mit Texttrennzeichen
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Breadcrumb mit Symboltrennzeichen
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Breadcrumb-Zugänglichkeit
+
+Um sicherzustellen, dass Breadcrumbs für Screenreader zugänglich sind:
+
+-   Wickeln Sie die Struktur in ein `<nav>`\-Element mit einem `aria-label="Breadcrumb"` ein.
+-   Das letzte Element (aktuelle Seite) sollte `aria-current="page"` verwenden und vorzugsweise ein `<span>` und kein Link sein.
+-   Trennzeichen sollten von Screenreadern ignoriert werden (häufig über CSS oder `aria-hidden="true"` verarbeitet, wenn ein physisches Element verwendet wird).

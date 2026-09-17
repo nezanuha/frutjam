@@ -1,0 +1,296 @@
+---
+name: "折りたたみ可能"
+heading: "折りたたみ可能なコンポーネント"
+description: "ネイティブの `<details>` 要素を使用した CSS のみの Tailwind CSS 折りたたみパネル。 JavaScript を使用せずにコンテンツ セクションを表示および非表示にします。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "折りたたみ可能 - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "JS フリーの Tailwind CSS ネイティブの詳細/概要を使用して折りたたみ可能。 FAQ、ネストされたナビゲーション、および展開可能なコンテンツ セクションのアクセス可能な開示。"
+order: 0
+related:
+  - "components/tabs"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/collapsible_pOIxxIe.webp"
+imageAlt: "Frutjam による折りたたみ可能"
+createdAt: "2026-04-19T15:56:32.406115+00:00"
+updatedAt: "2026-07-13T09:43:01.618283+00:00"
+sourceHash: "faedd5abd13e"
+translationHash: "6f0c71efbc82"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+ネイティブの `<details>` 要素を使用した CSS のみの Tailwind CSS 折りたたみパネル。 JavaScript を使用せずにコンテンツ セクションを表示および非表示にします。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+Collapsible components allow users to expand and collapse sections of content. Built with a hidden checkbox pattern, collapsibles work without any JavaScript and support animated transitions via CSS grid.
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| collapsible | <span class="badge badge-xs">ベース</span> | 非表示のチェックボックスによって駆動される折りたたみ可能なコンテナー |
+| collapsible-toggle | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 開閉状態を制御する非表示のチェックボックス入力 |
+| collapsible-title | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 折りたたみ可能なラベルを切り替えるクリック可能なラベル |
+| collapsible-content | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 開くとアニメーションコンテンツエリアが表示されます |
+| collapsible-arrow | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | タイトルに回転矢印インジケーターを追加します |
+| collapsible-group | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | アコーディオンスタイルのグループ化された折りたたみ可能なラッパー |
+| collapsible-overlay | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 引き出しスタイルの折りたたみ式オーバーレイのバリエーション |
+| collapsible-peek | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 折りたたんだときにコンテンツを垣間見ることができます |
+| is-collapsible-open | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | オープン状態を強制するための JS 適用クラス |
+| is-collapsible-close | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | クローズ状態を強制するためのJS適用クラス |
+
+</DocTable>
+
+## 基本的な使い方
+
+非表示のチェックボックスにより、開閉状態が制御されます。 `label` がそれをトリガーします。 `collapsible-content` div がアニメーションで開きます。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-basic" />
+  <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is hidden until expanded.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+      <button className="collapsible-title px-4 py-3 font-medium" onClick={collapsible.toggle}>Click to expand</button>
+      <div className="collapsible-content">
+        <div>
+          <div className="px-4 pb-3 text-sm opacity-70">
+            This content is hidden until expanded.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## 矢印インジケーター付き
+
+`collapsible-arrow` をラベルに追加して、開閉状態を反映する回転山形を取得します。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-arrow" />
+  <label for="col-arrow" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">What is Frutjam?</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        Frutjam is a Tailwind CSS v4 component library built with CSS utilities and a PostCSS plugin.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 複数の折りたたみ可能
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-2">
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-1" />
+    <label for="col-1" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section One</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the first section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-2" />
+    <label for="col-2" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Two</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the second section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-3" />
+    <label for="col-3" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Three</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the third section.</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## デフォルトで開く
+
+`checked` をチェックボックスの入力に追加して、パネルを開いて開始します。
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-open" checked />
+  <label for="col-open" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Open by default</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is visible on initial load.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS 制御
+
+チェックボックスを使用する代わりに、ラッパー要素の `collapsible-open` を切り替えます。トリガーが別の場所にある場合に便利です。
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-open border border-base-soft rounded-lg" id="js-col">
+  <button
+    class="collapsible-title collapsible-arrow px-4 py-3 font-medium"
+    onclick="this.closest('.collapsible').classList.toggle('collapsible-open')"
+  >
+    Toggle via JS (starts open)
+  </button>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 py-3 text-sm opacity-70 border-t border-base-soft">
+        No hidden checkbox needed — state is managed by the <code>collapsible-open</code> class.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## ピークのバリアント
+
+`collapsible-peek` は、グラデーション フェードとオーバーレイ トリガーを備えたクリップされたプレビューを表示します。 `--peek-height` をオーバーライドして、折りたたまれたときに表示されるコンテンツの量を制御します。
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-peek rounded-xl border border-base-soft" style="--peek-height: 5rem;">
+  <input type="checkbox" class="collapsible-toggle" id="col-peek" />
+  <div class="collapsible-content">
+    <div class="p-4 text-sm leading-relaxed">
+      <p>Frutjam is a Tailwind CSS v4 component library built around a PostCSS plugin architecture. Every component is a set of <code>@utility</code> definitions that integrate natively with Tailwind's utility pipeline.</p>
+      <p class="mt-3">Theming is handled entirely through CSS custom properties. Swap themes by setting a <code>data-theme</code> attribute on any container, or override individual tokens inline.</p>
+      <p class="mt-3">Components ship with sensible defaults and are designed to compose cleanly.</p>
+    </div>
+  </div>
+  <label for="col-peek" class="collapsible-overlay">
+    <span class="btn btn-sm">Read more</span>
+  </label>
+</div>
+```
+
+</Snippet>
+
+## JS と React ヘルパー
+
+`frutjam/js` の `createCollapsible` または `frutjam/react` の `useCollapsible` を使用して、プログラムによる制御と任意のトリガーでの自動 `aria-expanded` 同期を行います。
+
+<Snippet>
+
+```html
+<button class="btn btn-sm mb-3" id="col-helper-btn">Toggle</button>
+<div class="collapsible border border-base-soft rounded-lg" id="js-collapsible">
+  <div class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createCollapsible } from 'frutjam/js'
+  const col = createCollapsible(document.getElementById('js-collapsible'))
+  document.getElementById('col-helper-btn').onclick = () => col.toggle()
+</script>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <>
+      <button className="btn btn-sm mb-3" onClick={collapsible.toggle}>Toggle</button>
+      <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+        <div className="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+        <div className="collapsible-content">
+          <div>
+            <div className="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## 折りたたみ可能なグループを使用した外部トリガー
+
+トリガーと折りたたみを `collapsible-group` でラップして、ラベルを `.collapsible` の外に配置できるようにします。 `is-collapsible-open` と `is-collapsible-close` を介して、その開閉状態に応答します。
+
+<Snippet>
+
+```html
+<div class="collapsible-group border border-base-soft rounded-lg p-4 flex flex-col gap-3">
+  <div class="flex items-center justify-between">
+    <span class="font-medium">Section A</span>
+    <label for="cg-1" class="btn btn-sm btn-ghost">
+      <span class="is-collapsible-close">Expand</span>
+      <span class="is-collapsible-open">Collapse</span>
+    </label>
+  </div>
+  <div class="collapsible">
+    <input type="checkbox" class="collapsible-toggle" id="cg-1" />
+    <div class="collapsible-content">
+      <div>
+        <div class="text-sm opacity-70">
+          This content is toggled by the button above, which lives outside <code>.collapsible</code> but inside <code>.collapsible-group</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

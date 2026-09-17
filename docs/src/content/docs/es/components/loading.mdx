@@ -1,0 +1,172 @@
+---
+name: "Cargando"
+heading: "Componente de carga"
+description: "Indicador de carga CSS Tailwind solo CSS con animaciones giratorias, puntos, anillos y barras. Variantes de color y tamaño, no se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Cargando - Componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Carga de CSS Tailwind solo para CSS con variantes giratorias, puntos, barras y anillos. Múltiples tamaños y colores para indicadores de retroalimentación asíncronos accesibles."
+order: 0
+related:
+  - "components/button"
+  - "components/skeleton"
+image: "https://cdn.frutjam.com/media/components/loading_BARRarL.webp"
+imageAlt: "Cargando por Frutjam"
+createdAt: "2026-04-19T15:56:50.420527+00:00"
+updatedAt: "2026-07-13T09:54:56.305246+00:00"
+sourceHash: "699e79ea7559"
+translationHash: "7618f8bb4093"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Indicador de carga CSS Tailwind solo CSS con animaciones giratorias, puntos, anillos y barras. Variantes de color y tamaño, no se requiere JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes de carga muestran indicadores visuales mientras se recupera o procesa el contenido, lo que mantiene a los usuarios informados y evita retrasos percibidos. Construidos con HTML semántico y animaciones CSS fluidas, los controles giratorios de carga comunican operaciones activas en segundo plano. El sistema de carga Frutjam admite múltiples estilos, colores y tamaños, ideal para tablas de datos, carga de archivos, envío de formularios y operaciones asincrónicas.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| loading | <span class="badge badge-xs">Base</span> | Indicador de anillo giratorio, hereda el color del texto de forma predeterminada |
+| loading-dots | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Tres puntos pulsantes |
+| loading-bars | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Tres barras verticales animadas |
+| loading-xs | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Extra pequeño (1rem) |
+| loading-sm | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Pequeño (1,25 rem) |
+| loading-md | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Medio (1,5rem, predeterminado) |
+| loading-lg | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Grande (2rem) |
+| loading-xl | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Extra grande (2,5 rem) |
+| loading-base | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color de superficie base apagado |
+| loading-current | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Hereda explícitamente el color del texto actual. |
+| loading-primary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color del tema principal |
+| loading-secondary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color del tema secundario |
+| loading-accent | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color del tema de acento |
+| loading-neutral | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color de tema neutro |
+| loading-info | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color semántico de información |
+| loading-success | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color semántico del éxito |
+| loading-warning | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color semántico de advertencia |
+| loading-error | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Color semántico del error |
+
+</DocTable>
+
+## Uso básico
+
+<Snippet>
+
+```html
+<span class="loading"></span>
+```
+
+```jsx
+<span className="loading"></span>
+```
+
+```vue
+<span class="loading"></span>
+```
+
+</Snippet>
+
+## Estilos de carga
+
+<Snippet>
+
+```html
+<span class="loading"></span>
+<span class="loading loading-dots"></span>
+<span class="loading loading-bars"></span>
+```
+
+</Snippet>
+
+## Tamaños de carga
+
+<Snippet>
+
+```html
+<span class="loading loading-xs"></span>
+<span class="loading loading-sm"></span>
+<span class="loading loading-md"></span>
+<span class="loading loading-lg"></span>
+<span class="loading loading-xl"></span>
+```
+
+</Snippet>
+
+## Cargando colores
+
+<Snippet>
+
+```html
+<span class="loading loading-base"></span>
+<span class="loading loading-primary"></span>
+<span class="loading loading-secondary"></span>
+<span class="loading loading-accent"></span>
+<span class="loading loading-info"></span>
+<span class="loading loading-success"></span>
+<span class="loading loading-warning"></span>
+<span class="loading loading-error"></span>
+<span class="loading loading-neutral"></span>
+```
+
+</Snippet>
+
+## Cargando el color actual
+
+<Snippet>
+
+```html
+<p class="text-primary flex items-center gap-2">
+  <span class="loading loading-sm"></span>
+  Inherits primary text color
+</p>
+<p class="text-error flex items-center gap-2">
+  <span class="loading loading-sm"></span>
+  Inherits error text color
+</p>
+```
+
+</Snippet>
+
+## Cargando en el botón
+
+<Snippet>
+
+```html
+<button class="btn gap-2">
+  <span class="loading loading-sm"></span>
+  Loading
+</button>
+
+<button class="btn btn-primary gap-2">
+  <span class="loading loading-sm loading-current"></span>
+  Processing
+</button>
+
+<button class="btn btn-error gap-2">
+  <span class="loading loading-sm loading-current"></span>
+  Deleting
+</button>
+```
+
+</Snippet>
+
+## Estados de carga
+
+<Snippet>
+
+```html
+<div class="card card-outline w-96">
+  <div class="card-content">
+    <h3 class="card-title">Loading Data</h3>
+    <div class="flex items-center gap-2">
+      <span class="loading loading-md"></span>
+      <span>Fetching information...</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

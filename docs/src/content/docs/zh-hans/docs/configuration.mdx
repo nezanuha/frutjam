@@ -1,0 +1,362 @@
+---
+name: "配置"
+heading: "配置"
+description: "配置仅限 Frutjam CSS 的 Tailwind CSS 插件。设置默认主题、定义自定义颜色标记、切换前缀系统 - 需要零 JavaScript。 WCAG 可访问的默认设置，适用于 Django、HTMX、Laravel 和任何框架。"
+metaTitle: "Tailwind CSS 插件配置 | Frutjam 文档"
+metaDescription: "配置 Frutjam Tailwind CSS 插件。自定义主题、颜色标记、前缀系统和组件选项 - 无需 JavaScript。"
+order: 2
+related:
+  - "docs/themes"
+  - "docs/colors"
+  - "docs/installation"
+image: "https://cdn.frutjam.com/media/docs/configuration.webp"
+imageAlt: "配置 - Frutjam"
+createdAt: "2025-09-05T16:12:35.826367+00:00"
+updatedAt: "2026-07-13T09:55:39.240950+00:00"
+sourceHash: "708396ebc01b"
+translationHash: "7d1db007c7e9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+配置仅限 Frutjam CSS 的 Tailwind CSS 插件。设置默认主题、定义自定义颜色标记、切换前缀系统 - 需要零 JavaScript。 WCAG 可访问的默认设置，适用于 Django、HTMX、Laravel 和任何框架。
+
+配置仅 Frutjam CSS 的 Tailwind CSS 插件以匹配您的项目。设置主题、定义自定义颜色标记、切换前缀系统和精选组件 - 零 JavaScript 需求。 WCAG AA 可访问的默认值。适用于 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 项目。
+
+## 基本设置
+
+使用 `@plugin` 指令将 Frutjam 添加到您的 CSS 文件中。不需要任何选项——一切开箱即用。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## 插件选项
+
+通过在 `@plugin` 块内传递选项来自定义 Frutjam：
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+  reset: true;
+  root: :host;
+  include: button, card, alert;
+  /* or: */
+  exclude: table, timeline;
+}
+```
+
+</Snippet>
+
+### 前缀
+
+为所有 Frutjam 类名添加前缀，以避免与您自己的 CSS 发生冲突。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn fj-btn-primary">Send mail</button>
+```
+
+</Snippet>
+
+prefix 的行为方式取决于您是否也使用 Tailwind 的 `prefix()` 选项：
+
+#### 仅Frutjam 前缀
+
+Frutjam 类名带有前缀。直接在 HTML 中使用它们。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn">Button</button>
+```
+
+</Snippet>
+
+#### 仅顺风前缀
+
+Tailwind 的 `prefix()` 作为变体工作 — 所有实用程序（包括 Frutjam 的）都需要前缀作为 HTML 中的变体选择器。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:btn">Button</button>
+```
+
+</Snippet>
+
+#### 两个前缀
+
+Frutjam 重命名了它的类（例如 `fj-btn`），并且顶部需要 Tailwind 的变体前缀。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:fj-btn">Button</button>
+```
+
+</Snippet>
+
+### 重置
+
+控制 Frutjam 是否注入基本元素重置（重新启动样式）。默认为`true`。
+
+当 `true` 时，Frutjam 会重置框模型、排版、列表、媒体和表单元素 - 类似于 Tailwind 的预检。当 `false` 时，仅注入 CSS 变量标记；完全跳过原始元素样式。
+
+当您已使用其他 CSS 框架（Bootstrap、Bulma 等）或您自己的重置时，请设置为 `false`，以避免 `*`、`html`、`body`、`h1-h6` 和 `button` 等元素发生冲突。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  reset: false;
+}
+```
+
+</Snippet>
+
+### 根
+
+CSS 选择器，Frutjam 在其中注册其设计标记变量（`--color-primary`、`--color-base` 等）。默认为 `:root`。
+
+有三个有用的值：
+
+<DocTable>
+
+| 价值 | 何时使用 |
+| --- | --- |
+| `:root` | 默认。令牌在整个页面上全局可用。 |
+| `:host` | Shadow DOM / Web 组件。将令牌范围限制在组件内部，这样它们就不会泄漏。 |
+| 任何选择器（例如`#app`） | 将标记的范围限定为特定的包装器元素。当 Frutjam 与同一页面上的另一个框架共存时很有用。 |
+
+</DocTable>
+
+#### 默认 — 全局令牌
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :root;
+}
+```
+
+</Snippet>
+
+#### Shadow DOM / Web 组件
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :host;
+}
+```
+
+</Snippet>
+
+#### 作用域为包装元素
+
+如果另一个框架已经控制 `:root` （例如 Bootstrap 设置自己的 `--bs-*` 变量和主体颜色），请将 Frutjam 指向容器元素。这会将 `color`、`background-color` 和所有 CSS 变量移出 `:root`，以便它们仅适用于该包装器内部。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+  reset: false;
+  root: #my-app;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<div id="my-app" data-theme="blueberry">
+  <!-- Frutjam components here, Bootstrap outside -->
+  <button class="fj-btn fj-btn-primary">Send</button>
+</div>
+```
+
+</Snippet>
+
+### 包括
+
+仅加载特定组件而不是完整库。对于减少生产中的输出尺寸很有用。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  include: button, card, alert, badge;
+}
+```
+
+</Snippet>
+
+### 排除
+
+加载除列出的组件之外的所有组件。当您只需要从完整构建中删除一些组件时使用。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  exclude: table, timeline, chat;
+}
+```
+
+</Snippet>
+
+## 创建自定义主题
+
+要创建您自己的主题，只需将颜色值分配给 `[data-theme="your-theme-name"]` 选择器中提供的 CSS 变量即可
+
+### 1\. The "Automatic" Approach (Minimal)
+
+在此版本中，我们省略了 `--color-on-*` 变量。 Frutjam 检测缺失的变量并计算最佳文本颜色（通常在非常亮或非常暗的 `OKLCH` 值之间翻转），以确保组件保持可访问性和可读性。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-error: oklch(0.577 0.245 27.325);
+    }
+}
+```
+
+</Snippet>
+
+### 2\. The "Manual" Approach (Full Control)
+
+在此版本中，我们显式定义了 `--color-on-*` 变量。当您有特定的品牌准则（例如使用有色灰白色而不是纯白色）或当您想要实现特定的“氛围”（例如仍通过可访问性检查的低对比度复杂外观）时，这是理想的选择。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-on-base:oklch(0.22 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-on-neutral: oklch(1 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-on-primary: oklch(96.2% 0.018 272.314);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-on-secondary: oklch(1 0 0);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-on-accent: oklch(1 0 0);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-on-info: oklch(0.15 0 0);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-on-success: oklch(0.15 0 0);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-on-warning: oklch(0.15 0 0);
+        --color-error: oklch(0.577 0.245 27.325);
+        --color-on-error: oklch(1 0 0);
+    }
+}
+```
+
+</Snippet>
+
+要将自定义主题应用到 HTML 中的项目，请对 HTML 元素使用 `data-theme="your-theme-name"`。
+
+<Snippet view="code">
+
+```html
+<html data-theme="your-theme-name">
+ ...
+</html>
+```
+
+</Snippet>
+
+主题可以嵌套 - 您可以将特定主题应用到 HTML 的任何部分，从而覆盖该区域的全局主题。
+
+<Snippet view="code">
+
+```html
+<html data-theme="light">
+  <div data-theme="dark">
+    This div uses the dark theme.
+    <span data-theme="your-custom-theme">
+      This span uses the your-custom-theme
+    </span>
+  </div>
+</html>
+```
+
+</Snippet>
+
+## 进一步阅读
+
+-   [可用的内置主题](/docs/themes) — 浏览 Snowberry、Darkberry 以及所有包含的主题
+-   [色彩系统参考](/docs/colors) — CSS 颜色变量的完整列表以及它们如何映射到组件

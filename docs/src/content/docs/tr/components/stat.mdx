@@ -1,0 +1,253 @@
+---
+name: "İstatistik"
+heading: "İstatistik Bileşeni"
+description: "Metrikleri görüntülemek için yalnızca CSS'ye özgü Tailwind CSS istatistiği. Değer, etiket, açıklama ve simge yuvaları. Duyarlı ızgara düzeni. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Stat - Yalnızca CSS'ye Özel Tailwind CSS Bileşeni | Frutjam"
+metaDescription: "Kontrol panelleri ve KPI ekranları için Tailwind CSS İstatistikleri. Net ölçüm ve analiz sunumu için başlıklar, değerler, trend göstergeleri ve simge desteği."
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Frutjam'ın istatistikleri"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "652d740ee55c"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Metrikleri görüntülemek için yalnızca CSS'ye özgü Tailwind CSS istatistiği. Değer, etiket, açıklama ve simge yuvaları. Duyarlı ızgara düzeni. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+İstatistik bileşenleri temel metrikleri ve sayısal verileri açık ve düzenli bir biçimde görüntüler. Anlamsal HTML ve esnek düzenlerle oluşturulan istatistikler, önemli iş ölçümlerini ve analizlerini iletir. Frutjam istatistik sistemi birden fazla düzenlemeyi ve stili destekler; gösterge tabloları, performans raporları ve veri özetleri için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">Temel</span> | Bir veya daha fazla istatistik öğesi için kapsayıcı |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Başlığı, değeri ve açıklaması olan bireysel istatistik öğesi |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İstatistik değerinin üzerindeki etiket |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Büyük birincil sayısal veya metin değeri |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Değerin altındaki ek açıklama |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İstatistiğin yanında simge veya avatar |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İstatistik öğelerini yan yana düzenler (varsayılan) |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İstatistik öğelerini dikey olarak yığınlar |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için birincil tema rengi |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için ikincil tema rengi |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için vurgu teması rengi |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için nötr tema rengi |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için bilgi anlamsal rengi |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için başarı anlamsal rengi |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için uyarı anlamsal rengi |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İstatistik değeri için hata anlamsal rengi |
+
+</DocTable>
+
+## Temel Kullanım
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## Çoklu İstatistikler
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Simgelerle İstatistikler
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Yatay İstatistikler
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Dikey İstatistikler
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Renk Çeşitleri
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Anlamsal Renk Çeşitleri
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

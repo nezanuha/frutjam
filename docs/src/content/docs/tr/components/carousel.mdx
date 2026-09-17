@@ -1,0 +1,297 @@
+---
+name: "Atlıkarınca"
+heading: "Atlıkarınca Bileşeni"
+description: "Kaydırma-snap'i kullanan yalnızca CSS'ye özgü Tailwind CSS karuseli. Gezinme kontrollerine sahip ve JavaScript gerektirmeyen yatay slayt düzeni. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Carousel - Yalnızca CSS'de Arka Rüzgar CSS Bileşeni | Frutjam"
+metaDescription: "CSS kaydırma-snap kullanan JS içermeyen Tailwind CSS Atlıkarınca. Resim galerileri ve içerik kaydırıcıları için gezinme kontrolleri ve göstergeleri ile dokunmatik özelliktedir."
+order: 0
+related:
+  - "components/button"
+  - "components/indicator"
+image: "https://cdn.frutjam.com/media/components/carousel_j3ks8GX.webp"
+imageAlt: "Frutjam'dan Atlıkarınca"
+createdAt: "2026-04-19T15:56:06.116976+00:00"
+updatedAt: "2026-07-13T09:50:30.911335+00:00"
+sourceHash: "8044c8196719"
+translationHash: "6d04020002c9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Kaydırma-snap'i kullanan yalnızca CSS'ye özgü Tailwind CSS karuseli. Gezinme kontrollerine sahip ve JavaScript gerektirmeyen yatay slayt düzeni. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Atlıkarınca bileşenleri, birden fazla öğeyi dönen veya kaydırılabilir bir kapta görüntüler; görüntüleri, referansları, ürün galerilerini veya öne çıkan içeriği sergilemek için idealdir. Anlamsal HTML ve düzgün kaydırma davranışıyla oluşturulan karuseller, hizalamayla yatay ve dikey düzenleri destekler. Frutjam atlıkarınca sistemi, kahraman bölümleri, ürün galerileri, referans gösterimleri ve içerik kaydırıcıları için mükemmeldir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| carousel | <span class="badge badge-xs">Temel</span> | Yakalama davranışına sahip yatay kaydırılabilir kap |
+| carousel-item | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Atlıkarıncanın içindeki bireysel slayt |
+| carousel-vertical | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Dikey kaydırma yönü |
+| carousel-center | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Hizalamayı her öğenin merkezine yasla |
+| carousel-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Her öğenin sonuna hizalamayı yasla |
+
+</DocTable>
+
+## Temel Kullanım
+
+Kaydırılabilir öğelerle basit bir yatay atlıkarınca oluşturun.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-4 p-4 bg-base-100">
+  <div class="carousel-item w-96">
+    <div class="badge badge-primary">Featured</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-secondary">Popular</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-accent">Trending</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="carousel w-full gap-4 p-4 bg-base-100">
+  <div className="carousel-item w-96">
+    <div className="badge badge-primary">Featured</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-secondary">Popular</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-accent">Trending</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Resimli Atlıkarınca
+
+Sorunsuz kaydırma ve duyarlı boyutlandırmayla resim galerilerini görüntüleyin.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-2">
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=800&height=450" alt="Image 1" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=800&height=450" alt="Image 2" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=800&height=450" alt="Image 3" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Atlıkarınca Merkezi Hizalanmış
+
+Karusel öğelerini orta hizalama ve kartlar arasındaki boşluk ile görüntüleyin.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-center gap-4 p-4 bg-base-200 rounded-lg">
+  <div class="carousel-item">
+    <div class="card card-primary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 1</h2>
+        <p>Featured product or content</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-secondary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 2</h2>
+        <p>Popular selection</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-accent w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 3</h2>
+        <p>Trending now</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Atlıkarınca Dikey
+
+Öğelerin yukarıdan aşağıya kaydırılması için dikey bir atlıkarınca oluşturun.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-vertical h-96 gap-2 p-2 bg-base-100">
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-primary">Item 1</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-secondary">Item 2</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-accent">Item 3</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-info">Item 4</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Navigasyonlu Atlıkarınca
+
+Bağlantı bağlantılarını kullanarak atlıkarınca öğeleri arasında manuel gezinme için düğmeler ekleyin.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="slide1" class="carousel-item relative w-full">
+    <div class="badge badge-primary w-full h-32">Slide 1</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide2" class="carousel-item relative w-full">
+    <div class="badge badge-secondary w-full h-32">Slide 2</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide1" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide3" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide3" class="carousel-item relative w-full">
+    <div class="badge badge-accent w-full h-32">Slide 3</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide4" class="carousel-item relative w-full">
+    <div class="badge badge-info w-full h-32">Slide 4</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide3" class="btn btn-circle btn-sm" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <a href="#slide1" class="btn btn-circle btn-sm" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Nokta Göstergeli Karusel
+
+Birden fazla dönen öğe için gezinme göstergeleri olarak küçük rozet düğmelerini kullanın.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="item1" class="carousel-item w-full">
+    <div class="badge badge-primary w-full h-32">1</div>
+  </div>
+  <div id="item2" class="carousel-item w-full">
+    <div class="badge badge-secondary w-full h-32">2</div>
+  </div>
+  <div id="item3" class="carousel-item w-full">
+    <div class="badge badge-accent w-full h-32">3</div>
+  </div>
+  <div id="item4" class="carousel-item w-full">
+    <div class="badge badge-info w-full h-32">4</div>
+  </div>
+  <div class="flex justify-center gap-2 pt-4">
+    <a href="#item1" class="btn btn-xs btn-outline">1</a>
+    <a href="#item2" class="btn btn-xs btn-outline">2</a>
+    <a href="#item3" class="btn btn-xs btn-outline">3</a>
+    <a href="#item4" class="btn btn-xs btn-outline">4</a>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS ve Tepki Yardımcısı
+
+Slaytlarda programlı olarak gezinmek için `frutjam/js`'den `createCarousel`'i veya `frutjam/react`'tan `useCarousel`'i kullanın; otomatik olarak `prefers-reduced-motion`'a saygı duyar.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-3">
+  <button class="btn btn-sm" id="carousel-prev">← Prev</button>
+  <button class="btn btn-sm" id="carousel-next">Next →</button>
+</div>
+<div class="carousel w-full" id="js-carousel">
+  <div class="carousel-item w-full"><div class="badge badge-primary w-full h-32">Slide 1</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-secondary w-full h-32">Slide 2</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-accent w-full h-32">Slide 3</div></div>
+</div>
+<script type="module">
+  import { createCarousel } from 'frutjam/js'
+  const carousel = createCarousel(document.getElementById('js-carousel'))
+  document.getElementById('carousel-prev').onclick = () => carousel.prev()
+  document.getElementById('carousel-next').onclick = () => carousel.next()
+</script>
+```
+
+```jsx
+import { useCarousel } from 'frutjam/react'
+
+export default function CarouselDemo() {
+  const carousel = useCarousel()
+  return (
+    <>
+      <div className="flex gap-2 mb-3">
+        <button className="btn btn-sm" onClick={carousel.prev}>← Prev</button>
+        <button className="btn btn-sm" onClick={carousel.next}>Next →</button>
+      </div>
+      <div ref={carousel.ref} className="carousel w-full">
+        <div className="carousel-item w-full"><div className="badge badge-primary w-full h-32">Slide 1</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-secondary w-full h-32">Slide 2</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-accent w-full h-32">Slide 3</div></div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

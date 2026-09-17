@@ -1,0 +1,1186 @@
+---
+name: "Editor Penurunan Harga"
+heading: "Plugin Native-First, Markdown Berkinerja Tinggi untuk JavaScript"
+description: "Plugin editor teks penurunan harga yang mengubah area teks asli menjadi rangkaian pengeditan lengkap — tidak diperlukan sinkronisasi. WYSIWYG dan mode Markdown biasa, pratinjau langsung, temukan & ganti, dukungan RTL, mode gelap. Bekerja dengan Django, Laravel, Rails, Node.js, PHP, dan tumpukan apa pun."
+metaTitle: "Plugin JavaScript Editor Teks Penurunan Harga | buah-buahan"
+metaDescription: "Editor penurunan harga JavaScript ringan yang menyempurnakan area teks Anda tanpa menggantinya. Bekerja apa adanya dengan Django, Laravel, Rails, PHP dan Node.js. WYSIWYG, RTL."
+order: 0
+related:
+  - "components/textarea"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
+imageAlt: "Plugin JavaScript Editor Teks Penurunan Harga oleh Frutjam"
+createdAt: "2025-09-10T14:44:51.417170+00:00"
+updatedAt: "2026-07-18T13:00:27.167336+00:00"
+sourceHash: "dfa041018f60"
+translationHash: "27d4aa93c93c"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Plugin editor teks penurunan harga yang mengubah area teks asli menjadi rangkaian pengeditan lengkap — tidak diperlukan sinkronisasi. WYSIWYG dan mode Markdown biasa, pratinjau langsung, temukan & ganti, dukungan RTL, mode gelap. Bekerja dengan Django, Laravel, Rails, Node.js, PHP, dan tumpukan apa pun.
+
+## Instalasi
+
+#### NPM (bundel: Vite, webpack, Rollup, dll.)
+
+<Snippet view="code">
+
+```bash
+npm install markdown-text-editor
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+import MarkdownEditor from 'markdown-text-editor';
+new MarkdownEditor('#markdown-editor');
+```
+
+</Snippet>
+
+Definisi TypeScript dikirimkan bersama paket, sehingga opsi, entri toolbar, dan bentuk variabel diperiksa dan dilengkapi secara otomatis tanpa instalasi tambahan.
+
+#### CDN: modul ES
+
+<Snippet view="code">
+
+```html
+<script type="module">
+  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+#### CDN: tag skrip global (IIFE)
+
+Tidak perlu impor — MarkdownEditor tersedia sebagai variabel global secara otomatis.
+
+<Snippet view="code">
+
+```html
+<form action="/api/save" method="POST">
+  <textarea id="markdown-editor" name="content"># Hello World</textarea>
+  <button type="submit">Save Content</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+## Demo Editor Penurunan Harga
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
+
+## Mulai Cepat
+
+Berikan objek opsi untuk menyesuaikan editor. Semua opsi bersifat opsional — hilangkan opsi apa pun untuk menggunakan nilai default.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+  placeholder: 'Write your markdown...',
+  toolbar: ['heading', 'bold', 'italic', 'strikethrough', 'ul', 'ol', 'checklist', 'blockquote', 'link', 'preview'],
+});
+```
+
+</Snippet>
+
+## Filosofi: "Pribumi-Pertama"
+
+Kebanyakan editor melanggar alur kerja web standar. **MarkdownEditor** menerimanya. Karena letaknya tepat di atas a `<textarea>`, Anda tidak perlu mempelajari cara baru untuk menangani data.
+
+- **Tidak Perlu Pengikatan Data:** Dapat digunakan dengan `<form method="POST">` keluar dari kotak
+- **Akses Standar:** Gunakan `document.getElementById('editor').value` seperti masukan biasa.
+- **Backend Agnostic:** Berfungsi dengan backend apa pun (Python, Node.js, PHP, dll.) seperti kolom formulir biasa
+
+## MarkdownEditor vs EasyMDE / SimpleMDE
+
+Kebanyakan editor penurunan harga JavaScript — EasyMDE, SimpleMDE, editor berbasis CodeMirror — **ganti `<textarea>`** dengan elemen khusus. Itu berarti pengiriman formulir terhenti, `.value` tidak menghasilkan apa-apa, dan Anda harus menulis kode tambahan hanya untuk membaca kembali kontennya. **MarkdownEditor berbeda** — ini menyempurnakan area teks yang ada dan tidak pernah menggantikannya.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Fitur | Editor Penurunan Harga | MudahMDE / SederhanaMDE |
+| --- | --- | --- |
+| Textarea asli dipertahankan | ✅ | ❌ Diganti |
+| Pengiriman formulir berfungsi apa adanya | ✅ | ❌ Membutuhkan JS tambahan |
+| Dapatkan/tetapkan nilai melalui `.value` | ✅ | ❌ Diperlukan API khusus |
+| Mode hibrid WYSIWYG | ✅ | ❌ |
+| Temukan & Ganti bawaan | ✅ | ❌ |
+| dukungan RTL | ✅ | ❌ |
+| Kompatibel dengan CSP (tidak ada JS sebaris) | ✅ | ❌ |
+| Tidak ada konflik CSS | ✅ | ❌ |
+| Mode gelap/tema | ✅ | Terbatas |
+| Ukuran bundel | ~116KB | ~300KB+ |
+
+</DocTable>
+
+## Integrasi Kerangka
+
+Karena **MarkdownEditor** mempertahankan yang asli `<textarea>`, ini terintegrasi dengan setiap kerangka backend tanpa kode tambahan apa pun. Server Anda menerima konten penurunan harga persis seperti yang diterima dari bidang formulir standar mana pun. Untuk React dan Vue dibutuhkan beberapa baris, yang dibahas di akhir bagian ini.
+
+### Django
+
+Tambahkan sebuah `class` ke widget textarea Anda dan inisialisasi editor — `request.POST['content']` bekerja tanpa langkah tambahan.
+
+<Snippet view="code">
+
+```python
+# forms.py
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('.markdown-editor');
+// request.POST['content'] contains the markdown on submit
+```
+
+</Snippet>
+
+### Laravel
+
+Menggunakan `f.text_area` dengan kelas - `$request->input('content')` menerima penurunan harga secara langsung.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### Ruby di Rel
+
+Bekerja dengan `form_with` di luar kotak - `params[:content]` berisi penurunan harga. Untuk Turbo Drive, gunakan `turbo:load` alih-alih `DOMContentLoaded`.
+
+<Snippet view="code">
+
+```javascript
+document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.markdown-editor:not([data-mde-init])').forEach(el => {
+        el.setAttribute('data-mde-init', 'true');
+        new MarkdownEditor(el);
+    });
+});
+```
+
+</Snippet>
+
+### Node.js / Ekspres
+
+`req.body.content` menerima penurunan harga pada pengiriman formulir — tidak ada langkah sinkronisasi, tidak ada ekstraksi khusus.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor"></textarea>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### PHP
+
+`$_POST['content']` berfungsi persis seperti area teks standar mana pun — masukkan dan penanganan formulir yang ada tidak memerlukan perubahan apa pun.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="save.php">
+  <textarea name="content" class="markdown-editor"></textarea>
+  <button type="submit">Save</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### Bereaksi
+
+Buat editor dalam sebuah efek dan hancurkan saat melepasnya. Menggunakan `defaultValue` daripada `value`: editor menulis ke textarea secara langsung, sehingga pengikatan terkontrol akan menimpa apa yang diketik pengguna.
+
+<Snippet view="code">
+
+```javascript
+import { useEffect, useRef } from 'react';
+import MarkdownEditor from 'markdown-text-editor';
+
+function MarkdownField({ name, defaultValue = '', onChange }) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const editor = new MarkdownEditor(ref.current, { onChange });
+        return () => editor.destroy();
+    }, []);
+
+    return &lt;textarea ref={ref} name={name} defaultValue={defaultValue} /&gt;;
+}
+```
+
+</Snippet>
+
+Kembali `editor.destroy()` dari efeknya juga mencakup StrictMode, yang menjalankan efek dua kali dalam pengembangan dan jika tidak, akan meninggalkan dua editor pada satu area teks. Array ketergantungan yang kosong memang disengaja: opsi dibaca satu kali ketika editor dibuat, jadi menjalankan kembali efeknya akan menghancurkannya dan membangunnya kembali pada setiap perubahan.
+
+### Lihat
+
+Ide yang sama. Tetapkan nilai awal sekali masuk `onMounted` dan tidak mengikat `:value`, atau setiap penekanan tombol yang dipancarkan kembali `v-model` akan menimpa textarea.
+
+<Snippet view="code">
+
+```javascript
+&lt;script setup&gt;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import MarkdownEditor from 'markdown-text-editor';
+
+const el = ref(null);
+const props = defineProps({ modelValue: { type: String, default: '' } });
+const emit = defineEmits(['update:modelValue']);
+let editor = null;
+
+onMounted(() => {
+    el.value.value = props.modelValue;
+    editor = new MarkdownEditor(el.value, {
+        onChange: value =&gt; emit('update:modelValue', value)
+    });
+});
+
+onBeforeUnmount(() =&gt; editor?.destroy());
+&lt;/script&gt;
+
+&lt;template&gt;&lt;textarea ref="el"&gt;&lt;/textarea&gt;&lt;/template&gt;
+```
+
+</Snippet>
+
+Digunakan sebagai `<MarkdownField v-model="content" />`. Dalam bentuk biasa Anda bisa melewatinya `v-model` seluruhnya dan membaca nilai dari textarea saat dikirimkan, seperti halnya kerangka kerja lainnya.
+
+## Konfigurasi
+
+Anda dapat sepenuhnya menyesuaikan perilaku dan antarmuka editor dengan meneruskan `options` obyek. Jika Anda menghilangkan opsi, nilai **default** akan digunakan.
+
+Opsi dibaca satu kali, saat editor dibuat. Mengubahnya setelah itu tidak berpengaruh — panggil `destroy()` dan buat editor baru sebagai gantinya.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Milik | Jenis | Bawaan | Tujuan |
+| --- | --- | --- | --- |
+| `mode` | `string` | `'plain'` | Mengatur tampilan awal. Gunakan hybrid untuk pengalaman WYSIWYG atau biasa untuk sintaksis mentah. |
+| `placeholder` | `string` | `'Write...'` | Teks ditampilkan saat editor kosong. |
+| `toolbar` | `array` | `[...]` | Menentukan alat mana yang muncul dan dalam urutan apa. |
+| `footer` | `salah \| objek` | semua terlihat | Mengontrol bilah status yang ditampilkan di bawah editor. Setel ke `false` untuk menyembunyikannya seluruhnya, atau meneruskan objek untuk mengubah statistik individual. |
+| `theme` | `string` | inherited | Menetapkan tema editor secara eksplisit (terang, gelap, snowberry, darkberry). Jika dihilangkan, editor mewarisi `data-theme` dari elemen leluhur terdekat atau `<textarea>` diri. |
+| `minHeight` | `number` | `200` | Tinggi minimum dalam piksel yang akan diperkecil oleh editor ketika kontennya pendek. Pasangkan dengan `maxHeight` untuk mengatur rentang pertumbuhan otomatis. |
+| `maxHeight` | `number` | `500` | Tinggi maksimum dalam piksel yang dapat ditingkatkan editor dalam mode non-layar penuh. Setelah konten melebihi ketinggian ini, bilah gulir akan muncul di dalam editor. Editor juga memiliki pegangan tarik sehingga pengguna dapat mengubah ukurannya secara manual melebihi batas ini. |
+| `renderer` | `function` | `marked` | Menggantikan parser penurunan harga yang digunakan untuk pratinjau. Menerima string penurunan harga dan harus mengembalikan string HTML. |
+| `sanitizer` | `function` | `DOMPurify` | Menggantikan pembersih HTML. Menerima HTML yang dirender dan harus mengembalikan HTML aman untuk ditampilkan. |
+| `onChange` | `function` | `undefined` | Callback diaktifkan pada setiap perubahan konten — pengetikan, tindakan toolbar, undo/redo, dan kelanjutan daftar. Menerima string penurunan harga saat ini sebagai satu-satunya argumennya. |
+
+</DocTable>
+
+### 🛠 Kustomisasi Bilah Alat
+
+Bilah alatnya bersifat modular. Anda dapat menciptakan pengalaman minimal atau power suite berfitur lengkap dengan memodifikasi array.
+
+#### Alat yang Tersedia
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kategori | Kunci Alat |
+| --- | --- |
+| Tipografi | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
+| Daftar | `ul` (bullet), `ol` (numbered), `checklist` |
+| Kode | `code` (sebaris), `codeblock` (blok berpagar) |
+| Sisipan | `hr` (aturan horizontal), `table` (templat tabel) |
+| Media | `link`, `image` |
+| Mengedit | `undo`, `redo`, `indent`, `outdent` |
+| Melihat | `preview` |
+| Templat | `{ variables: [...] }`, dikonfigurasi sebaris |
+
+</DocTable>
+
+#### Referensi Alat
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Alat | Keterangan |
+| --- | --- |
+| `heading` | Membuka tarik-turun untuk memilih tingkat judul H1–H6 |
+| `bold` | Mengaktifkan pemformatan teks tebal. |
+| `italic` | Mengaktifkan pemformatan teks miring. |
+| `strikethrough` | Memungkinkan teks dicoret. |
+| `ol` | (Daftar Terurut): Mengubah teks menjadi format daftar bernomor. |
+| `ul` | (Daftar Tidak Berurutan): Mengubah teks menjadi daftar poin-poin. |
+| `checklist` | Menambahkan kotak centang ke teks Anda, sehingga cocok untuk tugas, daftar tugas, atau melacak status penyelesaian. |
+| `blockquote` | Sorot teks yang dikutip atau ditekankan. |
+| `code` | Membungkus teks yang dipilih dalam satu backtick untuk kode sebaris. Mengklik lagi akan menghapus backticks. |
+| `codeblock` | Membungkus teks yang dipilih dalam blok kode berpagar triple-backtick. Mengklik lagi akan menghilangkan pagar. |
+| `hr` | Sisipan a `---` aturan horizontal pada posisi kursor pada barisnya sendiri. |
+| `table` | Menyisipkan templat tabel penurunan harga 2x3 awal pada posisi kursor. |
+| `image` | Memungkinkan Anda menyisipkan gambar melalui sintaks penurunan harga. |
+| `link` | Memungkinkan Anda menambahkan hyperlink ke teks Anda. |
+| `undo` | Untuk membalikkan perubahan terakhir. |
+| `redo` | Untuk menerapkan kembali perubahan terakhir yang dibatalkan. |
+| `indent` | Untuk meningkatkan tingkat lekukan. |
+| `outdent` | Untuk mengurangi tingkat lekukan. |
+| `preview` | Mengalihkan pratinjau layar penuh berdampingan. Kotak centang di panel pratinjau dapat diklik dan memperbarui sumber penurunan harga secara instan. Tekan Escape untuk keluar dari layar penuh. Jika header tetap menutupi editor dalam layar penuh, lihat `--mte-fullscreen-z-index`. |
+
+</DocTable>
+
+##### 💡 Kiat Penerapan:
+
+- **Penyusunan Ulang**: Tombol muncul sesuai urutan yang Anda cantumkan dalam larik
+- **Menghapus**: Cukup hilangkan tombol apa saja (seperti `image`) dari array untuk menonaktifkan fitur tersebut sepenuhnya bagi pengguna
+- **Pengembalian Asli**: Jika Anda tidak memberikan `placeholder` di JS, plugin akan secara otomatis menggunakan `placeholder` atribut dari HTML Anda `<textarea>`
+
+### 📊 Catatan Kaki (Bilah Status)
+
+Footer berada di bawah editor dan menampilkan **baris**, **kolom** kursor, **jumlah karakter** dokumen, dan **jumlah kata** opsional — semuanya diperbarui secara real-time. Ini terlihat secara default dan setiap stat dapat diubah secara independen.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kunci | Jenis | Bawaan | Keterangan |
+| --- | --- | --- | --- |
+| `line` | `boolean` | `true` | Tampilkan nomor baris saat ini. |
+| `col` | `boolean` | `true` | Tampilkan nomor kolom saat ini. |
+| `chars` | `boolean` | `true` | Tampilkan jumlah karakter total. |
+| `words` | `boolean` | `false` | Tunjukkan jumlah kata total. Nonaktif secara default — diatur ke `true` untuk mengaktifkan. |
+
+</DocTable>
+
+#### Contoh Penggunaan
+
+<Snippet view="code">
+
+```javascript
+// Default — line, col, and chars visible
+new MarkdownEditor('#editor');
+
+// Disable the footer entirely
+new MarkdownEditor('#editor', { footer: false });
+
+// Hide only character count
+new MarkdownEditor('#editor', { footer: { chars: false } });
+
+// Hide line and column, keep character count
+new MarkdownEditor('#editor', { footer: { line: false, col: false } });
+
+// Show only line number
+new MarkdownEditor('#editor', { footer: { col: false, chars: false } });
+
+// Enable word count alongside the defaults
+new MarkdownEditor('#editor', { footer: { words: true } });
+
+// Show word count only
+new MarkdownEditor('#editor', { footer: { line: false, col: false, chars: false, words: true } });
+```
+
+</Snippet>
+
+### 🔀 Mode Pengeditan
+
+**MarkdownEditor** menawarkan dua cara berbeda untuk menulis dan memformat konten Anda. Anda dapat beralih antara tampilan tradisional yang berfokus pada sintaksis atau pengalaman modern yang mengutamakan visual.
+
+-   `plain` (**Default**): Lingkungan penurunan harga yang bersih dan berkinerja tinggi dengan sintaksis (seperti `**bold**` atau `# heading`) terlihat. Ideal untuk pengembang dan penganut penurunan harga
+-   `hybrid`: Pengalaman yang terinspirasi WYSIWYG yang menampilkan pemformatan (Tebal, Miring, Judul) secara real-time saat Anda mengetik, sambil tetap mempertahankan struktur penurunan harga yang mendasarinya.
+
+<Snippet view="code">
+
+```javascript
+// Default initialization (Plain Mode)
+new MarkdownEditor('#markdown-editor');
+
+// Explicit Plain Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'plain'
+});
+
+// Hybrid (Visual) Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid'
+});
+```
+
+</Snippet>
+
+#### Pratinjau Mode Hibrid dan Biasa:
+
+##### Modus Hibrida
+
+Pemformatan visual ditampilkan secara real-time saat Anda mengetik.
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
+
+##### Mode Biasa (Default)
+
+Berfokus pada sintaks penurunan harga mentah untuk pengalaman yang ringan.
+
+<RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
+
+### 🌙 Tema
+
+**MarkdownEditor** secara otomatis mewarisi temanya dari halaman sekitarnya — tidak diperlukan konfigurasi. Editor membaca `data-theme` dari nenek moyang terdekat saat inisialisasi, sehingga tetap sinkron dengan tema situs Anda.
+
+#### Bagaimana tema diselesaikan (urutan prioritas)
+
+1.  **`theme` option** — penggantian eksplisit yang diteruskan pada objek opsi
+2.  **`data-theme` di `<textarea>`** — diatur langsung pada elemen
+3.  **`data-theme` pada leluhur mana pun** — mis. `<html>`, `<body>`, atau pembungkus `<div>`
+
+#### Tema yang tersedia
+
+`'light'` (bawaan), `'dark'`, `'snowberry'`, `'darkberry'`
+
+##### Opsi 1 — mewarisi dari `<html>` atau leluhur mana pun (konfigurasi nol)
+
+<Snippet view="code">
+
+```html
+<html data-theme="dark">
+  ...
+  <textarea id="markdown-editor"></textarea>
+  <script>
+    new MarkdownEditor('#markdown-editor'); // picks up dark automatically
+  </script>
+```
+
+</Snippet>
+
+##### Opsi 2 — atur `data-theme` langsung di `<textarea>`
+
+<Snippet view="code">
+
+```html
+<textarea id="markdown-editor" data-theme="dark"></textarea>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+##### Opsi 3 — eksplisit `theme` opsi (mengesampingkan semuanya)
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    theme: 'dark'
+});
+```
+
+</Snippet>
+
+#### 🎨 Tema Khusus melalui Variabel CSS
+
+Anda dapat sepenuhnya menyesuaikan tampilan editor dengan mengganti variabel CSS-nya di `.markdown-editor-wrapper` elemen atau apa pun `[data-theme]` pemilih. Semua warna menggunakan [Ruang warna OKLCH](https://oklch.com) untuk hasil yang seragam secara persepsi.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Variabel | Tujuan | Standar ringan | Defaultnya gelap |
+| --- | --- | --- | --- |
+| `--color-base` | Latar belakang penyunting | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
+| `--color-on-base` | Warna teks utama | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
+| `--color-primary` | Aksen utama (bilah alat aktif, tautan) | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
+| `--color-on-primary` | Teks pada permukaan berwarna primer | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
+| `--color-secondary` | Aksen sekunder | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
+| `--color-accent` | Aksen highlight (kode sebaris, miring) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-neutral` | Permukaan netral (batas, pemisah) | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
+| `--color-error` | Warna status kesalahan | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
+| `--border-radius` | Pembulatan sudut bingkai editor | `0.25rem` |
+
+</DocTable>
+
+##### Contoh tema khusus
+
+Ganti variabel apa pun aktif `.markdown-editor-wrapper` setelah editor menginisialisasi, atau menentukan kebiasaan `[data-theme]` blok di stylesheet Anda:
+
+<Snippet view="code">
+
+```css
+/* Override individual variables */
+.markdown-editor-wrapper {
+    --color-primary: oklch(60% 0.2 30);   /* orange accent */
+    --border-radius: 0.5rem;
+}
+
+/* Or define a full custom theme */
+[data-theme="brand"] .markdown-editor-wrapper,
+.markdown-editor-wrapper[data-theme="brand"] {
+    --color-base:       oklch(15% 0.01 250);
+    --color-on-base:    oklch(95% 0 0);
+    --color-primary:    oklch(65% 0.22 145);   /* green */
+    --color-on-primary: oklch(10% 0 0);
+    --color-accent:     oklch(75% 0.18 60);
+    --color-neutral:    oklch(80% 0 0);
+    --border-radius:    0.75rem;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', { theme: 'brand' });
+```
+
+</Snippet>
+
+### 🏷 Variabel
+
+Menambahkan dropdown toolbar untuk menyisipkan placeholder. Berguna ketika orang yang menulis dokumen bukanlah pengembang yang mendefinisikan sintaksis placeholder, seperti email, faktur, atau templat kontrak: mereka memilih nama yang dapat dibaca dan sintaksis yang benar dimasukkan untuk mereka.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', 'link',
+        { variables: [
+            { label: 'Customer Name', value: '{{customer.name}}' },
+            { label: 'Invoice No',    value: '{{invoice.number}}' }
+        ]},
+        'preview'
+    ]
+});
+```
+
+</Snippet>
+
+Alat ini dikonfigurasi secara inline di `toolbar` array, jadi posisinya di antara tombol-tombol lainnya terserah Anda. Tombol tersebut mencantumkan label, dan mengklik salah satu label akan menyisipkannya `value` di kursor, menggantikan pilihan apa pun. Tidak ada yang ditampilkan jika daftarnya kosong.
+
+#### Contoh nilai di pratinjau
+
+Entri yang diberikan a `sample` menunjukkan sampel itu di pratinjau, sementara area teks menyimpan placeholder sebenarnya. Entri tanpa satu pun akan muncul seperti tertulis, sehingga Anda dapat menggabungkan keduanya.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' },
+    { label: 'Invoice No',    value: '{{invoice.number}}' }
+]}
+
+// textarea : Hi {{customer.name}}, invoice {{invoice.number}}
+// preview  : Hi Hannes, invoice {{invoice.number}}
+```
+
+</Snippet>
+
+#### Pengelompokan
+
+Berikan entri `items` bukannya a `value` untuk membuat bagian yang dituju. Entri yang dikelompokkan dan datar dapat dicampur dalam satu daftar.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Today', value: '{{today}}', sample: '10 September 2026' },
+    { label: 'Customer', items: [
+        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes' },
+        { label: 'Email', value: '{{customer.email}}', sample: 'hannes@example.com' }
+    ]},
+    { label: 'Invoice', items: [
+        { label: 'Number', value: '{{invoice.number}}' }
+    ]}
+]}
+```
+
+</Snippet>
+
+#### Hal yang perlu diketahui
+
+- **Editor tidak pernah menyelesaikan variabel.** Editor menyisipkan teks, dan aplikasi Anda kemudian menggantikan nilai sebenarnya, biasanya di sisi server. `sample` hanya memengaruhi apa yang ditampilkan pratinjau.
+- **Label ditampilkan sebagai teks biasa**, sehingga markup dalam label tidak pernah dirender.
+- **Entri yang formatnya salah akan dilewati** alih-alih dilempar, dan tombol tidak ditampilkan sama sekali saat tidak ada konfigurasi yang dapat digunakan.
+
+### 🖋 Perender Khusus
+
+Pratinjau dirender dengan [ditandai](https://marked.js.org) dan disanitasi dengan [DOMPurifikasi](https://github.com/cure53/DOMPurify). Keduanya bisa diganti. Gunakan ini ketika aplikasi Anda sudah merender penurunan harga dengan pustaka lain dan Anda ingin pratinjaunya sama persis dengan produksi.
+
+Kedua opsi tersebut merupakan fungsi biasa yang mengambil string dan mengembalikan string, sehingga parser dan pembersih apa pun dapat berfungsi.
+
+<Snippet view="code">
+
+```javascript
+import MarkdownIt from 'markdown-it';
+import taskLists from 'markdown-it-task-lists';
+import MarkdownEditor from 'markdown-text-editor';
+
+const md = new MarkdownIt({ linkify: true, breaks: true }).use(taskLists);
+
+new MarkdownEditor('#markdown-editor', {
+    renderer: markdown => md.render(markdown)
+});
+```
+
+</Snippet>
+
+DOMPurify masih berjalan pada output, jadi Anda tetap melindungi XSS tanpa mengonfigurasi apa pun.
+
+#### Pembersih khusus
+
+Hanya diperlukan ketika default menghapus sesuatu yang dikeluarkan oleh penyaji Anda. DOMPurify menghapus `<iframe>` secara default, jadi penyematan video perlu diizinkan secara eksplisit. DOMPurify harus diimpor dalam kode Anda sendiri, karena salinan yang dibundel dengan editor bersifat internal.
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    renderer:  markdown => md.render(markdown),
+    sanitizer: html => DOMPurify.sanitize(html, {
+        ADD_TAGS: ['iframe'],
+        ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder']
+    })
+});
+```
+
+</Snippet>
+
+Dengan menggunakan tag skrip dan bukan bundler, muat DOMPurify bersama editor:
+
+<Snippet view="code">
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dompurify"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+```
+
+</Snippet>
+
+#### Hal yang perlu diketahui
+
+- **Hanya pratinjau.** Pemformatan langsung mode hibrid menggunakan perender internal terpisah dan tidak terpengaruh.
+- **Daftar tugas memerlukan dukungan plugin.** Kotak centang yang dapat diklik ditemukan dengan mencari `input[type="checkbox"]` dalam output, jadi penurunan harga diperlukan `markdown-it-task-lists`. Editor mencatat peringatan jika mendeteksi sintaksis daftar tugas dan tidak ada kotak centang.
+- **Keduanya harus sinkron** dan mengembalikan string. Sebuah `async` fungsi menulis `[object Promise]` ke dalam pratinjau.
+- **Mengganti pembersih menggantikan perlindungan Anda.** Sebuah pass-through seperti `html => html` menonaktifkan sanitasi sepenuhnya dan hanya aman untuk konten yang sepenuhnya tepercaya.
+
+### 🎨 Menata Elemen Internal
+
+Variabel CSS mencakup sebagian besar tema karena merupakan warisan, jadi aktifkan salah satunya `.markdown-editor-wrapper` mencapai toolbar, tombol, pratinjau dan footer. Raih nama kelas hanya ketika tidak ada variabel yang memaparkan apa yang Anda butuhkan.
+
+<Snippet view="code">
+
+```css
+/* Variables set on the wrapper inherit down to every child */
+.markdown-editor-wrapper {
+    --border-radius: 12px;   /* rounds the editor and its toolbar buttons */
+    --color-primary: oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Referensi kelas
+
+Nama kelas ini stabil dan aman untuk ditata.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kelas | Elemen |
+| --- | --- |
+| `.markdown-editor-wrapper` | Wadah luar membungkus seluruh editor |
+| `.toolbar` | Strip toolbar di atas area pengeditan |
+| `.markdown-btn` | Tombol bilah alat individual |
+| `.preview-btn` | Tombol sakelar pratinjau / layar penuh |
+| `.editor-layout` | Kisi yang menahan area pengeditan dan pratinjau secara berdampingan |
+| `.textarea-wrapper` | Bungkus di sekitar area pengeditan |
+| `.editor-textarea` | Elemen textarea yang mendasarinya |
+| `.display-layer` | Lapisan pemformatan yang dirender, hanya mode hibrid |
+| `.preview-wrapper` | Kolom pratinjau |
+| `.preview-content` | Penurunan harga yang diberikan di dalam pratinjau |
+| `.editor-footer` | Bilah status di bawah editor |
+| `.find-replace-panel` | Temukan dan ganti panel |
+
+</DocTable>
+
+<Snippet view="code">
+
+```css
+/* Some variables are set by the component on itself, which beats an
+   inherited value. Target the element directly for those. */
+.markdown-editor-wrapper .markdown-btn {
+    --btn--font-size: 0.875rem;
+}
+
+/* And use classes for anything no variable exposes */
+.markdown-editor-wrapper .toolbar {
+    border-bottom: 2px solid oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Menargetkan satu editor
+
+Dengan beberapa editor dalam satu halaman, targetkan salah satunya dengan `data-editor`. Pembungkusnya mencerminkan idnya `<textarea>`, Jadi `<textarea id="notes">` memberimu `[data-editor="notes"]`. Id itu sendiri tetap berada di textarea, jadi `getElementById` terus bekerja.
+
+<Snippet view="code">
+
+```css
+/* one editor only */
+[data-editor="notes"] {
+    --border-radius: 0;
+}
+```
+
+</Snippet>
+
+### 🪟 Layar Penuh & Lapisan (indeks-z)
+
+Dalam layar penuh editor menggunakan `z-index: 10000`, yang menghapus lapisan yang dicadangkan sebagian besar kerangka UI untuk header dan overlay tetap. Jika header atau sidebar tetap masih menutupi editor, naikkan nilai ini.
+
+Timpa dengan `--mte-fullscreen-z-index`. Nilai ini hanya berlaku di layar penuh, dan diwariskan, jadi menetapkannya pada leluhur mana pun akan mencakup setiap editor di bawahnya.
+
+<Snippet view="code">
+
+```css
+/* every editor on the page */
+.markdown-editor-wrapper {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* one section only - the value inherits down */
+#admin-panel {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* a single editor, by its textarea id */
+[data-editor="notes"] {
+    --mte-fullscreen-z-index: 20000;
+}
+```
+
+</Snippet>
+
+## API Konten
+
+Salah satu kekuatan inti **MarkdownEditor** adalah mempertahankan hal yang mendasarinya `<textarea>` tersinkronisasi dengan sempurna. Baik Anda menggunakan kerangka kerja JavaScript modern atau backend tradisional seperti **Django, PHP, atau Laravel**, alur kerjanya tetap sederhana dan asli.
+
+### Membaca dan Menulis Konten
+
+#### 1\. Cara Asli (Disarankan)
+
+Karena editor menyempurnakan area teks standar, Anda dapat menggunakan metode DOM yang sudah dikenal. Ini adalah cara tercepat untuk berinteraksi dengan data Anda tanpa mempelajari API baru.
+
+<Snippet view="code">
+
+```javascript
+// Retrieve content via ID
+const markdown = document.getElementById('markdown-editor').value;
+
+// Set content via ID (The editor UI updates automatically)
+document.getElementById('markdown-editor').value = "# New Heading Content";
+```
+
+</Snippet>
+
+#### 2\. Menggunakan Referensi Variabel
+
+Jika Anda memiliki referensi ke elemen textarea, Anda dapat menggunakannya secara langsung — tidak diperlukan API khusus perpustakaan.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Retrieve content
+const markdown = textarea.value;
+
+// Set content (the editor UI reflects this immediately)
+textarea.value = "## Updated via JS";
+```
+
+</Snippet>
+
+#### 3\. Mengatur konten awal di sisi server
+
+Cara yang disarankan untuk mengatur konten awal adalah langsung di `<textarea>` HTML — ini bekerja secara alami dengan setiap kerangka backend (Django, Laravel, Rails, PHP, dll.) dan editor merendernya secara otomatis di init.
+
+<Snippet view="code">
+
+```html
+<!-- Recommended: set content server-side -->
+<textarea id="markdown-editor"># Hello World</textarea>
+```
+
+</Snippet>
+
+Untuk membaca atau memperbarui konten saat runtime, gunakan yang asli `textarea` nilai. Panggilan `editor.render()` setelah pembaruan untuk menyegarkan pratinjau dan lapisan hibrid.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Read
+const markdown = textarea.value;
+
+// Update at runtime
+textarea.value = '# New content';
+editor.render();
+```
+
+</Snippet>
+
+#### 4\. Menghancurkan editor— `destroy()`
+
+Panggilan `editor.destroy()` untuk menghapus pembungkus DOM editor dan mengembalikan yang asli `<textarea>` ke posisinya dalam dokumen. Berguna dalam aplikasi satu halaman saat melepas tampilan.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor');
+
+// Remove the editor and restore the plain textarea
+editor.destroy();
+```
+
+</Snippet>
+
+### Bereaksi terhadap perubahan dengan `onChange`
+
+Lulus sebuah `onChange` panggilan balik untuk diberitahu tentang setiap perubahan konten. Menerima string penurunan harga saat ini.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        console.log('Content changed:', value.length, 'characters');
+    }
+});
+```
+
+</Snippet>
+
+#### Draf simpan otomatis dengan `localStorage`
+
+Menggunakan `onChange` untuk menyimpan draf pada setiap penekanan tombol. Pulihkan dengan mengisi terlebih dahulu area teks sebelum menginisialisasi editor.
+
+<Snippet view="code">
+
+```javascript
+const DRAFT_KEY = 'my-page-draft';
+
+// Restore saved draft before init (only if textarea starts empty)
+const textarea = document.getElementById('markdown-editor');
+const saved = localStorage.getItem(DRAFT_KEY);
+if (saved && !textarea.value) textarea.value = saved;
+
+// Save on every change
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        localStorage.setItem(DRAFT_KEY, value);
+    }
+});
+
+// Clear draft after successful form submission
+document.querySelector('form').addEventListener('submit', () => {
+    localStorage.removeItem(DRAFT_KEY);
+});
+```
+
+</Snippet>
+
+### Pengiriman Formulir
+
+Karena **MarkdownEditor** dibuat langsung dari versi asli `<textarea>`, ini kompatibel dengan semua kerangka backend (Django, Laravel, PHP, Ruby on Rails, dll.) langsung dari kotaknya.
+
+Di sinilah filosofi “Pribumi-Pertama” bersinar. Anda tidak perlu menyinkronkan data secara manual sebelum mengirimkan formulir. Browser memperlakukan editor persis seperti kolom input standar.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="/api/submit">
+  <textarea id="markdown-editor" name="content" class="h-48" rows="5">
+    # Initial Content
+  </textarea>
+
+  <button type="submit">Submit to Server</button>
+</form>
+
+<script>
+  // Just initialize it. That's it.
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+<RawHtml html={"<p class=\"text-sm\"><strong>Catatan:</strong> Inisialisasi plugin MarkdownEditor wajib dilakukan</p>"} />
+
+Cukup gunakan HTML standar `<form>`. Itu `name` Atribut pada textarea adalah apa yang akan digunakan server Anda untuk mengidentifikasi konten.
+
+##### 🚀 Mengapa ini merupakan Game-Changer untuk Backend
+
+Karena editor mempertahankan aslinya `<textarea>` perilaku, server Anda menangani data sebagai string standar. Tidak diperlukan logika tambahan—tidak `preventDefault()` dan tidak ada panduannya `FormData` konstruksi.
+
+##### 💡 Mengapa ini disebut "Fitur Pembunuh":
+
+Kebanyakan editor (seperti Quill, Editor.js, simpleMDE, easyMDE) menyimpan data dalam struktur JSON yang kompleks. Jika pengembang menggunakannya, mereka harus menulis ulang skema database dan logika renderingnya.
+
+Dengan **MarkdownEditor**, pengembang dapat mengambil situs web lama, menggantikan yang biasa `<textarea>` dengan editor Anda, dan **backend bahkan tidak mengetahui perubahannya**. Itu hanya menerima teks mentah yang sama seperti biasanya, tetapi pengguna mendapatkan pengalaman 10x lebih baik.
+
+<DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
+
+| Kerangka / Bahasa | Cara mengakses konten penurunan harga |
+| --- | --- |
+| PHP | `$_POST['content']` |
+| Django | `request.POST.get('content')` |
+| Node.js (Ekspres) | `req.body.content` |
+| Laravel | `$request->input('content')` |
+| Ruby di Rel | `params[:content]` |
+
+</DocTable>
+
+## 🖼️ Unggah Gambar Tingkat Lanjut
+
+Menangani unggahan gambar secara asli—daripada mengandalkan string Base64 yang lambat dan banyak memori—merupakan kemenangan yang signifikan baik untuk performa maupun SEO.
+
+### Opsi Konfigurasi
+
+Alat gambar mendukung a `fileInput` konfigurasi untuk menangani unggahan server langsung.
+
+-   `accept`: Menentukan serangkaian format gambar yang diperbolehkan (misalnya, 'webp', 'avif')
+-   `uploadUrl`: Tentukan titik akhir backend tempat `File` objek akan dikirim melalui `POST`
+-   `params`: Objek opsional untuk mengirim data tambahan (seperti token CSRF, ID pengguna, atau nama folder) bersama file gambar
+
+### Contoh penggunaan (Konfigurasi Lengkap)
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  placeholder: 'Start writing...',
+  toolbar: [
+    'link',
+    {
+      image: {
+        fileInput: {
+            accept: ['webp', 'avif'], // restrict the image upload format
+            uploadUrl: '/api/upload', // Your upload endpoint
+            params: {
+                _token: 'your_csrf_token_here', // Essential for Laravel/Django
+                folder: 'blog_posts'
+            }
+        },
+        // Supports boolean: true/false OR object: { required: true }
+        altInput: { required: true }
+      }
+    },
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 📡 Integrasi Server
+
+#### Permintaan
+
+Redaksi mengirimkan a `POST` permintaan sebagai `multipart/form-data`. Secara default, ini mencakup:
+
+-   `image_file`: Objek file sebenarnya
+-   `image_alt`: Teks alternatif yang dimasukkan oleh pengguna
+- ...ditambah data khusus apa pun yang ditentukan di `params` obyek
+
+#### Respon yang Diperlukan
+
+Untuk mengonfirmasi keberhasilan upload dan memasukkan gambar ke editor, server Anda **harus** mengembalikan struktur JSON berikut:
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp"
+}
+```
+
+</Snippet>
+
+**Catatan**: Pastikan Anda menggunakan kuncinya `image_path` untuk URL gambar yang diunggah.
+
+### Validasi Teks Alt Gambar (`altInput`)
+
+Untuk memastikan konten Anda tetap dapat diakses dan ramah SEO, **MarkdownEditor** menerapkan validasi teks alternatif secara default.
+
+- **Perilaku Default**: Jika `altInput` tidak ditentukan, defaultnya adalah `{ required: true }`
+- **Menerapkan Aksesibilitas**: Pengguna akan dilarang memasukkan gambar sampai deskripsi alternatif diberikan
+
+#### 1\. Default (Tidak diperlukan konfigurasi)
+
+<Snippet view="code">
+
+```javascript
+// Alt text is REQUIRED by default
+image: {
+  fileInput: { uploadUrl: '/api/upload' }
+}
+```
+
+</Snippet>
+
+#### 2\. Singkatan (Nonaktifkan Validasi)
+
+Jika Anda ingin mengizinkan gambar tanpa deskripsi, cukup setel boolean ke `false`.
+
+<Snippet view="code">
+
+```javascript
+image: {
+  altInput: false // Users can now skip the alt text field
+}
+```
+
+</Snippet>
+
+#### 3\. Berbasis objek (Eksplisit)
+
+<Snippet view="code">
+
+```javascript
+image: {
+    altInput: {
+        required: false // Disables alt text validation — users can skip the alt field
+    }
+}
+```
+
+</Snippet>
+
+### Penggunaan Gambar Standar (No `fileInput`)
+
+Jika `fileInput` tidak dikonfigurasi, editor defaultnya menggunakan modal berbasis URL sederhana. Ini ideal jika sebagian besar pengguna Anda terhubung ke host gambar eksternal.
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  toolbar: [
+    'link',
+    'image',
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 💡 Mengapa menggunakan params?
+
+Dalam kerangka kerja seperti Laravel atau Django, Anda tidak dapat mengunggah berkas tanpa token CSRF. Dengan menambahkan `_token` ke `params` keberatan, permintaan Anda akan melewati middleware keamanan backend dengan mulus, mempertahankan filosofi "Logika Nol" untuk pengontrol sisi server Anda.
+
+## ⌨️ Pintasan Papan Ketik
+
+Tindakan pemformatan umum dapat dipicu langsung dari keyboard tanpa menyentuh toolbar. Setiap pintasan juga ditampilkan di tooltip tombol toolbar yang sesuai.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Jalan pintas | Tindakan |
+| --- | --- |
+| `Ctrl + B`  /  `⌘ B` | Alihkan **Tebal** |
+| `Ctrl + I`  /  `⌘ I` | Alihkan *Miring* |
+| `Ctrl + K`  /  `⌘ K` | Sisipkan Tautan |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | Beralih sebaris `Code` |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Alihkan ~~Dicoret~~ |
+| `Ctrl + Z`  /  `⌘ Z` | Membuka |
+| `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Mengulangi |
+| `Tab` | Indentasi baris yang dipilih |
+| `Shift + Tab` | Garis yang dipilih keluar |
+| `Ctrl + F`  /  `⌘ F` | Buka panel Temukan |
+| `Ctrl + H`  /  `⌘ H` | Buka panel Temukan & Ganti |
+| `Escape` | Tutup panel Temukan / Keluar dari pratinjau layar penuh |
+
+</DocTable>
+
+## 🔍 Temukan & Ganti
+
+Panel temukan dan ganti bawaan tersedia di dalam editor — tidak diperlukan ekstensi browser atau alat terpisah.
+
+-   Tekan `Ctrl + F` (atau `⌘ F`) untuk membuka panel **Temukan**
+-   Tekan `Ctrl + H` (atau `⌘ H`) untuk membuka panel **Temukan & Ganti**
+- Penelusuran **tidak peka huruf besar-kecil** dan menampilkan penghitung pertandingan langsung (misalnya *3 dari 12*)
+- Navigasi pertandingan dengan tombol **▲ / ▼** atau `Enter` / `Shift + Enter`
+- **Ganti** menggantikan kecocokan yang disorot saat ini; **Ganti Semua** menggantikan setiap kejadian sekaligus
+-   Tekan `Escape` untuk menutup panel dan mengembalikan fokus ke editor
+
+Panel mengapung di sudut kanan atas area konten editor dan tidak mengganggu penulisan.
+
+## Fitur
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integrasi Formulir Asli</h2><p class=\"para-sm\">Bekerja persis seperti <code>&lt;textarea&gt;</code> standar. Tidak ada API yang rumit—cukup gunakan atribut <code>value</code> atau <code>name</code>. Ini \"hanya berfungsi\" dengan pengiriman formulir HTML standar di PHP, Django, atau Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Unggah Gambar Tingkat Lanjut</h2><p class=\"para-sm\">Konfigurasikan unggahan server asli melalui API. Hindari string Base64 yang berat untuk memastikan pemuatan halaman lebih cepat dan SEO unggul dengan menghosting gambar di CDN Anda sendiri.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid &amp; Plain Modes</h2><p class=\"para-sm\">Beralih antara pengalaman <strong>Hybrid (WYSIWYG)</strong> untuk pengeditan visual atau mode <strong>Plain Markdown</strong> untuk nuansa pengkodean tradisional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Performa Tinggi</h2><p class=\"para-sm\">Paket kecil <strong>~116KB</strong> yang dioptimalkan untuk \"Konten Berat\". Menangani dokumen berukuran besar dan file besar tanpa jeda input atau penurunan kinerja. Pembaruan pratinjau yang dibatalkan, penghitungan gaya yang di-cache, dan penanganan keyboard bebas konflik — jadi Tab dan Enter selalu melakukan satu hal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Dukungan RTL bawaan</h2><p class=\"para-sm\">Dukungan asli untuk bahasa Kanan-Kiri seperti Arab, Urdu, dan Farsi. Sempurna untuk membangun aplikasi yang dapat diakses secara global.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Penyorotan Sintaks</h2><p class=\"para-sm\">Peningkatan keterbacaan dengan kode yang jelas dan format penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptif</h2><p class=\"para-sm\">Termasuk dukungan Mode Gelap otomatis. Ini disinkronkan dengan pengaturan sistem Anda atau perpustakaan <strong>Frutjam UI</strong> untuk pengalaman visual yang lancar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Pengeditan Cerdas</h2><p class=\"para-sm\">Kelanjutan daftar otomatis gaya GitHub untuk daftar terurut, daftar tidak berurutan, dan daftar periksa — tekan <code>Enter</code> dan editor melanjutkan polanya. Kotak centang di panel pratinjau dapat diklik dan langsung disinkronkan kembali ke sumber penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Sepenuhnya Responsif</h2><p class=\"para-sm\">UI yang lancar dan mengutamakan seluler yang beradaptasi sempurna dengan desktop, tablet, dan ponsel cerdas untuk mengedit saat bepergian.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Dukungan Universal</h2><p class=\"para-sm\">Kompatibel dengan <strong>ESM, UMD, CommonJS, dan IIFE</strong>. Berfungsi langsung melalui CDN (<code>&lt;script src&gt;</code>), npm, atau bundler apa pun (Vite, webpack, Rollup) — tidak diperlukan konfigurasi tambahan.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accessible by Default</h2><p class=\"para-sm\">Dukungan penuh ARIA bawaan — landmark toolbar, wilayah pratinjau berlabel, tombol ramah pembaca layar, <code>aria-pressed</code> pada tombol pratinjau, <code>disabled</code> dan <code>aria-disabled</code> pada alat yang tidak aktif, dan memperbaiki pemulihan fokus saat modal ditutup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero CSS Conflicts</h2><p class=\"para-sm\">Gaya editor sepenuhnya tercakup dalam <code>.markdown-editor-wrapper</code>. Pra-penerbangan global Tailwind dikecualikan sehingga editor dapat bekerja dengan aman bersama Bootstrap, Tailwind, atau kerangka kerja lainnya tanpa merusak gayanya.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Pintasan Papan Ketik</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — tindakan pemformatan umum tanpa menyentuh mouse. Setiap pintasan ditampilkan di tooltip tombol toolbar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Temukan &amp; Mengganti</h2><p class=\"para-sm\">Tekan <code>Ctrl+F</code> untuk mencari atau <code>Ctrl+H</code> untuk membuka cari pengganti &amp;. Pencarian tidak peka huruf besar-kecil dengan penghitung pencocokan langsung, navigasi berikutnya/sebelumnya, penggantian tunggal, dan penggantian semua — tanpa meninggalkan editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Preview</h2><p class=\"para-sm\">Pratinjau yang dirender dibersihkan melalui <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> sebelum ditulis ke DOM. Tag skrip, pengendali kejadian sebaris, dan URL berbahaya dalam masukan penurunan harga yang dibuat akan dihapus secara otomatis — tidak diperlukan konfigurasi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Pratinjau Waktu Nyata</h2><p class=\"para-sm\">Lihat penurunan harga Anda ditampilkan secara instan saat Anda mengetik.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Integrasi Mudah</h2><p class=\"para-sm\">Integrasikan secara mulus ke dalam proyek web apa pun dengan pengaturan minimal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Bilah Alat yang Dapat Disesuaikan</h2><p class=\"para-sm\">Konfigurasikan dan susun ulang opsi toolbar secara dinamis seperti huruf tebal, miring, dan lainnya.</p></div></div></div>"} />
+
+## Contoh Konfigurasi Lengkap
+
+Gunakan contoh komprehensif ini untuk menginisialisasi **MarkdownEditor** dengan semua fitur utama, termasuk pengurutan toolbar khusus dan penanganan upload gambar tingkat lanjut.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid',
+    placeholder: 'Start writing...',
+    footer: {
+        line: true,
+        col: true,
+        chars: true,
+        words: true,
+    },
+    onChange(value) {
+        console.log('Content updated:', value.length, 'characters');
+    },
+    toolbar: [
+        'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
+        'ul', 'ol', 'checklist',
+        'code', 'codeblock', 'hr', 'table',
+        {
+            image: {
+                fileInput: {
+                    accept: ['webp', 'avif', 'png'],
+                    uploadUrl: '/api/upload'
+                }
+            }
+        },
+        'link', 'undo', 'redo', 'indent', 'outdent', 'preview'
+    ],
+});
+
+// Read content natively
+const markdown = document.getElementById('markdown-editor').value;
+
+// destroy() when the view unmounts (SPAs)
+// editor.destroy();
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Apakah ini bermanfaat?</p><p class=\"text-sm\">Bintang GitHub membantu pengembang lain menemukan editornya. Itu bagian dari <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. Sebuah bintang di sana juga membantu.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Bintangi di GitHub</a></div>"} />

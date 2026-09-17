@@ -1,0 +1,188 @@
+---
+/**
+ * frutjam.com's doc page: frontend/templates/frontend/content/wrapper.html.
+ * Rendered by the English route (src/pages/[category]/[slug].astro) and the
+ * translated one (src/pages/[lang]/[category]/[slug].astro); links stay inside
+ * the page's language, as Django's i18n_patterns did.
+ */
+import { getEntry, render } from 'astro:content';
+import { fingerprint, skeleton } from '../../scripts/i18n-hash.mjs';
+import { lastCommitDate } from '@/lib/git-dates.mjs';
+import { CATEGORIES, SITE, categoryIn, categoryOf, docUrl, flatDocs, formatDate, langOf, type Doc } from '@/lib/site';
+import { DEFAULT_LANG, langUrl, useTranslations } from '@/lib/i18n';
+import ads from '@/data/ads.json';
+
+interface TocItem {
+  text: string;
+  id: string;
+  children: TocItem[];
+}
+
+const { doc } = Astro.props as { doc: Doc };
+const lang = langOf(doc);
+const t = useTranslations(lang);
+const { Content, remarkPluginFrontmatter } = await render(doc);
+const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
+
+const category = categoryIn(CATEGORIES.find((c) => c.slug === categoryOf(doc))!, lang);
+/** The sidebar ad Django took from AdModel; src/data/ads.json is empty when there is none. */
+const ad = (ads as Array<{ image: string; alt: string; link: string }>)[0];
+const path = docUrl(doc);
+const canonicalUrl = `${SITE}${path}`;
+const flat = await flatDocs(lang);
+const index = flat.findIndex((d) => d.id === doc.id);
+const prevDoc = flat[index - 1];
+const nextDoc = flat[index + 1];
+
+const docType = category.type ? category.type.toLowerCase() : 'item';
+const promptText = `Fetch and read the Frutjam documentation at this URL: ${canonicalUrl}.md\nThen help me implement the ${doc.data.name} ${docType} in my project. Include correct class names, structure, and usage examples.`;
+// Django's urlquote keeps "/" unescaped.
+const aiQuery = encodeURIComponent(promptText).replace(/%2F/g, '/');
+
+/**
+ * A translation whose English page has changed since: say so rather than let
+ * the reader trust old text (npm run i18n:status lists them).
+ */
+const englishPage = lang === DEFAULT_LANG ? undefined : await getEntry('docs', `${DEFAULT_LANG}/${categoryOf(doc)}/${doc.id.split('/').slice(2).join('/')}`);
+const outOfDate = Boolean(
+  englishPage && doc.data.sourceHash && (
+    doc.data.sourceHash !== fingerprint(englishPage.data, englishPage.body ?? '')
+    || skeleton(doc.body ?? '') !== skeleton(englishPage.body ?? '')
+  )
+);
+
+/**
+ * The commit that last touched this file, as the buraq docs show. The
+ * frontmatter date came from the Django database and never moves again, so it
+ * is only the fallback for a page not yet committed.
+ */
+const updatedAt = lastCommitDate('docs', doc.id, 'mdx') ?? doc.data.updatedAt;
+const editUrl = `https://github.com/nezanuha/frutjam/edit/main/docs/src/content/docs/${doc.id}.mdx`;
+
+const related = (await Promise.all(doc.data.related.map((id) => getEntry('docs', `${lang}/${id}`)))).filter((d) => d !== undefined);
+const showCherry = ['components', 'blocks', 'plugins'].includes(category.slug);
+---
+
+<main id="main-content" class=" py-3.5 surface surface-outline border-0 border-r grid grid-cols-14">
+            <nav aria-label={t('Breadcrumb')} class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-1 breadcrumb mb-3 px-5 lg:px-8">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href={langUrl(lang, '/')} class="breadcrumb-link">{t('Home')}</a></li>
+                    <li class="breadcrumb-item"><a href={langUrl(lang, `/${category.slug}`)} class="breadcrumb-link">{category.name}</a></li>
+                    <li class="breadcrumb-item"><span aria-current="page" class="breadcrumb-current">{doc.data.name}</span></li>
+                </ol>
+            </nav>
+            <article data-pagefind-body data-pagefind-meta={`category:${category.name}`} class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-2 prose prose-sm prose-headings:font-bold prose-frutjam max-w-none px-5 lg:px-8">
+                <div class="grid grid-cols-14 gap-3 not-prose items-center">
+                    <h1 class="col-span-14 heading-4xl mb-3 lg:mb-5">{doc.data.heading}</h1>
+                    <p data-pagefind-ignore class="col-span-10 lg:col-span-6 para-xs">{t('Last updated')}: <time datetime={updatedAt}>{formatDate(updatedAt)}</time></p>
+                    <div data-pagefind-ignore class="col-span-14 lg:col-span-8 flex gap-x-2 items-center h-auto">
+                        <button type="button" class="btn btn-xs btn-outline btn-soft" aria-label={t('Copy markdown to clipboard')} id="copy-page">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                            <span class="hidden lg:inline">{t('Copy Page')}</span>
+                        </button>
+                        <div class="popover popover-hover popover-bottom-start">
+                            <button type="button" class="popover-toggle btn btn-xs btn-outline btn-soft">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+                                <span class="hidden lg:inline">{t('Open in AI')}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                            </button>
+                            <div tabindex="0" class="popover-content" id="pageActionMoreOption">
+                                <ul class="menu">
+                                    <li>
+                                        <a href={`https://claude.ai/new?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Claude')}</a>
+                                        <a href={`https://chatgpt.com?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('ChatGPT')}</a>
+                                        <a href={`https://www.perplexity.ai/?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Perplexity')}</a>
+                                        <a href={`https://v0.dev?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('v0')}</a>
+                                        <a href={`https://scira.ai/?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Scira')}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href={`${path}.md`} target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-outline btn-soft">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+                            <span class="hidden lg:inline">{t('Markdown')}</span>
+                        </a>
+                        <nav aria-label={t('Documentation top navigation')} class="flex gap-x-2 items-center">
+                            {prevDoc && <a href={docUrl(prevDoc)} class="btn btn-xs btn-square btn-outline btn-soft"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg><span class="sr-only">{t('Previous: %(name)s', { name: prevDoc.data.name })}</span></a>}
+                            {nextDoc && <a href={docUrl(nextDoc)} class="btn btn-xs btn-square btn-outline btn-soft"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="sr-only">{t('Next: %(name)s', { name: nextDoc.data.name })}</span></a>}
+                        </nav>
+                    </div>
+                </div>
+                {outOfDate && (
+                <div data-pagefind-ignore class="alert alert-warning alert-soft not-prose mb-6" role="note">
+                    <div class="alert-content">
+                        <p class="para-sm">{t('This translation is older than the English page and may be missing recent changes.')}</p>
+                        <a href={langUrl(DEFAULT_LANG, path.replace(`/${lang}`, ''))} class="link link-sm">{t('Read the English version')}</a>
+                    </div>
+                </div>
+                )}
+                <Content />
+                {showCherry && (
+                <div data-pagefind-ignore class="not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div class="flex-1">
+                        <p class="heading-sm mb-1">{t('Using Claude Code, Cursor, or another AI editor?')}</p>
+                        <p class="para-xs">{t('Cherry MCP gives your AI editor the exact %(name)s class names and structure on demand. No more hallucinated classes.', { name: doc.data.name })}</p>
+                    </div>
+                    <a href={langUrl(lang, '/products/cherry')} class="btn btn-primary btn-sm shrink-0">{t('Try Cherry MCP')}</a>
+                </div>
+                )}
+                {related.length > 0 && (
+                <div data-pagefind-ignore class="not-prose mt-6">
+                    <section aria-labelledby="related-docs-heading">
+                        <h2 id="related-docs-heading" class="heading-sm mb-3">{t('Related')}</h2>
+                        <ul class="flex flex-wrap gap-2">
+                            {related.map((rel) => (
+                            <li><a href={docUrl(rel)} class="badge badge-xs badge-outline">{rel.data.name}</a></li>
+                            ))}
+                        </ul>
+                    </section>
+                </div>
+                )}
+                <footer data-pagefind-ignore class="mt-12">
+                    <div class="not-prose flex flex-wrap items-center justify-between gap-2 mb-4 pb-4 border-b border-base-100">
+                        <a href={editUrl} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs inline-flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+                            {t('Edit page')}
+                        </a>
+                        <p class="para-xs">{t('Last updated')}: <time datetime={updatedAt}>{formatDate(updatedAt)}</time></p>
+                    </div>
+                    <nav aria-label={t('Documentation pagination')} class="not-prose flex justify-between">
+                        {prevDoc && <a href={docUrl(prevDoc)} class="btn btn-xs"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>{prevDoc.data.name}</a>}
+                        {nextDoc && <a href={docUrl(nextDoc)} class="btn btn-xs">{nextDoc.data.name}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>}
+                    </nav>
+                </footer>
+            </article>
+            <aside class="hidden lg:block lg:col-span-3 lg:col-start-12 lg:row-start-1 lg:row-span-2">
+                <div class="lg:sidebar px-2 border-e-0! lg:top-26 not-prose">
+                    <div class="max-h-[50vh] overflow-y-auto scrollbar-none [-ms-overflow-style:none] mask-[linear-gradient(to_bottom,black_85%,transparent_100%)]">
+                        <ul class="menu menu-sm" id="toc-menu">
+                            {toc.length > 0 && <li class="menu-title sticky -top-1 inset-x-0 bg-base w-full z-10 py-2">{t('On this page')}</li>}
+                            {toc.map((h2) => (
+                                <li>
+                                    {h2.children.length ? (
+                                    <Fragment>
+                                    <a href={`#${h2.id}`} class="menu-item font-bold toc-link">{h2.text}</a>
+                                    <ul>{h2.children.map((h3) => <li><a href={`#${h3.id}`} class="menu-item toc-link">{h3.text}</a></li>)}</ul>
+                                    </Fragment>
+                                    ) : (
+                                    <a href={`#${h2.id}`} class="menu-item toc-link">{h2.text}</a>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div class="divider divider-dotted"></div>
+                    {ad && (
+                    <div class="px-2">
+                        <a href={ad.link} class="block rounded-lg overflow-hidden">
+                            <picture>
+                                <source media="(min-width: 1280px)" srcset={`${ad.image}?width=280&format=webp&quality=85`} />
+                                <source media="(min-width: 1024px)" srcset={`${ad.image}?width=220&format=webp&quality=85`} />
+                                <img src={`${ad.image}?width=280&format=webp&quality=85`} alt={ad.alt} width="280" class="w-full h-auto rounded-lg" loading="lazy" />
+                            </picture>
+                        </a>
+                    </div>
+                    )}
+                </div>
+            </aside>
+</main>

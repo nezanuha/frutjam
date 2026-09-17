@@ -1,0 +1,172 @@
+---
+name: "状態"
+heading: "ステータスコンポーネント"
+description: "CSS のみの Tailwind CSS ステータス ドット インジケーター。プライマリ、成功、警告、エラーの色のバリエーションがあります。サイズはXS〜XL。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "ステータス - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS ユーザーの存在とシステムの健全性を示すステータス インジケーター。オンライン、オフライン、ビジー、および退席中の状態に応じて、複数のサイズで色分けされたドット。"
+order: 0
+related:
+  - "components/alert"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/status_iG1tcWc.webp"
+imageAlt: "フルジャムによるステータス"
+createdAt: "2026-04-19T15:57:10.046622+00:00"
+updatedAt: "2026-07-13T09:46:58.404651+00:00"
+sourceHash: "544cbb26c3ed"
+translationHash: "f3ab2f2fff66"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS ステータス ドット インジケーター。プライマリ、成功、警告、エラーの色のバリエーションがあります。サイズはXS〜XL。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+ステータス コンポーネントは、ユーザー、システム、プロセスの現在の状態や可用性を視覚的なインジケーターを通じて表示します。セマンティック HTML と色分けされたスタイルで構築されたステータス バッジは、重要な状態情報を伝えます。 Frutjam ステータス システムは複数の色とサイズをサポートしており、ユーザーの存在、システムの健全性、ワークフローの状態に最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| status | <span class="badge badge-xs">ベース</span> | 状態または存在を示す小さなドットインジケーター |
+| status-xs | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 極小 |
+| status-sm | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 小さい |
+| status-md | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 中 (デフォルト) |
+| status-lg | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 大きい |
+| status-xl | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 特大 |
+| status-primary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 主要なテーマカラー |
+| status-secondary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 二次テーマカラー |
+| status-accent | <span class="badge badge-xs badge-warning badge-soft">色</span> | アクセントのテーマカラー |
+| status-neutral | <span class="badge badge-xs badge-warning badge-soft">色</span> | ニュートラルなテーマカラー |
+| status-info | <span class="badge badge-xs badge-warning badge-soft">色</span> | 情報セマンティックカラー |
+| status-success | <span class="badge badge-xs badge-warning badge-soft">色</span> | 成功のセマンティックカラー |
+| status-warning | <span class="badge badge-xs badge-warning badge-soft">色</span> | 警告セマンティックカラー |
+| status-error | <span class="badge badge-xs badge-warning badge-soft">色</span> | エラー セマンティック カラー |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<span class="status"></span>
+```
+
+```jsx
+<span className="status"></span>
+```
+
+</Snippet>
+
+## ステータスの色
+
+<Snippet>
+
+```html
+<span class="status status-primary"></span>
+<span class="status status-secondary"></span>
+<span class="status status-accent"></span>
+<span class="status status-neutral"></span>
+<span class="status status-info"></span>
+<span class="status status-success"></span>
+<span class="status status-warning"></span>
+<span class="status status-error"></span>
+```
+
+</Snippet>
+
+## ステータスのサイズ
+
+<Snippet>
+
+```html
+<span class="status status-xs status-success"></span>
+<span class="status status-sm status-success"></span>
+<span class="status status-md status-success"></span>
+<span class="status status-lg status-success"></span>
+```
+
+</Snippet>
+
+## ラベル付きステータス
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <span class="status status-md status-success"></span>
+  <span>Online</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-neutral"></span>
+  <span>Offline</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-error"></span>
+  <span>Busy</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-warning"></span>
+  <span>Away</span>
+</div>
+```
+
+</Snippet>
+
+## Ping アニメーションによるステータス
+
+<Snippet>
+
+```html
+<div class="status status-error animate-ping"></div>
+```
+
+</Snippet>
+
+## バウンスアニメーション付きステータス
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <div class="status status-info animate-bounce"></div>
+  <span>Unread emails</span>
+</div>
+```
+
+</Snippet>
+
+## ユーザーリストのステータス
+
+<Snippet>
+
+```html
+<div class="space-y-2">
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-online">
+      U1
+    </div>
+    <span>John (Online)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-offline">
+      U2
+    </div>
+    <span>Jane (Offline)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-busy">
+      U3
+    </div>
+    <span>Bob (Busy)</span>
+  </div>
+</div>
+```
+
+</Snippet>

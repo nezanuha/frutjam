@@ -1,0 +1,543 @@
+---
+name: "Marquise"
+heading: "Marquise"
+description: "Letreiro CSS Tailwind somente CSS para rolagem horizontal de conteúdo e logotipos. Controle de velocidade e direção via CSS, sem JavaScript. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha."
+metaTitle: "Marquee - Componente CSS Tailwind somente CSS | Frutjam"
+metaDescription: "Pure CSS Tailwind CSS Marquee com rolagem infinita, pausa ao passar o mouse, direção reversa e suporte vertical. Não é necessário JavaScript."
+order: 0
+related:
+  - "components/card"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/marquee.webp"
+imageAlt: "Visualização do componente Frutjam Marquee"
+createdAt: "2026-05-13T15:19:17.699190+00:00"
+updatedAt: "2026-07-13T09:42:17.829517+00:00"
+sourceHash: "f5b7221d5db6"
+translationHash: "1540e9071b79"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Letreiro CSS Tailwind somente CSS para rolagem horizontal de conteúdo e logotipos. Controle de velocidade e direção via CSS, sem JavaScript. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+Os componentes do letreiro criam faixas de conteúdo infinitas e de rolagem contínua – ideais para logotipos de marcas, banners de anúncios, depoimentos ou nuvens de tags. Construída inteiramente com animações CSS, a marquise Frutjam suporta direções horizontais e verticais, pausa ao passar o mouse, reprodução reversível e controle de velocidade. Duplique o elemento `marquee-track` (com `aria-hidden`) para obter um loop contínuo e sem intervalos.
+
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Aula | Tipo | Descrição |
+| --- | --- | --- |
+| marquee | <span class="badge badge-xs">Base</span> | Contêiner externo – os clipes transbordam e contêm variáveis ​​de animação |
+| marquee-track | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Rolando a linha interna; duplique com `aria-hidden` para um loop contínuo |
+| marquee-pause | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Pausa a animação ao passar o mouse |
+| marquee-reverse | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Rola na direção oposta |
+| marquee-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Rola de cima para baixo em vez de da esquerda para a direita |
+| marquee-slow | <span class="badge badge-xs badge-info badge-soft">Speed</span> | Rolagem lenta (ciclo de 40s) |
+| marquee-normal | <span class="badge badge-xs badge-info badge-soft">Speed</span> | Velocidade padrão (ciclo de 20s) |
+| marquee-fast | <span class="badge badge-xs badge-info badge-soft">Speed</span> | Rolagem rápida (ciclo de 10s) |
+| marquee-fade | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Adiciona bordas de fade-out gradiente em ambos os lados |
+
+</DocTable>
+
+## Uso Básico
+
+Adicione dois elementos `marquee-track` idênticos - o segundo (com `aria-hidden="true"`) preenche a lacuna conforme o primeiro sai da tela.
+
+<Snippet>
+
+```html
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+</div>
+```
+
+```jsx
+const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+
+export default function MarqueeDemo() {
+  return (
+    <div className="marquee">
+      <div className="marquee-track">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+      <div className="marquee-track" aria-hidden="true">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Pausa ao passar o mouse
+
+Adicione `marquee-pause` para interromper a animação quando o usuário passar o mouse sobre a faixa.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Direção reversa
+
+Use `marquee-reverse` para rolar da direita para a esquerda em vez da esquerda para a direita. Combine duas linhas para obter um efeito em camadas.
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+  </div>
+  <div class="marquee marquee-reverse">
+    <div class="marquee-track">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Variantes de velocidade
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee marquee-slow">
+    <div class="marquee-track">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+  </div>
+  <div class="marquee marquee-fast">
+    <div class="marquee-track">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tenda Vertical
+
+Adicione `marquee-vertical` e dê ao contêiner uma altura fixa para uma rolagem de cima para baixo.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-vertical h-48">
+  <div class="marquee-track">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tags de tecnologia
+
+Um padrão comum para mostrar um conjunto de habilidades ou pilha de tecnologia.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause [--marquee--gap:0.75rem] p-2">
+  <div class="marquee-track">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Lacuna personalizada
+
+Substitua `--marquee--gap` ou `--marquee--duration` por um utilitário embutido para ajustar o espaçamento e a velocidade.
+
+<Snippet>
+
+```html
+<div class="marquee [--marquee--gap:2rem] [--marquee--duration:30s]">
+  <div class="marquee-track">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Bordas desbotadas
+
+Adicione `marquee-fade` para esmaecer ambas as extremidades da faixa no fundo da página para obter uma aparência elegante.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Banner de anúncio
+
+Uma barra estreita para promoções ou avisos em todo o site. Combine `marquee-fade` e `marquee-pause` para obter a melhor experiência.
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary py-2 px-4">
+  <div class="marquee marquee-fade marquee-pause [--marquee--duration:30s]">
+    <div class="marquee-track text-sm font-medium">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+    <div class="marquee-track text-sm font-medium" aria-hidden="true">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Letreiro de logotipo
+
+Apresente parceiros ou marcas confiáveis ​​em uma faixa de rolagem contínua. Use `marquee-fade` para mesclar as bordas com o fundo.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:3rem] [--marquee--duration:25s]">
+  <div class="marquee-track items-center">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+  <div class="marquee-track items-center" aria-hidden="true">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Cartões de depoimento
+
+Percorra os cartões de depoimento com uma pausa sutil ao passar o mouse para facilitar a leitura.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:1rem] [--marquee--duration:40s]">
+  <div class="marquee-track items-stretch">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-track items-stretch" aria-hidden="true">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

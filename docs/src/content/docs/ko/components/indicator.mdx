@@ -1,0 +1,183 @@
+---
+name: "지시자"
+heading: "지표 구성 요소"
+description: "모든 요소 모서리에 배지나 점을 오버레이하기 위한 CSS 전용 Tailwind CSS 표시기입니다. 색상 변형 및 위치 지정. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "표시기 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "알림 배지 및 상태 오버레이를 위한 Tailwind CSS 표시기입니다. 아바타, 버튼, 카드 배치 위치 9개(JavaScript가 필요하지 않음)"
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Frutjam 표시기"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "e0ef02199eaf"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+모든 요소 모서리에 배지나 점을 오버레이하기 위한 CSS 전용 Tailwind CSS 표시기입니다. 색상 변형 및 위치 지정. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+표시기 구성 요소는 다른 요소에 위치한 상태, 배지 또는 알림을 표시합니다. 절대적인 위치 지정과 유연한 스타일로 제작된 표시기는 카드, 아바타 및 버튼에 중요한 정보를 오버레이합니다. Frutjam 표시 시스템은 다양한 배치, 크기 및 색상을 지원하므로 알림 배지, 상태 표시 및 시각적 신호에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">베이스</span> | 표시기 항목에 대한 상대 위치 래퍼 |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 절대 위치의 배지 또는 점 요소 |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목을 위쪽 가장자리에 배치합니다. |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목을 수직 중앙에 위치시킵니다. |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 하단 가장자리에 항목 위치 지정 |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목을 왼쪽 가장자리에 배치합니다. |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 가로 중앙에 항목을 배치합니다. |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목을 오른쪽 가장자리에 배치합니다. |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## 표시기 배치
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## 탭의 표시기
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## 입력 표시기
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## 이미지의 표시기
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## 카드 표시기
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 아바타 표시기
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## 반응하는 행동
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

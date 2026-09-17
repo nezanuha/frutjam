@@ -1,0 +1,131 @@
+---
+name: "Bilah samping"
+heading: "Komponen Bilah Sisi"
+description: "Sidebar CSS Tailwind khusus CSS untuk panel navigasi samping. Dapat dilipat, dengan status item navigasi dan judul bagian. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Bilah Samping - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tailwind CSS Sidebar dengan panel, ikon, dan menu bersarang yang dapat dilipat. Navigasi dasbor responsif untuk tata letak admin dan aplikasi multi-bagian."
+order: 0
+related:
+  - "components/navbar"
+  - "components/menu"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/sidebar_jTGiPHo.webp"
+imageAlt: "Bilah samping oleh Frutjam"
+createdAt: "2026-04-19T15:57:04.010698+00:00"
+updatedAt: "2026-07-13T09:43:30.099461+00:00"
+sourceHash: "80862f45041c"
+translationHash: "929a4ba2e3d0"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Sidebar CSS Tailwind khusus CSS untuk panel navigasi samping. Dapat dilipat, dengan status item navigasi dan judul bagian. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen sidebar mengatur navigasi utama dan konten tambahan dalam panel samping tetap atau dapat dilipat. Dibangun dengan HTML semantik, sidebar meningkatkan navigasi tanpa menghabiskan ruang konten utama. Sistem sidebar Frutjam mendukung berbagai tata letak, lebar, dan perilaku—ideal untuk dasbor admin, situs dokumentasi, dan aplikasi kompleks.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| sidebar | <span class="badge badge-xs">Basis</span> | Memperbaiki panel samping untuk navigasi dan konten tambahan |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Gunakan kelas `sidebar` pada elemen `aside`. Tempatkan di samping konten utama Anda dalam wadah fleksibel.
+
+<Snippet>
+
+```html
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+```jsx
+<div className="flex min-h-90">
+  <aside className="sidebar w-64">
+    <ul className="menu p-4">
+      <li className="menu-title"><span>Menu</span></li>
+      <li><a className="menu-item">Sidebar Item 1</a></li>
+      <li><a className="menu-item">Sidebar Item 2</a></li>
+      <li><a className="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main className="flex-1 p-6">
+    <p className="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## Navigasi Bilah Sisi
+
+Bilah samping navigasi lengkap dengan bagian yang dikelompokkan dan gaya status aktif.
+
+<Snippet>
+
+```html
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## Bilah Sisi yang Dapat Dilipat
+
+Untuk sidebar seluler atau overlay, gabungkan kelas `sidebar` dengan komponen dialog `drawer drawer-start`.
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
+```
+
+</Snippet>

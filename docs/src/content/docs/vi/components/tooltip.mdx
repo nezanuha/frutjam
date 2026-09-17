@@ -1,0 +1,345 @@
+---
+name: "Chú giải công cụ"
+heading: "Thành phần chú giải công cụ"
+description: "Chú giải công cụ CSS Tailwind chỉ dành cho CSS với các vị trí trên cùng, dưới cùng, bên trái và bên phải. Các biến thể màu sắc, không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Chú giải công cụ - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Chú giải CSS Tailwind chỉ dành cho CSS với nhiều vị trí và biến thể màu sắc. Các gợi ý di chuột và tiêu điểm có thể truy cập được để hướng dẫn giao diện người dùng—không cần JavaScript."
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Các thành phần chú giải công cụ của Frutjam"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "da962d51ff3d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Chú giải công cụ CSS Tailwind chỉ dành cho CSS với các vị trí trên cùng, dưới cùng, bên trái và bên phải. Các biến thể màu sắc, không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần chú giải công cụ hiển thị thông tin bổ sung khi người dùng di chuột qua hoặc tập trung vào một phần tử. Được xây dựng bằng các thuộc tính HTML ngữ nghĩa và CSS, chú giải công cụ nâng cao trải nghiệm người dùng bằng cách cung cấp trợ giúp theo ngữ cảnh cụ thể mà không làm lộn xộn giao diện. Hệ thống chú giải công cụ Frutjam hỗ trợ nhiều vị trí, nội dung tùy chỉnh và hình ảnh động mượt mà để khám phá thông tin liền mạch.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+**Lưu ý:** Chú giải công cụ dựa trên `:hover` và `:focus`, những tính năng này **không khả dụng trên thiết bị cảm ứng/di động**. Đối với bố cục ưu tiên thiết bị di động, hãy sử dụng biến thể đáp ứng `lg:tooltip` để chú giải công cụ chỉ kích hoạt trên máy tính để bàn (màn hình lớn trở lên). Trên màn hình nhỏ hơn, hãy cân nhắc sử dụng mẫu tiết lộ khác, chẳng hạn như [popover](https://frutjam.com/components/popover) hoặc [phương thức](https://frutjam.com/components/modal).
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">Căn cứ</span> | Trình bao bọc hiển thị nội dung `data-tip` khi di chuột/tiêu điểm |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Nội dung HTML tùy chỉnh bên trong bong bóng chú giải công cụ |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở phía trên trình kích hoạt (mặc định) |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở bên dưới cò súng |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở ở bên trái của cò súng |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở ở bên phải cò súng |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở về phía bắt đầu hợp lý |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở về phía cuối hợp lý |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Primary theme color bubble |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Secondary theme color bubble |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Accent theme color bubble |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Neutral theme color bubble |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Info semantic color bubble |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Success semantic color bubble |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Warning semantic color bubble |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">Màu sắc</span> | Error semantic color bubble |
+
+</DocTable>
+
+## Chú giải công cụ
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Nội dung chú giải công cụ tùy chỉnh
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Chú giải công cụ có biểu tượng
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## Buộc mở chú giải công cụ
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## Tùy chọn định vị chú giải công cụ
+
+### Vị trí hàng đầu
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### Đúng vị trí
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### Vị trí cuối cùng
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### Vị trí dưới cùng
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bên trái
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### Bắt đầu vị trí
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## Các biến thể màu của chú giải công cụ
+
+### Màu cơ bản
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu phụ
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu nhấn
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu thông tin
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu thành công
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu cảnh báo
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu lỗi
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### Màu trung tính
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## Chú giải công cụ đáp ứng
+
+Chỉ hiển thị trên màn hình lớn với `lg:tooltip`
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## JS & React Helper
+
+Sử dụng `createTooltip` từ `frutjam/js` hoặc `useTooltip` từ `frutjam/react` để hiển thị hoặc ẩn chú giải công cụ theo chương trình — hữu ích cho các chuyến tham quan có hướng dẫn hoặc văn bản trợ giúp được kích hoạt.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

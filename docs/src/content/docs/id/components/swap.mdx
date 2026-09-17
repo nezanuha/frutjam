@@ -1,0 +1,187 @@
+---
+name: "Menukar"
+heading: "Tukar Komponen"
+description: "Pertukaran CSS Tailwind khusus CSS untuk beralih di antara dua elemen. Balik, putar, dan pudarkan animasi, tanpa JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Tukar - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tukar CSS Tailwind bebas JS dengan animasi pudar, putar, dan balik. Beralih antara status konten untuk peralihan tema, transisi ikon, dan status pemuatan."
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Tukar dengan Frutjam"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "21631f4e9587"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Pertukaran CSS Tailwind khusus CSS untuk beralih di antara dua elemen. Balik, putar, dan pudarkan animasi, tanpa JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Tukar komponen untuk beralih antara dua status konten dengan animasi halus sebagai respons terhadap interaksi pengguna. Dibangun dengan transisi semantik HTML dan CSS, swap memungkinkan perubahan status yang elegan tanpa JavaScript. Sistem pertukaran Frutjam mendukung berbagai gaya animasi—ideal untuk peralihan tema, peralihan mode, status pemuatan, dan ilustrasi interaktif.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">Basis</span> | Pembungkus sakelar dua keadaan yang digerakkan oleh kotak centang |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Berputar antar negara bagian |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">Gaya</span> | Beralih antar negara bagian dengan efek 3D |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Buat pertukaran sederhana dengan emoji atau konten teks menggunakan kotak centang untuk beralih status.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## Tukar Animasi
+
+Terapkan gaya animasi berbeda untuk transisi visual: memudar (default), memutar, dan membalik.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## Tukar dengan Ikon SVG
+
+Gunakan ikon SVG untuk perubahan keadaan visual dengan animasi yang halus.
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## Tukar sebagai Tombol
+
+Gabungkan fungsionalitas pertukaran dengan gaya komponen tombol untuk peralihan interaktif.
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## Tukar sebagai Lencana
+
+Buat lencana pengalih ringkas untuk peralihan status atau kategori.
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## Varian Swap Gabungan
+
+Campurkan gaya animasi dan tipe konten yang berbeda untuk skenario peralihan yang kompleks.
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

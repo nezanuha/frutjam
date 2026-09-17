@@ -1,0 +1,172 @@
+---
+name: "Status"
+heading: "Statuskomponente"
+description: "Nur CSS-Tailwind CSS-Statuspunktanzeige mit den Farbvarianten Primär, Erfolg, Warnung und Fehler. Größen xs-xl. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Status – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS-Statusanzeige für Benutzerpräsenz und Systemzustand. Farbcodierte Punkte in verschiedenen Größen für Online-, Offline-, Besetzt- und Abwesenheitsstatus."
+order: 0
+related:
+  - "components/alert"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/status_iG1tcWc.webp"
+imageAlt: "Status von Frutjam"
+createdAt: "2026-04-19T15:57:10.046622+00:00"
+updatedAt: "2026-07-13T09:46:58.404651+00:00"
+sourceHash: "544cbb26c3ed"
+translationHash: "8cfdbacf5e80"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind CSS-Statuspunktanzeige mit den Farbvarianten Primär, Erfolg, Warnung und Fehler. Größen xs-xl. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Statuskomponenten zeigen den aktuellen Zustand oder die Verfügbarkeit von Benutzern, Systemen oder Prozessen durch visuelle Indikatoren an. Statusabzeichen wurden mit semantischem HTML und farbcodiertem Stil erstellt und vermitteln wichtige Statusinformationen. Das Frutjam-Statussystem unterstützt mehrere Farben und Größen – ideal für Benutzeranwesenheit, Systemzustand und Workflow-Status.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| status | <span class="badge badge-xs">Base</span> | Kleiner Punktindikator für Status oder Anwesenheit |
+| status-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra klein |
+| status-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Klein |
+| status-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittel (Standard) |
+| status-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Groß |
+| status-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra groß |
+| status-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Primäre Designfarbe |
+| status-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Sekundäre Themenfarbe |
+| status-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Akzentfarbe des Themas |
+| status-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Neutrale Themenfarbe |
+| status-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Infofarbe |
+| status-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Erfolgsfarbe |
+| status-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Warnungsfarbe |
+| status-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Fehlerfarbe |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<span class="status"></span>
+```
+
+```jsx
+<span className="status"></span>
+```
+
+</Snippet>
+
+## Statusfarben
+
+<Snippet>
+
+```html
+<span class="status status-primary"></span>
+<span class="status status-secondary"></span>
+<span class="status status-accent"></span>
+<span class="status status-neutral"></span>
+<span class="status status-info"></span>
+<span class="status status-success"></span>
+<span class="status status-warning"></span>
+<span class="status status-error"></span>
+```
+
+</Snippet>
+
+## Statusgrößen
+
+<Snippet>
+
+```html
+<span class="status status-xs status-success"></span>
+<span class="status status-sm status-success"></span>
+<span class="status status-md status-success"></span>
+<span class="status status-lg status-success"></span>
+```
+
+</Snippet>
+
+## Status mit Etikett
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <span class="status status-md status-success"></span>
+  <span>Online</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-neutral"></span>
+  <span>Offline</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-error"></span>
+  <span>Busy</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-warning"></span>
+  <span>Away</span>
+</div>
+```
+
+</Snippet>
+
+## Status mit Ping-Animation
+
+<Snippet>
+
+```html
+<div class="status status-error animate-ping"></div>
+```
+
+</Snippet>
+
+## Status mit Bounce-Animation
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <div class="status status-info animate-bounce"></div>
+  <span>Unread emails</span>
+</div>
+```
+
+</Snippet>
+
+## Status in der Benutzerliste
+
+<Snippet>
+
+```html
+<div class="space-y-2">
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-online">
+      U1
+    </div>
+    <span>John (Online)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-offline">
+      U2
+    </div>
+    <span>Jane (Offline)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-busy">
+      U3
+    </div>
+    <span>Bob (Busy)</span>
+  </div>
+</div>
+```
+
+</Snippet>

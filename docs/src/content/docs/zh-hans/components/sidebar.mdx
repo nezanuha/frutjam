@@ -1,0 +1,131 @@
+---
+name: "侧边栏"
+heading: "侧边栏组件"
+description: "仅 CSS Tailwind CSS 侧边栏，用于侧面导航面板。可折叠，带有导航项状态和部分标题。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "侧边栏 - 仅 CSS 的 Tailwind CSS 组件 |Frutjam"
+metaDescription: "Tailwind CSS 侧边栏带有可折叠面板、图标和嵌套菜单。适用于管理布局和多部分应用程序的响应式仪表板导航。"
+order: 0
+related:
+  - "components/navbar"
+  - "components/menu"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/sidebar_jTGiPHo.webp"
+imageAlt: "Frutjam 侧边栏"
+createdAt: "2026-04-19T15:57:04.010698+00:00"
+updatedAt: "2026-07-13T09:43:30.099461+00:00"
+sourceHash: "80862f45041c"
+translationHash: "388f2e743f1b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 侧边栏，用于侧面导航面板。可折叠，带有导航项状态和部分标题。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+侧边栏组件在固定或可折叠的侧面板中组织主要导航和辅助内容。侧边栏采用语义 HTML 构建，可在不占用主要内容空间的情况下改进导航。 Frutjam 侧边栏系统支持多种布局、宽度和行为，非常适合管理仪表板、文档站点和复杂应用程序。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| sidebar | <span class="badge badge-xs">根据</span> | 用于导航和辅助内容的固定侧面板 |
+
+</DocTable>
+
+## 基本用法
+
+在 `aside` 元素上使用 `sidebar` 类。将其与主要内容一起放置在弹性容器中。
+
+<Snippet>
+
+```html
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+```jsx
+<div className="flex min-h-90">
+  <aside className="sidebar w-64">
+    <ul className="menu p-4">
+      <li className="menu-title"><span>Menu</span></li>
+      <li><a className="menu-item">Sidebar Item 1</a></li>
+      <li><a className="menu-item">Sidebar Item 2</a></li>
+      <li><a className="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main className="flex-1 p-6">
+    <p className="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 侧边栏导航
+
+带有分组部分和活动状态样式的完整导航侧边栏。
+
+<Snippet>
+
+```html
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 可折叠侧边栏
+
+对于移动侧边栏或覆盖侧边栏，请将 `sidebar` 类与 `drawer drawer-start` 对话框组件结合起来。
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
+```
+
+</Snippet>

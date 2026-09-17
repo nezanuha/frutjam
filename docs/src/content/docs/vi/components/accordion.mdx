@@ -1,0 +1,184 @@
+---
+name: "Đàn xếp"
+heading: "Thành phần đàn accordion"
+description: "Accordion CSS Tailwind chỉ dành cho CSS sử dụng `<details>`/`<summary>` gốc. Mở rộng và thu gọn các phần nội dung không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Accordion - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Tailwind CSS Accordion không có JS sử dụng các phần tử HTML gốc. Hoàn toàn có thể truy cập và nhẹ—hỗ trợ các biến thể phẳng, luôn mở và nhiều mở cho Câu hỏi thường gặp."
+order: 0
+related:
+  - "components/collapsible"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/accordion.webp"
+imageAlt: "Các thành phần Accordion của Frutjam"
+createdAt: "2025-09-09T09:00:59.962864+00:00"
+updatedAt: "2026-07-13T09:44:45.634301+00:00"
+sourceHash: "5adc1d2fc365"
+translationHash: "37724df4180f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Accordion CSS Tailwind chỉ dành cho CSS sử dụng `<details>`/`<summary>` gốc. Mở rộng và thu gọn các phần nội dung không cần JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Bảng công bố được xếp chồng theo chiều dọc được xây dựng trên các phần tử HTML `<details>` và `<summary>` gốc. Chỉ CSS, không cần JavaScript — hoàn toàn có thể truy cập bằng bàn phím và thân thiện với trình đọc màn hình với hình ảnh động mượt mà. Thành phần accordion sử dụng tiện ích tiết lộ gốc của trình duyệt để tương tác với người dùng theo ngữ nghĩa và hiệu quả.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| accordion | <span class="badge badge-xs">Căn cứ</span> | Trình bao bọc cho một nhóm bảng tiết lộ |
+| accordion-content | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Khu vực nội dung hoạt hình bên trong mỗi bảng |
+| accordion-flush | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Loại bỏ các đường viền và các góc tròn để có giao diện phẳng |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+Tạo một đàn accordion có hành vi mở độc quyền bằng cách gói các phần tử `<details>` trong `div.accordion`. Thêm cùng một thuộc tính `name` vào mỗi `<details>` để đảm bảo mỗi lần chỉ có một bảng được mở — hành vi này được trình duyệt thực thi nguyên bản mà không yêu cầu JavaScript.
+
+<Snippet>
+
+```html
+<div class="accordion">
+    <details name="default-accordion">
+        <summary>Is frutjam library suitable for use in commercial projects?</summary>
+        <div class="accordion-content">
+            <p>Yes, frutjam library is open source and free for both personal and commercial use.</p>
+        </div>
+    </details>
+    <details name="default-accordion">
+        <summary>Is frutjam library accessible for screen readers?</summary>
+        <div class="accordion-content">
+            <p>The frutjam library follows WAI-ARIA guidelines, including appropriate roles and keyboard navigation support, making it accessible to all users.</p>
+        </div>
+    </details>
+    <details name="default-accordion">
+        <summary>Does PageSpeed performance improve when using Frutjam?</summary>
+        <div class="accordion-content">
+            <p>Yes. Frutjam uses a CSS-first approach to avoid render-blocking JavaScript. It follows W3C standards, proper color contrast, and native HTML semantics — all contributing to better Core Web Vitals and PageSpeed scores.</p>
+        </div>
+    </details>
+</div>
+```
+
+```jsx
+<div className="accordion">
+    <details name="default-accordion">
+        <summary>Is frutjam library suitable for use in commercial projects?</summary>
+        <div className="accordion-content">
+            <p>Yes, frutjam library is open source and free for both personal and commercial use.</p>
+        </div>
+    </details>
+    <details name="default-accordion">
+        <summary>Is frutjam library accessible for screen readers?</summary>
+        <div className="accordion-content">
+            <p>The frutjam library follows WAI-ARIA guidelines, including appropriate roles and keyboard navigation support, making it accessible to all users.</p>
+        </div>
+    </details>
+    <details name="default-accordion">
+        <summary>Does PageSpeed performance improve when using Frutjam?</summary>
+        <div className="accordion-content">
+            <p>Yes. Frutjam uses a CSS-first approach to avoid render-blocking JavaScript. It follows W3C standards, proper color contrast, and native HTML semantics — all contributing to better Core Web Vitals and PageSpeed scores.</p>
+        </div>
+    </details>
+</div>
+```
+
+</Snippet>
+
+## Accordion xả nước
+
+Thêm lớp `accordion-flush` cùng với `accordion` để loại bỏ viền ngoài và phần đệm. Biến thể này tích hợp hoàn toàn vào các thẻ, phương thức, menu thanh bên hoặc vùng chứa đã cung cấp ranh giới và khoảng cách trực quan của riêng chúng.
+
+<Snippet>
+
+```html
+<div class="accordion accordion-flush">
+    <details name="accordion-flush">
+        <summary>Email notifications</summary>
+        <div class="accordion-content">
+            <p>Receive updates about account activity, security alerts, and billing changes directly to your inbox.</p>
+        </div>
+    </details>
+    <details name="accordion-flush">
+        <summary>Push notifications</summary>
+        <div class="accordion-content">
+            <p>Get real-time alerts delivered directly to your device when important events occur.</p>
+        </div>
+    </details>
+    <details name="accordion-flush">
+        <summary>Marketing communications</summary>
+        <div class="accordion-content">
+            <p>Stay informed about new features, component releases, and tips from the Frutjam team.</p>
+        </div>
+    </details>
+</div>
+```
+
+</Snippet>
+
+## Ban đầu mở
+
+Thêm thuộc tính `open` vào phần tử `<details>` để hiển thị thuộc tính này được mở rộng khi tải trang. Người dùng vẫn có thể đóng các bảng điều khiển — thuộc tính `open` chỉ đặt trạng thái hình ảnh ban đầu, hoàn hảo để làm nổi bật thông tin quan trọng hoặc các câu hỏi thường gặp.
+
+<Snippet>
+
+```html
+<div class="accordion">
+    <details name="initially-open" open>
+        <summary>Is frutjam UI library built with Tailwind CSS?</summary>
+        <div class="accordion-content">
+            <p>Yes, frutjam is built with Tailwind CSS. The utility-first approach keeps components lightweight, highly customizable, and easy to integrate into any project.</p>
+        </div>
+    </details>
+    <details name="initially-open">
+        <summary>Are pre-built components included?</summary>
+        <div class="accordion-content">
+            <p>Yes. The library includes 30+ pre-built, responsive components to help you build interfaces faster and more efficiently.</p>
+        </div>
+    </details>
+    <details name="initially-open">
+        <summary>Does it work with JavaScript frameworks?</summary>
+        <div class="accordion-content">
+            <p>Absolutely. Frutjam is pure CSS and works seamlessly with React, Vue, Svelte, Angular, plain HTML, Django templates, and any other framework.</p>
+        </div>
+    </details>
+</div>
+```
+
+</Snippet>
+
+## Bảng độc lập
+
+Bỏ qua thuộc tính `name` khỏi các phần tử `<details>` để cho phép nhiều bảng được mở đồng thời. Mỗi bảng hoạt động độc lập mà không ảnh hưởng đến những bảng khác, hữu ích trong việc hiển thị thông tin bổ sung mà người dùng có thể muốn so sánh hoặc đánh giá cùng nhau.
+
+<Snippet>
+
+```html
+<div class="accordion">
+    <details>
+        <summary>Is Frutjam suitable for Django templates?</summary>
+        <div class="accordion-content">
+            <p>Yes. Frutjam integrates seamlessly with Django templates, enabling backend developers to add customizable, responsive UI components without building them manually.</p>
+        </div>
+    </details>
+    <details>
+        <summary>Does it reduce repetitive CSS?</summary>
+        <div class="accordion-content">
+            <p>Yes. Instead of writing utility classes for each element, you can use ready-made components — speeding up development and keeping your codebase clean.</p>
+        </div>
+    </details>
+    <details>
+        <summary>Are ready-made themes included?</summary>
+        <div class="accordion-content">
+            <p>Yes. Frutjam includes multiple themes you can switch between or customize to match your brand, creating a consistent look with minimal effort.</p>
+        </div>
+    </details>
+</div>
+```
+
+</Snippet>

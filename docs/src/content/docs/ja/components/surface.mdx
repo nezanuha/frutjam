@@ -1,0 +1,139 @@
+---
+name: "表面"
+heading: "表面コンポーネント"
+description: "テーマに沿った背景とテキストの色をコンテナに適用するための CSS のみの Tailwind CSS サーフェス。すべてのカラーバリエーション。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Surface - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "階層化されたコンテンツ コンテナーと視覚的な深さの階層のための Tailwind CSS サーフェス。カードの代替およびネストされたレイアウトのための複数の立面レベルと形状。"
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "フルジャムの表面"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "2f6911fe7fe4"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+テーマに沿った背景とテキストの色をコンテナに適用するための CSS のみの Tailwind CSS サーフェス。すべてのカラーバリエーション。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+サーフェス コンポーネントは、階層化されたビジュアル階層とコンテンツ コンテナを作成する多用途のレイアウト プリミティブです。セマンティック HTML で構築されたサーフェスは、柔軟な深さとスタイルのオプションを提供します。 Frutjam サーフェス システムは、複数のサイズ、形状、レイヤーをサポートしており、代替カード、コンテンツ ブロック、ネストされたレイアウトに最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">ベース</span> | 底面コンテナ |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 標高レベル 1 (微妙) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 標高レベル 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 境界線が見える透明な塗りつぶし |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 破線の境界線スタイル |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | 適度に丸みを帯びた角 |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 極小のパッド |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 小さなパッド |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 中程度のパディング (デフォルト) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 大きなパッド |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 特大のパッド |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## 表層
+
+`surface-1` と `surface-2` を使用して、基本色と前景色を混合して深度階層を作成します。
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## 表面形状
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## 境界線のスタイル
+
+境界線で定義された透明なコンテナには、`surface-outline` または `surface-dashed` を使用します。背景が明示的に透明であるため、これらは色付きレイヤー内にネストされている場合に正しく機能します。
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 表面サイズ
+
+サイズ ユーティリティは、`--surface--padding` を介して内部パディングを設定します。 Tailwind `p-*` ユーティリティと組み合わせないでください。これらのユーティリティは変数をオーバーライドし、サイズ クラスを無効にします。
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## ネストされたサーフェス
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

@@ -1,0 +1,142 @@
+---
+name: "Ekmek kırıntısı"
+heading: "İçerik Kırıntısı Bileşeni"
+description: "Özel ayırıcılar ve erişilebilir yer işareti işaretlemesi ile yalnızca CSS'ye özel Tailwind CSS içerik haritası navigasyonu. WCAG AA, Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır."
+metaTitle: "Breadcrumb - Yalnızca CSS'de Tailwind CSS Bileşeni | Frutjam"
+metaDescription: "Erişilebilir, SEO dostu gezinme yolları için semantik HTML kullanan Tailwind CSS Breadcrumb. Özel ayırıcıları, simgeleri ve duyarlı düzenleri destekler."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Frutjam'dan Kırıntı Bileşeni"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "03240fe421b6"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Özel ayırıcılar ve erişilebilir yer işareti işaretlemesi ile yalnızca CSS'ye özel Tailwind CSS içerik haritası navigasyonu. WCAG AA, Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+İçerik haritası bileşenleri gezinme hiyerarşisini gösterir ve kullanıcıların bir web sitesi içindeki konumlarını anlamalarına yardımcı olur. Erişilebilirlik için semantik HTML gezinme öğeleri ve ARIA yer işaretleri ile oluşturulan içerik haritaları, kullanıcıların ana bölümlere hızlı bir şekilde gitmesine olanak tanıyarak kullanılabilirliği artırır. Frutjam içerik haritası sistemi, ayırıcıları otomatik olarak işler ve esnek şekillendirme için özel ayırıcıları destekler.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Temel</span> | İçerik haritası yolu için navigasyon kapsayıcısı |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kırıntı öğelerinin sıralı listesi |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İçerik haritasındaki bireysel liste öğesi |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | İçerik haritası bağlantısı olarak tasarlanmış bağlantı öğesi |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Öğeler arasındaki ayırıcı öğe |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Geçerli (etkin) sayfa öğesini işaretler |
+
+</DocTable>
+
+## Temel Kullanım
+
+Ayırıcı sağlanmazsa, kırıntı öğeleri arasında otomatik olarak bir ok gösterilir.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Galeta Ayırıcıları
+
+### Metin Ayırıcılı İçerik Kırıntısı
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Simge Ayırıcılı İçerik Kırıntısı
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## İçerik Haritası Erişilebilirliği
+
+İçerik haritalarının ekran okuyucular tarafından erişilebilir olmasını sağlamak için:
+
+-   Yapıyı bir `<nav>` öğesine `aria-label="Breadcrumb"` ile sarın.
+-   Son öğe (geçerli sayfa) `aria-current="page"` kullanmalı ve tercihen bir bağlantı yerine `<span>` olmalıdır.
+-   Ayırıcılar ekran okuyucular tarafından göz ardı edilmelidir (genellikle CSS veya fiziksel bir öğe kullanılıyorsa `aria-hidden="true"` aracılığıyla işlenir).

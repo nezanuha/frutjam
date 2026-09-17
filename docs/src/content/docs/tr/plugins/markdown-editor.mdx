@@ -1,0 +1,1190 @@
+---
+name: "İşaretleme Düzenleyicisi"
+heading: "JavaScript için Yerel İlk, Yüksek Performanslı Markdown Eklentisi"
+description: "Yerel bir metin alanını tam bir düzenleme paketine dönüştüren Markdown metin düzenleyici eklentisi; senkronizasyon gerekmez. WYSIWYG ve düz Markdown modları, canlı önizleme, bul ve değiştir, RTL desteği, karanlık mod. Django, Laravel, Rails, Node.js, PHP ve herhangi bir yığınla çalışır."
+metaTitle: "Markdown Metin Düzenleyicisi JavaScript Eklentisi | Frutjam"
+metaDescription: "Metin alanınızı değiştirmeden geliştiren hafif JavaScript işaretleme düzenleyicisi. Django, Laravel, Rails, PHP ve Node.js ile olduğu gibi çalışır. WYSIWYG, RTL."
+order: 0
+related:
+  - "components/textarea"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
+imageAlt: "Frutjam'dan Markdown Metin Düzenleyicisi JavaScript Eklentisi"
+createdAt: "2025-09-10T14:44:51.417170+00:00"
+updatedAt: "2026-07-18T13:00:27.167336+00:00"
+sourceHash: "dfa041018f60"
+translationHash: "838cc0d00892"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Yerel bir metin alanını tam bir düzenleme paketine dönüştüren Markdown metin düzenleyici eklentisi; senkronizasyon gerekmez. WYSIWYG ve düz Markdown modları, canlı önizleme, bul ve değiştir, RTL desteği, karanlık mod. Django, Laravel, Rails, Node.js, PHP ve herhangi bir yığınla çalışır.
+
+## Kurulum
+
+#### NPM (paketleyiciler: Vite, webpack, Rollup vb.)
+
+<Snippet view="code">
+
+```bash
+npm install markdown-text-editor
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+import MarkdownEditor from 'markdown-text-editor';
+new MarkdownEditor('#markdown-editor');
+```
+
+</Snippet>
+
+TypeScript definitions ship with the package, so options, toolbar entries and variable shapes are checked and autocompleted with no extra install.
+
+#### CDN: ES modülü
+
+<Snippet view="code">
+
+```html
+<script type="module">
+  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+#### CDN: global komut dosyası etiketi (IIFE)
+
+İçe aktarmaya gerek yok — MarkdownEditor otomatik olarak global bir değişken olarak kullanılabilir.
+
+<Snippet view="code">
+
+```html
+<form action="/api/save" method="POST">
+  <textarea id="markdown-editor" name="content"># Hello World</textarea>
+  <button type="submit">Save Content</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+## Markdown Düzenleyici Demosu
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
+
+## Hızlı Başlangıç
+
+Düzenleyiciyi özelleştirmek için bir seçenekler nesnesi iletin. Tüm seçenekler isteğe bağlıdır; varsayılan değeri kullanmak için herhangi birini atlayın.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+  placeholder: 'Write your markdown...',
+  toolbar: ['heading', 'bold', 'italic', 'strikethrough', 'ul', 'ol', 'checklist', 'blockquote', 'link', 'preview'],
+});
+```
+
+</Snippet>
+
+## Felsefe: "Önce Yerli"
+
+Çoğu editör standart web iş akışını bozar. **MarkdownEditor** bunu benimsiyor. Doğrudan bir `<textarea>`'ın üzerinde yer aldığından, verileri işlemenin yeni bir yolunu öğrenmenize gerek yoktur.
+
+-   **Veri Bağlamaya Gerek Yok:** Kutudan çıktığı haliyle `<form method="POST">` ile çalışır
+-   **Standart Erişim:** `document.getElementById('editor').value`'u normal bir giriş gibi kullanın.
+-   **Arka Uç Agnostik:** Normal bir form alanı gibi herhangi bir arka uçla (Python, Node.js, PHP vb.) çalışır
+
+## MarkdownEditor vs EasyMDE / SimpleMDE
+
+Çoğu JavaScript işaretleme düzenleyicisi - EasyMDE, SimpleMDE, CodeMirror tabanlı düzenleyiciler - **`<textarea>`**'inizi özel bir öğeyle değiştirin. Bu, form gönderiminin kesintiye uğradığı, `.value`'in hiçbir şey döndürmediği ve yalnızca içeriği tekrar okumak için fazladan kod yazmanız gerektiği anlamına gelir. **MarkdownEditor farklıdır** — mevcut metin alanınızı geliştirir ve asla onun yerini almaz.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Özellik | Markdown Düzenleyicisi | EasyMDE / SimpleMDE |
+| --- | --- | --- |
+| Yerel metin alanı korundu | ✅ | ❌ Değiştirildi |
+| Form gönderimi olduğu gibi çalışır | ✅ | ❌ Ekstra JS gerektirir |
+| `.value` aracılığıyla değeri al/ayarla | ✅ | ❌ Özel API gerekli |
+| WYSIWYG hibrit modu | ✅ | ❌ |
+| Yerleşik Bul ve Değiştir | ✅ | ❌ |
+| RTL destek | ✅ | ❌ |
+| CSP uyumlu (satır içi JS yok) | ✅ | ❌ |
+| Sıfır CSS çakışması | ✅ | ❌ |
+| Karanlık mod / tema | ✅ | Sınırlı |
+| Paket boyutu | ~116KB | ~300KB+ |
+
+</DocTable>
+
+## Çerçeve Entegrasyonu
+
+Because **MarkdownEditor** preserves the native `<textarea>`, it integrates with every backend framework without any extra code. Your server receives the markdown content exactly as it would from any standard form field. For React and Vue it takes a few lines, covered at the end of this section.
+
+### Django
+
+Textarea widget'ınıza bir `class` ekleyin ve düzenleyiciyi başlatın — `request.POST['content']`, hiçbir ekstra adım olmadan çalışır.
+
+<Snippet view="code">
+
+```python
+# forms.py
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'markdown-editor'}),
+        }
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('.markdown-editor');
+// request.POST['content'] contains the markdown on submit
+```
+
+</Snippet>
+
+### Laravel
+
+`f.text_area`'i bir sınıfla kullanın — `$request->input('content')`, işaretlemeyi doğrudan alır.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### Ruby on Rails
+
+Kutudan çıktığı haliyle `form_with` ile çalışır — `params[:content]` işaretlemeyi içerir. Turbo Drive için `DOMContentLoaded` yerine `turbo:load` kullanın.
+
+<Snippet view="code">
+
+```javascript
+document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.markdown-editor:not([data-mde-init])').forEach(el => {
+        el.setAttribute('data-mde-init', 'true');
+        new MarkdownEditor(el);
+    });
+});
+```
+
+</Snippet>
+
+### Node.js / Ekspres
+
+`req.body.content`, form gönderiminde indirimi alır; senkronizasyon adımı yok, özel çıkarma yok.
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor"></textarea>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### PHP
+
+`$_POST['content']` tam olarak herhangi bir standart metin alanıyla aynı şekilde çalışır; onu bırakın ve mevcut form işlemeniz sıfır değişiklik gerektirir.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="save.php">
+  <textarea name="content" class="markdown-editor"></textarea>
+  <button type="submit">Save</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+```
+
+</Snippet>
+
+### React
+
+Create the editor in an effect and destroy it on unmount. Use `defaultValue` rather than `value`: the editor writes to the textarea directly, so a controlled binding would overwrite what the user is typing.
+
+<Snippet view="code">
+
+```javascript
+import { useEffect, useRef } from 'react';
+import MarkdownEditor from 'markdown-text-editor';
+
+function MarkdownField({ name, defaultValue = '', onChange }) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const editor = new MarkdownEditor(ref.current, { onChange });
+        return () => editor.destroy();
+    }, []);
+
+    return &lt;textarea ref={ref} name={name} defaultValue={defaultValue} /&gt;;
+}
+```
+
+</Snippet>
+
+Returning `editor.destroy()` from the effect also covers StrictMode, which runs effects twice in development and would otherwise leave two editors on one textarea. The empty dependency array is deliberate: options are read once when the editor is created, so re-running the effect would tear it down and rebuild it on every change.
+
+### Vue
+
+Same idea. Set the initial value once in `onMounted` and do not bind `:value`, or every keystroke emitted back through `v-model` would overwrite the textarea.
+
+<Snippet view="code">
+
+```javascript
+&lt;script setup&gt;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import MarkdownEditor from 'markdown-text-editor';
+
+const el = ref(null);
+const props = defineProps({ modelValue: { type: String, default: '' } });
+const emit = defineEmits(['update:modelValue']);
+let editor = null;
+
+onMounted(() => {
+    el.value.value = props.modelValue;
+    editor = new MarkdownEditor(el.value, {
+        onChange: value =&gt; emit('update:modelValue', value)
+    });
+});
+
+onBeforeUnmount(() =&gt; editor?.destroy());
+&lt;/script&gt;
+
+&lt;template&gt;&lt;textarea ref="el"&gt;&lt;/textarea&gt;&lt;/template&gt;
+```
+
+</Snippet>
+
+Used as `<MarkdownField v-model="content" />`. In a plain form you can skip `v-model` entirely and read the value from the textarea on submit, as with any other framework.
+
+## Yapılandırma
+
+Bir `options` nesnesi ileterek düzenleyicinin davranışını ve arayüzünü tamamen özelleştirebilirsiniz. Bir seçeneği atlarsanız **varsayılan** değer kullanılır.
+
+Options are read once, when the editor is constructed. Changing them afterwards has no effect — call `destroy()` and create a new editor instead.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Mülk | Tip | Varsayılan | Amaç |
+| --- | --- | --- | --- |
+| `mode` | `string` | `'plain'` | Başlangıç ​​görünümünü ayarlar. WYSIWYG deneyimi için hibrit kullanın veya ham sözdizimi için düz kullanın. |
+| `placeholder` | `string` | `'Write...'` | Düzenleyici boş olduğunda gösterilen metin. |
+| `toolbar` | `array` | `[...]` | Hangi araçların hangi sırayla görüneceğini tanımlar. |
+| `footer` | `false \| object` | hepsi görünür | Düzenleyicinin altında gösterilen durum çubuğunu kontrol eder. Tamamen gizlemek için `false` olarak ayarlayın veya istatistikleri tek tek değiştirmek için bir nesne iletin. |
+| `theme` | `string` | miras alınan | Düzenleyici temasını (açık, koyu, kar meyvesi, kara meyve) açıkça ayarlar. Atlanırsa düzenleyici, `data-theme`'i en yakın üst öğeden veya `<textarea>`'in kendisinden devralır. |
+| `minHeight` | `number` | `200` | İçerik kısa olduğunda düzenleyicinin küçüleceği piksel cinsinden minimum yükseklik. Otomatik büyüme aralığını ayarlamak için `maxHeight` ile eşleşir. |
+| `maxHeight` | `number` | `500` | Düzenleyicinin tam ekran olmayan modda büyüyebileceği maksimum piksel yüksekliği. İçerik bu yüksekliği aştığında düzenleyicinin içinde bir kaydırma çubuğu görünür. Düzenleyicinin ayrıca bir sürükleme kolu vardır, böylece kullanıcılar bu sınırın ötesinde manuel olarak yeniden boyutlandırabilirler. |
+| `renderer` | `function` | `marked` | Replaces the markdown parser used for the preview. Receives the markdown string and must return an HTML string. |
+| `sanitizer` | `function` | `DOMPurify` | Replaces the HTML sanitizer. Receives the rendered HTML and must return the safe HTML to display. |
+| `onChange` | `function` | `undefined` | Yazma, araç çubuğu eylemleri, geri alma/yineleme ve listenin devamı gibi her içerik değişikliğinde geri arama tetiklendi. Geçerli işaretleme dizesini tek bağımsız değişken olarak alır. |
+
+</DocTable>
+
+### 🛠 Araç Çubuğu Özelleştirmesi
+
+Araç çubuğu modülerdir. Diziyi değiştirerek minimal bir deneyim veya tam özellikli bir güç paketi oluşturabilirsiniz.
+
+#### Mevcut Araçlar
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kategori | Araç Tuşları |
+| --- | --- |
+| Tipografi | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
+| Listeler | `ul` (kurşun), `ol` (sayılı), `checklist` |
+| Kod | `code` (Çizgide), `codeblock` (çitle çevrili blok) |
+| Ekler | `hr` (yatay cetvel), `table` (masa şablonu) |
+| Medya | `link`, `image` |
+| Düzenleme | `undo`, `redo`, `indent`, `outdent` |
+| Görüş | `preview` |
+| Şablonlar | `{ variables: [...] }`, configured inline |
+
+</DocTable>
+
+#### Araç Referansı
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Alet | Tanım |
+| --- | --- |
+| `heading` | H1–H6 başlık düzeyini seçmek için bir açılır menü açar |
+| `bold` | Kalın metin biçimlendirmesini etkinleştirir. |
+| `italic` | İtalik metin biçimlendirmesini etkinleştirir. |
+| `strikethrough` | Metnin üstü çizili olmasına izin verir. |
+| `ol` | (Sıralı Liste): Metni numaralı liste biçimine dönüştürür. |
+| `ul` | (Sırasız Liste): Metni madde işareti listesine dönüştürür. |
+| `checklist` | Metninize onay kutuları ekleyerek onu görevler, yapılacaklar listeleri veya tamamlanma durumunu izlemek için mükemmel hale getirir. |
+| `blockquote` | Alıntılanan veya vurgulanan metni vurgulayın. |
+| `code` | Satır içi kod için seçilen metni tek geri tırnaklara sarar. Tekrar tıklamak geri tıklamaları kaldırır. |
+| `codeblock` | Seçili metni üçlü geri tırnaklı çitli kod bloğuna sarar. Tekrar tıklamak çitleri kaldırır. |
+| `hr` | Kendi satırındaki imleç konumuna bir `---` yatay kuralı ekler. |
+| `table` | İmleç konumuna bir başlangıç ​​2x3 işaretleme tablosu şablonu ekler. |
+| `image` | İşaretleme sözdizimi yoluyla resim eklemenizi sağlar. |
+| `link` | Metninize köprüler eklemenizi sağlar. |
+| `undo` | Son değişiklikleri geri almak için. |
+| `redo` | Geri alınan son değişiklikleri yeniden uygulamak için. |
+| `indent` | Girinti düzeyini artırmak için. |
+| `outdent` | Girinti seviyesini azaltmak için. |
+| `preview` | Tam ekran yan yana önizlemeyi değiştirir. Önizleme bölmesindeki onay kutuları tıklanabilir ve işaretleme kaynağını anında günceller. Tam ekrandan çıkmak için Escape tuşuna basın. Sabit bir başlık düzenleyiciyi tam ekranda kapsıyorsa, bkz. `--mte-fullscreen-z-index`. |
+
+</DocTable>
+
+##### 💡 Uygulama İpuçları:
+
+-   **Yeniden sıralama**: Düğmeler, dizide tam olarak listelediğiniz sırayla görünür
+-   **Kaldırma**: Bu özelliği kullanıcı açısından tamamen devre dışı bırakmak için dizideki herhangi bir anahtarı (`image` gibi) çıkarmanız yeterlidir.
+-   **Yerel Geri Dönüş**: JS'de bir `yer tutucu` sağlamazsanız, eklenti otomatik olarak HTML `<textarea>`'ınızdaki `placeholder` özelliğini kullanır.
+
+### 📊 Alt Bilgi (Durum Çubuğu)
+
+Alt bilgi, düzenleyicinin altında bulunur ve imlecin **satırını**, **sütununu**, belgenin **karakter sayısını** ve isteğe bağlı olarak **kelime sayısını** gösterir; tümü gerçek zamanlı olarak güncellenir. Varsayılan olarak görünür ve her istatistik bağımsız olarak değiştirilebilir.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Anahtar | Tip | Varsayılan | Tanım |
+| --- | --- | --- | --- |
+| `line` | `boolean` | `true` | Geçerli satır numarasını göster. |
+| `col` | `boolean` | `true` | Geçerli sütun numarasını göster. |
+| `chars` | `boolean` | `true` | Toplam karakter sayısını göster. |
+| `words` | `boolean` | `false` | Toplam kelime sayısını göster. Varsayılan olarak kapalı — etkinleştirmek için `true` olarak ayarlayın. |
+
+</DocTable>
+
+#### Kullanım Örnekleri
+
+<Snippet view="code">
+
+```javascript
+// Default — line, col, and chars visible
+new MarkdownEditor('#editor');
+
+// Disable the footer entirely
+new MarkdownEditor('#editor', { footer: false });
+
+// Hide only character count
+new MarkdownEditor('#editor', { footer: { chars: false } });
+
+// Hide line and column, keep character count
+new MarkdownEditor('#editor', { footer: { line: false, col: false } });
+
+// Show only line number
+new MarkdownEditor('#editor', { footer: { col: false, chars: false } });
+
+// Enable word count alongside the defaults
+new MarkdownEditor('#editor', { footer: { words: true } });
+
+// Show word count only
+new MarkdownEditor('#editor', { footer: { line: false, col: false, chars: false, words: true } });
+```
+
+</Snippet>
+
+### 🔀 Düzenleme Modları
+
+**MarkdownEditor** içeriğinizi yazmanız ve biçimlendirmeniz için iki farklı yol sunar. Geleneksel sözdizimi odaklı görünüm veya modern, görsel öncelikli deneyim arasında geçiş yapabilirsiniz.
+
+-   `plain` (**Varsayılan**): Sözdiziminin (`**bold**` veya `# heading` gibi) görünür olduğu temiz, yüksek performanslı bir Markdown ortamı. Geliştiriciler ve Markdown'a sadık olanlar için ideal
+-   `hybrid`: Siz yazarken biçimlendirmeyi (Kalın, İtalik, Başlıklar) gerçek zamanlı olarak oluşturan ve aynı zamanda temeldeki Markdown yapısını koruyan, WYSIWYG'den ilham alan bir deneyim.
+
+<Snippet view="code">
+
+```javascript
+// Default initialization (Plain Mode)
+new MarkdownEditor('#markdown-editor');
+
+// Explicit Plain Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'plain'
+});
+
+// Hybrid (Visual) Mode
+new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid'
+});
+```
+
+</Snippet>
+
+#### Hibrit ve Düz Mod Önizlemesi:
+
+##### Hibrit Mod
+
+Siz yazarken görsel biçimlendirme gerçek zamanlı olarak oluşturulur.
+
+<RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
+
+##### Düz Mod (Varsayılan)
+
+Hafif bir deneyim için ham Markdown sözdizimine odaklanır.
+
+<RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
+
+### 🌙 Temalama
+
+**MarkdownEditor**, temasını çevredeki sayfadan otomatik olarak devralır; herhangi bir yapılandırma gerekmez. Düzenleyici, başlatma sırasında en yakın atadan `data-theme`'i okur, böylece kutudan çıktığı haliyle sitenizin temasıyla senkronize kalır.
+
+#### Tema nasıl çözümlenir (öncelik sırası)
+
+1.  **`theme` option** — seçenekler nesnesinde iletilen açık geçersiz kılma
+2.  `<textarea>` üzerinde **`data-theme` — doğrudan öğe üzerinde ayarlanır**
+**-   Herhangi bir atadaki **`veri teması`** - ör. `<html>`, `<body>` veya sarmalayıcı `<div>`**
+
+**
+
+#### Mevcut temalar
+
+`'light'` (varsayılan), `'dark'`, `'snowberry'`, `'darkberry'`
+
+##### Seçenek 1 — `<html>` veya herhangi bir üst öğeden devralın (sıfır yapılandırma)
+
+<Snippet view="code">
+
+```html
+<html data-theme="dark">
+  ...
+  <textarea id="markdown-editor"></textarea>
+  <script>
+    new MarkdownEditor('#markdown-editor'); // picks up dark automatically
+  </script>
+```
+
+</Snippet>
+
+##### Seçenek 2 — `data-theme`'i doğrudan `<textarea>` üzerinde ayarlayın
+
+<Snippet view="code">
+
+```html
+<textarea id="markdown-editor" data-theme="dark"></textarea>
+<script>
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+##### Seçenek 3 — açık `theme` seçeneği (her şeyi geçersiz kılar)
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    theme: 'dark'
+});
+```
+
+</Snippet>
+
+#### 🎨 CSS Değişkenleri aracılığıyla Özel Tema
+
+`.markdown-editor-wrapper` öğesinde veya herhangi bir `[data-theme]` seçicide CSS değişkenlerini geçersiz kılarak düzenleyicinin görünümünü tamamen özelleştirebilirsiniz. Tüm renkler, algısal olarak tekdüze sonuçlar için [OKLCH renk alanını](https://oklch.com) kullanır.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Değişken | Amaç | Işık varsayılanı | Koyu varsayılan |
+| --- | --- | --- | --- |
+| `--color-base` | Düzenleyici arka planı | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
+| `--color-on-base` | Birincil metin rengi | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
+| `--color-primary` | Birincil vurgu (araç çubuğu etkin, bağlantılar) | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
+| `--color-on-primary` | Ana renkli yüzeylerdeki metin | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
+| `--color-secondary` | İkincil vurgu | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
+| `--color-accent` | Vurguyu vurgulayın (satır içi kod, italik) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-neutral` | Nötr yüzeyler (kenarlıklar, bölücüler) | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
+| `--color-error` | Hata durumu rengi | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
+| `--border-radius` | Editör çerçevesinin köşelerinin yuvarlatılması | `0.25rem` |
+
+</DocTable>
+
+##### Özel tema örneği
+
+Düzenleyici başlatıldıktan sonra `.markdown-editor-wrapper`'daki herhangi bir değişkeni geçersiz kılın veya stil sayfanızda özel bir `[data-theme]` bloğu tanımlayın:
+
+<Snippet view="code">
+
+```css
+/* Override individual variables */
+.markdown-editor-wrapper {
+    --color-primary: oklch(60% 0.2 30);   /* orange accent */
+    --border-radius: 0.5rem;
+}
+
+/* Or define a full custom theme */
+[data-theme="brand"] .markdown-editor-wrapper,
+.markdown-editor-wrapper[data-theme="brand"] {
+    --color-base:       oklch(15% 0.01 250);
+    --color-on-base:    oklch(95% 0 0);
+    --color-primary:    oklch(65% 0.22 145);   /* green */
+    --color-on-primary: oklch(10% 0 0);
+    --color-accent:     oklch(75% 0.18 60);
+    --color-neutral:    oklch(80% 0 0);
+    --border-radius:    0.75rem;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', { theme: 'brand' });
+```
+
+</Snippet>
+
+### 🏷 Variables
+
+Adds a toolbar dropdown for inserting placeholders. Useful when the person writing a document is not the developer who defined the placeholder syntax, as with email, invoice or contract templates: they pick a readable name and the correct syntax is inserted for them.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', 'link',
+        { variables: [
+            { label: 'Customer Name', value: '{{customer.name}}' },
+            { label: 'Invoice No',    value: '{{invoice.number}}' }
+        ]},
+        'preview'
+    ]
+});
+```
+
+</Snippet>
+
+The tool is configured inline in the `toolbar` array, so its position among the other buttons is up to you. The button lists the labels, and clicking one inserts its `value` at the cursor, replacing any selection. Nothing is rendered if the list is empty.
+
+#### Sample values in the preview
+
+An entry given a `sample` shows that sample in the preview, while the textarea keeps the real placeholder. Entries without one appear as written, so you can mix both.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' },
+    { label: 'Invoice No',    value: '{{invoice.number}}' }
+]}
+
+// textarea : Hi {{customer.name}}, invoice {{invoice.number}}
+// preview  : Hi Hannes, invoice {{invoice.number}}
+```
+
+</Snippet>
+
+#### Grouping
+
+Give an entry `items` instead of a `value` to render a headed section. Grouped and flat entries can be mixed in one list.
+
+<Snippet view="code">
+
+```javascript
+{ variables: [
+    { label: 'Today', value: '{{today}}', sample: '10 September 2026' },
+    { label: 'Customer', items: [
+        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes' },
+        { label: 'Email', value: '{{customer.email}}', sample: 'hannes@example.com' }
+    ]},
+    { label: 'Invoice', items: [
+        { label: 'Number', value: '{{invoice.number}}' }
+    ]}
+]}
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **The editor never resolves variables.** It inserts text, and your application substitutes real values later, usually server-side. `sample` only affects what the preview displays.
+-   **Labels are shown as plain text**, so markup in a label is never rendered.
+-   **Malformed entries are skipped** rather than throwing, and the button is not rendered at all when nothing usable is configured.
+
+### 🖋 Custom Renderer
+
+The preview is rendered with [marked](https://marked.js.org) and sanitized with [DOMPurify](https://github.com/cure53/DOMPurify). Both can be replaced. Use this when your application already renders markdown with another library and you want the preview to match production exactly.
+
+Both options are plain functions that take a string and return a string, so any parser and any sanitizer works.
+
+<Snippet view="code">
+
+```javascript
+import MarkdownIt from 'markdown-it';
+import taskLists from 'markdown-it-task-lists';
+import MarkdownEditor from 'markdown-text-editor';
+
+const md = new MarkdownIt({ linkify: true, breaks: true }).use(taskLists);
+
+new MarkdownEditor('#markdown-editor', {
+    renderer: markdown => md.render(markdown)
+});
+```
+
+</Snippet>
+
+DOMPurify still runs on the output, so you keep XSS protection without configuring anything.
+
+#### Custom sanitizer
+
+Only needed when the default strips something your renderer emits. DOMPurify removes `<iframe>` by default, so video embeds need it allowed explicitly. DOMPurify must be imported in your own code, since the copy bundled with the editor is internal.
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    renderer:  markdown => md.render(markdown),
+    sanitizer: html => DOMPurify.sanitize(html, {
+        ADD_TAGS: ['iframe'],
+        ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder']
+    })
+});
+```
+
+</Snippet>
+
+Using a script tag instead of a bundler, load DOMPurify alongside the editor:
+
+<Snippet view="code">
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dompurify"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
+```
+
+</Snippet>
+
+#### Things to know
+
+-   **Preview only.** Hybrid mode's live formatting uses a separate internal renderer and is not affected.
+-   **Task lists need plugin support.** Clickable checkboxes are found by looking for `input[type="checkbox"]` in the output, so markdown-it needs `markdown-it-task-lists`. The editor logs a warning if it detects task list syntax and no checkboxes.
+-   **Both must be synchronous** and return a string. An `async` function writes `[object Promise]` into the preview.
+-   **Replacing the sanitizer replaces your protection.** A pass-through such as `html => html` disables sanitizing entirely and is only safe for fully trusted content.
+
+### 🎨 İç Elemanları Şekillendirmek
+
+CSS variables cover most theming because they inherit, so setting one on `.markdown-editor-wrapper` reaches the toolbar, buttons, preview and footer. Reach for a class name only when no variable exposes what you need.
+
+<Snippet view="code">
+
+```css
+/* Variables set on the wrapper inherit down to every child */
+.markdown-editor-wrapper {
+    --border-radius: 12px;   /* rounds the editor and its toolbar buttons */
+    --color-primary: oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Class reference
+
+These class names are stable and safe to style against.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Sınıf | Element |
+| --- | --- |
+| `.markdown-editor-wrapper` | Outer container wrapping the whole editor |
+| `.toolbar` | Toolbar strip above the editing area |
+| `.markdown-btn` | Individual toolbar button |
+| `.preview-btn` | The preview / fullscreen toggle button |
+| `.editor-layout` | Grid holding the editing area and preview side by side |
+| `.textarea-wrapper` | Wrapper around the editing area |
+| `.editor-textarea` | The underlying textarea element |
+| `.display-layer` | Rendered formatting layer, hybrid mode only |
+| `.preview-wrapper` | Preview column |
+| `.preview-content` | Rendered markdown inside the preview |
+| `.editor-footer` | Status bar below the editor |
+| `.find-replace-panel` | Find and replace panel |
+
+</DocTable>
+
+<Snippet view="code">
+
+```css
+/* Some variables are set by the component on itself, which beats an
+   inherited value. Target the element directly for those. */
+.markdown-editor-wrapper .markdown-btn {
+    --btn--font-size: 0.875rem;
+}
+
+/* And use classes for anything no variable exposes */
+.markdown-editor-wrapper .toolbar {
+    border-bottom: 2px solid oklch(60% 0.2 30);
+}
+```
+
+</Snippet>
+
+#### Targeting one editor
+
+Bir sayfada birden fazla düzenleyici varken bunlardan birini `data-editor` ile hedefleyin. Sarmalayıcı, `<textarea>`'in kimliğini yansıtır, dolayısıyla `<textarea id="notes">` size `[data-editor="notes"]`'i verir. Kimliğin kendisi metin alanında kalır, böylece `getElementById` çalışmaya devam eder.
+
+<Snippet view="code">
+
+```css
+/* one editor only */
+[data-editor="notes"] {
+    --border-radius: 0;
+}
+```
+
+</Snippet>
+
+### 🪟 Fullscreen & Layering (z-index)
+
+In fullscreen the editor uses `z-index: 10000`, which clears the layers most UI frameworks reserve for fixed headers and overlays. If a fixed header or sidebar still covers the editor, raise this value.
+
+Override it with `--mte-fullscreen-z-index`. The value applies only in fullscreen, and it inherits, so setting it on any ancestor covers every editor beneath it.
+
+<Snippet view="code">
+
+```css
+/* every editor on the page */
+.markdown-editor-wrapper {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* one section only - the value inherits down */
+#admin-panel {
+    --mte-fullscreen-z-index: 20000;
+}
+
+/* a single editor, by its textarea id */
+[data-editor="notes"] {
+    --mte-fullscreen-z-index: 20000;
+}
+```
+
+</Snippet>
+
+## İçerik API
+
+**MarkdownEditor**'ün temel güçlü yönlerinden biri, temeldeki `<textarea>`'ı mükemmel şekilde senkronize tutmasıdır. İster modern bir JavaScript çerçevesi ister **Django, PHP veya Laravel** gibi geleneksel bir arka uç kullanıyor olun, iş akışı basit ve yerel kalır.
+
+### İçerik Okuma ve Yazma
+
+#### 1\. Yerli Yol (Önerilir)
+
+Düzenleyici standart bir metin alanını geliştirdiğinden, tanıdık DOM yöntemlerini kullanabilirsiniz. Bu, yeni bir API öğrenmeden verilerinizle etkileşim kurmanın en hızlı yoludur.
+
+<Snippet view="code">
+
+```javascript
+// Retrieve content via ID
+const markdown = document.getElementById('markdown-editor').value;
+
+// Set content via ID (The editor UI updates automatically)
+document.getElementById('markdown-editor').value = "# New Heading Content";
+```
+
+</Snippet>
+
+#### 2\. Değişken Referans Kullanma
+
+Textarea öğesine bir referansınız varsa onu doğrudan kullanabilirsiniz; kitaplığa özgü API gerekmez.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Retrieve content
+const markdown = textarea.value;
+
+// Set content (the editor UI reflects this immediately)
+textarea.value = "## Updated via JS";
+```
+
+</Snippet>
+
+#### 3\. Başlangıç ​​içeriğinin sunucu tarafında ayarlanması
+
+Başlangıç ​​içeriğini ayarlamanın önerilen yolu doğrudan `<textarea>` HTML'sindedir; bu, her arka uç çerçevesinde (Django, Laravel, Rails, PHP, vb.) doğal olarak çalışır ve düzenleyici bunu init'te otomatik olarak oluşturur.
+
+<Snippet view="code">
+
+```html
+<!-- Recommended: set content server-side -->
+<textarea id="markdown-editor"># Hello World</textarea>
+```
+
+</Snippet>
+
+İçeriği çalışma zamanında okumak veya güncellemek için yerel `textarea` değerini kullanın. Önizleme ve hibrit katmanı yenilemek için güncellemeden sonra `editor.render()`'ı çağırın.
+
+<Snippet view="code">
+
+```javascript
+const textarea = document.getElementById('markdown-editor');
+
+// Read
+const markdown = textarea.value;
+
+// Update at runtime
+textarea.value = '# New content';
+editor.render();
+```
+
+</Snippet>
+
+#### 4\. Düzenleyiciyi yıkmak — `destroy()`
+
+Düzenleyici DOM sarmalayıcısını kaldırmak ve orijinal `<textarea>` dosyasını belgedeki konumuna geri yüklemek için `editor.destroy()`'u çağırın. Bir görünümün bağlantısını keserken tek sayfalı uygulamalarda kullanışlıdır.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor');
+
+// Remove the editor and restore the plain textarea
+editor.destroy();
+```
+
+</Snippet>
+
+### `onChange` ile değişikliklere tepki verme
+
+Her içerik değişikliğinde bilgilendirilmek için bir `onChange` geri çağrısı iletin. Geçerli işaretleme dizesini alır.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        console.log('Content changed:', value.length, 'characters');
+    }
+});
+```
+
+</Snippet>
+
+#### `localStorage` ile taslak otomatik kaydetme
+
+Her tuş vuruşunda bir taslak kaydetmek için `onChange`'i kullanın. Düzenleyiciyi başlatmadan önce metin alanını önceden doldurarak geri yükleyin.
+
+<Snippet view="code">
+
+```javascript
+const DRAFT_KEY = 'my-page-draft';
+
+// Restore saved draft before init (only if textarea starts empty)
+const textarea = document.getElementById('markdown-editor');
+const saved = localStorage.getItem(DRAFT_KEY);
+if (saved && !textarea.value) textarea.value = saved;
+
+// Save on every change
+const editor = new MarkdownEditor('#markdown-editor', {
+    onChange(value) {
+        localStorage.setItem(DRAFT_KEY, value);
+    }
+});
+
+// Clear draft after successful form submission
+document.querySelector('form').addEventListener('submit', () => {
+    localStorage.removeItem(DRAFT_KEY);
+});
+```
+
+</Snippet>
+
+### Form Gönderimi
+
+**MarkdownEditor** doğrudan yerel `<textarea>` üzerinde oluşturulduğundan, kutudan çıktığı anda her arka uç çerçevesiyle (Django, Laravel, PHP, Ruby on Rails, vb.) uyumludur.
+
+Burası "Önce Yerli" felsefesinin parladığı yerdir. Formu göndermeden önce verileri manuel olarak senkronize etmeniz gerekmez. Tarayıcı, düzenleyiciye tam olarak standart bir giriş alanı gibi davranır.
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="/api/submit">
+  <textarea id="markdown-editor" name="content" class="h-48" rows="5">
+    # Initial Content
+  </textarea>
+
+  <button type="submit">Submit to Server</button>
+</form>
+
+<script>
+  // Just initialize it. That's it.
+  new MarkdownEditor('#markdown-editor');
+</script>
+```
+
+</Snippet>
+
+<RawHtml html={"<p class=\"text-sm\"><strong>Not:</strong> MarkdownEditor eklentisinin başlatılması zorunludur</p>"} />
+
+Sadece standart bir HTML `<form>` kullanın. Textarea'daki `name` özelliği, sunucunuzun içeriği tanımlamak için kullanacağı özelliktir.
+
+##### 🚀 Neden Arka Uçlar İçin Oyunun Kurallarını Değiştiriyor?
+
+Düzenleyici yerel `<textarea>` davranışını koruduğu için, sunucunuz verileri standart bir dize olarak işler. Hiçbir ekstra mantık gerekmez; `preventDefault()` yok ve manüel `FormData` yapısı yok.
+
+##### 💡 Bu neden bir "Öldürücü Özellik":
+
+Çoğu düzenleyici (Quill, Editor.js, simpleMDE, easyMDE gibi) verileri karmaşık JSON yapılarında kaydeder. Bir geliştirici bunları kullanıyorsa, veritabanı şemasını ve oluşturma mantığını yeniden yazması gerekir.
+
+**MarkdownEditor** ile bir geliştirici eski bir web sitesini alıp düz bir `<textarea>` dosyasını editörünüzle değiştirebilir ve **arka uç bunun değiştiğini bile bilmez**. Her zaman aldığı ham metni alır ancak kullanıcı 10 kat daha iyi bir deneyim yaşar.
+
+<DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
+
+| Çerçeve / Dil | Markdown içeriğine nasıl erişilir? |
+| --- | --- |
+| PHP | `$_POST['content']` |
+| Django | `request.POST.get('content')` |
+| Node.js (Express) | `req.body.content` |
+| Laravel | `$request->input('content')` |
+| Ruby on Rails | `params[:content]` |
+
+</DocTable>
+
+## 🖼️ Gelişmiş Resim Yükleme
+
+Yavaş, bellek ağırlıklı Base64 dizelerine güvenmek yerine, görüntü yüklemelerini yerel olarak yönetmek, hem performans hem de SEO açısından önemli bir kazançtır.
+
+### Yapılandırma Seçenekleri
+
+Resim aracı, doğrudan sunucuya yüklemeleri gerçekleştirmek için bir `fileInput` yapılandırmasını destekler.
+
+-   `accept`: İzin verilen resim formatlarının bir dizisini tanımlayın (ör. 'webp', 'avif')
+-   `uploadUrl`: `File` nesnesinin `POST` yoluyla gönderileceği arka uç uç noktasını belirtin
+-   `params`: Görüntü dosyasının yanında ek veriler (CSRF belirteçleri, kullanıcı kimlikleri veya klasör adları gibi) göndermek için isteğe bağlı nesne
+
+### Kullanım örneği (Tam Yapılandırma)
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  placeholder: 'Start writing...',
+  toolbar: [
+    'link',
+    {
+      image: {
+        fileInput: {
+            accept: ['webp', 'avif'], // restrict the image upload format
+            uploadUrl: '/api/upload', // Your upload endpoint
+            params: {
+                _token: 'your_csrf_token_here', // Essential for Laravel/Django
+                folder: 'blog_posts'
+            }
+        },
+        // Supports boolean: true/false OR object: { required: true }
+        altInput: { required: true }
+      }
+    },
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 📡 Sunucu Entegrasyonu
+
+#### Talep
+
+Düzenleyici, `multipart/form-data` olarak bir `POST` isteği gönderir. Varsayılan olarak şunları içerir:
+
+-   `image_file`: Gerçek dosya nesnesi
+-   `image_alt`: Kullanıcının girdiği alternatif metin
+-   ...artı `params` nesnesinde tanımlanan tüm özel veriler
+
+#### Gerekli Yanıt
+
+Başarılı bir yüklemeyi onaylamak ve resmi düzenleyiciye eklemek için sunucunuzun aşağıdaki JSON yapısını **döndürmesi gerekir**:
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp"
+}
+```
+
+</Snippet>
+
+**Not**: Yüklenen resmin URL'si için `image_path` anahtarını kullandığınızdan emin olun.
+
+### Resim Alternatif Metin Doğrulaması (`altInput`)
+
+İçeriğinizin erişilebilir ve SEO dostu kalmasını sağlamak için **MarkdownEditor**, varsayılan olarak alternatif metin doğrulamasını zorunlu kılar.
+
+-   **Varsayılan Davranış**: `altInput` tanımlanmamışsa, varsayılan olarak `{ required: true }` olur
+-   **Erişilebilirliği Zorunlu Hale Getirin**: Bir alternatif açıklama sağlanana kadar kullanıcıların resim eklemesi engellenir
+
+#### 1\. Varsayılan (Yapılandırma gerekmez)
+
+<Snippet view="code">
+
+```javascript
+// Alt text is REQUIRED by default
+image: {
+  fileInput: { uploadUrl: '/api/upload' }
+}
+```
+
+</Snippet>
+
+#### 2\. Kısa Yol (Doğrulamayı Devre Dışı Bırak)
+
+Açıklamaları olmayan görsellere izin vermek istiyorsanız boole değerini `false` olarak ayarlamanız yeterlidir.
+
+<Snippet view="code">
+
+```javascript
+image: {
+  altInput: false // Users can now skip the alt text field
+}
+```
+
+</Snippet>
+
+#### 3\. Nesne tabanlı (Açık)
+
+<Snippet view="code">
+
+```javascript
+image: {
+    altInput: {
+        required: false // Disables alt text validation — users can skip the alt field
+    }
+}
+```
+
+</Snippet>
+
+### Standart Görüntü Kullanımı (`fileInput` Yok)
+
+`fileInput` yapılandırılmamışsa, düzenleyici varsayılan olarak basit bir URL tabanlı modal kullanır. Kullanıcılarınız çoğunlukla harici resim barındırıcılarına bağlantı veriyorsa bu idealdir.
+
+<Snippet view="code">
+
+```javascript
+const options = {
+  toolbar: [
+    'link',
+    'image',
+    'preview'
+  ],
+}
+const editor = new MarkdownEditor('#markdown-editor', options);
+```
+
+</Snippet>
+
+### 💡 Param'ları neden kullanmalıyım?
+
+Laravel veya Django gibi çerçevelerde CSRF belirteci olmadan dosya yükleyemezsiniz. `params` nesnesine `_token` eklendiğinde, isteğiniz arka ucun güvenlik ara yazılımından sorunsuz bir şekilde geçecek ve sunucu tarafı denetleyicileriniz için "Sıfır Mantık" felsefesini koruyacaktır.
+
+## ⌨️ Klavye Kısayolları
+
+Yaygın biçimlendirme eylemleri, araç çubuğuna dokunmadan doğrudan klavyeden tetiklenebilir. Her kısayol aynı zamanda karşılık gelen araç çubuğu düğmesinin araç ipucunda da gösterilir.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kısayol | Aksiyon |
+| --- | --- |
+| `Ctrl + B`  /  `⌘ B` | **Kalın**'a geçiş yapın |
+| `Ctrl + I`  /  `⌘ I` | *İtalik*'e geçiş yap |
+| `Ctrl + K`  /  `⌘ K` | Bağlantı Ekle |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | Satır içi `Kod`'u değiştir |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | ~~Üzeri çizili~~'yi aç/kapat |
+| `Ctrl + Z`  /  `⌘ Z` | Geri al |
+| `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Yinele |
+| `Tab` | Seçilen satırları girintile |
+| `Shift + Tab` | Seçili satırların girintisini artır |
+| `Ctrl + F`  /  `⌘ F` | Bul panelini aç |
+| `Ctrl + H`  /  `⌘ H` | Bul ve Değiştir panelini aç |
+| `Escape` | Bul panelini kapat / Tam ekran önizlemeden çık |
+
+</DocTable>
+
+## 🔍 Bul ve bul Yer değiştirmek
+
+Düzenleyicinin içinde yerleşik bir bul ve değiştir paneli mevcuttur; tarayıcı uzantısına veya ayrı bir araca gerek yoktur.
+
+-   **Bul** panelini açmak için `Ctrl + F` (veya `⌘ F`) tuşlarına basın
+-   **Bul ve Bul'u açmak için `Ctrl + H` (veya `⌘ H`) tuşlarına basın. Paneli** değiştirin
+-   Arama **büyük/küçük harfe duyarlı değildir** ve canlı bir eşleşme sayacı gösterir (ör. *3/12*)
+-   **▲ / ▼** düğmelerini veya `Enter` / `Shift + Enter` tuşlarını kullanarak eşleşmelerde gezinin
+-   **Değiştir**, vurgulanan mevcut eşleşmenin yerini alır; **Tümünü Değiştir** her tekrarı aynı anda değiştirir
+-   Paneli kapatmak ve odağı düzenleyiciye geri döndürmek için `Escape` tuşuna basın
+
+Panel, düzenleyici içerik alanının sağ üst köşesinde kayar ve yazmayı kesintiye uğratmaz.
+
+## Özellikler
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Yerel Form Entegrasyonu</h2><p class=\"para-sm\">Tam olarak standart bir <code>&lt;textarea&gt;</code> gibi çalışır. Karmaşık API'ler yok; yalnızca <code>value</code> veya <code>name</code> özelliğini kullanın. PHP, Django veya Node.js'deki standart HTML form gönderimleriyle \"sadece çalışır\".</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Gelişmiş Resim Yükleme</h2><p class=\"para-sm\">Yerel sunucu yüklemelerini API aracılığıyla yapılandırın. Resimleri kendi CDN'nizde barındırarak sayfaların daha hızlı yüklenmesini ve üstün SEO'yu sağlamak için ağır Base64 dizelerinden kaçının.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hibrit ve Sade Modlar</h2><p class=\"para-sm\">Görsel düzenleme için <strong>Hybrid (WYSIWYG)</strong> deneyimi veya geleneksel kodlama hissi için <strong>Plain Markdown</strong> modu arasında geçiş yapın.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Yüksek Performans</h2><p class=\"para-sm\">\"Ağır İçerik\" için optimize edilmiş küçük bir <strong>~116KB</strong> paketi. Çok büyük belgeleri ve büyük dosyaları herhangi bir giriş gecikmesi veya performans düşüşü olmadan yönetir. Geri dönen önizleme güncellemeleri, önbelleğe alınmış stil hesaplamaları ve çakışmayan klavye kullanımı; yani Sekme ve Enter her zaman tam olarak tek bir şey yapar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Dahili RTL Desteği</h2><p class=\"para-sm\">Arapça, Urduca ve Farsça gibi Sağdan Sola diller için yerel destek. Küresel olarak erişilebilir uygulamalar oluşturmak için mükemmeldir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Sözdizimi Vurgulama</h2><p class=\"para-sm\">Anlaşılır kod ve işaretleme biçimlendirmesiyle gelişmiş okunabilirlik.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Uyarlanabilir Tema</h2><p class=\"para-sm\">Otomatik Karanlık Mod desteğini içerir. Sorunsuz bir görsel deneyim için sistem ayarlarınızla veya <strong>Frutjam UI</strong> kitaplığıyla senkronize edilir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Akıllı Düzenleme</h2><p class=\"para-sm\">Sıralı listeler, sırasız listeler ve kontrol listeleri için GitHub tarzı otomatik liste devamı — <code>Enter</code> tuşuna bastığınızda düzenleyici deseni sürdürür. Önizleme bölmesindeki onay kutuları tıklanabilir ve işaretleme kaynağına anında senkronize edilir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Tamamen duyarlı</h2><p class=\"para-sm\">Hareket halindeyken düzenleme yapmak için masaüstü bilgisayarlara, tabletlere ve akıllı telefonlara mükemmel şekilde uyum sağlayan akıcı, mobil odaklı bir kullanıcı arayüzü.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Evrensel Destek</h2><p class=\"para-sm\"><strong>ESM, UMD, CommonJS ve IIFE</strong> ile uyumludur. CDN (<code>&lt;script src&gt;</code>), npm veya herhangi bir paketleyici (Vite, webpack, Rollup) aracılığıyla kutudan çıktığı gibi çalışır; ekstra yapılandırmaya gerek yoktur.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Varsayılan Olarak Erişilebilir</h2><p class=\"para-sm\">Yerleşik tam ARIA desteği; araç çubuğu yer işareti, etiketli önizleme bölgesi, ekran okuyucu dostu düğmeler, önizleme geçiş düğmesinde <code>aria-basıldı</code>, etkin olmayan araçlarda <code>disabled</code> ve <code>aria-disabled</code> ve modeller kapatıldığında doğru odak restorasyonu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Sıfır CSS Çatışması</h2><p class=\"para-sm\">Düzenleyici stilleri tamamen <code>.markdown-editor-wrapper</code> kapsamına alınmıştır. Tailwind'in genel ön kontrolü hariç tutulur, böylece editör Bootstrap, Tailwind veya diğer çerçevelerin stillerini bozmadan güvenli bir şekilde birlikte yaşar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Klavye Kısayolları</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — fareye dokunmadan yaygın biçimlendirme eylemleri. Her kısayol, araç çubuğu düğmesinin araç ipucunda gösterilir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Bul ve bul Yer değiştirmek</h2><p class=\"para-sm\">Bulmak için <code>Ctrl+F</code> tuşlarına veya bul ve bul'u açmak için <code>Ctrl+H</code> tuşlarına basın. yer değiştirmek. Düzenleyiciden ayrılmadan canlı maç sayacı, sonraki/önceki gezinme, tek değiştirme ve tümünü değiştirme ile büyük/küçük harfe duyarlı olmayan arama.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Güvenli Önizleme</h2><p class=\"para-sm\">Oluşturulan önizleme, DOM'a yazılmadan önce <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> aracılığıyla temizlenir. Hazırlanan etiketleme girişindeki komut dosyası etiketleri, satır içi olay işleyicileri ve kötü amaçlı URL'ler otomatik olarak çıkarılır; hiçbir yapılandırma gerekmez.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Gerçek Zamanlı Önizleme</h2><p class=\"para-sm\">Siz yazarken işaretlemenizin anında oluşturulduğunu görün.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Kolay Entegrasyon</h2><p class=\"para-sm\">Minimum kurulumla herhangi bir web projesine sorunsuz bir şekilde entegre olun.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Özelleştirilebilir Araç Çubuğu</h2><p class=\"para-sm\">Kalın, italik ve daha fazlası gibi araç çubuğu seçeneklerini dinamik olarak yapılandırın ve yeniden sıralayın.</p></div></div></div>"} />
+
+## Tam Yapılandırma Örneği
+
+**MarkdownEditor**'ü özel araç çubuğu sıralaması ve gelişmiş resim yükleme işlemleri de dahil olmak üzere tüm temel özelliklerle başlatmak için bu kapsamlı örneği kullanın.
+
+<Snippet view="code">
+
+```javascript
+const editor = new MarkdownEditor('#markdown-editor', {
+    mode: 'hybrid',
+    placeholder: 'Start writing...',
+    footer: {
+        line: true,
+        col: true,
+        chars: true,
+        words: true,
+    },
+    onChange(value) {
+        console.log('Content updated:', value.length, 'characters');
+    },
+    toolbar: [
+        'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
+        'ul', 'ol', 'checklist',
+        'code', 'codeblock', 'hr', 'table',
+        {
+            image: {
+                fileInput: {
+                    accept: ['webp', 'avif', 'png'],
+                    uploadUrl: '/api/upload'
+                }
+            }
+        },
+        'link', 'undo', 'redo', 'indent', 'outdent', 'preview'
+    ],
+});
+
+// Read content natively
+const markdown = document.getElementById('markdown-editor').value;
+
+// destroy() when the view unmounts (SPAs)
+// editor.destroy();
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Bunu yararlı buldunuz mu?</p><p class=\"text-sm\">GitHub yıldızı, diğer geliştiricilerin düzenleyiciyi keşfetmesine yardımcı olur. <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>'in bir parçası. Oradaki bir yıldız da yardımcı oluyor.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">GitHub'da yıldız</a></div>"} />
+
+**

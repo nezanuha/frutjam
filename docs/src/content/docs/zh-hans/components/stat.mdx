@@ -1,0 +1,253 @@
+---
+name: "统计数据"
+heading: "统计组件"
+description: "仅 CSS Tailwind CSS stat 用于显示指标。值、标签、描述和图标槽。响应式网格布局。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "Stat - 仅 CSS 的 Tailwind CSS 组件 |Frutjam"
+metaDescription: "用于仪表板和 KPI 显示的 Tailwind CSS Stat。标题、值、趋势指示器和图标支持清晰的指标和分析演示。"
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Frutjam 统计"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "c487e30b16cd"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS stat 用于显示指标。值、标签、描述和图标槽。响应式网格布局。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+统计组件以清晰、有组织的格式显示关键指标和数字数据。统计数据采用语义 HTML 和灵活的布局构建，可传达重要的业务指标和分析。 Frutjam stat 系统支持多种排列和样式，非常适合仪表板、绩效报告和数据摘要。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">根据</span> | 一个或多个统计项目的容器 |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 包含标题、值和描述的单个统计项目 |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 统计值上方的标签 |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 大的主要数字或文本值 |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 值下方的补充说明 |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 统计数据旁边的图标或头像 |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 并排排列统计项目（默认） |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 垂直堆叠统计项目 |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的主要主题颜色 |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的辅助主题颜色 |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的强调主题颜色 |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的中性主题颜色 |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的信息语义颜色 |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的成功语义颜色 |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的警告语义颜色 |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 统计值的错误语义颜色 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## 多项统计数据
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 带图标的统计数据
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 水平统计
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 垂直统计
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 颜色变化
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 语义颜色变体
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

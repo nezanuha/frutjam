@@ -1,0 +1,117 @@
+---
+name: "설치"
+heading: "설치"
+description: "CSS 전용 Tailwind CSS UI 라이브러리인 Frutjam을 몇 분 안에 설치하세요. 두 개의 가져오기, 제로 JavaScript, WCAG 액세스 가능 구성요소를 즉시 사용할 수 있습니다. Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다."
+metaTitle: "Frutjam 설치 | CSS 전용 Tailwind CSS UI 라이브러리 | Frutjam"
+metaDescription: "Frutjam CSS 전용 Tailwind CSS UI 라이브러리를 설치합니다. 가져오기 2개, JavaScript 없음, Tailwind v4 호환. Django, HTMX, Laravel 및 React와 함께 작동합니다."
+order: 1
+related:
+  - "docs/overview"
+  - "components/button"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/installation.webp"
+imageAlt: "설치 - Frutjam"
+createdAt: "2025-09-05T16:02:19.231238+00:00"
+updatedAt: "2026-07-13T09:55:24.157638+00:00"
+sourceHash: "fea80fef3124"
+translationHash: "6ed43747093f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS 전용 Tailwind CSS UI 라이브러리인 Frutjam을 몇 분 안에 설치하세요. 두 개의 가져오기, 제로 JavaScript, WCAG 액세스 가능 구성요소를 즉시 사용할 수 있습니다. Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다.
+
+## Tailwind CSS 프로젝트에 Frutjam UI 라이브러리를 설치하는 방법은 무엇입니까?
+
+컴퓨터에 작동 중인 [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) 프로젝트와 [Node](https://nodejs.org/en/download) 및 NPM이 설치되어 있는지 확인하세요. Frutjam은 Tailwind 버전 4에서 작동합니다.
+
+### 다음 명령을 실행하여 frutjam을 노드 패키지로 설치합니다.
+
+<Snippet view="code">
+
+```bash
+npm i -D frutjam
+```
+
+</Snippet>
+
+`@plugin` 지시문을 사용하여 `input.css`에 Frutjam을 추가합니다.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## JavaScript & React — 선택 사항, 필수는 아님
+
+Frutjam은 **네이티브 우선 및 CSS 우선**입니다. 버튼, 배지, 카드, 양식, 알림 등 대부분의 구성 요소는 JavaScript가 필요 없이 순수 HTML 및 CSS로 작동합니다. `<dialog>`, `<details>` 및 `<input type="checkbox">`와 같은 기본 HTML 요소는 브라우저가 이미 지원하는 상호작용을 처리합니다. 모든 구성 요소는 기본적으로 WCAG AA에 액세스할 수 있으며 Django, HTMX, Laravel, React, Next.js 및 모든 스택에서 작동합니다.
+
+소수의 구성 요소에는 기본 HTML과 동등한 기능(토스트 알림, 콤보 상자 필터링, 캐러셀 컨트롤)이 없습니다. 이러한 경우에만 Frutjam은 가벼운 선택적 도우미를 제공합니다.
+
+### 바닐라 JS — `frutjam/js`
+
+프레임워크에 구애받지 않는 ES 모듈 도우미가 필요한 구성 요소를 지원합니다. DOM 요소에 연결하세요. 프레임워크가 필요하지 않습니다.
+
+<Snippet view="code">
+
+```js
+import { createModal } from 'frutjam/js'
+
+const modal = createModal(document.getElementById('myModal'))
+modal.open()   // calls showModal()
+modal.close()  // calls close()
+modal.toggle()
+```
+
+</Snippet>
+
+### 반응 후크 — `frutjam/react`
+
+동일한 기본 DOM 호출을 둘러싼 얇은 React 래퍼. 각 후크는 요소에 연결한 `ref`와 이를 제어하는 ​​메서드를 반환합니다. React 자체 외에는 추가 종속성이 없습니다.
+
+<Snippet view="code">
+
+```js
+import { useModal } from 'frutjam/react'
+
+export default function App() {
+  const modal = useModal()
+  return (
+    <>
+      <button onClick={modal.open}>Open</button>
+      <dialog ref={modal.ref} className="modal">...</dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+사용 가능 대상: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+
+### CDN 사용
+
+로컬 설정 없이 빠르고 쉽게 통합하려면 frutjam UI 라이브러리의 CDN 버전을 사용하세요. 이 CDN 버전의 frutjam은 프로덕션이 아닌 개발 목적으로만 사용하십시오.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2.2.5/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## 다음 단계
+
+설치가 완료되면 [버튼 구성 요소](/components/button)를 사용해 Frutjam의 실제 작동 모습을 확인하거나 전체 [구성 요소 라이브러리](/components)를 탐색해 보세요.
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI 편집기 통합</p><h3 class=\"card-title mb-2\">Claude Code, Cursor 또는 다른 AI 편집기를 사용하시나요?</h3><p class=\"para-sm mb-3\">Cherry MCP는 Frutjam의 전체 구성 요소 라이브러리를 AI 편집기의 컨텍스트에 직접 제공합니다. 정확한 클래스 이름, 라이브 문서, 복사 붙여넣기 기능이 없습니다.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP에 대해 알아보기 →</a></div></div></div>"} />
+
+<RawHtml html={"<p class=\"mt-6\">Frutjam의 CSS 우선 접근 방식에 대한 생각을 이해하고 싶으십니까? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">우리가 이런 방식으로 만든 이유를 읽어보세요 →</a></p>"} />

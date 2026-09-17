@@ -1,0 +1,274 @@
+---
+/**
+ * frutjam.com's category page: frontend/templates/frontend/pages/category.html.
+ * Shared by the English route (src/pages/[category]/index.astro) and the
+ * translated one (src/pages/[lang]/[category]/index.astro).
+ */
+import { categoryIn, docUrl, pageNavs, type Category } from '@/lib/site';
+import { langUrl, useTranslations } from '@/lib/i18n';
+
+const { category: source, lang } = Astro.props as { category: Category; lang: string };
+const t = useTranslations(lang);
+const category = categoryIn(source, lang);
+const docs = (await pageNavs(lang)).find((c) => c.slug === category.slug)?.docs ?? [];
+const installUrl = langUrl(lang, '/docs/installation');
+// Two messages carry their links as gettext placeholders.
+const DOCS_INTRO = "These docs cover everything you need to get from a fresh Tailwind CSS v4 project to a fully themed, accessible UI. Start with <a href=\"%(SITE_FULL_URL)s%(install_url)s\">Installation</a> — two lines of CSS — then explore how the theming system works using CSS variables and a single <code>data-theme</code> attribute. The color system uses semantic OKLCH tokens that automatically meet WCAG AA contrast ratios with no manual color checking required. Configuration options let you scope tokens, add a prefix to avoid conflicts, or cherry-pick only the components you need to keep your CSS output lean.";
+const READ_DOCS = "Yes. Install it, pick a theme, and start using component classes. The docs are reference material — you don't need to read them cover to cover. Most developers start with the <a href=\"%(SITE_FULL_URL)s%(btn_url)s\" class=\"underline\">button</a> or <a href=\"%(SITE_FULL_URL)s%(card_url)s\" class=\"underline\">card</a> component and explore from there.";
+const linkIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" /></svg>';
+---
+
+<main id="main-content" class=" py-3.5 surface surface-outline border-0 border-r grid grid-cols-14">
+            <nav aria-label={t("Breadcrumb")} class="col-span-14 breadcrumb mb-3 px-5 lg:px-8">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href={langUrl(lang, '/')} class="breadcrumb-link">{t("Home")}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span aria-current="page" class="breadcrumb-current">{category.name}</span>
+                    </li>
+                </ol>
+            </nav>
+            <article data-pagefind-body data-pagefind-meta={`category:${category.name}`} class="col-span-14 prose prose-headings:font-bold prose-frutjam max-w-none px-5 lg:px-8">
+                <h1>{category.heading}</h1>
+                <p><p>{category.description}</p></p>
+
+                {category.slug === 'components' && (
+                <p><Fragment set:html={t("Frutjam ships 52+ CSS-only Tailwind CSS components — buttons, modals, forms, navigation, data display, and more — built for Tailwind CSS v4. Every component uses semantic class names (<code>.btn</code>, <code>.card</code>, <code>.badge</code>) that work alongside any Tailwind utility class. No JavaScript is bundled, no React context required, and no PostCSS plugins needed beyond Tailwind itself. Every component is WCAG AA accessible out of the box, with hand-tuned OKLCH color pairs that guarantee readable contrast on every surface. Because Frutjam is CSS-only and framework-agnostic, the same HTML markup works in Django templates, HTMX responses, Laravel Blade, Rails ERB, React JSX, or plain static HTML — without modification.")} /></p>
+                )}
+
+                {category.slug === 'docs' && (
+                <p><Fragment set:html={t(DOCS_INTRO, { SITE_FULL_URL: "", install_url: installUrl })} /></p>
+                )}
+
+                {category.slug === 'blocks' && (
+                <p>{t("Blocks are production-ready page sections assembled from Frutjam components. Each block is self-contained HTML — drop it into any Django template, Laravel Blade file, HTMX page, or React component and it works immediately. Blocks inherit your active Frutjam theme automatically, so switching between light, dark, or a custom theme requires no changes to the block HTML. All blocks are CSS-only, WCAG AA accessible, and built for Tailwind CSS v4 — no JavaScript, no build pipeline beyond Tailwind itself.")}</p>
+                )}
+
+                {category.slug === 'plugins' && (
+                <p><Fragment set:html={t("Frutjam plugins extend the core library with additional components and integrations beyond standard UI elements. Each plugin is an independent npm package — install only what your project needs and register it with a single <code>@plugin</code> directive alongside your main Frutjam import. Plugins integrate seamlessly with the existing theming system, inheriting your CSS variables and WCAG AA color tokens automatically. Framework-agnostic by design, plugins work with Django, HTMX, Laravel, React, and any Tailwind CSS v4 project.")} /></p>
+                )}
+
+                {category.slug === 'components' && (
+                <div class="not-prose mb-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div class="flex-1">
+                        <p class="heading mb-2">{t("New to Frutjam?")}</p>
+                        <p class="text-sm">{t("Get started in seconds — two imports and you're ready to build.")}</p>
+                    </div>
+                    <a href={installUrl} class="btn btn-primary btn-sm">{t("Get started with installation")}</a>
+                </div>
+                )}
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 not-prose">
+                    {docs.map((page) => (
+                    <div class="card card-sm card-outline">
+                        <div class="card-content">
+                            <h2 class="card-title">{page.data.name}</h2>
+                            <p class="para-xs">{page.data.description}</p>
+                            <div class="flex justify-end">
+                                <a href={docUrl(page)} class="btn btn-sm">
+                                    {t("View Details")}
+                                    <Fragment set:html={linkIcon} />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+
+                {category.slug === 'components' && (
+                <section class="not-prose mt-12 border-t border-base-200 pt-10">
+                    <h2 class="heading-xl mb-6">{t("Frequently asked questions")}</h2>
+                    <div class="accordion">
+                        <details name="components-faq" open>
+                            <summary>{t("Are all Frutjam components CSS-only?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("Yes — the vast majority of components are pure CSS with zero JavaScript. Buttons, badges, cards, forms, alerts, modals, drawers, tabs, and more all work with plain HTML and CSS. A small number of components that have no native HTML equivalent (toast positioning, combobox filtering, carousel controls) offer optional lightweight JS helpers, but the CSS layout and styling requires no JavaScript at all.")}</p>
+                            </div>
+                        </details>
+                        <details name="components-faq">
+                            <summary>{t("Do Frutjam components work with Django, HTMX, and Laravel?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("Yes — Frutjam is framework-agnostic. Because every component is CSS-only, it works with any server-rendered stack. Django templates, HTMX, Laravel Blade, Rails ERB, plain HTML — if you can output HTML, Frutjam works. No React, no build pipeline, no JavaScript framework required.")}</p>
+                            </div>
+                        </details>
+                        <details name="components-faq">
+                            <summary>{t("Are the components WCAG accessible?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t("Yes — WCAG AA contrast is guaranteed on every component. Every color pair (<code>--color-primary</code> / <code>--color-on-primary</code>, etc.) is hand-tuned in OKLCH to meet WCAG AA contrast requirements. Semantic HTML elements are used throughout — native <code>&lt;dialog&gt;</code> for modals, <code>&lt;details&gt;</code> for accordions, and proper ARIA attributes where needed.")} /></p>
+                            </div>
+                        </details>
+                        <details name="components-faq">
+                            <summary>{t("How do Frutjam components compare to DaisyUI?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">Both are CSS-only Tailwind CSS component libraries, but Frutjam is built specifically for Tailwind CSS v4, uses OKLCH color tokens with guaranteed WCAG AA contrast pairs, and ships a free MCP server (Cherry) for AI editor integration — DaisyUI's equivalent (Blueprint) is paid. Frutjam also provides explicit <code>on-&#123;color&#125;</code> token pairs rather than computing foreground colors at runtime.</p>
+                            </div>
+                        </details>
+                        <details name="components-faq">
+                            <summary>{t("Do I need to install anything besides Tailwind CSS?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t("Just one extra line. Add <code>@plugin \"frutjam\";</code> to your CSS file after <code>@import \"tailwindcss\";</code> and install via <code>npm i -D frutjam</code>. That's it — no PostCSS plugins, no JavaScript config, no separate stylesheet to import. All components are available immediately and treeshaken automatically by Tailwind.")} /></p>
+                            </div>
+                        </details>
+                        <details name="components-faq">
+                            <summary>{t("Can I use Frutjam components with React or Next.js?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t("Yes. Since Frutjam is CSS-only, you use components the same way in any stack — just apply the class names. For the few components that benefit from JavaScript control (modal open/close, toast, carousel), Frutjam ships optional React hooks (<code>frutjam/react</code>) that wrap native DOM calls with no extra dependencies.")} /></p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                )}
+
+                {category.slug === 'docs' && (
+                <Fragment>
+                <section class="not-prose mt-12 border-t border-base-200 pt-10">
+                    <h2 class="heading-xl mb-4">{t("Where to start")}</h2>
+                    <p class="para text-sm mb-6">{t("New to Frutjam? Follow this path to go from zero to a fully themed, accessible Tailwind CSS v4 project.")}</p>
+                    <ol class="flex flex-col gap-4">
+                        <li class="flex gap-4 items-start">
+                            <span class="badge badge-primary badge-soft shrink-0">1</span>
+                            <div>
+                                <a href={installUrl} class="font-semibold hover:underline">{t("Installation")}</a>
+                                <p class="para text-sm">{t("Install the npm package and add two lines to your CSS. No JavaScript config, no PostCSS plugins.")}</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="badge badge-primary badge-soft shrink-0">2</span>
+                            <div>
+                                <a href={langUrl(lang, "/docs/overview")} class="font-semibold hover:underline">{t("Overview")}</a>
+                                <p class="para text-sm">{t("Understand how Frutjam works alongside Tailwind CSS utilities, semantic component classes, and WCAG AA color tokens.")}</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="badge badge-primary badge-soft shrink-0">3</span>
+                            <div>
+                                <a href={langUrl(lang, "/docs/themes")} class="font-semibold hover:underline">{t("Themes")}</a>
+                                <p class="para text-sm"><Fragment set:html={t("Apply a built-in theme or build your own with CSS variables and a single <code>data-theme</code> attribute.")} /></p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="badge badge-primary badge-soft shrink-0">4</span>
+                            <div>
+                                <a href={langUrl(lang, "/docs/colors")} class="font-semibold hover:underline">{t("Colors")}</a>
+                                <p class="para text-sm">Learn how semantic color tokens work and how every <code>on-&#123;color&#125;</code> pair guarantees WCAG AA contrast automatically.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <span class="badge badge-primary badge-soft shrink-0">5</span>
+                            <div>
+                                <a href={langUrl(lang, "/docs/configuration")} class="font-semibold hover:underline">{t("Configuration")}</a>
+                                <p class="para text-sm">{t("Set a prefix, scope tokens to a root element, cherry-pick components, or integrate alongside another CSS framework.")}</p>
+                            </div>
+                        </li>
+                    </ol>
+                </section>
+                <section class="not-prose mt-10 border-t border-base-200 pt-10">
+                    <h2 class="heading-xl mb-6">{t("Frequently asked questions")}</h2>
+                    <div class="accordion">
+                        <details name="docs-faq" open>
+                            <summary>{t("Does Frutjam require Tailwind CSS v4?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t("Yes — Frutjam is built for Tailwind CSS v4 and uses the <code>@plugin</code> directive introduced in v4. It is not compatible with Tailwind CSS v3. If you are still on v3, upgrade to v4 first using the official Tailwind migration guide.")} /></p>
+                            </div>
+                        </details>
+                        <details name="docs-faq">
+                            <summary>{t("Is Frutjam free and open source?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("Yes — the core Frutjam component library is free and open source (MIT licensed). Pro and Team plans add premium UI blocks, templates, and unlimited Cherry MCP requests for AI editor integration.")}</p>
+                            </div>
+                        </details>
+                        <details name="docs-faq">
+                            <summary>{t("Can I use Frutjam without reading all the docs?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t(READ_DOCS, { SITE_FULL_URL: "", btn_url: langUrl(lang, "/components/button"), card_url: langUrl(lang, "/components/card") })} /></p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                </Fragment>
+                )}
+
+                {category.slug === 'blocks' && (
+                <section class="not-prose mt-12 border-t border-base-200 pt-10">
+                    <h2 class="heading-xl mb-3">{t("What are blocks?")}</h2>
+                    <p class="para text-sm mb-6">{t("Blocks are larger, ready-made page sections built by composing Frutjam components together. Where a component is a single UI element (a button, a card, a badge), a block is a complete layout section — a hero, a pricing table, a site header — ready to copy and paste into your project.")}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                        <div class="card card-outline card-sm">
+                            <div class="card-content">
+                                <h3 class="font-semibold mb-1">{t("CSS-only")}</h3>
+                                <p class="para text-sm">{t("Every block is built with Frutjam components and Tailwind CSS utilities — zero JavaScript, no extra dependencies.")}</p>
+                            </div>
+                        </div>
+                        <div class="card card-outline card-sm">
+                            <div class="card-content">
+                                <h3 class="font-semibold mb-1">{t("Copy-paste ready")}</h3>
+                                <p class="para text-sm">{t("Each block is self-contained HTML. Paste it into any Django template, Laravel Blade, HTMX page, or React component.")}</p>
+                            </div>
+                        </div>
+                        <div class="card card-outline card-sm">
+                            <div class="card-content">
+                                <h3 class="font-semibold mb-1">{t("Theme-aware")}</h3>
+                                <p class="para text-sm">{t("Blocks inherit your active Frutjam theme automatically — switch themes and all blocks update with no changes needed.")}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <details name="blocks-faq" open>
+                            <summary>{t("What is the difference between a block and a component?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("A component is a single reusable UI element — a button, a card, a badge. A block is a complete page section that composes multiple components into a layout — a hero section, a pricing table, a site header with navbar and mobile drawer. Use components to build custom layouts; use blocks for fast page assembly.")}</p>
+                            </div>
+                        </details>
+                        <details name="blocks-faq">
+                            <summary>{t("Do blocks work with Django, HTMX, and Laravel?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("Yes — blocks are plain HTML using Frutjam component classes. They work in any templating system: Django, HTMX, Laravel Blade, Rails ERB, Jinja2, or static HTML. No JavaScript framework, no build step beyond Tailwind CSS itself.")}</p>
+                            </div>
+                        </details>
+                        <details name="blocks-faq">
+                            <summary>{t("Are more blocks being added?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("Yes — new blocks are added regularly. The Pro and Team plans include access to premium blocks including feature sections, testimonials, CTAs, and full page templates.")}</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                )}
+
+                {category.slug === 'plugins' && (
+                <section class="not-prose mt-12 border-t border-base-200 pt-10">
+                    <h2 class="heading-xl mb-3">{t("What are plugins?")}</h2>
+                    <p class="para text-sm mb-6">{t("Frutjam plugins extend the base library with additional components, utilities, or integrations. Each plugin is an independent package you can opt into — install only what you need, keep your CSS bundle lean.")}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="card card-outline card-sm">
+                            <div class="card-content">
+                                <h3 class="font-semibold mb-1">{t("Independent packages")}</h3>
+                                <p class="para text-sm">{t("Each plugin is a standalone npm package. Install it alongside Frutjam and register it with a single @plugin directive in your CSS.")}</p>
+                            </div>
+                        </div>
+                        <div class="card card-outline card-sm">
+                            <div class="card-content">
+                                <h3 class="font-semibold mb-1">{t("Framework-agnostic")}</h3>
+                                <p class="para text-sm">{t("Plugins work with any stack — Django, HTMX, Laravel, React, or plain HTML. No framework-specific wrappers required.")}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion">
+                        <details name="plugins-faq" open>
+                            <summary>{t("How do I install a Frutjam plugin?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm"><Fragment set:html={t("Install the plugin via npm and add a <code>@plugin</code> directive to your CSS file. For example: <code>npm i -D frutjam-plugin-name</code>, then add <code>@plugin \"frutjam-plugin-name\";</code> below <code>@plugin \"frutjam\";</code> in your CSS. That's it — no JavaScript config required.")} /></p>
+                            </div>
+                        </details>
+                        <details name="plugins-faq">
+                            <summary>{t("Are plugins CSS-only?")}</summary>
+                            <div class="accordion-content">
+                                <p class="para text-sm">{t("It depends on the plugin. Pure UI plugins are CSS-only. Some plugins — like the markdown editor — are JavaScript-based because their functionality inherently requires scripting. Each plugin page clearly documents whether JavaScript is required.")}</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                )}
+
+            </article>
+</main>

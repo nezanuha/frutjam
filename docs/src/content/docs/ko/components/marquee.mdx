@@ -1,0 +1,543 @@
+---
+name: "큰 천막"
+heading: "큰 천막"
+description: "콘텐츠와 로고를 가로로 스크롤하기 위한 CSS 전용 Tailwind CSS 선택 윤곽입니다. CSS를 통한 속도 및 방향 제어, JavaScript 없음. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "Marquee - CSS 전용 Tailwind CSS 구성요소 | Frutjam"
+metaDescription: "무한 스크롤, 마우스 오버 시 일시 정지, 역방향 및 수직 지원 기능을 갖춘 순수 CSS Tailwind CSS 선택 윤곽입니다. JavaScript가 필요하지 않습니다."
+order: 0
+related:
+  - "components/card"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/marquee.webp"
+imageAlt: "Frutjam Marquee 구성요소 미리보기"
+createdAt: "2026-05-13T15:19:17.699190+00:00"
+updatedAt: "2026-07-13T09:42:17.829517+00:00"
+sourceHash: "f5b7221d5db6"
+translationHash: "5ab4c6362d3d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+콘텐츠와 로고를 가로로 스크롤하기 위한 CSS 전용 Tailwind CSS 선택 윤곽입니다. CSS를 통한 속도 및 방향 제어, JavaScript 없음. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+Marquee 구성 요소는 무한하고 지속적으로 스크롤되는 콘텐츠 스트립을 생성하므로 브랜드 로고, 공지 배너, 사용후기 또는 태그 클라우드에 이상적입니다. 전적으로 CSS 애니메이션으로 제작된 Frutjam 선택 윤곽은 수평 및 수직 방향, 마우스 오버 시 일시 정지, 되돌릴 수 있는 재생 및 속도 제어를 지원합니다. 매끄럽고 끊김 없는 루프를 위해 `marquee-track` 요소(`aria-hidden` 포함)를 복제하세요.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| marquee | <span class="badge badge-xs">베이스</span> | 외부 컨테이너 - 오버플로를 클립하고 애니메이션 변수를 보유합니다. |
+| marquee-track | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 내부 행 스크롤; 원활한 루프를 위해 `aria-hidden`으로 복제 |
+| marquee-pause | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 마우스 오버 시 애니메이션을 일시중지합니다. |
+| marquee-reverse | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 반대 방향으로 스크롤됩니다. |
+| marquee-vertical | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 왼쪽에서 오른쪽이 아닌 위에서 아래로 스크롤됩니다. |
+| marquee-slow | <span class="badge badge-xs badge-info badge-soft">Speed</span> | 느린 스크롤(40초 주기) |
+| marquee-normal | <span class="badge badge-xs badge-info badge-soft">Speed</span> | 기본 속도(20초 주기) |
+| marquee-fast | <span class="badge badge-xs badge-info badge-soft">Speed</span> | 빠른 스크롤(10초 주기) |
+| marquee-fade | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 양쪽에 그라데이션 페이드 아웃 가장자리를 추가합니다. |
+
+</DocTable>
+
+## 기본 사용법
+
+두 개의 동일한 `marquee-track` 요소를 추가합니다. 두 번째 요소(`aria-hidden="true"` 포함)는 첫 번째 요소가 화면에서 스크롤될 때 간격을 채웁니다.
+
+<Snippet>
+
+```html
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+</div>
+```
+
+```jsx
+const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+
+export default function MarqueeDemo() {
+  return (
+    <div className="marquee">
+      <div className="marquee-track">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+      <div className="marquee-track" aria-hidden="true">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## 마우스오버 시 일시중지
+
+사용자가 스트립 위로 마우스를 가져갈 때 애니메이션을 중지하려면 `marquee-pause`를 추가하세요.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 역방향
+
+왼쪽에서 오른쪽이 아닌 오른쪽에서 왼쪽으로 스크롤하려면 `marquee-reverse`를 사용하세요. 레이어 효과를 위해 두 행을 결합합니다.
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+  </div>
+  <div class="marquee marquee-reverse">
+    <div class="marquee-track">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 속도 변형
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee marquee-slow">
+    <div class="marquee-track">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+  </div>
+  <div class="marquee marquee-fast">
+    <div class="marquee-track">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 수직천막
+
+`marquee-vertical`을 추가하고 위에서 아래로 스크롤할 수 있도록 컨테이너에 고정 높이를 지정합니다.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-vertical h-48">
+  <div class="marquee-track">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 기술 태그
+
+기술 세트 또는 기술 스택을 보여주기 위한 일반적인 패턴입니다.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause [--marquee--gap:0.75rem] p-2">
+  <div class="marquee-track">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 사용자 정의 간격
+
+간격과 속도를 미세 조정하려면 인라인 유틸리티로 `--marquee--gap` 또는 `--marquee--duration`을 재정의하세요.
+
+<Snippet>
+
+```html
+<div class="marquee [--marquee--gap:2rem] [--marquee--duration:30s]">
+  <div class="marquee-track">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 가장자리 페이드
+
+세련된 모양을 위해 스트립의 양쪽 끝을 페이지 배경으로 페이드 아웃하려면 `marquee-fade`를 추가하세요.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 공지사항 배너
+
+프로모션이나 사이트 전체 공지를 위한 슬림한 티커 바입니다. 최상의 경험을 위해 `marquee-fade`와 `marquee-pause`를 결합하세요.
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary py-2 px-4">
+  <div class="marquee marquee-fade marquee-pause [--marquee--duration:30s]">
+    <div class="marquee-track text-sm font-medium">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+    <div class="marquee-track text-sm font-medium" aria-hidden="true">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 로고 천막
+
+지속적으로 스크롤되는 스트립에 파트너나 신뢰할 수 있는 브랜드를 소개하세요. `marquee-fade`를 사용하여 가장자리를 배경과 혼합하세요.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:3rem] [--marquee--duration:25s]">
+  <div class="marquee-track items-center">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+  <div class="marquee-track items-center" aria-hidden="true">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 추천카드
+
+가독성을 위해 마우스를 올리면 잠시 멈추는 듯한 느낌으로 추천 카드를 스크롤하세요.
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:1rem] [--marquee--duration:40s]">
+  <div class="marquee-track items-stretch">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-track items-stretch" aria-hidden="true">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

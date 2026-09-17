@@ -1,166 +1,65 @@
 ---
-import EditLink    from '@astrojs/starlight/components/EditLink.astro';
-import LastUpdated from '@astrojs/starlight/components/LastUpdated.astro';
-import Pagination  from '@astrojs/starlight/components/Pagination.astro';
+/** frutjam.com's templates/cotton/frontend/footer.html */
+import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
 
-const COLUMNS = [
-  {
-    title: 'Getting Started',
-    links: [
-      { label: 'Overview',      href: '/docs/overview' },
-      { label: 'Installation',  href: '/docs/installation' },
-      { label: 'Configuration', href: '/docs/configuration' },
-      { label: 'Themes',        href: '/docs/themes' },
-    ],
-  },
-  {
-    title: 'Components',
-    links: [
-      { label: 'Button',  href: '/components/button' },
-      { label: 'Modal',   href: '/components/modal' },
-      { label: 'Navbar',  href: '/components/navbar' },
-      { label: 'Drawer',  href: '/components/drawer' },
-      { label: 'All components →', href: '/components/button' },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      { label: 'Blog',     href: '/blog' },
-      { label: 'Blocks',   href: '/blocks/header' },
-      { label: 'GitHub',   href: 'https://github.com/nezanuha/frutjam' },
-      { label: 'Discord',  href: 'https://discord.gg/FvjytjQSSZ' },
-      { label: 'npm',      href: 'https://www.npmjs.com/package/frutjam' },
-    ],
-  },
-  {
-    title: 'Cherry MCP',
-    links: [
-      { label: 'What is Cherry?', href: 'https://frutjam.com/products/cherry' },
-      { label: 'Claude Code',     href: 'https://frutjam.com/products/cherry' },
-      { label: 'Cursor',          href: 'https://frutjam.com/products/cherry' },
-      { label: 'VS Code',         href: 'https://frutjam.com/products/cherry' },
-    ],
-  },
-];
+const { lang } = splitLang(Astro.url.pathname);
+const t = useTranslations(lang);
 ---
 
-<div class="fj-doc-footer">
-  <EditLink />
-  <LastUpdated />
-  <Pagination />
-</div>
-
-<footer class="fj-site-footer not-content">
-  <div class="fj-site-footer__grid">
-    <div class="fj-site-footer__brand">
-      <a href="/" class="fj-site-footer__logo">Frutjam</a>
-      <p>CSS-only Tailwind CSS v4 component library. 65+ accessible UI components, zero JavaScript, WCAG AA guaranteed.</p>
-      <p class="fj-site-footer__copy">© {new Date().getFullYear()} Frutjam. MIT License.</p>
-    </div>
-
-    {COLUMNS.map((col) => (
-      <div class="fj-site-footer__col">
-        <h3>{col.title}</h3>
-        <ul>
-          {col.links.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
-      </div>
-    ))}
+<footer class="footer sm:footer-horizontal p-10 border-t border-base-100">
+  <div>
+    <a href={langUrl(lang, "/")} class="font-semibold text-xl flex items-center" title="Frutjam">
+      <svg width="32" height="32" class="h-8 mr-2" viewBox="0 0 240.000000 240.000000" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <desc>Frutjam logo</desc>
+        <rect x="34.468" y="34.397" width="171.631" height="171.064" stroke="rgb(0, 0, 0)" fill="rgb(255, 255, 255)"></rect>
+        <g transform="translate(0.000000,240.000000) scale(0.100000,-0.100000)" fill="#1529ff" stroke="none">
+          <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"></path>
+          <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"></path>
+        </g>
+      </svg>
+      <span>Frutjam</span>
+    </a>
+    <p class="text-sm text-base mt-2 max-w-48">{t("A standards-first UI library built on Tailwind CSS.")}</p>
   </div>
+
+  <nav>
+    <p class="footer-title">{t("Explore")}</p>
+    <a href={langUrl(lang, "/components")} class="link link-hover link-xs">{t("Components")}</a>
+    <a href={langUrl(lang, "/docs")} class="link link-hover link-xs">{t("Docs")}</a>
+    <a href={langUrl(lang, "/plugins")} class="link link-hover link-xs">{t("Plugins")}</a>
+    <a href={langUrl(lang, "/blocks")} class="link link-hover link-xs">{t("Blocks")}</a>
+    <a href="/blog" class="link link-hover link-xs">{t("Blog")}</a>
+  </nav>
+
+  <nav>
+    <p class="footer-title">{t("Products")}</p>
+    <a href={langUrl(lang, "/products/cherry")} class="link link-hover link-xs">Cherry MCP</a>
+    <a href={langUrl(lang, "/plugins/markdown-editor")} class="link link-hover link-xs">Markdown Editor</a>
+    <a href="https://nezanuha.com/contact" class="link link-hover link-xs">{t("Contact us")}</a>
+    <a href="https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml" class="link link-hover link-xs">{t("Write for Us")}</a>
+  </nav>
+
+  <nav>
+    <p class="footer-title">{t("Resources")}</p>
+    <a href="https://github.com/nezanuha/frutjam" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">GitHub</a>
+    <a href="https://github.com/nezanuha/frutjam/releases" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">{t("Releases")}</a>
+    <a href="https://github.com/nezanuha/frutjam/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">{t("Changelog")}</a>
+    <a href="https://peerlist.io/frutjam" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">Peerlist</a>
+  </nav>
+
+  <nav>
+    <p class="footer-title">{t("Community")}</p>
+    <a href="https://discord.gg/FvjytjQSSZ" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">Discord</a>
+    <a href="https://x.com/frutjamUI" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">X</a>
+    <a href="https://www.npmjs.com/package/frutjam" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">npm</a>
+    <a href="https://app.unpkg.com/frutjam" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">unpkg</a>
+    <a href="https://www.jsdelivr.com/package/npm/frutjam" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">jsDelivr</a>
+    <a href="https://play.tailwindcss.com/EtZ5y0s86G" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">Tailwind Play</a>
+  </nav>
+
+  <nav>
+    <p class="footer-title">{t("Legal")}</p>
+    <a href="/terms" class="link link-hover link-xs">{t("Terms of Use")}</a>
+    <a href="/privacy-policy" class="link link-hover link-xs">{t("Privacy Policy")}</a>
+  </nav>
 </footer>
-
-<style>
-  .fj-doc-footer {
-    margin-block-start: 2rem;
-    padding-block-start: 1.5rem;
-    border-block-start: 1px solid var(--sl-color-hairline);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.75rem;
-  }
-
-  .fj-site-footer {
-    margin-block-start: 3rem;
-    padding: 3rem 1.5rem 2rem;
-    border-block-start: 1px solid var(--sl-color-hairline);
-    background: var(--sl-color-bg-sidebar);
-  }
-
-  .fj-site-footer__grid {
-    max-width: 64rem;
-    margin-inline: auto;
-    display: grid;
-    grid-template-columns: 2fr repeat(4, 1fr);
-    gap: 2rem;
-  }
-
-  @media (max-width: 60rem) {
-    .fj-site-footer__grid {
-      grid-template-columns: 1fr 1fr;
-    }
-    .fj-site-footer__brand {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (max-width: 36rem) {
-    .fj-site-footer__grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .fj-site-footer__logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--sl-color-white);
-    text-decoration: none;
-    display: inline-block;
-    margin-block-end: 0.75rem;
-  }
-
-  .fj-site-footer__brand p {
-    font-size: 0.875rem;
-    color: var(--sl-color-gray-4);
-    line-height: 1.6;
-    max-width: 24rem;
-  }
-
-  .fj-site-footer__copy {
-    margin-block-start: 1rem;
-    font-size: 0.8rem !important;
-    color: var(--sl-color-gray-5) !important;
-  }
-
-  .fj-site-footer__col h3 {
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--sl-color-gray-4);
-    margin-block-end: 0.75rem;
-  }
-
-  .fj-site-footer__col ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .fj-site-footer__col a {
-    font-size: 0.875rem;
-    color: var(--sl-color-gray-3);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .fj-site-footer__col a:hover {
-    color: var(--sl-color-white);
-  }
-</style>

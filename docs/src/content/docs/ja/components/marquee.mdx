@@ -1,0 +1,543 @@
+---
+name: "マーキー"
+heading: "マーキー"
+description: "CSS のみの Tailwind CSS マーキーは、コンテンツとロゴを水平にスクロールします。 CSS 経由で速度と方向を制御します。JavaScript は使用しません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Marquee - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "無限スクロール、ホバー時の一時停止、逆方向、垂直サポートを備えた純粋な CSS Tailwind CSS マーキー。 JavaScriptは必要ありません。"
+order: 0
+related:
+  - "components/card"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/marquee.webp"
+imageAlt: "Frutjam マーキー コンポーネントのプレビュー"
+createdAt: "2026-05-13T15:19:17.699190+00:00"
+updatedAt: "2026-07-13T09:42:17.829517+00:00"
+sourceHash: "f5b7221d5db6"
+translationHash: "db23b5282727"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS マーキーは、コンテンツとロゴを水平にスクロールします。 CSS 経由で速度と方向を制御します。JavaScript は使用しません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+マーキー コンポーネントは、無限に継続的にスクロールするコンテンツのストリップを作成します。これは、ブランド ロゴ、アナウンス バナー、紹介文、またはタグ クラウドに最適です。 Frutjam マーキーは完全に CSS アニメーションで構築されており、水平方向と垂直方向、ホバー時の一時停止、可逆再生、および速度制御をサポートしています。シームレスでギャップのないループを作成するには、`marquee-track` 要素を (`aria-hidden` を使用して) 複製します。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| marquee | <span class="badge badge-xs">ベース</span> | 外側のコンテナ — クリップがオーバーフローし、アニメーション変数を保持します |
+| marquee-track | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 内側の行をスクロールします。シームレスループのために `aria-hidden` で複製します |
+| marquee-pause | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ホバー時にアニメーションを一時停止します |
+| marquee-reverse | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 逆方向にスクロールします |
+| marquee-vertical | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 左から右ではなく上から下にスクロールします |
+| marquee-slow | <span class="badge badge-xs badge-info badge-soft">Speed</span> | 低速スクロール（40秒周期） |
+| marquee-normal | <span class="badge badge-xs badge-info badge-soft">Speed</span> | デフォルト速度（20秒周期） |
+| marquee-fast | <span class="badge badge-xs badge-info badge-soft">Speed</span> | 高速スクロール（10秒周期） |
+| marquee-fade | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 両側にグラデーション フェードアウト エッジを追加します |
+
+</DocTable>
+
+## 基本的な使い方
+
+2 つの同一の `marquee-track` 要素を追加します。2 番目の要素 (`aria-hidden="true"` を持つ) は、最初の要素が画面外にスクロールするときに隙間を埋めます。
+
+<Snippet>
+
+```html
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft">Item 1</span>
+    <span class="badge badge-soft">Item 2</span>
+    <span class="badge badge-soft">Item 3</span>
+    <span class="badge badge-soft">Item 4</span>
+    <span class="badge badge-soft">Item 5</span>
+  </div>
+</div>
+```
+
+```jsx
+const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+
+export default function MarqueeDemo() {
+  return (
+    <div className="marquee">
+      <div className="marquee-track">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+      <div className="marquee-track" aria-hidden="true">
+        {items.map((item) => (
+          <span key={item} className="badge badge-soft">{item}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## ホバーで一時停止
+
+`marquee-pause` を追加して、ユーザーがストリップの上にマウスを移動したときにアニメーションを停止します。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-primary badge-soft">Hover me</span>
+    <span class="badge badge-secondary badge-soft">to pause</span>
+    <span class="badge badge-accent badge-soft">the scroll</span>
+    <span class="badge badge-info badge-soft">Animation</span>
+    <span class="badge badge-success badge-soft">stops here</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 逆方向
+
+`marquee-reverse` を使用して、左から右ではなく右から左にスクロールします。 2 つの行を組み合わせてレイヤード効果を実現します。
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary">Alpha</span>
+      <span class="badge badge-secondary">Beta</span>
+      <span class="badge badge-accent">Gamma</span>
+      <span class="badge badge-info">Delta</span>
+      <span class="badge badge-success">Epsilon</span>
+    </div>
+  </div>
+  <div class="marquee marquee-reverse">
+    <div class="marquee-track">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft badge-primary">Alpha</span>
+      <span class="badge badge-soft badge-secondary">Beta</span>
+      <span class="badge badge-soft badge-accent">Gamma</span>
+      <span class="badge badge-soft badge-info">Delta</span>
+      <span class="badge badge-soft badge-success">Epsilon</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 速度のバリエーション
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3">
+  <div class="marquee marquee-slow">
+    <div class="marquee-track">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+      <span class="badge badge-soft">Slow</span>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+      <span class="badge badge-primary badge-soft">Normal</span>
+    </div>
+  </div>
+  <div class="marquee marquee-fast">
+    <div class="marquee-track">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+      <span class="badge badge-accent badge-soft">Fast</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 垂直マーキー
+
+`marquee-vertical` を追加し、コンテナに上から下へのスクロール用の固定高さを与えます。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-vertical h-48">
+  <div class="marquee-track">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <div class="badge badge-primary badge-soft">Announcement one</div>
+    <div class="badge badge-secondary badge-soft">Announcement two</div>
+    <div class="badge badge-accent badge-soft">Announcement three</div>
+    <div class="badge badge-info badge-soft">Announcement four</div>
+    <div class="badge badge-success badge-soft">Announcement five</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## テクノロジータグ
+
+スキルセットや技術スタックを紹介するための一般的なパターン。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-pause [--marquee--gap:0.75rem] p-2">
+  <div class="marquee-track">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-outline">HTML</span>
+    <span class="badge badge-outline">CSS</span>
+    <span class="badge badge-outline">JavaScript</span>
+    <span class="badge badge-outline">TypeScript</span>
+    <span class="badge badge-outline">React</span>
+    <span class="badge badge-outline">Vue</span>
+    <span class="badge badge-outline">Tailwind CSS</span>
+    <span class="badge badge-outline">Node.js</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## カスタムギャップ
+
+`--marquee--gap` または `--marquee--duration` をインライン ユーティリティでオーバーライドして、間隔と速度を微調整します。
+
+<Snippet>
+
+```html
+<div class="marquee [--marquee--gap:2rem] [--marquee--duration:30s]">
+  <div class="marquee-track">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-lg badge-primary">Wide gap</span>
+    <span class="badge badge-lg badge-secondary">Wide gap</span>
+    <span class="badge badge-lg badge-accent">Wide gap</span>
+    <span class="badge badge-lg badge-info">Wide gap</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## フェードエッジ
+
+`marquee-fade` を追加して、ストリップの両端をページの背景にフェードアウトして、洗練された外観を実現します。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause">
+  <div class="marquee-track">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+  <div class="marquee-track" aria-hidden="true">
+    <span class="badge badge-soft badge-primary">Design</span>
+    <span class="badge badge-soft badge-secondary">Development</span>
+    <span class="badge badge-soft badge-accent">Performance</span>
+    <span class="badge badge-soft badge-info">Accessibility</span>
+    <span class="badge badge-soft badge-success">Open Source</span>
+    <span class="badge badge-soft badge-warning">Security</span>
+    <span class="badge badge-soft badge-error">Testing</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## お知らせバナー
+
+プロモーションやサイト全体の通知用のスリムなティッカー バー。最高のエクスペリエンスを得るには、`marquee-fade` と `marquee-pause` を組み合わせてください。
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary py-2 px-4">
+  <div class="marquee marquee-fade marquee-pause [--marquee--duration:30s]">
+    <div class="marquee-track text-sm font-medium">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+    <div class="marquee-track text-sm font-medium" aria-hidden="true">
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎉 Version 2.0 is here — explore what's new</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🌿 Built with Tailwind CSS v4</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">⚡ Zero JavaScript, pure CSS components</span>
+      <span class="inline-flex items-center gap-2 whitespace-nowrap px-4">🎨 Fully themeable with CSS variables</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## ロゴマーキー
+
+継続的にスクロールするストリップでパートナーや信頼できるブランドを紹介します。 `marquee-fade` を使用して、エッジを背景にブレンドします。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:3rem] [--marquee--duration:25s]">
+  <div class="marquee-track items-center">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+  <div class="marquee-track items-center" aria-hidden="true">
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Acme</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Globex</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Initech</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Umbrella</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Hooli</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Pied Piper</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Vehement</span>
+    </div>
+    <div class="flex items-center justify-center h-10 px-4 opacity-60 hover:opacity-100 transition-opacity">
+      <span class="text-xl font-bold tracking-tight">Massive</span>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 紹介カード
+
+ホバー時に微妙に一時停止して、お客様の声カードをスクロールして読みやすくします。
+
+<Snippet>
+
+```html
+<div class="marquee marquee-fade marquee-pause [--marquee--gap:1rem] [--marquee--duration:40s]">
+  <div class="marquee-track items-stretch">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-track items-stretch" aria-hidden="true">
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Absolutely love the component library. Saves us hours every sprint."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-primary">A</div>
+          <div>
+            <p class="text-sm font-medium">Alex Morgan</p>
+            <p class="text-xs text-body">Frontend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"The best Tailwind UI kit I've used. Clean, accessible, and easy to customize."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-secondary">J</div>
+          <div>
+            <p class="text-sm font-medium">Jamie Lee</p>
+            <p class="text-xs text-body">Product Designer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Shipped our design system 3× faster thanks to Frutjam. Highly recommend."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-accent">S</div>
+          <div>
+            <p class="text-sm font-medium">Sam Rivera</p>
+            <p class="text-xs text-body">Tech Lead</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-outline w-72 shrink-0">
+      <div class="card-content">
+        <p class="text-sm">"Great DX, thoughtful defaults, and the dark mode just works out of the box."</p>
+        <div class="flex items-center gap-2 mt-3">
+          <div class="avatar avatar-sm avatar-circle avatar-info">R</div>
+          <div>
+            <p class="text-sm font-medium">Riley Chen</p>
+            <p class="text-xs text-body">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

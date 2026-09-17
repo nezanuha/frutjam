@@ -1,0 +1,767 @@
+---
+name: "Cửa sổ bật lên"
+heading: "Thành phần bật lên"
+description: "Cửa sổ bật lên CSS Tailwind chỉ dành cho CSS bằng cách sử dụng API cửa sổ bật lên gốc. Bảng nội dung nổi dành cho chú giải công cụ và menu thả xuống. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Menu thả xuống & bật lên CSS Tailwind - Chỉ dành cho CSS | Frutjam"
+metaDescription: "Menu thả xuống và bật lên CSS Tailwind chỉ có CSS. API Popover HTML gốc, menu thả xuống thanh điều hướng, menu hồ sơ - không có JavaScript. Có thể truy cập WCAG, Django, HTMX, Larave"
+order: 0
+related:
+  - "components/button"
+  - "components/tooltip"
+image: "https://cdn.frutjam.com/media/components/popover.webp"
+imageAlt: "Khối Popover của Frutjam UI"
+createdAt: "2026-01-15T05:30:51.470004+00:00"
+updatedAt: "2026-07-13T09:43:43.541052+00:00"
+sourceHash: "959583800dce"
+translationHash: "4e4878715211"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Cửa sổ bật lên CSS Tailwind chỉ dành cho CSS bằng cách sử dụng API cửa sổ bật lên gốc. Bảng nội dung nổi dành cho chú giải công cụ và menu thả xuống. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần Popover hiển thị nội dung theo ngữ cảnh liền kề với các thành phần kích hoạt mà không chiếm không gian màn hình cố định. Được xây dựng trên API HTML Popover gốc, hệ thống cửa sổ bật lên Frutjam hỗ trợ trình kích hoạt nhấp chuột và di chuột, định vị có thể tùy chỉnh và hoạt ảnh mượt mà. Hoàn hảo cho menu thả xuống, menu ngữ cảnh, menu hồ sơ người dùng và các tùy chọn bổ sung mà không cần điều hướng trang.
+
+Chỉ CSS, không cần JavaScript — xây dựng các menu thả xuống có thể truy cập và lớp phủ theo ngữ cảnh bằng HTML thuần túy và CSS Tailwind. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| popover | <span class="badge badge-xs">Căn cứ</span> | Trình bao bọc gắn kết trình kích hoạt và nội dung với nhau |
+| popover-content | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Bảng nổi hiển thị khi cửa sổ bật lên được mở |
+| popover-toggle | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Phần tử kích hoạt mở/đóng cửa sổ bật lên |
+| popover-hover | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Mở khi di chuột thay vì nhấp chuột |
+| popover-top-start | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được định vị ở trên, căn chỉnh về điểm bắt đầu |
+| popover-top-center | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Nằm ở trên, ở giữa |
+| popover-top-end | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được định vị phía trên, căn chỉnh về cuối |
+| popover-bottom-start | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được định vị bên dưới, căn chỉnh về đầu |
+| popover-bottom-center | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Đặt ở phía dưới, ở giữa |
+| popover-bottom-end | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được định vị bên dưới, căn chỉnh về cuối |
+| popover-start-top | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được đặt ở bên trái, căn chỉnh lên trên cùng |
+| popover-start-center | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Vị trí ở bên trái, căn giữa theo chiều dọc |
+| popover-start-bottom | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Vị trí ở bên trái, căn chỉnh ở phía dưới |
+| popover-end-top | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Được đặt ở bên phải, căn chỉnh lên trên cùng |
+| popover-end-center | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Đặt ở bên phải, căn giữa theo chiều dọc |
+| popover-end-bottom | <span class="badge badge-xs badge-secondary badge-soft">Công cụ sửa đổi</span> | Vị trí ở bên phải, căn chỉnh ở phía dưới |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="defaultClickPopover" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="defaultClickPopover">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="defaultClickPopover" type="button" className="popover-toggle btn">Click here</button>
+  <div tabIndex="0" className="popover-content" popover id="defaultClickPopover">
+      <ul className="menu">
+        <li>
+          <a className="menu-item">About Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a className="menu-item">Career</a>
+        </li>
+        <li>
+          <a className="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Menu thả xuống
+
+Sử dụng thành phần Popover để xây dựng các menu thả xuống — menu thả xuống điều hướng, menu hồ sơ người dùng và menu hành động — tất cả chỉ có CSS ​​mà không cần JavaScript.
+
+### Thanh điều hướng thả xuống
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="navDropdown" type="button" class="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="navDropdown">
+    <ul class="menu">
+      <li><a class="menu-item">Components</a></li>
+      <li><a class="menu-item">Blocks</a></li>
+      <li><a class="menu-item">Templates</a></li>
+      <li><a class="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="navDropdown" type="button" className="popover-toggle btn btn-ghost">
+    Products
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="navDropdown">
+    <ul className="menu">
+      <li><a className="menu-item">Components</a></li>
+      <li><a className="menu-item">Blocks</a></li>
+      <li><a className="menu-item">Templates</a></li>
+      <li><a className="menu-item">Plugins</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Danh sách thả xuống hồ sơ người dùng
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" class="popover-toggle btn btn-ghost p-0">
+    <div class="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="profileDropdown">
+    <ul class="menu">
+      <li class="menu-title">John Doe</li>
+      <li><a class="menu-item">Profile</a></li>
+      <li><a class="menu-item">Settings</a></li>
+      <li><a class="menu-item">Billing</a></li>
+      <li><div class="divider my-0"></div></li>
+      <li><a class="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover popover-bottom-end">
+  <button popovertarget="profileDropdown" type="button" className="popover-toggle btn btn-ghost p-0">
+    <div className="avatar avatar-primary avatar-sm">JD</div>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="profileDropdown">
+    <ul className="menu">
+      <li className="menu-title">John Doe</li>
+      <li><a className="menu-item">Profile</a></li>
+      <li><a className="menu-item">Settings</a></li>
+      <li><a className="menu-item">Billing</a></li>
+      <li><div className="divider my-0"></div></li>
+      <li><a className="menu-item text-error">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Thả xuống với các biểu tượng
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="iconDropdown" type="button" class="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabindex="0" class="popover-content" popover id="iconDropdown">
+    <ul class="menu">
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a class="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div class="divider my-0"></div></li>
+      <li>
+        <a class="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+```jsx
+<div className="popover">
+  <button popovertarget="iconDropdown" type="button" className="popover-toggle btn">
+    Actions
+    <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+  </button>
+  <div tabIndex="0" className="popover-content" popover id="iconDropdown">
+    <ul className="menu">
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+          Edit
+        </a>
+      </li>
+      <li>
+        <a className="menu-item">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          Duplicate
+        </a>
+      </li>
+      <li><div className="divider my-0"></div></li>
+      <li>
+        <a className="menu-item text-error">
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+          Delete
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Hành vi tương tác Popover
+
+Theo mặc định, tương tác nhấp chuột được sử dụng để mở và đóng thành phần cửa sổ bật lên. Ví dụ: đối với megamenus, bạn có thể kích hoạt tương tác dựa trên di chuột bằng cách thêm lớp `popover-hover` và xóa các thuộc tính `popovertarget` và `popover`. Điều này cho phép cửa sổ bật lên được kiểm soát hoàn toàn thông qua logic di chuột thay vì hành vi nhấp chuột gốc.
+
+### Trình kích hoạt nhấp chuột gốc
+
+<Snippet>
+
+```html
+<div class="popover">
+  <button popovertarget="nativeClickTrigger" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="nativeClickTrigger">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Logic tương tác di chuột
+
+<Snippet>
+
+```html
+<div class="popover popover-hover">
+  <button type="button" class="popover-toggle btn">Hover me</button>
+  <div class="popover-content">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tùy chọn định vị cửa sổ bật lên (Trên cùng, Dưới cùng, Bắt đầu, Kết thúc)
+
+Định vị cửa sổ bật lên của bạn so với các phần tử kích hoạt bằng cách sử dụng logic vị trí linh hoạt của chúng tôi. Vị trí cửa sổ bật lên được tạo bằng cách kết hợp các tùy chọn căn chỉnh dọc (trên cùng, giữa, dưới cùng) và ngang (bắt đầu, giữa, cuối).
+
+### Vị trí Popover khởi đầu hàng đầu
+
+<Snippet>
+
+```html
+<div class="popover popover-top-start">
+  <button popovertarget="popoverTopStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên ở giữa hàng đầu
+
+<Snippet>
+
+```html
+<div class="popover popover-top-center">
+  <button popovertarget="popoverTopCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí Popover cao cấp nhất
+
+<Snippet>
+
+```html
+<div class="popover popover-top-end">
+  <button popovertarget="popoverTopEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverTopEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên cuối cùng
+
+<Snippet>
+
+```html
+<div class="popover popover-end-top">
+  <button popovertarget="popoverEndTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên ở giữa cuối
+
+<Snippet>
+
+```html
+<div class="popover popover-end-center">
+  <button popovertarget="popoverEndCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên cuối-dưới
+
+<Snippet>
+
+```html
+<div class="popover popover-end-bottom">
+  <button popovertarget="popoverEndBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverEndBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên bắt đầu từ dưới cùng
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-start">
+  <button popovertarget="popoverBottomStart" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomStart">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí Popover ở giữa dưới cùng
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-center">
+  <button popovertarget="popoverBottomCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí Popover cuối cùng
+
+<Snippet>
+
+```html
+<div class="popover popover-bottom-end">
+  <button popovertarget="popoverBottomEnd" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverBottomEnd">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên đầu tiên
+
+<Snippet>
+
+```html
+<div class="popover popover-start-top">
+  <button popovertarget="popoverStartTop" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartTop">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên ở trung tâm bắt đầu
+
+<Snippet>
+
+```html
+<div class="popover popover-start-center">
+  <button popovertarget="popoverStartCenter" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartCenter">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Vị trí bật lên từ đầu đến cuối
+
+<Snippet>
+
+```html
+<div class="popover popover-start-bottom">
+  <button popovertarget="popoverStartBottom" type="button" class="popover-toggle btn">Click here</button>
+  <div tabindex="0" class="popover-content" popover id="popoverStartBottom">
+      <ul class="menu">
+        <li>
+          <a class="menu-item">About Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Contact Us</a>
+        </li>
+        <li>
+          <a class="menu-item">Career</a>
+        </li>
+        <li>
+          <a class="menu-item">Terms and conditions</a>
+        </li>
+      </ul>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Sử dụng Popovers bên trong bảng dữ liệu (Menu hành động và xác nhận)
+
+<Snippet>
+
+```html
+<div class="overflow-x-auto w-full">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">E-commerce Dashboard</div>
+            <div class="text-sm opacity-50">Internal Tool</div>
+          </div>
+        </td>
+        <td>
+          Full Stack
+
+          <span class="badge badge-soft badge-sm">Admin Panel</span>
+        </td>
+        <td>Next.js</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable">
+              <ul class="menu menu-horizontal">
+                <li class="menu-title">Are you sure? delete this record!</li>
+                <li>
+                  <button class="btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox">
+          </label>
+        </th>
+        <td>
+          <div>
+            <div class="font-bold">CI Pipeline</div>
+            <div class="text-sm opacity-50">Infrastructure</div>
+          </div>
+        </td>
+        <td>
+          DevOps
+
+          <span class="badge badge-soft badge-sm">Automation</span>
+        </td>
+        <td>GitHub Actions</td>
+        <th>
+          <div class="popover popover-bottom-start">
+            <button popovertarget="popoverOnTable2" type="button"
+              class="popover-toggle btn btn-xs btn-error">Delete</button>
+            <div tabindex="0" class="popover-content" popover id="popoverOnTable2">
+              <ul class="menu menu-horizontal">
+                <li>
+                  <button class="menu-item btn btn-xs">No</button>
+                </li>
+                <li>
+                  <button class="menu-item btn btn-xs btn-error">Delete</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </tbody>
+
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Project</th>
+        <th>Category</th>
+        <th>Primary Tech</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+```
+
+</Snippet>

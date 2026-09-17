@@ -1,0 +1,226 @@
+---
+name: "Navbar"
+heading: "Navbar Component"
+description: "CSS-only Tailwind CSS navbar with brand, nav links, and action slots. Sticky and transparent variants. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack."
+metaTitle: "Navbar - CSS-Only Tailwind CSS Component | Frutjam"
+metaDescription: "Tailwind CSS Navbar with sticky, responsive, and dropdown-ready layouts. Semantic HTML with mobile support for accessible, theme-aware site navigation."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Navbar components by Frutjam UI"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS-only Tailwind CSS navbar with brand, nav links, and action slots. Sticky and transparent variants. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack.
+
+Navbar components display horizontal navigation lists for site structure and user navigation. Built with semantic HTML nav and list elements, the Frutjam navbar system supports multiple layouts, responsive behavior, and nested menu integration. Accessible and keyboard-navigable, navbars are ideal for main site navigation, breadcrumbs, and tab interfaces.
+
+CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic — works with Django, HTMX, Laravel, React, and any stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Class | Type | Description |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Base</span> | Horizontal navigation bar container |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Horizontal list of navigation links |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Left slot for logo or first nav group |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Center slot for main navigation |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Right slot for actions and controls |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Positions navbar at the top of the viewport |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Vertically centered within a parent |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Positions navbar at the bottom of the viewport |
+
+</DocTable>
+
+## Navbar
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Navbar Placements
+
+The navbar component is by default positioned at the start (left in LTR). Use `navbar-start`, `navbar-center`, or `navbar-end` for horizontal alignment, and `navbar-top`, `navbar-middle`, or `navbar-bottom` for vertical alignment. Placement is RTL-friendly.
+
+Use horizontal placement classes for aligning the navbar list along the X-axis, and vertical placement classes when the navbar has a custom height.
+
+### Horizontal Placements
+
+Control how the `navbar-list` sits along the X-axis. These are RTL-friendly (Start/End instead of Left/Right).
+
+#### Horizontally align to the left (start)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Horizontally align to the center
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Horizontally align to the right (end)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Vertical Placements
+
+Control the alignment along the Y-axis. This is particularly useful when the navbar has a custom height.
+
+#### Vertically align to the top (start)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Vertically align to the center
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Vertically align to the bottom (end)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

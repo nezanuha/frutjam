@@ -1,0 +1,228 @@
+---
+name: "Pasek nawigacyjny"
+heading: "Komponent paska nawigacyjnego"
+description: "Pasek nawigacyjny CSS Tailwind obsługujący wyłącznie CSS z marką, linkami nawigacyjnymi i miejscami akcji. Warianty lepkie i przezroczyste. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Pasek nawigacyjny — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Pasek nawigacyjny CSS Tailwind z lepkimi, responsywnymi i gotowymi do rozwijania układami. Semantyczny kod HTML z obsługą urządzeń mobilnych umożliwiający przystępną nawigację w witrynie uwzględniającą tematykę."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Komponenty paska nawigacyjnego autorstwa Frutjam UI"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "6536c452020e"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Pasek nawigacyjny CSS Tailwind obsługujący wyłącznie CSS z marką, linkami nawigacyjnymi i miejscami akcji. Warianty lepkie i przezroczyste. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Komponenty paska nawigacyjnego wyświetlają poziome listy nawigacyjne dotyczące struktury witryny i nawigacji użytkownika. Zbudowany z semantycznych elementów nawigacji i list HTML, system pasków nawigacyjnych Frutjam obsługuje wiele układów, responsywne zachowanie i integrację zagnieżdżonych menu. Dostępne i obsługiwane za pomocą klawiatury paski nawigacyjne idealnie nadają się do nawigacji w witrynie głównej, menu nawigacyjnego i interfejsów kart.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Opierać</span> | Kontener poziomego paska nawigacji |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pozioma lista łączy nawigacyjnych |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Lewe miejsce na logo lub pierwszą grupę nawigacyjną |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Środkowe miejsce na główną nawigację |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Prawe miejsce na akcje i sterowanie |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Umieszcza pasek nawigacyjny na górze rzutni |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pionowo wyśrodkowany w obrębie elementu nadrzędnego |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Umieszcza pasek nawigacyjny na dole rzutni |
+
+</DocTable>
+
+## Pasek nawigacyjny
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Rozmieszczenie paska nawigacyjnego
+
+Komponent paska nawigacyjnego jest domyślnie umieszczony na początku (po lewej stronie w LTR). Użyj `navbar-start`, `navbar-center` lub `navbar-end` do wyrównania w poziomie oraz `navbar-top`, `navbar-middle` lub `navbar-bottom` do wyrównania w pionie. Umieszczenie jest przyjazne dla RTL.
+
+Użyj klas umieszczania poziomego, aby wyrównywać listę pasków nawigacyjnych wzdłuż osi X, oraz klas umieszczania pionowego, gdy pasek nawigacyjny ma niestandardową wysokość.
+
+### Umiejscowienia poziome
+
+Kontroluj położenie `navbar-list` wzdłuż osi X. Są one przyjazne dla RTL (Start/Koniec zamiast Lewo/Prawo).
+
+#### Wyrównaj w poziomie do lewej (początek)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Poziomo wyrównaj do środka
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Wyrównaj w poziomie do prawej (końca)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Pionowe rozmieszczenie
+
+Kontroluj wyrównanie wzdłuż osi Y. Jest to szczególnie przydatne, gdy pasek nawigacyjny ma niestandardową wysokość.
+
+#### Wyrównaj w pionie do góry (początek)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Wyrównaj w pionie do środka
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Wyrównaj w pionie do dołu (końca)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

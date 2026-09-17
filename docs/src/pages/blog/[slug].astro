@@ -1,0 +1,83 @@
+---
+/** frutjam.com's frontend/templates/frontend/pages/blog_detail.html */
+import { render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import { publishedPosts, type Post } from '@/lib/site';
+
+export async function getStaticPaths() {
+  return (await publishedPosts()).map((blog) => ({ params: { slug: blog.id }, props: { blog } }));
+}
+
+interface TocItem {
+  text: string;
+  id: string;
+  children: TocItem[];
+}
+
+const { blog } = Astro.props as { blog: Post };
+const { Content, remarkPluginFrontmatter } = await render(blog);
+const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
+---
+
+<Base path={`/blog/${blog.id}`}>
+<main id="main-content" class=" py-3.5 surface surface-outline border-0 border-r grid grid-cols-14">
+            <nav aria-label="Breadcrumb" class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-1 breadcrumb mb-3 px-5 lg:px-8">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="breadcrumb-link">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/blog" class="breadcrumb-link">Blog</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span aria-current="page" class="breadcrumb-current">{blog.data.title}</span>
+                    </li>
+                </ol>
+            </nav>
+            <article class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-2 prose prose-frutjam max-w-none px-5 lg:px-8">
+                <h1 class="heading-4xl not-prose">{blog.data.title}</h1>
+                <picture>
+                    <source
+                        media="(max-width: 599px)"
+                        srcset={`${blog.data.image}?width=480&height=252&crop_gravity=center`}>
+
+                    <source
+                        media="(max-width: 1024px)"
+                        srcset={`${blog.data.image}?width=800&height=420&crop_gravity=center`}>
+
+                    <img
+                        src={`${blog.data.image}?width=600&height=315&crop_gravity=center`}
+                        alt={blog.data.imageAlt}
+                        width="600"
+                        height="315"
+                        class="rounded"
+                        fetchpriority="high"
+                    >
+                </picture>
+                <Content />
+            </article>
+            <aside class="hidden lg:block lg:col-span-3 lg:col-start-12 lg:row-start-1 lg:row-span-2">
+                <div class="lg:sidebar px-2 border-e-0! lg:top-26 not-prose">
+                    <div class="max-h-[50vh] overflow-y-auto scrollbar-none [-ms-overflow-style:none] mask-[linear-gradient(to_bottom,black_85%,transparent_100%)]">
+                        <ul class="menu menu-sm" id="toc-menu">
+                            {toc.length > 0 && <li class="menu-title sticky -top-1 inset-x-0 bg-base w-full z-10 py-2">Table of contents</li>}
+                            {toc.map((h2) => (
+                            <li>
+                                {h2.children.length ? (
+                                <Fragment>
+                                <a href={`#${h2.id}`} class="menu-item font-bold">{h2.text}</a>
+                                <ul>
+                                    {h2.children.map((h3) => <li><a href={`#${h3.id}`} class="menu-item">{h3.text}</a></li>)}
+                                </ul>
+                                </Fragment>
+                                ) : (
+                                <a href={`#${h2.id}`} class="menu-item">{h2.text}</a>
+                                )}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+</main>
+</Base>

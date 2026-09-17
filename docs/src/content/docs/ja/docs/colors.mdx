@@ -1,0 +1,211 @@
+---
+name: "色"
+heading: "カラーシステム"
+description: "Frutjam のカラー システムは、すぐに WCAG AA コントラスト比を満たすように設計されたセマンティック CSS トークンを使用します。 JavaScript なし、ダークモード対応、Tailwind CSS v4 と互換性あり。 Django、HTMX、Laravel、および CSS のみのスタックで動作します。"
+metaTitle: "Tailwind CSS カラー システム -WCAG アクセシブル カラー |Frutjam"
+metaDescription: "Frutjam カラー システムはセマンティック トークンに基づいて構築されています。 WCAG AA/AAA 準拠、ダーク モード対応、CSS カスタム プロパティ、Tailwind CSS v4 互換。"
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "カラーシステム - フルジャム"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "1d6e958ba678"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam のカラー システムは、すぐに WCAG AA コントラスト比を満たすように設計されたセマンティック CSS トークンを使用します。 JavaScript なし、ダークモード対応、Tailwind CSS v4 と互換性あり。 Django、HTMX、Laravel、および CSS のみのスタックで動作します。
+
+Frutjam は、すべての色のデザイン トークンとして CSS カスタム プロパティを使用します。すべての色はテーマごとに定義され、Tailwind CSS ユーティリティ クラスと自動的に連携します。追加の構成は必要ありません。 CSS のみ。JavaScript は必要ありません。 WCAG AA コントラストはすべての色のペアで保証されており、Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+## 色の名前
+
+Frutjam は、次のセマンティックな色の役割を定義します。各色には、アクセス可能な前景テキストに対応する `on-{color}` トークンがあります。
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>WCAG AA コントラスト保証。</strong> すべての <code>on-{color}</code> ペアは、WCAG AA コントラスト要件を満たすために OKLCH で手動で調整されます。前景色を自動的に計算するライブラリとは異なり、Frutjam では明示的で検証済みのペアが提供されるため、コンポーネントは偶然ではなく設計によってアクセス可能になります。</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| 色 | トークン | 目的 |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | ページの背景 |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | サーフェス、サイドバー、オーバーレイ |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | ブランドのメインカラー |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | 二次ブランドカラー |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | アクセント/ハイライトカラー |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | 情報メッセージ |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | 成功状態 |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | 警告状態 |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | エラー状態と破壊状態 |
+
+</DocTable>
+
+## カラーユーティリティクラス
+
+Frutjam のすべてのカラーは、Tailwind CSS カラー ユーティリティで機能します。 `{color}` を上の表の任意の色の名前に置き換えます。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| クラス | 説明 |
+| --- | --- |
+| `bg-{color}` | 背景色 |
+| `text-{color}` | 文字の色 |
+| `border-{color}` | 枠線の色 |
+| `ring-{color}` | リングカラー |
+| `outline-{color}` | 輪郭の色 |
+| `shadow-{color}` | 影の色 |
+| `fill-{color}` | SVGの塗りつぶし色 |
+| `stroke-{color}` | SVG ストロークの色 |
+| `decoration-{color}` | 文字装飾色 |
+| `caret-{color}` | 入力キャレットの色 |
+| `placeholder-{color}` | プレースホルダーのテキストの色 |
+| `divide-{color}` | 区切り線の境界線の色 |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### 不透明度修飾子
+
+Tailwind カラーと同様に、`/{value}` 修飾子を使用して色の不透明度を制御します。
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## テーマの CSS 変数
+
+これらは、カスタム テーマの作成時に定義するルート トークンです。他のすべてのカラー トークンはこれらから自動的に計算されます。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS変数 | 説明 |
+| --- | --- |
+| `--scheme-color` | 配色: `light`または`dark` |
+| `--border-radius` | コンポーネントの基本境界半径 |
+| `--color-base` | ページの背景色 |
+| `--color-on-base` | ベースの背景のデフォルトのテキストの色 |
+| `--color-neutral` | ニュートラルな表面色 |
+| `--color-on-neutral` | ニュートラルな表面上のテキストの色 |
+| `--color-primary` | ブランドのメインカラー |
+| `--color-on-primary` | プライマリ背景のテキストの色 |
+| `--color-secondary` | 二次ブランドカラー |
+| `--color-on-secondary` | 二次背景のテキストの色 |
+| `--color-accent` | アクセントカラー |
+| `--color-on-accent` | アクセント背景の文字色 |
+| `--color-info` | 情報の色 |
+| `--color-on-info` | 情報背景のテキストの色 |
+| `--color-success` | 成功の色 |
+| `--color-on-success` | 成功の背景のテキストの色 |
+| `--color-warning` | 警告色 |
+| `--color-on-warning` | 警告背景の文字の色 |
+| `--color-error` | エラーの色 |
+| `--color-on-error` | エラー背景のテキストの色 |
+
+</DocTable>
+
+## 計算されたカラートークン
+
+Frutjam はルート テーマ変数からこれらのトークンを自動的に計算します。手動で設定する必要はありません。これらはカスタム CSS で使用できます。
+
+### スケール (50 ～ 950)
+
+すべての色は、完全な 11 段階の色合い/陰影スケールを生成します。 `{color}` を任意の色の名前に置き換えます。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS変数 | 説明 |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | とても明るい色合い |
+| `--color-{color}-200` | 明るい色合い |
+| `--color-{color}-300` | 中程度の明るい色合い |
+| `--color-{color}-400` | わずかな色合い |
+| `--color-{color}-500` | 基本色 (`--color-{color}` と同じ) |
+| `--color-{color}-600` | わずかな日陰 |
+| `--color-{color}-700` | 中程度の色合い |
+| `--color-{color}-800` | 暗い色合い |
+| `--color-{color}-900` | 非常に暗い色合い |
+| `--color-{color}-950` | 最も暗い色合い |
+
+</DocTable>
+
+### ソフト&アクティブ
+
+インタラクティブ要素の状態を認識するバリアント。明るいテーマと暗いテーマに自動的に適応します。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS変数 | 説明 |
+| --- | --- |
+| `--color-{color}-soft` | ソフトなバリエーションの微妙な色合いの背景 |
+| `--color-on-{color}-soft` | 柔らかい背景で使用するためのテキストの色 |
+| `--color-{color}-active` | ホバー状態およびアクティブ状態の暗く/明るくされたシェード |
+| `--color-body` | 計算された本文テキストの色 (`on-base` からわずかに柔らかくなります) |
+
+</DocTable>
+
+## カスタムテーマの例
+
+ルート トークンをオーバーライドしてカスタム テーマを作成します。 Frutjam はすべてのスケールと状態を自動的に計算します。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

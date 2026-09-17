@@ -1,0 +1,150 @@
+---
+name: "Tema"
+heading: "Tema"
+description: "Sistem tema khusus CSS Frutjam menggunakan variabel CSS dan atribut data tunggal. Ganti tema terang, gelap, dan khusus tanpa JavaScript. Token warna WCAG AA bawaan, berfungsi dengan Django, HTMX, Laravel, dan proyek Tailwind CSS v4 apa pun."
+metaTitle: "Tema Tailwind CSS -Variabel CSS & Mode Gelap | Frutjam"
+metaDescription: "Tema Frutjam dengan variabel CSS. Tema terang, gelap, dan khusus -tidak memerlukan JavaScript, pembaruan instan, kompatibel dengan Tailwind CSS v4."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Tema - Buah"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "19a6d0f169c5"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Sistem tema khusus CSS Frutjam menggunakan variabel CSS dan atribut data tunggal. Ganti tema terang, gelap, dan khusus tanpa JavaScript. Token warna WCAG AA bawaan, berfungsi dengan Django, HTMX, Laravel, dan proyek Tailwind CSS v4 apa pun.
+
+Frutjam dikirimkan dengan sistem tema Berry — serangkaian tema bernama yang dibangun berdasarkan nilai warna OKLCH. Terapkan tema ke seluruh aplikasi atau tema gabungan di dalam bagian tertentu menggunakan atribut `data-theme`. Khusus CSS, tidak memerlukan JavaScript, WCAG AA dapat diakses — berfungsi dengan Django, HTMX, Laravel, React, dan proyek Tailwind CSS v4 apa pun.
+
+<ThemeCards />
+
+## Built-in Themes
+
+Frutjam includes two built-in themes out of the box:
+
+### Snowberry (Light)
+
+The default light theme. Applied automatically when no `data-theme` is set.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Darkberry (Dark)
+
+The built-in dark theme.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Applying a Theme
+
+Add `data-theme` to any HTML element. The theme cascades down to all children.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Nested Themes
+
+Tema dapat disarangkan — elemen anak menggantikan tema induk untuk subpohonnya.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Dark Mode Variant
+
+Gunakan awalan `dark:` Tailwind — awalan ini aktif di `data-theme="dark"` dan `data-theme="darkberry"`.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Custom Themes
+
+Create your own theme by defining CSS variables inside a `[data-theme]` selector. See the [Configuration](/docs/configuration) page for the full variable reference.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

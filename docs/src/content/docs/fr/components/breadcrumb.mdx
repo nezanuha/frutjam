@@ -1,0 +1,142 @@
+---
+name: "Fil d'Ariane"
+heading: "Composant de fil d'Ariane"
+description: "Navigation dans le fil d'Ariane CSS Tailwind uniquement en CSS avec séparateurs personnalisés et balisage de points de repère accessible. WCAG AA, fonctionne avec Django, HTMX, Laravel, React et tout projet Tailwind CSS v4."
+metaTitle: "Fil d'Ariane - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaDescription: "Tailwind CSS Breadcrumb utilisant du HTML sémantique pour des sentiers de navigation accessibles et optimisés pour le référencement. Prend en charge les séparateurs personnalisés, les icônes et les mises en page réactives."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Composant de fil d'Ariane par Frutjam"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "a4416802d186"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Navigation dans le fil d'Ariane CSS Tailwind uniquement en CSS avec séparateurs personnalisés et balisage de points de repère accessible. WCAG AA, fonctionne avec Django, HTMX, Laravel, React et tout projet Tailwind CSS v4.
+
+Les composants du fil d'Ariane affichent la hiérarchie de navigation et aident les utilisateurs à comprendre leur emplacement sur un site Web. Construit avec des éléments de navigation HTML sémantiques et des repères ARIA pour l'accessibilité, le fil d'Ariane améliore la convivialité en permettant aux utilisateurs de naviguer rapidement vers les sections parentes. Le système de fil d'Ariane Frutjam restitue automatiquement les séparateurs et prend en charge les séparateurs personnalisés pour un style flexible.
+
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Classe | Taper | Description |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">Base</span> | Conteneur de navigation pour le fil d'Ariane |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Liste ordonnée des éléments du fil d'Ariane |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Élément de liste individuel dans le fil d'Ariane |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Élément d'ancrage stylisé sous forme de lien de fil d'Ariane |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Élément séparateur entre les éléments |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Marque l'élément de page actuel (actif) |
+
+</DocTable>
+
+## Utilisation de base
+
+Si aucun séparateur n’est fourni, une flèche s’affiche automatiquement entre les éléments du fil d’Ariane.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Séparateurs de fil d'Ariane
+
+### Fil d'Ariane avec séparateur de texte
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### Fil d'Ariane avec séparateur d'icônes
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## Accessibilité du fil d'Ariane
+
+Pour garantir que le fil d'Ariane est accessible aux lecteurs d'écran :
+
+-   Enveloppez la structure dans un élément `<nav>` avec un `aria-label="Breadcrumb"`.
+-   Le dernier élément (page actuelle) doit utiliser `aria-current="page"` et être de préférence un `<span>` plutôt qu'un lien.
+-   Les séparateurs doivent être ignorés par les lecteurs d'écran (souvent gérés via CSS ou `aria-hidden="true"` si vous utilisez un élément physique).

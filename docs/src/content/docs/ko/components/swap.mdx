@@ -1,0 +1,187 @@
+---
+name: "교환"
+heading: "구성 요소 교체"
+description: "두 요소 간 전환을 위한 CSS 전용 Tailwind CSS 스왑입니다. 뒤집기, 회전 및 페이드 애니메이션, JavaScript 없음. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "스왑 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "JS가 필요 없는 Tailwind CSS는 페이드, 회전 및 뒤집기 애니메이션으로 교체됩니다. 테마 스위치, 아이콘 전환 및 로드 상태에 대한 콘텐츠 상태 간을 전환합니다."
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Frutjam으로 교환"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "2e0bc2bd0c57"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+두 요소 간 전환을 위한 CSS 전용 Tailwind CSS 스왑입니다. 뒤집기, 회전 및 페이드 애니메이션, JavaScript 없음. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+스왑 구성 요소는 사용자 상호 작용에 대한 응답으로 부드러운 애니메이션으로 두 콘텐츠 상태 간을 전환합니다. 시맨틱 HTML 및 CSS 전환으로 구축된 스왑은 JavaScript 없이 우아한 상태 변경을 가능하게 합니다. Frutjam 스왑 시스템은 테마 토글, 모드 스위치, 로딩 상태 및 대화형 일러스트레이션에 이상적인 다양한 애니메이션 스타일을 지원합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">베이스</span> | 체크박스 기반 2상태 토글 래퍼 |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 상태 간 회전 |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">스타일</span> | 3D 효과로 상태 간 전환 |
+
+</DocTable>
+
+## 기본 사용법
+
+상태를 전환하는 확인란을 사용하여 이모티콘이나 텍스트 콘텐츠로 간단한 교체를 만듭니다.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## 애니메이션 교체
+
+시각적 전환을 위해 페이드(기본값), 회전, 뒤집기 등 다양한 애니메이션 스타일을 적용합니다.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## SVG 아이콘으로 교체
+
+부드러운 애니메이션으로 시각적 상태를 변경하려면 SVG 아이콘을 사용하세요.
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## 버튼으로 교체
+
+대화형 토글을 위해 교체 기능을 버튼 구성 요소 스타일과 결합합니다.
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## 배지로 교환
+
+상태 또는 카테고리 전환을 위한 소형 토글 배지를 만듭니다.
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## 결합된 스왑 변형
+
+복잡한 토글 시나리오를 위해 다양한 애니메이션 스타일과 콘텐츠 유형을 혼합합니다.
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

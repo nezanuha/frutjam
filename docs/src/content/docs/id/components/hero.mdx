@@ -1,0 +1,186 @@
+---
+name: "Pahlawan"
+heading: "Komponen Pahlawan"
+description: "Bagian pahlawan CSS Tailwind khusus CSS untuk laman landas. Tata letak lebar penuh dengan judul, deskripsi, dan CTA di tengah. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Pahlawan - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Bagian Tailwind CSS Hero dengan tata letak terpusat, terbagi, dan overlay. HTML semantik dengan tombol CTA dan dukungan media untuk halaman arahan dengan konversi tinggi."
+order: 0
+related:
+  - "blocks/hero"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/hero_AHU0GAE.webp"
+imageAlt: "Pahlawan oleh Frutjam"
+createdAt: "2026-04-19T15:56:44.073112+00:00"
+updatedAt: "2026-07-13T09:49:08.433774+00:00"
+sourceHash: "60b35eb90e72"
+translationHash: "a7df55eb658f"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Bagian pahlawan CSS Tailwind khusus CSS untuk laman landas. Tata letak lebar penuh dengan judul, deskripsi, dan CTA di tengah. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen pahlawan membuat bagian yang menarik dan lebar yang memperkenalkan halaman atau produk Anda dengan visual dan pesan yang menarik. Dibangun dengan HTML semantik dan tata letak yang fleksibel, bagian pahlawan mengatur suasana untuk keterlibatan pengguna. Sistem pahlawan Frutjam mendukung berbagai latar belakang, overlay, dan penyelarasan responsif—ideal untuk halaman arahan, peluncuran produk, dan pengumuman penting.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| hero | <span class="badge badge-xs">Basis</span> | Bagian lebar penuh dengan konten terpusat |
+| hero-content | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Area konten bagian dalam dengan tata letak fleksibel |
+| hero-overlay | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Hamparan semi-transparan untuk gambar latar belakang |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Buat bagian pahlawan sederhana dengan konten teks terpusat dan ajakan bertindak.
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Hello there</h1>
+      <p class="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="hero min-h-screen bg-base-200">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="text-5xl font-bold">Hello there</h1>
+      <p className="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button className="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Pahlawan dengan Hamparan
+
+Tambahkan hamparan warna ke bagian pahlawan dengan gambar latar belakang untuk meningkatkan keterbacaan teks.
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-on-neutral">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Featured Content</h1>
+      <p class="mb-5">Combine gradient backgrounds with overlay effects for visual depth.</p>
+      <button class="btn btn-primary">Explore</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tata Letak Pahlawan
+
+Buat bagian pahlawan responsif dengan pengaturan konten berbeda.
+
+### Pahlawan dengan Gambar (Konten + Gambar)
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=480&height=360" alt="Product" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Amazing Product</h1>
+      <p class="py-6">Display product images alongside descriptive content for engaging hero sections on larger screens.</p>
+      <button class="btn btn-primary">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Pahlawan dengan Gambar (Terbalik)
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=480&height=360" alt="Showcase" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Showcase</h1>
+      <p class="py-6">Reverse layout places image on the right side for alternative visual hierarchy.</p>
+      <button class="btn btn-primary">View Details</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Pahlawan dengan Bentuk
+
+Gabungkan bagian pahlawan dengan formulir pendaftaran atau kontak untuk halaman arahan yang berfokus pada konversi.
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left max-w-md">
+      <h1 class="text-5xl font-bold">Subscribe Now</h1>
+      <p class="py-6">Join our community and get updates on the latest features and news.</p>
+    </div>
+    <div class="card bg-base-100 shadow-xl shrink-0 w-full max-w-sm">
+      <div class="card-content">
+        <h2 class="card-title">Get Started</h2>
+        <input type="email" placeholder="Enter your email" class="input input-outline w-full mb-4">
+        <button class="btn btn-primary w-full">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Stack Hero Responsif
+
+Bagian pahlawan secara otomatis ditumpuk di perangkat seluler dan disusun secara horizontal di layar yang lebih besar.
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col">
+    <div class="text-center max-w-lg">
+      <h1 class="text-4xl md:text-5xl font-bold">Responsive Hero</h1>
+      <p class="py-6">This layout automatically adapts to different screen sizes for optimal viewing on all devices.</p>
+      <button class="btn btn-primary">Get Started</button>
+      <button class="btn btn-ghost">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

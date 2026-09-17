@@ -1,0 +1,187 @@
+---
+name: "Intercambio"
+heading: "Intercambiar componente"
+description: "Intercambio de CSS Tailwind solo para CSS para alternar entre dos elementos. Voltear, rotar y atenuar animaciones, sin JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Swap: componente CSS Tailwind solo para CSS | Frutjam"
+metaDescription: "Intercambio de CSS Tailwind sin JS con animaciones de desvanecimiento, rotación y volteo. Alterne entre estados de contenido para cambios de tema, transiciones de íconos y estados de carga."
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Cambiar por Frutjam"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "e861f2ae04d2"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Intercambio de CSS Tailwind solo para CSS para alternar entre dos elementos. Voltear, rotar y atenuar animaciones, sin JavaScript. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+Los componentes de intercambio alternan entre dos estados de contenido con animaciones fluidas en respuesta a la interacción del usuario. Construidos con transiciones semánticas de HTML y CSS, los intercambios permiten cambios de estado elegantes sin JavaScript. El sistema de intercambio de Frutjam admite múltiples estilos de animación, ideal para alternar temas, cambios de modo, estados de carga e ilustraciones interactivas.
+
+Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco: funciona con Django, HTMX, Laravel, React y cualquier pila.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Clase | Tipo | Descripción |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">Base</span> | Envoltorio de alternancia de dos estados controlado por casilla de verificación |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Gira entre estados |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">Estilo</span> | Cambia de estado con un efecto 3D |
+
+</DocTable>
+
+## Uso básico
+
+Cree un intercambio simple con emoji o contenido de texto usando una casilla de verificación para alternar estados.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## Intercambiar animaciones
+
+Aplique diferentes estilos de animación para transiciones visuales: desvanecer (predeterminado), rotar y voltear.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## Intercambiar con iconos SVG
+
+Utilice iconos SVG para cambios de estado visual con animaciones fluidas.
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## Cambiar como botón
+
+Combine la funcionalidad de intercambio con el estilo de los componentes de los botones para alternar interactivamente.
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## Intercambiar como insignia
+
+Cree insignias de alternancia compactas para cambiar de estado o categoría.
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## Variantes de intercambio combinado
+
+Mezcle diferentes estilos de animación y tipos de contenido para escenarios de alternancia complejos.
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

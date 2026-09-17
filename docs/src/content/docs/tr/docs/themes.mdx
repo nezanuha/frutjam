@@ -1,0 +1,150 @@
+---
+name: "Temalar"
+heading: "Tema"
+description: "Frutjam'ın yalnızca CSS tema sistemi, CSS değişkenlerini ve tek bir veri özelliğini kullanır. Açık, koyu ve özel temaları JavaScript olmadan değiştirin. Yerleşik WCAG AA renk belirteçleri, Django, HTMX, Laravel ve herhangi bir Tailwind CSS v4 projesiyle çalışır."
+metaTitle: "Tailwind CSS Teması -CSS Değişkenleri ve Karanlık Mod | Frutjam"
+metaDescription: "CSS değişkenleriyle Frutjam teması. Açık, koyu ve özel temalar - JavaScript gerekmez, anında güncellemeler, Tailwind CSS v4 uyumlu."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Temalar - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "66048787f25b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Frutjam'ın yalnızca CSS tema sistemi, CSS değişkenlerini ve tek bir veri özelliğini kullanır. Açık, koyu ve özel temaları JavaScript olmadan değiştirin. Yerleşik WCAG AA renk belirteçleri, Django, HTMX, Laravel ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+Frutjam, OKLCH renk değerlerine dayalı bir dizi adlandırılmış temadan oluşan Berry tema sistemiyle birlikte gelir. `data-theme` özelliğini kullanarak uygulamanızın tamamına bir tema uygulayın veya temaları belirli bölümlerin içine yerleştirin. Yalnızca CSS, JavaScript gerekmez, WCAG AA'ya erişilebilir — Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+<ThemeCards />
+
+## Yerleşik Temalar
+
+Frutjam kutudan çıktığı gibi iki yerleşik tema içerir:
+
+### Kar Üzümü (Hafif)
+
+Varsayılan ışık teması. Hiçbir `data-theme` ayarlanmadığında otomatik olarak uygulanır.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Karayemiş (Koyu)
+
+Yerleşik karanlık tema.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Tema Uygulamak
+
+Herhangi bir HTML öğesine `data-theme` ekleyin. Tema tüm çocuklara yayılıyor.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## İç İçe Temalar
+
+Temalar iç içe yerleştirilebilir; bir alt öğe, alt ağacı için ana temayı geçersiz kılar.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Karanlık Mod Varyantı
+
+Tailwind'in `dark:` önekini kullanın; hem `data-theme="dark"` hem de `data-theme="darkberry"` üzerinde etkinleşir.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Özel Temalar
+
+`[data-theme]` seçici içinde CSS değişkenlerini tanımlayarak kendi temanızı oluşturun. Değişken referansının tamamı için [Yapılandırma](/docs/configuration) sayfasına bakın.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

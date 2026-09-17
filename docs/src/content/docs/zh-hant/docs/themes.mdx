@@ -1,0 +1,150 @@
+---
+name: "主題"
+heading: "主題化"
+description: "Frutjam 的純 CSS 主題系統使用 CSS 變數和單一資料屬性。無需 JavaScript 即可切換淺色、深色和自訂主題。內建 WCAG AA 顏色令牌，可與 Django、HTMX、Laravel 和任何 Tailwind CSS v4 專案搭配使用。"
+metaTitle: "Tailwind CSS 主題 -CSS 變數與深色模式 |Frutjam"
+metaDescription: "使用 CSS 變數進行 Frutjam 主題化。淺色、深色和自訂主題 - 無需 JavaScript，即時更新，相容於 Tailwind CSS v4。"
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "主題 - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "8f28894aa3d3"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Frutjam 的純 CSS 主題系統使用 CSS 變數和單一資料屬性。無需 JavaScript 即可切換淺色、深色和自訂主題。內建 WCAG AA 顏色令牌，可與 Django、HTMX、Laravel 和任何 Tailwind CSS v4 專案搭配使用。
+
+Frutjam 附帶了 Berry 主題系統 - 一組基於 OKLCH 顏色值構建的命名主題。使用 `data-theme` 屬性將主題套用到整個應用程式或將主題嵌套在特定部分內。僅 CSS，無需 JavaScript，可存取 WCAG AA — 適用於 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 專案。
+
+<ThemeCards />
+
+## 內建主題
+
+Frutjam 包含兩個開箱即用的內建主題：
+
+### 雪莓（淡）
+
+預設淺色主題。當未設定`data-theme`時自動套用。
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### 黑莓（深色）
+
+內建深色主題。
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## 應用主題
+
+將 `data-theme` 新增到任何 HTML 元素。這個主題層層疊疊地影響著所有的孩子。
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## 嵌套主題
+
+主題可以嵌套 - 子元素覆蓋其子樹的父主題。
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## 深色模式變體
+
+使用 Tailwind 的 `dark:` 前綴 — 它在 `data-theme="dark"` 和 `data-theme="darkberry"` 上啟動。
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## 自訂主題
+
+透過在 `[data-theme]` 選擇器中定義 CSS 變數來建立您自己的主題。請參閱[配置](/docs/configuration)頁面以取得完整的變數參考。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

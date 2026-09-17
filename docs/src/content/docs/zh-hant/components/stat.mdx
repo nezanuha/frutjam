@@ -1,0 +1,253 @@
+---
+name: "統計數據"
+heading: "統計組件"
+description: "僅 CSS Tailwind CSS stat 用於顯示指標。值、標籤、描述和圖示槽。響應式網格佈局。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Stat - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+metaDescription: "用於儀表板和 KPI 顯示的 Tailwind CSS Stat。標題、值、趨勢指示器和圖示支援清晰的指標和分析演示。"
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Frutjam 統計"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "b106168663cf"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS stat 用於顯示指標。值、標籤、描述和圖示槽。響應式網格佈局。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+統計組件以清晰、有組織的格式顯示關鍵指標和數字資料。統計資料採用語意 HTML 和靈活的佈局構建，可傳達重要的業務指標和分析。 Frutjam stat 系統支援多種排列和樣式，非常適合儀表板、績效報告和資料摘要。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">根據</span> | 一個或多個統計項目的容器 |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 包含標題、值和描述的單一統計項目 |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 統計值上方的標籤 |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 大的主要數字或文字值 |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 數值下方的補充說明 |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 統計數據旁邊的圖示或頭像 |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 並排排列統計項目（預設） |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 垂直堆疊統計項目 |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的主要主題顏色 |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的輔助主題色 |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的強調主題顏色 |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的中性主題色 |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的資訊語意顏色 |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的成功語意顏色 |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的警告語意顏色 |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 統計值的錯誤語意顏色 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## 多項統計數據
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 帶有圖標的統計數據
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 水平統計
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 垂直統計
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 顏色變化
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 語意顏色變體
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

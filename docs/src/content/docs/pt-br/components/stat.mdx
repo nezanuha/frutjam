@@ -1,0 +1,253 @@
+---
+name: "Estatística"
+heading: "Componente estatístico"
+description: "Estatística CSS do Tailwind somente CSS para exibir métricas. Valor, rótulo, descrição e slots de ícone. Layout de grade responsivo. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha."
+metaTitle: "Stat - Componente CSS Tailwind somente CSS | Frutjam"
+metaDescription: "Tailwind CSS Stat para painéis e exibições de KPI. Títulos, valores, indicadores de tendência e suporte de ícones para apresentação clara de métricas e análises."
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Estatística de Frutjam"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "af0e399807c6"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Estatística CSS do Tailwind somente CSS para exibir métricas. Valor, rótulo, descrição e slots de ícone. Layout de grade responsivo. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+Os componentes estatísticos exibem as principais métricas e dados numéricos em um formato claro e organizado. Construídas com HTML semântico e layouts flexíveis, as estatísticas comunicam importantes métricas e análises de negócios. O sistema estatístico Frutjam oferece suporte a vários arranjos e estilos – ideal para painéis, relatórios de desempenho e resumos de dados.
+
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Aula | Tipo | Descrição |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">Base</span> | Contêiner para um ou mais itens estatísticos |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Item de estatística individual com título, valor e descrição |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Etiqueta acima do valor estatístico |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Valor primário numérico ou de texto grande |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Descrição complementar abaixo do valor |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Ícone ou avatar ao lado da estatística |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Organiza os itens de estatísticas lado a lado (padrão) |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Empilha itens de estatísticas verticalmente |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor principal do tema para o valor estatístico |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor do tema secundário para o valor estatístico |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor do tema de destaque para o valor estatístico |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor neutra do tema para o valor estatístico |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor semântica da informação para o valor estatístico |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor semântica de sucesso para o valor estatístico |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor semântica de aviso para o valor estatístico |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Cor semântica do erro para o valor estatístico |
+
+</DocTable>
+
+## Uso Básico
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## Múltiplas estatísticas
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Estatísticas com ícones
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Estatísticas horizontais
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Estatísticas verticais
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Variantes de cores
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Variantes de cores semânticas
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

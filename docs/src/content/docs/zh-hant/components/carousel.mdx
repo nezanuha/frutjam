@@ -1,0 +1,297 @@
+---
+name: "輪播"
+heading: "輪播組件"
+description: "僅 CSS Tailwind CSS 輪播使用滾動捕捉。具有導航控制項的水平幻燈片佈局，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Carousel - 純 CSS Tailwind CSS 元件 |弗魯賈姆"
+metaDescription: "使用 CSS 滾動對齊的無 JS Tailwind CSS 輪播。支援觸控，帶有圖像庫和內容滑桿的導航控制和指示器。"
+order: 0
+related:
+  - "components/button"
+  - "components/indicator"
+image: "https://cdn.frutjam.com/media/components/carousel_j3ks8GX.webp"
+imageAlt: "Frutjam 的旋轉木馬"
+createdAt: "2026-04-19T15:56:06.116976+00:00"
+updatedAt: "2026-07-13T09:50:30.911335+00:00"
+sourceHash: "8044c8196719"
+translationHash: "1ada7fe997db"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 輪播使用滾動捕捉。具有導航控制項的水平幻燈片佈局，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+輪播元件在旋轉或可捲動容器中顯示多個項目，非常適合展示圖像、推薦、產品圖庫或特色內容。輪播採用語義 HTML 和平滑的滾動行為構建，支援具有對齊對齊的水平和垂直佈局。 Frutjam 輪播系統非常適合英雄部分、產品畫廊、推薦展示和內容滑桿。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| carousel | <span class="badge badge-xs">根據</span> | 具有捕捉行為的水平可滾動容器 |
+| carousel-item | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 旋轉木馬內的單獨幻燈片 |
+| carousel-vertical | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 垂直滾動方向 |
+| carousel-center | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 對齊到每個項目的中心 |
+| carousel-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 對齊到每個項目的末尾 |
+
+</DocTable>
+
+## 基本用法
+
+創建一個帶有可滾動項目的簡單水平輪播。
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-4 p-4 bg-base-100">
+  <div class="carousel-item w-96">
+    <div class="badge badge-primary">Featured</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-secondary">Popular</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-accent">Trending</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="carousel w-full gap-4 p-4 bg-base-100">
+  <div className="carousel-item w-96">
+    <div className="badge badge-primary">Featured</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-secondary">Popular</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-accent">Trending</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 帶有圖像的輪播
+
+顯示具有平滑捲動和響應式大小調整的影像庫。
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-2">
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=800&height=450" alt="Image 1" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=800&height=450" alt="Image 2" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=800&height=450" alt="Image 3" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 輪播中心對齊
+
+以中心對齊方式顯示輪播項目並在卡片之間留出間距。
+
+<Snippet>
+
+```html
+<div class="carousel carousel-center gap-4 p-4 bg-base-200 rounded-lg">
+  <div class="carousel-item">
+    <div class="card card-primary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 1</h2>
+        <p>Featured product or content</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-secondary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 2</h2>
+        <p>Popular selection</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-accent w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 3</h2>
+        <p>Trending now</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 垂直轉盤
+
+建立一個垂直輪播，用於從上到下滾動項目。
+
+<Snippet>
+
+```html
+<div class="carousel carousel-vertical h-96 gap-2 p-2 bg-base-100">
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-primary">Item 1</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-secondary">Item 2</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-accent">Item 3</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-info">Item 4</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 帶導航的輪播
+
+使用錨連結新增用於在輪播項目之間手動導航的按鈕。
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="slide1" class="carousel-item relative w-full">
+    <div class="badge badge-primary w-full h-32">Slide 1</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide2" class="carousel-item relative w-full">
+    <div class="badge badge-secondary w-full h-32">Slide 2</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide1" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide3" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide3" class="carousel-item relative w-full">
+    <div class="badge badge-accent w-full h-32">Slide 3</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide4" class="carousel-item relative w-full">
+    <div class="badge badge-info w-full h-32">Slide 4</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide3" class="btn btn-circle btn-sm" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <a href="#slide1" class="btn btn-circle btn-sm" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 帶點指示器的輪播
+
+使用小徽章按鈕作為多個輪播項目的導航指示器。
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="item1" class="carousel-item w-full">
+    <div class="badge badge-primary w-full h-32">1</div>
+  </div>
+  <div id="item2" class="carousel-item w-full">
+    <div class="badge badge-secondary w-full h-32">2</div>
+  </div>
+  <div id="item3" class="carousel-item w-full">
+    <div class="badge badge-accent w-full h-32">3</div>
+  </div>
+  <div id="item4" class="carousel-item w-full">
+    <div class="badge badge-info w-full h-32">4</div>
+  </div>
+  <div class="flex justify-center gap-2 pt-4">
+    <a href="#item1" class="btn btn-xs btn-outline">1</a>
+    <a href="#item2" class="btn btn-xs btn-outline">2</a>
+    <a href="#item3" class="btn btn-xs btn-outline">3</a>
+    <a href="#item4" class="btn btn-xs btn-outline">4</a>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS 和 React 助手
+
+使用 `createCarousel` 從 `frutjam/js` 或者 `useCarousel` 從 `frutjam/react` 以程式設計方式導覽投影片 - 尊重 `prefers-reduced-motion` 自動地。
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-3">
+  <button class="btn btn-sm" id="carousel-prev">← Prev</button>
+  <button class="btn btn-sm" id="carousel-next">Next →</button>
+</div>
+<div class="carousel w-full" id="js-carousel">
+  <div class="carousel-item w-full"><div class="badge badge-primary w-full h-32">Slide 1</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-secondary w-full h-32">Slide 2</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-accent w-full h-32">Slide 3</div></div>
+</div>
+<script type="module">
+  import { createCarousel } from 'frutjam/js'
+  const carousel = createCarousel(document.getElementById('js-carousel'))
+  document.getElementById('carousel-prev').onclick = () => carousel.prev()
+  document.getElementById('carousel-next').onclick = () => carousel.next()
+</script>
+```
+
+```jsx
+import { useCarousel } from 'frutjam/react'
+
+export default function CarouselDemo() {
+  const carousel = useCarousel()
+  return (
+    <>
+      <div className="flex gap-2 mb-3">
+        <button className="btn btn-sm" onClick={carousel.prev}>← Prev</button>
+        <button className="btn btn-sm" onClick={carousel.next}>Next →</button>
+      </div>
+      <div ref={carousel.ref} className="carousel w-full">
+        <div className="carousel-item w-full"><div className="badge badge-primary w-full h-32">Slide 1</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-secondary w-full h-32">Slide 2</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-accent w-full h-32">Slide 3</div></div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

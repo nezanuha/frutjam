@@ -1,0 +1,431 @@
+---
+name: "Karte"
+heading: "Kartenkomponente"
+description: "Nur CSS-Tailwind-CSS-Karte mit Umriss-, Schatten- und Flachstilen. Kompakte, Standard- und große Größen. Karteninhalt, Kartentitel, Kartenfußzeilen. WCAG AA, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Karte – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind-CSS-Karte mit Kopf-, Text- und Fußzeilenabschnitten. Unterstützt Bildüberlagerungen, horizontale Layouts und Designvarianten für Produkt- und Inhaltscontainer."
+order: 0
+related:
+  - "components/stat"
+  - "blocks/pricing"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/card.webp"
+imageAlt: "Kartenkomponenten von Frutjam"
+createdAt: "2025-09-09T13:33:54.604017+00:00"
+updatedAt: "2026-07-13T09:49:33.249427+00:00"
+sourceHash: "d857f4862d7c"
+translationHash: "e681f6602c73"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind-CSS-Karte mit Umriss-, Schatten- und Flachstilen. Kompakte, Standard- und große Größen. Karteninhalt, Kartentitel, Kartenfußzeilen. WCAG AA, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Kartenkomponenten sind vielseitige Behälter zum Kombinieren zusammengehöriger Informationen zu einer einzigen, optisch zusammenhängenden Einheit. Mit semantischem HTML und flexiblen Inhaltsbereichen erstellte Karten organisieren Inhalte hierarchisch und passen sich an verschiedene Layouts an. Das Frutjam-Kartensystem bietet mehrere Farbvarianten, Größen und Stile für Produktpräsentationen, Blogbeiträge, Testimonials und Dashboard-Elemente.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| card | <span class="badge badge-xs">Base</span> | Erhöhter Inhaltsbehälter mit abgerundeten Ecken |
+| card-outline | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Transparente Füllung mit sichtbarem Rand |
+| card-dashed | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Gestrichelter Randstil |
+| card-title | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Überschriftenelement innerhalb der Karte |
+| card-content | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Gepolsterter Inhaltsbereich der Karte |
+| card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Fußzeilenbereich für Schaltflächen und Aktionssteuerelemente |
+| card-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra kleine Polsterung |
+| card-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Kleine Polsterung |
+| card-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittlere Polsterung (Standard) |
+| card-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Große Polsterung |
+| card-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra große Polsterung |
+| card-primary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Primäre Designfarbe |
+| card-secondary | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Sekundäre Themenfarbe |
+| card-accent | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Akzentfarbe des Themas |
+| card-neutral | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Neutrale Themenfarbe |
+| card-info | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Infofarbe |
+| card-success | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Erfolgsfarbe |
+| card-warning | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Warnungsfarbe |
+| card-error | <span class="badge badge-xs badge-warning badge-soft">Farbe</span> | Semantische Fehlerfarbe |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="card shadow w-88">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=600&height=400" alt="Card Image" loading="lazy" />
+  </figure>
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>The Card component is a versatile container for combining related information into a single, visually appealing unit.</p>
+  </div>
+</div>
+```
+
+```jsx
+<div className="card shadow w-88">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=600&height=400" alt="Card Image" loading="lazy" />
+  </figure>
+  <div className="card-content">
+    <h2 className="card-title">Card Title</h2>
+    <p>The Card component is a versatile container for combining related information into a single, visually appealing unit.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Karte mit Aktionen
+
+Verwenden Sie `card-actions`, um einen Fußzeilenbereich für Schaltflächen und Aktionssteuerelemente hinzuzufügen.
+
+<Snippet>
+
+```html
+<div class="card card-md shadow w-88">
+  <div class="card-content">
+    <h2 class="card-title">Card Title</h2>
+    <p>A card with an actions footer for user interactions like buttons and links.</p>
+    <div class="card-actions">
+      <button class="btn btn-primary">Accept</button>
+      <button class="btn">Dismiss</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kartengrößen
+
+Wählen Sie aus fünf Größenvarianten für unterschiedliche Inhaltsdichten und Anwendungsfälle.
+
+<Snippet>
+
+```html
+<div class="card card-xs card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Extra Small</h2>
+    <p>Compact card for minimal content.</p>
+  </div>
+</div>
+
+<div class="card card-sm card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Small</h2>
+    <p>Small card for condensed information.</p>
+  </div>
+</div>
+
+<div class="card card-md card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Medium</h2>
+    <p>Medium card for standard content.</p>
+  </div>
+</div>
+
+<div class="card card-lg card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Large</h2>
+    <p>Large card for prominent content display.</p>
+  </div>
+</div>
+
+<div class="card card-xl card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Extra Large</h2>
+    <p>Extra large card for expansive content layouts.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kartenfarben
+
+Wenden Sie Farbvarianten auf Karten an, um eine visuelle Differenzierung und semantische Bedeutung zu erzielen.
+
+<Snippet>
+
+```html
+<div class="card card-md">
+  <div class="card-content">
+    <h2 class="card-title">Default</h2>
+    <p>Base card color using default theme background.</p>
+  </div>
+</div>
+
+<div class="card card-md card-primary">
+  <div class="card-content">
+    <h2 class="card-title">Primary</h2>
+    <p>Primary color card for featured content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Secondary</h2>
+    <p>Secondary color card for supporting content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-accent">
+  <div class="card-content">
+    <h2 class="card-title">Accent</h2>
+    <p>Accent color card for emphasis.</p>
+  </div>
+</div>
+
+<div class="card card-md card-info">
+  <div class="card-content">
+    <h2 class="card-title">Info</h2>
+    <p>Information card for helpful content.</p>
+  </div>
+</div>
+
+<div class="card card-md card-success">
+  <div class="card-content">
+    <h2 class="card-title">Success</h2>
+    <p>Success card for positive outcomes.</p>
+  </div>
+</div>
+
+<div class="card card-md card-warning">
+  <div class="card-content">
+    <h2 class="card-title">Warning</h2>
+    <p>Warning card for caution messages.</p>
+  </div>
+</div>
+
+<div class="card card-md card-error">
+  <div class="card-content">
+    <h2 class="card-title">Error</h2>
+    <p>Error card for error notifications.</p>
+  </div>
+</div>
+
+<div class="card card-md card-neutral">
+  <div class="card-content">
+    <h2 class="card-title">Neutral</h2>
+    <p>Neutral card for balanced design.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Benutzerdefinierte Hintergrund- und Textfarbe
+
+Verwenden Sie beliebige Hintergrund- und Textfarben-Dienstprogramme von Tailwind direkt auf der Karte, um die vollständige Farbkontrolle zu gewährleisten.
+
+<Snippet>
+
+```html
+<div class="card bg-primary text-on-primary w-88">
+  <div class="card-content">
+    <h2 class="card-title">Custom Colors</h2>
+    <p>Apply any background and text color using Tailwind utilities.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kartenstile
+
+Wenden Sie zur visuellen Unterscheidung unterschiedliche Rand- und Stilvarianten auf Karten an.
+
+### Übersichtskarte
+
+<Snippet>
+
+```html
+<div class="card card-md card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Outline Style</h2>
+    <p>Cards with visible borders for subtle separation from background.</p>
+  </div>
+</div>
+
+<div class="card card-md card-outline card-primary">
+  <div class="card-content">
+    <h2 class="card-title">Primary Outline</h2>
+    <p>Outline card with primary color border.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Gestrichelte Karte
+
+<Snippet>
+
+```html
+<div class="card card-md card-dashed">
+  <div class="card-content">
+    <h2 class="card-title">Dashed Style</h2>
+    <p>Cards with dashed borders for visual interest.</p>
+  </div>
+</div>
+
+<div class="card card-md card-dashed card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Secondary Dashed</h2>
+    <p>Dashed card with secondary color border.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Karten mit Bildern
+
+Kombinieren Sie Karten mit Figuren für Inhalte, die visuelle Elemente enthalten.
+
+### Bild oben
+
+<Snippet>
+
+```html
+<div class="card card-md w-88 shadow-sm">
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=600&height=400" alt="Blog Post" loading="lazy" />
+  </figure>
+  <div class="card-content">
+    <h2 class="card-title">Blog Post Card</h2>
+    <p>Display articles with featured images, titles, and summaries for content discovery.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### Bild unten
+
+<Snippet>
+
+```html
+<div class="card card-md w-88 shadow-sm">
+  <div class="card-content">
+    <h2 class="card-title">Image Below Content</h2>
+    <p>Place images after content for reverse visual hierarchy.</p>
+  </div>
+  <figure>
+    <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=600&height=400" alt="Footer Image" loading="lazy" />
+  </figure>
+</div>
+```
+
+</Snippet>
+
+## Preiskarte
+
+Präsentieren Sie Preisstufen mit Funktionen und Call-to-Action-Buttons.
+
+<Snippet>
+
+```html
+<div class="card card-lg card-outline">
+  <div class="card-content gap-4">
+    <div>
+      <h2 class="card-title">Startup Plan</h2>
+      <div class="flex items-baseline gap-2">
+        <span class="text-3xl font-bold">$49</span>
+        <span class="text-sm text-on-base/60">/month</span>
+      </div>
+    </div>
+    <div class="divider my-0"></div>
+    <ul class="flex flex-col gap-3">
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>25 websites</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>150 templates</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-success badge-sm">✓</span>
+        <span>Advanced eCommerce</span>
+      </li>
+      <li class="flex items-center gap-2">
+        <span class="badge badge-error badge-sm opacity-50">✗</span>
+        <span class="opacity-50">Unlimited storage</span>
+      </li>
+    </ul>
+    <button class="btn btn-primary w-full">Get Started</button>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Responsives Kartenlayout
+
+Erstellen Sie flexible Kartenlayouts, die sich an verschiedene Bildschirmgrößen anpassen.
+
+<Snippet>
+
+```html
+<div class="card card-lg w-160 shadow-sm">
+  <div class="grid grid-cols-12 gap-0">
+    <div class="col-span-12 lg:col-span-5">
+      <figure class="h-64">
+        <picture>
+          <source media="(max-width: 1024px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=427">
+          <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=600&height=400" alt="Layout Image" class="w-full h-full object-cover" loading="lazy" />
+        </picture>
+      </figure>
+    </div>
+    <div class="col-span-12 lg:col-span-7">
+      <div class="card-content">
+        <h2 class="card-title">Responsive Layout</h2>
+        <p>On desktop, image and content display side by side. On mobile, they stack vertically for optimal viewing experience.</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kombinierte Varianten
+
+Kombinieren Sie Größen-, Farb- und Stilvarianten für individuelle Kartendesigns.
+
+<Snippet>
+
+```html
+<div class="card card-lg card-primary card-outline">
+  <div class="card-content">
+    <h2 class="card-title">Large Primary Outline</h2>
+    <p>Combination of large size, primary color, and outline style.</p>
+  </div>
+</div>
+
+<div class="card card-sm card-dashed card-secondary">
+  <div class="card-content">
+    <h2 class="card-title">Small Secondary Dashed</h2>
+    <p>Compact card with dashed border in secondary color.</p>
+  </div>
+</div>
+
+<div class="card card-xl card-accent">
+  <div class="card-content">
+    <h2 class="card-title">Extra Large Accent</h2>
+    <p>Prominent card with accent color for feature display.</p>
+  </div>
+</div>
+```
+
+</Snippet>

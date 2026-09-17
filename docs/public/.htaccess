@@ -1,0 +1,98 @@
+# Apache / LiteSpeed configuration for frutjam.com.
+#
+# Shipped from docs/public/, so it lands in dist/ on every build and is
+# uploaded with it. The site is built with trailingSlash: 'never' and one file
+# per page (components/button.html), the URL shape Django served.
+
+DirectorySlash Off
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ── One host ─────────────────────────────────────────────────────────────
+    # %1 is the domain without www, so nothing here names the domain.
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+    # ── cdn.frutjam.com ──────────────────────────────────────────────────────
+    # The CDN name shares this document root so the image URLs Django published
+    # keep working. It serves files only: a page opened there belongs on the
+    # site itself, not at a second address.
+    RewriteCond %{HTTP_HOST} ^cdn\. [NC]
+    RewriteCond %{REQUEST_URI} !^/(media|images|_astro|static|favicon|_frutjam)/
+    RewriteCond %{REQUEST_URI} !^/robots\.txt$
+    RewriteRule ^ https://frutjam.com%{REQUEST_URI} [R=301,L]
+
+    # ── Pages that moved off this site ───────────────────────────────────────
+    # The contact form needed a backend; enquiries go to Nezanuha, the company
+    # behind Frutjam.
+    RewriteRule ^contact/?$ https://nezanuha.com/contact [R=301,L]
+
+    # Guest posts were a form on the site; pitches are GitHub issues now.
+    RewriteRule ^write-for-us/?$ https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml [R=301,L]
+
+    # ── Moved assets ─────────────────────────────────────────────────────────
+    RewriteRule ^static/frontend/images/favicon/(.*)$ /favicon/$1 [R=301,L]
+    RewriteRule ^favicon\.ico$ /favicon/favicon.ico [R=301,L]
+
+    # An existing file — a page's .md, an image, /_astro/… — is served as it is.
+    # Before the rules below, which would answer 404 for a real file.
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule ^ - [L]
+
+    # frutjam.com URLs never had a trailing slash; old links with one land on
+    # the canonical form instead of being served at an address the page disowns.
+    RewriteCond %{REQUEST_URI} !^/$
+    RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+    # /components/button  ->  /components/button.html, without a redirect.
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^(.+?)/?$ /$1.html [L]
+</IfModule>
+
+# Django's 404 kept the navigation sidebar; so does this one.
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# ── Raw Markdown ─────────────────────────────────────────────────────────────
+# Every page is also published at its path plus .md, for the Copy page action
+# and for assistants. It is the same content as the HTML, so it must not be
+# indexed separately — the header Django sent, which robots.txt cannot enforce.
+<IfModule mod_headers.c>
+    <FilesMatch "\.md$">
+        Header set X-Robots-Tag "noindex, follow"
+    </FilesMatch>
+    <Files "llms.txt">
+        Header set X-Robots-Tag "noindex, follow"
+    </Files>
+
+    # /_astro/ files carry a content hash, so they can never go stale. Images
+    # and fonts keep their names, so a shorter life. HTML must be revalidated
+    # or a deploy goes unnoticed.
+    <FilesMatch "\.(html|xml|txt|md)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+    # Search: the index data files carry a hash, but these two point at them
+    # and change with every build.
+    <FilesMatch "^pagefind(\.js|-entry\.json)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+        application/javascript application/json image/svg+xml
+</IfModule>

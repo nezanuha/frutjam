@@ -1,0 +1,150 @@
+---
+name: "Motywy"
+heading: "Tematyka"
+description: "System motywów Frutjam oparty wyłącznie na CSS wykorzystuje zmienne CSS i pojedynczy atrybut danych. Przełączaj jasne, ciemne i niestandardowe motywy bez JavaScript. Wbudowane tokeny kolorów WCAG AA, współpracują z Django, HTMX, Laravel i dowolnym projektem Tailwind CSS v4."
+metaTitle: "Motyw CSS Tailwind - zmienne CSS i tryb ciemny | Frutjam"
+metaDescription: "Motyw Frutjam ze zmiennymi CSS. Jasne, ciemne i niestandardowe motywy - nie wymaga JavaScript, natychmiastowe aktualizacje, kompatybilność Tailwind CSS v4."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Motywy - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "d0f0ab9499f0"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+System motywów Frutjam oparty wyłącznie na CSS wykorzystuje zmienne CSS i pojedynczy atrybut danych. Przełączaj jasne, ciemne i niestandardowe motywy bez JavaScript. Wbudowane tokeny kolorów WCAG AA, współpracują z Django, HTMX, Laravel i dowolnym projektem Tailwind CSS v4.
+
+Frutjam jest dostarczany z systemem motywów Berry — zestawem nazwanych motywów zbudowanych na podstawie wartości kolorów OKLCH. Zastosuj motyw do całej aplikacji lub zagnieź motywy w określonych sekcjach, korzystając z atrybutu `data-theme`. Tylko CSS, nie wymaga JavaScript, dostępny WCAG AA — współpracuje z Django, HTMX, Laravel, React i dowolnym projektem Tailwind CSS v4.
+
+<ThemeCards />
+
+## Wbudowane motywy
+
+Frutjam zawiera dwa wbudowane motywy:
+
+### Śnieżka (Jasna)
+
+Domyślny jasny motyw. Stosowane automatycznie, jeśli nie ustawiono żadnego `data-theme`.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Ciemna Jagoda (Ciemna)
+
+Wbudowany ciemny motyw.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Stosowanie motywu
+
+Dodaj `data-theme` do dowolnego elementu HTML. Temat dotyczy wszystkich dzieci.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Zagnieżdżone motywy
+
+Motywy można zagnieżdżać — element podrzędny zastępuje motyw nadrzędny w swoim poddrzewie.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Wariant trybu ciemnego
+
+Użyj przedrostka `dark:` Tailwinda — aktywuje się on zarówno na `data-theme="dark"`, jak i `data-theme="darkberry"`.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Motywy niestandardowe
+
+Stwórz własny motyw, definiując zmienne CSS w selektorze `[data-theme]`. Pełne odwołanie do zmiennych znajdziesz na stronie [Konfiguracja](/docs/configuration).
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

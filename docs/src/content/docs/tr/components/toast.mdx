@@ -1,0 +1,157 @@
+---
+name: "Tost"
+heading: "Tost Bileşeni"
+description: "Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu - üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Toast - Yalnızca CSS'de Tailwind CSS Bileşeni | Frutjam"
+metaDescription: "Yapılandırılabilir konumlara ve istiflemeye sahip Tailwind CSS Toast. Erişilebilir, müdahaleci olmayan kullanıcı bildirimleri için başarı, hata, uyarı ve bilgi çeşitleri."
+order: 0
+related:
+  - "components/alert"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
+imageAlt: "Frutjam'dan tost"
+createdAt: "2026-04-19T15:57:25.964725+00:00"
+updatedAt: "2026-07-13T09:53:05.411034+00:00"
+sourceHash: "9ce87a99d8b9"
+translationHash: "94a2aaf64b4e"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu - üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Toast bileşenleri, ekranın kenarlarına yerleştirilmiş kısa, müdahaleci olmayan bildirimler görüntüler. Sabit konumlandırma ve uyarı bileşenleriyle oluşturulan tostlar, başarı onayları, hata mesajları veya durum güncellemeleri gibi sistem geri bildirimlerini iletir. Frutjam tost sistemi altı yerleştirme pozisyonunu destekler; form gönderimleri, eşzamansız işlemler ve gerçek zamanlı bildirimler için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| toast | <span class="badge badge-xs">Temel</span> | Sabit konumlu bildirim kabı |
+| toast-top | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Görünüm alanının üst kısmına tutturucular |
+| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Görünüm alanının altına sabitlenir (varsayılan) |
+| toast-start | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Soldaki çapalar |
+| toast-center | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Yatay olarak ortalanmış |
+| toast-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Sağdaki bağlantı noktaları (varsayılan) |
+| toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Dikey olarak ortalanmış |
+
+</DocTable>
+
+## Temel Kullanım
+
+<Snippet>
+
+```html
+<div class="toast">
+  <div class="alert alert-info">
+    <span>New message arrived.</span>
+  </div>
+</div>
+```
+
+```jsx
+import { useToast } from 'frutjam/react'
+
+export default function ToastDemo() {
+  const toast = useToast()
+  return (
+    <>
+      <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
+      <div className="toast">
+        {toast.toasts.map(t => (
+          <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
+            <span>{t.message}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Tost Pozisyonları
+
+### En İyi Pozisyonlar
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-start">
+  <div class="alert alert-info"><span>Top Start</span></div>
+</div>
+
+<div class="toast toast-top toast-center">
+  <div class="alert alert-info"><span>Top Center</span></div>
+</div>
+
+<div class="toast toast-top toast-end">
+  <div class="alert alert-info"><span>Top End</span></div>
+</div>
+```
+
+</Snippet>
+
+### Alt Pozisyonlar
+
+<Snippet>
+
+```html
+<div class="toast toast-bottom toast-start">
+  <div class="alert alert-info"><span>Bottom Start</span></div>
+</div>
+
+<div class="toast toast-bottom toast-center">
+  <div class="alert alert-info"><span>Bottom Center</span></div>
+</div>
+
+<div class="toast toast-bottom toast-end">
+  <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+## Tost Renkleri
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>File saved successfully.</span>
+  </div>
+  <div class="alert alert-warning">
+    <span>Storage is almost full.</span>
+  </div>
+  <div class="alert alert-error">
+    <span>Connection failed.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>Update available.</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Çoklu Tostlar
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>Profile updated.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>2 new notifications.</span>
+  </div>
+</div>
+```
+
+</Snippet>

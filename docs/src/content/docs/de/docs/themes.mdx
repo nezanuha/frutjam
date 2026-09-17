@@ -1,0 +1,150 @@
+---
+name: "Themen"
+heading: "Thematisierung"
+description: "Das reine CSS-Designsystem von Frutjam verwendet CSS-Variablen und ein einzelnes Datenattribut. Wechseln Sie ohne JavaScript zwischen hellen, dunklen und benutzerdefinierten Designs. Integrierte WCAG AA-Farbtoken, funktioniert mit Django, HTMX, Laravel und jedem Tailwind CSS v4-Projekt."
+metaTitle: "Tailwind CSS Theming – CSS-Variablen und Dunkelmodus | Frutjam"
+metaDescription: "Frutjam-Theming mit CSS-Variablen. Helle, dunkle und benutzerdefinierte Designs – kein JavaScript erforderlich, sofortige Updates, Tailwind CSS v4-kompatibel."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Themen - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "5ca55f129d0a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Das reine CSS-Designsystem von Frutjam verwendet CSS-Variablen und ein einzelnes Datenattribut. Wechseln Sie ohne JavaScript zwischen hellen, dunklen und benutzerdefinierten Designs. Integrierte WCAG AA-Farbtoken, funktioniert mit Django, HTMX, Laravel und jedem Tailwind CSS v4-Projekt.
+
+Frutjam wird mit einem Berry-Themensystem ausgeliefert – einer Reihe benannter Themen, die auf OKLCH-Farbwerten basieren. Wenden Sie ein Thema auf Ihre gesamte App an oder verschachteln Sie Themen mithilfe des Attributs `data-theme` in bestimmten Abschnitten. Nur CSS, kein JavaScript erforderlich, WCAG AA zugänglich – funktioniert mit Django, HTMX, Laravel, React und jedem Tailwind CSS v4-Projekt.
+
+<ThemeCards />
+
+## Integrierte Themes
+
+Frutjam enthält standardmäßig zwei integrierte Themen:
+
+### Schneebeere (hell)
+
+Das Standard-Lichtthema. Wird automatisch angewendet, wenn kein `data-theme` festgelegt ist.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Dunkelbeere (dunkel)
+
+Das integrierte dunkle Thema.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Anwenden eines Themas
+
+Fügen Sie `data-theme` zu jedem HTML-Element hinzu. Das Thema wird auf alle Kinder übertragen.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Verschachtelte Themen
+
+Themen können verschachtelt werden – ein untergeordnetes Element überschreibt das übergeordnete Thema für seinen Unterbaum.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Dark-Mode-Variante
+
+Verwenden Sie das Präfix `dark:` von Tailwind – es wird sowohl auf `data-theme="dark"` als auch auf `data-theme="darkberry"` aktiviert.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Benutzerdefinierte Themen
+
+Erstellen Sie Ihr eigenes Theme, indem Sie CSS-Variablen in einem `[data-theme]`\-Selektor definieren. Die vollständige Variablenreferenz finden Sie auf der Seite [Konfiguration](/docs/configuration).
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

@@ -1,0 +1,297 @@
+---
+name: "Korsel"
+heading: "Komponen Korsel"
+description: "Korsel Tailwind CSS khusus CSS menggunakan scroll-snap. Tata letak slide horizontal dengan kontrol navigasi dan tidak memerlukan JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Korsel - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tailwind CSS Carousel bebas JS menggunakan scroll-snap CSS. Diaktifkan dengan sentuhan dengan kontrol navigasi dan indikator untuk galeri gambar dan penggeser konten."
+order: 0
+related:
+  - "components/button"
+  - "components/indicator"
+image: "https://cdn.frutjam.com/media/components/carousel_j3ks8GX.webp"
+imageAlt: "Korsel oleh Frutjam"
+createdAt: "2026-04-19T15:56:06.116976+00:00"
+updatedAt: "2026-07-13T09:50:30.911335+00:00"
+sourceHash: "8044c8196719"
+translationHash: "6926a8262b16"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Korsel Tailwind CSS khusus CSS menggunakan scroll-snap. Tata letak slide horizontal dengan kontrol navigasi dan tidak memerlukan JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen carousel menampilkan banyak item dalam wadah yang berputar atau dapat digulir, ideal untuk menampilkan gambar, testimonial, galeri produk, atau konten unggulan. Dibangun dengan HTML semantik dan perilaku gulir yang mulus, carousel mendukung tata letak horizontal dan vertikal dengan perataan cepat. Sistem carousel Frutjam sangat cocok untuk bagian pahlawan, galeri produk, tampilan testimonial, dan penggeser konten.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| carousel | <span class="badge badge-xs">Basis</span> | Wadah horizontal yang dapat digulir dengan perilaku jepret |
+| carousel-item | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Geser individu di dalam carousel |
+| carousel-vertical | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Arah gulir vertikal |
+| carousel-center | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Jepret perataan ke tengah setiap item |
+| carousel-end | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Jepret perataan ke akhir setiap item |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Buat carousel horizontal sederhana dengan item yang dapat di-scroll.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-4 p-4 bg-base-100">
+  <div class="carousel-item w-96">
+    <div class="badge badge-primary">Featured</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-secondary">Popular</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-accent">Trending</div>
+  </div>
+  <div class="carousel-item w-96">
+    <div class="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="carousel w-full gap-4 p-4 bg-base-100">
+  <div className="carousel-item w-96">
+    <div className="badge badge-primary">Featured</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-secondary">Popular</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-accent">Trending</div>
+  </div>
+  <div className="carousel-item w-96">
+    <div className="badge badge-info">New</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Korsel dengan Gambar
+
+Tampilkan galeri gambar dengan pengguliran halus dan ukuran responsif.
+
+<Snippet>
+
+```html
+<div class="carousel w-full gap-2">
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=800&height=450" alt="Image 1" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-3.jpg?format=webp&width=800&height=450" alt="Image 2" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+  <div class="carousel-item w-full">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=640&height=360">
+      <img src="https://cdn.frutjam.com/images/photo-4.jpg?format=webp&width=800&height=450" alt="Image 3" class="w-full" loading="lazy" />
+    </picture>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Pusat Korsel Selaras
+
+Tampilkan item carousel dengan perataan jepret tengah dan jarak antar kartu.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-center gap-4 p-4 bg-base-200 rounded-lg">
+  <div class="carousel-item">
+    <div class="card card-primary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 1</h2>
+        <p>Featured product or content</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-secondary w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 2</h2>
+        <p>Popular selection</p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <div class="card card-accent w-80">
+      <div class="card-content">
+        <h2 class="card-title">Card 3</h2>
+        <p>Trending now</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Korsel Vertikal
+
+Buat carousel vertikal untuk menggulir item dari atas ke bawah.
+
+<Snippet>
+
+```html
+<div class="carousel carousel-vertical h-96 gap-2 p-2 bg-base-100">
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-primary">Item 1</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-secondary">Item 2</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-accent">Item 3</div>
+  </div>
+  <div class="carousel-item h-32">
+    <div class="badge badge-lg badge-info">Item 4</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Korsel dengan Navigasi
+
+Tambahkan tombol untuk navigasi manual antar item carousel menggunakan tautan jangkar.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="slide1" class="carousel-item relative w-full">
+    <div class="badge badge-primary w-full h-32">Slide 1</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide2" class="carousel-item relative w-full">
+    <div class="badge badge-secondary w-full h-32">Slide 2</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide1" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide3" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide3" class="carousel-item relative w-full">
+    <div class="badge badge-accent w-full h-32">Slide 3</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide2" class="btn btn-circle btn-sm btn-ghost" aria-label="Previous slide">❮</a>
+      <a href="#slide4" class="btn btn-circle btn-sm btn-ghost" aria-label="Next slide">❯</a>
+    </div>
+  </div>
+  <div id="slide4" class="carousel-item relative w-full">
+    <div class="badge badge-info w-full h-32">Slide 4</div>
+    <div class="absolute inset-x-0 top-1/2 flex justify-between px-2">
+      <a href="#slide3" class="btn btn-circle btn-sm" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </a>
+      <a href="#slide1" class="btn btn-circle btn-sm" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Korsel dengan Indikator Titik
+
+Gunakan tombol lencana kecil sebagai indikator navigasi untuk beberapa item carousel.
+
+<Snippet>
+
+```html
+<div class="carousel w-full">
+  <div id="item1" class="carousel-item w-full">
+    <div class="badge badge-primary w-full h-32">1</div>
+  </div>
+  <div id="item2" class="carousel-item w-full">
+    <div class="badge badge-secondary w-full h-32">2</div>
+  </div>
+  <div id="item3" class="carousel-item w-full">
+    <div class="badge badge-accent w-full h-32">3</div>
+  </div>
+  <div id="item4" class="carousel-item w-full">
+    <div class="badge badge-info w-full h-32">4</div>
+  </div>
+  <div class="flex justify-center gap-2 pt-4">
+    <a href="#item1" class="btn btn-xs btn-outline">1</a>
+    <a href="#item2" class="btn btn-xs btn-outline">2</a>
+    <a href="#item3" class="btn btn-xs btn-outline">3</a>
+    <a href="#item4" class="btn btn-xs btn-outline">4</a>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS & Pembantu React
+
+Gunakan `createCarousel` dari `frutjam/js` atau `useCarousel` dari `frutjam/react` untuk menavigasi slide secara terprogram — menghormati `prefers-reduced-motion` secara otomatis.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-3">
+  <button class="btn btn-sm" id="carousel-prev">← Prev</button>
+  <button class="btn btn-sm" id="carousel-next">Next →</button>
+</div>
+<div class="carousel w-full" id="js-carousel">
+  <div class="carousel-item w-full"><div class="badge badge-primary w-full h-32">Slide 1</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-secondary w-full h-32">Slide 2</div></div>
+  <div class="carousel-item w-full"><div class="badge badge-accent w-full h-32">Slide 3</div></div>
+</div>
+<script type="module">
+  import { createCarousel } from 'frutjam/js'
+  const carousel = createCarousel(document.getElementById('js-carousel'))
+  document.getElementById('carousel-prev').onclick = () => carousel.prev()
+  document.getElementById('carousel-next').onclick = () => carousel.next()
+</script>
+```
+
+```jsx
+import { useCarousel } from 'frutjam/react'
+
+export default function CarouselDemo() {
+  const carousel = useCarousel()
+  return (
+    <>
+      <div className="flex gap-2 mb-3">
+        <button className="btn btn-sm" onClick={carousel.prev}>← Prev</button>
+        <button className="btn btn-sm" onClick={carousel.next}>Next →</button>
+      </div>
+      <div ref={carousel.ref} className="carousel w-full">
+        <div className="carousel-item w-full"><div className="badge badge-primary w-full h-32">Slide 1</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-secondary w-full h-32">Slide 2</div></div>
+        <div className="carousel-item w-full"><div className="badge badge-accent w-full h-32">Slide 3</div></div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

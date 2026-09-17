@@ -1,0 +1,267 @@
+---
+name: "タイポグラフィ"
+heading: "タイポグラフィ"
+description: "Frutjam の CSS のみのタイポグラフィ システム。 Tailwind CSS v4 によるセマンティック HTML テキストのスケーリング、WCAG にアクセス可能、JavaScript は不要です。 Django、HTMX、Laravel、React、およびあらゆるフレームワークで動作します。"
+metaTitle: "Tailwind CSS タイポグラフィ - セマンティック HTML テキスト スタイル |Frutjam"
+metaDescription: "Frutjam タイポグラフィ システム。 CSS 変数によるセマンティック HTML テキスト スケーリング、WCAG アクセス可能、Tailwind CSS v4 互換。"
+order: 3
+related:
+  - "docs/themes"
+  - "docs/colors"
+image: "https://cdn.frutjam.com/media/docs/typography.webp"
+imageAlt: "タイポグラフィ - フルジャム"
+createdAt: "2026-02-20T08:17:06.189826+00:00"
+updatedAt: "2026-07-13T09:55:52.442790+00:00"
+sourceHash: "38e2f93afbce"
+translationHash: "6b886d1ede3a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam の CSS のみのタイポグラフィ システム。 Tailwind CSS v4 によるセマンティック HTML テキストのスケーリング、WCAG にアクセス可能、JavaScript は不要です。 Django、HTMX、Laravel、React、およびあらゆるフレームワークで動作します。
+
+Frutjam の Tailwind CSS v4 用の CSS 専用タイポグラフィ システム。セマンティックな見出しと段落スケール、レスポンシブなレイアウト ユーティリティ、散文の統合 - JavaScript は不要で、WCAG AA にアクセスできます。 Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+## レイアウト
+
+`.wrapper` は、コンテンツを水平方向に中央揃えにし、ブレークポイント間で一貫した水平方向のパディングを適用する、応答性の高いページ レイアウト ユーティリティです。サイズ バリアントを使用して、さまざまなレイアウト ニーズに合わせて最大幅の制約を設定します。
+
+### 全クラス
+
+すべてのバリアントは同じレスポンシブ パディング スケールを共有します。最大幅のみが異なります。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| クラス | 最大幅 | 使用事例 |
+| --- | --- | --- |
+| `wrapper` | none | 全幅中央のコンテナ |
+| `wrapper-xs` | 320px | 狭いダイアログまたはサイドバー |
+| `wrapper-sm` | 640px | 単一列のコンテンツ |
+| `wrapper-md` | 768px | 記事とブログ投稿 |
+| `wrapper-lg` | 1024px | 標準のページレイアウト |
+| `wrapper-xl` | 1280px | 幅広いレイアウト |
+| `wrapper-2xl` | 1536px | 非常に広いレイアウト |
+| `wrapper-full` | 100% | 一貫したパディングを備えたフルブリード |
+
+</DocTable>
+
+### レスポンシブパディング
+
+すべてのラッパー バリアントは、ブレークポイント間の水平パディングを自動的にスケールします。追加のユーティリティ クラスは必要ありません。
+
+<Snippet view="code">
+
+```css
+/* Applied to every wrapper variant */
+default  → padding-inline: 1rem   (16px)
+sm       → padding-inline: 2rem   (32px)
+lg       → padding-inline: 4rem   (64px)
+```
+
+</Snippet>
+
+### ページレイアウトの例
+
+標準のページ レイアウトのメイン コンテンツ領域で `.wrapper-xl` を使用します。
+
+<Snippet view="code">
+
+```html
+<header class="bg-base-200">
+  <div class="wrapper-xl">
+    <nav class="navbar">...</nav>
+  </div>
+</header>
+
+<main class="wrapper-xl py-12">
+  <h1 class="heading-4xl">Page Title</h1>
+  <p class="para-base">Page content goes here.</p>
+</main>
+
+<footer class="bg-base-200">
+  <div class="wrapper-xl">...</div>
+</footer>
+```
+
+</Snippet>
+
+### 記事のレイアウト例
+
+読みやすい記事またはブログ投稿のレイアウトには、`.wrapper-md` を使用します。
+
+<Snippet view="code">
+
+```html
+<article class="wrapper-md py-10 prose prose-frutjam">
+  <h1>Article Title</h1>
+  <p>Long-form content benefits from a narrower max-width for optimal line length.</p>
+</article>
+```
+
+</Snippet>
+
+## タイポグラフィ
+
+### 1\. 要素ユーティリティ
+
+これらのクラスは、HTML 要素で直接使用するために設計されています。見出しは重みとインパクトを考慮して最適化され、段落は読みやすさを考慮して最適化されています。
+
+### 見出し
+
+タイトルと重要性の高いテキストには `.heading-{size}` を使用します。
+
+#### 標準スケール
+
+`heading-xs`、`heading-sm`、`heading-md`、`heading-base`、`heading-lg`、`heading-xl`、`heading-2xl`、`heading-3xl`、`heading-4xl`、`heading-5xl`、 `heading-6xl`、`heading-7xl`、`heading-8xl`、`heading-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<h1 class="heading-4xl">Gigantic Hero</h1>
+<h2 class="heading-3xl">Section Title</h2>
+<h3 class="heading-base">Small Subheading</h3>
+```
+
+</Snippet>
+
+#### 動的精度 (任意の数値)
+
+Frutjam を使用すると、スケールから抜け出すことができます。任意の数値を使用して特定のピクセル サイズを設定します
+
+`.heading-{number}` (例: `.heading-46`)
+
+<Snippet>
+
+```html
+<h2 class="heading-46">Bespoke Heading</h2>
+```
+
+</Snippet>
+
+### 段落
+
+本文、説明、UI ラベルには `.para-{size}` を使用します
+
+#### 標準スケール
+
+`para-xs`、`para-sm`、`para-md`、`para-base`、`para-lg`、`para-xl`、`para-2xl`、`para-3xl`、`para-4xl`、`para-5xl`、 `para-6xl`、`para-7xl`、`para-8xl`、`para-9xl`
+
+<Snippet class="flex-col items-start">
+
+```html
+<p class="para-lg">This is a lead paragraph with extra breathing room.</p>
+<p class="para-base">This is your standard UI text size.</p>
+<p class="para-xs">Small footer or caption text.</p>
+```
+
+</Snippet>
+
+#### 動的精度 (任意の数値)
+
+スケールにとらわれないでください。任意の数値を使用して、デザインが要求する正確なピクセル サイズをダイヤルインします。
+
+`.para-{number}` (例: `.para-28`)
+
+<Snippet>
+
+```html
+<p class="para-28">Editorial-style body text.</p>
+```
+
+</Snippet>
+
+### レスポンシブ・タイポグラフィー
+
+Frutjam は「自動」サイズ変更を強制しません。代わりに、Tailwind のモバイルファースト ブレークポイントを使用して完全に制御できます。これにより、デザインがモバイル レイアウトがどうあるべきかを「推測」することがなくなります。
+
+#### 応答パターン
+
+常に最初にモバイル サイズ (基本クラス) を定義し、次に `md:` や `lg:` などのプレフィックスを使用して、より大きな画面に合わせてスケールアップします。
+
+<Snippet view="code">
+
+```html
+<h1 class="heading-2xl md:heading-5xl lg:heading-9xl">
+  Responsive Headline
+</h1>
+
+<p class="para-sm md:para-base lg:para-lg">
+  Body text that stays comfortable on all devices.
+</p>
+```
+
+</Snippet>
+
+### 2\. リッチテキスト (散文)
+
+Markdown または CMS コンテンツをレンダリングする場合、`heading-lg` などのクラスをすべてのタグに手動で追加することはできません。 `prose-frutjam` は、公式の `@tailwindcss/typography` プラグインと Frutjam のデザイン トークンを橋渡しするラッパーです。そのため、スタイルのない HTML タグはテーマの色とタイポグラフィを自動的に継承します。
+
+#### 設定
+
+Tailwind v4 CSS で両方のプラグインがアクティブであることを確認します。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+@plugin "@tailwindcss/typography";
+```
+
+</Snippet>
+
+#### 使用法
+
+`.prose` と `.prose-frutjam` の両方をラッパー要素に追加します。 `.prose` はタイポグラフィ プラグインを有効にします。 `.prose-frutjam` は、Frutjam のテーマ トークンをそれにマップします。
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam max-w-none">
+  <h1>Article Title</h1>
+  <p>Body text, links, and lists all inherit Frutjam theme colors automatically.</p>
+  <ul>
+    <li>Links use your primary color</li>
+    <li>Blockquote borders use your primary color</li>
+    <li>Headings, body, and captions use semantic on-base colors</li>
+  </ul>
+</article>
+```
+
+</Snippet>
+
+#### マッピングされるもの
+
+ラッパーは、次の散文 CSS 変数を Frutjam トークンでオーバーライドします。
+
+<Snippet view="code">
+
+```css
+/* prose-frutjam maps these automatically */
+body text      → --color-body
+headings       → --color-on-base
+links          → --color-primary
+blockquotes    → --color-on-base  (text), --color-primary (border)
+bullets        → --color-neutral
+code           → --color-on-base
+captions       → --color-on-neutral
+```
+
+</Snippet>
+
+#### ダークモード
+
+暗い背景用に `.prose-invert` を `.prose-frutjam` の横に追加します。反転トークンも Frutjam カラーにマッピングされます。
+
+<Snippet view="code">
+
+```html
+<article class="prose prose-frutjam prose-invert bg-neutral p-6 rounded-lg">
+  <h2>Dark Background Content</h2>
+  <p>Inverted tokens keep text legible on dark surfaces.</p>
+</article>
+```
+
+</Snippet>

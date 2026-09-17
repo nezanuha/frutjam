@@ -1,0 +1,345 @@
+---
+name: "Keterangan alat"
+heading: "Komponen Keterangan Alat"
+description: "Tooltip Tailwind CSS khusus CSS dengan penempatan atas, bawah, kiri, dan kanan. Varian warna, tidak diperlukan JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Keterangan Alat - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tip Alat CSS Tailwind khusus CSS dengan beberapa penempatan dan varian warna. Petunjuk arahkan dan fokus yang dapat diakses untuk panduan UI—tidak memerlukan JavaScript."
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Komponen tooltip oleh Frutjam"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "86056cefc2a5"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Tooltip Tailwind CSS khusus CSS dengan penempatan atas, bawah, kiri, dan kanan. Varian warna, tidak diperlukan JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Tooltip components display additional information when users hover over or focus on an element. Built with semantic HTML attributes and CSS, tooltips enhance user experience by providing context-specific help without cluttering the interface. The Frutjam tooltip system supports multiple positions, custom content, and smooth animations for seamless information discovery.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+**Note:** Tooltips rely on `:hover` and `:focus`, which are **not available on touch/mobile devices**. For mobile-first layouts, use the responsive variant `lg:tooltip` so the tooltip only activates on desktop (large screens and above). On smaller screens, consider using a different disclosure pattern such as a [popover](https://frutjam.com/components/popover) or [modal](https://frutjam.com/components/modal).
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">Basis</span> | Wrapper that reveals `data-tip` content on hover/focus |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Custom HTML content inside the tooltip bubble |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens above the trigger (default) |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens below the trigger |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens to the left of the trigger |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens to the right of the trigger |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens to the logical start side |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Opens to the logical end side |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema utama |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema sekunder |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema aksen |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema netral |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik info |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik sukses |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik peringatan |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Kesalahan gelembung warna semantik |
+
+</DocTable>
+
+## Tooltip
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Custom Tooltip Content
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Tooltip with Icon
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## Force Open Tooltip
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## Tooltip Positioning Options
+
+### Top Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### Right Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### End Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### Bottom Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### Left Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### Start Placement
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## Tooltip Color Variants
+
+### Primary Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### Secondary Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### Accent Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### Info Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### Success Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### Warning Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### Error Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### Neutral Color
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## Responsive Tooltips
+
+Show only on large screens with `lg:tooltip`
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## JS & Pembantu React
+
+Gunakan `createTooltip` dari `frutjam/js` atau `useTooltip` dari `frutjam/react` untuk menampilkan atau menyembunyikan tooltip secara terprogram — berguna untuk tur terpandu atau teks bantuan yang dipicu.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

@@ -1,0 +1,172 @@
+---
+name: "地位"
+heading: "状态组件"
+description: "仅 CSS Tailwind CSS 状态点指示器，具有主要、成功、警告和错误颜色变体。尺寸为 xs-xl。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "状态 - 仅 CSS Tailwind CSS 组件 |Frutjam"
+metaDescription: "Tailwind CSS 状态指示器显示用户状态和系统运行状况。多种尺寸的颜色编码点，用于表示在线、离线、忙碌和离开状态。"
+order: 0
+related:
+  - "components/alert"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/status_iG1tcWc.webp"
+imageAlt: "Frutjam 的状态"
+createdAt: "2026-04-19T15:57:10.046622+00:00"
+updatedAt: "2026-07-13T09:46:58.404651+00:00"
+sourceHash: "544cbb26c3ed"
+translationHash: "84372ddd9791"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 状态点指示器，具有主要、成功、警告和错误颜色变体。尺寸为 xs-xl。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+状态组件通过可视指示器显示用户、系统或进程的当前状态或可用性。状态徽章采用语义 HTML 和颜色编码样式构建，可传达重要的状态信息。 Frutjam 状态系统支持多种颜色和尺寸，非常适合用户状态、系统运行状况和工作流程状态。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| status | <span class="badge badge-xs">根据</span> | 用于状态或存在的小点指示器 |
+| status-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小号 |
+| status-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小的 |
+| status-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（默认） |
+| status-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大的 |
+| status-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特大号 |
+| status-primary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 主要主题颜色 |
+| status-secondary | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 次要主题色 |
+| status-accent | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 强调主题颜色 |
+| status-neutral | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 中性主题色 |
+| status-info | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 信息语义颜色 |
+| status-success | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 成功语义色 |
+| status-warning | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 警告语义颜色 |
+| status-error | <span class="badge badge-xs badge-warning badge-soft">颜色</span> | 错误语义颜色 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<span class="status"></span>
+```
+
+```jsx
+<span className="status"></span>
+```
+
+</Snippet>
+
+## 状态颜色
+
+<Snippet>
+
+```html
+<span class="status status-primary"></span>
+<span class="status status-secondary"></span>
+<span class="status status-accent"></span>
+<span class="status status-neutral"></span>
+<span class="status status-info"></span>
+<span class="status status-success"></span>
+<span class="status status-warning"></span>
+<span class="status status-error"></span>
+```
+
+</Snippet>
+
+## 状态尺寸
+
+<Snippet>
+
+```html
+<span class="status status-xs status-success"></span>
+<span class="status status-sm status-success"></span>
+<span class="status status-md status-success"></span>
+<span class="status status-lg status-success"></span>
+```
+
+</Snippet>
+
+## 带标签的状态
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <span class="status status-md status-success"></span>
+  <span>Online</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-neutral"></span>
+  <span>Offline</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-error"></span>
+  <span>Busy</span>
+</div>
+
+<div class="flex items-center gap-2">
+  <span class="status status-md status-warning"></span>
+  <span>Away</span>
+</div>
+```
+
+</Snippet>
+
+## 带有 Ping 动画的状态
+
+<Snippet>
+
+```html
+<div class="status status-error animate-ping"></div>
+```
+
+</Snippet>
+
+## 带有弹跳动画的状态
+
+<Snippet>
+
+```html
+<div class="flex items-center gap-2">
+  <div class="status status-info animate-bounce"></div>
+  <span>Unread emails</span>
+</div>
+```
+
+</Snippet>
+
+## 用户列表中的状态
+
+<Snippet>
+
+```html
+<div class="space-y-2">
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-online">
+      U1
+    </div>
+    <span>John (Online)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-offline">
+      U2
+    </div>
+    <span>Jane (Offline)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="avatar avatar-busy">
+      U3
+    </div>
+    <span>Bob (Busy)</span>
+  </div>
+</div>
+```
+
+</Snippet>

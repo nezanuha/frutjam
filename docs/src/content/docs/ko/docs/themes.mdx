@@ -1,0 +1,150 @@
+---
+name: "테마"
+heading: "테마"
+description: "Frutjam의 CSS 전용 테마 시스템은 CSS 변수와 단일 데이터 속성을 사용합니다. JavaScript 없이 밝은 테마, 어두운 테마, 맞춤 테마를 전환하세요. WCAG AA 색상 토큰이 내장되어 있으며 Django, HTMX, Laravel 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다."
+metaTitle: "Tailwind CSS 테마 -CSS 변수 및 다크 모드 | Frutjam"
+metaDescription: "CSS 변수를 사용한 Frutjam 테마. 밝은 테마, 어두운 테마, 맞춤 테마 - JavaScript가 필요하지 않으며 즉시 업데이트되며 Tailwind CSS v4와 호환됩니다."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "테마 - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "f61ff08f5e9c"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Frutjam의 CSS 전용 테마 시스템은 CSS 변수와 단일 데이터 속성을 사용합니다. JavaScript 없이 밝은 테마, 어두운 테마, 맞춤 테마를 전환하세요. WCAG AA 색상 토큰이 내장되어 있으며 Django, HTMX, Laravel 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다.
+
+Frutjam에는 OKLCH 색상 값을 기반으로 구축된 명명된 테마 세트인 Berry 테마 시스템이 함께 제공됩니다. `data-theme` 속성을 사용하여 전체 앱에 테마를 적용하거나 특정 섹션 내에 테마를 중첩하세요. CSS 전용, JavaScript 필요 없음, WCAG AA 액세스 가능 — Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다.
+
+<ThemeCards />
+
+## 내장 테마
+
+Frutja에는 즉시 사용 가능한 두 가지 기본 테마가 포함되어 있습니다.
+
+### 스노우베리(라이트)
+
+기본 조명 테마입니다. `data-theme`가 설정되지 않은 경우 자동으로 적용됩니다.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### 다크베리(다크)
+
+내장된 어두운 테마.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## 테마 적용
+
+HTML 요소에 `data-theme`를 추가하세요. 주제는 모든 어린이에게 전달됩니다.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## 중첩된 테마
+
+테마는 중첩될 수 있습니다. 하위 요소는 해당 하위 트리의 상위 테마를 재정의합니다.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## 다크 모드 변형
+
+Tailwind의 `dark:` 접두사를 사용하세요. `data-theme="dark"` 및 `data-theme="darkberry"` 모두에서 활성화됩니다.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## 맞춤 테마
+
+`[data-theme]` 선택기 내에서 CSS 변수를 정의하여 나만의 테마를 만드세요. 전체 변수 참조는 [구성](/docs/configuration) 페이지를 참조하세요.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

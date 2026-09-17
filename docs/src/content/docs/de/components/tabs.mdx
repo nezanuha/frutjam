@@ -1,0 +1,417 @@
+---
+name: "Tabs"
+heading: "Tabs-Komponente"
+description: "Nur CSS-Tailwind-CSS-Registerkarten mit Rand-, Lifted-, Boxed- und Pill-Style-Varianten. Aktiver Status und Größen, kein JavaScript erforderlich. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Tabs – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "JS-freie Tailwind-CSS-Tabs mit Boxed-, Bordered-, Lifted- und Underlined-Varianten. Zugänglicher Bedienfeldwechsel für organisierte Inhaltsabschnitte und Navigation."
+order: 0
+related:
+  - "components/sidebar"
+  - "components/steps"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/tabs_MzMB24m.webp"
+imageAlt: "Tabs von Frutjam"
+createdAt: "2026-04-19T15:57:18.973682+00:00"
+updatedAt: "2026-07-13T09:51:31.366697+00:00"
+sourceHash: "dfa9e692606c"
+translationHash: "f7fb528f87ed"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS-Tailwind-CSS-Registerkarten mit Rand-, Lifted-, Boxed- und Pill-Style-Varianten. Aktiver Status und Größen, kein JavaScript erforderlich. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Registerkartenkomponenten organisieren Inhalte in separate Abschnitte, zwischen denen Benutzer wechseln können, ohne die Seite zu verlassen. Die mit semantischem HTML und Radio-Eingabemustern erstellten Registerkarten bieten eine intuitive Navigation zum Gruppieren verwandter Informationen. Das Frutjam-Tabs-System unterstützt mehrere Größen, Stile und Layoutrichtungen – nur CSS oder JavaScript-gesteuert – und eignet sich daher ideal für Dashboards, Dokumentation und Tab-Oberflächen.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| tabs | <span class="badge badge-xs">Base</span> | Container für eine Gruppe von Tab-Eingaben und Inhaltsbereichen |
+| tab | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Individueller Tab-Radioeingang |
+| tab-content | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Inhaltsbereich, der einer Registerkarte zugeordnet ist |
+| tab-active | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Erzwingt den aktiven/ausgewählten Status auf einer Registerkarte (für JS-gesteuerte Registerkarten) |
+| tab-disabled | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Deaktivierte Darstellung für eine Registerkarte |
+| tabs-underline | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Stil des Unterstreichungsindikators |
+| tabs-lifted | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Kartenartiger, hochgezogener Tab-Stil |
+| tabs-box | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Verpackte Tabletten im Pillenstil |
+| tabs-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Vertikales Tab-Layout mit Tabs in einer linken Spalte |
+| tabs-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Richtet die Tabulatorzeile am Ende aus (rechts in LTR) |
+| tabs-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Platziert Registerkarten unterhalb des Inhaltsbereichs |
+| tabs-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra kleine Laschenpolsterung |
+| tabs-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Kleine Laschenpolsterung |
+| tabs-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittlerer Tabulatorabstand (Standard) |
+| tabs-lg | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Große Laschenpolsterung |
+| tabs-xl | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra große Laschenpolsterung |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+Die Standardregisterkarten verwenden einen einfachen Unterstreichungs-bei-Aktiv-Stil mit Radioeingaben. Jede `tab`\-Eingabe wird mit einem `tab-content`\-Panel unmittelbar danach gepaart.
+
+<Snippet>
+
+```html
+<div class="tabs">
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">
+    <p>Overview content: a high-level summary of features, metrics, or status. This panel is visible by default.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">
+    <p>Details content: in-depth information such as configuration options, data breakdown, or extended documentation.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">
+    <p>Activity content: a timeline, event log, or recent changes relevant to this section.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tab-Stile
+
+Verwenden Sie `tabs-underline`, `tabs-box` oder `tabs-lifted`, um den visuellen Stil der Tableiste zu ändern.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="style-underline" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Underline style — a colored bottom border marks the active tab against a full-width separator line.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-box">
+  <input type="radio" name="style-box" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Box style — the active tab gets a raised background inside a tinted pill container.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-lifted">
+  <input type="radio" name="style-lifted" class="tab" aria-label="Overview" checked>
+  <div class="tab-content p-4">Lifted style — the active tab appears as a card tab with borders that merge into the content panel below.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Details">
+  <div class="tab-content p-4">Details panel.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Activity">
+  <div class="tab-content p-4">Activity panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Tab-Größen
+
+Skalieren Sie den Tabulatorabstand von `tabs-xs` bis `tabs-xl`, um ihn an die Dichte Ihres Layouts anzupassen.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-xs">
+  <input type="radio" name="size-xs" class="tab" aria-label="Extra Small" checked>
+  <div class="tab-content pt-3">Extra small tabs</div>
+  <input type="radio" name="size-xs" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-sm">
+  <input type="radio" name="size-sm" class="tab" aria-label="Small" checked>
+  <div class="tab-content pt-3">Small tabs</div>
+  <input type="radio" name="size-sm" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-md">
+  <input type="radio" name="size-md" class="tab" aria-label="Medium" checked>
+  <div class="tab-content pt-3">Medium tabs (default)</div>
+  <input type="radio" name="size-md" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-lg">
+  <input type="radio" name="size-lg" class="tab" aria-label="Large" checked>
+  <div class="tab-content pt-3">Large tabs</div>
+  <input type="radio" name="size-lg" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-xl">
+  <input type="radio" name="size-xl" class="tab" aria-label="Extra Large" checked>
+  <div class="tab-content pt-3">Extra large tabs</div>
+  <input type="radio" name="size-xl" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+```
+
+</Snippet>
+
+## Registerkarten mit Schaltflächen
+
+Kombinieren Sie `tab` mit `btn`, um Tabs als gestaltete Schaltflächen darzustellen. Die Klasse `btn` übernimmt Farben und Rahmenradius, während die Tab-Auswahllogik erhalten bleibt.
+
+<Snippet>
+
+```html
+<div class="tabs gap-2">
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Home" checked>
+  <div class="tab-content pt-4">
+    <p>Home — your primary landing panel with quick access to key actions and a summary view.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Profile">
+  <div class="tab-content pt-4">
+    <p>Profile — manage personal information, preferences, and account details.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Settings">
+  <div class="tab-content pt-4">
+    <p>Settings — configure notifications, privacy options, and connected integrations.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Deaktivierte Registerkarten
+
+Fügen Sie `tab-disabled` und das Attribut `disabled` hinzu, um die Interaktion mit einem Tab zu verhindern.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Available" checked>
+  <div class="tab-content pt-4">This tab is active and accessible.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab tab-disabled" aria-label="Unavailable" disabled>
+  <div class="tab-content pt-4">This content is not reachable.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Another">
+  <div class="tab-content pt-4">Another available tab panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Vertikale Tabs
+
+`tabs-vertical` wechselt zu einem Rasterlayout mit Tabs in einer linken Spalte und dem Inhalt, der die rechte Spalte ausfüllt. Zwischen den Spalten wird automatisch eine Trennlinie voller Höhe eingefügt.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-vertical">
+  <input type="radio" name="vertical" class="tab" aria-label="General" checked>
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">General Settings</h3>
+    <p>Manage your display name, language preference, and time zone.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Security">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Security</h3>
+    <p>Update your password, enable two-factor authentication, and review active sessions.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Notifications">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Notifications</h3>
+    <p>Choose which events trigger email, push, or in-app notifications.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Billing">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Billing</h3>
+    <p>View invoices, update your payment method, and manage your subscription plan.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tabs unten
+
+`tabs-bottom` dreht das Layout um, sodass der Inhalt über der Tableiste angezeigt wird, was für Navigationsleisten im mobilen Stil oder untere Symbolleisten nützlich ist.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-bottom tabs-underline">
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Feed" checked>
+  <div class="tab-content pb-4">
+    <p>Feed — latest posts and updates from people you follow.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Explore">
+  <div class="tab-content pb-4">
+    <p>Explore — discover trending topics, creators, and recommended content.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Saved">
+  <div class="tab-content pb-4">
+    <p>Saved — articles and posts you bookmarked for later.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tabulatoren am Ende ausgerichtet
+
+`tabs-end` verschiebt die Tableiste an die rechte Seite (Ende) des Containers, was für sekundäre Navigations- oder Aktionsmenüs nützlich ist.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-end">
+  <input type="radio" name="end-tabs" class="tab" aria-label="Week" checked>
+  <div class="tab-content pt-4">Weekly view — aggregated metrics for the past 7 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Month">
+  <div class="tab-content pt-4">Monthly view — trend analysis over the past 30 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Year">
+  <div class="tab-content pt-4">Yearly view — annual summary and year-over-year comparison.</div>
+</div>
+```
+
+</Snippet>
+
+## JavaScript-gesteuerte Tabs
+
+Fügen Sie für Nicht-Radio-Muster (z. B. Ankerlinks, dynamische Inhalte) `tab-active` zum ausgewählten Tab in JavaScript hinzu. Der gepaarte `tab-content` wird über den Selektor `.tab-active + .tab-content` angezeigt.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-box" id="js-tabs">
+  <button class="tab tab-active" data-tab="0">Dashboard</button>
+  <div class="tab-content pt-4">Dashboard panel — visible because this tab has <code>tab-active</code>.</div>
+
+  <button class="tab" data-tab="1">Reports</button>
+  <div class="tab-content pt-4">Reports panel.</div>
+
+  <button class="tab" data-tab="2">Integrations</button>
+  <div class="tab-content pt-4">Integrations panel.</div>
+</div>
+
+<script>
+  document.querySelectorAll('#js-tabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#js-tabs .tab').forEach(t => t.classList.remove('tab-active'));
+      tab.classList.add('tab-active');
+    });
+  });
+</script>
+```
+
+```jsx
+import { useTabs } from 'frutjam/react'
+
+export default function TabsDemo() {
+  const tabs = useTabs(0)
+  return (
+    <div className="tabs tabs-box">
+      <button {...tabs.tabProps(0)}>Dashboard</button>
+      <div {...tabs.panelProps(0)} className="tab-content pt-4">Dashboard panel.</div>
+
+      <button {...tabs.tabProps(1)}>Reports</button>
+      <div {...tabs.panelProps(1)} className="tab-content pt-4">Reports panel.</div>
+
+      <button {...tabs.tabProps(2)}>Integrations</button>
+      <div {...tabs.panelProps(2)} className="tab-content pt-4">Integrations panel.</div>
+    </div>
+  )
+}
+```
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const active = ref(0)
+</script>
+
+<template>
+  <div class="tabs tabs-box">
+    <button
+      v-for="(label, i) in ['Dashboard', 'Reports', 'Integrations']"
+      :key="i"
+      class="tab"
+      :class="{ 'tab-active': active === i }"
+      :aria-selected="active === i"
+      role="tab"
+      @click="active = i"
+    >{{ label }}</button>
+
+    <div class="tab-content pt-4" :hidden="active !== 0">Dashboard panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 1">Reports panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 2">Integrations panel.</div>
+  </div>
+</template>
+```
+
+```svelte
+<script>
+  let active = $state(0)
+  const labels = ['Dashboard', 'Reports', 'Integrations']
+</script>
+
+<div class="tabs tabs-box">
+  {#each labels as label, i}
+    <button
+      class="tab"
+      class:tab-active={active === i}
+      aria-selected={active === i}
+      role="tab"
+      onclick={() => active = i}
+    >{label}</button>
+    <div class="tab-content pt-4" hidden={active !== i}>{label} panel.</div>
+  {/each}
+</div>
+```
+
+```angular
+import { Component } from '@angular/core'
+import { NgFor } from '@angular/common'
+
+@Component({
+  selector: 'app-tabs',
+  standalone: true,
+  imports: [NgFor],
+  template: `
+    <div class="tabs tabs-box">
+      <button
+        *ngFor="let label of labels; let i = index"
+        class="tab"
+        [class.tab-active]="active === i"
+        [attr.aria-selected]="active === i"
+        role="tab"
+        (click)="active = i"
+      >{{ label }}</button>
+      <div class="tab-content pt-4" [hidden]="active !== 0">Dashboard panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 1">Reports panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 2">Integrations panel.</div>
+    </div>
+  `
+})
+export class TabsComponent {
+  labels = ['Dashboard', 'Reports', 'Integrations']
+  active = 0
+}
+```
+
+</Snippet>

@@ -1,0 +1,253 @@
+---
+name: "ステータス"
+heading: "統計コンポーネント"
+description: "メトリクスを表示するための CSS のみの Tailwind CSS 統計。値、ラベル、説明、およびアイコンのスロット。レスポンシブなグリッドレイアウト。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "統計 - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "ダッシュボードと KPI 表示用の Tailwind CSS Stat。タイトル、値、傾向インジケーター、アイコンのサポートにより、明確なメトリクスと分析のプレゼンテーションが可能になります。"
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "フルジャムによる統計"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+sourceHash: "7f3344252897"
+translationHash: "0b945d21a2aa"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+メトリクスを表示するための CSS のみの Tailwind CSS 統計。値、ラベル、説明、およびアイコンのスロット。レスポンシブなグリッドレイアウト。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+統計コンポーネントは、主要なメトリクスと数値データを明確で整理された形式で表示します。セマンティック HTML と柔軟なレイアウトで構築された統計は、重要なビジネス指標と分析を伝えます。 Frutjam 統計システムは、ダッシュボード、パフォーマンス レポート、データ概要に最適な複数の配置とスタイルをサポートしています。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">ベース</span> | 1 つ以上の統計アイテムのコンテナー |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | タイトル、値、説明を含む個別の統計項目 |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 統計値の上のラベル |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 大きな主数値またはテキスト値 |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 値の下に補足説明 |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ステータスの横にあるアイコンまたはアバター |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 統計項目を横に並べて配置します (デフォルト) |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 統計アイテムを垂直に積み重ねる |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 統計値の主なテーマの色 |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">色</span> | 統計値の二次テーマの色 |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">色</span> | 統計値のアクセントテーマの色 |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">色</span> | 統計値のニュートラルなテーマカラー |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">色</span> | ステータス値の情報セマンティックカラー |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">色</span> | ステータス値の成功セマンティックカラー |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">色</span> | ステータス値の警告セマンティックカラー |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">色</span> | 統計値のエラー セマンティック カラー |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## 複数の統計
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## アイコン付きの統計
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 水平統計
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 垂直統計
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## カラーバリエーション
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## セマンティックカラーバリエーション
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>

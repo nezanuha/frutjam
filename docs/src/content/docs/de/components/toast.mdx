@@ -1,0 +1,157 @@
+---
+name: "Toast"
+heading: "Toast-Komponente"
+description: "Nur CSS Tailwind CSS-Toast für die Positionierung von Benachrichtigungen – oben, unten, am Anfang, am Ende und in der Mitte. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+metaTitle: "Toast – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
+metaDescription: "Tailwind CSS Toast mit konfigurierbaren Positionen und Stapelung. Erfolgs-, Fehler-, Warn- und Infovarianten für zugängliche, nicht aufdringliche Benutzerbenachrichtigungen."
+order: 0
+related:
+  - "components/alert"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
+imageAlt: "Toast von Frutjam"
+createdAt: "2026-04-19T15:57:25.964725+00:00"
+updatedAt: "2026-07-13T09:53:05.411034+00:00"
+sourceHash: "9ce87a99d8b9"
+translationHash: "c90ff7eb35a3"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Nur CSS Tailwind CSS-Toast für die Positionierung von Benachrichtigungen – oben, unten, am Anfang, am Ende und in der Mitte. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+Toast-Komponenten zeigen kurze, unaufdringliche Benachrichtigungen an den Rändern des Bildschirms an. Toasts basieren auf festen Positionierungs- und Warnkomponenten und übermitteln Systemrückmeldungen wie Erfolgsbestätigungen, Fehlermeldungen oder Statusaktualisierungen. Das Frutjam-Toastsystem unterstützt sechs Platzierungspositionen – ideal für Formularübermittlungen, asynchrone Vorgänge und Echtzeitbenachrichtigungen.
+
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasse | Typ | Beschreibung |
+| --- | --- | --- |
+| toast | <span class="badge badge-xs">Base</span> | Benachrichtigungscontainer mit fester Position |
+| toast-top | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Verankert sich am oberen Rand des Ansichtsfensters |
+| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Anker am unteren Rand des Ansichtsfensters (Standard) |
+| toast-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Anker auf der linken Seite |
+| toast-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Horizontal zentriert |
+| toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Anker nach rechts (Standard) |
+| toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Vertikal zentriert |
+
+</DocTable>
+
+## Grundlegende Verwendung
+
+<Snippet>
+
+```html
+<div class="toast">
+  <div class="alert alert-info">
+    <span>New message arrived.</span>
+  </div>
+</div>
+```
+
+```jsx
+import { useToast } from 'frutjam/react'
+
+export default function ToastDemo() {
+  const toast = useToast()
+  return (
+    <>
+      <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
+      <div className="toast">
+        {toast.toasts.map(t => (
+          <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
+            <span>{t.message}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Toastpositionen
+
+### Top-Positionen
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-start">
+  <div class="alert alert-info"><span>Top Start</span></div>
+</div>
+
+<div class="toast toast-top toast-center">
+  <div class="alert alert-info"><span>Top Center</span></div>
+</div>
+
+<div class="toast toast-top toast-end">
+  <div class="alert alert-info"><span>Top End</span></div>
+</div>
+```
+
+</Snippet>
+
+### Untere Positionen
+
+<Snippet>
+
+```html
+<div class="toast toast-bottom toast-start">
+  <div class="alert alert-info"><span>Bottom Start</span></div>
+</div>
+
+<div class="toast toast-bottom toast-center">
+  <div class="alert alert-info"><span>Bottom Center</span></div>
+</div>
+
+<div class="toast toast-bottom toast-end">
+  <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+## Toastfarben
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>File saved successfully.</span>
+  </div>
+  <div class="alert alert-warning">
+    <span>Storage is almost full.</span>
+  </div>
+  <div class="alert alert-error">
+    <span>Connection failed.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>Update available.</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Mehrere Toasts
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>Profile updated.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>2 new notifications.</span>
+  </div>
+</div>
+```
+
+</Snippet>

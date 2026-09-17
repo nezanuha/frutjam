@@ -1,0 +1,362 @@
+---
+name: "Yapılandırma"
+heading: "Yapılandırma"
+description: "Yalnızca Frutjam CSS'ye özel Tailwind CSS eklentisini yapılandırın. Varsayılan temaları ayarlayın, özel renk belirteçleri tanımlayın, önek sistemini değiştirin; sıfır JavaScript gereklidir. WCAG'ye erişilebilir varsayılanlar, Django, HTMX, Laravel ve herhangi bir çerçeveyle çalışır."
+metaTitle: "Tailwind CSS Eklentisi Yapılandırması | Frutjam Dokümanları"
+metaDescription: "Frutjam Tailwind CSS eklentisini yapılandırın. Temaları, renk belirteçlerini, önek sistemini ve bileşen seçeneklerini özelleştirin; sıfır JavaScript gereklidir."
+order: 2
+related:
+  - "docs/themes"
+  - "docs/colors"
+  - "docs/installation"
+image: "https://cdn.frutjam.com/media/docs/configuration.webp"
+imageAlt: "Yapılandırma - Frutjam"
+createdAt: "2025-09-05T16:12:35.826367+00:00"
+updatedAt: "2026-07-13T09:55:39.240950+00:00"
+sourceHash: "708396ebc01b"
+translationHash: "2568e297d3a1"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Yalnızca Frutjam CSS'ye özel Tailwind CSS eklentisini yapılandırın. Varsayılan temaları ayarlayın, özel renk belirteçleri tanımlayın, önek sistemini değiştirin; sıfır JavaScript gereklidir. WCAG'ye erişilebilir varsayılanlar, Django, HTMX, Laravel ve herhangi bir çerçeveyle çalışır.
+
+Projenize uyacak şekilde yalnızca Frutjam CSS'ye özel Tailwind CSS eklentisini yapılandırın. Temaları ayarlayın, özel renk belirteçleri tanımlayın, önek sistemini değiştirin ve isteğe bağlı bileşenleri seçin; sıfır JavaScript gereklidir. WCAG AA'ya erişilebilir varsayılanlar. Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+
+## Temel Kurulum
+
+`@plugin` yönergesini kullanarak Frutjam'ı CSS dosyanıza ekleyin. Hiçbir seçeneğe gerek yok; her şey kutudan çıktığı gibi çalışıyor.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## Eklenti Seçenekleri
+
+`@plugin` bloğunun içindeki seçenekleri ileterek Frutjam'ı özelleştirin:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+  reset: true;
+  root: :host;
+  include: button, card, alert;
+  /* or: */
+  exclude: table, timeline;
+}
+```
+
+</Snippet>
+
+### önek
+
+Kendi CSS'nizle çakışmaları önlemek için tüm Frutjam sınıf adlarına bir önek ekler.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn fj-btn-primary">Send mail</button>
+```
+
+</Snippet>
+
+Önekin nasıl davranacağı, Tailwind'in `prefix()` seçeneğini de kullanıp kullanmadığınıza bağlıdır:
+
+#### Yalnızca Frutjam öneki
+
+Frutjam sınıf adlarına ön ek eklenmiştir. Bunları doğrudan HTML'de kullanın.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn">Button</button>
+```
+
+</Snippet>
+
+#### Yalnızca arka rüzgar öneki
+
+Tailwind'in `prefix()`'i bir değişken olarak çalışır; tüm yardımcı programlar (Frutjam'ınkiler dahil) HTML'de bir değişken seçici olarak öneki gerektirir.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:btn">Button</button>
+```
+
+</Snippet>
+
+#### Her iki önek
+
+Frutjam sınıflarını yeniden adlandırır (ör. `fj-btn`) ve en üstte Tailwind'in değişken öneki gereklidir.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:fj-btn">Button</button>
+```
+
+</Snippet>
+
+### sıfırlama
+
+Frutjam'ın temel öğe sıfırlamalarını (yeniden başlatma stilleri) enjekte edip etmediğini kontrol eder. Varsayılan olarak `true`'dur.
+
+`true` olduğunda Frutjam, Tailwind'in ön kontrolüne benzer şekilde kutu modelini, tipografiyi, listeleri, medyayı ve form öğelerini sıfırlar. `false` olduğunda yalnızca CSS değişken belirteçleri eklenir; ham öğe stilleri tamamen atlanır.
+
+`*`, `html`, `body`, `h1-h6` ve `button` gibi öğelerde çakışmaları önlemek için zaten başka bir CSS çerçevesi (Bootstrap, Bulma vb.) kullanırken veya kendi sıfırlamanızı yaparken `false` olarak ayarlayın.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  reset: false;
+}
+```
+
+</Snippet>
+
+### kök
+
+Frutjam'ın tasarım belirteci değişkenlerini (`--color-primary`, `--color-base`, vb.) kaydettiği CSS seçici. Varsayılan olarak `:root` şeklindedir.
+
+Üç yararlı değer vardır:
+
+<DocTable>
+
+| Değer | Ne zaman kullanılmalı |
+| --- | --- |
+| `:root` | Varsayılan. Tokenlar dünya çapında tüm sayfada mevcuttur. |
+| `:host` | Gölge DOM / Web Bileşenleri. Dışarı sızmamaları için bileşenin içindeki belirteçleri kapsam altına alır. |
+| Herhangi bir seçici (ör. `#app`) | Belirteçleri belirli bir sarmalayıcı öğeye kadar kapsar. Frutjam aynı sayfada başka bir çerçeveyle bir arada bulunduğunda kullanışlıdır. |
+
+</DocTable>
+
+#### Varsayılan — küresel belirteçler
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :root;
+}
+```
+
+</Snippet>
+
+#### Gölge DOM / Web Bileşenleri
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :host;
+}
+```
+
+</Snippet>
+
+#### Bir sarmalayıcı öğenin kapsamı
+
+Başka bir çerçeve zaten `:root`'u kontrol ediyorsa (örneğin, Bootstrap kendi `--bs-*` değişkenlerini ve gövde renklerini ayarlar), bunun yerine Frutjam'ı bir konteyner öğesine yönlendirin. Bu, `color`, `background-color` ve tüm CSS değişkenlerini `:root`'un dışına taşır, böylece yalnızca sarmalayıcının içinde uygulanırlar.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+  reset: false;
+  root: #my-app;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<div id="my-app" data-theme="blueberry">
+  <!-- Frutjam components here, Bootstrap outside -->
+  <button class="fj-btn fj-btn-primary">Send</button>
+</div>
+```
+
+</Snippet>
+
+### katmak
+
+Kütüphanenin tamamı yerine yalnızca belirli bileşenleri yükleyin. Üretimde çıktı boyutunu azaltmak için kullanışlıdır.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  include: button, card, alert, badge;
+}
+```
+
+</Snippet>
+
+### hariç tutmak
+
+Listelenenler dışındaki tüm bileşenleri yükleyin. Tam yapıdan yalnızca birkaç bileşeni çıkarmanız gerektiğinde kullanın.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  exclude: table, timeline, chat;
+}
+```
+
+</Snippet>
+
+## Özel bir tema oluşturun
+
+Kendi temanızı oluşturmak için renk değerlerinizi bir `[data-theme="your-theme-name"]` seçici içinde sağlanan CSS değişkenlerine atamanız yeterlidir.
+
+### 1\. The "Automatic" Approach (Minimal)
+
+Bu versiyonda `--color-on-*` değişkenlerini atladık. Frutjam, eksik değişkenleri tespit eder ve bileşenin erişilebilir ve okunabilir kalmasını sağlamak için genellikle çok açık veya çok koyu bir `OKLCH` değeri arasında geçiş yaparak en uygun metin rengini hesaplar.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-error: oklch(0.577 0.245 27.325);
+    }
+}
+```
+
+</Snippet>
+
+### 2\. The "Manual" Approach (Full Control)
+
+Bu versiyonda `--color-on-*` değişkenlerini açıkça tanımlıyoruz. Bu, belirli marka yönergeleriniz olduğunda (saf beyaz yerine renkli kırık beyaz kullanmak gibi) veya erişilebilirlik kontrollerini geçmeye devam eden düşük kontrastlı, sofistike bir görünüm gibi belirli bir "hava" elde etmek istediğinizde idealdir.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-on-base:oklch(0.22 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-on-neutral: oklch(1 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-on-primary: oklch(96.2% 0.018 272.314);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-on-secondary: oklch(1 0 0);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-on-accent: oklch(1 0 0);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-on-info: oklch(0.15 0 0);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-on-success: oklch(0.15 0 0);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-on-warning: oklch(0.15 0 0);
+        --color-error: oklch(0.577 0.245 27.325);
+        --color-on-error: oklch(1 0 0);
+    }
+}
+```
+
+</Snippet>
+
+Özel temanızı HTML'nizdeki projenize uygulamak için bir HTML öğesine `data-theme="your-theme-name"` kullanın.
+
+<Snippet view="code">
+
+```html
+<html data-theme="your-theme-name">
+ ...
+</html>
+```
+
+</Snippet>
+
+Temalar iç içe yerleştirilebilir; HTML'nizin herhangi bir bölümüne, o alanın genel temasını geçersiz kılacak şekilde belirli bir tema uygulayabilirsiniz.
+
+<Snippet view="code">
+
+```html
+<html data-theme="light">
+  <div data-theme="dark">
+    This div uses the dark theme.
+    <span data-theme="your-custom-theme">
+      This span uses the your-custom-theme
+    </span>
+  </div>
+</html>
+```
+
+</Snippet>
+
+## Ek Okuma
+
+-   [Mevcut yerleşik temalar](/docs/themes) — Snowberry, Darkberry ve dahil olan tüm temalara göz atın
+-   [Renk sistemi referansı](/docs/colors) — CSS renk değişkenlerinin tam listesi ve bunların bileşenlerle nasıl eşleştiği

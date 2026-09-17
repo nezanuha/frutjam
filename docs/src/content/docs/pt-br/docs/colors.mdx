@@ -1,0 +1,211 @@
+---
+name: "Cores"
+heading: "Sistema de cores"
+description: "O sistema de cores da Frutjam usa tokens CSS semânticos projetados para atender às taxas de contraste WCAG AA prontas para uso. Sem JavaScript, compatível com modo escuro, compatível com Tailwind CSS v4. Funciona com Django, HTMX, Laravel e qualquer pilha somente CSS."
+metaTitle: "Sistema de cores CSS Tailwind - Cores acessíveis WCAG | Frutjam"
+metaDescription: "Sistema de cores Frutjam baseado em tokens semânticos. Compatível com WCAG AA/AAA, reconhecimento de modo escuro, propriedades personalizadas CSS, compatível com Tailwind CSS v4."
+order: 0
+related:
+  - "docs/themes"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/colors.webp"
+imageAlt: "Sistema de Cores - Frutjam"
+createdAt: "2026-04-21T19:28:17.544865+00:00"
+updatedAt: "2026-07-13T09:46:02.938788+00:00"
+sourceHash: "e216ef187f7d"
+translationHash: "39164dc25de7"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+O sistema de cores da Frutjam usa tokens CSS semânticos projetados para atender às taxas de contraste WCAG AA prontas para uso. Sem JavaScript, compatível com modo escuro, compatível com Tailwind CSS v4. Funciona com Django, HTMX, Laravel e qualquer pilha somente CSS.
+
+Frutjam usa propriedades personalizadas CSS como tokens de design para todas as cores. Cada cor é definida por tema e funciona automaticamente com classes de utilitários CSS do Tailwind – sem necessidade de configuração extra. Somente CSS, sem necessidade de JavaScript. Contraste WCAG AA garantido em todos os pares de cores, funciona com Django, HTMX, Laravel, React e qualquer projeto Tailwind CSS v4.
+
+## Nomes de cores
+
+Frutjam define os seguintes papéis semânticos de cores. Cada cor possui um token `on-{color}` correspondente para texto acessível em primeiro plano.
+
+<RawHtml html={"<div class=\"alert alert-info mb-4\">Contraste <strong>WCAG AA garantido.</strong> Cada par <code>on-{color}</code> é ajustado manualmente em OKLCH para atender aos requisitos de contraste WCAG AA. Ao contrário das bibliotecas que calculam as cores de primeiro plano automaticamente, o Frutjam oferece pares explícitos e verificados — para que seus componentes sejam acessíveis por design, e não por acaso.</div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Cor | Símbolo | Propósito |
+| --- | --- | --- |
+| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | Plano de fundo da página |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | Superfícies, barras laterais, sobreposições |
+| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | Cor principal da marca |
+| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | Cor da marca secundária |
+| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | Cor de destaque/destaque |
+| <span class="badge badge-sm badge-info">info</span> | `--color-info` | Mensagens informativas |
+| <span class="badge badge-sm badge-success">success</span> | `--color-success` | Estados de sucesso |
+| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | Estados de aviso |
+| <span class="badge badge-sm badge-error">error</span> | `--color-error` | Erro e estados destrutivos |
+
+</DocTable>
+
+## Classes de utilitários de cores
+
+Todas as cores Frutjam funcionam com qualquer utilitário de cores Tailwind CSS. Substitua `{color}` por qualquer nome de cor da tabela acima.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Aula | Descrição |
+| --- | --- |
+| `bg-{color}` | Cor de fundo |
+| `text-{color}` | Cor do texto |
+| `border-{color}` | Cor da borda |
+| `ring-{color}` | Cor do anel |
+| `outline-{color}` | Cor do contorno |
+| `shadow-{color}` | Cor da sombra |
+| `fill-{color}` | Cor de preenchimento SVG |
+| `stroke-{color}` | Cor do traço SVG |
+| `decoration-{color}` | Cor da decoração do texto |
+| `caret-{color}` | Cor do cursor de entrada |
+| `placeholder-{color}` | Cor do texto do espaço reservado |
+| `divide-{color}` | Cor da borda do divisor |
+
+</DocTable>
+
+<Snippet>
+
+```html
+<div class="bg-primary text-on-primary p-4 rounded">Primary background</div>
+<div class="bg-secondary text-on-secondary p-4 rounded">Secondary background</div>
+<div class="border border-primary text-primary p-4 rounded">Primary border and text</div>
+```
+
+</Snippet>
+
+#### Modificador de opacidade
+
+Controle a opacidade da cor com o modificador `/{value}`, como qualquer cor do Tailwind.
+
+<Snippet>
+
+```html
+<div class="bg-primary/10 text-primary p-4 rounded">10% primary background</div>
+<div class="bg-primary/20 text-primary p-4 rounded">20% primary background</div>
+<div class="text-on-base/60 p-4">60% opacity text</div>
+```
+
+</Snippet>
+
+## Variáveis ​​CSS do tema
+
+Estes são os tokens raiz que você define ao criar um tema personalizado. Todos os outros tokens de cores são calculados automaticamente a partir deles.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Variável CSS | Descrição |
+| --- | --- |
+| `--scheme-color` | Esquema de cores: `light` ou `dark` |
+| `--border-radius` | Raio da borda base para componentes |
+| `--color-base` | Cor de fundo da página |
+| `--color-on-base` | Cor de texto padrão no plano de fundo base |
+| `--color-neutral` | Cor de superfície neutra |
+| `--color-on-neutral` | Cor do texto em superfícies neutras |
+| `--color-primary` | Cor principal da marca |
+| `--color-on-primary` | Cor do texto em fundos primários |
+| `--color-secondary` | Cor da marca secundária |
+| `--color-on-secondary` | Cor do texto em fundos secundários |
+| `--color-accent` | Cor de destaque |
+| `--color-on-accent` | Cor do texto em fundos acentuados |
+| `--color-info` | Cor da informação |
+| `--color-on-info` | Cor do texto em fundos de informações |
+| `--color-success` | Cor do sucesso |
+| `--color-on-success` | Cor do texto em fundos de sucesso |
+| `--color-warning` | Cor de aviso |
+| `--color-on-warning` | Cor do texto em fundos de aviso |
+| `--color-error` | Cor do erro |
+| `--color-on-error` | Cor do texto em fundos de erro |
+
+</DocTable>
+
+## Tokens de cores computados
+
+O Frutjam calcula automaticamente esses tokens a partir das variáveis ​​do tema raiz — você não os define manualmente. Eles estão disponíveis para uso em CSS personalizado.
+
+### Escala (50–950)
+
+Cada cor gera uma escala completa de matiz/sombra de 11 etapas. Substitua `{color}` por qualquer nome de cor.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Variável CSS | Descrição |
+| --- | --- |
+| `--color-{color}-50` | Lightest tint (4% color mix) |
+| `--color-{color}-100` | Tonalidade muito clara |
+| `--color-{color}-200` | Tonalidade clara |
+| `--color-{color}-300` | Tonalidade média-clara |
+| `--color-{color}-400` | Tonalidade leve |
+| `--color-{color}-500` | Cor base (igual a `--color-{color}`) |
+| `--color-{color}-600` | Sombra leve |
+| `--color-{color}-700` | Sombra média |
+| `--color-{color}-800` | Sombra escura |
+| `--color-{color}-900` | Sombra muito escura |
+| `--color-{color}-950` | Tom mais escuro |
+
+</DocTable>
+
+### Suave e macio. Ativo
+
+Variantes com reconhecimento de estado para elementos interativos, adaptando-se automaticamente a temas claros e escuros.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Variável CSS | Descrição |
+| --- | --- |
+| `--color-{color}-soft` | Fundo colorido sutil para variantes suaves |
+| `--color-on-{color}-soft` | Cor do texto para uso em fundos suaves |
+| `--color-{color}-active` | Sombra escurecida/clara para estados ativos e pairados |
+| `--color-body` | Cor do texto do corpo computada (ligeiramente suavizada em relação ao `on-base`) |
+
+</DocTable>
+
+## Exemplo de tema personalizado
+
+Substitua os tokens raiz para criar um tema personalizado. Frutjam calcula todas as escalas e estados automaticamente.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+
+[data-theme="mytheme"] {
+  --scheme-color: light;
+  --border-radius: 0.5rem;
+
+  --color-base: oklch(98% 0 0);
+  --color-on-base: oklch(15% 0 0);
+
+  --color-neutral: oklch(20% 0 0);
+  --color-on-neutral: oklch(98% 0 0);
+
+  --color-primary: oklch(55% 0.25 260);
+  --color-on-primary: oklch(98% 0 0);
+
+  --color-secondary: oklch(60% 0.20 320);
+  --color-on-secondary: oklch(98% 0 0);
+
+  --color-accent: oklch(65% 0.22 180);
+  --color-on-accent: oklch(15% 0 0);
+
+  --color-info: oklch(68% 0.17 237);
+  --color-on-info: oklch(15% 0 0);
+
+  --color-success: oklch(75% 0.20 150);
+  --color-on-success: oklch(15% 0 0);
+
+  --color-warning: oklch(82% 0.19 90);
+  --color-on-warning: oklch(15% 0 0);
+
+  --color-error: oklch(58% 0.24 27);
+  --color-on-error: oklch(98% 0 0);
+}
+```
+
+</Snippet>

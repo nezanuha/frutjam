@@ -1,0 +1,150 @@
+---
+name: "Temas"
+heading: "Tema"
+description: "O sistema de temas somente CSS da Frutjam usa variáveis ​​CSS e um único atributo de dados. Alterne entre temas claros, escuros e personalizados sem JavaScript. Tokens de cores WCAG AA integrados, funcionam com Django, HTMX, Laravel e qualquer projeto Tailwind CSS v4."
+metaTitle: "Tema CSS Tailwind -Variáveis ​​CSS e modo escuro | Frutjam"
+metaDescription: "Tema Frutjam com variáveis ​​CSS. Temas claros, escuros e personalizados - sem necessidade de JavaScript, atualizações instantâneas, compatível com Tailwind CSS v4."
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "Temas - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "5947cde09325"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+O sistema de temas somente CSS da Frutjam usa variáveis ​​CSS e um único atributo de dados. Alterne entre temas claros, escuros e personalizados sem JavaScript. Tokens de cores WCAG AA integrados, funcionam com Django, HTMX, Laravel e qualquer projeto Tailwind CSS v4.
+
+Frutjam vem com um sistema de temas Berry – um conjunto de temas nomeados baseados em valores de cores OKLCH. Aplique um tema a todo o seu aplicativo ou aninhe temas em seções específicas usando o atributo `data-theme`. Somente CSS, sem necessidade de JavaScript, acessível por WCAG AA - funciona com Django, HTMX, Laravel, React e qualquer projeto Tailwind CSS v4.
+
+<ThemeCards />
+
+## Temas integrados
+
+Frutjam inclui dois temas integrados prontos para uso:
+
+### Snowberry (claro)
+
+O tema claro padrão. Aplicado automaticamente quando nenhum `data-theme` está definido.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### Amora escura (escuro)
+
+O tema escuro integrado.
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## Aplicando um tema
+
+Adicione `data-theme` a qualquer elemento HTML. O tema se estende a todas as crianças.
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## Temas aninhados
+
+Os temas podem ser aninhados — um elemento filho substitui o tema pai em sua subárvore.
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## Variante do modo escuro
+
+Use o prefixo `dark:` do Tailwind - ele é ativado em `data-theme="dark"` e `data-theme="darkberry"`.
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## Temas personalizados
+
+Crie seu próprio tema definindo variáveis ​​CSS dentro de um seletor `[data-theme]`. Consulte a página [Configuração](/docs/configuration) para obter a referência completa da variável.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

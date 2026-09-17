@@ -1,0 +1,37 @@
+---
+/** The home page's "From the Blog" section (index.html, `latest_blogs`). */
+import { publishedPosts } from '@/lib/site';
+
+const latestBlogs = (await publishedPosts()).slice(0, 3);
+---
+
+{latestBlogs.length > 0 && (
+<section class="py-8 lg:py-14" aria-labelledby="blog-section-heading">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-6 gap-4">
+        <div>
+            <h2 id="blog-section-heading" class="heading-3xl mb-2">From the Blog</h2>
+            <p class="para">Thoughts on building Frutjam and the CSS-first approach to UI.</p>
+        </div>
+        <a href="/blog" class="btn btn-outline btn-sm shrink-0">
+            View All Posts
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {latestBlogs.map((blog) => (
+        <a href={`/blog/${blog.id}`} class="card card-outline hover:border-primary transition-colors">
+            <div class="card-content">
+                {blog.data.image && (
+                <img src={`${blog.data.image}?width=480&height=270&crop_gravity=center&format=webp`}
+                     alt={blog.data.imageAlt}
+                     class="w-full rounded mb-3 aspect-video object-cover"
+                     loading="lazy" width="480" height="270">
+                )}
+                <h3 class="card-title mb-2">{blog.data.title}</h3>
+                <p class="para-sm">{blog.data.description}</p>
+            </div>
+        </a>
+        ))}
+    </div>
+</section>
+)}

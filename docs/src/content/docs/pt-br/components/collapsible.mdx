@@ -1,0 +1,296 @@
+---
+name: "Dobrável"
+heading: "Componente dobrável"
+description: "Painel recolhível Tailwind CSS somente CSS usando o elemento nativo `<details>`. Mostre e oculte seções de conteúdo sem JavaScript. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha."
+metaTitle: "Recolhível - Componente CSS Tailwind somente CSS | Frutjam"
+metaDescription: "Tailwind CSS sem JS recolhível usando detalhes/resumo nativos. Divulgação acessível para perguntas frequentes, navegação aninhada e seções de conteúdo expansíveis."
+order: 0
+related:
+  - "components/tabs"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/collapsible_pOIxxIe.webp"
+imageAlt: "Dobrável por Frutjam"
+createdAt: "2026-04-19T15:56:32.406115+00:00"
+updatedAt: "2026-07-13T09:43:01.618283+00:00"
+sourceHash: "faedd5abd13e"
+translationHash: "0ee978b59deb"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Painel recolhível Tailwind CSS somente CSS usando o elemento nativo `<details>`. Mostre e oculte seções de conteúdo sem JavaScript. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+Collapsible components allow users to expand and collapse sections of content. Built with a hidden checkbox pattern, collapsibles work without any JavaScript and support animated transitions via CSS grid.
+
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Aula | Tipo | Descrição |
+| --- | --- | --- |
+| collapsible | <span class="badge badge-xs">Base</span> | Recipiente dobrável acionado por uma caixa de seleção oculta |
+| collapsible-toggle | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Entrada de caixa de seleção oculta que controla o estado aberto/fechado |
+| collapsible-title | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Etiqueta clicável que alterna o recolhível |
+| collapsible-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de conteúdo animado revelada quando aberta |
+| collapsible-arrow | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Adiciona um indicador de seta rotativa ao título |
+| collapsible-group | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Invólucro para dobráveis ​​agrupados estilo acordeão |
+| collapsible-overlay | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Variante de sobreposição para dobráveis ​​estilo gaveta |
+| collapsible-peek | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Mostra um vislumbre do conteúdo quando recolhido |
+| is-collapsible-open | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Classe aplicada em JS para forçar o estado aberto |
+| is-collapsible-close | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Classe aplicada por JS para forçar o estado fechado |
+
+</DocTable>
+
+## Uso Básico
+
+Uma caixa de seleção oculta determina o estado aberto/fechado. O `label` o aciona; a div `collapsible-content` anima a abertura.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-basic" />
+  <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is hidden until expanded.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+      <button className="collapsible-title px-4 py-3 font-medium" onClick={collapsible.toggle}>Click to expand</button>
+      <div className="collapsible-content">
+        <div>
+          <div className="px-4 pb-3 text-sm opacity-70">
+            This content is hidden until expanded.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Com indicador de seta
+
+Adicione `collapsible-arrow` ao rótulo para obter uma divisa rotativa que reflete o estado aberto/fechado.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-arrow" />
+  <label for="col-arrow" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">What is Frutjam?</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        Frutjam is a Tailwind CSS v4 component library built with CSS utilities and a PostCSS plugin.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Vários dobráveis
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-2">
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-1" />
+    <label for="col-1" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section One</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the first section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-2" />
+    <label for="col-2" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Two</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the second section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-3" />
+    <label for="col-3" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Three</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the third section.</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Abrir por padrão
+
+Adicione `checked` à entrada da caixa de seleção para iniciar a abertura do painel.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-open" checked />
+  <label for="col-open" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Open by default</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is visible on initial load.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS controlado
+
+Ative `collapsible-open` no elemento wrapper em vez de usar uma caixa de seleção - útil quando o gatilho reside em outro lugar.
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-open border border-base-soft rounded-lg" id="js-col">
+  <button
+    class="collapsible-title collapsible-arrow px-4 py-3 font-medium"
+    onclick="this.closest('.collapsible').classList.toggle('collapsible-open')"
+  >
+    Toggle via JS (starts open)
+  </button>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 py-3 text-sm opacity-70 border-t border-base-soft">
+        No hidden checkbox needed — state is managed by the <code>collapsible-open</code> class.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Espiar variante
+
+`collapsible-peek` mostra uma visualização recortada com um fade gradiente e um gatilho de sobreposição. Substitua `--peek-height` para controlar quanto conteúdo fica visível quando recolhido.
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-peek rounded-xl border border-base-soft" style="--peek-height: 5rem;">
+  <input type="checkbox" class="collapsible-toggle" id="col-peek" />
+  <div class="collapsible-content">
+    <div class="p-4 text-sm leading-relaxed">
+      <p>Frutjam is a Tailwind CSS v4 component library built around a PostCSS plugin architecture. Every component is a set of <code>@utility</code> definitions that integrate natively with Tailwind's utility pipeline.</p>
+      <p class="mt-3">Theming is handled entirely through CSS custom properties. Swap themes by setting a <code>data-theme</code> attribute on any container, or override individual tokens inline.</p>
+      <p class="mt-3">Components ship with sensible defaults and are designed to compose cleanly.</p>
+    </div>
+  </div>
+  <label for="col-peek" class="collapsible-overlay">
+    <span class="btn btn-sm">Read more</span>
+  </label>
+</div>
+```
+
+</Snippet>
+
+## Ajudante JS e React
+
+Use `createCollapsible` de `frutjam/js` ou `useCollapsible` de `frutjam/react` para controle programático e sincronização automática `aria-expanded` em qualquer gatilho.
+
+<Snippet>
+
+```html
+<button class="btn btn-sm mb-3" id="col-helper-btn">Toggle</button>
+<div class="collapsible border border-base-soft rounded-lg" id="js-collapsible">
+  <div class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createCollapsible } from 'frutjam/js'
+  const col = createCollapsible(document.getElementById('js-collapsible'))
+  document.getElementById('col-helper-btn').onclick = () => col.toggle()
+</script>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <>
+      <button className="btn btn-sm mb-3" onClick={collapsible.toggle}>Toggle</button>
+      <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+        <div className="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+        <div className="collapsible-content">
+          <div>
+            <div className="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Gatilho externo com grupo dobrável
+
+Coloque um gatilho e um recolhível em `collapsible-group` para permitir rótulos fora de `.collapsible` responda ao seu estado aberto/fechado via `is-collapsible-open` e `is-collapsible-close`.
+
+<Snippet>
+
+```html
+<div class="collapsible-group border border-base-soft rounded-lg p-4 flex flex-col gap-3">
+  <div class="flex items-center justify-between">
+    <span class="font-medium">Section A</span>
+    <label for="cg-1" class="btn btn-sm btn-ghost">
+      <span class="is-collapsible-close">Expand</span>
+      <span class="is-collapsible-open">Collapse</span>
+    </label>
+  </div>
+  <div class="collapsible">
+    <input type="checkbox" class="collapsible-toggle" id="cg-1" />
+    <div class="collapsible-content">
+      <div>
+        <div class="text-sm opacity-70">
+          This content is toggled by the button above, which lives outside <code>.collapsible</code> but inside <code>.collapsible-group</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

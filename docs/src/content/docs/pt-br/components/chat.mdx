@@ -1,0 +1,198 @@
+---
+name: "Bater papo"
+heading: "Componente de balão de bate-papo"
+description: "Componente de bolha de bate-papo Tailwind CSS somente CSS. Posições inicial e final para mensagens enviadas e recebidas, com slots de avatar e carimbo de data/hora. WCAG AA, funciona com Django, HTMX, Laravel, React e qualquer pilha."
+metaTitle: "Bate-papo - Componente CSS Tailwind somente CSS | Frutjam"
+metaDescription: "Bolha de bate-papo CSS Tailwind com alinhamento de início/fim, avatares, carimbos de data/hora e indicadores de status. Crie UIs de mensagens acessíveis sem JavaScript."
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Bate-papo por Frutjam"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "3d32cb1620ad"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Componente de bolha de bate-papo Tailwind CSS somente CSS. Posições inicial e final para mensagens enviadas e recebidas, com slots de avatar e carimbo de data/hora. WCAG AA, funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+Os componentes de bate-papo exibem mensagens de conversação em um formato legível e organizado. Construídos com HTML semântico e layouts flexíveis, os balões de bate-papo representam mensagens do usuário e do sistema. O sistema de bate-papo Frutjam oferece suporte a várias cores, alinhamentos e estilos – ideal para interfaces de mensagens, painéis de suporte ao cliente e interface de conversação.
+
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Aula | Tipo | Descrição |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">Base</span> | Wrapper para uma única linha de mensagem de bate-papo |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Bolha de mensagem estilizada |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Avatar exibido ao lado da mensagem |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Nome do remetente ou metadados acima do balão |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Carimbo de data e hora ou status abaixo do balão |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Alinha o balão à esquerda (mensagem recebida) |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Alinha o balão à direita (mensagem de saída) |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Extra pequeno |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Pequeno |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Médio (padrão) |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Grande |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Extra grande |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor do tema principal |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor do tema secundário |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cores do tema de destaque |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor de tema neutro |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor semântica de informações |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor semântica de sucesso |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Bolha de cor semântica de aviso |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">Cor</span> | Erro de bolha de cor semântica |
+
+</DocTable>
+
+## Uso Básico
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## Conversar com Avatar
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## Tamanhos de bate-papo
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## Estilos de bate-papo
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## Cabeçalho e rodapé do bate-papo
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## Tópico de conversa
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

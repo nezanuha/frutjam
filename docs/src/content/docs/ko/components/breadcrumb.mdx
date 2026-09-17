@@ -1,0 +1,142 @@
+---
+name: "탐색경로"
+heading: "탐색경로 구성요소"
+description: "사용자 정의 구분 기호 및 접근 가능한 랜드마크 마크업이 포함된 CSS 전용 Tailwind CSS 탐색경로 탐색입니다. WCAG AA는 Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다."
+metaTitle: "이동 경로 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "접근 가능하고 SEO 친화적인 탐색 트레일을 위해 의미론적 HTML을 사용하는 Tailwind CSS Breadcrumb입니다. 사용자 정의 구분 기호, 아이콘 및 반응형 레이아웃을 지원합니다."
+order: 0
+related:
+  - "components/navbar"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/breadcrumb.webp"
+imageAlt: "Frutjam의 탐색경로 구성요소"
+createdAt: "2025-09-09T14:03:27.679686+00:00"
+updatedAt: "2026-07-13T09:45:18.258750+00:00"
+sourceHash: "ff26aa17023a"
+translationHash: "ca3490b313a3"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+사용자 정의 구분 기호 및 접근 가능한 랜드마크 마크업이 포함된 CSS 전용 Tailwind CSS 탐색경로 탐색입니다. WCAG AA는 Django, HTMX, Laravel, React 및 모든 Tailwind CSS v4 프로젝트에서 작동합니다.
+
+이동 경로 구성 요소는 탐색 계층 구조를 표시하고 사용자가 웹 사이트 내에서 자신의 위치를 ​​이해하는 데 도움을 줍니다. 접근성을 위한 시맨틱 HTML 탐색 요소와 ARIA 랜드마크로 구축된 이동 경로는 사용자가 상위 섹션으로 빠르게 이동할 수 있도록 하여 유용성을 향상시킵니다. Frutjam 이동 경로 시스템은 자동으로 구분 기호를 렌더링하고 유연한 스타일을 위해 사용자 정의 구분 기호를 지원합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| breadcrumb | <span class="badge badge-xs">베이스</span> | 탐색경로 트레일용 탐색 컨테이너 |
+| breadcrumb-list | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 탐색경로 항목의 주문 목록 |
+| breadcrumb-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 탐색경로의 개별 목록 항목 |
+| breadcrumb-link | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 탐색경로 링크 스타일의 앵커 요소 |
+| breadcrumb-separator | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목 사이의 구분 요소 |
+| breadcrumb-current | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 현재(활성) 페이지 항목을 표시합니다. |
+
+</DocTable>
+
+## 기본 사용법
+
+구분 기호가 제공되지 않으면 탐색경로 항목 사이에 자동으로 화살표가 표시됩니다.
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+```jsx
+<nav className="breadcrumb" aria-label="Breadcrumb">
+  <ol className="breadcrumb-list">
+    <li className="breadcrumb-item">
+      <a href="/" className="breadcrumb-link">Home</a>
+    </li>
+    <li className="breadcrumb-item">
+      <span className="breadcrumb-current" aria-current="page">Current Page</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## 이동 경로 구분 기호
+
+### 텍스트 구분 기호가 있는 이동 경로
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current" aria-current="page">Badge</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+### 아이콘 구분 기호가 있는 이동 경로
+
+<Snippet>
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="/" class="breadcrumb-link">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <a href="/components" class="breadcrumb-link">Components</a>
+    </li>
+    <li class="breadcrumb-item">
+      <span class="breadcrumb-separator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </span>
+      <span class="breadcrumb-current" aria-current="page">Button</span>
+    </li>
+  </ol>
+</nav>
+```
+
+</Snippet>
+
+## 탐색경로 접근성
+
+화면 판독기에서 탐색경로에 액세스할 수 있도록 하려면 다음을 수행하세요.
+
+-   `aria-label="Breadcrumb"`를 사용하여 `<nav>` 요소의 구조를 래핑합니다.
+-   마지막 항목(현재 페이지)은 `aria-current="page"`를 사용해야 하며 링크보다는 `<span>`을 사용하는 것이 좋습니다.
+-   구분 기호는 스크린 리더에서 무시되어야 합니다(종종 CSS를 통해 처리되거나 물리적 요소를 사용하는 경우 `aria-hidden="true"`).

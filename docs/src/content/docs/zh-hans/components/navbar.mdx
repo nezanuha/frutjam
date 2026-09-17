@@ -1,0 +1,228 @@
+---
+name: "导航栏"
+heading: "导航栏组件"
+description: "仅 CSS Tailwind CSS 导航栏，包含品牌、导航链接和操作槽。粘性和透明变体。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "导航栏 - 仅 CSS 的 Tailwind CSS 组件 |Frutjam"
+metaDescription: "Tailwind CSS 导航栏具有粘性、响应式和下拉就绪布局。具有移动支持的语义 HTML，可实现可访问的、主题感知的网站导航。"
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Frutjam UI 的导航栏组件"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "f8203007183b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅 CSS Tailwind CSS 导航栏，包含品牌、导航链接和操作槽。粘性和透明变体。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+导航栏组件显示站点结构和用户导航的水平导航列表。 Frutjam 导航栏系统采用语义 HTML 导航和列表元素构建，支持多种布局、响应行为和嵌套菜单集成。导航栏可访问且可通过键盘导航，是主站点导航、面包屑和选项卡界面的理想选择。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">根据</span> | 水平导航栏容器 |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 导航链接的水平列表 |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 用于徽标或第一个导航组的左侧插槽 |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 主导航的中心槽 |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | Right slot for actions and controls |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 将导航栏放置在视口的顶部 |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 在父项内垂直居中 |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 将导航栏放置在视口的底部 |
+
+</DocTable>
+
+## 导航栏
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## 导航栏展示位置
+
+导航栏组件默认位于开头（LTR 中的左侧）。使用 `navbar-start`、`navbar-center` 或 `navbar-end` 进行水平对齐，使用 `navbar-top`、`navbar-middle` 或 `navbar-bottom` 进行垂直对齐。放置是 RTL 友好的。
+
+使用水平放置类沿 X 轴对齐导航栏列表，并在导航栏具有自定义高度时使用垂直放置类。
+
+### 水平放置
+
+控制 `navbar-list` 沿 X 轴的位置。这些是 RTL 友好的（开始/结束而不是左/右）。
+
+#### 水平向左对齐（开始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 水平对齐到中心
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 水平向右对齐（末端）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### 垂直放置
+
+控制沿 Y 轴的对齐方式。当导航栏具有自定义高度时，这特别有用。
+
+#### 垂直对齐到顶部（开始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直对齐到中心
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直对齐到底部（末端）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

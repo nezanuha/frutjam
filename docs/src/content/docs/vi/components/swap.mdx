@@ -1,0 +1,187 @@
+---
+name: "Tráo đổi"
+heading: "Hoán đổi thành phần"
+description: "Trao đổi CSS Tailwind chỉ dành cho CSS để chuyển đổi giữa hai phần tử. Lật, xoay và làm mờ hình ảnh động, không có JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Hoán đổi - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Hoán đổi CSS Tailwind không có JS với các hoạt ảnh mờ dần, xoay và lật. Chuyển đổi giữa các trạng thái nội dung để chuyển đổi chủ đề, chuyển tiếp biểu tượng và trạng thái tải."
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Trao đổi bởi Frutjam"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "53bbbc8096d2"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Trao đổi CSS Tailwind chỉ dành cho CSS để chuyển đổi giữa hai phần tử. Lật, xoay và làm mờ hình ảnh động, không có JavaScript. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Hoán đổi các thành phần chuyển đổi giữa hai trạng thái nội dung bằng hình ảnh động mượt mà để phản hồi tương tác của người dùng. Được xây dựng bằng các chuyển tiếp HTML và CSS ngữ nghĩa, hoán đổi cho phép thay đổi trạng thái một cách tinh tế mà không cần JavaScript. Hệ thống hoán đổi Frutjam hỗ trợ nhiều kiểu hoạt ảnh—lý tưởng cho việc chuyển đổi chủ đề, chuyển đổi chế độ, trạng thái tải và hình minh họa tương tác.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">Căn cứ</span> | Trình bao bọc chuyển đổi hai trạng thái được điều khiển bằng hộp kiểm |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Xoay vòng giữa các trạng thái |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Lật giữa các trạng thái với hiệu ứng 3D |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+Tạo một trao đổi đơn giản với biểu tượng cảm xúc hoặc nội dung văn bản bằng cách sử dụng hộp kiểm để chuyển đổi trạng thái.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## Hoán đổi ảnh động
+
+Áp dụng các kiểu hoạt ảnh khác nhau cho chuyển tiếp trực quan: làm mờ (mặc định), xoay và lật.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## Hoán đổi với các biểu tượng SVG
+
+Sử dụng biểu tượng SVG để thay đổi trạng thái trực quan với hình ảnh động mượt mà.
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## Hoán đổi dưới dạng nút
+
+Kết hợp chức năng hoán đổi với kiểu dáng thành phần nút để chuyển đổi tương tác.
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## Hoán đổi làm Huy hiệu
+
+Tạo huy hiệu chuyển đổi nhỏ gọn để chuyển đổi trạng thái hoặc danh mục.
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## Các biến thể hoán đổi kết hợp
+
+Kết hợp các kiểu hoạt ảnh và loại nội dung khác nhau cho các tình huống chuyển đổi phức tạp.
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

@@ -1,0 +1,150 @@
+---
+name: "テーマ"
+heading: "テーマ設定"
+description: "Frutjam の CSS のみのテーマ システムは、CSS 変数と単一のデータ属性を使用します。 JavaScript を使用せずに、明るいテーマ、暗いテーマ、カスタム テーマを切り替えます。 WCAG AA カラー トークンが組み込まれており、Django、HTMX、Laravel、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。"
+metaTitle: "Tailwind CSS テーマ - CSS 変数とダークモード |Frutjam"
+metaDescription: "CSS変数を使用したFrutjamテーマ。ライト、ダーク、カスタム テーマ - JavaScript 不要、即時更新、Tailwind CSS v4 互換。"
+order: 0
+related:
+  - "docs/colors"
+  - "docs/configuration"
+image: "https://cdn.frutjam.com/media/docs/themes_OBYF1RZ.webp"
+imageAlt: "テーマ - Frutjam"
+createdAt: "2026-04-19T15:57:44.894935+00:00"
+updatedAt: "2026-07-13T09:47:39.007644+00:00"
+sourceHash: "de68f4f728d0"
+translationHash: "8acb1b07857a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+import ThemeCards from '@/components/ThemeCards.astro';
+
+Frutjam の CSS のみのテーマ システムは、CSS 変数と単一のデータ属性を使用します。 JavaScript を使用せずに、明るいテーマ、暗いテーマ、カスタム テーマを切り替えます。 WCAG AA カラー トークンが組み込まれており、Django、HTMX、Laravel、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+Frutjam には、Berry テーマ システム (OKLCH カラー値に基づいて構築された一連の名前付きテーマ) が付属しています。 `data-theme` 属性を使用して、アプリ全体にテーマを適用するか、特定のセクション内にテーマをネストします。 CSS のみ、JavaScript は不要、WCAG AA にアクセス可能 — Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+<ThemeCards />
+
+## 内蔵テーマ
+
+Frutjam には、すぐに使える 2 つの組み込みテーマが含まれています。
+
+### スノーベリー(光)
+
+デフォルトのライトテーマ。 `data-theme` が設定されていない場合に自動的に適用されます。
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="light">
+  <!-- same as snowberry -->
+</html>
+```
+
+</Snippet>
+
+### ダークベリー(ダーク)
+
+組み込みのダークテーマ。
+
+<Snippet view="code">
+
+```html
+<html data-theme="darkberry">
+  <!-- or use the alias -->
+</html>
+
+<html data-theme="dark">
+  <!-- same as darkberry -->
+</html>
+```
+
+</Snippet>
+
+## テーマの適用
+
+`data-theme` を任意の HTML 要素に追加します。このテーマはすべての子供たちに伝わります。
+
+<Snippet view="code">
+
+```html
+<!-- Apply globally -->
+<html data-theme="snowberry">
+  <body>
+    <!-- All components use snowberry theme -->
+  </body>
+</html>
+```
+
+</Snippet>
+
+## ネストされたテーマ
+
+テーマは入れ子にすることができます。子要素は、そのサブツリーの親テーマをオーバーライドします。
+
+<Snippet view="code">
+
+```html
+<html data-theme="snowberry">
+  <section data-theme="darkberry">
+    <!-- This section uses the dark theme -->
+    <button class="btn btn-primary">Dark Button</button>
+  </section>
+
+  <!-- Back to light theme here -->
+  <button class="btn btn-primary">Light Button</button>
+</html>
+```
+
+</Snippet>
+
+## ダークモードのバリアント
+
+Tailwind の `dark:` プレフィックスを使用します。これは、`data-theme="dark"` と `data-theme="darkberry"` の両方でアクティブになります。
+
+<Snippet view="code">
+
+```html
+<p class="text-on-base dark:text-primary">
+  Adapts to the active theme automatically.
+</p>
+```
+
+</Snippet>
+
+## カスタムテーマ
+
+`[data-theme]` セレクター内で CSS 変数を定義して、独自のテーマを作成します。完全な変数リファレンスについては、[設定](/docs/configuration)ページを参照してください。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+  :is([data-theme="myberry"]) {
+    --scheme-color: light;
+    --border-radius: 0.5rem;
+    --color-base: oklch(1 0 0);
+    --color-primary: oklch(55% 0.22 142);
+    --color-secondary: oklch(60% 0.18 280);
+    --color-accent: oklch(70% 0.20 60);
+  }
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<html data-theme="myberry">
+  <!-- Your custom theme is active -->
+</html>
+```
+
+</Snippet>

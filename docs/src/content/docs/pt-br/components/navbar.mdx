@@ -1,0 +1,228 @@
+---
+name: "Barra de navegação"
+heading: "Componente da barra de navegação"
+description: "Barra de navegação Tailwind CSS somente CSS com marca, links de navegação e slots de ação. Variantes pegajosas e transparentes. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha."
+metaTitle: "Navbar - Componente CSS Tailwind somente CSS | Frutjam"
+metaDescription: "Barra de navegação CSS Tailwind com layouts fixos, responsivos e prontos para menu suspenso. HTML semântico com suporte móvel para navegação acessível e com reconhecimento de tema."
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Componentes da barra de navegação da Frutjam UI"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "a2f434661320"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Barra de navegação Tailwind CSS somente CSS com marca, links de navegação e slots de ação. Variantes pegajosas e transparentes. WCAG AA acessível, funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+Os componentes da barra de navegação exibem listas de navegação horizontal para estrutura do site e navegação do usuário. Construído com elementos de lista e navegação HTML semântico, o sistema de barra de navegação Frutjam oferece suporte a vários layouts, comportamento responsivo e integração de menus aninhados. Acessíveis e navegáveis ​​pelo teclado, as barras de navegação são ideais para navegação no site principal, localização atual e interfaces de guias.
+
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Aula | Tipo | Descrição |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">Base</span> | Contêiner da barra de navegação horizontal |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Lista horizontal de links de navegação |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Espaço esquerdo para logotipo ou primeiro grupo de navegação |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Slot central para navegação principal |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Slot certo para ações e controles |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Posiciona a barra de navegação no topo da janela de visualização |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Centralizado verticalmente em um pai |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Posiciona a barra de navegação na parte inferior da janela de visualização |
+
+</DocTable>
+
+## Barra de navegação
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## Posicionamentos da barra de navegação
+
+O componente da barra de navegação é posicionado por padrão no início (à esquerda no LTR). Use `navbar-start`, `navbar-center` ou `navbar-end` para alinhamento horizontal e `navbar-top`, `navbar-middle` ou `navbar-bottom` para alinhamento vertical. O posicionamento é compatível com RTL.
+
+Use classes de posicionamento horizontal para alinhar a lista da barra de navegação ao longo do eixo X e classes de posicionamento vertical quando a barra de navegação tiver uma altura personalizada.
+
+### Posicionamentos horizontais
+
+Controle como a `navbar-list` fica ao longo do eixo X. Eles são compatíveis com RTL (Início/Fim em vez de Esquerda/Direita).
+
+#### Alinhar horizontalmente à esquerda (início)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Alinhar horizontalmente ao centro
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Alinhar horizontalmente à direita (final)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### Posicionamentos verticais
+
+Controle o alinhamento ao longo do eixo Y. Isto é particularmente útil quando a barra de navegação tem uma altura personalizada.
+
+#### Alinhar verticalmente ao topo (início)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Alinhar verticalmente ao centro
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### Alinhe verticalmente com a parte inferior (extremidade)
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

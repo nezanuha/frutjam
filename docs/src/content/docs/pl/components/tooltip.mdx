@@ -1,0 +1,345 @@
+---
+name: "Etykietka"
+heading: "Komponent podpowiedzi"
+description: "Etykietka CSS Tailwind zawierająca wyłącznie CSS z rozmieszczeniem u góry, u dołu, po lewej i prawej stronie. Warianty kolorystyczne, nie wymaga JavaScript. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Etykietka — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Etykietka CSS Tailwind zawierająca wyłącznie CSS z wieloma miejscami docelowymi i wariantami kolorów. Dostępne wskazówki dotyczące najechania myszką i fokusu w celu uzyskania wskazówek w interfejsie użytkownika — nie jest wymagana obsługa JavaScript."
+order: 0
+related:
+  - "components/button"
+  - "components/popover"
+image: "https://cdn.frutjam.com/media/components/tooltip.webp"
+imageAlt: "Komponenty podpowiedzi firmy Frutjam"
+createdAt: "2026-01-07T12:19:55.864014+00:00"
+updatedAt: "2026-07-13T09:48:16.231725+00:00"
+sourceHash: "38a9b78743ff"
+translationHash: "22c3992f33db"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Etykietka CSS Tailwind zawierająca wyłącznie CSS z rozmieszczeniem u góry, u dołu, po lewej i prawej stronie. Warianty kolorystyczne, nie wymaga JavaScript. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Komponenty podpowiedzi wyświetlają dodatkowe informacje, gdy użytkownik najedzie kursorem na element lub skupi się na nim. Zbudowane z semantycznych atrybutów HTML i CSS, podpowiedzi zwiększają wygodę użytkownika, zapewniając pomoc kontekstową bez zaśmiecania interfejsu. System podpowiedzi Frutjam obsługuje wiele pozycji, niestandardową treść i płynne animacje, co pozwala na bezproblemowe odkrywanie informacji.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+**Uwaga:** podpowiedzi opierają się na `:hover` i `:focus`, które **nie są dostępne na urządzeniach dotykowych/mobilnych**. W przypadku układów dostosowanych do urządzeń mobilnych użyj responsywnego wariantu `lg:tooltip`, aby podpowiedź była aktywowana tylko na komputerze (duże ekrany i większe). Na mniejszych ekranach rozważ użycie innego wzorca ujawniania, takiego jak [popover](https://frutjam.com/components/popover) lub [modal](https://frutjam.com/components/modal).
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| tooltip | <span class="badge badge-xs">Opierać</span> | Opakowanie ujawniające treść `data-tip` po najechaniu kursorem/fokusem |
+| tooltip-content | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Niestandardowa treść HTML w dymku podpowiedzi |
+| tooltip-top | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się nad spustem (domyślnie) |
+| tooltip-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się poniżej spustu |
+| tooltip-left | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się na lewo od spustu |
+| tooltip-right | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się na prawo od spustu |
+| tooltip-start | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się na logiczną stronę startową |
+| tooltip-end | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się na logiczną stronę końcową |
+| tooltip-primary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Podstawowy motyw kolorowej bańki |
+| tooltip-secondary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Kolorowa bańka motywu drugorzędnego |
+| tooltip-accent | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Bańka koloru motywu akcentującego |
+| tooltip-neutral | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Neutralna bańka w kolorze motywu |
+| tooltip-info | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Informacje semantyczna kolorowa bańka |
+| tooltip-success | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Sukces semantyczna kolorowa bańka |
+| tooltip-warning | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Ostrzeżenie semantyczna kolorowa bańka |
+| tooltip-error | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Błąd semantycznej kolorowej bańki |
+
+</DocTable>
+
+## Etykietka
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Tooltip">
+   <button class="btn">Hover me</button>
+</div>
+```
+
+```jsx
+<div className="tooltip" data-tip="Tooltip">
+   <button className="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Niestandardowa treść podpowiedzi
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end">
+    <div class="tooltip-content">
+        <div class="text-xl">❤️</div>
+        <div>Like</div>
+    </div>
+    <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Etykietka z ikoną
+
+<Snippet>
+
+```html
+<div class="tooltip" data-tip="Menu">
+    <button class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        <span class="sr-only">Menu</span>
+    </button>
+</div>
+```
+
+</Snippet>
+
+## Wymuś otwarcie podpowiedzi
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-open" data-tip="hello">
+  <button class="btn">Force open</button>
+</div>
+```
+
+</Snippet>
+
+## Opcje pozycjonowania podpowiedzi
+
+### Najlepsze miejsce
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-top tooltip-open" data-tip="Tooltip top">
+    <button class="btn">Top position</button>
+</div>
+```
+
+</Snippet>
+
+### Właściwe umiejscowienie
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-right tooltip-open" data-tip="Tooltip right">
+    <button class="btn">Right position</button>
+</div>
+```
+
+</Snippet>
+
+### Zakończ umieszczanie
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-end tooltip-open" data-tip="Tooltip end">
+    <button class="btn">End position</button>
+</div>
+```
+
+</Snippet>
+
+### Dolne umiejscowienie
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-bottom tooltip-open" data-tip="Tooltip bottom">
+    <button class="btn">Bottom position</button>
+</div>
+```
+
+</Snippet>
+
+### Lewe miejsce docelowe
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-left tooltip-open" data-tip="Tooltip left">
+    <button class="btn">Left position</button>
+</div>
+```
+
+</Snippet>
+
+### Rozpocznij umieszczanie
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-start tooltip-open" data-tip="Tooltip start">
+    <button class="btn">Start position</button>
+</div>
+```
+
+</Snippet>
+
+## Warianty kolorów podpowiedzi
+
+### Kolor podstawowy
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-primary tooltip-open" data-tip="Primary">
+  <button class="btn btn-xs">Primary color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor wtórny
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-secondary tooltip-open" data-tip="Secondary">
+  <button class="btn btn-xs">Secondary color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor akcentujący
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-accent tooltip-open" data-tip="Accent">
+  <button class="btn btn-xs">Accent color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor informacyjny
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-info tooltip-open" data-tip="Info">
+  <button class="btn btn-xs">Info color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor sukcesu
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-success tooltip-open" data-tip="Success">
+  <button class="btn btn-xs">Success color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor ostrzegawczy
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-warning tooltip-open" data-tip="Warning">
+  <button class="btn btn-xs">Warning color</button>
+</div>
+```
+
+</Snippet>
+
+### Kolor błędu
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-error tooltip-open" data-tip="Error">
+  <button class="btn btn-xs">Error color</button>
+</div>
+```
+
+</Snippet>
+
+### Neutralny kolor
+
+<Snippet>
+
+```html
+<div class="tooltip tooltip-neutral tooltip-open" data-tip="Neutral">
+  <button class="btn btn-xs">Neutral color</button>
+</div>
+```
+
+</Snippet>
+
+## Responsywne podpowiedzi
+
+Wyświetlaj tylko na dużych ekranach z `lg:tooltip`
+
+<Snippet>
+
+```html
+<div class="lg:tooltip" data-tip="Hey there!">
+  <button class="btn">Hover me</button>
+</div>
+```
+
+</Snippet>
+
+## Pomocnik JS i reagowania
+
+Użyj `createTooltip` z `frutjam/js` lub `useTooltip` z `frutjam/react`, aby programowo pokazać lub ukryć podpowiedź - przydatne w przypadku wycieczek z przewodnikiem lub uruchamianego tekstu pomocy.
+
+<Snippet>
+
+```html
+<div class="flex gap-2 mb-4">
+  <button class="btn btn-sm" id="tip-show">Show</button>
+  <button class="btn btn-sm" id="tip-hide">Hide</button>
+  <button class="btn btn-sm" id="tip-toggle">Toggle</button>
+</div>
+<div class="tooltip" data-tip="Programmatic tooltip" id="js-tooltip">
+  <button class="btn">Target</button>
+</div>
+<script type="module">
+  import { createTooltip } from 'frutjam/js'
+  const tip = createTooltip(document.getElementById('js-tooltip'))
+  document.getElementById('tip-show').onclick = () => tip.show()
+  document.getElementById('tip-hide').onclick = () => tip.hide()
+  document.getElementById('tip-toggle').onclick = () => tip.toggle()
+</script>
+```
+
+```jsx
+import { useTooltip } from 'frutjam/react'
+
+export default function TooltipDemo() {
+  const tooltip = useTooltip()
+  return (
+    <>
+      <div className="flex gap-2 mb-4">
+        <button className="btn btn-sm" onClick={tooltip.show}>Show</button>
+        <button className="btn btn-sm" onClick={tooltip.hide}>Hide</button>
+        <button className="btn btn-sm" onClick={tooltip.toggle}>Toggle</button>
+      </div>
+      <div ref={tooltip.ref} className="tooltip" data-tip="Programmatic tooltip">
+        <button className="btn">Target</button>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>

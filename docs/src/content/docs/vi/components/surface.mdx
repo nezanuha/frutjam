@@ -1,0 +1,139 @@
+---
+name: "Bề mặt"
+heading: "Thành phần bề mặt"
+description: "Bề mặt CSS Tailwind chỉ có CSS ​​để áp dụng màu nền và màu văn bản theo chủ đề cho vùng chứa. Tất cả các biến thể màu sắc. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào."
+metaTitle: "Surface - Thành phần CSS Tailwind chỉ dành cho CSS | Frutjam"
+metaDescription: "Tailwind CSS Surface dành cho các vùng chứa nội dung theo lớp và phân cấp độ sâu hình ảnh. Nhiều cấp độ và hình dạng độ cao cho các lựa chọn thay thế thẻ và bố cục lồng nhau."
+order: 0
+related:
+  - "components/card"
+  - "components/alert"
+image: "https://cdn.frutjam.com/media/components/surface_UF2isF4.webp"
+imageAlt: "Bề mặt của Frutjam"
+createdAt: "2026-04-19T15:57:14.600467+00:00"
+updatedAt: "2026-07-13T09:43:55.439028+00:00"
+sourceHash: "9ea1ec548631"
+translationHash: "020b94b07486"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Bề mặt CSS Tailwind chỉ có CSS ​​để áp dụng màu nền và màu văn bản theo chủ đề cho vùng chứa. Tất cả các biến thể màu sắc. WCAG AA có thể truy cập được, hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+Các thành phần bề mặt là các bố cục nguyên thủy linh hoạt tạo ra các phân cấp trực quan theo lớp và các vùng chứa nội dung. Được xây dựng bằng HTML ngữ nghĩa, các bề mặt cung cấp các tùy chọn kiểu dáng và chiều sâu linh hoạt. Hệ thống bề mặt Frutjam hỗ trợ nhiều kích thước, hình dạng và lớp—lý tưởng cho các lựa chọn thay thế thẻ, khối nội dung và bố cục lồng nhau.
+
+Chỉ CSS, không cần JavaScript. WCAG AA có thể truy cập và không phụ thuộc vào khung — hoạt động với Django, HTMX, Laravel, React và bất kỳ ngăn xếp nào.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Lớp học | Kiểu | Sự miêu tả |
+| --- | --- | --- |
+| surface | <span class="badge badge-xs">Căn cứ</span> | Thùng chứa bề mặt cơ sở |
+| surface-1 | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Độ cao cấp 1 (tinh tế) |
+| surface-2 | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Độ cao cấp 2 |
+| surface-outline | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Transparent fill with a visible border |
+| surface-dashed | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Kiểu đường viền nét đứt |
+| surface-rounded | <span class="badge badge-xs badge-success badge-soft">Phong cách</span> | Các góc được bo tròn vừa phải |
+| surface-xs | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Extra small padding |
+| surface-sm | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Small padding |
+| surface-md | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Medium padding (default) |
+| surface-lg | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Large padding |
+| surface-xl | <span class="badge badge-xs badge-info badge-soft">Kích cỡ</span> | Extra large padding |
+
+</DocTable>
+
+## Cách sử dụng cơ bản
+
+<Snippet>
+
+```html
+<div class="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+```jsx
+<div className="surface p-6">
+  <h2>Surface Container</h2>
+  <p>Content displayed on a surface</p>
+</div>
+```
+
+</Snippet>
+
+## Lớp bề mặt
+
+Sử dụng `surface-1` và `surface-2` để tạo phân cấp độ sâu bằng cách trộn màu cơ bản với màu nền trước.
+
+<Snippet>
+
+```html
+<div class="surface p-4">Base</div>
+<div class="surface surface-1 p-4">Surface 1 — subtle lift</div>
+<div class="surface surface-2 p-4">Surface 2 — more contrast</div>
+```
+
+</Snippet>
+
+## Hình dạng bề mặt
+
+<Snippet>
+
+```html
+<div class="surface surface-md">Default (square)</div>
+<div class="surface surface-md surface-rounded">Rounded</div>
+```
+
+</Snippet>
+
+## Kiểu viền
+
+Sử dụng `surface-outline` hoặc `surface-dashed` cho các vùng chứa trong suốt được xác định bởi đường viền. Chúng hoạt động chính xác khi được lồng bên trong các lớp màu vì nền rõ ràng là trong suốt.
+
+<Snippet>
+
+```html
+<div class="surface surface-1 surface-rounded surface-md">
+  <p class="mb-3 font-medium">Surface 1 (colored parent)</p>
+  <div class="flex gap-3">
+    <div class="surface surface-outline surface-rounded surface-sm grow">Outline — transparent fill, solid border</div>
+    <div class="surface surface-dashed surface-rounded surface-sm grow">Dashed — transparent fill, dashed border</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Kích thước bề mặt
+
+Tiện ích kích thước đặt phần đệm bên trong thông qua `--surface--padding`. Không kết hợp với các tiện ích Tailwind `p-*`—chúng sẽ ghi đè biến và làm hỏng lớp kích thước.
+
+<Snippet>
+
+```html
+<div class="surface surface-xs surface-rounded">Extra small (0.5rem)</div>
+<div class="surface surface-sm surface-rounded">Small (1rem)</div>
+<div class="surface surface-md surface-rounded">Medium (1.5rem)</div>
+<div class="surface surface-lg surface-rounded">Large (2rem)</div>
+<div class="surface surface-xl surface-rounded">Extra large (2.5rem)</div>
+```
+
+</Snippet>
+
+## Bề mặt lồng nhau
+
+<Snippet>
+
+```html
+<div class="surface surface-1 p-6 rounded-lg">
+  <h3>Outer Surface</h3>
+  <div class="surface surface-2 p-4 rounded mt-4">
+    <p>Inner Surface</p>
+  </div>
+</div>
+```
+
+</Snippet>

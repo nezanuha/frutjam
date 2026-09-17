@@ -1,0 +1,152 @@
+---
+name: "範圍"
+heading: "範圍成分"
+description: "僅 CSS Tailwind CSS 範圍滑桿，具有主要、次要、重音和語義顏色變體。尺寸為 xs-xl。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Range - 僅 CSS Tailwind CSS 元件 |Frutjam"
+metaDescription: "Tailwind CSS Range 使用本機 HTML 輸入。可存取的滑桿具有用於設定面板、過濾器和數位控制項的自訂步驟、尺寸和顏色。"
+order: 0
+related:
+  - "components/progress"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/range_5OJyYbc.webp"
+imageAlt: "Frutjam 系列"
+createdAt: "2026-04-19T15:56:57.401084+00:00"
+updatedAt: "2026-07-13T09:55:09.534835+00:00"
+sourceHash: "bfe8721e2cba"
+translationHash: "b555eb2aec3c"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 範圍滑桿，具有主要、次要、重音和語義顏色變體。尺寸為 xs-xl。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+範圍元件允許使用者使用互動式滑桿選擇定義範圍內的數值。範圍滑桿採用原生 HTML 範圍輸入和平滑樣式構建，可提供對連續值的直覺控制。 Frutjam 系列系統支援多種尺寸、顏色和狀態，非常適合音量控制、價格過濾器和時間軸清理。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| range | <span class="badge badge-xs">根據</span> | 樣式範圍滑桿輸入 |
+| range-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小號 |
+| range-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小的 |
+| range-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（預設） |
+| range-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大的 |
+| range-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特大號 |
+| range-primary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 主要主題顏色 |
+| range-secondary | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 次要主題色 |
+| range-accent | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 強調主題顏色 |
+| range-neutral | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 中性主題色 |
+| range-info | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 訊息語意顏色 |
+| range-success | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 成功語意色 |
+| range-warning | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 警告語意顏色 |
+| range-error | <span class="badge badge-xs badge-warning badge-soft">顏色</span> | 錯誤語意顏色 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<input type="range" min="0" max="100" value="40" class="range">
+```
+
+```jsx
+<input type="range" min="0" max="100" value="40" className="range">
+```
+
+</Snippet>
+
+## 範圍尺寸
+
+<Snippet>
+
+```html
+<input type="range" min="0" max="100" value="40" class="range range-xs">
+<input type="range" min="0" max="100" value="40" class="range range-sm">
+<input type="range" min="0" max="100" value="40" class="range range-md">
+<input type="range" min="0" max="100" value="40" class="range range-lg">
+<input type="range" min="0" max="100" value="40" class="range range-xl">
+```
+
+</Snippet>
+
+## 色彩範圍
+
+<Snippet>
+
+```html
+<input type="range" min="0" max="100" value="40" class="range">
+<input type="range" min="0" max="100" value="40" class="range range-primary">
+<input type="range" min="0" max="100" value="40" class="range range-secondary">
+<input type="range" min="0" max="100" value="40" class="range range-accent">
+<input type="range" min="0" max="100" value="40" class="range range-info">
+<input type="range" min="0" max="100" value="40" class="range range-success">
+<input type="range" min="0" max="100" value="40" class="range range-warning">
+<input type="range" min="0" max="100" value="40" class="range range-error">
+```
+
+</Snippet>
+
+## 範圍與步驟
+
+<Snippet>
+
+```html
+<input type="range" min="0" max="100" step="10" value="40" class="range">
+<input type="range" min="0" max="100" step="5" value="40" class="range range-primary">
+<input type="range" min="0" max="100" step="1" value="40" class="range range-secondary">
+```
+
+</Snippet>
+
+## 帶標籤的範圍
+
+<Snippet>
+
+```html
+<label>
+  <span class="block text-sm font-medium mb-2">Volume</span>
+  <input type="range" min="0" max="100" value="70" class="range range-primary">
+</label>
+
+<label>
+  <span class="block text-sm font-medium mb-2">Price Range: $20 - $80</span>
+  <input type="range" min="0" max="100" value="50" class="range">
+</label>
+```
+
+</Snippet>
+
+## 禁用範圍
+
+<Snippet>
+
+```html
+<input type="range" min="0" max="100" value="40" class="range" disabled>
+```
+
+</Snippet>
+
+## 帶標記的範圍
+
+<Snippet>
+
+```html
+<div>
+  <div class="flex justify-between text-xs mb-2">
+    <span>0</span>
+    <span>25</span>
+    <span>50</span>
+    <span>75</span>
+    <span>100</span>
+  </div>
+  <input type="range" min="0" max="100" value="50" class="range range-primary w-full">
+</div>
+```
+
+</Snippet>

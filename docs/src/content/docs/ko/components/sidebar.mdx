@@ -1,0 +1,131 @@
+---
+name: "사이드바"
+heading: "사이드바 구성요소"
+description: "측면 탐색 패널을 위한 CSS 전용 Tailwind CSS 사이드바입니다. 탐색 항목 상태 및 섹션 제목이 포함된 접을 수 있습니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "사이드바 - CSS 전용 Tailwind CSS 구성 요소 | Frutjam"
+metaDescription: "축소 가능한 패널, 아이콘 및 중첩 메뉴가 포함된 Tailwind CSS 사이드바입니다. 관리 레이아웃 및 다중 섹션 애플리케이션을 위한 반응형 대시보드 탐색."
+order: 0
+related:
+  - "components/navbar"
+  - "components/menu"
+  - "components/tabs"
+image: "https://cdn.frutjam.com/media/components/sidebar_jTGiPHo.webp"
+imageAlt: "Frutjam의 사이드바"
+createdAt: "2026-04-19T15:57:04.010698+00:00"
+updatedAt: "2026-07-13T09:43:30.099461+00:00"
+sourceHash: "80862f45041c"
+translationHash: "a41480f3544d"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+측면 탐색 패널을 위한 CSS 전용 Tailwind CSS 사이드바입니다. 탐색 항목 상태 및 섹션 제목이 포함된 접을 수 있습니다. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+사이드바 구성 요소는 고정 또는 접이식 측면 패널에 기본 탐색 및 보조 콘텐츠를 구성합니다. 의미론적 HTML로 구축된 사이드바는 기본 콘텐츠 공간을 차지하지 않고도 탐색 기능을 향상시킵니다. Frutjam 사이드바 시스템은 다양한 레이아웃, 너비 및 동작을 지원하므로 관리 대시보드, 문서 사이트 및 복잡한 애플리케이션에 이상적입니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| sidebar | <span class="badge badge-xs">베이스</span> | 탐색 및 보조 콘텐츠를 위한 고정 측면 패널 |
+
+</DocTable>
+
+## 기본 사용법
+
+`aside` 요소에 `sidebar` 클래스를 사용하세요. Flex 컨테이너의 기본 콘텐츠와 함께 배치하세요.
+
+<Snippet>
+
+```html
+<div class="flex min-h-90">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Menu</span></li>
+      <li><a class="menu-item">Sidebar Item 1</a></li>
+      <li><a class="menu-item">Sidebar Item 2</a></li>
+      <li><a class="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <p class="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+```jsx
+<div className="flex min-h-90">
+  <aside className="sidebar w-64">
+    <ul className="menu p-4">
+      <li className="menu-title"><span>Menu</span></li>
+      <li><a className="menu-item">Sidebar Item 1</a></li>
+      <li><a className="menu-item">Sidebar Item 2</a></li>
+      <li><a className="menu-item">Sidebar Item 3</a></li>
+    </ul>
+  </aside>
+  <main className="flex-1 p-6">
+    <p className="para-base">Main content area</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 사이드바 탐색
+
+그룹화된 섹션과 활성 상태 스타일이 포함된 전체 탐색 사이드바입니다.
+
+<Snippet>
+
+```html
+<div class="flex min-h-105">
+  <aside class="sidebar w-64">
+    <ul class="menu p-4">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item menu-item menu-active">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </aside>
+  <main class="flex-1 p-6">
+    <h2 class="heading-2xl">Overview</h2>
+    <p class="para-base mt-2">Page content goes here.</p>
+  </main>
+</div>
+```
+
+</Snippet>
+
+## 접이식 사이드바
+
+모바일 또는 오버레이 사이드바의 경우 `sidebar` 클래스를 `drawer drawer-start` 대화 상자 구성 요소와 결합합니다.
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-primary btn-sm" onclick="sidebarDrawer.show()">Open Sidebar</button>
+
+<dialog class="drawer drawer-start" id="sidebarDrawer">
+  <div class="drawer-content">
+    <aside class="sidebar h-full w-64">
+      <ul class="menu p-4">
+        <li class="menu-title"><span>Dashboard</span></li>
+        <li><a class="menu-item">Home</a></li>
+        <li><a class="menu-item">Profile</a></li>
+        <li><a class="menu-item">Settings</a></li>
+        <li><a class="menu-item">Logout</a></li>
+      </ul>
+    </aside>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="sidebarDrawer.close()">Close Sidebar via Backdrop</button>
+</dialog>
+```
+
+</Snippet>

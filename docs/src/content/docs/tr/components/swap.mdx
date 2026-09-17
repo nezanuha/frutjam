@@ -1,0 +1,187 @@
+---
+name: "Takas"
+heading: "Bileşeni Değiştir"
+description: "Yalnızca CSS'ye özgü Tailwind İki öğe arasında geçiş yapmak için CSS takası. Animasyonları çevirin, döndürün ve soluklaştırın; JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Takas - Yalnızca CSS'de Arka Rüzgar CSS Bileşeni | Frutjam"
+metaDescription: "Soldurma, döndürme ve çevirme animasyonlarıyla JS içermeyen Tailwind CSS Değiştirme. Tema geçişleri, simge geçişleri ve yükleme durumları için içerik durumları arasında geçiş yapın."
+order: 0
+related:
+  - "components/toggle"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/swap_okHZgqt.webp"
+imageAlt: "Frutjam ile takas"
+createdAt: "2026-04-19T15:57:16.678007+00:00"
+updatedAt: "2026-07-13T09:42:05.600409+00:00"
+sourceHash: "fac535d384ac"
+translationHash: "8c5710d8b3b1"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Yalnızca CSS'ye özgü Tailwind İki öğe arasında geçiş yapmak için CSS takası. Animasyonları çevirin, döndürün ve soluklaştırın; JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Bileşenleri değiştir, kullanıcı etkileşimine yanıt olarak akıcı animasyonlarla iki içerik durumu arasında geçiş yapar. Anlamsal HTML ve CSS geçişleriyle oluşturulan takaslar, JavaScript olmadan zarif durum değişikliklerine olanak tanır. Frutjam takas sistemi birden fazla animasyon stilini destekler; tema geçişleri, mod geçişleri, yükleme durumları ve etkileşimli çizimler için idealdir.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tip | Tanım |
+| --- | --- | --- |
+| swap | <span class="badge badge-xs">Temel</span> | Onay kutusu odaklı iki durumlu geçiş sarmalayıcı |
+| swap-rotate | <span class="badge badge-xs badge-success badge-soft">Stil</span> | Durumlar arasında döner |
+| swap-flip | <span class="badge badge-xs badge-success badge-soft">Stil</span> | 3D efektiyle durumlar arasında geçiş yapar |
+
+</DocTable>
+
+## Temel Kullanım
+
+Durumları değiştirmek için bir onay kutusunu kullanarak emoji veya metin içeriğiyle basit bir takas oluşturun.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">☀️</div>
+  <div class="swap-off">🌙</div>
+</label>
+```
+
+```jsx
+<label className="swap">
+  <input type="checkbox" />
+  <div className="swap-on">☀️</div>
+  <div className="swap-off">🌙</div>
+</label>
+```
+
+</Snippet>
+
+## Animasyonları Değiştir
+
+Görsel geçişler için farklı animasyon stilleri uygulayın: soldurma (varsayılan), döndürme ve çevirme.
+
+<Snippet>
+
+```html
+<label class="swap">
+  <input type="checkbox" />
+  <div class="swap-on">Online</div>
+  <div class="swap-off">Offline</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">➕</div>
+  <div class="swap-off">✖️</div>
+</label>
+
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Yes</div>
+  <div class="swap-off">No</div>
+</label>
+```
+
+</Snippet>
+
+## SVG Simgeleriyle Değiştirin
+
+Sorunsuz animasyonlarla görsel durum değişiklikleri için SVG simgelerini kullanın.
+
+<Snippet>
+
+```html
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <svg class="swap-on" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="1"/><path d="M12 2v6m0 4v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M2 12h6m4 0h6M4.22 19.78l4.24-4.24m2.98-2.98l4.24-4.24"/>
+  </svg>
+  <svg class="swap-off" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</label>
+```
+
+</Snippet>
+
+## Düğme Olarak Değiştir
+
+Etkileşimli geçişler için değiştirme işlevini düğme bileşeni stiliyle birleştirin.
+
+<Snippet>
+
+```html
+<label class="btn btn-primary swap">
+  <input type="checkbox" />
+  <div class="swap-on">Light Mode</div>
+  <div class="swap-off">Dark Mode</div>
+</label>
+
+<label class="btn btn-secondary swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Connected</div>
+  <div class="swap-off">Disconnected</div>
+</label>
+
+<label class="btn btn-outline swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Expanded</div>
+  <div class="swap-off">Collapsed</div>
+</label>
+```
+
+</Snippet>
+
+## Rozet Olarak Değiştir
+
+Durum veya kategori geçişi için kompakt geçiş rozetleri oluşturun.
+
+<Snippet>
+
+```html
+<label class="badge badge-primary swap cursor-pointer">
+  <input type="checkbox" />
+  <div class="swap-on">Active</div>
+  <div class="swap-off">Inactive</div>
+</label>
+
+<label class="badge badge-success swap cursor-pointer swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">✓ Verified</div>
+  <div class="swap-off">Pending</div>
+</label>
+```
+
+</Snippet>
+
+## Kombine Takas Varyantları
+
+Karmaşık geçiş senaryoları için farklı animasyon stillerini ve içerik türlerini karıştırın.
+
+<Snippet>
+
+```html
+<label class="swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">→</div>
+  <div class="swap-off">←</div>
+</label>
+
+<label class="swap swap-rotate">
+  <input type="checkbox" />
+  <div class="swap-on">Saving...</div>
+  <div class="swap-off">Save</div>
+</label>
+
+<label class="btn btn-ghost btn-sm swap swap-flip">
+  <input type="checkbox" />
+  <div class="swap-on">Show Less</div>
+  <div class="swap-off">Show More</div>
+</label>
+```
+
+</Snippet>

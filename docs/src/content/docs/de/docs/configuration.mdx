@@ -1,0 +1,362 @@
+---
+name: "Konfiguration"
+heading: "Konfiguration"
+description: "Konfigurieren Sie das Nur-CSS-Tailwind-CSS-Plugin von Frutjam. Legen Sie Standardthemen fest, definieren Sie benutzerdefinierte Farbtokens, schalten Sie das Präfixsystem um – kein JavaScript erforderlich. WCAG-zugängliche Standardeinstellungen, funktioniert mit Django, HTMX, Laravel und jedem Framework."
+metaTitle: "Konfiguration des Tailwind-CSS-Plugins | Frutjam-Dokumente"
+metaDescription: "Konfigurieren Sie das Frutjam Tailwind CSS-Plugin. Passen Sie Themen, Farbtokens, Präfixsystem und Komponentenoptionen an – kein JavaScript erforderlich."
+order: 2
+related:
+  - "docs/themes"
+  - "docs/colors"
+  - "docs/installation"
+image: "https://cdn.frutjam.com/media/docs/configuration.webp"
+imageAlt: "Konfiguration - Frutjam"
+createdAt: "2025-09-05T16:12:35.826367+00:00"
+updatedAt: "2026-07-13T09:55:39.240950+00:00"
+sourceHash: "708396ebc01b"
+translationHash: "e3c1f5601fbe"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Konfigurieren Sie das Nur-CSS-Tailwind-CSS-Plugin von Frutjam. Legen Sie Standardthemen fest, definieren Sie benutzerdefinierte Farbtokens, schalten Sie das Präfixsystem um – kein JavaScript erforderlich. WCAG-zugängliche Standardeinstellungen, funktioniert mit Django, HTMX, Laravel und jedem Framework.
+
+Konfigurieren Sie das Frutjam CSS-only Tailwind CSS-Plugin passend zu Ihrem Projekt. Legen Sie Themen fest, definieren Sie benutzerdefinierte Farbtokens, schalten Sie das Präfixsystem um und wählen Sie Komponenten aus – ganz ohne JavaScript. WCAG AA zugängliche Standardeinstellungen. Funktioniert mit Django, HTMX, Laravel, React und jedem Tailwind CSS v4-Projekt.
+
+## Grundeinrichtung
+
+Fügen Sie Frutjam mit der Direktive `@plugin` zu Ihrer CSS-Datei hinzu. Es sind keine Optionen erforderlich – alles funktioniert sofort.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## Plugin-Optionen
+
+Passen Sie Frutjam an, indem Sie Optionen innerhalb des `@plugin`\-Blocks übergeben:
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+  reset: true;
+  root: :host;
+  include: button, card, alert;
+  /* or: */
+  exclude: table, timeline;
+}
+```
+
+</Snippet>
+
+### Präfix
+
+Fügt allen Frutjam-Klassennamen ein Präfix hinzu, um Konflikte mit Ihrem eigenen CSS zu vermeiden.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn fj-btn-primary">Send mail</button>
+```
+
+</Snippet>
+
+Wie sich das Präfix verhält, hängt davon ab, ob Sie auch die Option `prefix()` von Tailwind verwenden:
+
+#### Nur Frutjam-Präfix
+
+Den Namen der Frutjam-Klassen wird ein Präfix vorangestellt. Verwenden Sie sie direkt in HTML.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn">Button</button>
+```
+
+</Snippet>
+
+#### Nur Rückenwind-Präfix
+
+`prefix()` von Tailwind funktioniert als Variante – alle Dienstprogramme (einschließlich Frutjams) benötigen das Präfix als Variantenselektor in HTML.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:btn">Button</button>
+```
+
+</Snippet>
+
+#### Beide Präfixe
+
+Frutjam benennt seine Klassen um (z. B. `fj-btn`), und das Variantenpräfix von Tailwind ist oben erforderlich.
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:fj-btn">Button</button>
+```
+
+</Snippet>
+
+### zurücksetzen
+
+Steuert, ob Frutjam Basiselement-Resets (Neustartstile) injiziert. Der Standardwert ist `true`.
+
+Wenn `true`, setzt Frutjam Boxmodell, Typografie, Listen, Medien und Formularelemente zurück – ähnlich wie Tailwinds Preflight. Bei `false` werden nur die CSS-Variablen-Tokens eingefügt; Rohelementstile werden vollständig übersprungen.
+
+Legen Sie `false` fest, wenn Sie bereits ein anderes CSS-Framework (Bootstrap, Bulma usw.) oder Ihren eigenen Reset verwenden, um Konflikte bei Elementen wie `*`, `html`, `body`, `h1-h6` und `button` zu vermeiden.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  reset: false;
+}
+```
+
+</Snippet>
+
+### Wurzel
+
+Der CSS-Selektor, in dem Frutjam seine Design-Token-Variablen registriert (`--color-primary`, `--color-base` usw.). Standardmäßig ist `:root`.
+
+Es gibt drei nützliche Werte:
+
+<DocTable>
+
+| Wert | Wann zu verwenden |
+| --- | --- |
+| `:root` | Standard. Token sind global auf der gesamten Seite verfügbar. |
+| `:host` | Shadow DOM / Webkomponenten. Begrenzt Token innerhalb der Komponente, damit sie nicht nach außen dringen. |
+| Beliebiger Selektor (z. B. `#app`) | Bezieht Token auf ein bestimmtes Wrapper-Element. Nützlich, wenn Frutjam mit einem anderen Framework auf derselben Seite koexistiert. |
+
+</DocTable>
+
+#### Standard: globale Token
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :root;
+}
+```
+
+</Snippet>
+
+#### Shadow DOM / Webkomponenten
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :host;
+}
+```
+
+</Snippet>
+
+#### Auf ein Wrapper-Element beschränkt
+
+Wenn ein anderes Framework bereits `:root` steuert (z. B. Bootstrap legt seine eigenen `--bs-*`\-Variablen und Körperfarben fest), zeigen Sie Frutjam stattdessen auf ein Containerelement. Dadurch werden `color`, `background-color` und alle CSS-Variablen von `:root` verschoben, sodass sie nur innerhalb dieses Wrappers gelten.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+  reset: false;
+  root: #my-app;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<div id="my-app" data-theme="blueberry">
+  <!-- Frutjam components here, Bootstrap outside -->
+  <button class="fj-btn fj-btn-primary">Send</button>
+</div>
+```
+
+</Snippet>
+
+### enthalten
+
+Laden Sie nur bestimmte Komponenten statt der gesamten Bibliothek. Nützlich zur Reduzierung der Ausgabegröße in der Produktion.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  include: button, card, alert, badge;
+}
+```
+
+</Snippet>
+
+### ausschließen
+
+Laden Sie alle Komponenten außer den aufgeführten. Verwenden Sie diese Option, wenn Sie nur wenige Komponenten aus dem vollständigen Build entfernen müssen.
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  exclude: table, timeline, chat;
+}
+```
+
+</Snippet>
+
+## Erstellen Sie ein benutzerdefiniertes Thema
+
+Um Ihr eigenes Theme zu erstellen, weisen Sie einfach Ihre Farbwerte den bereitgestellten CSS-Variablen innerhalb eines `[data-theme="your-theme-name"]`\-Selektors zu
+
+### 1\. The "Automatic" Approach (Minimal)
+
+In dieser Version lassen wir die Variablen `--color-on-*` weg. Frutjam erkennt die fehlenden Variablen und berechnet die optimale Textfarbe – normalerweise wechselt es zwischen einem sehr hellen und einem sehr dunklen `OKLCH`\-Wert –, um sicherzustellen, dass die Komponente zugänglich und lesbar bleibt.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-error: oklch(0.577 0.245 27.325);
+    }
+}
+```
+
+</Snippet>
+
+### 2\. The "Manual" Approach (Full Control)
+
+In dieser Version definieren wir explizit die Variablen `--color-on-*`. Dies ist ideal, wenn Sie bestimmte Markenrichtlinien haben (z. B. die Verwendung eines getönten gebrochenen Weiß anstelle von reinem Weiß) oder wenn Sie eine bestimmte „Ausstrahlung“ erreichen möchten, z. B. einen kontrastarmen, eleganten Look, der dennoch die Barrierefreiheitsprüfungen besteht.
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-on-base:oklch(0.22 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-on-neutral: oklch(1 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-on-primary: oklch(96.2% 0.018 272.314);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-on-secondary: oklch(1 0 0);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-on-accent: oklch(1 0 0);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-on-info: oklch(0.15 0 0);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-on-success: oklch(0.15 0 0);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-on-warning: oklch(0.15 0 0);
+        --color-error: oklch(0.577 0.245 27.325);
+        --color-on-error: oklch(1 0 0);
+    }
+}
+```
+
+</Snippet>
+
+Um Ihr benutzerdefiniertes Design in Ihrem HTML auf Ihr Projekt anzuwenden, verwenden Sie `data-theme="your-theme-name"` für ein HTML-Element.
+
+<Snippet view="code">
+
+```html
+<html data-theme="your-theme-name">
+ ...
+</html>
+```
+
+</Snippet>
+
+Themen können verschachtelt werden – Sie können ein bestimmtes Thema auf einen beliebigen Abschnitt Ihres HTML-Codes anwenden und so das globale Thema für diesen Bereich überschreiben.
+
+<Snippet view="code">
+
+```html
+<html data-theme="light">
+  <div data-theme="dark">
+    This div uses the dark theme.
+    <span data-theme="your-custom-theme">
+      This span uses the your-custom-theme
+    </span>
+  </div>
+</html>
+```
+
+</Snippet>
+
+## Weiterführende Literatur
+
+-   [Verfügbare integrierte Themen](/docs/themes) — Durchsuchen Sie Snowberry, Darkberry und alle enthaltenen Themen
+-   [Referenz zum Farbsystem](/docs/colors) — vollständige Liste der CSS-Farbvariablen und deren Zuordnung zu Komponenten

@@ -1,0 +1,183 @@
+---
+name: "Indicateur"
+heading: "Composant de l'indicateur"
+description: "Indicateur CSS Tailwind uniquement CSS pour superposer des badges ou des points sur n'importe quel coin d'élément. Variantes de couleurs et positionnement. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
+metaTitle: "Indicateur - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaDescription: "Indicateur CSS Tailwind pour les badges de notification et les superpositions de statut. Neuf positions de placement pour les avatars, les boutons et les cartes : aucun JavaScript requis."
+order: 0
+related:
+  - "components/button"
+  - "components/carousel"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/indicator_VcLEcHF.webp"
+imageAlt: "Indicateur par Frutjam"
+createdAt: "2026-04-19T15:56:45.931799+00:00"
+updatedAt: "2026-07-13T09:38:29.896146+00:00"
+sourceHash: "8c17fb9c0117"
+translationHash: "e99640091184"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Indicateur CSS Tailwind uniquement CSS pour superposer des badges ou des points sur n'importe quel coin d'élément. Variantes de couleurs et positionnement. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+Les composants de l'indicateur affichent l'état, les badges ou les notifications positionnés sur d'autres éléments. Construits avec un positionnement absolu et un style flexible, les indicateurs superposent des informations importantes sur les cartes, les avatars et les boutons. Le système d'indicateurs Frutjam prend en charge plusieurs emplacements, tailles et couleurs, idéal pour les badges de notification, les marqueurs d'état et les repères visuels.
+
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Classe | Taper | Description |
+| --- | --- | --- |
+| indicator | <span class="badge badge-xs">Base</span> | Wrapper à positionnement relatif pour l'élément indicateur |
+| indicator-item | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Badge ou élément de point absolument positionné |
+| indicator-top | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément sur le bord supérieur |
+| indicator-middle | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément au milieu vertical |
+| indicator-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément sur le bord inférieur |
+| indicator-start | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément sur le bord gauche |
+| indicator-center | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément au centre horizontal |
+| indicator-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Positionne l'élément sur le bord droit |
+
+</DocTable>
+
+## Utilisation de base
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+```jsx
+<div className="indicator">
+  <span className="indicator-item badge badge-primary">99+</span>
+  <button className="btn">Messages</button>
+</div>
+```
+
+```vue
+<div class="indicator">
+  <span class="indicator-item badge badge-primary">99+</span>
+  <button class="btn">Messages</button>
+</div>
+```
+
+</Snippet>
+
+## Emplacements des indicateurs
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-start badge badge-primary">↖︎</span>
+  <span class="indicator-item indicator-top indicator-center badge badge-secondary">↑</span>
+  <span class="indicator-item indicator-top indicator-end badge badge-accent">↗︎</span>
+  <span class="indicator-item indicator-middle indicator-start badge badge-info">←</span>
+  <span class="indicator-item indicator-middle indicator-center badge badge-neutral">●</span>
+  <span class="indicator-item indicator-middle indicator-end badge badge-success">→</span>
+  <span class="indicator-item indicator-bottom indicator-start badge badge-warning">↙︎</span>
+  <span class="indicator-item indicator-bottom indicator-center badge badge-primary">↓</span>
+  <span class="indicator-item indicator-bottom indicator-end badge badge-error">↘︎</span>
+  <div class="bg-base-200 grid h-32 w-60 place-items-center rounded-box">Box</div>
+</div>
+```
+
+</Snippet>
+
+## Indicateur dans les onglets
+
+<Snippet>
+
+```html
+<div class="tabs tabs-lifted">
+  <a class="tab">Messages</a>
+  <a class="indicator tab tab-active">
+    Notifications
+    <span class="indicator-item badge">7</span>
+  </a>
+  <a class="tab">Requests</a>
+</div>
+```
+
+</Snippet>
+
+## Indicateur sur l'entrée
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-neutral badge-sm">Required</span>
+  <input type="text" placeholder="Your email address" class="input" />
+</div>
+```
+
+</Snippet>
+
+## Indicateur sur l'image
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-middle indicator-center badge">
+    Only available for Pro users
+  </span>
+  <img
+    alt="Tailwind CSS examples"
+    src=""
+  />
+</div>
+```
+
+</Snippet>
+
+## Indicateur sur les cartes
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item badge badge-success">New</span>
+  <div class="card card-outline">
+    <div class="card-content">
+      <h2 class="card-title">Product Name</h2>
+      <p>Product description and details go here.</p>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Indicateur sur Avatar
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-top indicator-end badge badge-circle badge-success"></span>
+  <div class="avatar">JS</div>
+</div>
+```
+
+</Snippet>
+
+## Comportement réactif
+
+<Snippet>
+
+```html
+<div class="indicator">
+  <span class="indicator-item indicator-bottom indicator-start sm:indicator-top sm:indicator-end badge badge-primary">New</span>
+  <button class="btn">Responsive</button>
+</div>
+```
+
+</Snippet>

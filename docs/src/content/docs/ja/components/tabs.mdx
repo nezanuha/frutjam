@@ -1,0 +1,417 @@
+---
+name: "タブ"
+heading: "タブコンポーネント"
+description: "CSS のみの Tailwind CSS タブには、ボーダー、リフト、ボックス、ピル スタイルのバリアントが含まれます。アクティブな状態とサイズ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "タブ - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "JS フリーの Tailwind CSS タブで、ボックス、枠線、リフト、下線のバリアントが含まれています。整理されたコンテンツセクションとナビゲーションのためのアクセス可能なパネル切り替え。"
+order: 0
+related:
+  - "components/sidebar"
+  - "components/steps"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/tabs_MzMB24m.webp"
+imageAlt: "フルジャムのタブ譜"
+createdAt: "2026-04-19T15:57:18.973682+00:00"
+updatedAt: "2026-07-13T09:51:31.366697+00:00"
+sourceHash: "dfa9e692606c"
+translationHash: "04444a7805ec"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS タブには、ボーダー、リフト、ボックス、ピル スタイルのバリアントが含まれます。アクティブな状態とサイズ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+タブ コンポーネントはコンテンツを個別のセクションに整理し、ユーザーがページを離れることなくセクション間を切り替えることができます。セマンティック HTML とラジオ入力パターンで構築されたタブは、関連情報をグループ化するための直感的なナビゲーションを提供します。 Frutjam タブ システムは、複数のサイズ、スタイル、レイアウト方向 (CSS のみまたは JavaScript 制御) をサポートしており、ダッシュボード、ドキュメント、タブ付きインターフェイスに最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| tabs | <span class="badge badge-xs">ベース</span> | Container for a group of tab inputs and content panels |
+| tab | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Individual tab radio input |
+| tab-content | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Content panel associated with a tab |
+| tab-active | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Forces the active/selected state on a tab (for JS-controlled tabs) |
+| tab-disabled | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Disabled appearance for a tab |
+| tabs-underline | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | Underline indicator style |
+| tabs-lifted | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | Card-like lifted tab style |
+| tabs-box | <span class="badge badge-xs badge-success badge-soft">スタイル</span> | Boxed pill-style tabs |
+| tabs-vertical | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Vertical tab layout with tabs in a left-side column |
+| tabs-end | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Aligns the tab row to the end (right in LTR) |
+| tabs-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | Places tabs below the content panel |
+| tabs-xs | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | Extra small tab padding |
+| tabs-sm | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | Small tab padding |
+| tabs-md | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | Medium tab padding (default) |
+| tabs-lg | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | Large tab padding |
+| tabs-xl | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | Extra large tab padding |
+
+</DocTable>
+
+## 基本的な使い方
+
+The default tabs use a simple underline-on-active style with radio inputs. Each `tab` input is paired with a `tab-content` panel immediately after it.
+
+<Snippet>
+
+```html
+<div class="tabs">
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">
+    <p>Overview content: a high-level summary of features, metrics, or status. This panel is visible by default.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">
+    <p>Details content: in-depth information such as configuration options, data breakdown, or extended documentation.</p>
+  </div>
+
+  <input type="radio" name="tabs-basic" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">
+    <p>Activity content: a timeline, event log, or recent changes relevant to this section.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tab Styles
+
+Use `tabs-underline`, `tabs-box`, or `tabs-lifted` to change the visual style of the tab strip.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="style-underline" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Underline style — a colored bottom border marks the active tab against a full-width separator line.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-underline" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-box">
+  <input type="radio" name="style-box" class="tab" aria-label="Overview" checked>
+  <div class="tab-content pt-4">Box style — the active tab gets a raised background inside a tinted pill container.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Details">
+  <div class="tab-content pt-4">Details panel.</div>
+  <input type="radio" name="style-box" class="tab" aria-label="Activity">
+  <div class="tab-content pt-4">Activity panel.</div>
+</div>
+
+<div class="tabs tabs-lifted">
+  <input type="radio" name="style-lifted" class="tab" aria-label="Overview" checked>
+  <div class="tab-content p-4">Lifted style — the active tab appears as a card tab with borders that merge into the content panel below.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Details">
+  <div class="tab-content p-4">Details panel.</div>
+  <input type="radio" name="style-lifted" class="tab" aria-label="Activity">
+  <div class="tab-content p-4">Activity panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Tab Sizes
+
+Scale the tab padding from `tabs-xs` to `tabs-xl` to match the density of your layout.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-xs">
+  <input type="radio" name="size-xs" class="tab" aria-label="Extra Small" checked>
+  <div class="tab-content pt-3">Extra small tabs</div>
+  <input type="radio" name="size-xs" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-sm">
+  <input type="radio" name="size-sm" class="tab" aria-label="Small" checked>
+  <div class="tab-content pt-3">Small tabs</div>
+  <input type="radio" name="size-sm" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-md">
+  <input type="radio" name="size-md" class="tab" aria-label="Medium" checked>
+  <div class="tab-content pt-3">Medium tabs (default)</div>
+  <input type="radio" name="size-md" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-lg">
+  <input type="radio" name="size-lg" class="tab" aria-label="Large" checked>
+  <div class="tab-content pt-3">Large tabs</div>
+  <input type="radio" name="size-lg" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+
+<div class="tabs tabs-underline tabs-xl">
+  <input type="radio" name="size-xl" class="tab" aria-label="Extra Large" checked>
+  <div class="tab-content pt-3">Extra large tabs</div>
+  <input type="radio" name="size-xl" class="tab" aria-label="Tab 2">
+  <div class="tab-content pt-3">Content</div>
+</div>
+```
+
+</Snippet>
+
+## Tabs with Buttons
+
+Combine `tab` with `btn` to render tabs as styled buttons. The `btn` class takes over colors and border-radius while the tab selection logic is preserved.
+
+<Snippet>
+
+```html
+<div class="tabs gap-2">
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Home" checked>
+  <div class="tab-content pt-4">
+    <p>Home — your primary landing panel with quick access to key actions and a summary view.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Profile">
+  <div class="tab-content pt-4">
+    <p>Profile — manage personal information, preferences, and account details.</p>
+  </div>
+
+  <input type="radio" name="btn-tabs" class="tab btn btn-sm" aria-label="Settings">
+  <div class="tab-content pt-4">
+    <p>Settings — configure notifications, privacy options, and connected integrations.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Disabled Tabs
+
+Add `tab-disabled` and the `disabled` attribute to prevent interaction with a tab.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline">
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Available" checked>
+  <div class="tab-content pt-4">This tab is active and accessible.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab tab-disabled" aria-label="Unavailable" disabled>
+  <div class="tab-content pt-4">This content is not reachable.</div>
+
+  <input type="radio" name="disabled-tabs" class="tab" aria-label="Another">
+  <div class="tab-content pt-4">Another available tab panel.</div>
+</div>
+```
+
+</Snippet>
+
+## Vertical Tabs
+
+`tabs-vertical` switches to a grid layout with tabs in a left-side column and the content filling the right. A full-height separator line is automatically added between columns.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-vertical">
+  <input type="radio" name="vertical" class="tab" aria-label="General" checked>
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">General Settings</h3>
+    <p>Manage your display name, language preference, and time zone.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Security">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Security</h3>
+    <p>Update your password, enable two-factor authentication, and review active sessions.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Notifications">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Notifications</h3>
+    <p>Choose which events trigger email, push, or in-app notifications.</p>
+  </div>
+
+  <input type="radio" name="vertical" class="tab" aria-label="Billing">
+  <div class="tab-content px-6 py-2">
+    <h3 class="font-semibold mb-1">Billing</h3>
+    <p>View invoices, update your payment method, and manage your subscription plan.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tabs at Bottom
+
+`tabs-bottom` flips the layout so the content appears above the tab strip, useful for mobile-style navigation bars or bottom toolbars.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-bottom tabs-underline">
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Feed" checked>
+  <div class="tab-content pb-4">
+    <p>Feed — latest posts and updates from people you follow.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Explore">
+  <div class="tab-content pb-4">
+    <p>Explore — discover trending topics, creators, and recommended content.</p>
+  </div>
+
+  <input type="radio" name="bottom-tabs" class="tab" aria-label="Saved">
+  <div class="tab-content pb-4">
+    <p>Saved — articles and posts you bookmarked for later.</p>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Tabs Aligned to End
+
+`tabs-end` pushes the tab strip to the right (end) of the container, useful for secondary navigation or action menus.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-underline tabs-end">
+  <input type="radio" name="end-tabs" class="tab" aria-label="Week" checked>
+  <div class="tab-content pt-4">Weekly view — aggregated metrics for the past 7 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Month">
+  <div class="tab-content pt-4">Monthly view — trend analysis over the past 30 days.</div>
+
+  <input type="radio" name="end-tabs" class="tab" aria-label="Year">
+  <div class="tab-content pt-4">Yearly view — annual summary and year-over-year comparison.</div>
+</div>
+```
+
+</Snippet>
+
+## JavaScript-controlled Tabs
+
+For non-radio patterns (e.g. anchor links, dynamic content), add `tab-active` to the selected tab in JavaScript. The paired `tab-content` is shown via the `.tab-active + .tab-content` selector.
+
+<Snippet>
+
+```html
+<div class="tabs tabs-box" id="js-tabs">
+  <button class="tab tab-active" data-tab="0">Dashboard</button>
+  <div class="tab-content pt-4">Dashboard panel — visible because this tab has <code>tab-active</code>.</div>
+
+  <button class="tab" data-tab="1">Reports</button>
+  <div class="tab-content pt-4">Reports panel.</div>
+
+  <button class="tab" data-tab="2">Integrations</button>
+  <div class="tab-content pt-4">Integrations panel.</div>
+</div>
+
+<script>
+  document.querySelectorAll('#js-tabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#js-tabs .tab').forEach(t => t.classList.remove('tab-active'));
+      tab.classList.add('tab-active');
+    });
+  });
+</script>
+```
+
+```jsx
+import { useTabs } from 'frutjam/react'
+
+export default function TabsDemo() {
+  const tabs = useTabs(0)
+  return (
+    <div className="tabs tabs-box">
+      <button {...tabs.tabProps(0)}>Dashboard</button>
+      <div {...tabs.panelProps(0)} className="tab-content pt-4">Dashboard panel.</div>
+
+      <button {...tabs.tabProps(1)}>Reports</button>
+      <div {...tabs.panelProps(1)} className="tab-content pt-4">Reports panel.</div>
+
+      <button {...tabs.tabProps(2)}>Integrations</button>
+      <div {...tabs.panelProps(2)} className="tab-content pt-4">Integrations panel.</div>
+    </div>
+  )
+}
+```
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const active = ref(0)
+</script>
+
+<template>
+  <div class="tabs tabs-box">
+    <button
+      v-for="(label, i) in ['Dashboard', 'Reports', 'Integrations']"
+      :key="i"
+      class="tab"
+      :class="{ 'tab-active': active === i }"
+      :aria-selected="active === i"
+      role="tab"
+      @click="active = i"
+    >{{ label }}</button>
+
+    <div class="tab-content pt-4" :hidden="active !== 0">Dashboard panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 1">Reports panel.</div>
+    <div class="tab-content pt-4" :hidden="active !== 2">Integrations panel.</div>
+  </div>
+</template>
+```
+
+```svelte
+<script>
+  let active = $state(0)
+  const labels = ['Dashboard', 'Reports', 'Integrations']
+</script>
+
+<div class="tabs tabs-box">
+  {#each labels as label, i}
+    <button
+      class="tab"
+      class:tab-active={active === i}
+      aria-selected={active === i}
+      role="tab"
+      onclick={() => active = i}
+    >{label}</button>
+    <div class="tab-content pt-4" hidden={active !== i}>{label} panel.</div>
+  {/each}
+</div>
+```
+
+```angular
+import { Component } from '@angular/core'
+import { NgFor } from '@angular/common'
+
+@Component({
+  selector: 'app-tabs',
+  standalone: true,
+  imports: [NgFor],
+  template: `
+    <div class="tabs tabs-box">
+      <button
+        *ngFor="let label of labels; let i = index"
+        class="tab"
+        [class.tab-active]="active === i"
+        [attr.aria-selected]="active === i"
+        role="tab"
+        (click)="active = i"
+      >{{ label }}</button>
+      <div class="tab-content pt-4" [hidden]="active !== 0">Dashboard panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 1">Reports panel.</div>
+      <div class="tab-content pt-4" [hidden]="active !== 2">Integrations panel.</div>
+    </div>
+  `
+})
+export class TabsComponent {
+  labels = ['Dashboard', 'Reports', 'Integrations']
+  active = 0
+}
+```
+
+</Snippet>

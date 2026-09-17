@@ -1,0 +1,186 @@
+---
+name: "ヒーロー"
+heading: "ヒーローコンポーネント"
+description: "ランディング ページ用の CSS のみの Tailwind CSS ヒーロー セクション。見出し、説明、CTA が中央に配置された全幅レイアウト。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Hero - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS ヒーロー セクションには、中央揃え、分割、オーバーレイのレイアウトが含まれます。 CTA ボタンを備えたセマンティック HTML と、コンバージョン率の高いランディング ページ用のメディア サポート。"
+order: 0
+related:
+  - "blocks/hero"
+  - "components/button"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/hero_AHU0GAE.webp"
+imageAlt: "フルジャムのヒーロー"
+createdAt: "2026-04-19T15:56:44.073112+00:00"
+updatedAt: "2026-07-13T09:49:08.433774+00:00"
+sourceHash: "60b35eb90e72"
+translationHash: "508656e9f7a8"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+ランディング ページ用の CSS のみの Tailwind CSS ヒーロー セクション。見出し、説明、CTA が中央に配置された全幅レイアウト。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+ヒーロー コンポーネントは、魅力的なビジュアルとメッセージでページや製品を紹介する目を引く全幅のセクションを作成します。セマンティック HTML と柔軟なレイアウトで構築されたヒーロー セクションは、ユーザー エンゲージメントの雰囲気を設定します。 Frutjam ヒーロー システムは、複数の背景、オーバーレイ、応答性の高い配置をサポートしており、ランディング ページ、製品の発売、目立つアナウンスに最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| hero | <span class="badge badge-xs">ベース</span> | コンテンツが中央に配置された全幅セクション |
+| hero-content | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | フレックスレイアウトを使用した内部コンテンツエリア |
+| hero-overlay | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 背景画像用の半透明のオーバーレイ |
+
+</DocTable>
+
+## 基本的な使い方
+
+テキストコンテンツと行動喚起を中央に配置したシンプルなヒーローセクションを作成します。
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Hello there</h1>
+      <p class="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button class="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<div className="hero min-h-screen bg-base-200">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="text-5xl font-bold">Hello there</h1>
+      <p className="py-6">Introduce your product or service with compelling messaging that resonates with your audience.</p>
+      <button className="btn btn-primary">Get Started</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## オーバーレイ付きヒーロー
+
+テキストの読みやすさを向上させるために、背景画像を持つヒーロー セクションにカラー オーバーレイを追加します。
+
+<Snippet>
+
+```html
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-on-neutral">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Featured Content</h1>
+      <p class="mb-5">Combine gradient backgrounds with overlay effects for visual depth.</p>
+      <button class="btn btn-primary">Explore</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## ヒーローのレイアウト
+
+さまざまなコンテンツを配置してレスポンシブなヒーロー セクションを作成します。
+
+### 画像付きヒーロー (コンテンツ + 画像)
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-1.jpg?format=webp&width=480&height=360" alt="Product" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Amazing Product</h1>
+      <p class="py-6">Display product images alongside descriptive content for engaging hero sections on larger screens.</p>
+      <button class="btn btn-primary">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 画像付きヒーロー（裏面）
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <picture>
+      <source media="(max-width: 640px)" srcset="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=320&height=240">
+      <img src="https://cdn.frutjam.com/images/photo-2.jpg?format=webp&width=480&height=360" alt="Showcase" class="max-w-sm rounded-lg shadow-2xl" loading="lazy" />
+    </picture>
+    <div>
+      <h1 class="text-5xl font-bold">Showcase</h1>
+      <p class="py-6">Reverse layout places image on the right side for alternative visual hierarchy.</p>
+      <button class="btn btn-primary">View Details</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 形を持ったヒーロー
+
+ヒーロー セクションとサインアップ フォームまたはお問い合わせフォームを組み合わせて、コンバージョンを重視したランディング ページを作成します。
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left max-w-md">
+      <h1 class="text-5xl font-bold">Subscribe Now</h1>
+      <p class="py-6">Join our community and get updates on the latest features and news.</p>
+    </div>
+    <div class="card bg-base-100 shadow-xl shrink-0 w-full max-w-sm">
+      <div class="card-content">
+        <h2 class="card-title">Get Started</h2>
+        <input type="email" placeholder="Enter your email" class="input input-outline w-full mb-4">
+        <button class="btn btn-primary w-full">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## ヒーローレスポンシブスタッキング
+
+ヒーロー セクションはモバイルでは自動的に積み重ねられ、大きな画面では水平に配置されます。
+
+<Snippet>
+
+```html
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col">
+    <div class="text-center max-w-lg">
+      <h1 class="text-4xl md:text-5xl font-bold">Responsive Hero</h1>
+      <p class="py-6">This layout automatically adapts to different screen sizes for optimal viewing on all devices.</p>
+      <button class="btn btn-primary">Get Started</button>
+      <button class="btn btn-ghost">Learn More</button>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

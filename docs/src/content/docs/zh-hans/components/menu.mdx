@@ -1,0 +1,752 @@
+---
+name: "菜单"
+heading: "菜单组件"
+description: "仅限 CSS Tailwind CSS 导航列表垂直菜单。活动、禁用和图标项目状态。尺寸变体。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
+metaTitle: "菜单 - 仅 CSS Tailwind CSS 组件 |Frutjam"
+metaDescription: "用于导航列表、侧边栏和下拉菜单的 Tailwind CSS 菜单。图标、活动状态和嵌套子菜单——无需 JavaScript 即可完全访问。"
+order: 0
+related:
+  - "components/navbar"
+  - "components/drawer"
+  - "components/sidebar"
+image: "https://cdn.frutjam.com/media/components/menu.webp"
+imageAlt: "Frutjam UI 库的菜单组件"
+createdAt: "2025-12-30T12:11:28.634222+00:00"
+updatedAt: "2026-07-13T09:39:40.458429+00:00"
+sourceHash: "3f4d129a1efa"
+translationHash: "525b3d19026c"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+仅限 CSS Tailwind CSS 导航列表垂直菜单。活动、禁用和图标项目状态。尺寸变体。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+菜单组件显示有组织的操作或导航选项列表。 Frutjam 菜单系统采用语义 HTML 列表和链接元素构建，支持垂直和水平布局、嵌套菜单、图标和活动状态。菜单完全可以通过键盘导航进行访问，与下拉菜单、侧边栏和上下文导航模式无缝集成。
+
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班级 | 类型 | 描述 |
+| --- | --- | --- |
+| menu | <span class="badge badge-xs">根据</span> | 导航或操作项的垂直列表 |
+| menu-item | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 菜单内的单个可点击项目 |
+| menu-title | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 非交互式部分标签 |
+| menu-horizontal | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 横向布局 |
+| menu-vertical | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 垂直布局（默认） |
+| menu-active | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 强制项目处于活动/突出显示状态 |
+| menu-disabled | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 菜单项的禁用外观 |
+| menu-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特小号 |
+| menu-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小的 |
+| menu-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中（默认） |
+| menu-lg | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 大的 |
+| menu-xl | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 特大号 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+```jsx
+<ul className="menu">
+  <li><a className="menu-item">Item 1</a></li>
+  <li><a className="menu-item">Item 2</a></li>
+  <li><a className="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 水平菜单
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 垂直菜单
+
+<Snippet>
+
+```html
+<ul class="menu menu-vertical">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有图标和文本的菜单
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+      Home
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+      Search
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+      Profile
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 响应式菜单：小屏幕垂直，大屏幕水平
+
+<Snippet>
+
+```html
+<ul class="menu  menu-vertical lg:menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 菜单尺寸
+
+<Snippet class="justify-start">
+
+```html
+<ul class="menu menu-xs w-56">
+  <li><a class="menu-item">Xsmall 1</a></li>
+  <li><a class="menu-item">Xsmall 2</a></li>
+</ul>
+<ul class="menu menu-sm w-56">
+  <li><a class="menu-item">Small 1</a></li>
+  <li><a class="menu-item">Small 2</a></li>
+</ul>
+<ul class="menu menu-md w-56">
+  <li><a class="menu-item">Medium 1</a></li>
+  <li><a class="menu-item">Medium 2</a></li>
+</ul>
+<ul class="menu menu-lg w-56">
+  <li><a class="menu-item">Large 1</a></li>
+  <li><a class="menu-item">Large 2</a></li>
+</ul>
+<ul class="menu menu-xl w-56">
+  <li><a class="menu-item">Xlarge 1</a></li>
+  <li><a class="menu-item">Xlarge 2</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带标题的菜单
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li class="menu-title">Title</li>
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有垂直线且标题为父项的菜单
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li>
+    <h2 class="menu-title">Title</h2>
+    <ul>
+      <li><a class="menu-item">Item 1</a></li>
+      <li><a class="menu-item">Item 2</a></li>
+      <li><a class="menu-item">Item 3</a></li>
+    </ul>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 包含禁用项目的菜单
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Enabled item</a></li>
+  <li class="menu-disabled"><button disabled class="menu-item">disabled item</button></li>
+  <li class="menu-disabled"><a class="menu-item" aria-disabled="true">disabled item</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有活动项目的菜单
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item menu-active">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有子菜单的菜单
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <a class="menu-item">Parent</a>
+    <ul>
+      <li><a class="menu-item">Submenu 1</a></li>
+      <li><a class="menu-item">Submenu 2</a></li>
+      <li>
+        <a class="menu-item">Parent</a>
+        <ul>
+          <li><a class="menu-item">Submenu 1</a></li>
+          <li><a class="menu-item">Submenu 2</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有可折叠子菜单的菜单
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>Parent</summary>
+        <div class="accordion-content">
+          <ul>
+            <li><a class="menu-item">Submenu 1</a></li>
+            <li><a class="menu-item">Submenu 2</a></li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>Parent</summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li><a class="menu-item menu-active">Submenu 1</a></li>
+                      <li><a class="menu-item">Submenu 2</a></li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 仅带有图标的垂直菜单
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 仅带有图标的水平菜单
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 仅带有图标和工具提示的菜单
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Profile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 仅带有图标的菜单（水平）和工具提示
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li>
+    <a class="menu-item tooltip" data-tip="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip" data-tip="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip" data-tip="Profile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 带有图标和徽章的菜单（响应式）
+
+<Snippet>
+
+```html
+<ul class="menu menu-vertical lg:menu-horizontal">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+      Home
+      <span class="badge badge-xs">99+</span>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+      Search
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+      Profile
+      <span class="badge badge-primary badge-xs badge-circle"></span>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 文件树
+
+<Snippet>
+
+```html
+<ul class="menu menu-xs max-w-xs w-full">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+      work-report.pdf
+    </a>
+  </li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+          </svg>
+          My Files
+        </summary>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <a class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                </svg>
+                final-project-2.psd
+              </a>
+            </li>
+            <li>
+              <a class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                </svg>
+                final-project-2.psd
+              </a>
+            </li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                      class="h-4 w-4">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                    </svg>
+                    Images
+                  </summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li>
+                        <a class="menu-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><circle cx="10" cy="12" r="2"/><path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22"/></svg>
+                          Screenshot1.png
+                        </a>
+                      </li>
+                      <li>
+                        <a class="menu-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><circle cx="10" cy="12" r="2"/><path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22"/></svg>
+                          Screenshot2.png
+                        </a>
+                      </li>
+                      <li>
+                        <div class="accordion accordion-flush">
+                          <details open>
+                            <summary>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                              </svg>
+                              Others
+                            </summary>
+                            <div class="accordion-content">
+                              <ul>
+                                <li>
+                                  <a class="menu-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path
+                                        d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                                      <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                                      <circle cx="10" cy="12" r="2" />
+                                      <path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22" />
+                                    </svg>
+                                    Screenshot3.png
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </details>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-4 w-4">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+      </svg>
+      reports-final-2.pdf
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 水平子菜单
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <a class="menu-item">Parent</a>
+    <ul>
+      <li><a class="menu-item">Submenu 1</a></li>
+      <li><a class="menu-item">Submenu 2</a></li>
+    </ul>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 带有子菜单的大型菜单（响应式）
+
+<Snippet>
+
+```html
+<ul class="menu xl:menu-horizontal lg:min-w-max">
+  <li>
+    <a class="menu-item">Solutions</a>
+    <ul>
+      <li><a class="menu-item">Design</a></li>
+      <li><a class="menu-item">Development</a></li>
+      <li><a class="menu-item">Hosting</a></li>
+      <li><a class="menu-item">Domain register</a></li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Enterprise</a>
+    <ul>
+      <li><a class="menu-item">CRM software</a></li>
+      <li><a class="menu-item">Marketing management</a></li>
+      <li><a class="menu-item">Security</a></li>
+      <li><a class="menu-item">Consulting</a></li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Products</a>
+    <ul>
+      <li><a class="menu-item">UI Kit</a></li>
+      <li><a class="menu-item">WordPress themes</a></li>
+      <li><a class="menu-item">WordPress plugins</a></li>
+      <li>
+        <a class="menu-item">Open source</a>
+        <ul>
+          <li><a class="menu-item">Auth management system</a></li>
+          <li><a class="menu-item">VScode theme</a></li>
+          <li><a class="menu-item">Color picker app</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Company</a>
+    <ul>
+      <li><a class="menu-item">About us</a></li>
+      <li><a class="menu-item">Contact us</a></li>
+      <li><a class="menu-item">Privacy policy</a></li>
+      <li><a class="menu-item">Press kit</a></li>
+    </ul>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 可折叠子菜单（响应式）
+
+<Snippet>
+
+```html
+<ul class="menu lg:menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>Parent item</summary>
+        <div class="accordion accordion-flush">
+          <ul>
+            <li><a class="menu-item">Submenu 1</a></li>
+            <li><a class="menu-item">Submenu 2</a></li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>Parent</summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li><a class="menu-item">item 1</a></li>
+                      <li><a class="menu-item">item 2</a></li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>

@@ -1,0 +1,264 @@
+---
+name: "콤보박스"
+heading: "콤보박스 구성요소"
+description: "실시간 검색 필터링 및 액세스 가능한 드롭다운 목록이 포함된 CSS 전용 Tailwind CSS 콤보박스입니다. 키보드 탐색, 색상 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "콤보박스 - CSS 전용 Tailwind CSS 구성요소 | 프루잠"
+metaDescription: "검색 가능한 드롭다운 및 자동 완성 기능을 지원하는 Tailwind CSS 콤보박스입니다. 고급 양식 제어를 위한 키보드 액세스 가능 필터링 및 사용자 정의 옵션."
+order: 0
+related:
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/combobox_rPhtDO2.webp"
+imageAlt: "Frutjam의 콤보박스"
+createdAt: "2026-04-19T15:56:34.839959+00:00"
+updatedAt: "2026-07-13T09:46:15.510068+00:00"
+sourceHash: "309b51fd688c"
+translationHash: "e6e9955c5c8b"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+실시간 검색 필터링 및 액세스 가능한 드롭다운 목록이 포함된 CSS 전용 Tailwind CSS 콤보박스입니다. 키보드 탐색, 색상 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+콤보박스는 텍스트 입력과 드롭다운 목록을 결합합니다. 사용 `input` 필드 구성 요소 — 크기, 색상 및 상태 변형이 여기에서 나옵니다. 그만큼 `combobox-*` 유틸리티는 드롭다운 목록, 항목 및 열린 상태만 처리합니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| combobox-list | <span class="badge badge-xs">베이스</span> | 콤보 상자 옵션의 드롭다운 목록 컨테이너 |
+| combobox-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 드롭다운 목록 내의 개별 옵션 |
+| combobox-open | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 래퍼에 적용될 때 드롭다운 목록을 표시합니다. |
+| combobox-primary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 항목의 기본 테마 색상 강조 표시 |
+| combobox-secondary | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 항목의 보조 테마 색상 강조 표시 |
+| combobox-accent | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 항목의 강조 테마 색상 강조 표시 |
+| combobox-info | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 정보 의미 색상 강조 표시 |
+| combobox-success | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 성공 의미 색상 강조 |
+| combobox-warning | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 경고 의미 색상 강조 표시 |
+| combobox-error | <span class="badge badge-xs badge-warning badge-soft">색상</span> | 오류 의미 색상 강조 표시 |
+
+</DocTable>
+
+## 기본 사용법
+
+포장 `input` 그리고 `combobox-list` 에 `relative` 컨테이너. 추가하다 `combobox-open` 목록을 표시하기 위해 래퍼로 — JS를 통해 전환하거나 `:focus-within`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## 집중 시 열기
+
+사용 `focus-within:combobox-open` 입력에 초점이 맞춰졌을 때 목록을 열려면 래퍼에 있어야 합니다. JavaScript는 필요하지 않습니다.
+
+<Snippet>
+
+```html
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 크기
+
+사용 `input-sm`, `input-lg`등을 입력 필드에 입력합니다. 드롭다운이 자연스럽게 적응됩니다.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 그림 물감
+
+사용 `input-primary` 필드 색상 입력에 대한 등. 일치하는 항목을 추가하세요. `combobox-primary` 활성 항목 강조 표시에 색조를 적용하기 위해 래퍼에 추가합니다.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 장애가 있는
+
+<Snippet>
+
+```html
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+```
+
+</Snippet>
+
+## 버튼 포함
+
+다음으로 작성 `join` 검색 아이콘이나 트리거 버튼을 첨부합니다.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item" placeholder="Search...">
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## 링크 또는 버튼으로서의 항목
+
+`combobox-item` 모든 요소에서 작동 — `<li>`, `<a>`, 또는 `<button>`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## JS 및 반응 도우미
+
+사용 `createCombobox` ~에서 `frutjam/js` 또는 `useCombobox` ~에서 `frutjam/react` 필터링, 키보드 탐색(↑ ↓ Escape 입력) 및 전체 기능을 얻으려면 `aria-*` 상자에서 배선. 들어보세요 `fj:select` 선택을 처리하는 이벤트입니다.
+
+<Snippet>
+
+```html
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-item" data-value="react">React</li>
+    <li class="combobox-item" data-value="vue">Vue</li>
+    <li class="combobox-item" data-value="angular">Angular</li>
+    <li class="combobox-item" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>

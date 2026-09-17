@@ -1,0 +1,296 @@
+---
+name: "Dapat dilipat"
+heading: "Komponen yang Dapat Dilipat"
+description: "Panel Tailwind CSS khusus CSS yang dapat diciutkan menggunakan elemen `<details>` asli. Tampilkan dan sembunyikan bagian konten tanpa JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Dapat Dilipat - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Tailwind CSS bebas JS Dapat dilipat menggunakan detail/ringkasan asli. Pengungkapan yang dapat diakses untuk FAQ, navigasi bertingkat, dan bagian konten yang dapat diperluas."
+order: 0
+related:
+  - "components/tabs"
+  - "components/accordion"
+image: "https://cdn.frutjam.com/media/components/collapsible_pOIxxIe.webp"
+imageAlt: "Dapat dilipat oleh Frutjam"
+createdAt: "2026-04-19T15:56:32.406115+00:00"
+updatedAt: "2026-07-13T09:43:01.618283+00:00"
+sourceHash: "faedd5abd13e"
+translationHash: "be8413268724"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Panel Tailwind CSS khusus CSS yang dapat diciutkan menggunakan elemen `<details>` asli. Tampilkan dan sembunyikan bagian konten tanpa JavaScript. WCAG AA dapat diakses, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Collapsible components allow users to expand and collapse sections of content. Built with a hidden checkbox pattern, collapsibles work without any JavaScript and support animated transitions via CSS grid.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| collapsible | <span class="badge badge-xs">Basis</span> | Kontainer yang dapat dilipat didorong oleh kotak centang tersembunyi |
+| collapsible-toggle | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Input kotak centang tersembunyi yang mengontrol status buka/tutup |
+| collapsible-title | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Label yang dapat diklik yang mengubah label yang dapat diciutkan |
+| collapsible-content | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Area konten animasi terungkap saat terbuka |
+| collapsible-arrow | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menambahkan indikator panah berputar ke judul |
+| collapsible-group | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Pembungkus untuk barang lipat yang dikelompokkan bergaya akordeon |
+| collapsible-overlay | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Varian overlay untuk barang lipat bergaya laci |
+| collapsible-peek | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menampilkan sekilas konten saat diciutkan |
+| is-collapsible-open | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Kelas yang diterapkan JS untuk memaksa keadaan terbuka |
+| is-collapsible-close | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Kelas yang diterapkan JS untuk memaksa keadaan tertutup |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+Kotak centang tersembunyi menggerakkan status buka/tutup. `label` memicunya; div `collapsible-content` dianimasikan terbuka.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-basic" />
+  <label for="col-basic" class="collapsible-title px-4 py-3 font-medium">Click to expand</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is hidden until expanded.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+      <button className="collapsible-title px-4 py-3 font-medium" onClick={collapsible.toggle}>Click to expand</button>
+      <div className="collapsible-content">
+        <div>
+          <div className="px-4 pb-3 text-sm opacity-70">
+            This content is hidden until expanded.
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Dengan Indikator Panah
+
+Tambahkan `collapsible-arrow` ke label untuk mendapatkan chevron berputar yang mencerminkan keadaan buka/tutup.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-arrow" />
+  <label for="col-arrow" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">What is Frutjam?</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        Frutjam is a Tailwind CSS v4 component library built with CSS utilities and a PostCSS plugin.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Beberapa Dapat Dilipat
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-2">
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-1" />
+    <label for="col-1" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section One</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the first section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-2" />
+    <label for="col-2" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Two</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the second section.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible border border-base-soft rounded-lg">
+    <input type="checkbox" class="collapsible-toggle" id="col-3" />
+    <label for="col-3" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Section Three</label>
+    <div class="collapsible-content">
+      <div>
+        <div class="px-4 pb-3 text-sm opacity-70">Content for the third section.</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Buka secara Default
+
+Tambahkan `checked` ke input kotak centang untuk memulai pembukaan panel.
+
+<Snippet>
+
+```html
+<div class="collapsible border border-base-soft rounded-lg">
+  <input type="checkbox" class="collapsible-toggle" id="col-open" checked />
+  <label for="col-open" class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Open by default</label>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">
+        This content is visible on initial load.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## JS Terkendali
+
+Alihkan `collapsible-open` pada elemen wrapper alih-alih menggunakan kotak centang — berguna saat pemicu berada di tempat lain.
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-open border border-base-soft rounded-lg" id="js-col">
+  <button
+    class="collapsible-title collapsible-arrow px-4 py-3 font-medium"
+    onclick="this.closest('.collapsible').classList.toggle('collapsible-open')"
+  >
+    Toggle via JS (starts open)
+  </button>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 py-3 text-sm opacity-70 border-t border-base-soft">
+        No hidden checkbox needed — state is managed by the <code>collapsible-open</code> class.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Intip Varian
+
+`collapsible-peek` menampilkan pratinjau terpotong dengan gradien memudar dan pemicu overlay. Ganti `--peek-height` untuk mengontrol seberapa banyak konten yang terlihat saat diciutkan.
+
+<Snippet>
+
+```html
+<div class="collapsible collapsible-peek rounded-xl border border-base-soft" style="--peek-height: 5rem;">
+  <input type="checkbox" class="collapsible-toggle" id="col-peek" />
+  <div class="collapsible-content">
+    <div class="p-4 text-sm leading-relaxed">
+      <p>Frutjam is a Tailwind CSS v4 component library built around a PostCSS plugin architecture. Every component is a set of <code>@utility</code> definitions that integrate natively with Tailwind's utility pipeline.</p>
+      <p class="mt-3">Theming is handled entirely through CSS custom properties. Swap themes by setting a <code>data-theme</code> attribute on any container, or override individual tokens inline.</p>
+      <p class="mt-3">Components ship with sensible defaults and are designed to compose cleanly.</p>
+    </div>
+  </div>
+  <label for="col-peek" class="collapsible-overlay">
+    <span class="btn btn-sm">Read more</span>
+  </label>
+</div>
+```
+
+</Snippet>
+
+## JS & Pembantu React
+
+Gunakan `createCollapsible` dari `frutjam/js` atau `useCollapsible` dari `frutjam/react` untuk kontrol terprogram dan sinkronisasi `aria-expanded` otomatis pada pemicu apa pun.
+
+<Snippet>
+
+```html
+<button class="btn btn-sm mb-3" id="col-helper-btn">Toggle</button>
+<div class="collapsible border border-base-soft rounded-lg" id="js-collapsible">
+  <div class="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+  <div class="collapsible-content">
+    <div>
+      <div class="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { createCollapsible } from 'frutjam/js'
+  const col = createCollapsible(document.getElementById('js-collapsible'))
+  document.getElementById('col-helper-btn').onclick = () => col.toggle()
+</script>
+```
+
+```jsx
+import { useCollapsible } from 'frutjam/react'
+
+export default function CollapsibleDemo() {
+  const collapsible = useCollapsible()
+  return (
+    <>
+      <button className="btn btn-sm mb-3" onClick={collapsible.toggle}>Toggle</button>
+      <div ref={collapsible.ref} className="collapsible border border-base-soft rounded-lg">
+        <div className="collapsible-title collapsible-arrow px-4 py-3 font-medium">Controlled section</div>
+        <div className="collapsible-content">
+          <div>
+            <div className="px-4 pb-3 text-sm opacity-70">Toggled by the external button above.</div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## Pemicu Eksternal dengan grup yang dapat dilipat
+
+Gabungkan trigger dan collapsible ke dalam `collapsible-group` untuk membiarkan label berada di luar `.collapsible` merespons status buka/tutupnya melalui `is-collapsible-open` dan `is-collapsible-close`.
+
+<Snippet>
+
+```html
+<div class="collapsible-group border border-base-soft rounded-lg p-4 flex flex-col gap-3">
+  <div class="flex items-center justify-between">
+    <span class="font-medium">Section A</span>
+    <label for="cg-1" class="btn btn-sm btn-ghost">
+      <span class="is-collapsible-close">Expand</span>
+      <span class="is-collapsible-open">Collapse</span>
+    </label>
+  </div>
+  <div class="collapsible">
+    <input type="checkbox" class="collapsible-toggle" id="cg-1" />
+    <div class="collapsible-content">
+      <div>
+        <div class="text-sm opacity-70">
+          This content is toggled by the button above, which lives outside <code>.collapsible</code> but inside <code>.collapsible-group</code>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</Snippet>

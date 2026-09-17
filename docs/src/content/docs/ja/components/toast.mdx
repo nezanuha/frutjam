@@ -1,0 +1,157 @@
+---
+name: "トースト"
+heading: "トーストコンポーネント"
+description: "CSS のみの Tailwind CSS トーストによる通知の位置設定 (上、下、開始、終了、中央の配置)。レイアウトにJavaScriptは使用しません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Toast - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS トーストは、位置とスタッキングを構成可能です。アクセス可能で非侵入的なユーザー通知の成功、エラー、警告、および情報のバリアント。"
+order: 0
+related:
+  - "components/alert"
+  - "components/button"
+image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
+imageAlt: "Frutjamで乾杯"
+createdAt: "2026-04-19T15:57:25.964725+00:00"
+updatedAt: "2026-07-13T09:53:05.411034+00:00"
+sourceHash: "9ce87a99d8b9"
+translationHash: "3a7503d2f4a9"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind CSS トーストによる通知の位置設定 (上、下、開始、終了、中央の配置)。レイアウトにJavaScriptは使用しません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+トースト コンポーネントは、画面の端に配置された簡潔で邪魔にならない通知を表示します。固定測位およびアラート コンポーネントを使用して構築されたトーストは、成功の確認、エラー メッセージ、ステータスの更新などのシステム フィードバックを伝達します。 Frutjam トースト システムは 6 つの配置位置をサポートしており、フォームの送信、非同期操作、およびリアルタイム通知に最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| toast | <span class="badge badge-xs">ベース</span> | 固定位置の通知コンテナ |
+| toast-top | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ビューポートの上部へのアンカー |
+| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ビューポートの下部にアンカー (デフォルト) |
+| toast-start | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 左側にアンカー |
+| toast-center | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 水平方向の中央揃え |
+| toast-end | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 右側にアンカー (デフォルト) |
+| toast-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 垂直方向中央揃え |
+
+</DocTable>
+
+## 基本的な使い方
+
+<Snippet>
+
+```html
+<div class="toast">
+  <div class="alert alert-info">
+    <span>New message arrived.</span>
+  </div>
+</div>
+```
+
+```jsx
+import { useToast } from 'frutjam/react'
+
+export default function ToastDemo() {
+  const toast = useToast()
+  return (
+    <>
+      <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
+      <div className="toast">
+        {toast.toasts.map(t => (
+          <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
+            <span>{t.message}</span>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## トーストの位置
+
+### トップポジション
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-start">
+  <div class="alert alert-info"><span>Top Start</span></div>
+</div>
+
+<div class="toast toast-top toast-center">
+  <div class="alert alert-info"><span>Top Center</span></div>
+</div>
+
+<div class="toast toast-top toast-end">
+  <div class="alert alert-info"><span>Top End</span></div>
+</div>
+```
+
+</Snippet>
+
+### 最下位の位置
+
+<Snippet>
+
+```html
+<div class="toast toast-bottom toast-start">
+  <div class="alert alert-info"><span>Bottom Start</span></div>
+</div>
+
+<div class="toast toast-bottom toast-center">
+  <div class="alert alert-info"><span>Bottom Center</span></div>
+</div>
+
+<div class="toast toast-bottom toast-end">
+  <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+## トーストカラー
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>File saved successfully.</span>
+  </div>
+  <div class="alert alert-warning">
+    <span>Storage is almost full.</span>
+  </div>
+  <div class="alert alert-error">
+    <span>Connection failed.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>Update available.</span>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## 複数のトースト
+
+<Snippet>
+
+```html
+<div class="toast toast-top toast-end">
+  <div class="alert alert-success">
+    <span>Profile updated.</span>
+  </div>
+  <div class="alert alert-info">
+    <span>2 new notifications.</span>
+  </div>
+</div>
+```
+
+</Snippet>

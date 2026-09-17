@@ -1,0 +1,362 @@
+---
+name: "構成"
+heading: "構成"
+description: "Frutjam CSS 専用の Tailwind CSS プラグインを構成します。デフォルトのテーマを設定し、カスタム カラー トークンを定義し、プレフィックス システムを切り替えます - JavaScript は必要ありません。 WCAG のアクセス可能なデフォルトは、Django、HTMX、Laravel、およびあらゆるフレームワークで動作します。"
+metaTitle: "Tailwind CSS プラグインの設定 |フルジャム ドキュメント"
+metaDescription: "Frutjam Tailwind CSS プラグインを構成します。テーマ、カラー トークン、プレフィックス システム、およびコンポーネント オプションをカスタマイズします。JavaScript は必要ありません。"
+order: 2
+related:
+  - "docs/themes"
+  - "docs/colors"
+  - "docs/installation"
+image: "https://cdn.frutjam.com/media/docs/configuration.webp"
+imageAlt: "構成 - フルジャム"
+createdAt: "2025-09-05T16:12:35.826367+00:00"
+updatedAt: "2026-07-13T09:55:39.240950+00:00"
+sourceHash: "708396ebc01b"
+translationHash: "70dfebbbe962"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Frutjam CSS 専用の Tailwind CSS プラグインを構成します。デフォルトのテーマを設定し、カスタム カラー トークンを定義し、プレフィックス システムを切り替えます - JavaScript は必要ありません。 WCAG のアクセス可能なデフォルトは、Django、HTMX、Laravel、およびあらゆるフレームワークで動作します。
+
+Frutjam CSS 専用の Tailwind CSS プラグインをプロジェクトに合わせて構成します。テーマを設定し、カスタム カラー トークンを定義し、プレフィックス システムを切り替え、コンポーネントを厳選します。JavaScript は必要ありません。 WCAG AA のアクセス可能なデフォルト。 Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+
+## 基本的なセットアップ
+
+`@plugin` ディレクティブを使用して Frutjam を CSS ファイルに追加します。オプションは必要ありません。すべてがすぐに動作します。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam";
+```
+
+</Snippet>
+
+## プラグインオプション
+
+`@plugin` ブロック内でオプションを渡して、Frutjam をカスタマイズします。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+  reset: true;
+  root: :host;
+  include: button, card, alert;
+  /* or: */
+  exclude: table, timeline;
+}
+```
+
+</Snippet>
+
+### 接頭語
+
+独自の CSS との競合を避けるために、すべての Frutjam クラス名にプレフィックスを追加します。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn fj-btn-primary">Send mail</button>
+```
+
+</Snippet>
+
+プレフィックスの動作は、Tailwind の `prefix()` オプションも使用するかどうかによって異なります。
+
+#### Frutjamの接頭辞のみ
+
+Frutjam クラス名には接頭辞が付けられます。 HTML 内で直接使用します。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss";
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="fj-btn">Button</button>
+```
+
+</Snippet>
+
+#### Tailwind プレフィックスのみ
+
+Tailwind の `prefix()` はバリアントとして機能します。すべてのユーティリティ (Frutjam のものを含む) は、HTML のバリアント セレクターとしてプレフィックスを必要とします。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam";
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:btn">Button</button>
+```
+
+</Snippet>
+
+#### 両方の接頭辞
+
+Frutjam はそのクラスの名前を変更します (例: `fj-btn`)。先頭には Tailwind のバリアント プレフィックスが必要です。
+
+<Snippet view="code">
+
+```css
+@import "tailwindcss" prefix(tw);
+@plugin "frutjam" {
+  prefix: fj;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<button class="tw:fj-btn">Button</button>
+```
+
+</Snippet>
+
+### リセット
+
+Frutjam が基本要素のリセット (再起動スタイル) を挿入するかどうかを制御します。デフォルトは `true` です。
+
+`true` の場合、Frutjam は、Tailwind のプリフライトと同様に、ボックス モデル、タイポグラフィ、リスト、メディア、およびフォーム要素をリセットします。 `false` の場合、CSS 変数トークンのみが挿入されます。生の要素スタイルは完全にスキップされます。
+
+すでに別の CSS フレームワーク (Bootstrap、Bulma など) または独自のリセットを使用している場合は、`false` に設定して、`*`、`html`、`body`、`h1-h6`、`button` などの要素での競合を回避します。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  reset: false;
+}
+```
+
+</Snippet>
+
+### 根
+
+Frutjam がデザイン トークン変数 (`--color-primary`、`--color-base` など) を登録する CSS セレクター。デフォルトは `:root` です。
+
+便利な値が 3 つあります。
+
+<DocTable>
+
+| 価値 | いつ使用するか |
+| --- | --- |
+| `:root` | デフォルト。トークンはページ全体でグローバルに使用できます。 |
+| `:host` | シャドウ DOM / Web コンポーネント。トークンが外部に漏れないように、コンポーネント内のトークンをスコープします。 |
+| 任意のセレクター (例: `#app`) | トークンのスコープを特定のラッパー要素に設定します。 Frutjam が同じページ上で別のフレームワークと共存する場合に便利です。 |
+
+</DocTable>
+
+#### デフォルト — グローバルトークン
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :root;
+}
+```
+
+</Snippet>
+
+#### シャドウ DOM / Web コンポーネント
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  root: :host;
+}
+```
+
+</Snippet>
+
+#### ラッパー要素をスコープとする
+
+別のフレームワークがすでに `:root` を制御している場合 (例: Bootstrap が独自の `--bs-*` 変数と本体色を設定している場合)、代わりに Frutjam をコンテナ要素に指定します。これにより、`color`、`background-color`、およびすべての CSS 変数が `:root` から移動され、そのラッパー内にのみ適用されるようになります。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  prefix: fj;
+  reset: false;
+  root: #my-app;
+}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<div id="my-app" data-theme="blueberry">
+  <!-- Frutjam components here, Bootstrap outside -->
+  <button class="fj-btn fj-btn-primary">Send</button>
+</div>
+```
+
+</Snippet>
+
+### 含む
+
+ライブラリ全体ではなく、特定のコンポーネントのみをロードします。実稼働環境での出力サイズを削減するのに役立ちます。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  include: button, card, alert, badge;
+}
+```
+
+</Snippet>
+
+### 除外する
+
+リストされているコンポーネントを除くすべてのコンポーネントをロードします。完全なビルドからいくつかのコンポーネントを削除するだけでよい場合に使用します。
+
+<Snippet view="code">
+
+```css
+@plugin "frutjam" {
+  exclude: table, timeline, chat;
+}
+```
+
+</Snippet>
+
+## カスタムテーマを作成する
+
+独自のテーマを作成するには、`[data-theme="your-theme-name"]` セレクター内で指定された CSS 変数に色の値を割り当てるだけです。
+
+### 1\. The "Automatic" Approach (Minimal)
+
+このバージョンでは、`--color-on-*` 変数を省略します。 Frutjam は欠落している変数を検出し、最適なテキストの色を計算します (通常は非常に明るい `OKLCH` 値の間で切り替えます)。これにより、コンポーネントがアクセス可能で読み取り可能な状態を維持します。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-error: oklch(0.577 0.245 27.325);
+    }
+}
+```
+
+</Snippet>
+
+### 2\. The "Manual" Approach (Full Control)
+
+このバージョンでは、`--color-on-*` 変数を明示的に定義します。これは、特定のブランド ガイドラインがある場合 (純粋な白の代わりに色付きのオフホワイトを使用するなど)、またはアクセシビリティ チェックに合格した低コントラストの洗練された外観など、特定の「雰囲気」を実現したい場合に最適です。
+
+<Snippet view="code">
+
+```css
+@layer theme {
+    :is([data-theme="your-theme-name"]) {
+        --scheme-color: light;
+        --border-radius: 0.25rem;
+        --color-base: oklch(1 0 0);
+        --color-on-base:oklch(0.22 0 0);
+        --color-neutral: oklch(0.15 0 0);
+        --color-on-neutral: oklch(1 0 0);
+        --color-primary: oklch(51.1% 0.262 276.966);
+        --color-on-primary: oklch(96.2% 0.018 272.314);
+        --color-secondary: oklch(0.591 0.293 322.896);
+        --color-on-secondary: oklch(1 0 0);
+        --color-accent: oklch(0.541 0.281 293.009);
+        --color-on-accent: oklch(1 0 0);
+        --color-info: oklch(0.685 0.169 237.323);
+        --color-on-info: oklch(0.15 0 0);
+        --color-success: oklch(0.792 0.209 151.711);
+        --color-on-success: oklch(0.15 0 0);
+        --color-warning: oklch(0.852 0.199 91.936);
+        --color-on-warning: oklch(0.15 0 0);
+        --color-error: oklch(0.577 0.245 27.325);
+        --color-on-error: oklch(1 0 0);
+    }
+}
+```
+
+</Snippet>
+
+カスタム テーマを HTML 内のプロジェクトに適用するには、HTML 要素に `data-theme="your-theme-name"` を使用します。
+
+<Snippet view="code">
+
+```html
+<html data-theme="your-theme-name">
+ ...
+</html>
+```
+
+</Snippet>
+
+テーマはネストできます。特定のテーマを HTML の任意のセクションに適用して、その領域のグローバル テーマをオーバーライドできます。
+
+<Snippet view="code">
+
+```html
+<html data-theme="light">
+  <div data-theme="dark">
+    This div uses the dark theme.
+    <span data-theme="your-custom-theme">
+      This span uses the your-custom-theme
+    </span>
+  </div>
+</html>
+```
+
+</Snippet>
+
+## さらに読む
+
+-   [利用可能な組み込みテーマ](/docs/themes) — Snowberry、Darkberry、および含まれるすべてのテーマを参照する
+-   [カラーシステムリファレンス](/docs/colors) — CSS カラー変数の完全なリストとそれらがコンポーネントにどのようにマッピングされるか

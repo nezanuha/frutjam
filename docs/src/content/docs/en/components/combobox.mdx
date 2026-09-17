@@ -1,0 +1,262 @@
+---
+name: "Combobox"
+heading: "Combobox Component"
+description: "CSS-only Tailwind CSS combobox with live search filtering and accessible dropdown list. Keyboard navigation, color variants. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack."
+metaTitle: "Combobox - CSS-Only Tailwind CSS Component | Frutjam"
+metaDescription: "Tailwind CSS Combobox with searchable dropdown and autocomplete support. Keyboard-accessible filtering and custom options for advanced form controls."
+order: 0
+related:
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/combobox_rPhtDO2.webp"
+imageAlt: "Combobox by Frutjam"
+createdAt: "2026-04-19T15:56:34.839959+00:00"
+updatedAt: "2026-07-13T09:46:15.510068+00:00"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS-only Tailwind CSS combobox with live search filtering and accessible dropdown list. Keyboard navigation, color variants. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack.
+
+Combobox combines a text input with a dropdown list. Use the `input` component for the field — size, color, and state variants come from there. The `combobox-*` utilities handle only the dropdown list, items, and open state.
+
+CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic — works with Django, HTMX, Laravel, React, and any stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Class | Type | Description |
+| --- | --- | --- |
+| combobox-list | <span class="badge badge-xs">Base</span> | Dropdown list container for combobox options |
+| combobox-item | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Individual option inside the dropdown list |
+| combobox-open | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Shows the dropdown list when applied to the wrapper |
+| combobox-primary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Primary theme color highlight for items |
+| combobox-secondary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Secondary theme color highlight for items |
+| combobox-accent | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Accent theme color highlight for items |
+| combobox-info | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Info semantic color highlight |
+| combobox-success | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Success semantic color highlight |
+| combobox-warning | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Warning semantic color highlight |
+| combobox-error | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Error semantic color highlight |
+
+</DocTable>
+
+## Basic Usage
+
+Wrap an `input` and a `combobox-list` in a `relative` container. Add `combobox-open` to the wrapper to show the list — toggle it via JS or `:focus-within`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Open on Focus
+
+Use `focus-within:combobox-open` on the wrapper to open the list when the input is focused — no JavaScript needed.
+
+<Snippet>
+
+```html
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Sizes
+
+Use `input-sm`, `input-lg`, etc. on the input field. The dropdown adapts naturally.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Colors
+
+Use `input-primary` etc. on the input for the field color. Add the matching `combobox-primary` to the wrapper to tint the active item highlight.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Disabled
+
+<Snippet>
+
+```html
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+```
+
+</Snippet>
+
+## With Button
+
+Compose with `join` to attach a search icon or trigger button.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item" placeholder="Search...">
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Items as Links or Buttons
+
+`combobox-item` works on any element — `<li>`, `<a>`, or `<button>`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## JS & React Helper
+
+Use `createCombobox` from `frutjam/js` or `useCombobox` from `frutjam/react` to get filtering, keyboard navigation (↑ ↓ Enter Escape), and full `aria-*` wiring out of the box. Listen for the `fj:select` event to handle selection.
+
+<Snippet>
+
+```html
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-item" data-value="react">React</li>
+    <li class="combobox-item" data-value="vue">Vue</li>
+    <li class="combobox-item" data-value="angular">Angular</li>
+    <li class="combobox-item" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>

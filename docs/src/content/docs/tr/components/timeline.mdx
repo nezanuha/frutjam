@@ -1,0 +1,442 @@
+---
+name: "Zaman Çizgisi"
+heading: "Zaman Çizelgesi Bileşeni"
+description: "Kronolojik olay listeleri için yalnızca CSS Tailwind CSS zaman çizelgesi. Simge, içerik ve konektör hattı yuvaları ile dikey düzen. WCAG AA erişilebilir, Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+metaTitle: "Zaman Çizelgesi - Yalnızca CSS Kuyruk Rüzgarı CSS Bileşeni | Frutjam"
+metaDescription: "Kronolojik olaylar, kilometre taşları ve süreç adımları için Tailwind CSS Zaman Çizelgesi. Geçmiş kullanıcı arayüzleri için simgeler ve konektörler içeren dikey ve yatay düzenler."
+order: 0
+related:
+  - "components/steps"
+  - "components/badge"
+image: "https://cdn.frutjam.com/media/components/timeline_ebTSNTA.webp"
+imageAlt: "Frutjam'dan Zaman Çizelgesi"
+createdAt: "2026-04-19T15:57:24.076920+00:00"
+updatedAt: "2026-07-13T09:44:19.242151+00:00"
+sourceHash: "cec5e1744f4f"
+translationHash: "027fa0a27291"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Kronolojik olay listeleri için yalnızca CSS Tailwind CSS zaman çizelgesi. Simge, içerik ve konektör hattı yuvaları ile dikey düzen. WCAG AA erişilebilir, Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+Zaman çizelgesi bileşenleri, kronolojik sırayla bir dizi olay, kilometre taşı veya anlatı ilerlemesi gösterir. Semantik HTML ile oluşturulan zaman çizelgeleri, kullanıcıların geçmişteki ilerlemeyi ve proje aşamalarını anlamalarına yardımcı olur. Frutjam zaman çizelgesi sistemi, proje geçmişi, sürüm notları ve yolculuk haritaları için ideal olan birden fazla yön, renk ve öğe stilini destekler.
+
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve framework — agnostik — Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Sınıf | Tür | Açıklama |
+| --- | --- | --- |
+| timeline | <span class="badge badge-xs">Taban</span> | Kronolojik olayların sıralı listesi |
+| timeline-item | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Bireysel etkinlik sırası — her birine yerleştirin `<li>` |
+| timeline-start | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Zaman çizelgesi ekseninden önce yerleştirilen içerik |
+| timeline-middle | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Zaman çizelgesi ekseninde ortalanmış nokta |
+| timeline-end | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Zaman çizelgesi ekseninden sonra yerleştirilen içerik |
+| timeline-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Yatay Düzen |
+| timeline-vertical | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Dikey düzen (varsayılan) |
+| timeline-snap-start | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Başlangıç sütununu gizler — nokta sol kenara hizalanır |
+| timeline-snap-end | <span class="badge badge-xs badge-secondary badge-soft">Düzenleyici</span> | Bitiş sütununu gizler — nokta sağ kenara hizalanır |
+| timeline-primary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Birincil renk noktası ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-secondary | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | İkincil renk noktası ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-accent | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Vurgu rengi nokta ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-neutral | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Nötr renk noktası ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-info | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Bilgi rengi nokta ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-success | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Başarılı renkli nokta ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-warning | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Uyarı rengi nokta ve konektör — üzerine yerleştirin `timeline-item` |
+| timeline-error | <span class="badge badge-xs badge-warning badge-soft">Renk</span> | Hata rengi nokta ve konektör — üzerine yerleştirin `timeline-item` |
+
+</DocTable>
+
+## Basit Kullanım
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```jsx
+<ul className="timeline timeline-vertical">
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Project started</div>
+      <div className="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">Beta released</div>
+      <div className="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li className="timeline-item">
+    <div className="timeline-start text-sm opacity-60">Today</div>
+    <div className="timeline-middle"></div>
+    <div className="timeline-end">
+      <div className="font-semibold">v2.0 launched</div>
+      <div className="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+```vue
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Jan 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Project started</div>
+      <div class="text-sm opacity-60">Initial commit pushed</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Apr 2024</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Beta released</div>
+      <div class="text-sm opacity-60">Open testing begins</div>
+    </div>
+  </li>
+  <li class="timeline-item">
+    <div class="timeline-start text-sm opacity-60">Today</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">v2.0 launched</div>
+      <div class="text-sm opacity-60">Tailwind v4 rewrite</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Renklerle Zaman Çizelgesi
+
+Her birine bir renk değiştirici ekleyin `timeline-item` noktasını ve ondan sonra gelen konektör hattını renklendirmek için.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start text-sm opacity-60">Step 1</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Primary</div></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start text-sm opacity-60">Step 2</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Secondary</div></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start text-sm opacity-60">Step 3</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Success</div></div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start text-sm opacity-60">Step 4</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Warning</div></div>
+  </li>
+  <li class="timeline-item timeline-error">
+    <div class="timeline-start text-sm opacity-60">Step 5</div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"><div class="font-semibold">Error</div></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Değişen Taraf
+
+Şunun arasında alternatif içerik: `timeline-start` ve `timeline-end` her öğede bir zikzak düzeni oluşturun.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Design phase</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Development</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-accent">
+    <div class="timeline-start">
+      <div class="font-semibold">Testing</div>
+      <div class="text-sm opacity-60">May 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launch</div>
+      <div class="text-sm opacity-60">Jun 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## İki Tonlu Konnektörler
+
+Her öğenin bağlayıcı çizgisi rengini devralır ve farklı renkli adımlar arasında kesintisiz geçişler oluşturur.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-info">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Planned</div>
+      <div class="text-sm opacity-60">Backlog item created</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Progress</div>
+      <div class="text-sm opacity-60">Development started</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-warning">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">In Review</div>
+      <div class="text-sm opacity-60">Awaiting approval</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Done</div>
+      <div class="text-sm opacity-60">Shipped to production</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Sadece Başlangıç Tarafı
+
+İçeriği yalnızca şuraya yerleştir: `timeline-start` boş bir `timeline-end` her şeyi eksenin soluna itmek için.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Requirements gathered</div>
+      <div class="text-sm opacity-60">Jan 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Prototype built</div>
+      <div class="text-sm opacity-60">Feb 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start">
+      <div class="font-semibold">Shipped</div>
+      <div class="text-sm opacity-60">Mar 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Sadece Uç Taraf
+
+Kullanacağınız koliler `timeline-snap-start` tüm içeriği sağda olacak şekilde noktayı sol kenara itin.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Zengin Kart İçeriği
+
+İçeriği şuraya sar: `border rounded-box p-3` her zaman çizelgesi olayına kart benzeri bir görünüm vermek için engelleyin.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jan 15, 2024</div>
+        <div class="font-semibold">Project Kickoff</div>
+        <p class="text-sm opacity-70 mt-1">Team assembled, goals defined, and roadmap approved by stakeholders.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Mar 1, 2024</div>
+        <div class="font-semibold">Alpha Released</div>
+        <p class="text-sm opacity-70 mt-1">Internal testing began with 12 pilot users across 3 departments.</p>
+      </div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-success">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="border rounded-box p-3 mb-2">
+        <div class="text-xs opacity-60 mb-1">Jun 10, 2024</div>
+        <div class="font-semibold">v1.0 General Availability</div>
+        <p class="text-sm opacity-70 mt-1">Public launch with full documentation, support, and SLA guarantees.</p>
+      </div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Hızlı Başlangıç
+
+Kullanacağınız koliler `timeline-snap-start` Başlangıç ​​sütununu gizlemek ve noktayı sol kenara hizalamak için listede.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-start">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start"></div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## Yapış Sonu
+
+Kullanacağınız koliler `timeline-snap-end` bitiş sütununu gizlemek ve noktayı sağ kenara hizalamak için listede.
+
+<Snippet>
+
+```html
+<ul class="timeline timeline-vertical timeline-snap-end">
+  <li class="timeline-item timeline-primary">
+    <div class="timeline-start">
+      <div class="font-semibold">Launched beta</div>
+      <div class="text-sm opacity-60">February 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+  <li class="timeline-item timeline-secondary">
+    <div class="timeline-start">
+      <div class="font-semibold">Public release</div>
+      <div class="text-sm opacity-60">April 2024</div>
+    </div>
+    <div class="timeline-middle"></div>
+    <div class="timeline-end"></div>
+  </li>
+</ul>
+```
+
+</Snippet>

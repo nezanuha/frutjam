@@ -1,0 +1,343 @@
+---
+name: "ページネーション"
+heading: "ページネーション"
+description: "CSS のみの Tailwind 番号付きページの CSS ページネーション、前/次矢印、省略記号ギャップ、アクセス可能な無線入力、およびページ ジャンプ選択。 JavaScriptは必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Tailwind CSS ページネーション - CSS のみのコンポーネント |Frutjam"
+metaDescription: "CSS のみの Tailwind CSS ページネーション。番号付きページ、前/次矢印、ページジャンプ選択 - JavaScript は使用しません。 WCAG にアクセス可能で、Django、HTMX、Laravel、React で動作します。"
+order: 0
+status: "new"
+related: []
+image: "https://cdn.frutjam.com/media/components/pagination.webp"
+imageAlt: "Tailwind CSS ページネーション コンポーネント — 番号付きページ、前/次のナビゲーション"
+createdAt: "2026-06-17T06:55:07.407515+00:00"
+updatedAt: "2026-07-13T09:48:03.517730+00:00"
+sourceHash: "c5fb9da052ff"
+translationHash: "fc5fe64b0184"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS のみの Tailwind 番号付きページの CSS ページネーション、前/次矢印、省略記号ギャップ、アクセス可能な無線入力、およびページ ジャンプ選択。 JavaScriptは必要ありません。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+ページネーション コンポーネントを使用すると、ユーザーは検索結果、データ テーブル、記事アーカイブ、製品リストなどのコンテンツのページ間を移動できます。 [Join](/components/join) コンポーネントと [Button](/components/button) コンポーネントを組み合わせて構築された Frutjam ページネーションには、JavaScript や追加の CSS は必要ありません。番号付きページ、前/次矢印、省略記号ギャップ、アクセス可能な無線入力、およびページ ジャンプ選択をサポートします。
+
+CSS のみ、JavaScript は不要 — 純粋な HTML と Tailwind CSS を使用してアクセス可能なページネーションを構築します。 WCAG AA にアクセス可能でフレームワークに依存しない - Django、HTMX、Laravel、React、Next.js、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| join | <span class="badge badge-xs">ベース</span> | 接続されたページネーション ストリップにボタンをグループ化します。 |
+| join-item | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 各ページのボタンまたは結合内の入力 |
+| btn-active | <span class="badge badge-xs badge-secondary badge-soft">State</span> | 現在のページを強調表示します |
+| btn-disabled | <span class="badge badge-xs badge-secondary badge-soft">State</span> | 非インタラクティブな省略記号または使用できないページ |
+
+</DocTable>
+
+## 基本的なページネーション
+
+1 つのアクティブなページを持つ番号付きのページ ストリップ。 **btn-active** を適用して、現在のページを強調表示します。サーバーでレンダリングされたページ リンクには、ボタンの代わりにアンカー タグを使用します。
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn">1</button>
+  <button class="join-item btn btn-active">2</button>
+  <button class="join-item btn">3</button>
+  <button class="join-item btn">4</button>
+  <button class="join-item btn">5</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn">1</button>
+  <button className="join-item btn btn-active">2</button>
+  <button className="join-item btn">3</button>
+  <button className="join-item btn">4</button>
+  <button className="join-item btn">5</button>
+</div>
+```
+
+</Snippet>
+
+### サイズ
+
+ページネーションはすべてのボタンのサイズを継承します。コンパクトなテーブルには **btn-xs** または **btn-sm** を使用し、タッチファースト インターフェイスには **btn-lg** を使用します。
+
+<Snippet>
+
+```html
+<div class="flex flex-col gap-3 items-start">
+  <div class="join">
+    <button class="join-item btn btn-xs">1</button>
+    <button class="join-item btn btn-xs btn-active">2</button>
+    <button class="join-item btn btn-xs">3</button>
+    <button class="join-item btn btn-xs">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn btn-sm">1</button>
+    <button class="join-item btn btn-sm btn-active">2</button>
+    <button class="join-item btn btn-sm">3</button>
+    <button class="join-item btn btn-sm">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn">1</button>
+    <button class="join-item btn btn-active">2</button>
+    <button class="join-item btn">3</button>
+    <button class="join-item btn">4</button>
+  </div>
+  <div class="join">
+    <button class="join-item btn btn-lg">1</button>
+    <button class="join-item btn btn-lg btn-active">2</button>
+    <button class="join-item btn btn-lg">3</button>
+    <button class="join-item btn btn-lg">4</button>
+  </div>
+</div>
+```
+
+```jsx
+<div className="flex flex-col gap-3 items-start">
+  <div className="join">
+    <button className="join-item btn btn-xs">1</button>
+    <button className="join-item btn btn-xs btn-active">2</button>
+    <button className="join-item btn btn-xs">3</button>
+    <button className="join-item btn btn-xs">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn btn-sm">1</button>
+    <button className="join-item btn btn-sm btn-active">2</button>
+    <button className="join-item btn btn-sm">3</button>
+    <button className="join-item btn btn-sm">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn">1</button>
+    <button className="join-item btn btn-active">2</button>
+    <button className="join-item btn">3</button>
+    <button className="join-item btn">4</button>
+  </div>
+  <div className="join">
+    <button className="join-item btn btn-lg">1</button>
+    <button className="join-item btn btn-lg btn-active">2</button>
+    <button className="join-item btn btn-lg">3</button>
+    <button className="join-item btn btn-lg">4</button>
+  </div>
+</div>
+```
+
+</Snippet>
+
+### 省略記号あり
+
+広範囲のページ間の省略記号のギャップには **btn-disabled** を使用します。スクリーン リーダーは無効なボタンをスキップするため、省略記号の `aria-hidden="true"` と組み合わせます。
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn">1</button>
+  <button class="join-item btn">2</button>
+  <button class="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button class="join-item btn btn-active">12</button>
+  <button class="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button class="join-item btn">99</button>
+  <button class="join-item btn">100</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn">1</button>
+  <button className="join-item btn">2</button>
+  <button className="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button className="join-item btn btn-active">12</button>
+  <button className="join-item btn btn-disabled" aria-hidden="true">...</button>
+  <button className="join-item btn">99</button>
+  <button className="join-item btn">100</button>
+</div>
+```
+
+</Snippet>
+
+## 前/次のナビゲーション
+
+矢印ベースのページ分割は、ブログ、商品リスト、および正確なページ番号を表示することが現実的ではないページ分割されたフィードで最も一般的なパターンです。
+
+### 矢印アイコンあり
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn" aria-label="Previous page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="join-item btn">Page 12</button>
+  <button class="join-item btn" aria-label="Next page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn" aria-label="Previous page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button className="join-item btn">Page 12</button>
+  <button className="join-item btn" aria-label="Next page">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+```
+
+</Snippet>
+
+### 等幅前/次
+
+結合コンテナーで**グリッド Grid-cols-2** ラッパーを使用して、両方のボタンの幅を同じにします。モバイル ファースト レイアウトや全幅のページネーション バーに最適です。
+
+<Snippet>
+
+```html
+<div class="join grid grid-cols-2 w-72">
+  <button class="join-item btn btn-outline">← Previous</button>
+  <button class="join-item btn btn-outline">Next →</button>
+</div>
+```
+
+```jsx
+<div className="join grid grid-cols-2 w-72">
+  <button className="join-item btn btn-outline">← Previous</button>
+  <button className="join-item btn btn-outline">Next →</button>
+</div>
+```
+
+</Snippet>
+
+### 最初/最後あり
+
+二重矢印ボタンを追加して、ユーザーが最初または最後のページに直接ジャンプできるようにします。数百ページにわたるデータテーブルに役立ちます。
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-ghost btn-sm" aria-label="First page">«</button>
+  <button class="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <button class="join-item btn btn-sm">4</button>
+  <button class="join-item btn btn-sm btn-active">5</button>
+  <button class="join-item btn btn-sm">6</button>
+  <button class="join-item btn btn-sm" aria-label="Next page">›</button>
+  <button class="join-item btn btn-ghost btn-sm" aria-label="Last page">»</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-ghost btn-sm" aria-label="First page">«</button>
+  <button className="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <button className="join-item btn btn-sm">4</button>
+  <button className="join-item btn btn-sm btn-active">5</button>
+  <button className="join-item btn btn-sm">6</button>
+  <button className="join-item btn btn-sm" aria-label="Next page">›</button>
+  <button className="join-item btn btn-ghost btn-sm" aria-label="Last page">»</button>
+</div>
+```
+
+</Snippet>
+
+## アクセシブルなラジオ ページネーション
+
+`type="radio"` 入力を結合項目として使用すると、JavaScript を使用せずにキーボードで完全にナビゲートでき、CSS のみでページを選択できます。各入力は、選択された状態をネイティブ フォームの状態に維持しながら、押せるボタンとして機能します。
+
+<Snippet>
+
+```html
+<div class="join">
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="1" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="2" checked />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="3" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="4" />
+  <input class="join-item btn btn-square" type="radio" name="page" aria-label="5" />
+</div>
+```
+
+```jsx
+<div className="join">
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="1" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="2" defaultChecked />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="3" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="4" />
+  <input className="join-item btn btn-square" type="radio" name="page" aria-label="5" />
+</div>
+```
+
+</Snippet>
+
+## ページジャンプによるページネーション
+
+結合、ボタン、選択を組み合わせて、ユーザーが任意のページに直接ジャンプできるコンパクトなページネーション バーを作成します。これは、管理ダッシュボード、CMS インターフェイス、およびデータ量の多いアプリで一般的です。選択自体には JavaScript は必要ありません。 HTMX またはサーバー側のナビゲーション用のフォーム送信と組み合わせます。
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <select class="join-item select select-sm" aria-label="Go to page">
+    <option>Page 1</option>
+    <option>Page 2</option>
+    <option selected>Page 3</option>
+    <option>Page 4</option>
+    <option>Page 5</option>
+  </select>
+  <button class="join-item btn btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-sm" aria-label="Previous page">‹</button>
+  <select className="join-item select select-sm" aria-label="Go to page">
+    <option>Page 1</option>
+    <option>Page 2</option>
+    <option>Page 3</option>
+    <option>Page 4</option>
+    <option>Page 5</option>
+  </select>
+  <button className="join-item btn btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+</Snippet>
+
+## アウトラインスタイル
+
+すべてのボタンで **btn-outline** を使用すると、二次コンテンツ セクションやサイドバーに合わせて視覚的な重みが軽くなります。
+
+<Snippet>
+
+```html
+<div class="join">
+  <button class="join-item btn btn-outline btn-sm" aria-label="Previous page">‹</button>
+  <button class="join-item btn btn-outline btn-sm">1</button>
+  <button class="join-item btn btn-outline btn-sm btn-active">2</button>
+  <button class="join-item btn btn-outline btn-sm">3</button>
+  <button class="join-item btn btn-outline btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+```jsx
+<div className="join">
+  <button className="join-item btn btn-outline btn-sm" aria-label="Previous page">‹</button>
+  <button className="join-item btn btn-outline btn-sm">1</button>
+  <button className="join-item btn btn-outline btn-sm btn-active">2</button>
+  <button className="join-item btn btn-outline btn-sm">3</button>
+  <button className="join-item btn btn-outline btn-sm" aria-label="Next page">›</button>
+</div>
+```
+
+</Snippet>

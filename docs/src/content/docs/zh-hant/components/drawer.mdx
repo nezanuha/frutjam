@@ -1,0 +1,336 @@
+---
+name: "抽屜"
+heading: "抽屜組件"
+description: "僅 CSS Tailwind CSS 抽屜使用本機複選框切換。滑入式側面板可用於導覽或篩選器，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "抽屜 - 僅 CSS Tailwind CSS 元件 |弗魯賈姆"
+metaDescription: "無需 JS 的 Tailwind CSS 抽屜，用於畫布外導航和側邊欄。具有覆蓋支援的多個位置 - 無需 JavaScript 即可存取且適合行動裝置。"
+order: 0
+related:
+  - "components/navbar"
+  - "components/modal"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/drawer.webp"
+imageAlt: "Frutjam UI 的抽屜元件"
+createdAt: "2025-09-24T12:54:44.041482+00:00"
+updatedAt: "2026-07-13T09:52:37.256804+00:00"
+sourceHash: "ae342c908a8f"
+translationHash: "6b9509ec9609"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+僅 CSS Tailwind CSS 抽屜使用本機複選框切換。滑入式側面板可用於導覽或篩選器，無需 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+抽屜組件從視窗的側面滑入，以顯示隱藏的導航、過濾器或其他內容。抽屜基於帶有 CSS 動畫的本機 HTML 對話框元素構建，提供了一種響應式方式來管理移動和桌面設備上的佈局。 Frutjam 抽屜系統支援可自訂的寬度、流暢的動畫和覆蓋背景，以實現專業的側邊欄導航。
+
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 班級 | 類型 | 描述 |
+| --- | --- | --- |
+| drawer | <span class="badge badge-xs">根據</span> | 基於本機對話方塊元素建構的滑入式面板 |
+| drawer-content | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 抽屜內部內容區域 |
+| drawer-backdrop | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 抽屜後面的覆蓋物 |
+| drawer-start | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從左側滑入 |
+| drawer-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從右側滑入 |
+| drawer-top | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從頂部滑入 |
+| drawer-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從底部滑入 |
+
+</DocTable>
+
+## 基本用法
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="defaultDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="defaultDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="defaultDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+```jsx
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button type="button" className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <ul className="menu">
+            <li className="menu-title"><span>Dashboard</span></li>
+            <li><a className="menu-item">Overview</a></li>
+            <li><a className="menu-item">Analytics</a></li>
+
+            <li className="menu-title mt-4"><span>Management</span></li>
+            <li><a className="menu-item">Users</a></li>
+            <li><a className="menu-item">Inventory</a></li>
+            <li><a className="menu-item">Settings</a></li>
+          </ul>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close Drawer via Backdrop</button>
+      </dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## JS 和 React 助手
+
+使用 `createDrawer` 從 `frutjam/js` 或者 `useDrawer` 從 `frutjam/react` 當觸發器位於抽屜之外或您需要從程式碼中的任何位置進行程式控制時。
+
+<Snippet>
+
+```html
+<button class="btn btn-sm" id="helper-open-btn">Open drawer</button>
+<dialog class="drawer" id="helper-drawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <p class="mb-4 text-sm opacity-70">Controlled via <code>createDrawer</code>.</p>
+    <button class="btn btn-sm" id="helper-close-btn">Close</button>
+  </div>
+  <button type="button" class="drawer-backdrop" id="helper-backdrop">Close</button>
+</dialog>
+<script type="module">
+  import { createDrawer } from 'frutjam/js'
+  const drawer = createDrawer(document.getElementById('helper-drawer'))
+  document.getElementById('helper-open-btn').onclick = () => drawer.open()
+  document.getElementById('helper-close-btn').onclick = () => drawer.close()
+  document.getElementById('helper-backdrop').onclick = () => drawer.close()
+</script>
+```
+
+```jsx
+import { useDrawer } from 'frutjam/react'
+
+export default function DrawerDemo() {
+  const drawer = useDrawer()
+  return (
+    <>
+      <button className="btn btn-sm" onClick={drawer.open}>Open drawer</button>
+      <dialog ref={drawer.ref} className="drawer">
+        <div className="drawer-content w-full lg:w-56 p-4">
+          <p className="mb-4 text-sm opacity-70">Controlled via useDrawer.</p>
+          <button className="btn btn-sm" onClick={drawer.close}>Close</button>
+        </div>
+        <button type="button" className="drawer-backdrop" onClick={drawer.close}>Close</button>
+      </dialog>
+    </>
+  )
+}
+```
+
+</Snippet>
+
+## 抽屜定制
+
+這 `.drawer-backdrop` 提供一個可點擊的背景，當在抽屜外部單擊時關閉抽屜，預設刪除此元素可防止在單擊外部時抽屜不關閉。
+
+### 點擊背景關閉
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="closeDrawerOnBackdropClick.show()">Open drawer</button>
+<dialog class="drawer" id="closeDrawerOnBackdropClick">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="closeDrawerOnBackdropClick.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="closeDrawerOnBackdropClick.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### 防止在外部單擊時關閉
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="preventCloseClickOutsideDrawer.show()">Open drawer</button>
+<dialog class="drawer" id="preventCloseClickOutsideDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <div class="flex justify-between mb-3">
+      <strong>Drawer</strong>
+      <button type="button" class="btn btn-xs btn-square btn-rounded btn-ghost" onclick="preventCloseClickOutsideDrawer.close()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <ul class="menu">
+      <li class="menu-title"><span>Dashboard</span></li>
+      <li><a class="menu-item">Overview</a></li>
+      <li><a class="menu-item">Analytics</a></li>
+      
+      <li class="menu-title mt-4"><span>Management</span></li>
+      <li><a class="menu-item">Users</a></li>
+      <li><a class="menu-item">Inventory</a></li>
+      <li><a class="menu-item">Settings</a></li>
+    </ul>
+  </div>
+</dialog>
+```
+
+</Snippet>
+
+## 抽屜放置
+
+### 左抽屜（開始）
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="leftDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-start" id="leftDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="leftDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### 右抽屜（結束）
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="rightDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-end" id="rightDrawer">
+  <div class="drawer-content w-full lg:w-56 p-4">
+    <ul class="menu w-full">
+      <li>
+        <div class="menu-title">Dashboard</div>
+        <ul>
+          <li><a class="menu-item">Overview</a></li>
+          <li><a class="menu-item">Analytics</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="menu-title">Management</div>
+        <ul>
+          <li><a class="menu-item">Users</a></li>
+          <li><a class="menu-item">Inventory</a></li>
+          <li><a class="menu-item">Settings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="rightDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### 頂部抽屜
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="topDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-top" id="topDrawer">
+  <div class="drawer-content p-4">
+    <div class="heading-3xl mb-3">Contact us</div>
+    <form class="grid grid-cols-12 gap-3">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <input type="text" placeholder="Enter your text here" class="input col-span-5">
+      <button class="btn col-span-2">Submit</button>
+    </form>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="topDrawer.close()">Close Drawer via Backdrop</button>
+</dialog>
+```
+
+</Snippet>
+
+### 底部抽屜
+
+<Snippet>
+
+```html
+<button type="button" class="btn btn-sm" onclick="bottomDrawer.show()">Open drawer</button>
+<dialog class="drawer drawer-bottom" id="bottomDrawer">
+  <div class="drawer-content p-4">
+    <ul class="menu menu-md w-full">
+      <li>
+        <div class="accordion accordion-flush">
+          <details name="nav" open>
+            <summary><span class="heading-md">Dashboard</span></summary>
+            <div class="accordion-content">
+              <ul>
+                <li class="menu-item"><span>Overview</span></li>
+                <li class="menu-item">
+                  <span>Analytics</span>
+                  <div class="badge badge-xs badge-accent ml-1 uppercase">Live</div>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <details name="nav">
+            <summary><span class="heading-md">Settings</span></summary>
+            <div class="accordion-content">
+              <ul>
+                <li class="menu-item"><span>Profile</span></li>
+                <li class="menu-item"><span>Security</span></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button type="button" class="drawer-backdrop" onclick="bottomDrawer.close()">Close Drawer viaBackdrop</button>
+</dialog>
+```
+
+</Snippet>

@@ -1,0 +1,264 @@
+---
+name: "Combobox"
+heading: "Komponent Comboboxa"
+description: "Combobox Tailwind CSS obsługujący tylko CSS z filtrowaniem wyszukiwania na żywo i dostępną listą rozwijaną. Nawigacja klawiaturowa, warianty kolorystyczne. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
+metaTitle: "Combobox — komponent CSS Tailwind tylko dla CSS | Frutjam"
+metaDescription: "Combobox CSS Tailwind z możliwością przeszukiwania listy rozwijanej i obsługą autouzupełniania. Filtrowanie dostępne za pomocą klawiatury i opcje niestandardowe dla zaawansowanych kontroli formularzy."
+order: 0
+related:
+  - "components/select"
+  - "components/input"
+image: "https://cdn.frutjam.com/media/components/combobox_rPhtDO2.webp"
+imageAlt: "Combobox firmy Frutjam"
+createdAt: "2026-04-19T15:56:34.839959+00:00"
+updatedAt: "2026-07-13T09:46:15.510068+00:00"
+sourceHash: "309b51fd688c"
+translationHash: "76c894a571b3"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Combobox Tailwind CSS obsługujący tylko CSS z filtrowaniem wyszukiwania na żywo i dostępną listą rozwijaną. Nawigacja klawiaturowa, warianty kolorystyczne. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+Combobox łączy wprowadzanie tekstu z listą rozwijaną. Użyj komponentu `input` dla pola — stamtąd pochodzą warianty rozmiaru, koloru i stanu. Narzędzia `combobox-*` obsługują tylko listę rozwijaną, elementy i stan otwarty.
+
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Klasa | Typ | Opis |
+| --- | --- | --- |
+| combobox-list | <span class="badge badge-xs">Opierać</span> | Kontener listy rozwijanej dla opcji combobox |
+| combobox-item | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Indywidualna opcja na liście rozwijanej |
+| combobox-open | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pokazuje listę rozwijaną po zastosowaniu do opakowania |
+| combobox-primary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Podświetlenie głównego motywu kolorowego elementów |
+| combobox-secondary | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Podświetlenie motywu dodatkowego dla elementów |
+| combobox-accent | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Podświetlenie motywu akcentującego dla przedmiotów |
+| combobox-info | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Informacje semantyczne wyróżnienie koloru |
+| combobox-success | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Sukces semantycznego podkreślenia koloru |
+| combobox-warning | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Ostrzeżenie: semantyczne podkreślenie koloru |
+| combobox-error | <span class="badge badge-xs badge-warning badge-soft">Kolor</span> | Błąd semantycznego podświetlenia koloru |
+
+</DocTable>
+
+## Podstawowe użycie
+
+Zawiń `input` i `combobox-list` w kontenerze `relative`. Dodaj `combobox-open` do opakowania, aby wyświetlić listę — przełącz ją za pomocą JS lub `:focus-within`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search or select...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = ['React', 'Vue', 'Angular', 'Svelte']
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search or select..." />
+      <ul className="combobox-list" role="listbox">
+        {combo.filtered.map((item, i) => (
+          <li key={item} {...combo.optionProps(item, i)} className="combobox-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>
+
+## Otwórz w Focusie
+
+Użyj `focus-within:combobox-open` na opakowaniu, aby otworzyć listę, gdy dane wejściowe są aktywne — nie jest wymagana obsługa JavaScript.
+
+<Snippet>
+
+```html
+<div class="relative w-64 focus-within:combobox-open">
+  <input type="text" class="input w-full" placeholder="Focus to open...">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Rozmiary
+
+Użyj `input-sm`, `input-lg` itp. w polu wejściowym. Lista rozwijana dostosowuje się naturalnie.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-sm w-full" placeholder="Small">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input input-lg w-full" placeholder="Large">
+  <ul class="combobox-list">
+    <li class="combobox-item">Banana</li>
+    <li class="combobox-item combobox-item-active">Mango</li>
+    <li class="combobox-item">Papaya</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Zabarwienie
+
+Użyj `input-primary` itp. na wejściu dla koloru pola. Dodaj pasujący element `combobox-primary` do opakowania, aby zabarwić podświetlenie aktywnego elementu.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open combobox-primary">
+  <input type="text" class="input input-primary w-full" placeholder="Primary">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+<div class="relative w-64 combobox-open combobox-error">
+  <input type="text" class="input input-error w-full" placeholder="Error">
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Wyłączony
+
+<Snippet>
+
+```html
+<div class="relative w-64">
+  <input type="text" class="input w-full" placeholder="Disabled" disabled>
+</div>
+```
+
+</Snippet>
+
+## Z Guzikiem
+
+Utwórz tekst za pomocą `join`, aby dołączyć ikonę wyszukiwania lub przycisk wyzwalający.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <div class="join w-full">
+    <span class="join-item btn btn-soft">🔍</span>
+    <input type="text" class="input join-item" placeholder="Search...">
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-item">React</li>
+    <li class="combobox-item combobox-item-active">Vue</li>
+    <li class="combobox-item">Angular</li>
+    <li class="combobox-item">Svelte</li>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Elementy jako łącza lub przyciski
+
+`combobox-item` działa na dowolnym elemencie — `<li>`, `<a>` lub `<button>`.
+
+<Snippet>
+
+```html
+<div class="relative w-64 combobox-open">
+  <input type="text" class="input w-full" placeholder="Search pages...">
+  <ul class="combobox-list">
+    <a href="#" class="combobox-item">Home</a>
+    <a href="#" class="combobox-item combobox-item-active">About</a>
+    <button class="combobox-item">Contact</button>
+  </ul>
+</div>
+```
+
+</Snippet>
+
+## Pomocnik JS i reagowania
+
+Użyj `createCombobox` z `frutjam/js` lub `useCombobox` z `frutjam/react`, aby uzyskać filtrowanie, nawigację za pomocą klawiatury (↑ ↓ Enter Escape) i pełne okablowanie `aria-*` od razu po wyjęciu z pudełka. Wyczekuj zdarzenia `fj:select`, które obsłuży selekcję.
+
+<Snippet>
+
+```html
+<div class="relative w-64" id="js-combobox">
+  <input type="text" class="input w-full" placeholder="Search frameworks...">
+  <ul class="combobox-list">
+    <li class="combobox-item" data-value="react">React</li>
+    <li class="combobox-item" data-value="vue">Vue</li>
+    <li class="combobox-item" data-value="angular">Angular</li>
+    <li class="combobox-item" data-value="svelte">Svelte</li>
+  </ul>
+</div>
+<script type="module">
+  import { createCombobox } from 'frutjam/js'
+  const combo = createCombobox(document.getElementById('js-combobox'))
+  document.getElementById('js-combobox').addEventListener('fj:select', (e) => {
+    console.log('Selected:', e.detail.value)
+  })
+</script>
+```
+
+```jsx
+import { useCombobox } from 'frutjam/react'
+
+const frameworks = [
+  { label: 'React', value: 'react' },
+  { label: 'Vue', value: 'vue' },
+  { label: 'Angular', value: 'angular' },
+  { label: 'Svelte', value: 'svelte' },
+]
+
+export default function ComboboxDemo() {
+  const combo = useCombobox({ items: frameworks })
+  return (
+    <div {...combo.containerProps} className="relative w-64">
+      <input {...combo.inputProps} className="input w-full" placeholder="Search frameworks..." />
+      <ul {...combo.listboxProps} className="combobox-list">
+        {combo.filtered.map((item, i) => (
+          <li key={item.value} {...combo.optionProps(item, i)}>{item.label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+</Snippet>

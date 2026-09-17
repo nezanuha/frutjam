@@ -1,0 +1,198 @@
+---
+name: "Mengobrol"
+heading: "Komponen Gelembung Obrolan"
+description: "Komponen gelembung obrolan Tailwind CSS khusus CSS. Posisi awal dan akhir untuk pesan yang dikirim dan diterima, dengan slot avatar dan stempel waktu. WCAG AA, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
+metaTitle: "Obrolan - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaDescription: "Gelembung Obrolan CSS Tailwind dengan penyelarasan awal/akhir, avatar, stempel waktu, dan indikator status. Bangun UI perpesanan yang dapat diakses tanpa JavaScript."
+order: 0
+related:
+  - "components/avatar"
+  - "components/input"
+  - "components/textarea"
+image: "https://cdn.frutjam.com/media/components/chat_1CbozaD.webp"
+imageAlt: "Obrolan oleh Frutjam"
+createdAt: "2026-04-19T15:56:30.051247+00:00"
+updatedAt: "2026-07-13T09:42:32.775476+00:00"
+sourceHash: "32492b8df7e2"
+translationHash: "69f607446f16"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+Komponen gelembung obrolan Tailwind CSS khusus CSS. Posisi awal dan akhir untuk pesan yang dikirim dan diterima, dengan slot avatar dan stempel waktu. WCAG AA, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+Komponen obrolan menampilkan pesan percakapan dalam format yang mudah dibaca dan terorganisir. Dibangun dengan HTML semantik dan tata letak yang fleksibel, gelembung obrolan mewakili pesan pengguna dan sistem. Sistem obrolan Frutjam mendukung berbagai warna, perataan, dan gaya—ideal untuk antarmuka perpesanan, panel dukungan pelanggan, dan UI percakapan.
+
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Kelas | Jenis | Keterangan |
+| --- | --- | --- |
+| chat | <span class="badge badge-xs">Basis</span> | Pembungkus untuk satu baris pesan obrolan |
+| chat-bubble | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Gelembung pesan bergaya |
+| chat-avatar | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Avatar ditampilkan di samping pesan |
+| chat-header | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Nama pengirim atau metadata di atas gelembung |
+| chat-footer | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Stempel waktu atau status di bawah gelembung |
+| chat-start | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Sejajarkan gelembung ke kiri (pesan masuk) |
+| chat-end | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Sejajarkan gelembung ke kanan (pesan keluar) |
+| chat-xs | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Sangat kecil |
+| chat-sm | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Kecil |
+| chat-md | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Sedang (standar) |
+| chat-lg | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Besar |
+| chat-xl | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Ekstra besar |
+| chat-bubble-primary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema utama |
+| chat-bubble-secondary | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema sekunder |
+| chat-bubble-accent | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema aksen |
+| chat-bubble-neutral | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna tema netral |
+| chat-bubble-info | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik info |
+| chat-bubble-success | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik sukses |
+| chat-bubble-warning | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Gelembung warna semantik peringatan |
+| chat-bubble-error | <span class="badge badge-xs badge-warning badge-soft">Warna</span> | Kesalahan gelembung warna semantik |
+
+</DocTable>
+
+## Penggunaan Dasar
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+```jsx
+<div className="chat chat-start">
+  <div className="chat-bubble">Hello! How are you?</div>
+</div>
+
+<div className="chat chat-end">
+  <div className="chat-bubble">I'm doing great, thanks!</div>
+</div>
+```
+
+</Snippet>
+
+## Ngobrol dengan Avatar
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-primary"></div>
+  </div>
+  <div class="chat-bubble">Hello!</div>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-avatar avatar">
+    <div class="w-10 rounded-full bg-secondary"></div>
+  </div>
+  <div class="chat-bubble">Hi there!</div>
+</div>
+```
+
+</Snippet>
+
+## Ukuran Obrolan
+
+<Snippet>
+
+```html
+<div class="chat chat-start chat-sm">
+  <div class="chat-bubble">Small message</div>
+</div>
+
+<div class="chat chat-start chat-md">
+  <div class="chat-bubble">Medium message</div>
+</div>
+
+<div class="chat chat-start chat-lg">
+  <div class="chat-bubble">Large message</div>
+</div>
+```
+
+</Snippet>
+
+## Gaya Obrolan
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-bubble">Default style</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-primary">Primary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-secondary">Secondary message</div>
+</div>
+
+<div class="chat chat-start">
+  <div class="chat-bubble chat-bubble-accent">Accent message</div>
+</div>
+```
+
+</Snippet>
+
+## Header dan Footer Obrolan
+
+<Snippet>
+
+```html
+<div class="chat chat-start">
+  <div class="chat-header">John</div>
+  <div class="chat-bubble">Thanks! I'm looking forward to it.</div>
+  <time class="text-xs opacity-50">12:45</time>
+</div>
+
+<div class="chat chat-end">
+  <div class="chat-header">You</div>
+  <div class="chat-bubble">I'll see you tomorrow!</div>
+  <time class="text-xs opacity-50">12:46</time>
+</div>
+```
+
+</Snippet>
+
+## Utas Percakapan
+
+<Snippet>
+
+```html
+<div>
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">Hello! How can I help?</div>
+  </div>
+
+  <div class="chat chat-end">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-secondary"></div>
+    </div>
+    <div class="chat-bubble">I need help with my order</div>
+  </div>
+
+  <div class="chat chat-start">
+    <div class="chat-avatar avatar">
+      <div class="w-10 rounded-full bg-primary"></div>
+    </div>
+    <div class="chat-bubble">I'd be happy to assist you!</div>
+  </div>
+</div>
+```
+
+</Snippet>

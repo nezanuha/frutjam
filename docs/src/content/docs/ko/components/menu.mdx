@@ -1,0 +1,752 @@
+---
+name: "메뉴"
+heading: "메뉴 구성 요소"
+description: "탐색 목록을 위한 CSS 전용 Tailwind CSS 수직 메뉴입니다. 활성, 비활성화 및 아이콘 항목 상태. 크기 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다."
+metaTitle: "메뉴 - CSS 전용 Tailwind CSS 구성요소 | Frutjam"
+metaDescription: "탐색 목록, 사이드바, 드롭다운을 위한 Tailwind CSS 메뉴입니다. 아이콘, 활성 상태 및 중첩된 하위 메뉴는 JavaScript 없이도 완벽하게 액세스할 수 있습니다."
+order: 0
+related:
+  - "components/navbar"
+  - "components/drawer"
+  - "components/sidebar"
+image: "https://cdn.frutjam.com/media/components/menu.webp"
+imageAlt: "Frutjam UI 라이브러리의 메뉴 구성 요소"
+createdAt: "2025-12-30T12:11:28.634222+00:00"
+updatedAt: "2026-07-13T09:39:40.458429+00:00"
+sourceHash: "3f4d129a1efa"
+translationHash: "0daae31d07ca"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+탐색 목록을 위한 CSS 전용 Tailwind CSS 수직 메뉴입니다. 활성, 비활성화 및 아이콘 항목 상태. 크기 변형. WCAG AA 액세스 가능하며 Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+메뉴 구성요소는 구성된 작업 목록 또는 탐색 옵션을 표시합니다. 의미 있는 HTML 목록과 링크 요소로 구축된 Frutjam 메뉴 시스템은 수직 및 수평 레이아웃, 중첩 메뉴, 아이콘 및 활성 상태를 지원합니다. 키보드 탐색으로 완벽하게 액세스할 수 있는 메뉴는 드롭다운, 사이드바 및 상황별 탐색 패턴과 원활하게 통합됩니다.
+
+CSS 전용이며 JavaScript가 필요하지 않습니다. WCAG AA 액세스 가능 및 프레임워크에 구애받지 않음 — Django, HTMX, Laravel, React 및 모든 스택에서 작동합니다.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| 수업 | 유형 | 설명 |
+| --- | --- | --- |
+| menu | <span class="badge badge-xs">베이스</span> | 탐색 또는 작업 항목의 세로 목록 |
+| menu-item | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 메뉴 내부의 개별 클릭 가능한 항목 |
+| menu-title | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 비대화형 섹션 라벨 |
+| menu-horizontal | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 수평 레이아웃 |
+| menu-vertical | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 세로 레이아웃(기본값) |
+| menu-active | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 항목에 활성/강조표시 상태를 강제 적용합니다. |
+| menu-disabled | <span class="badge badge-xs badge-secondary badge-soft">수정자</span> | 메뉴 항목의 비활성화된 모양 |
+| menu-xs | <span class="badge badge-xs badge-info badge-soft">크기</span> | 아주 작은 |
+| menu-sm | <span class="badge badge-xs badge-info badge-soft">크기</span> | 작은 |
+| menu-md | <span class="badge badge-xs badge-info badge-soft">크기</span> | 중간(기본값) |
+| menu-lg | <span class="badge badge-xs badge-info badge-soft">크기</span> | 크기가 큰 |
+| menu-xl | <span class="badge badge-xs badge-info badge-soft">크기</span> | 특대 |
+
+</DocTable>
+
+## 기본 사용법
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+```jsx
+<ul className="menu">
+  <li><a className="menu-item">Item 1</a></li>
+  <li><a className="menu-item">Item 2</a></li>
+  <li><a className="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 수평 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 수직 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu menu-vertical">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 아이콘과 텍스트가 포함된 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+      Home
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+      Search
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+      Profile
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 반응형 메뉴: 작은 화면에서는 세로, 큰 화면에서는 가로
+
+<Snippet>
+
+```html
+<ul class="menu  menu-vertical lg:menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 메뉴 크기
+
+<Snippet class="justify-start">
+
+```html
+<ul class="menu menu-xs w-56">
+  <li><a class="menu-item">Xsmall 1</a></li>
+  <li><a class="menu-item">Xsmall 2</a></li>
+</ul>
+<ul class="menu menu-sm w-56">
+  <li><a class="menu-item">Small 1</a></li>
+  <li><a class="menu-item">Small 2</a></li>
+</ul>
+<ul class="menu menu-md w-56">
+  <li><a class="menu-item">Medium 1</a></li>
+  <li><a class="menu-item">Medium 2</a></li>
+</ul>
+<ul class="menu menu-lg w-56">
+  <li><a class="menu-item">Large 1</a></li>
+  <li><a class="menu-item">Large 2</a></li>
+</ul>
+<ul class="menu menu-xl w-56">
+  <li><a class="menu-item">Xlarge 1</a></li>
+  <li><a class="menu-item">Xlarge 2</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 제목이 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li class="menu-title">Title</li>
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 제목이 상위 항목인 수직선이 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li>
+    <h2 class="menu-title">Title</h2>
+    <ul>
+      <li><a class="menu-item">Item 1</a></li>
+      <li><a class="menu-item">Item 2</a></li>
+      <li><a class="menu-item">Item 3</a></li>
+    </ul>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 비활성화된 항목이 포함된 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Enabled item</a></li>
+  <li class="menu-disabled"><button disabled class="menu-item">disabled item</button></li>
+  <li class="menu-disabled"><a class="menu-item" aria-disabled="true">disabled item</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 활성 항목이 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li><a class="menu-item">Item 1</a></li>
+  <li><a class="menu-item menu-active">Item 2</a></li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 하위 메뉴가 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <a class="menu-item">Parent</a>
+    <ul>
+      <li><a class="menu-item">Submenu 1</a></li>
+      <li><a class="menu-item">Submenu 2</a></li>
+      <li>
+        <a class="menu-item">Parent</a>
+        <ul>
+          <li><a class="menu-item">Submenu 1</a></li>
+          <li><a class="menu-item">Submenu 2</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 축소 가능한 하위 메뉴가 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu w-56">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>Parent</summary>
+        <div class="accordion-content">
+          <ul>
+            <li><a class="menu-item">Submenu 1</a></li>
+            <li><a class="menu-item">Submenu 2</a></li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>Parent</summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li><a class="menu-item menu-active">Submenu 1</a></li>
+                      <li><a class="menu-item">Submenu 2</a></li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 아이콘만 있는 세로 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 아이콘만 있는 가로 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 툴팁과 아이콘만 있는 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu">
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip tooltip-end" data-tip="Profile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 도구 설명이 포함된 아이콘만 있는 메뉴(가로)
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li>
+    <a class="menu-item tooltip" data-tip="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip" data-tip="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item tooltip" data-tip="Profile">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 아이콘과 배지가 포함된 메뉴(반응형)
+
+<Snippet>
+
+```html
+<ul class="menu menu-vertical lg:menu-horizontal">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+        </path>
+      </svg>
+      Home
+      <span class="badge badge-xs">99+</span>
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+      Search
+    </a>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+      Profile
+      <span class="badge badge-primary badge-xs badge-circle"></span>
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 파일 트리
+
+<Snippet>
+
+```html
+<ul class="menu menu-xs max-w-xs w-full">
+  <li>
+    <a class="menu-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+      work-report.pdf
+    </a>
+  </li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+          </svg>
+          My Files
+        </summary>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <a class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                </svg>
+                final-project-2.psd
+              </a>
+            </li>
+            <li>
+              <a class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                </svg>
+                final-project-2.psd
+              </a>
+            </li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                      class="h-4 w-4">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                    </svg>
+                    Images
+                  </summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li>
+                        <a class="menu-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><circle cx="10" cy="12" r="2"/><path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22"/></svg>
+                          Screenshot1.png
+                        </a>
+                      </li>
+                      <li>
+                        <a class="menu-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><circle cx="10" cy="12" r="2"/><path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22"/></svg>
+                          Screenshot2.png
+                        </a>
+                      </li>
+                      <li>
+                        <div class="accordion accordion-flush">
+                          <details open>
+                            <summary>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                              </svg>
+                              Others
+                            </summary>
+                            <div class="accordion-content">
+                              <ul>
+                                <li>
+                                  <a class="menu-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path
+                                        d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+                                      <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+                                      <circle cx="10" cy="12" r="2" />
+                                      <path d="m20 17-1.296-1.296a2.41 2.41 0 0 0-3.408 0L9 22" />
+                                    </svg>
+                                    Screenshot3.png
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </details>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li>
+    <a class="menu-item">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-4 w-4">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+      </svg>
+      reports-final-2.pdf
+    </a>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 수평 하위 메뉴
+
+<Snippet>
+
+```html
+<ul class="menu menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <a class="menu-item">Parent</a>
+    <ul>
+      <li><a class="menu-item">Submenu 1</a></li>
+      <li><a class="menu-item">Submenu 2</a></li>
+    </ul>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>
+
+## 하위 메뉴가 포함된 메가 메뉴(반응형)
+
+<Snippet>
+
+```html
+<ul class="menu xl:menu-horizontal lg:min-w-max">
+  <li>
+    <a class="menu-item">Solutions</a>
+    <ul>
+      <li><a class="menu-item">Design</a></li>
+      <li><a class="menu-item">Development</a></li>
+      <li><a class="menu-item">Hosting</a></li>
+      <li><a class="menu-item">Domain register</a></li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Enterprise</a>
+    <ul>
+      <li><a class="menu-item">CRM software</a></li>
+      <li><a class="menu-item">Marketing management</a></li>
+      <li><a class="menu-item">Security</a></li>
+      <li><a class="menu-item">Consulting</a></li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Products</a>
+    <ul>
+      <li><a class="menu-item">UI Kit</a></li>
+      <li><a class="menu-item">WordPress themes</a></li>
+      <li><a class="menu-item">WordPress plugins</a></li>
+      <li>
+        <a class="menu-item">Open source</a>
+        <ul>
+          <li><a class="menu-item">Auth management system</a></li>
+          <li><a class="menu-item">VScode theme</a></li>
+          <li><a class="menu-item">Color picker app</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a class="menu-item">Company</a>
+    <ul>
+      <li><a class="menu-item">About us</a></li>
+      <li><a class="menu-item">Contact us</a></li>
+      <li><a class="menu-item">Privacy policy</a></li>
+      <li><a class="menu-item">Press kit</a></li>
+    </ul>
+  </li>
+</ul>
+```
+
+</Snippet>
+
+## 하위 메뉴로 축소 가능(반응형)
+
+<Snippet>
+
+```html
+<ul class="menu lg:menu-horizontal">
+  <li><a class="menu-item">Item 1</a></li>
+  <li>
+    <div class="accordion accordion-flush">
+      <details open>
+        <summary>Parent item</summary>
+        <div class="accordion accordion-flush">
+          <ul>
+            <li><a class="menu-item">Submenu 1</a></li>
+            <li><a class="menu-item">Submenu 2</a></li>
+            <li>
+              <div class="accordion accordion-flush">
+                <details open>
+                  <summary>Parent</summary>
+                  <div class="accordion-content">
+                    <ul>
+                      <li><a class="menu-item">item 1</a></li>
+                      <li><a class="menu-item">item 2</a></li>
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </li>
+  <li><a class="menu-item">Item 3</a></li>
+</ul>
+```
+
+</Snippet>

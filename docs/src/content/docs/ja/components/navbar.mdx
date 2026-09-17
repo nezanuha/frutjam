@@ -1,0 +1,228 @@
+---
+name: "ナビバー"
+heading: "ナビゲーションバーコンポーネント"
+description: "ブランド、ナビゲーション リンク、アクション スロットを備えた CSS のみの Tailwind CSS ナビゲーションバー。粘着性と透明のバリエーション。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
+metaTitle: "Navbar - CSS のみの Tailwind CSS コンポーネント |Frutjam"
+metaDescription: "Tailwind CSS Navbar は、スティッキーで応答性が高く、ドロップダウン対応のレイアウトを備えています。モバイルをサポートするセマンティック HTML により、アクセスしやすくテーマに応じたサイト ナビゲーションが可能になります。"
+order: 0
+related:
+  - "components/breadcrumb"
+  - "components/menu"
+  - "components/drawer"
+  - "blocks/header"
+image: "https://cdn.frutjam.com/media/components/navbar.webp"
+imageAlt: "Frutjam UI による Navbar コンポーネント"
+createdAt: "2025-10-20T05:58:16.950560+00:00"
+updatedAt: "2026-07-13T09:46:28.544062+00:00"
+sourceHash: "d867b3004599"
+translationHash: "09cb6534848a"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+ブランド、ナビゲーション リンク、アクション スロットを備えた CSS のみの Tailwind CSS ナビゲーションバー。粘着性と透明のバリエーション。 WCAG AA にアクセス可能で、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+Navbar コンポーネントには、サイト構造とユーザー ナビゲーションのための水平方向のナビゲーション リストが表示されます。セマンティック HTML のナビゲーション要素とリスト要素を使用して構築された Frutjam ナビゲーションバー システムは、複数のレイアウト、応答性の高い動作、およびネストされたメニューの統合をサポートします。アクセスしやすく、キーボードで操作できるナビゲーションバーは、メインサイトのナビゲーション、パンくずリスト、およびタブのインターフェイスに最適です。
+
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| クラス | タイプ | 説明 |
+| --- | --- | --- |
+| navbar | <span class="badge badge-xs">ベース</span> | 水平ナビゲーションバーコンテナ |
+| navbar-list | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ナビゲーション リンクの水平リスト |
+| navbar-start | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ロゴまたは最初のナビゲーション グループ用の左スロット |
+| navbar-center | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | メインナビゲーション用のセンタースロット |
+| navbar-end | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | アクションとコントロール用の適切なスロット |
+| navbar-top | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ナビゲーションバーをビューポートの上部に配置します |
+| navbar-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | 親内で垂直方向の中央揃え |
+| navbar-bottom | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ナビゲーションバーをビューポートの下部に配置します |
+
+</DocTable>
+
+## ナビバー
+
+<Snippet>
+
+```html
+<nav class="navbar">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+```jsx
+<nav className="navbar">
+  <ul className="navbar-list gap-x-6">
+    <li>
+      <a className="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a className="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+## ナビゲーションバーの配置
+
+デフォルトでは、navbar コンポーネントは先頭 (LTR の左側) に配置されます。水平方向の配置には `navbar-start`、`navbar-center`、または `navbar-end` を使用し、垂直方向の配置には `navbar-top`、`navbar-middle`、または `navbar-bottom` を使用します。配置は RTL に適しています。
+
+ナビゲーションバーのリストを X 軸に沿って整列させるには水平配置クラスを使用し、ナビゲーションバーにカスタムの高さがある場合は垂直配置クラスを使用します。
+
+### 水平方向の配置
+
+`navbar-list` を X 軸に沿って配置する方法を制御します。これらは RTL に適しています (左/右ではなく開始/終了)。
+
+#### 横方向左揃え（開始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-start">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 横方向中央揃え
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-center">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 横方向右揃え（端）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-end">
+  <ul class="navbar-list gap-x-6">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+### 垂直方向の配置
+
+Y 軸に沿った配置を制御します。これは、ナビゲーションバーにカスタムの高さがある場合に特に便利です。
+
+#### 上に垂直に揃えます（開始）
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-top h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直方向を中央に揃える
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-middle h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>
+
+#### 垂直方向を下（端）に揃えます
+
+<Snippet>
+
+```html
+<nav class="navbar navbar-bottom h-56">
+  <ul class="navbar-list">
+    <li>
+      <a class="link link-xs link-hover">Navbar list 1</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 2</a>
+    </li>
+    <li>
+      <a class="link link-xs link-hover">Navbar list 3</a>
+    </li>
+  </ul>
+</nav>
+```
+
+</Snippet>

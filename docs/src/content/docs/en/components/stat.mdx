@@ -1,0 +1,251 @@
+---
+name: "Stat"
+heading: "Stat Component"
+description: "CSS-only Tailwind CSS stat for displaying metrics. Value, label, description, and icon slots. Responsive grid layout. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack."
+metaTitle: "Stat - CSS-Only Tailwind CSS Component | Frutjam"
+metaDescription: "Tailwind CSS Stat for dashboards and KPI displays. Titles, values, trend indicators, and icon support for clear metric and analytics presentation."
+order: 0
+related:
+  - "components/card"
+  - "components/radial-progress"
+  - "components/progress"
+image: "https://cdn.frutjam.com/media/components/stat_xlLKZyA.webp"
+imageAlt: "Stat by Frutjam"
+createdAt: "2026-04-19T15:57:08.255004+00:00"
+updatedAt: "2026-07-13T09:51:44.423332+00:00"
+---
+
+import Snippet from '@/components/Snippet.astro';
+import RawHtml from '@/components/RawHtml.astro';
+import DocTable from '@/components/DocTable.astro';
+
+CSS-only Tailwind CSS stat for displaying metrics. Value, label, description, and icon slots. Responsive grid layout. WCAG AA accessible, works with Django, HTMX, Laravel, React, and any stack.
+
+Stat components display key metrics and numerical data in a clear, organized format. Built with semantic HTML and flexible layouts, stats communicate important business metrics and analytics. The Frutjam stat system supports multiple arrangements and styles—ideal for dashboards, performance reports, and data summaries.
+
+CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic — works with Django, HTMX, Laravel, React, and any stack.
+
+<DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
+
+| Class | Type | Description |
+| --- | --- | --- |
+| stats | <span class="badge badge-xs">Base</span> | Container for one or more stat items |
+| stat | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Individual stat item with title, value, and description |
+| stat-title | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Label above the stat value |
+| stat-value | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Large primary numeric or text value |
+| stat-desc | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Supplementary description below the value |
+| stat-figure | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Icon or avatar alongside the stat |
+| stats-horizontal | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Arranges stat items side by side (default) |
+| stats-vertical | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Stacks stat items vertically |
+| stat-primary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Primary theme color for the stat value |
+| stat-secondary | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Secondary theme color for the stat value |
+| stat-accent | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Accent theme color for the stat value |
+| stat-neutral | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Neutral theme color for the stat value |
+| stat-info | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Info semantic color for the stat value |
+| stat-success | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Success semantic color for the stat value |
+| stat-warning | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Warning semantic color for the stat value |
+| stat-error | <span class="badge badge-xs badge-warning badge-soft">Color</span> | Error semantic color for the stat value |
+
+</DocTable>
+
+## Basic Usage
+
+<Snippet>
+
+```html
+<div class="stat place-items-center">
+  <div class="stat-title">Downloads</div>
+  <div class="stat-value">31K</div>
+  <div class="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+```jsx
+<div className="stat place-items-center">
+  <div className="stat-title">Downloads</div>
+  <div className="stat-value">31K</div>
+  <div className="stat-desc">From January 1st to February 1st</div>
+</div>
+```
+
+</Snippet>
+
+## Multiple Stats
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Stats with Icons
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+    </div>
+    <div class="stat-title">Page Views</div>
+    <div class="stat-value text-primary">40.5K</div>
+    <div class="stat-desc">↗︎ 21% from last month</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-secondary">3,200</div>
+    <div class="stat-desc">↗︎ 400 from last month</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Horizontal Stats
+
+<Snippet>
+
+```html
+<div class="stats stats-horizontal shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Vertical Stats
+
+<Snippet>
+
+```html
+<div class="stats stats-vertical shadow">
+  <div class="stat">
+    <div class="stat-title">Downloads</div>
+    <div class="stat-value">31K</div>
+    <div class="stat-desc">Jan 1st - Feb 1st</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Users</div>
+    <div class="stat-value">4,200</div>
+    <div class="stat-desc">↗︎ 400 (22%)</div>
+  </div>
+
+  <div class="stat">
+    <div class="stat-title">New Registers</div>
+    <div class="stat-value">1,200</div>
+    <div class="stat-desc">↗︎ 90 (14%)</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Color Variants
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-primary">
+    <div class="stat-title">Primary</div>
+    <div class="stat-value">12.4K</div>
+    <div class="stat-desc">↗︎ 8% this week</div>
+  </div>
+
+  <div class="stat stat-secondary">
+    <div class="stat-title">Secondary</div>
+    <div class="stat-value">3,800</div>
+    <div class="stat-desc">↗︎ 12% this week</div>
+  </div>
+
+  <div class="stat stat-accent">
+    <div class="stat-title">Accent</div>
+    <div class="stat-value">960</div>
+    <div class="stat-desc">↗︎ 5% this week</div>
+  </div>
+
+  <div class="stat stat-neutral">
+    <div class="stat-title">Neutral</div>
+    <div class="stat-value">540</div>
+    <div class="stat-desc">No change</div>
+  </div>
+</div>
+```
+
+</Snippet>
+
+## Semantic Color Variants
+
+<Snippet>
+
+```html
+<div class="stats shadow">
+  <div class="stat stat-info">
+    <div class="stat-title">Info</div>
+    <div class="stat-value">1,024</div>
+    <div class="stat-desc">Active sessions</div>
+  </div>
+
+  <div class="stat stat-success">
+    <div class="stat-title">Success</div>
+    <div class="stat-value">98.3%</div>
+    <div class="stat-desc">Uptime this month</div>
+  </div>
+
+  <div class="stat stat-warning">
+    <div class="stat-title">Warning</div>
+    <div class="stat-value">42</div>
+    <div class="stat-desc">Pending reviews</div>
+  </div>
+
+  <div class="stat stat-error">
+    <div class="stat-title">Error</div>
+    <div class="stat-value">7</div>
+    <div class="stat-desc">Failed jobs today</div>
+  </div>
+</div>
+```
+
+</Snippet>
