@@ -7,6 +7,12 @@
 DirectorySlash Off
 Options -Indexes
 
+# Pages declare UTF-8 themselves; the Markdown and text files cannot, and
+# would otherwise show translated text and emoji as mojibake.
+AddDefaultCharset utf-8
+AddType text/markdown .md
+AddCharset utf-8 .md .txt .json .xml
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

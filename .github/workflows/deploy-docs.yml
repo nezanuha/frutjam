@@ -162,11 +162,13 @@ jobs:
           url="${SITE:-https://frutjam.com}"
           fail=0
           check() { # path, expected status, description
-            code=$(curl -s -o /dev/null -w '%{http_code}' "$url$1")
+            # A connection or certificate failure is reported as 000 rather
+            # than ending the step before the other URLs are checked.
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url$1" || true)
             echo "  $1 -> $code (want $2) $3"
             [ "$code" = "$2" ] || fail=1
           }
-          echo "checking $url"
+          echo "checking $url ($(getent hosts "${url#https://}" | awk '{print $1; exit}'))"
           # No trailing slash and no redirect: the URLs Django served, which the
           # canonical tags still name.
           check /components/button 200 "component page"
