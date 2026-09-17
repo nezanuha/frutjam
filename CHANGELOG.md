@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.6] - 2026-09-17
+
 ### Fixed
 
 - **`header-fixed` not working**: Position modifiers are now applied via `--header-position` custom property so declaration order no longer matters.
@@ -635,7 +637,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.5...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.6...HEAD
+[2.2.6]: https://github.com/nezanuha/frutjam/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/nezanuha/frutjam/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/nezanuha/frutjam/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/nezanuha/frutjam/compare/v2.2.2...v2.2.3
