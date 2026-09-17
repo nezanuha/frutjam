@@ -1,0 +1,228 @@
+name: Deploy site
+
+# frutjam.com is the static build of docs/. It ships when the site changes;
+# the CSS library releases on its own schedule and does not gate it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+concurrency:
+  # A second push should replace a running deploy, not race it onto the server.
+  group: deploy-docs
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The IndexNow step below compares this push against the one before it.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: docs
+
+      # The translation tooling guards the content of 12 languages; a change
+      # that breaks one of its safety rules must not reach the site.
+      - name: Test
+        run: npm test
+        working-directory: docs
+
+      - name: Build
+        run: npm run build
+        working-directory: docs
+
+      - name: Check the build produced what we expect
+        run: |
+          cd docs/dist
+          test -f index.html             || { echo "no home page"; exit 1; }
+          test -f .htaccess              || { echo "no .htaccess"; exit 1; }
+          test -f robots.txt             || { echo "no robots.txt"; exit 1; }
+          test -f sitemap.xml            || { echo "no sitemap index"; exit 1; }
+          test -f sitemap/docs.xml       || { echo "no docs sitemap"; exit 1; }
+          test -f 404.html               || { echo "no 404 page"; exit 1; }
+          test -f components/button.html || { echo "no component pages"; exit 1; }
+          test -f components/button.md   || { echo "no markdown pages"; exit 1; }
+          # 13 languages: English at the root, the rest under their prefix.
+          for lang in zh-hans zh-hant ja ko pt-br es de tr pl id vi fr; do
+            test -f "$lang/components/button.html" || { echo "no $lang pages"; exit 1; }
+          done
+          # Search: Pagefind writes one index per language, 13 in all.
+          test -f pagefind/pagefind.js || { echo "no search index"; exit 1; }
+          indexes=$(node -e 'console.log(Object.keys(require("./pagefind/pagefind-entry.json").languages).length)')
+          [ "$indexes" -ge 13 ] || { echo "search index has only $indexes languages"; exit 1; }
+          # The images Django served from Bunny live in the build now; an empty
+          # media/ would publish a site of broken pictures.
+          images=$(find media images -type f | wc -l)
+          [ "$images" -gt 100 ] || { echo "only $images image files"; exit 1; }
+          echo "pages: $(find . -name '*.html' | wc -l), images: $images"
+
+      - name: Confirm the deploy secrets are present
+        env:
+          HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          PATH_REMOTE: ${{ secrets.HOSTINGER_REMOTE_PATH }}
+          KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+        run: |
+          missing=""
+          [ -n "$HOST" ]        || missing="$missing HOSTINGER_SSH_HOST"
+          [ -n "$USER" ]        || missing="$missing HOSTINGER_SSH_USER"
+          [ -n "$PATH_REMOTE" ] || missing="$missing HOSTINGER_REMOTE_PATH"
+          [ -n "$KEY" ]         || missing="$missing HOSTINGER_SSH_KEY"
+          if [ -n "$missing" ]; then
+            echo "Missing repository secrets:$missing"
+            exit 1
+          fi
+
+      - name: Set up the SSH key
+        env:
+          KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # A truncated or mangled secret is the usual cause of a failure here,
+          # and it reads as a connection problem later if it is not caught now.
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null; then
+            echo "HOSTINGER_SSH_KEY is not a usable private key."
+            echo "Paste the whole file: BEGIN line, body, and END line."
+            exit 1
+          fi
+          echo "key loaded: $(ssh-keygen -l -f ~/.ssh/deploy_key | cut -d' ' -f1-2)"
+
+          # Pinning the host key means a changed fingerprint fails the deploy
+          # rather than being accepted silently.
+          echo "scanning ${HOST}:${PORT:-22}"
+          if ! ssh-keyscan -T 15 -p "${PORT:-22}" -H "$HOST" >> ~/.ssh/known_hosts; then
+            echo "Could not read a host key from ${HOST}:${PORT:-22}."
+            echo "Check HOSTINGER_SSH_HOST and HOSTINGER_SSH_PORT (Hostinger"
+            echo "usually listens on 65002, not 22) and that SSH access is"
+            echo "switched on in hPanel."
+            exit 1
+          fi
+
+      - name: Check the destination exists
+        env:
+          HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          REMOTE: ${{ secrets.HOSTINGER_REMOTE_PATH }}
+        run: |
+          ssh_do() { ssh -i ~/.ssh/deploy_key -p "${PORT:-22}" "$USER@$HOST" "$@"; }
+
+          # rsync creates the last directory but not the ones above it, and
+          # reports the whole path as missing either way. The path is a secret,
+          # so the failure is masked in the log -- listing the real directories
+          # is the only way to see what it should have been.
+          if ssh_do "test -d \"$REMOTE\""; then
+            echo "destination exists"
+            exit 0
+          fi
+
+          echo "HOSTINGER_REMOTE_PATH does not exist on the server."
+          echo "Deliberately not creating it: a typo would be published to a"
+          echo "directory nothing serves, and look like a successful deploy."
+          echo ""
+          echo "Document roots on this account:"
+          ssh_do 'ls -d ~/domains/*/public_html 2>/dev/null || true'
+          exit 1
+
+      - name: Upload
+        env:
+          HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          PORT: ${{ secrets.HOSTINGER_SSH_PORT }}
+          REMOTE: ${{ secrets.HOSTINGER_REMOTE_PATH }}
+        run: |
+          # --delete removes files the build no longer produces; the trailing
+          # slash on the source copies the contents rather than the directory.
+          rsync -az --delete --omit-dir-times --no-perms \
+            -e "ssh -i ~/.ssh/deploy_key -p ${PORT:-22} -o StrictHostKeyChecking=yes" \
+            docs/dist/ "$USER@$HOST:$REMOTE/"
+
+      - name: Verify the site answers
+        env:
+          SITE: ${{ secrets.SITE_URL }}
+        run: |
+          url="${SITE:-https://frutjam.com}"
+          fail=0
+          check() { # path, expected status, description
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url$1")
+            echo "  $1 -> $code (want $2) $3"
+            [ "$code" = "$2" ] || fail=1
+          }
+          echo "checking $url"
+          # No trailing slash and no redirect: the URLs Django served, which the
+          # canonical tags still name.
+          check /components/button 200 "component page"
+          check /components 200 "category page"
+          check /ja/components/button 200 "translated page"
+          check /ja 200 "translated home"
+          check /blog 200 "blog list"
+          check /sitemap.xml 200 "sitemap index"
+          check /robots.txt 200 "robots"
+          check /media/docs/colors.webp 200 "image kept from the Django site"
+          check /nope-not-a-page 404 "unknown URL"
+          robots=$(curl -sI "$url/components/button.md" | tr -d '\r' | grep -i '^x-robots-tag:' || true)
+          echo "  markdown route -> ${robots:-no X-Robots-Tag}"
+          [ -n "$robots" ] || fail=1
+          exit $fail
+
+      # Django submitted a page to IndexNow whenever it was saved (frontend/
+      # signals.py). Here the deploy is the save: Bing and Yandex are told which
+      # pages this push changed, rather than being left to re-crawl.
+      - name: Tell IndexNow what changed
+        if: github.event_name == 'push'
+        env:
+          KEY: 4a7dfd07a972447cba5d6eaa886b1785
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          # A new branch or a force-push has no usable "before"; skip rather
+          # than submit the whole site.
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "No previous commit to compare against — nothing submitted."
+            exit 0
+          fi
+
+          urls=$(git diff --name-only "$BEFORE" "$AFTER" -- docs/src/content docs/src/pages docs/src/data | sed -n '
+            s#^docs/src/content/docs/\(.*\)\.mdx$#https://frutjam.com/\1#p
+            s#^docs/src/content/blog/\(.*\)\.md$#https://frutjam.com/blog/\1#p
+            s#^docs/src/pages/index\.astro$#https://frutjam.com#p
+            s#^docs/src/pages/products/cherry\.astro$#https://frutjam.com/products/cherry#p
+            s#^docs/src/pages/terms\.astro$#https://frutjam.com/terms#p
+            s#^docs/src/pages/privacy-policy\.astro$#https://frutjam.com/privacy-policy#p
+          ' | sort -u)
+
+          if [ -z "$urls" ]; then
+            echo "No page content changed — nothing submitted."
+            exit 0
+          fi
+
+          echo "submitting:"; echo "$urls" | sed 's/^/  /'
+          list=$(echo "$urls" | jq -R . | jq -s .)
+          body=$(jq -n --arg host frutjam.com --arg key "$KEY" \
+            --arg loc "https://frutjam.com/$KEY.txt" --argjson urlList "$list" \
+            '{host: $host, key: $key, keyLocation: $loc, urlList: $urlList}')
+          code=$(curl -s -o /tmp/indexnow.out -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$body")
+          echo "IndexNow -> $code $(cat /tmp/indexnow.out)"
+          # 200 and 202 both mean accepted. A rejection is worth seeing but must
+          # not fail a deploy that already succeeded.
+          case "$code" in 200|202) ;; *) echo "::warning::IndexNow returned $code";; esac
