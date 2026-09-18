@@ -4,7 +4,7 @@ description: "Achieve 100% PageSpeed scores by default. A guide to building high
 metaTitle: "Why I Built Frutjam | A Free CSS-Only Tailwind CSS Library | Frutjam"
 metaDescription: "How JS-heavy UI libraries killed performance — and how building Frutjam, a CSS-only Tailwind CSS library with WCAG accessibility, solved it."
 image: "https://cdn.frutjam.com/media/blog/posts/why-i-built-frutjam-css-first-tailwind-ui-library.jpg"
-imageAlt: "frutjam CSS-first Tailwind UI library vs bloated JS libraries — PageSpeed 100"
+imageAlt: "Illustration of a browser window as a hot-air balloon rising while heavy sandbags fall away"
 createdAt: "2026-04-02T07:58:06.179767+00:00"
 updatedAt: "2026-07-15T19:51:10.833780+00:00"
 ---

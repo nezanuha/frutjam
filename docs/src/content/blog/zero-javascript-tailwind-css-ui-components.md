@@ -4,7 +4,7 @@ description: "The native web platform now handles modals, accordions, drawers, a
 metaTitle: "Zero JavaScript Tailwind UI: Modal, Accordion, Drawer in Pure CSS"
 metaDescription: "Build modals, accordions, drawers, and tabs with zero JavaScript. CSS-only Tailwind UI with WCAG AA contrast — PageSpeed 100 by default."
 image: "https://cdn.frutjam.com/media/blog/posts/zero-javascript-tailwind-css-ui-components.jpg"
-imageAlt: "Zero JavaScript UI — modal, accordion and drawer built from dialog, details and :target"
+imageAlt: "Bauhaus-style poster of a large green ring built from interlocking blocks with nothing holding them"
 createdAt: "2026-07-05T06:54:28.002616+00:00"
 updatedAt: "2026-09-18T06:06:03.572+00:00"
 ---

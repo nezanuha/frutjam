@@ -4,7 +4,7 @@ description: "Why developers are switching from DaisyUI to Frutjam — a CSS-onl
 metaTitle: "Best DaisyUI Alternative: Zero JavaScript, Tailwind v4 | Frutjam"
 metaDescription: "CSS-only DaisyUI alternative built for Tailwind CSS v4. Zero JavaScript, WCAG AA contrast on every theme. Works with Django, HTMX, and Laravel. Free."
 image: "https://cdn.frutjam.com/media/blog/posts/daisyui-css-only-alternative-tailwind-components.jpg"
-imageAlt: "Frutjam vs DaisyUI — CSS-only Tailwind CSS component library comparison"
+imageAlt: "Clay-style still life of a jar of fruit jam with raspberries beside a plain daisy flower"
 createdAt: "2026-07-05T06:54:27.455443+00:00"
 updatedAt: "2026-07-17T11:49:18.610629+00:00"
 ---

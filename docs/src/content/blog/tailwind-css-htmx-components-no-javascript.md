@@ -4,7 +4,7 @@ description: "Why most Tailwind CSS component libraries break with HTMX — and 
 metaTitle: "HTMX Tailwind UI | Django & Laravel Components | Frutjam"
 metaDescription: "HTMX Tailwind UI: CSS-only components for Django, Laravel, and FastAPI that work on every DOM swap. No JavaScript re-initialization required."
 image: "https://cdn.frutjam.com/media/blog/posts/tailwind-css-htmx-components-no-javascript.jpg"
-imageAlt: "Tailwind CSS and HTMX — a CSS-only Load more button still styled after an HTMX swap"
+imageAlt: "Retro poster illustration of capsules travelling through pneumatic tubes into a wall of pigeonholes"
 createdAt: "2026-07-05T06:54:27.736340+00:00"
 updatedAt: "2026-09-18T06:06:03.567+00:00"
 ---
