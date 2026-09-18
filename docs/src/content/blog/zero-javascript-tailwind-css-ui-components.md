@@ -3,11 +3,10 @@ title: "Zero JavaScript UI: Build Faster, More Accessible Web Apps With CSS-Only
 description: "The native web platform now handles modals, accordions, drawers, and popovers without JavaScript. Here is how CSS-only Tailwind CSS components from Frutjam make this practical."
 metaTitle: "Zero JavaScript Tailwind UI: Modal, Accordion, Drawer in Pure CSS"
 metaDescription: "Build modals, accordions, drawers, and tabs with zero JavaScript. CSS-only Tailwind UI with WCAG AA contrast — PageSpeed 100 by default."
-image: "https://cdn.frutjam.com/media/blog/posts/why-i-built-frutjam-css-first-tailwind-ui-library.jpg"
-imageAlt: "Zero JavaScript UI components with Tailwind CSS — Frutjam CSS-only component library"
+image: "https://cdn.frutjam.com/media/blog/posts/zero-javascript-tailwind-css-ui-components.jpg"
+imageAlt: "Zero JavaScript UI — modal, accordion and drawer built from dialog, details and :target"
 createdAt: "2026-07-05T06:54:28.002616+00:00"
-updatedAt: "2026-07-11T15:32:34.605658+00:00"
-draft: true
+updatedAt: "2026-09-18T06:06:03.572+00:00"
 ---
 
 The idea that you need JavaScript to build a polished, interactive web application has been quietly falling apart for years. The native web platform — HTML and CSS — now handles more UI patterns than most developers realize. Accordions, drawers, tabs, animated transitions, and accessible form controls: all achievable without a single line of JavaScript.

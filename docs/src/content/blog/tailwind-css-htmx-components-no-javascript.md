@@ -3,11 +3,10 @@ title: "Tailwind CSS + HTMX: The Component Library That Does Not Fight Your Stac
 description: "Why most Tailwind CSS component libraries break with HTMX — and how Frutjam's CSS-only components work seamlessly with HTMX, Django, and Laravel without re-initialization."
 metaTitle: "HTMX Tailwind UI | Django & Laravel Components | Frutjam"
 metaDescription: "HTMX Tailwind UI: CSS-only components for Django, Laravel, and FastAPI that work on every DOM swap. No JavaScript re-initialization required."
-image: "https://cdn.frutjam.com/media/blog/posts/why-i-built-frutjam-css-first-tailwind-ui-library.jpg"
-imageAlt: "Tailwind CSS HTMX components — Frutjam CSS-only UI library for hypermedia apps"
+image: "https://cdn.frutjam.com/media/blog/posts/tailwind-css-htmx-components-no-javascript.jpg"
+imageAlt: "Tailwind CSS and HTMX — a CSS-only Load more button still styled after an HTMX swap"
 createdAt: "2026-07-05T06:54:27.736340+00:00"
-updatedAt: "2026-07-11T15:32:21.163163+00:00"
-draft: true
+updatedAt: "2026-09-18T06:06:03.567+00:00"
 ---
 
 If you are building a server-side application with Django, Laravel, or FastAPI and evaluating front-end component libraries, the pairing of Tailwind CSS and HTMX is one of the most productive stacks available — and the right HTMX Tailwind UI component library makes all the difference. You get server-rendered HTML, hypermedia-driven interactivity, and minimal JavaScript — without a client-side framework.
