@@ -5,7 +5,13 @@ import Base from '@/layouts/Base.astro';
 import { publishedPosts, type Post } from '@/lib/site';
 
 export async function getStaticPaths() {
-  return (await publishedPosts()).map((blog) => ({ params: { slug: blog.id }, props: { blog } }));
+  const posts = await publishedPosts(); // newest first
+  return posts.map((blog, i) => ({
+    params: { slug: blog.id },
+    // Somewhere to go at the end of the article: the next post up the list,
+    // or the one below it for the newest post, which has nothing newer.
+    props: { blog, next: posts[i - 1] ?? posts[i + 1] },
+  }));
 }
 
 interface TocItem {
@@ -14,7 +20,7 @@ interface TocItem {
   children: TocItem[];
 }
 
-const { blog } = Astro.props as { blog: Post };
+const { blog, next } = Astro.props as { blog: Post; next?: Post };
 const { Content, remarkPluginFrontmatter } = await render(blog);
 const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
 ---
@@ -55,6 +61,27 @@ const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
                     >
                 </picture>
                 <Content />
+
+                {next && (
+                <div class="not-prose mt-12 pt-8 border-t border-base-soft">
+                    <p class="text-sm text-neutral mb-3">Read next</p>
+                    <a href={`/blog/${next.id}`} class="card card-outline shadow-sm max-w-2xl sm:flex-row sm:items-center overflow-hidden">
+                        <figure class="max-sm:hidden shrink-0">
+                            <img
+                                src={`${next.data.image}?width=240&height=135&crop_gravity=center&format=webp`}
+                                alt={next.data.imageAlt}
+                                width="240"
+                                height="135"
+                                loading="lazy"
+                            >
+                        </figure>
+                        <div class="card-content">
+                            <h2 class="card-title text-base">{next.data.title}</h2>
+                            <p class="text-sm">{next.data.description}</p>
+                        </div>
+                    </a>
+                </div>
+                )}
             </article>
             <aside class="hidden lg:block lg:col-span-3 lg:col-start-12 lg:row-start-1 lg:row-span-2">
                 <div class="lg:sidebar px-2 border-e-0! lg:top-26 not-prose">
