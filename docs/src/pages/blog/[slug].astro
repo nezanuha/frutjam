@@ -8,9 +8,10 @@ export async function getStaticPaths() {
   const posts = await publishedPosts(); // newest first
   return posts.map((blog, i) => ({
     params: { slug: blog.id },
-    // Somewhere to go at the end of the article: the next post up the list,
-    // or the one below it for the newest post, which has nothing newer.
-    props: { blog, next: posts[i - 1] ?? posts[i + 1] },
+    // Somewhere to go at the end of the article: the next post down the list,
+    // with the oldest wrapping back to the newest. A cycle rather than a pair
+    // pointing at each other, so every post is reachable from any other.
+    props: { blog, next: posts.length > 1 ? posts[(i + 1) % posts.length] : undefined },
   }));
 }
 
@@ -65,19 +66,24 @@ const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
                 {next && (
                 <div class="not-prose mt-12 pt-8 border-t border-base-soft">
                     <p class="text-sm text-neutral mb-3">Read next</p>
-                    <a href={`/blog/${next.id}`} class="card card-outline shadow-sm max-w-2xl sm:flex-row sm:items-center overflow-hidden">
-                        <figure class="max-sm:hidden shrink-0">
+                    <a href={`/blog/${next.id}`} class="card card-outline shadow-sm max-w-2xl sm:flex-row overflow-hidden">
+                        {/* Fills the card's height however tall the title wraps;
+                            the source is twice the displayed size, for sharpness. */}
+                        <figure class="max-sm:hidden shrink-0 w-56 self-stretch">
                             <img
-                                src={`${next.data.image}?width=240&height=135&crop_gravity=center&format=webp`}
+                                src={`${next.data.image}?width=480&height=270&crop_gravity=center&format=webp`}
                                 alt={next.data.imageAlt}
-                                width="240"
-                                height="135"
+                                width="480"
+                                height="270"
+                                class="size-full object-cover"
                                 loading="lazy"
                             >
                         </figure>
-                        <div class="card-content">
-                            <h2 class="card-title text-base">{next.data.title}</h2>
-                            <p class="text-sm">{next.data.description}</p>
+                        {/* Clamped so the card stays close to the cover's own
+                            shape: a taller card would crop the artwork harder. */}
+                        <div class="card-content p-4!">
+                            <h2 class="card-title text-base line-clamp-2">{next.data.title}</h2>
+                            <p class="text-sm line-clamp-2">{next.data.description}</p>
                         </div>
                     </a>
                 </div>
