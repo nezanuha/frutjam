@@ -4,10 +4,9 @@ description: "Most Django markdown editors replace the textarea, so you have to 
 metaTitle: "Django Markdown Editor for Forms | No JS Sync | Frutjam"
 metaDescription: "Add a markdown editor to Django forms without breaking form submission. No manual sync, no custom widget — request.POST receives the markdown as typed."
 image: "https://cdn.frutjam.com/media/blog/posts/django-markdown-editor-textarea.jpg"
-imageAlt: "Illustration of a Django form posting markdown straight through a textarea with no sync step"
+imageAlt: "Illustration of a text box with an editor toolbar and a pencil writing in it, beside a green check mark"
 createdAt: "2026-09-22T00:00:00+00:00"
 updatedAt: "2026-09-22T00:00:00+00:00"
-draft: true
 ---
 
 Most tutorials for adding a markdown editor to Django end the same way:
