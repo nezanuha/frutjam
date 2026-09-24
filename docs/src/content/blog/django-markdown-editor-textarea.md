@@ -207,6 +207,13 @@ A markdown editor that replaces the textarea makes itself part of your form pipe
 
 That is the whole design, and it is why the Django integration in this post is three lines long.
 
+## Starting from scratch?
+
+[django-frutjam-starter](https://github.com/nezanuha/django-frutjam-starter) is a
+working Django 6 project with all of this already wired up — accounts, a
+dashboard, and this exact markdown editor on a notes form. Clone it, run two
+commands, and you have somewhere to start.
+
 ---
 
 Full docs, theming guide, and image upload configuration: [markdown-text-editor on Frutjam](https://frutjam.com/plugins/markdown-editor).

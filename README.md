@@ -282,6 +282,16 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 
 ---
 
+## Starter Projects
+
+Working projects with Frutjam already wired up — clone and start building.
+
+| Starter | Stack |
+|---------|-------|
+| [django-frutjam-starter](https://github.com/nezanuha/django-frutjam-starter) | Django 6, auth, dashboard, markdown CRUD |
+
+---
+
 ## Documentation
 
 - [Getting Started](https://frutjam.com/docs/overview)
@@ -292,6 +302,7 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 - [All Components](https://frutjam.com/components)
 - [UI Blocks](https://frutjam.com/blocks)
 - [Cherry MCP](https://frutjam.com/products/cherry)
+- [Django starter project](https://github.com/nezanuha/django-frutjam-starter)
 
 ---
 
