@@ -4,10 +4,9 @@ description: "Popper.js and Floating UI existed to answer one question: where sh
 metaTitle: "CSS Anchor Positioning for Dropdowns | No Floating UI | Frutjam"
 metaDescription: "CSS anchor positioning is Baseline. Position dropdowns and popovers relative to their trigger, with automatic edge flipping, without Popper.js or Floating UI."
 image: "https://cdn.frutjam.com/media/blog/posts/css-anchor-positioning-popover-no-javascript.jpg"
-imageAlt: "Illustration of a floating panel tethered to a button, flipping to the other side as it nears the edge of the screen"
+imageAlt: "Illustration of two panels tethered to a block, one having swung across a dotted arc to the opposite side"
 createdAt: "2026-09-25T00:00:00+00:00"
 updatedAt: "2026-09-25T00:00:00+00:00"
-draft: true
 ---
 
 Every dropdown you have ever built had the same problem underneath it: the panel
