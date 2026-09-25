@@ -10,32 +10,53 @@ updatedAt: "2026-10-01T00:00:00+00:00"
 draft: true
 ---
 
-Most tutorials for adding a markdown editor to Laravel end the same way:
+Add a markdown editor to a Blade form the usual way and it looks fine — until
+the form silently refuses to submit:
 
-```php
-// Your Blade form
-<textarea id="content" name="content">{{ old('content') }}</textarea>
+```blade
+<textarea id="content" name="content" required>{{ old('content') }}</textarea>
 ```
 
 ```javascript
-// Then in your script:
+// The editor everyone reaches for first
 const easyMDE = new EasyMDE({ element: document.getElementById('content') });
-
-// And before submit, you have to manually sync it back:
-document.querySelector('form').addEventListener('submit', () => {
-    document.getElementById('content').value = easyMDE.value();
-});
 ```
 
-That extra sync step is the problem. Laravel reads `$request->input('content')` directly from the submitted form field. If the editor replaced your textarea and you forgot the sync, you get empty data in your controller — no validation error, no warning, just blank content saved to your database.
+Click Save and nothing happens. No validation error, no request, no clue on the
+page. The console says:
 
-Worse, it fails quietly. The page looks right, the editor works, the form redirects. Only the row in the database is empty.
+```
+An invalid form control with name='content' is not focusable.
+```
+
+EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The
+hidden field is still `required`, so the browser refuses to submit a form it
+cannot focus the invalid field in — and because the submit event never fires,
+the editor never copies its content back.
+
+To be fair to EasyMDE: without `required` it does sync on submit by itself, so a
+plain form works. The trouble is that the value only exists in the textarea
+*during* submit:
+
+```javascript
+// Any code that reads the field before submit gets an empty string
+new FormData(document.querySelector('form')).get('content');   // ""
+```
+
+That breaks anything that serialises the form itself — Livewire, Alpine, htmx,
+autosave, an "unsaved changes" guard, a character counter.
 
 ## A better approach
 
-[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) enhances your textarea instead of replacing it. The original `<textarea>` stays in the DOM and keeps its `name` attribute, so Laravel's form handling works exactly as normal — no sync required.
+[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the
+textarea you already have and leaves it as the field you type into. It is never
+hidden and never copied, so its value is correct at every moment — not just
+during submit.
 
-Everything you already rely on keeps working: `$request->input()`, form request validation, `old()` repopulation, CSRF, and mass assignment.
+`required` works because the field is visible. `FormData` works because the
+value is live. And `$request->input()`, form request validation, `old()`
+repopulation, CSRF and mass assignment all behave exactly as they do with a
+plain textarea.
 
 ## Setup
 
@@ -178,7 +199,7 @@ new MarkdownEditor('.markdown-editor', {
 - **Dark mode** — add `data-theme="dark"` to any ancestor element
 - **XSS safe** — preview sanitized with DOMPurify
 - **CSP compatible** — no inline event handlers
-- **~116KB** — against 300KB+ for EasyMDE
+- **51 KB gzipped** (245 KB minified, CSS included) — EasyMDE is 107 KB gzipped across its JS and CSS
 
 ## Rendering markdown in Blade
 
@@ -230,9 +251,15 @@ Note the `html_input => 'strip'` setting. Markdown allows raw HTML, so anything 
 
 ## Why the textarea matters
 
-An editor that replaces the textarea makes itself part of your form pipeline. Every form using it needs the sync step, every new developer on the team has to learn about it, and every forgotten one is a silent data-loss bug that validation cannot catch — an empty string passes `required` checks only after it has already been submitted as empty.
+An editor that hides the textarea and edits a copy has to guess when to put the
+content back. CodeMirror guesses "on submit", which is right most of the time —
+until the browser refuses to submit, or Livewire reads the form before that
+moment. Every one of those failures is silent, because from the outside the
+field looks fine.
 
-An editor that enhances the textarea stays out of the pipeline entirely: the browser submits the field, Laravel reads it, and nothing in between has an opinion.
+An editor that leaves the textarea in place has nothing to guess about. The
+browser owns the value, Laravel reads what the browser sent, and nothing in
+between has an opinion.
 
 That is the whole design, and it is why the Laravel integration in this post is two lines long.
 

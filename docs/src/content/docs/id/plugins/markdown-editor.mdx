@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript Editor Teks Penurunan Harga oleh Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "dfa041018f60"
-translationHash: "27d4aa93c93c"
+sourceHash: "ec38ef061fc1"
+translationHash: "eb66782b9c89"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -103,26 +103,26 @@ Kebanyakan editor melanggar alur kerja web standar. **MarkdownEditor** meneriman
 
 - **Tidak Perlu Pengikatan Data:** Dapat digunakan dengan `<form method="POST">` keluar dari kotak
 - **Akses Standar:** Gunakan `document.getElementById('editor').value` seperti masukan biasa.
-- **Backend Agnostic:** Berfungsi dengan backend apa pun (Python, Node.js, PHP, dll.) seperti kolom formulir biasa
+- **Backend Agnostic:** Berfungsi dengan backend apa pun (Python, Node.js, PHP, dll.) seperti kolom formulir normal
 
 ## MarkdownEditor vs EasyMDE / SimpleMDE
 
-Kebanyakan editor penurunan harga JavaScript — EasyMDE, SimpleMDE, editor berbasis CodeMirror — **ganti `<textarea>`** dengan elemen khusus. Itu berarti pengiriman formulir terhenti, `.value` tidak menghasilkan apa-apa, dan Anda harus menulis kode tambahan hanya untuk membaca kembali kontennya. **MarkdownEditor berbeda** — ini menyempurnakan area teks yang ada dan tidak pernah menggantikannya.
+Kebanyakan editor penurunan harga JavaScript — EasyMDE, SimpleMDE, editor berbasis CodeMirror — **menyembunyikan `<textarea>`** dan edit salinannya, tulis kembali isinya saat formulir diserahkan. Itu berfungsi sampai sesuatu yang lain membutuhkan nilai: a `required` bidang browser tidak dapat fokus memblokir pengiriman seluruhnya, dan `.value` atau `FormData` read before submit mengembalikan string kosong, yang merusak penjaga htmx, Turbo, penyimpanan otomatis, dan perubahan yang belum disimpan. **MarkdownEditor berbeda** — ini memberi gaya pada area teks yang sudah Anda miliki dan membiarkannya sebagai bidang yang Anda ketik, sehingga nilainya selalu benar.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Fitur | Editor Penurunan Harga | MudahMDE / SederhanaMDE |
 | --- | --- | --- |
-| Textarea asli dipertahankan | ✅ | ❌ Diganti |
-| Pengiriman formulir berfungsi apa adanya | ✅ | ❌ Membutuhkan JS tambahan |
-| Dapatkan/tetapkan nilai melalui `.value` | ✅ | ❌ Diperlukan API khusus |
+| Textarea asli dipertahankan | ✅ | ❌ Tersembunyi, diedit sebagai salinan |
+| Bekerja dengan `required` bidang | ✅ | ❌ Browser memblokir pengiriman |
+| `.value` benar sebelum diserahkan | ✅ | ❌ Kosongkan sampai formulir diserahkan |
+| Serialisasi dengan `FormData`, htmx, Turbo | ✅ | ❌ Memerlukan API milik editor sendiri |
 | Mode hibrid WYSIWYG | ✅ | ❌ |
 | Temukan & Ganti bawaan | ✅ | ❌ |
-| dukungan RTL | ✅ | ❌ |
-| Kompatibel dengan CSP (tidak ada JS sebaris) | ✅ | ❌ |
-| Tidak ada konflik CSS | ✅ | ❌ |
+| dukungan RTL | ✅ Terpasang | Melalui CodeMirror's `direction` pilihan |
+| Pengendali kejadian sebaris (CSP) | ✅ Tidak ada | Beberapa |
 | Mode gelap/tema | ✅ | Terbatas |
-| Ukuran bundel | ~116KB | ~300KB+ |
+| Ukuran bundel, di-gzip | 51 KB | 107 KB (JS+CSS) |
 
 </DocTable>
 
@@ -204,7 +204,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` berfungsi persis seperti area teks standar mana pun — masukkan dan penanganan formulir yang ada tidak memerlukan perubahan apa pun.
+`$_POST['content']` berfungsi persis seperti area teks standar mana pun — masukkan dan penanganan formulir Anda yang sudah ada tidak memerlukan perubahan apa pun.
 
 <Snippet view="code">
 
@@ -288,7 +288,7 @@ Opsi dibaca satu kali, saat editor dibuat. Mengubahnya setelah itu tidak berpeng
 
 | Milik | Jenis | Bawaan | Tujuan |
 | --- | --- | --- | --- |
-| `mode` | `string` | `'plain'` | Mengatur tampilan awal. Gunakan hybrid untuk pengalaman WYSIWYG atau biasa untuk sintaksis mentah. |
+| `mode` | `string` | `'plain'` | Mengatur tampilan awal. Gunakan hybrid untuk pengalaman WYSIWYG atau biasa untuk sintaks mentah. |
 | `placeholder` | `string` | `'Write...'` | Teks ditampilkan saat editor kosong. |
 | `toolbar` | `array` | `[...]` | Menentukan alat mana yang muncul dan dalam urutan apa. |
 | `footer` | `salah \| objek` | semua terlihat | Mengontrol bilah status yang ditampilkan di bawah editor. Setel ke `false` untuk menyembunyikannya seluruhnya, atau meneruskan objek untuk mengubah statistik individual. |
@@ -697,7 +697,7 @@ Variabel CSS mencakup sebagian besar tema karena merupakan warisan, jadi aktifka
 
 #### Referensi kelas
 
-Nama kelas ini stabil dan aman untuk ditata.
+Nama kelas ini stabil dan aman untuk digunakan.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -909,7 +909,7 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ### Pengiriman Formulir
 
-Karena **MarkdownEditor** dibuat langsung dari versi asli `<textarea>`, ini kompatibel dengan semua kerangka backend (Django, Laravel, PHP, Ruby on Rails, dll.) langsung dari kotaknya.
+Karena **MarkdownEditor** dibuat langsung dari versi asli `<textarea>`, ini kompatibel dengan setiap kerangka backend (Django, Laravel, PHP, Ruby on Rails, dll.) langsung dari kotaknya.
 
 Di sinilah filosofi “Pribumi-Pertama” bersinar. Anda tidak perlu menyinkronkan data secara manual sebelum mengirimkan formulir. Browser memperlakukan editor persis seperti kolom input standar.
 
@@ -932,7 +932,7 @@ Di sinilah filosofi “Pribumi-Pertama” bersinar. Anda tidak perlu menyinkronk
 
 </Snippet>
 
-<RawHtml html={"<p class=\"text-sm\"><strong>Catatan:</strong> Inisialisasi plugin MarkdownEditor wajib dilakukan</p>"} />
+<RawHtml html={"<p class=\"text-sm\"><strong>Catatan:</strong> Inisialisasi plugin MarkdownEditor wajib</p>"} />
 
 Cukup gunakan HTML standar `<form>`. Itu `name` Atribut pada textarea adalah apa yang akan digunakan server Anda untuk mengidentifikasi konten.
 
@@ -1078,7 +1078,7 @@ image: {
 
 ### Penggunaan Gambar Standar (No `fileInput`)
 
-Jika `fileInput` tidak dikonfigurasi, editor defaultnya menggunakan modal berbasis URL sederhana. Ini ideal jika sebagian besar pengguna Anda terhubung ke host gambar eksternal.
+Jika `fileInput` tidak dikonfigurasi, editor defaultnya menggunakan modal sederhana berbasis URL. Ini ideal jika sebagian besar pengguna Anda terhubung ke host gambar eksternal.
 
 <Snippet view="code">
 
@@ -1112,12 +1112,18 @@ Tindakan pemformatan umum dapat dipicu langsung dari keyboard tanpa menyentuh to
 | `Ctrl + K`  /  `⌘ K` | Sisipkan Tautan |
 | `` Ctrl + ` ``  /  `` ⌘ ` `` | Beralih sebaris `Code` |
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Alihkan ~~Dicoret~~ |
+| `Ctrl + 1`  /  `⌘ 1` | Judul 1 |
+| `Ctrl + 2`  /  `⌘ 2` | Judul 2 |
+| `Ctrl + 3`  /  `⌘ 3` | Pos 3 |
+| `Ctrl + L`  /  `⌘ L` | Alihkan daftar poin |
 | `Ctrl + Z`  /  `⌘ Z` | Membuka |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Mengulangi |
 | `Tab` | Indentasi baris yang dipilih |
 | `Shift + Tab` | Garis yang dipilih keluar |
 | `Ctrl + F`  /  `⌘ F` | Buka panel Temukan |
 | `Ctrl + H`  /  `⌘ H` | Buka panel Temukan & Ganti |
+| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | Alihkan pratinjau layar penuh |
+| `F11` | Alihkan pratinjau layar penuh |
 | `Escape` | Tutup panel Temukan / Keluar dari pratinjau layar penuh |
 
 </DocTable>
@@ -1137,7 +1143,7 @@ Panel mengapung di sudut kanan atas area konten editor dan tidak mengganggu penu
 
 ## Fitur
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integrasi Formulir Asli</h2><p class=\"para-sm\">Bekerja persis seperti <code>&lt;textarea&gt;</code> standar. Tidak ada API yang rumit—cukup gunakan atribut <code>value</code> atau <code>name</code>. Ini \"hanya berfungsi\" dengan pengiriman formulir HTML standar di PHP, Django, atau Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Unggah Gambar Tingkat Lanjut</h2><p class=\"para-sm\">Konfigurasikan unggahan server asli melalui API. Hindari string Base64 yang berat untuk memastikan pemuatan halaman lebih cepat dan SEO unggul dengan menghosting gambar di CDN Anda sendiri.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid &amp; Plain Modes</h2><p class=\"para-sm\">Beralih antara pengalaman <strong>Hybrid (WYSIWYG)</strong> untuk pengeditan visual atau mode <strong>Plain Markdown</strong> untuk nuansa pengkodean tradisional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Performa Tinggi</h2><p class=\"para-sm\">Paket kecil <strong>~116KB</strong> yang dioptimalkan untuk \"Konten Berat\". Menangani dokumen berukuran besar dan file besar tanpa jeda input atau penurunan kinerja. Pembaruan pratinjau yang dibatalkan, penghitungan gaya yang di-cache, dan penanganan keyboard bebas konflik — jadi Tab dan Enter selalu melakukan satu hal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Dukungan RTL bawaan</h2><p class=\"para-sm\">Dukungan asli untuk bahasa Kanan-Kiri seperti Arab, Urdu, dan Farsi. Sempurna untuk membangun aplikasi yang dapat diakses secara global.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Penyorotan Sintaks</h2><p class=\"para-sm\">Peningkatan keterbacaan dengan kode yang jelas dan format penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptif</h2><p class=\"para-sm\">Termasuk dukungan Mode Gelap otomatis. Ini disinkronkan dengan pengaturan sistem Anda atau perpustakaan <strong>Frutjam UI</strong> untuk pengalaman visual yang lancar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Pengeditan Cerdas</h2><p class=\"para-sm\">Kelanjutan daftar otomatis gaya GitHub untuk daftar terurut, daftar tidak berurutan, dan daftar periksa — tekan <code>Enter</code> dan editor melanjutkan polanya. Kotak centang di panel pratinjau dapat diklik dan langsung disinkronkan kembali ke sumber penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Sepenuhnya Responsif</h2><p class=\"para-sm\">UI yang lancar dan mengutamakan seluler yang beradaptasi sempurna dengan desktop, tablet, dan ponsel cerdas untuk mengedit saat bepergian.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Dukungan Universal</h2><p class=\"para-sm\">Kompatibel dengan <strong>ESM, UMD, CommonJS, dan IIFE</strong>. Berfungsi langsung melalui CDN (<code>&lt;script src&gt;</code>), npm, atau bundler apa pun (Vite, webpack, Rollup) — tidak diperlukan konfigurasi tambahan.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accessible by Default</h2><p class=\"para-sm\">Dukungan penuh ARIA bawaan — landmark toolbar, wilayah pratinjau berlabel, tombol ramah pembaca layar, <code>aria-pressed</code> pada tombol pratinjau, <code>disabled</code> dan <code>aria-disabled</code> pada alat yang tidak aktif, dan memperbaiki pemulihan fokus saat modal ditutup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero CSS Conflicts</h2><p class=\"para-sm\">Gaya editor sepenuhnya tercakup dalam <code>.markdown-editor-wrapper</code>. Pra-penerbangan global Tailwind dikecualikan sehingga editor dapat bekerja dengan aman bersama Bootstrap, Tailwind, atau kerangka kerja lainnya tanpa merusak gayanya.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Pintasan Papan Ketik</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — tindakan pemformatan umum tanpa menyentuh mouse. Setiap pintasan ditampilkan di tooltip tombol toolbar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Temukan &amp; Mengganti</h2><p class=\"para-sm\">Tekan <code>Ctrl+F</code> untuk mencari atau <code>Ctrl+H</code> untuk membuka cari pengganti &amp;. Pencarian tidak peka huruf besar-kecil dengan penghitung pencocokan langsung, navigasi berikutnya/sebelumnya, penggantian tunggal, dan penggantian semua — tanpa meninggalkan editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Preview</h2><p class=\"para-sm\">Pratinjau yang dirender dibersihkan melalui <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> sebelum ditulis ke DOM. Tag skrip, pengendali kejadian sebaris, dan URL berbahaya dalam masukan penurunan harga yang dibuat akan dihapus secara otomatis — tidak diperlukan konfigurasi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Pratinjau Waktu Nyata</h2><p class=\"para-sm\">Lihat penurunan harga Anda ditampilkan secara instan saat Anda mengetik.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Integrasi Mudah</h2><p class=\"para-sm\">Integrasikan secara mulus ke dalam proyek web apa pun dengan pengaturan minimal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Bilah Alat yang Dapat Disesuaikan</h2><p class=\"para-sm\">Konfigurasikan dan susun ulang opsi toolbar secara dinamis seperti huruf tebal, miring, dan lainnya.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integrasi Formulir Asli</h2><p class=\"para-sm\">Bekerja persis seperti standar <code>&lt;textarea&gt;</code>. Tidak ada API yang rumit—cukup gunakan <code>value</code> atau <code>name</code> atribut. Ini \"hanya berfungsi\" dengan pengiriman formulir HTML standar di PHP, Django, atau Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Unggah Gambar Tingkat Lanjut</h2><p class=\"para-sm\">Konfigurasikan unggahan server asli melalui API. Hindari string Base64 yang berat untuk memastikan pemuatan halaman lebih cepat dan SEO unggul dengan menghosting gambar di CDN Anda sendiri.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Mode Hibrid & Biasa</h2><p class=\"para-sm\">Beralih antara a <strong>Hibrida (WYSIWYG)</strong> pengalaman untuk mengedit visual atau <strong>Penurunan Harga Biasa</strong> mode untuk nuansa pengkodean tradisional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Performa Tinggi</h2><p class=\"para-sm\">A <strong>51 KB di-gzip</strong> bundel (245 KB diperkecil, termasuk CSS) dioptimalkan untuk \"Konten Berat\". Menangani dokumen berukuran besar dan file besar tanpa jeda input atau penurunan kinerja. Pembaruan pratinjau yang dibatalkan, penghitungan gaya yang di-cache, dan penanganan keyboard bebas konflik — jadi Tab dan Enter selalu melakukan satu hal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Dukungan RTL bawaan</h2><p class=\"para-sm\">Dukungan asli untuk bahasa Kanan-Kiri seperti Arab, Urdu, dan Farsi. Sempurna untuk membangun aplikasi yang dapat diakses secara global.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Penyorotan Sintaks</h2><p class=\"para-sm\">Peningkatan keterbacaan dengan kode yang jelas dan format penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptif</h2><p class=\"para-sm\">Termasuk dukungan Mode Gelap otomatis. Ini disinkronkan dengan pengaturan sistem Anda atau <strong>Frutjam UI</strong> perpustakaan untuk pengalaman visual yang mulus.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Pengeditan Cerdas</h2><p class=\"para-sm\">Kelanjutan daftar otomatis gaya GitHub untuk daftar terurut, daftar tidak berurutan, dan daftar periksa — tekan <code>Enter</code> dan editor melanjutkan polanya. Kotak centang di panel pratinjau dapat diklik dan langsung disinkronkan kembali ke sumber penurunan harga.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Sepenuhnya Responsif</h2><p class=\"para-sm\">UI yang lancar dan mengutamakan seluler yang beradaptasi sempurna dengan desktop, tablet, dan ponsel cerdas untuk mengedit saat bepergian.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Dukungan Universal</h2><p class=\"para-sm\">Kompatibel dengan <strong>ESM, UMD, CommonJS, dan IIFE</strong>. Bekerja di luar kotak melalui CDN (<code>&lt;script src&gt;</code>), npm, atau bundler apa pun (Vite, webpack, Rollup) — tidak memerlukan konfigurasi tambahan.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Dapat Diakses secara Default</h2><p class=\"para-sm\">Dukungan penuh ARIA bawaan — landmark toolbar, wilayah pratinjau berlabel, tombol ramah pembaca layar, <code>aria-pressed</code> pada tombol pratinjau, <code>disabled</code> Dan <code>aria-disabled</code> pada alat yang tidak aktif, dan memperbaiki pemulihan fokus saat modals ditutup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Nol Konflik CSS</h2><p class=\"para-sm\">Gaya editor sepenuhnya tercakup <code>.markdown-editor-wrapper</code>. Pra-penerbangan global Tailwind dikecualikan sehingga editor dapat bekerja dengan aman bersama Bootstrap, Tailwind, atau kerangka kerja lainnya tanpa merusak gayanya.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Pintasan Papan Ketik</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — tindakan pemformatan umum tanpa menyentuh mouse. Setiap pintasan ditampilkan di tooltip tombol toolbar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Temukan & Ganti</h2><p class=\"para-sm\">Tekan <code>Ctrl+F</code> untuk menemukan atau <code>Ctrl+H</code> untuk membuka temukan & ganti. Pencarian tidak peka huruf besar-kecil dengan penghitung pencocokan langsung, navigasi berikutnya/sebelumnya, penggantian tunggal, dan penggantian semua — tanpa meninggalkan editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Pratinjau Aman XSS</h2><p class=\"para-sm\">Pratinjau yang diberikan dibersihkan melalui <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurifikasi</a> sebelum ditulis ke DOM. Tag skrip, pengendali kejadian sebaris, dan URL berbahaya dalam masukan penurunan harga yang dibuat akan dihapus secara otomatis — tidak diperlukan konfigurasi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Pratinjau Waktu Nyata</h2><p class=\"para-sm\">Lihat penurunan harga Anda ditampilkan secara instan saat Anda mengetik.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Integrasi Mudah</h2><p class=\"para-sm\">Integrasikan secara mulus ke dalam proyek web apa pun dengan pengaturan minimal.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Bilah Alat yang Dapat Disesuaikan</h2><p class=\"para-sm\">Konfigurasikan dan susun ulang opsi toolbar secara dinamis seperti huruf tebal, miring, dan lainnya.</p></div></div></div>"} />
 
 ## Contoh Konfigurasi Lengkap
 
@@ -1183,4 +1189,4 @@ const markdown = document.getElementById('markdown-editor').value;
 
 </Snippet>
 
-<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Apakah ini bermanfaat?</p><p class=\"text-sm\">Bintang GitHub membantu pengembang lain menemukan editornya. Itu bagian dari <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. Sebuah bintang di sana juga membantu.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Bintangi di GitHub</a></div>"} />
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Apakah ini berguna?</p><p class=\"text-sm\">Bintang GitHub membantu pengembang lain menemukan editornya. Itu bagian dari <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">buah-buahan</a>. Sebuah bintang di sana juga membantu.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Bintangi di GitHub</a></div>"} />

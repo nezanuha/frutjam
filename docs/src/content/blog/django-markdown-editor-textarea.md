@@ -9,33 +9,56 @@ createdAt: "2026-09-22T00:00:00+00:00"
 updatedAt: "2026-09-22T00:00:00+00:00"
 ---
 
-Most tutorials for adding a markdown editor to Django end the same way:
+Add a markdown editor to a Django form the usual way and it looks fine — until
+the form silently refuses to submit:
 
 ```python
-# forms.py
+# forms.py — Django adds required=True to every non-blank field
 class PostForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea())
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
 ```
 
 ```javascript
-// Then in your template, something like:
+// The editor everyone reaches for first
 const easyMDE = new EasyMDE({ element: document.getElementById('id_content') });
-
-// And before submit, you have to manually sync it back:
-document.querySelector('form').addEventListener('submit', () => {
-    document.getElementById('id_content').value = easyMDE.value();
-});
 ```
 
-That extra sync step is the problem. Django's form submission reads the textarea value directly. If your editor replaced the textarea with a custom element and you forget the sync, `request.POST['content']` is empty — and you're left wondering why your form saves blank data.
+Click Save and nothing happens. No validation error, no request, no clue on the
+page. The console says:
 
-It is also the kind of bug that survives code review. The page looks right, the editor works, the form submits. Only the saved content is missing.
+```
+An invalid form control with name='content' is not focusable.
+```
+
+EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The
+hidden field is still `required`, so the browser refuses to submit a form it
+cannot focus the invalid field in — and because the submit event never fires,
+the editor never copies its content back. The user's writing goes nowhere.
+
+To be fair to EasyMDE: on a form *without* `required`, it does sync on submit by
+itself, so plain forms work. The trouble is that Django marks fields required by
+default, and that the value only exists in the textarea *during* submit:
+
+```javascript
+// Any code that reads the field before submit gets an empty string
+new FormData(document.querySelector('form')).get('content');   // ""
+```
+
+That breaks anything that serialises the form itself — htmx, Turbo, Alpine,
+autosave, an "unsaved changes" guard, a character counter.
 
 ## A better approach
 
-[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) enhances your textarea instead of replacing it. The original `<textarea>` stays in the DOM and keeps its `name` attribute, so Django's form handling works exactly as normal — no sync required.
+[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the
+textarea you already have and leaves it as the field you type into. It is never
+hidden and never copied, so its value is correct at every moment — not just
+during submit.
 
-Everything you already rely on keeps working: `request.POST`, form validation, `ModelForm.save()`, CSRF, and pre-filling on edit.
+`required` works because the field is visible. `FormData` works because the
+value is live. And `request.POST`, form validation, `ModelForm.save()`, CSRF and
+pre-filling on edit all behave exactly as they do with a plain textarea.
 
 ## Setup
 
@@ -125,7 +148,9 @@ def edit_post(request, pk):
 
 ## Validation errors keep the user's text
 
-This is where replacing the textarea usually hurts most. When a form fails validation, Django re-renders the page with the submitted data bound to the form. Because the markdown lives in the textarea, it comes back with it:
+Server-side validation is the other half of the story. When a form fails
+validation, Django re-renders the page with the submitted data bound to the
+form. Because the markdown lives in the textarea, it comes back with it:
 
 ```python
 def create_post(request):
@@ -163,7 +188,7 @@ new MarkdownEditor('.markdown-editor', {
 - **Dark mode** — add `data-theme="dark"` to any ancestor element
 - **XSS safe** — preview sanitized with DOMPurify
 - **CSP compatible** — no inline event handlers
-- **~116KB** — against 300KB+ for EasyMDE
+- **51 KB gzipped** (245 KB minified, CSS included) — EasyMDE is 107 KB gzipped across its JS and CSS
 
 ## Rendering markdown in templates
 
@@ -203,9 +228,18 @@ Sanitize on render, not on save. Storing the raw markdown means you can change h
 
 ## Why the textarea matters
 
-A markdown editor that replaces the textarea makes itself part of your form pipeline. Every form that uses it needs the sync step, every new developer has to learn about it, and every forgotten one is a silent data-loss bug. An editor that enhances the textarea stays out of the pipeline entirely: the browser submits the field, Django reads it, and nothing in between has an opinion.
+An editor that hides the textarea and edits a copy has to guess when to put the
+content back. CodeMirror guesses "on submit", which is a good guess and right
+most of the time — until the browser refuses to submit, or something reads the
+form before that moment. Every one of those failures is silent, because from the
+outside the field looks fine.
 
-That is the whole design, and it is why the Django integration in this post is three lines long.
+An editor that leaves the textarea in place has nothing to guess about. The
+browser owns the value, Django reads what the browser sent, and nothing in
+between has an opinion.
+
+That is the whole design, and it is why the Django integration in this post is
+three lines long.
 
 ## Starting from scratch?
 
