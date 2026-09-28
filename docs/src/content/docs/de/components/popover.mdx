@@ -3,7 +3,7 @@ name: "Popover"
 heading: "Popover-Komponente"
 description: "Nur CSS-Tailwind-CSS-Popover unter Verwendung der nativen Popover-API. Schwebendes Inhaltsfeld für Tooltips und Dropdowns. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
 metaTitle: "Tailwind CSS Popover & Dropdown-Menü – Nur CSS | Frutjam"
-metaDescription: "Nur CSS-Tailwind-CSS-Popover und Dropdown-Menü. Native HTML-Popover-API, Dropdown-Menüs in der Navigationsleiste, Profilmenüs – kein JavaScript. WCAG zugänglich, Django, HTMX, Larave"
+metaDescription: "Nur CSS-Tailwind-CSS-Popover und Dropdown-Menü. Native HTML-Popover-API, Dropdown-Menüs in der Navigationsleiste, Profilmenüs, kein JavaScript. WCAG zugänglich, Django, HTMX, Larave"
 order: 0
 related:
   - "components/button"
@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/components/popover.webp"
 imageAlt: "Popover-Blöcke von Frutjam UI"
 createdAt: "2026-01-15T05:30:51.470004+00:00"
 updatedAt: "2026-07-13T09:43:43.541052+00:00"
-sourceHash: "959583800dce"
-translationHash: "01887d742288"
+sourceHash: "8ceef5dd43c2"
+translationHash: "1db8d67b4c95"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -24,7 +24,7 @@ Nur CSS-Tailwind-CSS-Popover unter Verwendung der nativen Popover-API. Schwebend
 
 Popover-Komponenten zeigen kontextbezogene Inhalte neben Triggerelementen an, ohne permanenten Bildschirmplatz zu belegen. Das Frutjam-Popover-System basiert auf der nativen HTML-Popover-API und unterstützt Klick- und Hover-Trigger, anpassbare Positionierung und flüssige Animationen. Perfekt für Dropdown-Menüs, Kontextmenüs, Benutzerprofilmenüs und zusätzliche Optionen ohne Seitennavigation.
 
-Nur CSS, kein JavaScript erforderlich – erstellen Sie barrierefreie Dropdown-Menüs und kontextbezogene Overlays mit reinem HTML und Tailwind CSS. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+Nur CSS, kein JavaScript erforderlich: Erstellen Sie barrierefreie Dropdown-Menüs und kontextbezogene Overlays mit reinem HTML und Tailwind CSS. WCAG AA zugänglich und Framework-unabhängig: Funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -101,7 +101,7 @@ Nur CSS, kein JavaScript erforderlich – erstellen Sie barrierefreie Dropdown-M
 
 ## Dropdown-Menü
 
-Verwenden Sie die Popover-Komponente, um Dropdown-Menüs zu erstellen – Navigations-Dropdowns, Benutzerprofilmenüs und Aktionsmenüs – alles nur CSS, ohne dass JavaScript erforderlich ist.
+Verwenden Sie die Popover-Komponente, um Dropdown-Menüs zu erstellen: Navigations-Dropdown-Menüs, Benutzerprofilmenüs und Aktionsmenüs, alles nur CSS, kein JavaScript erforderlich.
 
 ### Dropdown-Menü in der Navigationsleiste
 
@@ -257,7 +257,7 @@ Verwenden Sie die Popover-Komponente, um Dropdown-Menüs zu erstellen – Naviga
 
 ## Popover-Interaktionsverhalten
 
-Standardmäßig werden Klickinteraktionen zum Öffnen und Schließen der Popover-Komponente verwendet. Für Megamenüs können Sie beispielsweise Hover-basierte Interaktion aktivieren, indem Sie die Klasse `popover-hover` hinzufügen und die Attribute `popovertarget` und `popover` entfernen. Dadurch kann das Popover vollständig über die Hover-Logik und nicht über das native Klickverhalten gesteuert werden.
+Standardmäßig werden Klickinteraktionen zum Öffnen und Schließen der Popover-Komponente verwendet. Für Megamenüs können Sie beispielsweise die Hover-basierte Interaktion aktivieren, indem Sie das hinzufügen `popover-hover` Klasse und Entfernen der `popovertarget` Und `popover` Attribute. Dadurch kann das Popover vollständig über die Hover-Logik und nicht über das native Klickverhalten gesteuert werden.
 
 ### Nativer Klick-Trigger
 
@@ -315,9 +315,13 @@ Standardmäßig werden Klickinteraktionen zum Öffnen und Schließen der Popover
 
 </Snippet>
 
-## Popover-Positionierungsoptionen (Oben, Unten, Anfang, Ende)
+## Popover-Positionierungsoptionen (oben, unten, Anfang, Ende)
 
 Positionieren Sie Ihre Popovers relativ zu ihren Auslöseelementen mithilfe unserer flexiblen Platzierungslogik. Die Popover-Platzierung wird durch die Kombination vertikaler (oben, Mitte, unten) und horizontaler (Anfang, Mitte, Ende) Ausrichtungsoptionen erstellt.
+
+Die Platzierung erfolgt durch [CSS-Ankerpositionierung](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor), das im September 2026 zu Baseline wurde. Der Browser hält das Panel durch Scrollen und Größenänderung an seinen Auslöser gebunden `position-try` dreht es auf die andere Seite, wenn es sonst außerhalb des Bildschirms laufen würde. Keine Positionierungsbibliothek, keine Messung beim Scrollen, kein JavaScript jeglicher Art.
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-6\"><span>Ankerpositionierung ist <strong>neu verfügbar</strong> in Baseline: Es funktioniert in den aktuellen Versionen von Chrome, Edge, Safari und Firefox. In älteren Browsern wird das Popover weiterhin geöffnet und bleibt nutzbar, greift jedoch auf die statische Platzierung zurück.</span></div></div>"} />
 
 ### Top-Start-Popover-Position
 

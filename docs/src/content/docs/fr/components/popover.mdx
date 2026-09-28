@@ -2,8 +2,8 @@
 name: "Popover"
 heading: "Composant popover"
 description: "Popover CSS Tailwind uniquement CSS utilisant l'API popover native. Panneau de contenu flottant pour les info-bulles et les listes déroulantes. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
-metaTitle: "Menu contextuel et déroulant Tailwind CSS - CSS uniquement | Frutjam"
-metaDescription: "Menu popover et déroulant CSS Tailwind uniquement en CSS. API HTMX Popover native, listes déroulantes de la barre de navigation, menus de profil – pas de JavaScript. WCAG accessibles, Django, HTMX, Larave"
+metaTitle: "Menu contextuel et déroulant Tailwind CSS - CSS uniquement | Confiture de fruits"
+metaDescription: "Menu popover et déroulant CSS Tailwind uniquement en CSS. API HTML Popover native, listes déroulantes de la barre de navigation, menus de profil, pas de JavaScript. WCAG accessibles, Django, HTMX, Larave"
 order: 0
 related:
   - "components/button"
@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/components/popover.webp"
 imageAlt: "Blocs Popover par Frutjam UI"
 createdAt: "2026-01-15T05:30:51.470004+00:00"
 updatedAt: "2026-07-13T09:43:43.541052+00:00"
-sourceHash: "959583800dce"
-translationHash: "e1c850779e2c"
+sourceHash: "8ceef5dd43c2"
+translationHash: "bc5881367570"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -24,7 +24,7 @@ Popover CSS Tailwind uniquement CSS utilisant l'API popover native. Panneau de c
 
 Les composants popover affichent le contenu contextuel à côté des éléments déclencheurs sans occuper d'espace d'écran permanent. Construit sur l'API HTML Popover native, le système de popover Frutjam prend en charge les déclencheurs de clic et de survol, un positionnement personnalisable et des animations fluides. Parfait pour les menus déroulants, les menus contextuels, les menus de profil utilisateur et les options supplémentaires sans navigation dans les pages.
 
-CSS uniquement, aucun JavaScript requis : créez des menus déroulants accessibles et des superpositions contextuelles avec du HTMX pur et du CSS Tailwind. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+CSS uniquement, aucun JavaScript requis : créez des menus déroulants accessibles et des superpositions contextuelles avec du HTML pur et du CSS Tailwind. WCAG AA accessible et indépendant du framework : fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -101,7 +101,7 @@ CSS uniquement, aucun JavaScript requis : créez des menus déroulants accessib
 
 ## Menu déroulant
 
-Utilisez le composant Popover pour créer des menus déroulants (menus déroulants de navigation, menus de profil utilisateur et menus d'action), le tout uniquement en CSS sans JavaScript requis.
+Utilisez le composant Popover pour créer des menus déroulants : des menus déroulants de navigation, des menus de profil utilisateur et des menus d'action, le tout uniquement en CSS sans JavaScript requis.
 
 ### Liste déroulante de la barre de navigation
 
@@ -257,7 +257,7 @@ Utilisez le composant Popover pour créer des menus déroulants (menus déroulan
 
 ## Comportement d'interaction popover
 
-Par défaut, les interactions de clic sont utilisées pour ouvrir et fermer le composant popover. Pour les mégamenus, par exemple, vous pouvez activer l'interaction basée sur le survol en ajoutant la classe `popover-hover` et en supprimant les attributs `popovertarget` et `popover`. Cela permet au popover d'être entièrement contrôlé via la logique de survol plutôt que le comportement de clic natif.
+Par défaut, les interactions de clic sont utilisées pour ouvrir et fermer le composant popover. Pour les mégamenus, par exemple, vous pouvez activer l'interaction basée sur le survol en ajoutant le `popover-hover` classe et en supprimant le `popovertarget` et `popover` attributs. Cela permet au popover d'être entièrement contrôlé via la logique de survol plutôt que le comportement de clic natif.
 
 ### Déclencheur de clic natif
 
@@ -318,6 +318,10 @@ Par défaut, les interactions de clic sont utilisées pour ouvrir et fermer le c
 ## Options de positionnement du popover (haut, bas, début, fin)
 
 Positionnez vos popovers par rapport à leurs éléments déclencheurs en utilisant notre logique de placement flexible. Le placement du popover est créé en combinant les options d'alignement vertical (haut, centre, bas) et horizontal (début, centre, fin).
+
+Le placement est géré par [Positionnement de l'ancre CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor), devenu Baseline en septembre 2026. Le navigateur maintient le panneau attaché à son déclencheur grâce au défilement et au redimensionnement, et `position-try` le retourne du côté opposé alors qu'il sortirait autrement de l'écran. Pas de bibliothèque de positionnement, pas de mesure au défilement, pas de JavaScript d'aucune sorte.
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-6\"><span>Le positionnement de l'ancre est <strong>nouvellement disponible</strong> dans Baseline : cela fonctionne dans les versions actuelles de Chrome, Edge, Safari et Firefox. Sur les navigateurs plus anciens, le popover s'ouvre toujours et reste utilisable, mais revient à un placement statique.</span></div></div>"} />
 
 ### Position popover de départ supérieur
 

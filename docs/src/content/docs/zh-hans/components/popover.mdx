@@ -2,8 +2,8 @@
 name: "弹出窗口"
 heading: "弹出组件"
 description: "仅 CSS Tailwind CSS 弹出窗口使用本机弹出窗口 API。用于工具提示和下拉菜单的浮动内容面板。 WCAG AA 可访问，可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。"
-metaTitle: "Tailwind CSS 弹出窗口和下拉菜单 - 仅 CSS |Frutjam"
-metaDescription: "仅 CSS Tailwind CSS 弹出窗口和下拉菜单。原生 HTML Popover API、导航栏下拉菜单、配置文件菜单 — 无 JavaScript。 WCAG 可访问、Django、HTMX、Larave"
+metaTitle: "Tailwind CSS 弹出窗口和下拉菜单 - 仅 CSS |弗鲁贾姆"
+metaDescription: "仅 CSS Tailwind CSS 弹出窗口和下拉菜单。原生 HTML Popover API、导航栏下拉菜单、配置文件菜单，无 JavaScript。 WCAG 可访问、Django、HTMX、Larave"
 order: 0
 related:
   - "components/button"
@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/components/popover.webp"
 imageAlt: "Frutjam UI 的弹出框"
 createdAt: "2026-01-15T05:30:51.470004+00:00"
 updatedAt: "2026-07-13T09:43:43.541052+00:00"
-sourceHash: "959583800dce"
-translationHash: "69e587474ef4"
+sourceHash: "8ceef5dd43c2"
+translationHash: "a79b94e189e8"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -24,7 +24,7 @@ import DocTable from '@/components/DocTable.astro';
 
 弹出框组件显示与触发元素相邻的上下文内容，而不占用永久屏幕空间。 Frutjam 弹出窗口系统基于原生 HTML Popover API 构建，支持单击和悬停触发器、可自定义定位和流畅的动画。非常适合下拉菜单、上下文菜单、用户配置文件菜单和无需页面导航的其他选项。
 
-仅 CSS，无需 JavaScript — 使用纯 HTML 和 Tailwind CSS 构建可访问的下拉菜单和上下文叠加层。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+仅 CSS，无需 JavaScript：使用纯 HTML 和 Tailwind CSS 构建可访问的下拉菜单和上下文叠加层。 WCAG AA 可访问且与框架无关：适用于 Django、HTMX、Laravel、React 和任何堆栈。
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -101,7 +101,7 @@ import DocTable from '@/components/DocTable.astro';
 
 ## 下拉式菜单
 
-使用 Popover 组件构建下拉菜单 - 导航下拉菜单、用户配置文件菜单和操作菜单 - 全部仅使用 CSS，无需 JavaScript。
+使用 Popover 组件构建下拉菜单：导航下拉菜单、用户配置文件菜单和操作菜单，全部仅使用 CSS，无需 JavaScript。
 
 ### 导航栏下拉菜单
 
@@ -257,7 +257,7 @@ import DocTable from '@/components/DocTable.astro';
 
 ## 弹出框交互行为
 
-默认情况下，单击交互用于打开和关闭弹出框组件。例如，对于超级菜单，您可以通过添加 `popover-hover` 类并删除 `popovertarget` 和 `popover` 属性来启用基于悬停的交互。这允许通过悬停逻辑而不是本机单击行为完全控制弹出窗口。
+默认情况下，单击交互用于打开和关闭弹出框组件。例如，对于超级菜单，您可以通过添加以下命令来启用基于悬停的交互 `popover-hover` 类并删除 `popovertarget` 和 `popover` 属性。这允许通过悬停逻辑而不是本机单击行为完全控制弹出窗口。
 
 ### 本机点击触发器
 
@@ -318,6 +318,10 @@ import DocTable from '@/components/DocTable.astro';
 ## 弹出框定位选项（顶部、底部、开始、结束）
 
 使用我们灵活的放置逻辑将弹出窗口相对于其触发元素定位。弹出框放置是通过组合垂直（顶部、中心、底部）和水平（开始、中心、结束）对齐选项来创建的。
+
+放置由以下人员处理 [CSS 锚点定位](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor)，于 2026 年 9 月成为 Baseline。浏览器通过滚动和调整大小使面板与其触发器保持联系，并且 `position-try` 当它会跑出屏幕时将其翻转到另一侧。没有定位库，没有滚动测量，没有任何类型的 JavaScript。
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-6\"><span>锚点定位是 <strong>新近可用</strong> 在 Baseline 中：它适用于当前版本的 Chrome、Edge、Safari 和 Firefox。在较旧的浏览器上，弹出窗口仍会打开并保持可用，但会退回到静态位置。</span></div></div>"} />
 
 ### 顶部启动弹出位置
 

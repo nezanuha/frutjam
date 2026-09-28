@@ -3,7 +3,7 @@ name: "Popover"
 heading: "Komponent Popover"
 description: "Popover CSS Tailwind wykorzystujący wyłącznie CSS, korzystający z natywnego API popover. Pływający panel treści z podpowiedziami i listami rozwijanymi. Dostępny WCAG AA, współpracuje z Django, HTMX, Laravel, React i dowolnym stosem."
 metaTitle: "Wyskakujące menu CSS Tailwind i menu rozwijane — tylko CSS | Frutjam"
-metaDescription: "Wyskakujące okienko i menu rozwijane CSS Tailwind tylko dla CSS. Natywny HTMX Popover API, rozwijane menu paska nawigacyjnego, menu profilu — bez JavaScript. Dostępne WCAG, Django, HTMX, Larave"
+metaDescription: "Wyskakujące okienko i menu rozwijane CSS Tailwind tylko dla CSS. Natywny HTML Popover API, rozwijane menu paska nawigacyjnego, menu profilu, bez JavaScript. Dostępne WCAG, Django, HTMX, Larave"
 order: 0
 related:
   - "components/button"
@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/components/popover.webp"
 imageAlt: "Bloki Popover autorstwa Frutjam UI"
 createdAt: "2026-01-15T05:30:51.470004+00:00"
 updatedAt: "2026-07-13T09:43:43.541052+00:00"
-sourceHash: "959583800dce"
-translationHash: "1e15d6dfb750"
+sourceHash: "8ceef5dd43c2"
+translationHash: "3a7b5338efd7"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -24,7 +24,7 @@ Popover CSS Tailwind wykorzystujący wyłącznie CSS, korzystający z natywnego 
 
 Komponenty Popover wyświetlają treść kontekstową obok elementów wyzwalających, nie zajmując stałego miejsca na ekranie. Zbudowany w oparciu o natywny interfejs API HTML Popover, system popover Frutjam obsługuje wyzwalacze kliknięcia i najechania myszką, konfigurowalne pozycjonowanie i płynne animacje. Idealny do menu rozwijanych, menu kontekstowych, menu profilu użytkownika i dodatkowych opcji bez nawigacji po stronie.
 
-Tylko CSS, nie wymaga JavaScript — twórz dostępne menu rozwijane i nakładki kontekstowe za pomocą czystego HTMX i CSS Tailwind. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+Tylko CSS, nie wymaga JavaScript: twórz dostępne menu rozwijane i nakładki kontekstowe za pomocą czystego HTML i CSS Tailwind. Dostępny w WCAG AA i niezależny od frameworka: współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -32,7 +32,7 @@ Tylko CSS, nie wymaga JavaScript — twórz dostępne menu rozwijane i nakładki
 | --- | --- | --- |
 | popover | <span class="badge badge-xs">Opierać</span> | Opakowanie, które zakotwicza wyzwalacz i zawartość razem |
 | popover-content | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Pływający panel wyświetlany, gdy popover jest otwarty |
-| popover-toggle | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element wyzwalający otwierający/zamykający popover |
+| popover-toggle | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element wyzwalający, który otwiera/zamyka popover |
 | popover-hover | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Otwiera się po najechaniu myszką zamiast kliknięcia |
 | popover-top-start | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Umieszczony powyżej, wyrównany do początku |
 | popover-top-center | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Umieszczone powyżej, centralnie |
@@ -101,7 +101,7 @@ Tylko CSS, nie wymaga JavaScript — twórz dostępne menu rozwijane i nakładki
 
 ## Menu rozwijane
 
-Użyj komponentu Popover do tworzenia menu rozwijanych — menu nawigacji, menu profilu użytkownika i menu akcji — a wszystko to wyłącznie w formacie CSS, bez konieczności używania JavaScript.
+Użyj komponentu Popover, aby zbudować rozwijane menu: rozwijane menu nawigacji, menu profilu użytkownika i menu akcji, wszystkie oparte wyłącznie na CSS i nie wymaga JavaScript.
 
 ### Lista rozwijana paska nawigacyjnego
 
@@ -257,7 +257,7 @@ Użyj komponentu Popover do tworzenia menu rozwijanych — menu nawigacji, menu 
 
 ## Zachowanie interakcji popover
 
-Domyślnie interakcje kliknięcia służą do otwierania i zamykania komponentu popover. Na przykład w przypadku megamenu możesz włączyć interakcję po najechaniu myszką, dodając klasę `popover-hover` i usuwając atrybuty `popovertarget` i `popover`. Umożliwia to pełną kontrolę nad wyskakującym okienkiem za pomocą logiki najechania kursorem, a nie natywnego zachowania kliknięcia.
+Domyślnie interakcje kliknięcia służą do otwierania i zamykania komponentu popover. Na przykład w przypadku megamenu możesz włączyć interakcję po najechaniu myszką, dodając `popover-hover` class i usunięcie `popovertarget` I `popover` atrybuty. Umożliwia to pełną kontrolę nad wyskakującym okienkiem za pomocą logiki najechania kursorem, a nie natywnego zachowania kliknięcia.
 
 ### Natywny wyzwalacz kliknięcia
 
@@ -318,6 +318,10 @@ Domyślnie interakcje kliknięcia służą do otwierania i zamykania komponentu 
 ## Opcje pozycjonowania wyskakującego okienka (góra, dół, początek, koniec)
 
 Ustaw swoje wyskakujące okienka względem ich elementów wyzwalających, korzystając z naszej elastycznej logiki rozmieszczania. Umiejscowienie wyskakującego okienka tworzy się poprzez połączenie opcji wyrównania w pionie (góra, środek, dół) i poziomie (początek, środek, koniec).
+
+Umieszczenie jest obsługiwane przez [Pozycjonowanie kotwic CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor), który we wrześniu 2026 r. stał się wersją Baseline. Przeglądarka utrzymuje panel przywiązany do wyzwalacza podczas przewijania i zmiany rozmiaru, a `position-try` odwraca go na przeciwną stronę, gdy w przeciwnym razie wyleciałby z ekranu. Żadnych bibliotek pozycjonujących, żadnych pomiarów podczas przewijania, żadnego JavaScriptu.
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-6\"><span>Pozycjonowanie kotwicy jest <strong>nowo dostępne</strong> w Baseline: działa w aktualnych wersjach przeglądarek Chrome, Edge, Safari i Firefox. W starszych przeglądarkach wyskakujące okienko nadal się otwiera i pozostaje użyteczne, ale wraca do położenia statycznego.</span></div></div>"} />
 
 ### Pozycja wyskakująca od góry
 
@@ -543,7 +547,7 @@ Ustaw swoje wyskakujące okienka względem ich elementów wyzwalających, korzys
 
 </Snippet>
 
-### Dolna pozycja wyskakującego okienka
+### Dolna pozycja wyskakującego końca
 
 <Snippet>
 
