@@ -44,7 +44,7 @@ positioned relative to that name.
 ```
 
 The browser keeps them tethered from then on. Scroll the page, resize the
-window, move the trigger — the panel follows, because the relationship is
+window, move the trigger, the panel follows, because the relationship is
 declared rather than calculated.
 
 `position-try-fallbacks` is the part that used to be most of the library code.
@@ -190,8 +190,8 @@ years.
 
 The interesting part is what it does to the cost of a component library. A
 dropdown used to mean a dependency, a runtime and a bundle. Now it is a handful
-of CSS custom properties, and the browser does the work — faster than any
-library could, because it already knows where everything is.
+of CSS custom properties, and the browser does the work faster than any library
+could, because it already knows where everything is.
 
 ---
 

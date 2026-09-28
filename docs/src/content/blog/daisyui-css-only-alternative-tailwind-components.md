@@ -1,6 +1,6 @@
 ---
 title: "The Best DaisyUI Alternative: CSS-Only Tailwind Components Without JavaScript"
-description: "Why developers are switching from DaisyUI to Frutjam — a CSS-only Tailwind CSS component library that passes WCAG AA by default and requires zero JavaScript."
+description: "Why developers are switching from DaisyUI to Frutjam, a CSS-only Tailwind CSS component library that passes WCAG AA by default and requires zero JavaScript."
 metaTitle: "Best DaisyUI Alternative: Zero JavaScript, Tailwind v4 | Frutjam"
 metaDescription: "CSS-only DaisyUI alternative built for Tailwind CSS v4. Zero JavaScript, WCAG AA contrast on every theme. Works with Django, HTMX, and Laravel. Free."
 image: "https://cdn.frutjam.com/media/blog/posts/daisyui-css-only-alternative-tailwind-components.jpg"
@@ -9,7 +9,7 @@ createdAt: "2026-07-05T06:54:27.455443+00:00"
 updatedAt: "2026-07-17T11:49:18.610629+00:00"
 ---
 
-Most developers who discover DaisyUI love the idea: semantic component classes on top of Tailwind CSS, a broad component library, and an active ecosystem. It remains the most-installed Tailwind component library on npm for good reason. But when you dig into real projects — WCAG audits, multilingual apps, or fine-grained UI control — specific gaps become hard to ignore.
+Most developers who discover DaisyUI love the idea: semantic component classes on top of Tailwind CSS, a broad component library, and an active ecosystem. It remains the most-installed Tailwind component library on npm for good reason. But when you dig into real projects: WCAG audits, multilingual apps, or fine-grained UI control: specific gaps become hard to ignore.
 
 **Frutjam** is a Tailwind CSS component library built around accessibility, performance, and developer precision. 65+ CSS-only components, WCAG AA/AAA contrast on every theme, PageSpeed 100/100, zero layout shift, and a modal and popover system that goes deeper than any comparable library. Optimized for Tailwind v4.
 
@@ -19,10 +19,10 @@ Most developers who discover DaisyUI love the idea: semantic component classes o
 
 DaisyUI v5 is a meaningful upgrade that corrects many of the criticisms aimed at earlier versions. Interactive components no longer require a separate JavaScript plugin:
 
-- **Modal**: native `<dialog>` + `showModal()` or the Popover API — no JS bundle
-- **Drawer**: checkbox toggle + CSS — zero JavaScript
-- **Dropdown**: native Popover API, `<details>`, or focus-based CSS — zero JavaScript
-- **Accordion**: radio inputs or `<details>` / `<summary>` — zero JavaScript
+- **Modal**: native `<dialog>` + `showModal()` or the Popover API, no JS bundle
+- **Drawer**: checkbox toggle + CSS, zero JavaScript
+- **Dropdown**: native Popover API, `<details>`, or focus-based CSS, zero JavaScript
+- **Accordion**: radio inputs or `<details>` / `<summary>`, zero JavaScript
 
 If you have read comparisons claiming DaisyUI v5 requires a JavaScript plugin for interactive components, those comparisons describe DaisyUI v4. Version 5 is largely CSS-based.
 
@@ -34,7 +34,7 @@ What DaisyUI v5 still does not address: WCAG contrast guarantees across its 25+ 
 
 ### 1. WCAG AA/AAA Contrast on Every Theme
 
-Frutjam ships a Berry theming system — six named themes built on OKLCH color values, each hand-tuned to pass WCAG AA and AAA contrast requirements:
+Frutjam ships a Berry theming system: six named themes built on OKLCH color values, each hand-tuned to pass WCAG AA and AAA contrast requirements:
 
 | Theme | Mode |
 | :--- | :--- |
@@ -51,7 +51,7 @@ Apply a theme with one HTML attribute:
 <html data-theme="darkberry">
 ```
 
-Themes cascade via CSS variables and can be nested — a sidebar can run a dark theme while the rest of the page stays light:
+Themes cascade via CSS variables and can be nested, a sidebar can run a dark theme while the rest of the page stays light:
 
 ```html
 <html data-theme="snowberry">
@@ -61,7 +61,7 @@ Themes cascade via CSS variables and can be nested — a sidebar can run a dark 
 </html>
 ```
 
-DaisyUI ships 25+ themes. Frutjam ships fewer, but every color pair in every theme — text on background, label on input, badge on card — passes WCAG contrast checks without configuration. No contrast surprises at audit time.
+DaisyUI ships 25+ themes. Frutjam ships fewer, but every color pair in every theme: text on background, label on input, badge on card: passes WCAG contrast checks without configuration. No contrast surprises at audit time.
 
 ### 2. Modal System: 9 Positions, 4 Animations, LTR/RTL Aware
 
@@ -106,7 +106,7 @@ A sheet that slides up from the bottom on mobile, centered on desktop:
 
 ### 3. Popover: 12 Positions, Click and Hover
 
-Frutjam's popover uses the native Popover API — zero JavaScript for click-triggered dropdowns. Twelve position classes cover every anchor alignment:
+Frutjam's popover uses the native Popover API, zero JavaScript for click-triggered dropdowns. Twelve position classes cover every anchor alignment:
 
 ```
 popover-top-start    popover-top-center    popover-top-end
@@ -146,7 +146,7 @@ popover-end-top      popover-end-center    popover-end-bottom
 
 ### 4. Drawer: 4 Positions Built on `<dialog>`
 
-Frutjam's drawer is built on the native `<dialog>` element using the non-modal `.show()` method — so the rest of the page stays interactive while the drawer is open. Four positions ship out of the box:
+Frutjam's drawer is built on the native `<dialog>` element using the non-modal `.show()` method, so the rest of the page stays interactive while the drawer is open. Four positions ship out of the box:
 
 ```html
 <!-- Slide from left -->
@@ -162,11 +162,11 @@ Frutjam's drawer is built on the native `<dialog>` element using the non-modal `
 <button type="button" class="btn" onclick="sideNav.show()">Open Menu</button>
 ```
 
-Open with `onclick="id.show()"`, close with `onclick="id.close()"` — one line of inline JS per trigger, no library, no initialization lifecycle. For programmatic control from anywhere in your code, `createDrawer` from `frutjam/js` handles it.
+Open with `onclick="id.show()"`, close with `onclick="id.close()"`, one line of inline JS per trigger, no library, no initialization lifecycle. For programmatic control from anywhere in your code, `createDrawer` from `frutjam/js` handles it.
 
 ### 5. Combobox: Built-In Where DaisyUI Has Nothing
 
-The browser has no native combobox element. DaisyUI has no combobox component — if you need searchable select with keyboard navigation, you write it from scratch.
+The browser has no native combobox element. DaisyUI has no combobox component, if you need searchable select with keyboard navigation, you write it from scratch.
 
 Frutjam ships a complete combobox. CSS-only for open/close, built-in JS helper for filtering and keyboard navigation:
 
@@ -190,11 +190,11 @@ import { createCombobox } from 'frutjam/js'
 createCombobox(document.querySelector('.my-combobox'))
 ```
 
-`createCombobox` also wires up all required `aria-*` attributes automatically. You do not write filtering logic, keyboard handlers, or ARIA patterns — the library ships them.
+`createCombobox` also wires up all required `aria-*` attributes automatically. You do not write filtering logic, keyboard handlers, or ARIA patterns, the library ships them.
 
 ### 6. Tailwind v4 Native
 
-Frutjam is designed around Tailwind v4 — the v4 import system, CSS-first configuration, and OKLCH color tokens. Install it and add two lines:
+Frutjam is designed around Tailwind v4, the v4 import system, CSS-first configuration, and OKLCH color tokens. Install it and add two lines:
 
 ```bash
 npm install frutjam
@@ -219,15 +219,15 @@ Every component is available immediately. No script tags, no initialization, no 
 | :--- | :--- | :--- |
 | **Total components** | 53 | 80 |
 | **Built-in themes** | 6 named Berry themes | 25+ |
-| **WCAG AA/AAA guaranteed** | Yes — all themes | Not guaranteed |
+| **WCAG AA/AAA guaranteed** | Yes, all themes | Not guaranteed |
 | Button, Badge, Alert | CSS-only | CSS-only |
 | Accordion | CSS-only (`<details>` / `<summary>`) | CSS-only (radio / `<details>`) |
-| Modal | `<dialog>` + `showModal()` — 9 positions, 4 animations, LTR/RTL | `<dialog>` + `showModal()` or Popover API — 3 positions |
-| Drawer | `<dialog>` + `show()` — 4 positions | Checkbox toggle — CSS-only |
-| Popover / Dropdown | Native Popover API — 12 positions, click or hover | Native Popover API / `<details>` / focus-based CSS |
+| Modal | `<dialog>` + `showModal()`: 9 positions, 4 animations, LTR/RTL | `<dialog>` + `showModal()` or Popover API: 3 positions |
+| Drawer | `<dialog>` + `show()`: 4 positions | Checkbox toggle: CSS-only |
+| Popover / Dropdown | Native Popover API: 12 positions, click or hover | Native Popover API / `<details>` / focus-based CSS |
 | Combobox | CSS-only open/close + `createCombobox()` helper | **No combobox component** |
-| RTL support | Yes — `ltr:` / `rtl:` prefixes on modal, drawer | Partial |
-| PageSpeed 100/100 | Yes — zero JS overhead, zero layout shift | — |
+| RTL support | Yes: `ltr:` / `rtl:` prefixes on modal, drawer | Partial |
+| PageSpeed 100/100 | Yes, zero JS overhead, zero layout shift |: |
 | Framework-agnostic | Django, HTMX, Laravel, React, Vue, any stack | Django, HTMX, Laravel, React, Vue, any stack |
 
 ---
@@ -236,7 +236,7 @@ Every component is available immediately. No script tags, no initialization, no 
 
 The same trigger pattern, different positioning depth.
 
-**DaisyUI** — three positions, no animations, closes via form:
+**DaisyUI**, three positions, no animations, closes via form:
 
 ```html
 <button class="btn" onclick="my_modal.showModal()">Open Modal</button>
@@ -255,7 +255,7 @@ The same trigger pattern, different positioning depth.
 </dialog>
 ```
 
-**Frutjam** — 9 positions, 4 animations, LTR/RTL, closes via `onclick`:
+**Frutjam**: 9 positions, 4 animations, LTR/RTL, closes via `onclick`:
 
 ```html
 <button class="btn" onclick="myModal.showModal()">Open Modal</button>
@@ -273,7 +273,7 @@ The same trigger pattern, different positioning depth.
 </dialog>
 ```
 
-Both use `showModal()` — the difference is the placement and animation system. Frutjam's `modal-slide-up` entrance animation is pure CSS. Changing to a top-right notification panel is one class change: `modal-end modal-top modal-slide-end`.
+Both use `showModal()`, the difference is the placement and animation system. Frutjam's `modal-slide-up` entrance animation is pure CSS. Changing to a top-right notification panel is one class change: `modal-end modal-top modal-slide-end`.
 
 ---
 
@@ -304,7 +304,7 @@ Most component class names carry over directly:
 | `accordion` | `accordion` |
 | `tabs` | `tabs` |
 
-Modals use the same `showModal()` / `close()` pattern. Drawers switch from checkbox toggle to `dialog.show()` / `dialog.close()` — add an `id` attribute and update the trigger `onclick`. The [Frutjam component docs](https://frutjam.com/components) show the exact HTML pattern for each component.
+Modals use the same `showModal()` / `close()` pattern. Drawers switch from checkbox toggle to `dialog.show()` / `dialog.close()`, add an `id` attribute and update the trigger `onclick`. The [Frutjam component docs](https://frutjam.com/components) show the exact HTML pattern for each component.
 
 ---
 
@@ -312,7 +312,7 @@ Modals use the same `showModal()` / `close()` pattern. Drawers switch from check
 
 One practical challenge with AI coding assistants and component libraries is accuracy. When you ask Claude, Cursor, or Copilot to build a UI with Frutjam components, the model may hallucinate class names or generate outdated syntax learned during training.
 
-**Frutjam Cherry** is a free MCP (Model Context Protocol) server that connects your AI assistant directly to Frutjam's live component documentation. Instead of guessing, the AI fetches exact class names, component structures, and working examples — on demand, always in sync with the latest Frutjam version.
+**Frutjam Cherry** is a free MCP (Model Context Protocol) server that connects your AI assistant directly to Frutjam's live component documentation. Instead of guessing, the AI fetches exact class names, component structures, and working examples, on demand, always in sync with the latest Frutjam version.
 
 Supported editors: Claude Code, Cursor, VS Code, Windsurf, Zed, Cline, and any MCP-compatible environment. Setup takes under a minute.
 
@@ -326,7 +326,7 @@ Cherry ships five built-in AI slash commands:
 | `/bootstrap_to_frutjam` | Migrates Bootstrap markup to Frutjam components |
 | `/generate_theme` | Generates a custom Berry theme from your design tokens |
 
-Cherry is token-efficient — it fetches specs only when needed rather than dumping the full documentation into context. A free tier is available with no account required. Pro and Team tiers unlock unlimited requests, premium blocks, and all slash commands.
+Cherry is token-efficient, it fetches specs only when needed rather than dumping the full documentation into context. A free tier is available with no account required. Pro and Team tiers unlock unlimited requests, premium blocks, and all slash commands.
 
 DaisyUI has no equivalent MCP integration. If AI-assisted development is part of your workflow, Cherry is a meaningful differentiator.
 
@@ -337,16 +337,16 @@ DaisyUI has no equivalent MCP integration. If AI-assisted development is part of
 ## Frequently Asked Questions
 
 **Does Frutjam require any JavaScript?**
-No JavaScript required for core components. Accordion, tabs, popover, swap, and carousel are pure CSS. Modal and drawer use one line of inline `onclick` — native browser JS, no library. Combobox ships a `createCombobox()` helper for filtering and keyboard navigation.
+No JavaScript required for core components. Accordion, tabs, popover, swap, and carousel are pure CSS. Modal and drawer use one line of inline `onclick`: native browser JS, no library. Combobox ships a `createCombobox()` helper for filtering and keyboard navigation.
 
 **Does DaisyUI v5 require a JavaScript plugin for interactive components?**
-No — DaisyUI v5 moved to CSS-based approaches. Drawer uses checkbox toggle, dropdown uses the Popover API, accordion uses `<details>`. Comparisons describing a required JS bundle apply to DaisyUI v4, not v5.
+No: DaisyUI v5 moved to CSS-based approaches. Drawer uses checkbox toggle, dropdown uses the Popover API, accordion uses `<details>`. Comparisons describing a required JS bundle apply to DaisyUI v4, not v5.
 
 **Will HTMX break Frutjam components?**
-No. CSS-only components (accordion, tabs, swap) need no re-initialization. Modal and drawer use inline `onclick="id.showModal()"` and `onclick="id.show()"` — plain HTML attributes that the browser evaluates on every render, including after HTMX swaps.
+No. CSS-only components (accordion, tabs, swap) need no re-initialization. Modal and drawer use inline `onclick="id.showModal()"` and `onclick="id.show()"`: plain HTML attributes that the browser evaluates on every render, including after HTMX swaps.
 
 **Can I use a custom theme?**
-Yes. Define CSS variables in a `[data-theme="yourtheme"]` block using OKLCH color values. Apply it with `data-theme="yourtheme"` on any element. Themes can be scoped — a single page can have multiple themes nested in different sections.
+Yes. Define CSS variables in a `[data-theme="yourtheme"]` block using OKLCH color values. Apply it with `data-theme="yourtheme"` on any element. Themes can be scoped, a single page can have multiple themes nested in different sections.
 
 **How does Frutjam handle RTL languages?**
 RTL is built into the layout system. Use `ltr:modal-end rtl:modal-start` on the modal to position it correctly in both directions. Drawer, popover, and other directional components follow the same `ltr:` / `rtl:` prefix pattern.

@@ -1,19 +1,19 @@
 ---
 title: "Adding a Markdown Editor to Django Forms (No Sync Code Required)"
-description: "Most Django markdown editors replace the textarea, so you have to sync the value back before submit. Here is how to add one that enhances the textarea instead — request.POST just works."
+description: "Most Django markdown editors hide the textarea and edit a copy, which breaks required fields and anything that reads the form early. Here is how to add one that leaves the textarea in place, so request.POST just works."
 metaTitle: "Django Markdown Editor for Forms | No JS Sync | Frutjam"
-metaDescription: "Add a markdown editor to Django forms without breaking form submission. No manual sync, no custom widget — request.POST receives the markdown as typed."
+metaDescription: "Add a markdown editor to Django forms without breaking form submission. No manual sync, no custom widget, and request.POST receives the markdown as typed."
 image: "https://cdn.frutjam.com/media/blog/posts/django-markdown-editor-textarea.jpg"
 imageAlt: "Illustration of a text box with an editor toolbar and a pencil writing in it, beside a green check mark"
 createdAt: "2026-09-22T00:00:00+00:00"
 updatedAt: "2026-09-22T00:00:00+00:00"
 ---
 
-Add a markdown editor to a Django form the usual way and it looks fine — until
+Add a markdown editor to a Django form the usual way and it looks fine, until
 the form silently refuses to submit:
 
 ```python
-# forms.py — Django adds required=True to every non-blank field
+# forms.py: Django adds required=True to every non-blank field
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -34,7 +34,7 @@ An invalid form control with name='content' is not focusable.
 
 EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The
 hidden field is still `required`, so the browser refuses to submit a form it
-cannot focus the invalid field in — and because the submit event never fires,
+cannot focus the invalid field in. And because the submit event never fires,
 the editor never copies its content back. The user's writing goes nowhere.
 
 To be fair to EasyMDE: on a form *without* `required`, it does sync on submit by
@@ -46,14 +46,14 @@ default, and that the value only exists in the textarea *during* submit:
 new FormData(document.querySelector('form')).get('content');   // ""
 ```
 
-That breaks anything that serialises the form itself — htmx, Turbo, Alpine,
+That breaks anything that serialises the form itself: htmx, Turbo, Alpine,
 autosave, an "unsaved changes" guard, a character counter.
 
 ## A better approach
 
 [markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the
 textarea you already have and leaves it as the field you type into. It is never
-hidden and never copied, so its value is correct at every moment — not just
+hidden and never copied, so its value is correct at every moment, not just
 during submit.
 
 `required` works because the field is visible. `FormData` works because the
@@ -68,7 +68,7 @@ Install via npm (if you use a JS bundler):
 npm install markdown-text-editor
 ```
 
-Or use the CDN directly in your template — no build step needed:
+Or use the CDN directly in your template, with no build step:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
@@ -110,7 +110,7 @@ class PostForm(forms.ModelForm):
 {% endblock %}
 ```
 
-That's it. Submit the form — `request.POST['content']` contains the markdown exactly as typed. No hooks, no sync, no custom extraction.
+That's it. Submit the form and `request.POST['content']` contains the markdown exactly as typed. No hooks, no sync, no custom extraction.
 
 ## View
 
@@ -131,7 +131,7 @@ def create_post(request):
 
 ## Editing existing content
 
-When editing an existing post, Django pre-fills the textarea via the form — and the editor picks up whatever value is already there:
+When editing an existing post, Django pre-fills the textarea via the form, and the editor picks up whatever value is already there:
 
 ```python
 def edit_post(request, pk):
@@ -180,15 +180,15 @@ new MarkdownEditor('.markdown-editor', {
 
 ## Features you get out of the box
 
-- **WYSIWYG hybrid mode** — renders bold, italic and headings live while keeping raw Markdown underneath
-- **Live preview** — side-by-side preview panel
-- **Find & Replace** — `Ctrl+F` / `Ctrl+H`
-- **Keyboard shortcuts** — `Ctrl+B`, `Ctrl+I`, `Ctrl+K`, headings via `Ctrl+1`–`Ctrl+3`, lists via `Ctrl+L`
-- **RTL support** — Arabic, Urdu and Farsi work out of the box
-- **Dark mode** — add `data-theme="dark"` to any ancestor element
-- **XSS safe** — preview sanitized with DOMPurify
-- **CSP compatible** — no inline event handlers
-- **51 KB gzipped** (245 KB minified, CSS included) — EasyMDE is 107 KB gzipped across its JS and CSS
+- **WYSIWYG hybrid mode**: renders bold, italic and headings live while keeping raw Markdown underneath
+- **Live preview**: side-by-side preview panel
+- **Find & Replace**: `Ctrl+F` / `Ctrl+H`
+- **Keyboard shortcuts**: `Ctrl+B`, `Ctrl+I`, `Ctrl+K`, headings via `Ctrl+1`–`Ctrl+3`, lists via `Ctrl+L`
+- **RTL support**: Arabic, Urdu and Farsi work out of the box
+- **Dark mode**: add `data-theme="dark"` to any ancestor element
+- **XSS safe**: preview sanitized with DOMPurify
+- **CSP compatible**, no inline event handlers
+- **51 KB gzipped** (245 KB minified, CSS included), against EasyMDE's 107 KB gzipped across its JS and CSS
 
 ## Rendering markdown in templates
 
@@ -224,13 +224,13 @@ class Post(models.Model):
 </article>
 ```
 
-Sanitize on render, not on save. Storing the raw markdown means you can change how it is rendered later — switch extensions, allow a new tag, fix an escaping bug — without a data migration.
+Sanitize on render, not on save. Storing the raw markdown means you can change how it is rendered later, whether that is switching extensions, allowing a new tag or fixing an escaping bug, without a data migration.
 
 ## Why the textarea matters
 
 An editor that hides the textarea and edits a copy has to guess when to put the
 content back. CodeMirror guesses "on submit", which is a good guess and right
-most of the time — until the browser refuses to submit, or something reads the
+most of the time, until the browser refuses to submit or something reads the
 form before that moment. Every one of those failures is silent, because from the
 outside the field looks fine.
 
@@ -244,7 +244,7 @@ three lines long.
 ## Starting from scratch?
 
 [django-frutjam-starter](https://github.com/nezanuha/django-frutjam-starter) is a
-working Django 6 project with all of this already wired up — accounts, a
+working Django 6 project with all of this already wired up: accounts, a
 dashboard, and this exact markdown editor on a notes form. Clone it, run two
 commands, and you have somewhere to start.
 

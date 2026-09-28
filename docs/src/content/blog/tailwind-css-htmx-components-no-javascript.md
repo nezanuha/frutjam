@@ -1,6 +1,6 @@
 ---
 title: "Tailwind CSS + HTMX: The Component Library That Does Not Fight Your Stack"
-description: "Why most Tailwind CSS component libraries break with HTMX — and how Frutjam's CSS-only components work seamlessly with HTMX, Django, and Laravel without re-initialization."
+description: "Why most Tailwind CSS component libraries break with HTMX, and how Frutjam's CSS-only components work seamlessly with HTMX, Django, and Laravel without re-initialization."
 metaTitle: "HTMX Tailwind UI | Django & Laravel Components | Frutjam"
 metaDescription: "HTMX Tailwind UI: CSS-only components for Django, Laravel, and FastAPI that work on every DOM swap. No JavaScript re-initialization required."
 image: "https://cdn.frutjam.com/media/blog/posts/tailwind-css-htmx-components-no-javascript.jpg"
@@ -9,7 +9,7 @@ createdAt: "2026-07-05T06:54:27.736340+00:00"
 updatedAt: "2026-09-18T06:06:03.567+00:00"
 ---
 
-If you are building a server-side application with Django, Laravel, or FastAPI and evaluating front-end component libraries, the pairing of Tailwind CSS and HTMX is one of the most productive stacks available — and the right HTMX Tailwind UI component library makes all the difference. You get server-rendered HTML, hypermedia-driven interactivity, and minimal JavaScript — without a client-side framework.
+If you are building a server-side application with Django, Laravel, or FastAPI and evaluating front-end component libraries, the pairing of Tailwind CSS and HTMX is one of the most productive stacks available, and the right HTMX Tailwind UI component library makes all the difference. You get server-rendered HTML, hypermedia-driven interactivity, and minimal JavaScript, without a client-side framework.
 
 But the component library you choose matters enormously. Most popular options actively work against what HTMX does best.
 
@@ -23,13 +23,13 @@ HTMX's core idea is simple: use HTML attributes to add dynamic behavior to eleme
 
 That design breaks the moment you add a JavaScript-driven UI library:
 
-**Initialization timing.** JavaScript UI components register on `DOMContentLoaded` or similar hooks. When HTMX swaps in new HTML, those hooks do not re-run. You end up writing `htmx:afterSwap` event listeners just to re-initialize dropdowns or modals — code that fights HTMX rather than working with it.
+**Initialization timing.** JavaScript UI components register on `DOMContentLoaded` or similar hooks. When HTMX swaps in new HTML, those hooks do not re-run. You end up writing `htmx:afterSwap` event listeners just to re-initialize dropdowns or modals: code that fights HTMX rather than working with it.
 
 **State conflicts.** JavaScript UI libraries maintain internal state. When HTMX replaces a DOM node that a JavaScript library has claimed, you get ghost listeners, duplicated event handlers, or broken components.
 
 **Bundle bloat.** HTMX itself is around 14 KB (min+gzip). Loading a full JavaScript UI framework on top defeats the performance argument for choosing HTMX in the first place.
 
-The solution is a UI library with no JavaScript to re-initialize — one where every component is pure HTML and CSS.
+The solution is a UI library with no JavaScript to re-initialize, one where every component is pure HTML and CSS.
 
 ---
 
@@ -37,21 +37,21 @@ The solution is a UI library with no JavaScript to re-initialize — one where e
 
 Alpine.js is often recommended alongside HTMX for UI behavior. It works well for small amounts of client-side state. But it introduces the same class of problem as a JavaScript UI library:
 
-- Alpine components need to initialize — `x-data` blocks set up on page load
+- Alpine components need to initialize: `x-data` blocks set up on page load
 - HTMX-swapped HTML containing Alpine components needs `Alpine.initTree()` called manually
 - You are now managing two JavaScript libraries (HTMX + Alpine) plus a CSS library
 
-With Frutjam, there is no Alpine.js needed for standard UI components. Accordions, drawers, and tabs are pure CSS. Modals use a single inline `onclick="id.showModal()"` — native browser JS, not a library, so HTMX swaps never break them. HTMX handles data; Frutjam handles the UI.
+With Frutjam, there is no Alpine.js needed for standard UI components. Accordions, drawers, and tabs are pure CSS. Modals use a single inline `onclick="id.showModal()"`: native browser JS, not a library, so HTMX swaps never break them. HTMX handles data; Frutjam handles the UI.
 
 ---
 
 ## Frutjam: Built for HTMX-Powered Apps
 
-Every Frutjam component relies on native browser behavior and CSS. HTMX can swap any fragment containing Frutjam components and they will work correctly — no callbacks, no re-initialization scripts, no edge cases.
+Every Frutjam component relies on native browser behavior and CSS. HTMX can swap any fragment containing Frutjam components and they will work correctly, no callbacks, no re-initialization scripts, no edge cases.
 
 ### Modals via Native `<dialog>`
 
-Frutjam modals use the native `<dialog>` element with inline `onclick="id.showModal()"`. Because the trigger is inline HTML — not a JavaScript library initialization — HTMX can swap a fragment containing this button and it works immediately with no callback:
+Frutjam modals use the native `<dialog>` element with inline `onclick="id.showModal()"`. Because the trigger is inline HTML, not a JavaScript library initialization: HTMX can swap a fragment containing this button and it works immediately with no callback:
 
 ```html
 <!-- Server returns this fragment; HTMX swaps it into #modal-container -->
@@ -135,7 +135,7 @@ No JavaScript pagination library. No state management. The server controls the a
 
 ### HTMX-Powered Search with Combobox
 
-Frutjam's combobox pairs naturally with HTMX for server-side filtering. The open/close behavior is CSS-only (`focus-within:combobox-open`). For live search, `hx-get` sends the query to the server and HTMX swaps the results — no client-side filtering needed at all:
+Frutjam's combobox pairs naturally with HTMX for server-side filtering. The open/close behavior is CSS-only (`focus-within:combobox-open`). For live search, `hx-get` sends the query to the server and HTMX swaps the results, no client-side filtering needed at all:
 
 ```html
 <div class="relative w-full focus-within:combobox-open" id="user-search">
@@ -152,14 +152,14 @@ Frutjam's combobox pairs naturally with HTMX for server-side filtering. The open
 </div>
 ```
 
-The server returns a list of `<li class="combobox-item">` elements. HTMX swaps them in. No client-side filtering script, no component re-initialization. If you want client-side filtering instead — for small static lists — add the built-in helper:
+The server returns a list of `<li class="combobox-item">` elements. HTMX swaps them in. No client-side filtering script, no component re-initialization. If you want client-side filtering instead, for small static lists, add the built-in helper:
 
 ```js
 import { createCombobox } from 'frutjam/js'
 createCombobox(document.querySelector('#user-search'))
 ```
 
-`createCombobox` adds keyboard navigation (↑ ↓ Enter Escape) and `aria-*` attributes. The browser has no native combobox element, so unlike the accordion or drawer, filtering logic has to come from somewhere — Frutjam ships it so you do not write it.
+`createCombobox` adds keyboard navigation (↑ ↓ Enter Escape) and `aria-*` attributes. The browser has no native combobox element, so unlike the accordion or drawer, filtering logic has to come from somewhere: Frutjam ships it so you do not write it.
 
 ---
 
@@ -203,7 +203,7 @@ No JavaScript UI framework. No component initialization. HTMX handles behavior; 
 
 ## Laravel Tailwind Components
 
-The setup in Laravel is identical — Frutjam is framework-agnostic:
+The setup in Laravel is identical: Frutjam is framework-agnostic:
 
 ```css
 /* resources/css/app.css */
@@ -229,7 +229,7 @@ npm run build
 </html>
 ```
 
-Blade partials returned by HTMX-targeted routes contain Frutjam components that work immediately on insertion — no JavaScript initialization step.
+Blade partials returned by HTMX-targeted routes contain Frutjam components that work immediately on insertion, no JavaScript initialization step.
 
 ---
 
@@ -242,7 +242,7 @@ Blade partials returned by HTMX-targeted routes contain Frutjam components that 
 | UI component JavaScript | 0 KB (core) / ~2 KB optional (combobox helper) |
 | **Total** | **~26–32 KB** |
 
-Compare to a React SPA with a JavaScript UI library: typically 150–400 KB before your application code runs. The difference shows directly in Core Web Vitals — First Contentful Paint, Time to Interactive, and Total Blocking Time all improve when there is no script parsing blocking the render path.
+Compare to a React SPA with a JavaScript UI library: typically 150–400 KB before your application code runs. The difference shows directly in Core Web Vitals: First Contentful Paint, Time to Interactive, and Total Blocking Time all improve when there is no script parsing blocking the render path.
 
 ---
 
@@ -250,7 +250,7 @@ Compare to a React SPA with a JavaScript UI library: typically 150–400 KB befo
 
 Tailwind CSS handles the visual system. HTMX handles dynamic behavior without JavaScript components. Frutjam handles the component library. Nothing in the stack conflicts with anything else.
 
-If you are building a Django, Laravel, FastAPI, or any server-rendered application and want UI components that work on first swap without re-initialization, [explore Frutjam](https://frutjam.com) — the Tailwind CSS component library designed for this stack.
+If you are building a Django, Laravel, FastAPI, or any server-rendered application and want UI components that work on first swap without re-initialization, [explore Frutjam](https://frutjam.com), the Tailwind CSS component library designed for this stack.
 ---
 
 ## FastAPI + Jinja2 Setup
@@ -286,7 +286,7 @@ async def home(request: Request):
 </html>
 ```
 
-The same Frutjam components that work in Django templates work identically here. The library is server-framework agnostic — it only cares about the HTML that reaches the browser.
+The same Frutjam components that work in Django templates work identically here. The library is server-framework agnostic, it only cares about the HTML that reaches the browser.
 
 ---
 
@@ -308,13 +308,13 @@ These HTMX attributes work on any Frutjam element without configuration:
 ## Frequently Asked Questions
 
 **Does Frutjam require any JavaScript setup with HTMX?**
-No external JavaScript setup. Install via npm, add two lines to your CSS. Accordions, drawers, and tabs need no JS at all. Modals use inline `onclick="id.showModal()"` — plain HTML, so they work on first render and after every HTMX swap without any `htmx:afterSwap` listener.
+No external JavaScript setup. Install via npm, add two lines to your CSS. Accordions, drawers, and tabs need no JS at all. Modals use inline `onclick="id.showModal()"`: plain HTML, so they work on first render and after every HTMX swap without any `htmx:afterSwap` listener.
 
 **What if I need a component that genuinely requires JavaScript?**
-The combobox is the clearest example: filtering a list as the user types requires JavaScript. Frutjam ships `createCombobox` from `frutjam/js` — a built-in helper that handles filtering, keyboard navigation, and `aria-*` attributes. You do not write it yourself. With HTMX, you can skip client-side filtering entirely and let the server return filtered results. Accordions, drawers, and tabs are pure CSS. Modals use one line of native browser JS (`showModal()`) with no library or initialization lifecycle.
+The combobox is the clearest example, filtering a list as the user types requires JavaScript. Frutjam ships `createCombobox` from `frutjam/js`, a built-in helper that handles filtering, keyboard navigation, and `aria-*` attributes. You do not write it yourself. With HTMX, you can skip client-side filtering entirely and let the server return filtered results. Accordions, drawers, and tabs are pure CSS. Modals use one line of native browser JS (`showModal()`) with no library or initialization lifecycle.
 
 **Can I use Frutjam with htmx.org's `hx-boost`?**
-Yes. `hx-boost` replaces page navigation with HTMX partial swaps. Frutjam components in the swapped content work correctly because there is nothing to re-initialize — the CSS is already loaded globally.
+Yes. `hx-boost` replaces page navigation with HTMX partial swaps. Frutjam components in the swapped content work correctly because there is nothing to re-initialize, the CSS is already loaded globally.
 
 **Does Frutjam work with Django REST Framework (DRF)?**
 Yes. DRF's `TemplateHTMLRenderer` returns full HTML responses. Frutjam components in those templates work identically to any other Django template.

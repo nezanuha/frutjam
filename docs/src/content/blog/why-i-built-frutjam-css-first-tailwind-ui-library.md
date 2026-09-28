@@ -2,7 +2,7 @@
 title: "Why I Stopped Using JavaScript-Heavy UI Libraries (And Built a CSS-First Tailwind Component Library)"
 description: "Achieve 100% PageSpeed scores by default. A guide to building high-performance, RTL-ready platforms using native HTML5 and CSS-first components."
 metaTitle: "Why I Built Frutjam | A Free CSS-Only Tailwind CSS Library | Frutjam"
-metaDescription: "How JS-heavy UI libraries killed performance — and how building Frutjam, a CSS-only Tailwind CSS library with WCAG accessibility, solved it."
+metaDescription: "How JS-heavy UI libraries killed performance, and how building Frutjam, a CSS-only Tailwind CSS library with WCAG accessibility, solved it."
 image: "https://cdn.frutjam.com/media/blog/posts/why-i-built-frutjam-css-first-tailwind-ui-library.jpg"
 imageAlt: "Illustration of a browser window as a hot-air balloon rising while heavy sandbags fall away"
 createdAt: "2026-04-02T07:58:06.179767+00:00"
@@ -62,15 +62,15 @@ Cleaner markup also means your theming system has less to fight against, which b
 
 Most UI libraries restrict you to a handful of predefined themes. Frutjam adds a set of highly customizable color names directly to your Tailwind CSS configuration. This allows you to generate **unlimited themes** with almost zero effort.
 
-Whether your client needs a dark, neon cyberpunk aesthetic or a clean, corporate minimalist look, the design system adapts to your brand colors instantly without requiring you to write custom CSS overrides from scratch. But themes are only useful if the colors actually pass accessibility standards — and that's where most libraries quietly let you down.
+Whether your client needs a dark, neon cyberpunk aesthetic or a clean, corporate minimalist look, the design system adapts to your brand colors instantly without requiring you to write custom CSS overrides from scratch. But themes are only useful if the colors actually pass accessibility standards, and that's where most libraries quietly let you down.
 
 ---
 
 ## 4. Accessibility and Color Contrast by Default
 
-I was shocked to find that even "industry standard" libraries were failing basic WCAG contrast checks in their default themes. If you look at libraries like **DaisyUI**, their color contrast often fails across various themes. In modern web development, poor contrast isn't just bad UX — it tanks your SEO.
+I was shocked to find that even "industry standard" libraries were failing basic WCAG contrast checks in their default themes. If you look at libraries like **DaisyUI**, their color contrast often fails across various themes. In modern web development, poor contrast isn't just bad UX, it tanks your SEO.
 
-I built Frutjam so that color logic is handled automatically. Every theme you create within the library is designed to pass accessibility and color contrast checks out of the box. You get a production-ready, SEO-friendly UI without needing to be an accessibility expert. That kind of guarantee matters even more when you're building for global audiences — including right-to-left ones.
+I built Frutjam so that color logic is handled automatically. Every theme you create within the library is designed to pass accessibility and color contrast checks out of the box. You get a production-ready, SEO-friendly UI without needing to be an accessibility expert. That kind of guarantee matters even more when you're building for global audiences, including right-to-left ones.
 
 ---
 
@@ -103,7 +103,7 @@ Building for the MENA region means RTL isn't an afterthought; it's a strict requ
 
 You shouldn't have to compromise between shipping fast, maintaining clean HTML, and hitting a 100% PageSpeed score. By shifting the heavy lifting back to the browser and utilizing a CSS-first Tailwind component library, high performance stops being a chore and becomes the default state of your application.
 
-I've shipped real production projects with this approach — multilingual, RTL-ready platforms that score green across the board without a single JavaScript workaround for UI state. That's not a promise; it's just what happens when you stop fighting the browser and start working with it.
+I've shipped real production projects with this approach: multilingual, RTL-ready platforms that score green across the board without a single JavaScript workaround for UI state. That's not a promise; it's just what happens when you stop fighting the browser and start working with it.
 
 If you're building something where performance, accessibility, and clean code actually matter, this is the stack worth trying. The bloat you eliminate on day one pays dividends every time you ship.
 
