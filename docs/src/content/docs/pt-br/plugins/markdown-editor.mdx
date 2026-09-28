@@ -1,7 +1,7 @@
 ---
 name: "Editor de redução"
-heading: "O plug-in Markdown nativo e de alto desempenho para JavaScript"
-description: "Plugin de editor de texto Markdown que transforma uma área de texto nativa em um conjunto completo de edição - sem necessidade de sincronização. Modos WYSIWYG e Markdown simples, visualização ao vivo, localização e substituição, suporte RTL, modo escuro. Funciona com Django, Laravel, Rails, Node.js, PHP e qualquer pilha."
+heading: "Barra de ferramentas, visualização ao vivo e WYSIWYG na área de texto que você já possui"
+description: "Um editor de markdown que aprimora sua área de texto em vez de substituí-la, para que o envio de formulários, a validação e os campos obrigatórios continuem funcionando. Modos WYSIWYG e Markdown simples, visualização ao vivo, localização e substituição, suporte RTL, modo escuro. Funciona de forma independente com Django, Laravel, Rails, Node.js, PHP e qualquer pilha."
 metaTitle: "Plug-in JavaScript do editor de texto Markdown | Frutjam"
 metaDescription: "Editor leve de marcação JavaScript que aprimora sua área de texto sem substituí-la. Funciona como está com Django, Laravel, Rails, PHP e Node.js. WYSIWYG, RTL."
 order: 0
@@ -12,15 +12,17 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plug-in JavaScript do Markdown Text Editor da Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "ec38ef061fc1"
-translationHash: "de190293b1aa"
+sourceHash: "c4e03dcdd4b2"
+translationHash: "b7d4c65bab99"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Plugin de editor de texto Markdown que transforma uma área de texto nativa em um conjunto completo de edição - sem necessidade de sincronização. Modos WYSIWYG e Markdown simples, visualização ao vivo, localização e substituição, suporte RTL, modo escuro. Funciona com Django, Laravel, Rails, Node.js, PHP e qualquer pilha.
+Um editor de markdown que aprimora sua área de texto em vez de substituí-la, para que o envio de formulários, a validação e os campos obrigatórios continuem funcionando. Modos WYSIWYG e Markdown simples, visualização ao vivo, localização e substituição, suporte RTL, modo escuro. Funciona de forma independente com Django, Laravel, Rails, Node.js, PHP e qualquer pilha.
+
+**Não é necessário Frutjam e nem Tailwind.** Os estilos são agrupados, então o editor pode ser usado em qualquer projeto.
 
 ## Instalação
 
@@ -60,7 +62,7 @@ As definições TypeScript são fornecidas com o pacote, portanto, opções, ent
 
 #### CDN: etiqueta de script global (IIFE)
 
-Nenhuma importação necessária – MarkdownEditor está disponível automaticamente como uma variável global.
+Nenhuma importação necessária: MarkdownEditor está disponível automaticamente como uma variável global.
 
 <Snippet view="code">
 
@@ -84,7 +86,7 @@ Nenhuma importação necessária – MarkdownEditor está disponível automatica
 
 ## Início rápido
 
-Passe um objeto de opções para personalizar o editor. Todas as opções são opcionais — omita qualquer uma para usar o valor padrão.
+Passe um objeto de opções para personalizar o editor. Todas as opções são opcionais: omita qualquer uma para usar o valor padrão.
 
 <Snippet view="code">
 
@@ -107,7 +109,7 @@ A maioria dos editores quebra o fluxo de trabalho padrão da web. **MarkdownEdit
 
 ## MarkdownEditor vs EasyMDE/SimpleMDE
 
-A maioria dos editores de markdown JavaScript — EasyMDE, SimpleMDE, editores baseados em CodeMirror — **ocultam seu `<textarea>`** e edite uma cópia, devolvendo o conteúdo quando o formulário for enviado. Isso funciona até que algo mais precise do valor: a `required` campo o navegador não consegue focar bloqueia totalmente o envio e `.value` ou `FormData` read before submit retorna uma string vazia, que quebra as proteções htmx, Turbo, autosave e unsaved-changes. **MarkdownEditor é diferente** — ele estiliza a área de texto que você já possui e a deixa como o campo em que você digita, para que o valor esteja correto a cada momento.
+A maioria dos editores de markdown JavaScript (EasyMDE, SimpleMDE, editores baseados em CodeMirror) **ocultam seu `<textarea>`** e edite uma cópia, devolvendo o conteúdo quando o formulário for enviado. Isso funciona até que algo mais precise do valor: a `required` campo o navegador não consegue focar bloqueia totalmente o envio e `.value` ou `FormData` read before submit retorna uma string vazia, que quebra as proteções htmx, Turbo, autosave e unsaved-changes. **MarkdownEditor é diferente.** Ele estiliza a área de texto que você já possui e a deixa como o campo em que você digita, para que o valor esteja correto a cada momento.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -132,7 +134,7 @@ Porque o **MarkdownEditor** preserva o nativo `<textarea>`, ele se integra a tod
 
 ### Django
 
-Adicione um `class` ao seu widget textarea e inicialize o editor - `request.POST['content']` funciona sem etapas extras.
+Adicione um `class` ao seu widget textarea e inicialize o editor: `request.POST['content']` funciona sem etapas extras.
 
 <Snippet view="code">
 
@@ -160,7 +162,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### Laravel
 
-Usar `f.text_area` com uma aula - `$request->input('content')` recebe a redução diretamente.
+Usar `f.text_area` com uma aula: `$request->input('content')` recebe a redução diretamente.
 
 <Snippet view="code">
 
@@ -173,7 +175,7 @@ Usar `f.text_area` com uma aula - `$request->input('content')` recebe a reduçã
 
 ### Ruby nos trilhos
 
-Funciona com `form_with` fora da caixa - `params[:content]` contém a marcação. Para Turbo Drive, use `turbo:load` em vez de `DOMContentLoaded`.
+Funciona com `form_with` fora da caixa: `params[:content]` contém a marcação. Para Turbo Drive, use `turbo:load` em vez de `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -190,7 +192,7 @@ document.addEventListener('turbo:load', () => {
 
 ### Node.js/Expresso
 
-`req.body.content` recebe a redução no envio do formulário - sem etapa de sincronização, sem extração personalizada.
+`req.body.content` recebe a redução no envio do formulário: sem etapa de sincronização, sem extração personalizada.
 
 <Snippet view="code">
 
@@ -204,7 +206,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` funciona exatamente como qualquer área de texto padrão - insira-a e o manuseio do formulário existente não exigirá nenhuma alteração.
+`$_POST['content']` funciona exatamente como qualquer textarea padrão: insira-o e o manuseio do formulário existente não exigirá nenhuma alteração.
 
 <Snippet view="code">
 
@@ -282,7 +284,7 @@ Usado como `<MarkdownField v-model="content" />`. De forma simples você pode pu
 
 Você pode personalizar totalmente o comportamento e a interface do editor passando um `options` objeto. Se você omitir uma opção, o valor **padrão** será usado.
 
-As opções são lidas uma vez, quando o editor é construído. Alterá-los posteriormente não tem efeito – ligue `destroy()` e crie um novo editor.
+As opções são lidas uma vez, quando o editor é construído. Alterá-los posteriormente não tem efeito: ligue `destroy()` e crie um novo editor.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -297,7 +299,7 @@ As opções são lidas uma vez, quando o editor é construído. Alterá-los post
 | `maxHeight` | `number` | `500` | Altura máxima em pixels que o editor pode atingir fora do modo de tela cheia. Quando o conteúdo exceder essa altura, uma barra de rolagem aparecerá dentro do editor. O editor também possui uma alça de arrastar para que os usuários possam redimensioná-lo manualmente além desse limite. |
 | `renderer` | `function` | `marked` | Substitui o analisador de redução usado para a visualização. Recebe a string markdown e deve retornar uma string HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Substitui o desinfetante HTML. Recebe o HTML renderizado e deve retornar o HTML seguro para exibição. |
-| `onChange` | `function` | `undefined` | Retorno de chamada disparado em cada alteração de conteúdo – digitação, ações na barra de ferramentas, desfazer/refazer e continuação de lista. Recebe a string de redução atual como seu único argumento. |
+| `onChange` | `function` | `undefined` | Retorno de chamada disparado em cada alteração de conteúdo: digitação, ações na barra de ferramentas, desfazer/refazer e continuação de lista. Recebe a string de redução atual como seu único argumento. |
 
 </DocTable>
 
@@ -358,7 +360,7 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 
 ### 📊 Rodapé (barra de status)
 
-O rodapé fica abaixo do editor e mostra a **linha**, a **coluna** do cursor, a **contagem de caracteres** do documento e, opcionalmente, a **contagem de palavras** — tudo atualizado em tempo real. É visível por padrão e cada estatística pode ser alternada de forma independente.
+O rodapé fica abaixo do editor e mostra a **linha**, a **coluna** do cursor, a **contagem de caracteres** do documento e, opcionalmente, a **contagem de palavras**, tudo atualizado em tempo real. É visível por padrão e cada estatística pode ser alternada de forma independente.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -367,7 +369,7 @@ O rodapé fica abaixo do editor e mostra a **linha**, a **coluna** do cursor, a 
 | `line` | `boolean` | `true` | Mostra o número da linha atual. |
 | `col` | `boolean` | `true` | Mostrar o número da coluna atual. |
 | `chars` | `boolean` | `true` | Mostrar a contagem total de caracteres. |
-| `words` | `boolean` | `false` | Mostre a contagem total de palavras. Desativado por padrão – definido como `true` para habilitar. |
+| `words` | `boolean` | `false` | Mostre a contagem total de palavras. Desativado por padrão: definido como `true` para habilitar. |
 
 </DocTable>
 
@@ -442,19 +444,19 @@ Concentra-se na sintaxe bruta do Markdown para uma experiência leve.
 
 ### 🌙 Tema
 
-**MarkdownEditor** herda automaticamente seu tema da página ao redor — nenhuma configuração é necessária. O editor lê `data-theme` do ancestral mais próximo na inicialização, para que fique sincronizado com o tema do seu site imediatamente.
+**MarkdownEditor** herda automaticamente seu tema da página ao redor: nenhuma configuração é necessária. O editor lê `data-theme` do ancestral mais próximo na inicialização, para que fique sincronizado com o tema do seu site imediatamente.
 
 #### Como o tema é resolvido (ordem de prioridade)
 
-1.  **`theme` opção** — substituição explícita passada no objeto de opções
-2.  **`data-theme` no `<textarea>`** — definido diretamente no elemento
-3.  **`data-theme` em qualquer ancestral ** - por ex. `<html>`, `<body>`ou um invólucro `<div>`
+1.  **`theme` opção**: substituição explícita passada no objeto de opções
+2.  **`data-theme` no `<textarea>`**: definido diretamente no elemento
+3.  **`data-theme` em qualquer ancestral **: por ex. `<html>`, `<body>`ou um invólucro `<div>`
 
 #### Temas disponíveis
 
 `'light'` (padrão), `'dark'`, `'snowberry'`, `'darkberry'`
 
-##### Opção 1 – herdar de `<html>` ou qualquer ancestral (configuração zero)
+##### Opção 1, herdar de `<html>` ou qualquer ancestral (configuração zero)
 
 <Snippet view="code">
 
@@ -469,7 +471,7 @@ Concentra-se na sintaxe bruta do Markdown para uma experiência leve.
 
 </Snippet>
 
-##### Opção 2 – definir `data-theme` diretamente no `<textarea>`
+##### Opção 2: definir `data-theme` diretamente no `<textarea>`
 
 <Snippet view="code">
 
@@ -482,7 +484,7 @@ Concentra-se na sintaxe bruta do Markdown para uma experiência leve.
 
 </Snippet>
 
-##### Opção 3 – explícito `theme` opção (substitui tudo)
+##### Opção 3: explícito `theme` opção (substitui tudo)
 
 <Snippet view="code">
 
@@ -752,7 +754,7 @@ Com vários editores em uma página, direcione um deles com `data-editor`. O wra
 
 ### 🪟 Tela cheia e camadas (índice z)
 
-Em tela cheia o editor usa `z-index: 10000`, que limpa as camadas que a maioria das estruturas de UI reservam para cabeçalhos fixos e sobreposições. Se um cabeçalho fixo ou barra lateral ainda cobrir o editor, aumente esse valor.
+Em tela cheia o editor usa `z-index: 10000`, que limpa as camadas que a maioria das estruturas de UI reserva para cabeçalhos fixos e sobreposições. Se um cabeçalho fixo ou barra lateral ainda cobrir o editor, aumente esse valor.
 
 Substitua-o por `--mte-fullscreen-z-index`. O valor se aplica apenas em tela cheia e é herdado, portanto, defini-lo em qualquer ancestral abrange todos os editores abaixo dele.
 
@@ -801,7 +803,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\. Usando uma referência de variável
 
-Se você tiver uma referência ao elemento textarea, poderá usá-lo diretamente - não é necessária nenhuma API específica da biblioteca.
+Se você tiver uma referência ao elemento textarea, poderá usá-lo diretamente: não é necessária nenhuma API específica da biblioteca.
 
 <Snippet view="code">
 
@@ -819,7 +821,7 @@ textarea.value = "## Updated via JS";
 
 #### 3\. Configurando o conteúdo inicial do lado do servidor
 
-A maneira recomendada de definir o conteúdo inicial é diretamente no `<textarea>` HTML — funciona naturalmente com todos os frameworks de backend (Django, Laravel, Rails, PHP, etc.) e o editor o renderiza automaticamente no init.
+A maneira recomendada de definir o conteúdo inicial é diretamente no `<textarea>` HTML: funciona naturalmente com todos os frameworks de backend (Django, Laravel, Rails, PHP, etc.) e o editor o renderiza automaticamente no init.
 
 <Snippet view="code">
 
@@ -847,7 +849,7 @@ editor.render();
 
 </Snippet>
 
-#### 4\. Derrubando o editor - `destroy()`
+#### 4\. Derrubando o editor: `destroy()`
 
 Chamar `editor.destroy()` para remover o wrapper DOM do editor e restaurar o original `<textarea>` à sua posição no documento. Útil em aplicativos de página única ao desmontar uma visualização.
 
@@ -938,7 +940,7 @@ Basta usar um HTML padrão `<form>`. O `name` O atributo na textarea é o que se
 
 ##### 🚀 Por que é uma virada de jogo para back-ends
 
-Como o editor preserva o nativo `<textarea>` comportamento, seu servidor manipula os dados como uma string padrão. Não há necessidade de nenhuma lógica extra - não `preventDefault()` e sem manual `FormData` construção.
+Como o editor preserva o nativo `<textarea>` comportamento, seu servidor manipula os dados como uma string padrão. Não há necessidade de lógica extra: não `preventDefault()` e sem manual `FormData` construção.
 
 ##### 💡 Por que este é um "recurso matador":
 
@@ -960,7 +962,7 @@ Com o **MarkdownEditor**, um desenvolvedor pode pegar um site antigo e substitui
 
 ## 🖼️ Upload avançado de imagens
 
-Lidar com uploads de imagens nativamente, em vez de depender de strings Base64 lentas e com muita memória, é uma vitória significativa tanto para o desempenho quanto para o SEO.
+Lidar com uploads de imagens nativamente: em vez de depender de strings Base64 lentas e com muita memória, é uma vitória significativa tanto para o desempenho quanto para o SEO.
 
 ### Opções de configuração
 
@@ -1026,7 +1028,7 @@ Para confirmar um upload bem-sucedido e inserir a imagem no editor, seu servidor
 
 </Snippet>
 
-**Observação**: certifique-se de usar a chave `image_path` para o URL da imagem enviada.
+**Observação**: Certifique-se de usar a chave `image_path` para o URL da imagem enviada.
 
 ### Validação de texto alternativo da imagem (`altInput`)
 
@@ -1130,7 +1132,7 @@ Ações comuns de formatação podem ser acionadas diretamente no teclado, sem t
 
 ## 🔍 Localizar e substituir
 
-Um painel integrado de localização e substituição está disponível dentro do editor – nenhuma extensão de navegador ou ferramenta separada é necessária.
+Um painel integrado de localização e substituição está disponível dentro do editor: nenhuma extensão de navegador ou ferramenta separada é necessária.
 
 -   Imprensa `Ctrl + F` (ou `⌘ F`) para abrir o painel **Localizar**
 -   Imprensa `Ctrl + H` (ou `⌘ H`) para abrir o painel **Localizar e substituir**
@@ -1143,7 +1145,7 @@ O painel flutua no canto superior direito da área de conteúdo do editor e não
 
 ## Características
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integração de formulário nativo</h2><p class=\"para-sm\">Funciona exatamente como um padrão <code>&lt;textarea&gt;</code>. Sem APIs complexas – basta usar o <code>value</code> ou <code>name</code> atributo. Ele \"simplesmente funciona\" com envios de formulários HTML padrão em PHP, Django ou Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Upload avançado de imagens</h2><p class=\"para-sm\">Configure uploads de servidores nativos via API. Evite strings Base64 pesadas para garantir carregamentos de página mais rápidos e SEO superior hospedando imagens em seu próprio CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Modos Híbrido e Simples</h2><p class=\"para-sm\">Alternar entre um <strong>Híbrido (WYSIWYG)</strong> experiência em edição visual ou <strong>Remarcação simples</strong> modo para uma sensação de codificação tradicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Alto desempenho</h2><p class=\"para-sm\">UM <strong>51 KB compactados</strong> pacote (245 KB minificado, CSS incluído) otimizado para \"Conteúdo Pesado\". Lida com documentos e arquivos grandes sem qualquer atraso de entrada ou queda de desempenho. Atualizações de visualização eliminadas, cálculos de estilo em cache e manuseio de teclado sem conflitos – para que Tab e Enter sempre façam exatamente uma coisa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Suporte RTL integrado</h2><p class=\"para-sm\">Suporte nativo para idiomas da direita para a esquerda, como árabe, urdu e farsi. Perfeito para criar aplicativos acessíveis globalmente.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Destaque de sintaxe</h2><p class=\"para-sm\">Legibilidade aprimorada com código claro e formatação remarcada.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptativo</h2><p class=\"para-sm\">Inclui suporte automático ao Modo Escuro. Ele sincroniza com as configurações do sistema ou com o <strong>IU do Frutjam</strong> biblioteca para uma experiência visual perfeita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Edição Inteligente</h2><p class=\"para-sm\">Continuação de lista automática no estilo GitHub para listas ordenadas, listas não ordenadas e listas de verificação – pressione <code>Enter</code> e o editor continua o padrão. As caixas de seleção no painel de visualização podem ser clicadas e sincronizadas instantaneamente com a fonte de redução.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Totalmente responsivo</h2><p class=\"para-sm\">Uma interface de usuário fluida e voltada para dispositivos móveis que se adapta perfeitamente a desktops, tablets e smartphones para edição em qualquer lugar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Suporte Universal</h2><p class=\"para-sm\">Compatível com <strong>ESM, UMD, CommonJS e IIFE</strong>. Funciona imediatamente via CDN (<code>&lt;script src&gt;</code>), npm ou qualquer bundler (Vite, webpack, Rollup) — nenhuma configuração extra é necessária.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Acessível por padrão</h2><p class=\"para-sm\">Suporte completo para ARIA integrado — ponto de referência da barra de ferramentas, região de visualização rotulada, botões fáceis de ler na tela, <code>aria-pressed</code> no botão de visualização, <code>disabled</code> e <code>aria-disabled</code> em ferramentas inativas e restauração correta do foco quando os modais fecham.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero conflitos de CSS</h2><p class=\"para-sm\">Os estilos do editor têm escopo total para <code>.markdown-editor-wrapper</code>. A comprovação global do Tailwind é excluída para que o editor viva com segurança ao lado do Bootstrap, Tailwind ou qualquer outra estrutura sem quebrar seus estilos.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Atalhos de teclado</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — ações comuns de formatação sem tocar no mouse. Cada atalho é mostrado na dica de ferramenta do botão da barra de ferramentas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Localizar e substituir</h2><p class=\"para-sm\">Imprensa <code>Ctrl+F</code> encontrar ou <code>Ctrl+H</code> para abrir localizar e substituir. Pesquisa sem distinção entre maiúsculas e minúsculas com contador de correspondências ao vivo, navegação seguinte/anterior, substituição única e substituição de todas — sem sair do editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Visualização segura do XSS</h2><p class=\"para-sm\">A visualização renderizada é higienizada via <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurificar</a> antes de ser gravado no DOM. Tags de script, manipuladores de eventos in-line e URLs maliciosos em entradas de markdown criadas são removidos automaticamente – sem necessidade de configuração.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Visualização em tempo real</h2><p class=\"para-sm\">Veja sua redução renderizada instantaneamente enquanto você digita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Fácil integração</h2><p class=\"para-sm\">Integre-se perfeitamente a qualquer projeto web com configuração mínima.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Barra de ferramentas personalizável</h2><p class=\"para-sm\">Configure e reordene dinamicamente as opções da barra de ferramentas, como negrito, itálico e muito mais.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integração de formulário nativo</h2><p class=\"para-sm\">Funciona exatamente como um padrão <code>&lt;textarea&gt;</code>. Sem APIs complexas: basta usar o <code>value</code> ou <code>name</code> atributo. Ele \"simplesmente funciona\" com envios de formulários HTML padrão em PHP, Django ou Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Upload avançado de imagens</h2><p class=\"para-sm\">Configure uploads de servidores nativos via API. Evite strings Base64 pesadas para garantir carregamentos de página mais rápidos e SEO superior hospedando imagens em seu próprio CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Modos Híbrido e Simples</h2><p class=\"para-sm\">Alternar entre um <strong>Híbrido (WYSIWYG)</strong> experiência em edição visual ou <strong>Remarcação simples</strong> modo para uma sensação de codificação tradicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Alto desempenho</h2><p class=\"para-sm\">UM <strong>51 KB compactados</strong> pacote (245 KB minificado, CSS incluído) otimizado para \"Conteúdo Pesado\". Lida com documentos e arquivos grandes sem qualquer atraso de entrada ou queda de desempenho. Atualizações de visualização eliminadas, cálculos de estilo em cache e manuseio de teclado sem conflitos: portanto, Tab e Enter sempre fazem exatamente uma coisa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Suporte RTL integrado</h2><p class=\"para-sm\">Suporte nativo para idiomas da direita para a esquerda, como árabe, urdu e farsi. Perfeito para criar aplicativos acessíveis globalmente.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Destaque de sintaxe</h2><p class=\"para-sm\">Legibilidade aprimorada com código claro e formatação remarcada.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptativo</h2><p class=\"para-sm\">Inclui suporte automático ao Modo Escuro. Ele sincroniza com as configurações do sistema ou com o <strong>IU do Frutjam</strong> biblioteca para uma experiência visual perfeita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Edição Inteligente</h2><p class=\"para-sm\">Continuação de lista automática no estilo GitHub para listas ordenadas, listas não ordenadas e listas de verificação: pressione <code>Enter</code> e o editor continua o padrão. As caixas de seleção no painel de visualização podem ser clicadas e sincronizadas instantaneamente com a fonte de redução.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Totalmente responsivo</h2><p class=\"para-sm\">Uma interface de usuário fluida e voltada para dispositivos móveis que se adapta perfeitamente a desktops, tablets e smartphones para edição em qualquer lugar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Suporte universal</h2><p class=\"para-sm\">Compatível com <strong>ESM, UMD, CommonJS e IIFE</strong>. Funciona imediatamente via CDN (<code>&lt;script src&gt;</code>), npm ou qualquer bundler (Vite, webpack, Rollup): nenhuma configuração extra necessária.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Acessível por padrão</h2><p class=\"para-sm\">Suporte completo para ARIA integrado: ponto de referência da barra de ferramentas, região de visualização rotulada, botões fáceis de ler na tela, <code>aria-pressed</code> no botão de visualização, <code>disabled</code> e <code>aria-disabled</code> em ferramentas inativas e restauração correta do foco quando os modais fecham.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero conflitos de CSS</h2><p class=\"para-sm\">Os estilos do editor têm escopo total para <code>.markdown-editor-wrapper</code>. A comprovação global do Tailwind é excluída para que o editor viva com segurança ao lado do Bootstrap, Tailwind ou qualquer outra estrutura sem quebrar seus estilos.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Atalhos de teclado</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: ações comuns de formatação sem tocar no mouse. Cada atalho é mostrado na dica de ferramenta do botão da barra de ferramentas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Localizar e substituir</h2><p class=\"para-sm\">Imprensa <code>Ctrl+F</code> encontrar ou <code>Ctrl+H</code> para abrir localizar e substituir. Pesquisa sem distinção entre maiúsculas e minúsculas com contador de correspondências ao vivo, navegação seguinte/anterior, substituição única e substituição de todas: sem sair do editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Visualização segura do XSS</h2><p class=\"para-sm\">A visualização renderizada é higienizada via <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurificar</a> antes de ser gravado no DOM. Tags de script, manipuladores de eventos in-line e URLs maliciosos na entrada de markdown criada são removidos automaticamente: nenhuma configuração é necessária.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Visualização em tempo real</h2><p class=\"para-sm\">Veja sua redução renderizada instantaneamente enquanto você digita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Fácil integração</h2><p class=\"para-sm\">Integre-se perfeitamente a qualquer projeto web com configuração mínima.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Barra de ferramentas personalizável</h2><p class=\"para-sm\">Configure e reordene dinamicamente as opções da barra de ferramentas, como negrito, itálico e muito mais.</p></div></div></div>"} />
 
 ## Exemplo de configuração completa
 

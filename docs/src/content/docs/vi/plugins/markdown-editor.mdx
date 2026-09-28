@@ -1,7 +1,7 @@
 ---
 name: "Trình chỉnh sửa đánh dấu"
-heading: "Plugin đánh dấu hiệu suất cao, đầu tiên dành cho JavaScript"
-description: "Plugin soạn thảo văn bản Markdown biến vùng văn bản gốc thành bộ chỉnh sửa đầy đủ - không cần đồng bộ hóa. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào."
+heading: "Thanh công cụ, bản xem trước trực tiếp và WYSIWYG trên vùng văn bản bạn đã có"
+description: "Trình chỉnh sửa đánh dấu giúp nâng cao vùng văn bản của bạn thay vì thay thế nó, nhờ đó việc gửi biểu mẫu, xác thực và các trường bắt buộc sẽ tiếp tục hoạt động. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động độc lập với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào."
 metaTitle: "Plugin JavaScript soạn thảo văn bản Markdown | trái cây"
 metaDescription: "Trình chỉnh sửa đánh dấu JavaScript nhẹ giúp nâng cao vùng văn bản của bạn mà không cần thay thế nó. Hoạt động nguyên trạng với Django, Laravel, Rails, PHP và Node.js. WYSIWYG, RTL."
 order: 0
@@ -12,15 +12,17 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript soạn thảo văn bản Markdown của Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "ec38ef061fc1"
-translationHash: "4d72aa921dcb"
+sourceHash: "c4e03dcdd4b2"
+translationHash: "f51504ff1502"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Plugin soạn thảo văn bản Markdown biến vùng văn bản gốc thành bộ chỉnh sửa đầy đủ - không cần đồng bộ hóa. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào.
+Trình chỉnh sửa đánh dấu giúp nâng cao vùng văn bản của bạn thay vì thay thế nó, nhờ đó việc gửi biểu mẫu, xác thực và các trường bắt buộc sẽ tiếp tục hoạt động. WYSIWYG và các chế độ Markdown đơn giản, xem trước trực tiếp, tìm và thay thế, hỗ trợ RTL, chế độ tối. Hoạt động độc lập với Django, Laravel, Rails, Node.js, PHP và bất kỳ ngăn xếp nào.
+
+**Không cần Frutjam và không cần Tailwind.** Các kiểu được đóng gói sẵn nên người chỉnh sửa có thể tùy ý thực hiện bất kỳ dự án nào.
 
 ## Cài đặt
 
@@ -60,7 +62,7 @@ Các định nghĩa TypeScript đi kèm với gói, do đó các tùy chọn, m�
 
 #### CDN: thẻ tập lệnh toàn cầu (IIFE)
 
-Không cần nhập - MarkdownEditor tự động có sẵn dưới dạng biến toàn cục.
+Không cần nhập: MarkdownEditor tự động có sẵn dưới dạng biến toàn cục.
 
 <Snippet view="code">
 
@@ -84,7 +86,7 @@ Không cần nhập - MarkdownEditor tự động có sẵn dưới dạng biế
 
 ## Bắt đầu nhanh
 
-Truyền một đối tượng tùy chọn để tùy chỉnh trình chỉnh sửa. Tất cả các tùy chọn đều là tùy chọn — bỏ qua bất kỳ tùy chọn nào để sử dụng giá trị mặc định.
+Truyền một đối tượng tùy chọn để tùy chỉnh trình chỉnh sửa. Tất cả các tùy chọn đều là tùy chọn: bỏ qua bất kỳ tùy chọn nào để sử dụng giá trị mặc định.
 
 <Snippet view="code">
 
@@ -107,7 +109,7 @@ Hầu hết các biên tập viên đều phá vỡ quy trình làm việc web t
 
 ## MarkdownEditor so với EasyMDE/SimpleMDE
 
-Hầu hết các trình soạn thảo đánh dấu JavaScript — Trình soạn thảo dựa trên EasyMDE, SimpleMDE, CodeMirror — **ẩn `<textarea>`** và chỉnh sửa một bản sao, viết lại nội dung khi biểu mẫu được gửi. Điều đó hoạt động cho đến khi một cái gì đó khác cần giá trị: a `required` trường trình duyệt không thể tập trung chặn hoàn toàn việc gửi và `.value` hoặc `FormData` đọc trước khi gửi trả về một chuỗi trống, chuỗi này phá vỡ các bộ bảo vệ htmx, Turbo, tự động lưu và các thay đổi chưa được lưu. **MarkdownEditor thì khác** — nó tạo kiểu cho vùng văn bản bạn đã có và để nó làm trường bạn nhập vào, do đó giá trị luôn chính xác.
+Hầu hết các trình soạn thảo đánh dấu JavaScript (EasyMDE, SimpleMDE, trình soạn thảo dựa trên CodeMirror) **ẩn `<textarea>`** và chỉnh sửa một bản sao, viết lại nội dung khi biểu mẫu được gửi. Điều đó hoạt động cho đến khi một cái gì đó khác cần giá trị: a `required` trường trình duyệt không thể tập trung chặn hoàn toàn việc gửi và `.value` hoặc `FormData` đọc trước khi gửi trả về một chuỗi trống, chuỗi này phá vỡ các bộ bảo vệ htmx, Turbo, tự động lưu và các thay đổi chưa được lưu. **MarkdownEditor thì khác.** Nó tạo kiểu cho vùng văn bản bạn đã có và giữ nguyên nó như trường bạn nhập vào, vì vậy giá trị luôn chính xác.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -132,7 +134,7 @@ Bởi vì **MarkdownEditor** bảo tồn kiểu gốc `<textarea>`, nó tích h�
 
 ### Django
 
-Thêm một `class` vào tiện ích vùng văn bản của bạn và khởi tạo trình chỉnh sửa - `request.POST['content']` hoạt động không có bước bổ sung.
+Thêm một `class` vào tiện ích vùng văn bản của bạn và khởi tạo trình chỉnh sửa: `request.POST['content']` hoạt động không có bước bổ sung.
 
 <Snippet view="code">
 
@@ -160,7 +162,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### Laravel
 
-Sử dụng `f.text_area` với một lớp học - `$request->input('content')` nhận được sự giảm giá trực tiếp.
+Sử dụng `f.text_area` với một lớp: `$request->input('content')` nhận được sự giảm giá trực tiếp.
 
 <Snippet view="code">
 
@@ -173,7 +175,7 @@ Sử dụng `f.text_area` với một lớp học - `$request->input('content')`
 
 ### Ruby trên đường ray
 
-Hoạt động với `form_with` ra khỏi hộp - `params[:content]` chứa phần đánh dấu. Đối với Turbo Drive, hãy sử dụng `turbo:load` thay vì `DOMContentLoaded`.
+Hoạt động với `form_with` ra khỏi hộp: `params[:content]` chứa phần đánh dấu. Đối với Turbo Drive, hãy sử dụng `turbo:load` thay vì `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -190,7 +192,7 @@ document.addEventListener('turbo:load', () => {
 
 ### Node.js / Express
 
-`req.body.content` nhận được mức giảm giá khi gửi biểu mẫu — không có bước đồng bộ hóa, không có trích xuất tùy chỉnh.
+`req.body.content` nhận được mức giảm giá khi gửi biểu mẫu: không có bước đồng bộ hóa, không có trích xuất tùy chỉnh.
 
 <Snippet view="code">
 
@@ -204,7 +206,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` hoạt động chính xác như với bất kỳ vùng văn bản tiêu chuẩn nào - hãy thả nó vào và việc xử lý biểu mẫu hiện tại của bạn không cần thay đổi gì.
+`$_POST['content']` hoạt động chính xác như với bất kỳ vùng văn bản tiêu chuẩn nào: thả nó vào và việc xử lý biểu mẫu hiện tại của bạn không cần thay đổi gì.
 
 <Snippet view="code">
 
@@ -282,7 +284,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 Bạn hoàn toàn có thể tùy chỉnh hành vi và giao diện của trình soạn thảo bằng cách chuyển một `options` sự vật. Nếu bạn bỏ qua một tùy chọn, giá trị **mặc định** sẽ được sử dụng.
 
-Các tùy chọn được đọc một lần khi trình soạn thảo được xây dựng. Thay đổi chúng sau đó không có tác dụng - hãy gọi `destroy()` và thay vào đó hãy tạo một trình soạn thảo mới.
+Các tùy chọn được đọc một lần khi trình soạn thảo được xây dựng. Thay đổi chúng sau đó không có tác dụng: gọi `destroy()` và thay vào đó hãy tạo một trình soạn thảo mới.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -292,12 +294,12 @@ Các tùy chọn được đọc một lần khi trình soạn thảo được x
 | `placeholder` | `string` | `'Write...'` | Văn bản hiển thị khi trình chỉnh sửa trống. |
 | `toolbar` | `array` | `[...]` | Xác định những công cụ nào xuất hiện và theo thứ tự nào. |
 | `footer` | `sai \| đối tượng` | tất cả có thể nhìn thấy | Điều khiển thanh trạng thái hiển thị bên dưới trình chỉnh sửa. Đặt thành `false` để ẩn nó hoàn toàn hoặc chuyển một đối tượng để chuyển đổi các số liệu thống kê riêng lẻ. |
-| `theme` | `string` | inherited | Đặt rõ ràng chủ đề của trình soạn thảo (sáng, tối, dâu tuyết, dâu đen). Nếu bị bỏ qua, trình soạn thảo sẽ kế thừa `data-theme` từ phần tử tổ tiên gần nhất hoặc `<textarea>` chính nó. |
+| `theme` | `string` | inherited | Đặt rõ ràng chủ đề của trình chỉnh sửa (sáng, tối, dâu tuyết, dâu đen). Nếu bị bỏ qua, trình soạn thảo sẽ kế thừa `data-theme` từ phần tử tổ tiên gần nhất hoặc `<textarea>` chính nó. |
 | `minHeight` | `number` | `200` | Chiều cao tối thiểu tính bằng pixel mà trình chỉnh sửa sẽ thu nhỏ lại khi nội dung ngắn. Cặp với `maxHeight` để thiết lập phạm vi tự động phát triển. |
 | `maxHeight` | `number` | `500` | Chiều cao tối đa tính bằng pixel mà trình chỉnh sửa có thể tăng lên ở chế độ không toàn màn hình. Khi nội dung vượt quá chiều cao này, thanh cuộn sẽ xuất hiện bên trong trình chỉnh sửa. Trình chỉnh sửa cũng có tay cầm kéo để người dùng có thể thay đổi kích thước thủ công vượt quá giới hạn này. |
 | `renderer` | `function` | `marked` | Thay thế trình phân tích cú pháp đánh dấu được sử dụng để xem trước. Nhận chuỗi đánh dấu và phải trả về chuỗi HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Thay thế trình khử trùng HTML. Nhận HTML được hiển thị và phải trả về HTML an toàn để hiển thị. |
-| `onChange` | `function` | `undefined` | Lệnh gọi lại được thực hiện khi có bất kỳ thay đổi nội dung nào — gõ, thao tác trên thanh công cụ, hoàn tác/làm lại và tiếp tục danh sách. Nhận chuỗi đánh dấu hiện tại làm đối số duy nhất của nó. |
+| `onChange` | `function` | `undefined` | Lệnh gọi lại được thực hiện khi có mọi thay đổi về nội dung: gõ, thao tác trên thanh công cụ, hoàn tác/làm lại và tiếp tục danh sách. Nhận chuỗi đánh dấu hiện tại làm đối số duy nhất của nó. |
 
 </DocTable>
 
@@ -311,7 +313,7 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 
 | Loại | Phím công cụ |
 | --- | --- |
-| Kiểu chữ | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
+| kiểu chữ | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
 | Danh sách | `ul` (bullet), `ol` (numbered), `checklist` |
 | Mã số | `code` (nội tuyến), `codeblock` (khối có rào chắn) |
 | Phụ trang | `hr` (quy tắc ngang), `table` (mẫu bảng) |
@@ -336,7 +338,7 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 | `ul` | (Danh sách không có thứ tự): Chuyển văn bản thành danh sách dấu đầu dòng. |
 | `checklist` | Thêm các hộp kiểm vào văn bản của bạn, giúp nó trở nên tuyệt vời cho các nhiệm vụ, danh sách việc cần làm hoặc theo dõi trạng thái hoàn thành. |
 | `blockquote` | Đánh dấu văn bản được trích dẫn hoặc nhấn mạnh. |
-| `code` | Bao văn bản đã chọn bằng dấu backticks đơn cho mã nội tuyến. Nhấp lại sẽ loại bỏ dấu tích ngược. |
+| `code` | Bao bọc văn bản đã chọn bằng dấu backticks đơn cho mã nội tuyến. Nhấp lại sẽ loại bỏ dấu tích ngược. |
 | `codeblock` | Bao bọc văn bản đã chọn trong khối mã có hàng rào ba dấu ngược. Nhấp chuột một lần nữa sẽ loại bỏ hàng rào. |
 | `hr` | Chèn một `---` quy tắc ngang tại vị trí con trỏ trên dòng riêng của nó. |
 | `table` | Chèn mẫu bảng đánh dấu 2x3 ban đầu vào vị trí con trỏ. |
@@ -350,7 +352,7 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 
 </DocTable>
 
-##### 💡 Mẹo thực hiện:
+##### 💡 Mẹo triển khai:
 
 - **Sắp xếp lại**: Các nút xuất hiện theo đúng thứ tự bạn liệt kê trong mảng
 - **Xóa**: Chỉ cần bỏ qua bất kỳ phím nào (như `image`) khỏi mảng để tắt hoàn toàn tính năng đó cho người dùng
@@ -358,7 +360,7 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 
 ### 📊 Chân trang (Thanh trạng thái)
 
-Chân trang nằm bên dưới trình chỉnh sửa và hiển thị **dòng**, **cột** của con trỏ, **số ký tự** của tài liệu và tùy chọn **số từ** — tất cả đều được cập nhật theo thời gian thực. Nó hiển thị theo mặc định và mỗi chỉ số có thể được chuyển đổi độc lập.
+Chân trang nằm bên dưới trình chỉnh sửa và hiển thị **dòng**, **cột** của con trỏ, **số ký tự** của tài liệu và **số từ** tùy chọn, tất cả đều được cập nhật theo thời gian thực. Nó hiển thị theo mặc định và mỗi chỉ số có thể được chuyển đổi độc lập.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -367,7 +369,7 @@ Chân trang nằm bên dưới trình chỉnh sửa và hiển thị **dòng**, 
 | `line` | `boolean` | `true` | Hiển thị số dòng hiện tại. |
 | `col` | `boolean` | `true` | Hiển thị số cột hiện tại. |
 | `chars` | `boolean` | `true` | Hiển thị tổng số ký tự. |
-| `words` | `boolean` | `false` | Hiển thị tổng số từ. Tắt theo mặc định — đặt thành `true` để kích hoạt. |
+| `words` | `boolean` | `false` | Hiển thị tổng số từ. Tắt theo mặc định: đặt thành `true` để kích hoạt. |
 
 </DocTable>
 
@@ -442,19 +444,19 @@ Tập trung vào cú pháp Markdown thô để có trải nghiệm nhẹ nhàng.
 
 ### 🌙 Chủ đề
 
-**MarkdownEditor** tự động kế thừa chủ đề của nó từ trang xung quanh — không cần cấu hình. Biên tập viên đọc `data-theme` từ tổ tiên gần nhất khi khởi tạo, do đó, nó luôn đồng bộ với chủ đề trang web của bạn.
+**MarkdownEditor** tự động kế thừa chủ đề của nó từ trang xung quanh: không cần cấu hình. Biên tập viên đọc `data-theme` từ tổ tiên gần nhất khi khởi tạo, do đó, nó luôn đồng bộ với chủ đề trang web của bạn.
 
 #### Cách giải quyết chủ đề (thứ tự ưu tiên)
 
-1.  **`theme` tùy chọn** - ghi đè rõ ràng được truyền trong đối tượng tùy chọn
-2.  **`data-theme` trên `<textarea>`** - đặt trực tiếp trên phần tử
-3.  **`data-theme` trên bất kỳ tổ tiên nào ** - ví dụ: `<html>`, `<body>`hoặc một trình bao bọc `<div>`
+1.  **`theme` tùy chọn**: ghi đè rõ ràng được truyền trong đối tượng tùy chọn
+2.  **`data-theme` trên `<textarea>`**: đặt trực tiếp trên phần tử
+3.  **`data-theme` trên bất kỳ tổ tiên nào **: ví dụ: `<html>`, `<body>`hoặc một trình bao bọc `<div>`
 
 #### Chủ đề có sẵn
 
 `'light'` (mặc định), `'dark'`, `'snowberry'`, `'darkberry'`
 
-##### Tùy chọn 1 - kế thừa từ `<html>` hoặc bất kỳ tổ tiên nào (cấu hình không)
+##### Tùy chọn 1, kế thừa từ `<html>` hoặc bất kỳ tổ tiên nào (cấu hình không)
 
 <Snippet view="code">
 
@@ -469,7 +471,7 @@ Tập trung vào cú pháp Markdown thô để có trải nghiệm nhẹ nhàng.
 
 </Snippet>
 
-##### Tùy chọn 2 - đặt `data-theme` trực tiếp trên `<textarea>`
+##### Tùy chọn 2: đặt `data-theme` trực tiếp trên `<textarea>`
 
 <Snippet view="code">
 
@@ -482,7 +484,7 @@ Tập trung vào cú pháp Markdown thô để có trải nghiệm nhẹ nhàng.
 
 </Snippet>
 
-##### Tùy chọn 3 - rõ ràng `theme` tùy chọn (ghi đè mọi thứ)
+##### Tùy chọn 3: rõ ràng `theme` tùy chọn (ghi đè mọi thứ)
 
 <Snippet view="code">
 
@@ -677,7 +679,7 @@ Sử dụng thẻ script thay vì bộ đóng gói, tải DOMPurify cùng với 
 - **Chỉ xem trước.** Định dạng trực tiếp của chế độ kết hợp sử dụng trình kết xuất bên trong riêng biệt và không bị ảnh hưởng.
 - **Danh sách nhiệm vụ cần hỗ trợ plugin.** Tìm thấy các hộp kiểm có thể nhấp bằng cách tìm kiếm `input[type="checkbox"]` ở đầu ra, vì vậy markdown-nó cần `markdown-it-task-lists`. Trình chỉnh sửa sẽ ghi lại cảnh báo nếu phát hiện cú pháp danh sách nhiệm vụ và không có hộp kiểm.
 - **Cả hai phải đồng bộ** và trả về một chuỗi. MỘT `async` chức năng viết `[object Promise]` vào bản xem trước.
-- **Thay thế chất khử trùng sẽ thay thế sự bảo vệ của bạn.** Việc lây truyền như `html => html` vô hiệu hóa hoàn toàn việc khử trùng và chỉ an toàn cho nội dung hoàn toàn đáng tin cậy.
+- **Thay thế chất khử trùng sẽ thay thế sự bảo vệ của bạn.** Việc lây truyền như `html => html` vô hiệu hóa hoàn toàn quá trình khử trùng và chỉ an toàn cho nội dung hoàn toàn đáng tin cậy.
 
 ### 🎨 Tạo kiểu cho các yếu tố bên trong
 
@@ -779,7 +781,7 @@ Ghi đè nó bằng `--mte-fullscreen-z-index`. Giá trị chỉ áp dụng ở 
 
 ## API nội dung
 
-Một trong những điểm mạnh cốt lõi của **MarkdownEditor** là nó giữ nguyên `<textarea>` được đồng bộ hóa hoàn hảo. Cho dù bạn đang sử dụng khung JavaScript hiện đại hay chương trình phụ trợ truyền thống như **Django, PHP hay Laravel**, quy trình làm việc vẫn đơn giản và nguyên bản.
+Một trong những điểm mạnh cốt lõi của **MarkdownEditor** là nó giữ được các yếu tố cơ bản `<textarea>` được đồng bộ hóa hoàn hảo. Cho dù bạn đang sử dụng khung JavaScript hiện đại hay chương trình phụ trợ truyền thống như **Django, PHP hay Laravel**, quy trình làm việc vẫn đơn giản và nguyên bản.
 
 ### Đọc và viết nội dung
 
@@ -801,7 +803,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\. Sử dụng tham chiếu biến
 
-Nếu bạn có một tham chiếu đến phần tử vùng văn bản, bạn có thể sử dụng nó trực tiếp - không cần API dành riêng cho thư viện.
+Nếu bạn có tham chiếu đến phần tử vùng văn bản, bạn có thể sử dụng trực tiếp: không cần API dành riêng cho thư viện.
 
 <Snippet view="code">
 
@@ -819,7 +821,7 @@ textarea.value = "## Updated via JS";
 
 #### 3\. Đặt phía máy chủ nội dung ban đầu
 
-Cách được đề xuất để đặt nội dung ban đầu là trực tiếp trong `<textarea>` HTML - tính năng này hoạt động tự nhiên với mọi khung công tác phụ trợ (Django, Laravel, Rails, PHP, v.v.) và trình soạn thảo sẽ tự động hiển thị nó trên init.
+Cách được đề xuất để đặt nội dung ban đầu là trực tiếp trong `<textarea>` HTML: tính năng này hoạt động tự nhiên với mọi khung công tác phụ trợ (Django, Laravel, Rails, PHP, v.v.) và trình soạn thảo sẽ tự động hiển thị nó trên init.
 
 <Snippet view="code">
 
@@ -847,7 +849,7 @@ editor.render();
 
 </Snippet>
 
-#### 4\. Xé biên tập viên - `destroy()`
+#### 4\. Xé trình soạn thảo: `destroy()`
 
 Gọi `editor.destroy()` để xóa trình bao bọc DOM của trình soạn thảo và khôi phục bản gốc `<textarea>` vào vị trí của nó trong tài liệu. Hữu ích trong các ứng dụng một trang khi ngắt kết nối một chế độ xem.
 
@@ -909,9 +911,9 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ### Gửi biểu mẫu
 
-Bởi vì **MarkdownEditor** được xây dựng trực tiếp trên mã gốc `<textarea>`, nó tương thích với mọi khung công tác phụ trợ (Django, Laravel, PHP, Ruby on Rails, v.v.) ngay lập tức.
+Vì **MarkdownEditor** được xây dựng trực tiếp trên mã gốc `<textarea>`, nó tương thích với mọi khung công tác phụ trợ (Django, Laravel, PHP, Ruby on Rails, v.v.) ngay lập tức.
 
-Đây là nơi triết lý "Native-First" tỏa sáng. Bạn không cần phải đồng bộ hóa dữ liệu theo cách thủ công trước khi gửi biểu mẫu. Trình duyệt xử lý trình soạn thảo chính xác như trường nhập tiêu chuẩn.
+Đây là nơi triết lý "Bản địa là trên hết" tỏa sáng. Bạn không cần phải đồng bộ hóa dữ liệu theo cách thủ công trước khi gửi biểu mẫu. Trình duyệt xử lý trình chỉnh sửa chính xác như trường nhập tiêu chuẩn.
 
 <Snippet view="code">
 
@@ -938,7 +940,7 @@ Chỉ cần sử dụng HTML tiêu chuẩn `<form>`. các `name` thuộc tính t
 
 ##### 🚀 Tại sao nó là công cụ thay đổi cuộc chơi cho phần phụ trợ
 
-Vì trình soạn thảo giữ nguyên bản gốc `<textarea>` hành vi, máy chủ của bạn xử lý dữ liệu dưới dạng chuỗi tiêu chuẩn. Không cần thêm logic nào—không `preventDefault()` và không có hướng dẫn sử dụng `FormData` sự thi công.
+Vì trình soạn thảo giữ nguyên bản gốc `<textarea>` hành vi, máy chủ của bạn xử lý dữ liệu dưới dạng chuỗi tiêu chuẩn. Không cần thêm logic nào: không `preventDefault()` và không có hướng dẫn sử dụng `FormData` sự thi công.
 
 ##### 💡 Tại sao đây là "Tính năng sát thủ":
 
@@ -960,7 +962,7 @@ Với **MarkdownEditor**, nhà phát triển có thể lấy một trang web cũ
 
 ## 🖼️ Tải lên hình ảnh nâng cao
 
-Xử lý nguyên bản việc tải lên hình ảnh—thay vì dựa vào các chuỗi Base64 chậm và tốn nhiều bộ nhớ—là một thắng lợi đáng kể cho cả hiệu suất và SEO.
+Xử lý nguyên bản tải lên hình ảnh: thay vì dựa vào các chuỗi Base64 chậm và tốn nhiều bộ nhớ, đây là một lợi thế đáng kể cho cả hiệu suất và SEO.
 
 ### Tùy chọn cấu hình
 
@@ -1130,7 +1132,7 @@ Các hành động định dạng phổ biến có thể được kích hoạt t
 
 ## 🔍 Tìm & Thay thế
 
-Bảng điều khiển tìm và thay thế tích hợp có sẵn bên trong trình chỉnh sửa — không cần tiện ích mở rộng trình duyệt hoặc công cụ riêng biệt.
+Bảng điều khiển tìm và thay thế tích hợp sẵn có sẵn bên trong trình chỉnh sửa: không cần tiện ích mở rộng trình duyệt hoặc công cụ riêng biệt.
 
 -   Nhấn `Ctrl + F` (hoặc `⌘ F`) để mở bảng **Tìm**
 -   Nhấn `Ctrl + H` (hoặc `⌘ H`) để mở bảng **Tìm & Thay thế**
@@ -1143,7 +1145,7 @@ Bảng điều khiển nổi ở góc trên bên phải của khu vực nội du
 
 ## Đặc trưng
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như một tiêu chuẩn <code>&lt;textarea&gt;</code>. Không có API phức tạp—chỉ cần sử dụng <code>value</code> hoặc <code>name</code> thuộc tính. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Chế độ lai & trơn</h2><p class=\"para-sm\">Chuyển đổi giữa một <strong>Lai (WYSIWYG)</strong> kinh nghiệm chỉnh sửa hình ảnh hoặc <strong>Đánh dấu đơn giản</strong> chế độ cho cảm giác mã hóa truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">MỘT <strong>51 KB được nén</strong> gói (được rút gọn 245 KB, bao gồm CSS) được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột — vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Nâng cao khả năng đọc với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ với cài đặt hệ thống của bạn hoặc <strong>Giao diện người dùng Frutjam</strong> thư viện để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra - nhấn <code>Enter</code> và trình soạn thảo tiếp tục mô hình. Các hộp kiểm trong khung xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động tốt thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup) — không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Có thể truy cập theo mặc định</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn — mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-pressed</code> trên nút chuyển đổi xem trước, <code>disabled</code> Và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Không có xung đột CSS</h2><p class=\"para-sm\">Các phong cách soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ để trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm & Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm & thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả — mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Xem trước an toàn XSS</h2><p class=\"para-sm\">Bản xem trước được hiển thị được làm sạch thông qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMThanh lọc</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ — không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như một tiêu chuẩn <code>&lt;textarea&gt;</code>. Không có API phức tạp: chỉ cần sử dụng <code>value</code> hoặc <code>name</code> thuộc tính. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Chế độ lai & trơn</h2><p class=\"para-sm\">Chuyển đổi giữa một <strong>Lai (WYSIWYG)</strong> kinh nghiệm chỉnh sửa hình ảnh hoặc <strong>Đánh dấu đơn giản</strong> chế độ cho cảm giác mã hóa truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">MỘT <strong>51 KB được nén</strong> gói (được rút gọn 245 KB, bao gồm CSS) được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột: vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Nâng cao khả năng đọc với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ với cài đặt hệ thống của bạn hoặc <strong>Giao diện người dùng Frutjam</strong> thư viện để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra: nhấn <code>Enter</code> và trình soạn thảo tiếp tục mô hình. Các hộp kiểm trong khung xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động tốt thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup): không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Có thể truy cập theo mặc định</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn: mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-pressed</code> trên nút chuyển đổi xem trước, <code>disabled</code> Và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Không có xung đột CSS</h2><p class=\"para-sm\">Các phong cách soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ nên trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm & Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm & thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả: mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Xem trước an toàn XSS</h2><p class=\"para-sm\">Bản xem trước được hiển thị được làm sạch thông qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMThanh lọc</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ: không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
 
 ## Ví dụ về cấu hình đầy đủ
 

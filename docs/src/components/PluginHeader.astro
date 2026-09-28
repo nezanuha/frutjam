@@ -1,0 +1,63 @@
+---
+/**
+ * Header for the standalone plugin pages (currently Markdown Text Editor).
+ *
+ * The plugin works in any project without Frutjam, so its page does not wear
+ * Frutjam's navigation: no component menu, no site search, no version badge.
+ * What stays is what a visitor evaluating the plugin needs — the demo, the
+ * source, the package, and a way to change language or theme.
+ */
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
+
+interface Props {
+  /** Product name shown beside the mark. */
+  name: string;
+  /** Where the plugin's own page lives, e.g. "/plugins/markdown-editor". */
+  path: string;
+  repo: string;
+  npm: string;
+}
+
+const { name, path, repo, npm } = Astro.props;
+const { lang } = splitLang(Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<header class="header header-sticky">
+  <div class="header-content px-4 lg:px-8">
+    <div class="header-start">
+      <a href={langUrl(lang, path)} class="font-semibold text-lg flex items-center gap-x-2" title={name}>
+        {/* A textarea with its resize grip: the product in one glyph. No filled
+            plate behind it, so it reads correctly on every theme. */}
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0 text-primary">
+          <rect x="2.5" y="4.5" width="19" height="15" rx="3.5" stroke="currentColor" stroke-width="1.8" />
+          <path d="M6.5 9h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M6.5 12.5h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.55" />
+          <path d="M6.5 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.55" />
+          <path d="M16 18.5l3-3M18 18.5l1-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.8" />
+        </svg>
+        <span>{name}</span>
+      </a>
+    </div>
+
+    <div class="header-end gap-x-2">
+      <nav class="navbar max-lg:hidden">
+        <ul class="navbar-list gap-x-5">
+          <li><a href="#markdown-editor-demo" class="link link-hover link-sm">{t('Demo')}</a></li>
+          <li><a href="#installation" class="link link-hover link-sm">{t('Installation')}</a></li>
+          <li>
+            <a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">npm</a>
+          </li>
+        </ul>
+      </nav>
+
+      <LanguageSwitcher />
+
+      <a href={repo} target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-outline btn-pill" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.21.09 1.85 1.25 1.85 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5Z"/></svg>
+        <span class="max-sm:hidden">GitHub</span>
+      </a>
+    </div>
+  </div>
+</header>

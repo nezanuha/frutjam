@@ -7,6 +7,8 @@
 import '@/styles/main.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import PluginHeader from '@/components/PluginHeader.astro';
+import PluginFooter from '@/components/PluginFooter.astro';
 import Aside from '@/components/Aside.astro';
 import { headTags } from '@/lib/head';
 import { SITE, isEnglishOnly } from '@/lib/site';
@@ -28,6 +30,14 @@ const englishOnly = isEnglishOnly(path);
 const { lang, path: basePath } = splitLang(path);
 const locale = (LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0]).ogLocale;
 const isMarkdownEditor = basePath === '/plugins/markdown-editor';
+const plugin = isMarkdownEditor
+  ? {
+      name: 'Markdown Text Editor',
+      path: '/plugins/markdown-editor',
+      repo: 'https://github.com/nezanuha/markdown-text-editor',
+      npm: 'https://www.npmjs.com/package/markdown-text-editor',
+    }
+  : undefined;
 ---
 
 <!DOCTYPE html>
@@ -132,10 +142,16 @@ const isMarkdownEditor = basePath === '/plugins/markdown-editor';
           <script is:inline>if(localStorage.getItem('fj-star-banner'))document.getElementById('github-star-banner').remove();</script>
         </Fragment>
       )}
-      <Header />
+      {plugin ? <PluginHeader {...plugin} /> : <Header />}
     </div>
     <div class="grid grid-cols-12 lg:px-4">
-      {sidebar ? (
+      {plugin ? (
+        /* No component navigation: the plugin stands on its own. */
+        <div class="col-span-12 relative max-w-5xl mx-auto w-full">
+          <slot />
+          <PluginFooter {...plugin} />
+        </div>
+      ) : sidebar ? (
         <Fragment>
           <div class="hidden lg:block col-span-2">
             <aside class="sidebar gap-y-2 px-2 top-24 py-5 h-[calc(100vh-6rem)] overflow-y-auto">

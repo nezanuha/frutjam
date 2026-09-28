@@ -60,10 +60,13 @@ const updatedAt = lastCommitDate('docs', doc.id, 'mdx') ?? doc.data.updatedAt;
 const editUrl = `https://github.com/nezanuha/frutjam/edit/main/docs/src/content/docs/${doc.id}.mdx`;
 
 const related = (await Promise.all(doc.data.related.map((id) => getEntry('docs', `${lang}/${id}`)))).filter((d) => d !== undefined);
-const showCherry = ['components', 'blocks', 'plugins'].includes(category.slug);
+const showCherry = ['components', 'blocks'].includes(category.slug);
+/** Plugins work without Frutjam, so their pages drop the library's chrome. */
+const standalone = category.slug === 'plugins';
 ---
 
 <main id="main-content" class=" py-3.5 surface surface-outline border-0 border-r grid grid-cols-14">
+            {!standalone && (
             <nav aria-label={t('Breadcrumb')} class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-1 breadcrumb mb-3 px-5 lg:px-8">
                 <ol class="breadcrumb-list">
                     <li class="breadcrumb-item"><a href={langUrl(lang, '/')} class="breadcrumb-link">{t('Home')}</a></li>
@@ -71,6 +74,7 @@ const showCherry = ['components', 'blocks', 'plugins'].includes(category.slug);
                     <li class="breadcrumb-item"><span aria-current="page" class="breadcrumb-current">{doc.data.name}</span></li>
                 </ol>
             </nav>
+            )}
             <article data-pagefind-body data-pagefind-meta={`category:${category.name}`} class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-2 prose prose-sm prose-headings:font-bold prose-frutjam max-w-none px-5 lg:px-8">
                 <div class="grid grid-cols-14 gap-3 not-prose items-center">
                     <h1 class="col-span-14 heading-4xl mb-3 lg:mb-5">{doc.data.heading}</h1>
@@ -146,10 +150,12 @@ const showCherry = ['components', 'blocks', 'plugins'].includes(category.slug);
                         </a>
                         <p class="para-xs">{t('Last updated')}: <time datetime={updatedAt}>{formatDate(updatedAt)}</time></p>
                     </div>
+                    {!standalone && (
                     <nav aria-label={t('Documentation pagination')} class="not-prose flex justify-between">
                         {prevDoc && <a href={docUrl(prevDoc)} class="btn btn-xs"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>{prevDoc.data.name}</a>}
                         {nextDoc && <a href={docUrl(nextDoc)} class="btn btn-xs">{nextDoc.data.name}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>}
                     </nav>
+                    )}
                 </footer>
             </article>
             <aside class="hidden lg:block lg:col-span-3 lg:col-start-12 lg:row-start-1 lg:row-span-2">

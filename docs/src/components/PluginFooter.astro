@@ -1,0 +1,34 @@
+---
+/**
+ * Footer for the standalone plugin pages: the plugin's own links, and one
+ * quiet line saying who made it. Frutjam is mentioned as a sibling project,
+ * not as a requirement — the plugin needs neither Frutjam nor Tailwind.
+ */
+import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
+
+interface Props {
+  name: string;
+  repo: string;
+  npm: string;
+}
+
+const { name, repo, npm } = Astro.props;
+const { lang } = splitLang(Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<footer class="border-t border-base-soft mt-12 py-8 px-5 lg:px-8">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p class="para-xs">
+      <span class="font-semibold">{name}</span> &middot; MIT &middot; {t('Built by')}
+      <a href="https://nezanuha.com" target="_blank" rel="noopener noreferrer" class="link link-hover">Nezanuha</a>
+    </p>
+
+    <nav class="flex flex-wrap gap-x-5 gap-y-2">
+      <a href={repo} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">GitHub</a>
+      <a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">npm</a>
+      <a href="https://discord.gg/FvjytjQSSZ" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">Discord</a>
+      <a href={langUrl(lang, '/')} class="link link-hover link-xs">Frutjam</a>
+    </nav>
+  </div>
+</footer>

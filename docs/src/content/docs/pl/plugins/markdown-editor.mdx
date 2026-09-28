@@ -1,7 +1,7 @@
 ---
 name: "Edytor Markdownów"
-heading: "Pierwsza natywna wtyczka Markdown o wysokiej wydajności do JavaScript"
-description: "Wtyczka edytora tekstu Markdown, która przekształca natywny obszar tekstowy w pełny zestaw do edycji — nie wymaga synchronizacji. WYSIWYG i zwykłe tryby Markdown, podgląd na żywo, znajdź i zamień, obsługa RTL, tryb ciemny. Współpracuje z Django, Laravel, Rails, Node.js, PHP i dowolnym stosem."
+heading: "Pasek narzędzi, podgląd na żywo i WYSIWYG w obszarze tekstowym, który już posiadasz"
+description: "Edytor przecen, który ulepsza obszar tekstowy zamiast go zastępować, dzięki czemu przesyłanie formularzy, sprawdzanie poprawności i wymagane pola nadal działają. WYSIWYG i zwykłe tryby Markdown, podgląd na żywo, znajdź i zamień, obsługa RTL, tryb ciemny. Działa samodzielnie z Django, Laravel, Rails, Node.js, PHP i dowolnym stosem."
 metaTitle: "Wtyczka JavaScript do edytora tekstu Markdown | Frutjam"
 metaDescription: "Lekki edytor przecen JavaScript, który ulepsza obszar tekstowy bez jego zastępowania. Działa bez zmian z Django, Laravel, Rails, PHP i Node.js. WYSIWYG, RTL."
 order: 0
@@ -12,15 +12,17 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Wtyczka JavaScript Markdown Text Editor autorstwa Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "ec38ef061fc1"
-translationHash: "fd7740b07fdf"
+sourceHash: "c4e03dcdd4b2"
+translationHash: "5863e78e4c0d"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Wtyczka edytora tekstu Markdown, która przekształca natywny obszar tekstowy w pełny zestaw do edycji — nie wymaga synchronizacji. WYSIWYG i zwykłe tryby Markdown, podgląd na żywo, znajdź i zamień, obsługa RTL, tryb ciemny. Współpracuje z Django, Laravel, Rails, Node.js, PHP i dowolnym stosem.
+Edytor przecen, który ulepsza obszar tekstowy zamiast go zastępować, dzięki czemu przesyłanie formularzy, sprawdzanie poprawności i wymagane pola nadal działają. WYSIWYG i zwykłe tryby Markdown, podgląd na żywo, znajdź i zamień, obsługa RTL, tryb ciemny. Działa samodzielnie z Django, Laravel, Rails, Node.js, PHP i dowolnym stosem.
+
+**Nie jest wymagany Frutjam ani Tailwind.** Style są w pakiecie, więc edytor może włączyć się do dowolnego projektu.
 
 ## Instalacja
 
@@ -60,7 +62,7 @@ Definicje TypeScript są dostarczane z pakietem, więc opcje, wpisy na pasku nar
 
 #### CDN: globalny znacznik skryptu (IIFE)
 
-Nie ma potrzeby importowania — MarkdownEditor jest automatycznie dostępny jako zmienna globalna.
+Nie ma potrzeby importowania: MarkdownEditor jest automatycznie dostępny jako zmienna globalna.
 
 <Snippet view="code">
 
@@ -84,7 +86,7 @@ Nie ma potrzeby importowania — MarkdownEditor jest automatycznie dostępny jak
 
 ## Szybki start
 
-Przekaż obiekt opcji, aby dostosować edytor. Wszystkie opcje są opcjonalne — pomiń którąkolwiek, aby użyć wartości domyślnej.
+Przekaż obiekt opcji, aby dostosować edytor. Wszystkie opcje są opcjonalne: pomiń dowolną, aby użyć wartości domyślnej.
 
 <Snippet view="code">
 
@@ -107,7 +109,7 @@ Większość redaktorów łamie standardowy przepływ pracy w sieci. **MarkdownE
 
 ## MarkdownEditor kontra EasyMDE / SimpleMDE
 
-Większość edytorów przecen JavaScript — EasyMDE, SimpleMDE, edytory oparte na CodeMirror — **ukryj swoje `<textarea>`** i edytuj kopię, zapisując treść ponownie po przesłaniu formularza. To działa, dopóki coś innego nie będzie potrzebowało tej wartości: a `required` pole, na którym przeglądarka nie może się skupić, całkowicie blokuje przesłanie, oraz `.value` Lub `FormData` read before Submit zwraca pusty ciąg znaków, który łamie zabezpieczenia htmx, Turbo, automatycznego zapisywania i niezapisanych zmian. **MarkdownEditor jest inny** — stylizuje obszar tekstowy, który już posiadasz i pozostawia go jako pole, w którym piszesz, więc wartość jest zawsze poprawna.
+Większość edytorów przecen JavaScript (EasyMDE, SimpleMDE, edytory oparte na CodeMirror) **ukryj swoje `<textarea>`** i edytuj kopię, zapisując treść ponownie po przesłaniu formularza. To działa, dopóki coś innego nie będzie potrzebowało tej wartości: a `required` pole, na którym przeglądarka nie może się skupić, całkowicie blokuje przesłanie, oraz `.value` Lub `FormData` read before Submit zwraca pusty ciąg znaków, który łamie zabezpieczenia htmx, Turbo, automatycznego zapisywania i niezapisanych zmian. **MarkdownEditor jest inny.** Stylizuje obszar tekstowy, który już posiadasz i pozostawia go jako pole, w którym piszesz, więc wartość jest zawsze poprawna.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -128,11 +130,11 @@ Większość edytorów przecen JavaScript — EasyMDE, SimpleMDE, edytory oparte
 
 ## Integracja frameworków
 
-Ponieważ **MarkdownEditor** zachowuje wersję natywną `<textarea>`integruje się z każdym frameworkiem backendowym bez dodatkowego kodu. Twój serwer otrzymuje treść przeceny dokładnie tak, jak z dowolnego standardowego pola formularza. W przypadku React i Vue potrzeba kilku linijek, które zostaną omówione na końcu tej sekcji.
+Ponieważ **MarkdownEditor** zachowuje wersję natywną `<textarea>`integruje się z każdym frameworkiem backendowym bez dodatkowego kodu. Twój serwer otrzymuje treść przeceny dokładnie tak samo, jak z dowolnego standardowego pola formularza. W przypadku React i Vue potrzeba kilku linijek, które zostaną omówione na końcu tej sekcji.
 
 ### Django
 
-Dodaj `class` do widżetu obszaru tekstowego i zainicjuj edytor — `request.POST['content']` działa bez dodatkowych kroków.
+Dodaj `class` do widżetu obszaru tekstowego i zainicjuj edytor: `request.POST['content']` działa bez dodatkowych kroków.
 
 <Snippet view="code">
 
@@ -160,7 +162,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### Laravel
 
-Używać `f.text_area` z klasą — `$request->input('content')` otrzymuje bezpośrednio przecenę.
+Używać `f.text_area` z klasą: `$request->input('content')` otrzymuje bezpośrednio przecenę.
 
 <Snippet view="code">
 
@@ -173,7 +175,7 @@ Używać `f.text_area` z klasą — `$request->input('content')` otrzymuje bezpo
 
 ### Rubin na szynach
 
-Współpracuje z `form_with` po wyjęciu z pudełka — `params[:content]` zawiera przecenę. W przypadku Turbo Drive użyj `turbo:load` zamiast `DOMContentLoaded`.
+Współpracuje z `form_with` po wyjęciu z pudełka: `params[:content]` zawiera przecenę. W przypadku Turbo Drive użyj `turbo:load` zamiast `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -188,9 +190,9 @@ document.addEventListener('turbo:load', () => {
 
 </Snippet>
 
-### Node.js/Express
+### Node.js / Express
 
-`req.body.content` otrzymuje przecenę po przesłaniu formularza — bez etapu synchronizacji, bez niestandardowej ekstrakcji.
+`req.body.content` otrzymuje przecenę po przesłaniu formularza: brak kroku synchronizacji, brak niestandardowej ekstrakcji.
 
 <Snippet view="code">
 
@@ -204,7 +206,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` działa dokładnie tak, jak każdy standardowy obszar tekstowy — upuść go, a obsługa istniejącego formularza nie będzie wymagała żadnych zmian.
+`$_POST['content']` działa dokładnie tak, jak każdy standardowy obszar tekstowy: upuść go, a obsługa istniejącego formularza nie będzie wymagała żadnych zmian.
 
 <Snippet view="code">
 
@@ -282,7 +284,7 @@ Używany jako `<MarkdownField v-model="content" />`. W prostej formie możesz po
 
 Możesz w pełni dostosować zachowanie i interfejs edytora, przekazując plik `options` obiekt. Jeśli pominiesz opcję, zostanie użyta wartość **domyślna**.
 
-Opcje są odczytywane jednorazowo, podczas konstruowania edytora. Późniejsza ich zmiana nie przynosi efektu — zadzwoń `destroy()` i zamiast tego utwórz nowy edytor.
+Opcje są odczytywane jednorazowo, podczas konstruowania edytora. Późniejsza ich zmiana nie ma żadnego efektu: zadzwoń `destroy()` i zamiast tego utwórz nowy edytor.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -291,13 +293,13 @@ Opcje są odczytywane jednorazowo, podczas konstruowania edytora. Późniejsza i
 | `mode` | `string` | `'plain'` | Ustawia widok początkowy. Użyj hybrydy, aby uzyskać doświadczenie WYSIWYG lub zwykłej, aby uzyskać surową składnię. |
 | `placeholder` | `string` | `'Write...'` | Tekst wyświetlany, gdy edytor jest pusty. |
 | `toolbar` | `array` | `[...]` | Określa, które narzędzia pojawiają się i w jakiej kolejności. |
-| `footer` | `fałsz \| obiekt` | wszystko widoczne | Steruje paskiem stanu widocznym pod edytorem. Zabierać się do pracy `false` aby całkowicie go ukryć, lub przekaż obiekt, aby przełączyć poszczególne statystyki. |
+| `footer` | `fałsz \| obiekt` | wszystko widoczne | Steruje paskiem stanu wyświetlanym pod edytorem. Zabierać się do pracy `false` aby całkowicie go ukryć, lub przekaż obiekt, aby przełączyć poszczególne statystyki. |
 | `theme` | `string` | inherited | Jawnie ustawia motyw edytora (jasny, ciemny, śnieżna, ciemna jagoda). Jeśli zostanie pominięty, redaktor dziedziczy `data-theme` od najbliższego elementu nadrzędnego lub `<textarea>` się. |
 | `minHeight` | `number` | `200` | Minimalna wysokość w pikselach, do której edytor się zmniejszy, gdy treść będzie krótka. W parze z `maxHeight` aby ustawić zakres automatycznego wzrostu. |
 | `maxHeight` | `number` | `500` | Maksymalna wysokość w pikselach, do jakiej może urosnąć edytor w trybie innym niż pełnoekranowy. Gdy treść przekroczy tę wysokość, w edytorze pojawi się pasek przewijania. Edytor posiada również uchwyt przeciągania, dzięki czemu użytkownicy mogą ręcznie zmieniać jego rozmiar powyżej tego limitu. |
 | `renderer` | `function` | `marked` | Zastępuje analizator przecen używany w podglądzie. Odbiera ciąg przeceny i musi zwrócić ciąg HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Zastępuje narzędzie dezynfekujące HTML. Odbiera wyrenderowany kod HTML i musi zwrócić bezpieczny kod HTML do wyświetlenia. |
-| `onChange` | `function` | `undefined` | Wywołanie zwrotne uruchamiane przy każdej zmianie treści — pisaniu, akcjach na pasku narzędzi, cofaniu/ponawianiu i kontynuacji listy. Odbiera bieżący ciąg przeceny jako jedyny argument. |
+| `onChange` | `function` | `undefined` | Wywołanie zwrotne uruchamiane przy każdej zmianie treści: pisaniu, akcjach na pasku narzędzi, cofaniu/ponawianiu i kontynuacji listy. Odbiera bieżący ciąg przeceny jako jedyny argument. |
 
 </DocTable>
 
@@ -358,7 +360,7 @@ Pasek narzędzi jest modułowy. Modyfikując tablicę, możesz stworzyć minimal
 
 ### 📊 Stopka (pasek stanu)
 
-Stopka znajduje się pod edytorem i pokazuje **linię**, **kolumnę** kursora, **liczbę znaków** dokumentu i opcjonalnie **liczbę słów** – wszystko aktualizowane w czasie rzeczywistym. Jest ona domyślnie widoczna i każdą statystykę można przełączać niezależnie.
+Stopka znajduje się poniżej edytora i pokazuje **linię**, **kolumnę** kursora, **liczbę znaków** dokumentu i opcjonalnie **liczbę słów**, wszystko aktualizowane w czasie rzeczywistym. Jest ona domyślnie widoczna i każdą statystykę można przełączać niezależnie.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -367,7 +369,7 @@ Stopka znajduje się pod edytorem i pokazuje **linię**, **kolumnę** kursora, *
 | `line` | `boolean` | `true` | Pokaż bieżący numer linii. |
 | `col` | `boolean` | `true` | Pokaż bieżący numer kolumny. |
 | `chars` | `boolean` | `true` | Pokaż całkowitą liczbę znaków. |
-| `words` | `boolean` | `false` | Pokaż całkowitą liczbę słów. Domyślnie wyłączone — ustaw na `true` włączyć. |
+| `words` | `boolean` | `false` | Pokaż całkowitą liczbę słów. Domyślnie wyłączone: ustawione na `true` włączyć. |
 
 </DocTable>
 
@@ -442,19 +444,19 @@ Koncentruje się na surowej składni Markdown, aby zapewnić lekkość.
 
 ### 🌙 Tematyka
 
-**MarkdownEditor** automatycznie dziedziczy motyw z otaczającej strony — nie jest wymagana żadna konfiguracja. Redaktor czyta `data-theme` od najbliższego przodka podczas inicjalizacji, dzięki czemu pozostaje zsynchronizowany z motywem Twojej witryny od razu po wyjęciu z pudełka.
+**MarkdownEditor** automatycznie dziedziczy motyw z otaczającej strony: nie jest wymagana żadna konfiguracja. Redaktor czyta `data-theme` od najbliższego przodka podczas inicjalizacji, dzięki czemu pozostaje zsynchronizowany z motywem Twojej witryny od razu po wyjęciu z pudełka.
 
 #### Sposób rozwiązania tematu (kolejność priorytetów)
 
-1.  **`theme` opcja** — jawne zastąpienie przekazane w obiekcie opcji
-2.  **`data-theme` na `<textarea>`** — ustawiany bezpośrednio na elemencie
-3.  **`data-theme` na dowolnym przodku** – np. `<html>`, `<body>`lub opakowanie `<div>`
+1.  **`theme` opcja**: jawne zastąpienie przekazane w obiekcie opcji
+2.  **`data-theme` na `<textarea>`**: ustawiany bezpośrednio na elemencie
+3.  **`data-theme` na dowolnym przodku**: np. `<html>`, `<body>`lub opakowanie `<div>`
 
 #### Dostępne motywy
 
 `'light'` (domyślny), `'dark'`, `'snowberry'`, `'darkberry'`
 
-##### Opcja 1 — dziedzicz po `<html>` lub dowolny przodek (konfiguracja zerowa)
+##### Opcja 1, dziedzicz z `<html>` lub dowolny przodek (konfiguracja zerowa)
 
 <Snippet view="code">
 
@@ -469,7 +471,7 @@ Koncentruje się na surowej składni Markdown, aby zapewnić lekkość.
 
 </Snippet>
 
-##### Opcja 2 – zestaw `data-theme` bezpośrednio na `<textarea>`
+##### Opcja 2: ustaw `data-theme` bezpośrednio na `<textarea>`
 
 <Snippet view="code">
 
@@ -482,7 +484,7 @@ Koncentruje się na surowej składni Markdown, aby zapewnić lekkość.
 
 </Snippet>
 
-##### Opcja 3 – wyraźna `theme` opcja (zastępuje wszystko)
+##### Opcja 3: wyraźna `theme` opcja (zastępuje wszystko)
 
 <Snippet view="code">
 
@@ -592,7 +594,7 @@ Wpis podany a `sample` pokazuje tę próbkę w podglądzie, podczas gdy obszar t
 
 #### Grupowanie
 
-Daj wpis `items` zamiast A `value` aby wyrenderować sekcję nagłówkową. Grouped and flat entries can be mixed in one list.
+Daj wpis `items` zamiast A `value` aby wyrenderować sekcję nagłówkową. Wpisy grupowane i płaskie można mieszać na jednej liście.
 
 <Snippet view="code">
 
@@ -613,7 +615,7 @@ Daj wpis `items` zamiast A `value` aby wyrenderować sekcję nagłówkową. Grou
 
 #### Rzeczy, które warto wiedzieć
 
-- **Edytor nigdy nie rozpoznaje zmiennych.** Wstawia tekst, a Twoja aplikacja później zastępuje wartości rzeczywiste, zwykle po stronie serwera. `sample` wpływa tylko na to, co wyświetla podgląd.
+- **Edytor nigdy nie rozwiązuje zmiennych.** Wstawia tekst, a Twoja aplikacja później zastępuje wartości rzeczywiste, zwykle po stronie serwera. `sample` wpływa tylko na to, co wyświetla podgląd.
 - **Etykiety są wyświetlane jako zwykły tekst**, więc znaczniki na etykiecie nigdy nie są renderowane.
 - **Zniekształcone wpisy są pomijane** zamiast wyrzucać, a przycisk w ogóle nie jest renderowany, gdy nie skonfigurowano niczego użytecznego.
 
@@ -801,7 +803,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\. Używanie odniesienia do zmiennej
 
-Jeśli masz odwołanie do elementu Textarea, możesz go użyć bezpośrednio — nie jest potrzebny żaden interfejs API specyficzny dla biblioteki.
+Jeśli masz odwołanie do elementu Textarea, możesz go użyć bezpośrednio: nie jest potrzebny żaden interfejs API specyficzny dla biblioteki.
 
 <Snippet view="code">
 
@@ -819,7 +821,7 @@ textarea.value = "## Updated via JS";
 
 #### 3\. Ustawianie początkowej zawartości po stronie serwera
 
-Zalecany sposób ustawienia zawartości początkowej odbywa się bezpośrednio w pliku `<textarea>` HTML — działa to naturalnie z każdym frameworkiem backendowym (Django, Laravel, Rails, PHP itp.), a edytor renderuje go automatycznie podczas init.
+Zalecany sposób ustawienia zawartości początkowej odbywa się bezpośrednio w pliku `<textarea>` HTML: działa to naturalnie z każdym frameworkiem backendowym (Django, Laravel, Rails, PHP itp.), a edytor renderuje go automatycznie podczas init.
 
 <Snippet view="code">
 
@@ -847,7 +849,7 @@ editor.render();
 
 </Snippet>
 
-#### 4\. Zburzenie redaktora — `destroy()`
+#### 4\. Zburzenie edytora: `destroy()`
 
 Dzwonić `editor.destroy()` aby usunąć opakowanie DOM edytora i przywrócić oryginał `<textarea>` do swojego miejsca w dokumencie. Przydatne w aplikacjach jednostronicowych podczas odmontowywania widoku.
 
@@ -934,11 +936,11 @@ Tutaj błyszczy filozofia „Native-First”. Nie musisz ręcznie synchronizowa�
 
 <RawHtml html={"<p class=\"text-sm\"><strong>Notatka:</strong> Inicjalizacja wtyczki MarkdownEditor jest obowiązkowa</p>"} />
 
-Po prostu użyj standardowego kodu HTML `<form>`. The `name` atrybut w polu tekstowym jest tym, czego Twój serwer użyje do identyfikacji treści.
+Po prostu użyj standardowego kodu HTML `<form>`. The `name` atrybut w obszarze tekstowym jest tym, czego Twój serwer użyje do identyfikacji treści.
 
 ##### 🚀 Dlaczego to zmienia zasady gry dla backendów
 
-Ponieważ redaktor zachowuje natywny `<textarea>` zachowanie, serwer obsługuje dane jako standardowy ciąg znaków. Nie jest wymagana żadna dodatkowa logika – nie `preventDefault()` i brak instrukcji `FormData` budowa.
+Ponieważ redaktor zachowuje natywny `<textarea>` zachowanie, serwer obsługuje dane jako standardowy ciąg znaków. Nie jest wymagana żadna dodatkowa logika: nie `preventDefault()` i brak instrukcji `FormData` budowa.
 
 ##### 💡 Dlaczego jest to „funkcja zabójcza”:
 
@@ -960,7 +962,7 @@ Dzięki **MarkdownEditor** programista może zastąpić starą witrynę zwykłą
 
 ## 🖼️ Zaawansowane przesyłanie obrazu
 
-Natywna obsługa przesyłania obrazów — zamiast polegania na wolnych, obciążających pamięć ciągach Base64 — to znacząca korzyść zarówno pod względem wydajności, jak i SEO.
+Natywna obsługa przesyłania obrazów: zamiast polegać na powolnych, obciążających pamięć ciągach Base64, jest to znacząca korzyść zarówno pod względem wydajności, jak i SEO.
 
 ### Opcje konfiguracji
 
@@ -1048,7 +1050,7 @@ image: {
 
 </Snippet>
 
-#### 2\. Skrót (wyłącz sprawdzanie poprawności)
+#### 2\. Skrót (wyłącz weryfikację)
 
 Jeśli chcesz zezwolić na obrazy bez opisów, po prostu ustaw wartość logiczną na `false`.
 
@@ -1097,7 +1099,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ### 💡 Po co używać parametrów?
 
-W frameworkach takich jak Laravel czy Django nie można przesyłać plików bez tokena CSRF. Dodając `_token` do `params` obiekt, Twoje żądanie bezproblemowo przejdzie przez oprogramowanie zabezpieczające backendu, zachowując filozofię „Zero Logic” dla kontrolerów po stronie serwera.
+W frameworkach takich jak Laravel czy Django nie można przesyłać plików bez tokena CSRF. Dodając `_token` do `params` obiekt, Twoje żądanie bezproblemowo przejdzie przez oprogramowanie pośredniczące zabezpieczające zaplecza, zachowując filozofię „Zero Logic” dla kontrolerów po stronie serwera.
 
 ## ⌨️ Skróty klawiaturowe
 
@@ -1130,7 +1132,7 @@ Typowe czynności formatowania można uruchomić bezpośrednio z klawiatury, bez
 
 ## 🔍 Znajdź i zamień
 
-W edytorze dostępny jest wbudowany panel wyszukiwania i zamiany — nie jest potrzebne żadne rozszerzenie przeglądarki ani osobne narzędzie.
+W edytorze dostępny jest wbudowany panel wyszukiwania i zamiany: nie jest potrzebne żadne rozszerzenie przeglądarki ani osobne narzędzie.
 
 -   Naciskać `Ctrl + F` (Lub `⌘ F`), aby otworzyć panel **Znajdź**
 -   Naciskać `Ctrl + H` (Lub `⌘ H`), aby otworzyć panel **Znajdź i zamień**
@@ -1143,7 +1145,7 @@ Panel unosi się w prawym górnym rogu obszaru zawartości edytora i nie zakłó
 
 ## Cechy
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integracja formularzy natywnych</h2><p class=\"para-sm\">Działa dokładnie jak standard <code>&lt;textarea&gt;</code>. Żadnych skomplikowanych interfejsów API — po prostu użyj <code>value</code> Lub <code>name</code> atrybut. To „po prostu działa” ze standardowymi formularzami HTML w PHP, Django lub Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Zaawansowane przesyłanie obrazu</h2><p class=\"para-sm\">Skonfiguruj przesyłanie natywnego serwera za pośrednictwem interfejsu API. Unikaj ciężkich ciągów Base64, aby zapewnić szybsze ładowanie strony i lepsze SEO, hostując obrazy we własnej sieci CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Tryby hybrydowe i zwykłe</h2><p class=\"para-sm\">Przełącz między <strong>Hybrydowy (WYSIWYG)</strong> doświadczenie w edycji wizualnej lub <strong>Zwykły Markdown</strong> tryb zapewniający tradycyjne wrażenia z kodowania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Wysoka wydajność</h2><p class=\"para-sm\">A <strong>51 KB spakowane w formacie gzip</strong> pakiet (zminimalizowany 245 KB, zawiera CSS) zoptymalizowany pod kątem „Ciężkich treści”. Obsługuje ogromne dokumenty i duże pliki bez opóźnień wejściowych i spadków wydajności. Odrzucone aktualizacje podglądu, obliczenia stylu w pamięci podręcznej i bezkonfliktowa obsługa klawiatury — więc klawisze Tab i Enter zawsze wykonują dokładnie jedną czynność.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Wbudowana obsługa RTL</h2><p class=\"para-sm\">Natywna obsługa języków pisanych od prawej do lewej, takich jak arabski, urdu i perski. Idealny do tworzenia aplikacji dostępnych na całym świecie.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Podświetlanie składni</h2><p class=\"para-sm\">Zwiększona czytelność dzięki przejrzystemu kodowi i formatowaniu przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Motywy adaptacyjne</h2><p class=\"para-sm\">Zawiera automatyczną obsługę trybu ciemnego. Synchronizuje się z ustawieniami systemu lub <strong>Interfejs użytkownika Frutjama</strong> biblioteka zapewniająca płynne wrażenia wizualne.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Inteligentna edycja</h2><p class=\"para-sm\">Automatyczna kontynuacja list w stylu GitHuba dla list uporządkowanych, list nieuporządkowanych i list kontrolnych — naciśnij <code>Enter</code> a redaktor kontynuuje wzór. Pola wyboru w panelu podglądu można kliknąć i natychmiast synchronizować ze źródłem przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 W pełni responsywny</h2><p class=\"para-sm\">Płynny, dostosowany do urządzeń mobilnych interfejs użytkownika, który idealnie dopasowuje się do komputerów stacjonarnych, tabletów i smartfonów, umożliwiając edycję w dowolnym miejscu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Uniwersalne wsparcie</h2><p class=\"para-sm\">Kompatybilny z <strong>ESM, UMD, CommonJS i IIFE</strong>. Działa od razu po wyjęciu z pudełka przez CDN (<code>&lt;script src&gt;</code>), npm lub dowolny pakiet (Vite, webpack, Rollup) — nie jest wymagana dodatkowa konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Dostępne domyślnie</h2><p class=\"para-sm\">Wbudowana pełna obsługa ARIA — punkt orientacyjny na pasku narzędzi, oznaczony obszar podglądu, przyciski przyjazne dla czytnika ekranu, <code>aria-pressed</code> na przełączniku podglądu, <code>disabled</code> I <code>aria-disabled</code> na nieaktywnych narzędziach i prawidłowe przywracanie ostrości po zamknięciu modułów.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero konfliktów CSS</h2><p class=\"para-sm\">Style edytora są w pełni dostępne <code>.markdown-editor-wrapper</code>. Globalna inspekcja wstępna Tailwinda jest wykluczona, więc edytor może bezpiecznie współpracować z Bootstrapem, Tailwindem lub jakimkolwiek innym frameworkiem, nie naruszając ich stylu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Skróty klawiaturowe</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — typowe operacje formatowania bez dotykania myszy. Każdy skrót jest pokazany w etykiecie przycisku paska narzędzi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Znajdź i zamień</h2><p class=\"para-sm\">Naciskać <code>Ctrl+F</code> znaleźć lub <code>Ctrl+H</code> aby otworzyć opcję Znajdź i zamień. Wyszukiwanie bez rozróżniania wielkości liter z licznikiem dopasowań na żywo, nawigacją następny/poprzedni, pojedynczym zastępowaniem i zastępowaniem wszystkich — bez opuszczania edytora.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Podgląd bezpiecznego XSS</h2><p class=\"para-sm\">Wyrenderowany podgląd jest oczyszczany poprzez <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPoczyść</a> przed zapisaniem w DOM. Tagi skryptów, wbudowane procedury obsługi zdarzeń i złośliwe adresy URL w spreparowanych danych wejściowych Markdown są usuwane automatycznie — nie jest wymagana żadna konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Podgląd w czasie rzeczywistym</h2><p class=\"para-sm\">Zobacz, jak Twoje przeceny są renderowane natychmiastowo podczas pisania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Łatwa integracja</h2><p class=\"para-sm\">Bezproblemowo integruj się z dowolnym projektem internetowym przy minimalnej konfiguracji.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Konfigurowalny pasek narzędzi</h2><p class=\"para-sm\">Dynamicznie konfiguruj i zmieniaj kolejność opcji paska narzędzi, takich jak pogrubienie, kursywa i inne.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integracja formularzy natywnych</h2><p class=\"para-sm\">Działa dokładnie jak standard <code>&lt;textarea&gt;</code>. Żadnych skomplikowanych interfejsów API: po prostu użyj <code>value</code> Lub <code>name</code> atrybut. To „po prostu działa” ze standardowymi formularzami HTML w PHP, Django lub Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Zaawansowane przesyłanie obrazu</h2><p class=\"para-sm\">Skonfiguruj przesyłanie natywnego serwera za pośrednictwem interfejsu API. Unikaj ciężkich ciągów Base64, aby zapewnić szybsze ładowanie strony i lepsze SEO, hostując obrazy we własnej sieci CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Tryby hybrydowe i zwykłe</h2><p class=\"para-sm\">Przełącz między <strong>Hybrydowy (WYSIWYG)</strong> doświadczenie w edycji wizualnej lub <strong>Zwykły Markdown</strong> tryb zapewniający tradycyjne wrażenia z kodowania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Wysoka wydajność</h2><p class=\"para-sm\">A <strong>51 KB spakowane w formacie gzip</strong> pakiet (zminimalizowany 245 KB, zawiera CSS) zoptymalizowany pod kątem „Ciężkich treści”. Obsługuje ogromne dokumenty i duże pliki bez opóźnień wejściowych i spadków wydajności. Odrzucone aktualizacje podglądu, obliczenia stylu w pamięci podręcznej i bezkonfliktowa obsługa klawiatury: więc Tab i Enter zawsze robią dokładnie jedną rzecz.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Wbudowana obsługa RTL</h2><p class=\"para-sm\">Natywna obsługa języków pisanych od prawej do lewej, takich jak arabski, urdu i perski. Idealny do tworzenia aplikacji dostępnych na całym świecie.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Podświetlanie składni</h2><p class=\"para-sm\">Zwiększona czytelność dzięki przejrzystemu kodowi i formatowaniu przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Motywy adaptacyjne</h2><p class=\"para-sm\">Zawiera automatyczną obsługę trybu ciemnego. Synchronizuje się z ustawieniami systemu lub <strong>Interfejs użytkownika Frutjama</strong> biblioteka zapewniająca płynne wrażenia wizualne.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Inteligentna edycja</h2><p class=\"para-sm\">Automatyczna kontynuacja list w stylu GitHuba dla list uporządkowanych, list nieuporządkowanych i list kontrolnych: naciśnij <code>Enter</code> a redaktor kontynuuje wzór. Pola wyboru w okienku podglądu można kliknąć i natychmiast synchronizować ze źródłem przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 W pełni responsywny</h2><p class=\"para-sm\">Płynny, dostosowany do urządzeń mobilnych interfejs użytkownika, który idealnie dopasowuje się do komputerów stacjonarnych, tabletów i smartfonów, umożliwiając edycję w dowolnym miejscu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Uniwersalne wsparcie</h2><p class=\"para-sm\">Kompatybilny z <strong>ESM, UMD, CommonJS i IIFE</strong>. Działa od razu po wyjęciu z pudełka przez CDN (<code>&lt;script src&gt;</code>), npm lub dowolny pakiet (Vite, webpack, Rollup): nie jest wymagana dodatkowa konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Dostępne domyślnie</h2><p class=\"para-sm\">Wbudowana pełna obsługa ARIA: punkt orientacyjny na pasku narzędzi, oznaczony obszar podglądu, przyciski przyjazne dla czytnika ekranu, <code>aria-pressed</code> na przełączniku podglądu, <code>disabled</code> I <code>aria-disabled</code> na nieaktywnych narzędziach i prawidłowe przywracanie ostrości po zamknięciu modułów.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero konfliktów CSS</h2><p class=\"para-sm\">Style edytora są w pełni dostępne <code>.markdown-editor-wrapper</code>. Globalna inspekcja wstępna Tailwinda jest wykluczona, więc edytor może bezpiecznie współpracować z Bootstrapem, Tailwindem lub jakimkolwiek innym frameworkiem, nie naruszając ich stylu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Skróty klawiaturowe</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: typowe czynności formatowania bez dotykania myszy. Każdy skrót jest pokazany w etykiecie przycisku paska narzędzi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Znajdź i zamień</h2><p class=\"para-sm\">Naciskać <code>Ctrl+F</code> znaleźć lub <code>Ctrl+H</code> aby otworzyć opcję Znajdź i zamień. Wyszukiwanie bez rozróżniania wielkości liter z licznikiem dopasowań na żywo, nawigacją następny/poprzedni, pojedynczą zamianą i zamianą wszystkich: bez opuszczania edytora.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Podgląd bezpiecznego XSS</h2><p class=\"para-sm\">Wyrenderowany podgląd jest oczyszczany poprzez <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPoczyść</a> przed zapisaniem w DOM. Tagi skryptów, wbudowane procedury obsługi zdarzeń i złośliwe adresy URL w spreparowanych danych wejściowych Markdown są usuwane automatycznie: nie jest wymagana żadna konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Podgląd w czasie rzeczywistym</h2><p class=\"para-sm\">Zobacz, jak Twoje przeceny są renderowane natychmiastowo podczas pisania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Łatwa integracja</h2><p class=\"para-sm\">Bezproblemowo integruj się z dowolnym projektem internetowym przy minimalnej konfiguracji.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Konfigurowalny pasek narzędzi</h2><p class=\"para-sm\">Dynamicznie konfiguruj i zmieniaj kolejność opcji paska narzędzi, takich jak pogrubienie, kursywa i inne.</p></div></div></div>"} />
 
 ## Przykład pełnej konfiguracji
 

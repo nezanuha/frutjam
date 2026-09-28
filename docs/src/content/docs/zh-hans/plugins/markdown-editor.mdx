@@ -1,7 +1,7 @@
 ---
 name: "降价编辑器"
-heading: "适用于 JavaScript 的原生优先、高性能 Markdown 插件"
-description: "Markdown 文本编辑器插件，可将本机文本区域转换为完整的编辑套件 - 无需同步。所见即所得和纯 Markdown 模式、实时预览、查找和替换、RTL 支持、深色模式。适用于 Django、Laravel、Rails、Node.js、PHP 和任何堆栈。"
+heading: "您已有的文本区域上的工具栏、实时预览和所见即所得"
+description: "一个 Markdown 编辑器，可以增强您的文本区域而不是替换它，因此表单提交、验证和必填字段可以继续工作。所见即所得和纯 Markdown 模式、实时预览、查找和替换、RTL 支持、深色模式。可与 Django、Laravel、Rails、Node.js、PHP 和任何堆栈独立工作。"
 metaTitle: "Markdown 文本编辑器 JavaScript 插件 |弗鲁贾姆"
 metaDescription: "轻量级 JavaScript Markdown 编辑器，无需替换即可增强文本区域。按原样与 Django、Laravel、Rails、PHP 和 Node.js 配合使用。所见即所得，RTL。"
 order: 0
@@ -12,15 +12,17 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam 的 Markdown 文本编辑器 JavaScript 插件"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "ec38ef061fc1"
-translationHash: "ba1f81ca89ae"
+sourceHash: "c4e03dcdd4b2"
+translationHash: "957a1bdf9310"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Markdown 文本编辑器插件，可将本机文本区域转换为完整的编辑套件 - 无需同步。所见即所得和纯 Markdown 模式、实时预览、查找和替换、RTL 支持、深色模式。适用于 Django、Laravel、Rails、Node.js、PHP 和任何堆栈。
+一个 Markdown 编辑器，可以增强您的文本区域而不是替换它，因此表单提交、验证和必填字段可以继续工作。所见即所得和纯 Markdown 模式、实时预览、查找和替换、RTL 支持、深色模式。可与 Django、Laravel、Rails、Node.js、PHP 和任何堆栈独立工作。
+
+**不需要 Frutjam 和 Tailwind。** 样式是捆绑的，因此编辑器可以放入任何项目中。
 
 ## 安装
 
@@ -43,7 +45,7 @@ new MarkdownEditor('#markdown-editor');
 
 </Snippet>
 
-TypeScript 定义随软件包一起提供，因此选项、工具栏条目和变量形状都会被检查并自动完成，无需额外安装。
+TypeScript 定义随包一起提供，因此选项、工具栏条目和变量形状都会被检查并自动完成，无需额外安装。
 
 #### CDN：ES模块
 
@@ -60,7 +62,7 @@ TypeScript 定义随软件包一起提供，因此选项、工具栏条目和变
 
 #### CDN：全局脚本标签（IIFE）
 
-无需导入 - MarkdownEditor 可自动作为全局变量使用。
+无需导入：MarkdownEditor 可自动作为全局变量使用。
 
 <Snippet view="code">
 
@@ -84,7 +86,7 @@ TypeScript 定义随软件包一起提供，因此选项、工具栏条目和变
 
 ## 快速入门
 
-传递一个选项对象来自定义编辑器。所有选项都是可选的 - 省略任何选项即可使用默认值。
+传递一个选项对象来自定义编辑器。所有选项都是可选的：省略任何选项即可使用默认值。
 
 <Snippet view="code">
 
@@ -107,7 +109,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 ## MarkdownEditor 与 EasyMDE / SimpleMDE
 
-大多数 JavaScript Markdown 编辑器 — EasyMDE、SimpleMDE、基于 CodeMirror 的编辑器 — **隐藏您的 `<textarea>`** 并编辑副本，在提交表单时写回内容。这一直有效，直到其他东西需要该值为止： `required` 浏览器无法聚焦的字段会完全阻止提交，并且 `.value` 或者 `FormData` 在提交之前读取会返回一个空字符串，这会破坏 htmx、Turbo、自动保存和未保存更改防护。 **MarkdownEditor 是不同的** — 它对您已有的文本区域进行样式设置，并将其保留为您输入的字段，因此该值在任何时候都是正确的。
+大多数 JavaScript Markdown 编辑器（EasyMDE、SimpleMDE、基于 CodeMirror 的编辑器）**隐藏您的 `<textarea>`** 并编辑副本，在提交表单时写回内容。这一直有效，直到其他东西需要该值为止： `required` 浏览器无法聚焦的字段会完全阻止提交，并且 `.value` 或者 `FormData` 在提交之前读取会返回一个空字符串，这会破坏 htmx、Turbo、自动保存和未保存更改防护。 **MarkdownEditor 是不同的。** 它对您已有的文本区域进行样式设置，并将其保留为您输入的字段，因此该值在任何时候都是正确的。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -132,7 +134,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 ### 姜戈
 
-添加一个 `class` 到您的文本区域小部件并初始化编辑器 - `request.POST['content']` 无需额外步骤即可工作。
+添加一个 `class` 到您的文本区域小部件并初始化编辑器： `request.POST['content']` 无需额外步骤即可工作。
 
 <Snippet view="code">
 
@@ -160,7 +162,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### 拉维尔
 
-使用 `f.text_area` 和一个班级—— `$request->input('content')` 直接接收markdown。
+使用 `f.text_area` 有一个类： `$request->input('content')` 直接接收markdown。
 
 <Snippet view="code">
 
@@ -173,7 +175,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### 红宝石 on Rails
 
-与 `form_with` 开箱即用—— `params[:content]` 包含降价。对于涡轮驱动器，请使用 `turbo:load` 而不是 `DOMContentLoaded`.
+与 `form_with` 开箱即用： `params[:content]` 包含降价。对于涡轮驱动器，请使用 `turbo:load` 而不是 `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -190,7 +192,7 @@ document.addEventListener('turbo:load', () => {
 
 ### Node.js / Express
 
-`req.body.content` 接收表单提交时的降价 - 没有同步步骤，没有自定义提取。
+`req.body.content` 接收表单提交时的降价：没有同步步骤，没有自定义提取。
 
 <Snippet view="code">
 
@@ -204,7 +206,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` 与任何标准文本区域的工作方式完全相同 - 将其放入，您现有的表单处理需要零更改。
+`$_POST['content']` 与任何标准文本区域完全相同：将其放入，您现有的表单处理需要零更改。
 
 <Snippet view="code">
 
@@ -282,7 +284,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 您可以通过传递一个来完全自定义编辑器的行为和界面 `options` 目的。如果省略选项，则使用 **默认** 值。
 
-构建编辑器时，选项将被读取一次。之后更改它们没有任何效果 - 调用 `destroy()` 并创建一个新的编辑器。
+构建编辑器时，选项将被读取一次。之后更改它们没有任何效果：调用 `destroy()` 并创建一个新的编辑器。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -297,11 +299,11 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `maxHeight` | `number` | `500` | 编辑器在非全屏模式下可以增长到的最大高度（以像素为单位）。一旦内容超过此高度，编辑器内就会出现滚动条。该编辑器还有一个拖动手柄，因此用户可以手动将其大小调整到超出此限制。 |
 | `renderer` | `function` | `marked` | 替换用于预览的 Markdown 解析器。接收 markdown 字符串并且必须返回 HTML 字符串。 |
 | `sanitizer` | `function` | `DOMPurify` | 取代 HTML 清理程序。接收渲染的 HTML，并且必须返回安全的 HTML 来显示。 |
-| `onChange` | `function` | `undefined` | 每次内容更改时都会触发回调 - 键入、工具栏操作、撤消/重做和列表延续。接收当前的 markdown 字符串作为其唯一的参数。 |
+| `onChange` | `function` | `undefined` | 每次内容更改时都会触发回调：键入、工具栏操作、撤消/重做和列表延续。接收当前的 markdown 字符串作为其唯一的参数。 |
 
 </DocTable>
 
-### 🛠 工具栏自定义
+### 🛠 工具栏定制
 
 工具栏是模块化的。您可以通过修改阵列来创建最低限度的体验或功能齐全的电源套件。
 
@@ -358,7 +360,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 ### 📊 页脚（状态栏）
 
-页脚位于编辑器下方，显示光标的**行**、**列**、文档的**字符数**以及可选的**字数** - 所有这些都是实时更新的。默认情况下它是可见的，并且每个统计数据都可以独立切换。
+页脚位于编辑器下方，显示光标的**行**、**列**、文档的**字符数**以及可选的**字数**，所有这些都是实时更新的。默认情况下它是可见的，并且每个统计数据都可以独立切换。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -367,7 +369,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `line` | `boolean` | `true` | 显示当前行号。 |
 | `col` | `boolean` | `true` | 显示当前的列号。 |
 | `chars` | `boolean` | `true` | 显示总字符数。 |
-| `words` | `boolean` | `false` | 显示总字数。默认关闭 — 设置为 `true` 启用。 |
+| `words` | `boolean` | `false` | 显示总字数。默认关闭：设置为 `true` 启用。 |
 
 </DocTable>
 
@@ -442,19 +444,19 @@ new MarkdownEditor('#markdown-editor', {
 
 ### 🌙 主题化
 
-**MarkdownEditor** 自动从周围页面继承其主题 - 无需配置。编者读到 `data-theme` 从初始化时最近的祖先开始，因此它与您网站的开箱即用主题保持同步。
+**MarkdownEditor** 自动从周围页面继承其主题：无需配置。编者读到 `data-theme` 从初始化时最近的祖先开始，因此它与您网站的开箱即用主题保持同步。
 
 #### 主题如何解决（优先顺序）
 
-1.  **`theme` option** — 在选项对象中传递的显式覆盖
-2.  **`data-theme` 于 `<textarea>`** — 直接在元素上设置
-3.  **`data-theme` 任何祖先**——例如 `<html>`, `<body>`，或包装器 `<div>`
+1.  **`theme` option**：在选项对象中传递的显式覆盖
+2.  **`data-theme` 于 `<textarea>`**：直接在元素上设置
+3.  **`data-theme` 任何祖先**：例如 `<html>`, `<body>`，或包装器 `<div>`
 
 #### 可用主题
 
 `'light'` （默认）， `'dark'`, `'snowberry'`, `'darkberry'`
 
-##### 选项 1 — 继承自 `<html>` 或任何祖先（零配置）
+##### 选项1，继承自 `<html>` 或任何祖先（零配置）
 
 <Snippet view="code">
 
@@ -469,7 +471,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-##### 选项 2 — 设置 `data-theme` 直接在 `<textarea>`
+##### 选项 2：设置 `data-theme` 直接在 `<textarea>`
 
 <Snippet view="code">
 
@@ -482,7 +484,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-##### 选项 3 — 显式 `theme` 选项（覆盖所有内容）
+##### 选项 3：显式 `theme` 选项（覆盖所有内容）
 
 <Snippet view="code">
 
@@ -574,7 +576,7 @@ new MarkdownEditor('#markdown-editor', {
 
 #### 预览中的示例值
 
-给定的条目 `sample` 在预览中显示该示例，而文本区域保留真实的占位符。没有其中之一的条目将按书面形式显示，因此您可以将两者混合使用。
+给定一个条目 `sample` 在预览中显示该示例，而文本区域保留真实的占位符。没有其中之一的条目将按书面形式显示，因此您可以将两者混合使用。
 
 <Snippet view="code">
 
@@ -621,7 +623,7 @@ new MarkdownEditor('#markdown-editor', {
 
 预览呈现为 [标记的](https://marked.js.org) 并用消毒 [DOM纯化](https://github.com/cure53/DOMPurify)。两者都可以更换。当您的应用程序已经使用另一个库呈现 Markdown 并且您希望预览与生产完全匹配时，请使用此选项。
 
-这两个选项都是普通函数，它们接受一个字符串并返回一个字符串，因此任何解析器和任何清理程序都可以工作。
+这两个选项都是普通函数，它们接受一个字符串并返回一个字符串，因此任何解析器和任何清理器都可以工作。
 
 <Snippet view="code">
 
@@ -801,7 +803,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\.使用变量引用
 
-如果您有对 textarea 元素的引用，则可以直接使用它 - 不需要特定于库的 API。
+如果您有对 textarea 元素的引用，则可以直接使用它：不需要特定于库的 API。
 
 <Snippet view="code">
 
@@ -819,7 +821,7 @@ textarea.value = "## Updated via JS";
 
 #### 3\.设置初始内容服务器端
 
-设置初始内容的推荐方法是直接在 `<textarea>` HTML——这可以自然地适用于每个后端框架（Django、Laravel、Rails、PHP 等），并且编辑器会在 init 上自动呈现它。
+设置初始内容的推荐方法是直接在 `<textarea>` HTML：这可以自然地与每个后端框架（Django、Laravel、Rails、PHP 等）配合使用，并且编辑器会在 init 上自动呈现它。
 
 <Snippet view="code">
 
@@ -847,7 +849,7 @@ editor.render();
 
 </Snippet>
 
-#### 4\.拆掉编辑器—— `destroy()`
+#### 4\.拆掉编辑器： `destroy()`
 
 称呼 `editor.destroy()` 删除编辑器 DOM 包装并恢复原始状态 `<textarea>` 到其在文档中的位置。在单页应用程序中卸载视图时很有用。
 
@@ -938,7 +940,7 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ##### 🚀 为什么它会改变后端的游戏规则
 
-由于编辑器保留了原生 `<textarea>` 行为，您的服务器将数据作为标准字符串处理。所需的额外逻辑为零——不需要 `preventDefault()` 并且没有说明书 `FormData` 建造。
+由于编辑器保留了原生 `<textarea>` 行为，您的服务器将数据作为标准字符串处理。需要零额外逻辑：没有 `preventDefault()` 并且没有说明书 `FormData` 建造。
 
 ##### 💡 为什么这是一个“杀手级功能”：
 
@@ -960,7 +962,7 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ## 🖼️ 高级图像上传
 
-本地处理图像上传（而不是依赖于缓慢且占用大量内存的 Base64 字符串）对于性能和 SEO 来说都是一个重大胜利。
+本地处理图像上传：而​​不是依赖缓慢、占用大量内存的 Base64 字符串，这对于性能和 SEO 来说都是一个重大胜利。
 
 ### 配置选项
 
@@ -1130,7 +1132,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ## 🔍 查找和替换
 
-编辑器内提供内置查找和替换面板 - 无需浏览器扩展或单独的工具。
+编辑器内提供内置查找和替换面板：无需浏览器扩展或单独的工具。
 
 -   按 `Ctrl + F` （或者 `⌘ F`) 打开 **查找** 面板
 -   按 `Ctrl + H` （或者 `⌘ H`) 打开 **查找和替换** 面板
@@ -1143,7 +1145,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ## 特征
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 原生表单集成</h2><p class=\"para-sm\">工作原理与标准完全相同 <code>&lt;textarea&gt;</code>。没有复杂的 API——只需使用 <code>value</code> 或者 <code>name</code> 属性。它“只适用于”PHP、Django 或 Node.js 中的标准 HTML 表单提交。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高级图像上传</h2><p class=\"para-sm\">通过 API 配置本机服务器上传。通过在您自己的 CDN 上托管图像，避免使用繁重的 Base64 字符串，以确保更快的页面加载和卓越的 SEO。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 混合模式和普通模式</h2><p class=\"para-sm\">之间切换 <strong>混合（所见即所得）</strong> 视觉编辑经验或 <strong>普通降价</strong> 传统编码感觉的模式。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">一个 <strong>51 KB gzip 压缩</strong> 捆绑包（缩小为 245 KB，包含 CSS）针对“重内容”进行了优化。处理大量文档和大文件，不会出现任何输入延迟或性能下降。去抖预览更新、缓存样式计算和无冲突键盘处理 - 因此 Tab 和 Enter 始终只做一件事。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 内置 RTL 支持</h2><p class=\"para-sm\">对阿拉伯语、乌尔都语和波斯语等从右到左语言的本机支持。非常适合构建全球可访问的应用程序。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 语法高亮</h2><p class=\"para-sm\">通过清晰的代码和 Markdown 格式增强可读性。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 自适应主题</h2><p class=\"para-sm\">包括自动深色模式支持。它与您的系统设置或 <strong>水果果酱用户界面</strong> 图书馆提供无缝的视觉体验。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 智能编辑</h2><p class=\"para-sm\">GitHub 风格的自动列表延续，适用于有序列表、无序列表和清单 — 按 <code>Enter</code> 编辑继续这个模式。预览窗格中的复选框可单击并立即同步回 Markdown 源。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全响应</h2><p class=\"para-sm\">流畅、移动优先的用户界面，完美适应台式机、平板电脑和智能手机，以便随时随地进行编辑。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 普遍支持</h2><p class=\"para-sm\">兼容于 <strong>ESM、UMD、CommonJS 和 IIFE</strong>。通过 CDN 开箱即用（<code>&lt;script src&gt;</code>)、npm 或任何捆绑器（Vite、webpack、Rollup）——无需额外配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 默认可访问</h2><p class=\"para-sm\">内置完整的 ARIA 支持 — 工具栏地标、带标签的预览区域、屏幕阅读器友好的按钮、 <code>aria-pressed</code> 在预览开关上， <code>disabled</code> 和 <code>aria-disabled</code> 在非活动工具上，并在模态关闭时正确恢复焦点。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ 零 CSS 冲突</h2><p class=\"para-sm\">编辑器样式完全适用于 <code>.markdown-editor-wrapper</code>。 Tailwind 的全局预检被排除，因此编辑器可以安全地与 Bootstrap、Tailwind 或任何其他框架一起使用，而不会破坏它们的风格。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 键盘快捷键</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code> — 无需触摸鼠标的常见格式化操作。每个快捷方式都显示在工具栏按钮的工具提示中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 查找和替换</h2><p class=\"para-sm\">按 <code>Ctrl+F</code> 寻找或 <code>Ctrl+H</code> 打开查找和替换。不区分大小写的搜索，具有实时匹配计数器、下一个/上一个导航、单个替换和全部替换 - 无需离开编辑器。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 安全预览</h2><p class=\"para-sm\">渲染的预览通过以下方式进行清理 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOM纯化</a> 在写入 DOM 之前。精心设计的 Markdown 输入中的脚本标签、内联事件处理程序和恶意 URL 都会被自动删除 - 无需配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️实时预览</h2><p class=\"para-sm\">在您键入时查看立即呈现的 Markdown。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 轻松集成</h2><p class=\"para-sm\">只需最少的设置即可无缝集成到任何 Web 项目中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 可定制的工具栏</h2><p class=\"para-sm\">动态配置和重新排序工具栏选项，例如粗体、斜体等。</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 原生表单集成</h2><p class=\"para-sm\">工作原理与标准完全相同 <code>&lt;textarea&gt;</code>。没有复杂的 API：只需使用 <code>value</code> 或者 <code>name</code> 属性。它“只适用于”PHP、Django 或 Node.js 中的标准 HTML 表单提交。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高级图像上传</h2><p class=\"para-sm\">通过 API 配置本机服务器上传。通过在您自己的 CDN 上托管图像，避免使用繁重的 Base64 字符串，以确保更快的页面加载和卓越的 SEO。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 混合模式和普通模式</h2><p class=\"para-sm\">之间切换 <strong>混合（所见即所得）</strong> 视觉编辑经验或 <strong>普通降价</strong> 传统编码感觉的模式。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">一个 <strong>51 KB gzip 压缩</strong> 捆绑包（缩小为 245 KB，包含 CSS）针对“重内容”进行了优化。处理大量文档和大文件，不会出现任何输入延迟或性能下降。去抖预览更新、缓存样式计算和无冲突键盘处理：因此 Tab 和 Enter 始终只做一件事。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 内置 RTL 支持</h2><p class=\"para-sm\">对阿拉伯语、乌尔都语和波斯语等从右到左语言的本机支持。非常适合构建全球可访问的应用程序。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 语法高亮</h2><p class=\"para-sm\">通过清晰的代码和 Markdown 格式增强可读性。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 自适应主题</h2><p class=\"para-sm\">包括自动深色模式支持。它与您的系统设置或 <strong>水果果酱用户界面</strong> 图书馆提供无缝的视觉体验。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 智能编辑</h2><p class=\"para-sm\">GitHub 风格的自动列表延续，适用于有序列表、无序列表和清单：按 <code>Enter</code> 编辑继续这个模式。预览窗格中的复选框可单击并立即同步回 Markdown 源。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全响应</h2><p class=\"para-sm\">流畅、移动优先的用户界面，完美适应台式机、平板电脑和智能手机，以便随时随地进行编辑。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 普遍支持</h2><p class=\"para-sm\">兼容于 <strong>ESM、UMD、CommonJS 和 IIFE</strong>。通过 CDN 开箱即用（<code>&lt;script src&gt;</code>)、npm 或任何捆绑器（Vite、webpack、Rollup）：无需额外配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 默认可访问</h2><p class=\"para-sm\">内置完整的 ARIA 支持：工具栏地标、带标签的预览区域、屏幕阅读器友好的按钮、 <code>aria-pressed</code> 在预览开关上， <code>disabled</code> 和 <code>aria-disabled</code> 在非活动工具上，并在模态关闭时正确恢复焦点。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ 零 CSS 冲突</h2><p class=\"para-sm\">编辑器样式完全适用于 <code>.markdown-editor-wrapper</code>。 Tailwind 的全局预检被排除，因此编辑器可以安全地与 Bootstrap、Tailwind 或任何其他框架一起使用，而不会破坏它们的风格。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 键盘快捷键</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>：无需触摸鼠标的常见格式化操作。每个快捷方式都显示在工具栏按钮的工具提示中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 查找和替换</h2><p class=\"para-sm\">按 <code>Ctrl+F</code> 寻找或 <code>Ctrl+H</code> 打开查找和替换。不区分大小写的搜索，具有实时匹配计数器、下一个/上一个导航、单个替换和全部替换：无需离开编辑器。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 安全预览</h2><p class=\"para-sm\">渲染的预览通过以下方式进行清理 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOM纯化</a> 在写入 DOM 之前。精心设计的 Markdown 输入中的脚本标签、内联事件处理程序和恶意 URL 都会被自动删除：无需配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️实时预览</h2><p class=\"para-sm\">在您键入时查看立即呈现的 Markdown。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 轻松集成</h2><p class=\"para-sm\">只需最少的设置即可无缝集成到任何 Web 项目中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 可定制的工具栏</h2><p class=\"para-sm\">动态配置和重新排序工具栏选项，例如粗体、斜体等。</p></div></div></div>"} />
 
 ## 完整配置示例
 
