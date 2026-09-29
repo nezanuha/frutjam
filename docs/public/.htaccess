@@ -38,6 +38,18 @@ AddCharset utf-8 .md .txt .json .xml
     # Guest posts were a form on the site; pitches are GitHub issues now.
     RewriteRule ^write-for-us/?$ https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml [R=301,L]
 
+    # ── Language prefixes Django built for English-only pages ────────────────
+    # The blog and the legal pages were English only, but Django's switcher still
+    # linked /<lang>/blog and /<lang>/terms, and Google crawled them. They go to
+    # the English page they always meant.
+    RewriteRule ^(?:zh-hans|zh-hant|ja|ko|pt-br|es|de|tr|pl|id|vi|fr)/(blog(?:/.*)?|privacy-policy|terms)/?$ /$1 [R=301,L]
+    RewriteRule ^(?:zh-hans|zh-hant|ja|ko|pt-br|es|de|tr|pl|id|vi|fr)/write-for-us/?$ https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml [R=301,L]
+
+    # ── Pages that became part of the docs ───────────────────────────────────
+    # Theming is a docs page now; the plans live on the Cherry page.
+    RewriteRule ^themes/?$ /docs/themes [R=301,L]
+    RewriteRule ^pricing/?$ /products/cherry [R=301,L]
+
     # ── Moved assets ─────────────────────────────────────────────────────────
     RewriteRule ^static/frontend/images/favicon/(.*)$ /favicon/$1 [R=301,L]
     RewriteRule ^favicon\.ico$ /favicon/favicon.ico [R=301,L]
@@ -52,6 +64,12 @@ AddCharset utf-8 .md .txt .json .xml
     # the canonical form instead of being served at an address the page disowns.
     RewriteCond %{REQUEST_URI} !^/$
     RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+    # A post linked without its /blog/ prefix: /why-i-built-… -> /blog/why-i-built-…
+    # Only when the post exists and no root page claims the name.
+    RewriteCond %{DOCUMENT_ROOT}/$1.html !-f
+    RewriteCond %{DOCUMENT_ROOT}/blog/$1.html -f
+    RewriteRule ^([^/]+?)/?$ /blog/$1 [R=301,L]
 
     # /components/button  ->  /components/button.html, without a redirect.
     RewriteCond %{DOCUMENT_ROOT}/$1.html -f
