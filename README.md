@@ -12,6 +12,19 @@
 
 🌐 **[frutjam.com](https://frutjam.com)** · 📦 **[npm](https://www.npmjs.com/package/frutjam)** · 🍒 **[Cherry MCP](https://frutjam.com/products/cherry)**
 
+![Frutjam components: buttons, badges, a card, form controls and alerts, rendered in the light theme](https://cdn.frutjam.com/media/github/components.webp)
+
+<details>
+<summary><b>Themed with CSS variables, no rebuild</b></summary>
+
+<br>
+
+![The same button, badges and progress bar shown in the light, dark, blueberry and peachberry themes](https://cdn.frutjam.com/media/github/themes.webp)
+
+Two palettes ship with the package, `light` and `dark` (also available as `snowberry` and `darkberry`). Switch with `data-theme="dark"` on any ancestor element. Your own themes are a handful of OKLCH tokens: blueberry and peachberry above are two of the four ready to copy from [the themes page](https://frutjam.com/docs/themes).
+
+</details>
+
 ---
 
 ## What is Frutjam?
