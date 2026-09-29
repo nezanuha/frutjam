@@ -6,7 +6,7 @@
 
 ---
 
-# Frutjam — CSS-Only Tailwind CSS UI Component Library
+# Frutjam: CSS-Only Tailwind CSS UI Component Library
 
 **Frutjam** is a free, open-source Tailwind CSS v4 component library. 65+ production-ready UI components with **zero JavaScript**, guaranteed **WCAG AA accessibility**, and a free **MCP server for AI editors** (Cherry). Works with any framework: React, Vue, HTMX, Django, Laravel, plain HTML.
 
@@ -29,7 +29,7 @@ Two palettes ship with the package, `light` and `dark` (also available as `snowb
 
 ## What is Frutjam?
 
-Frutjam is a **CSS-only Tailwind CSS component library** built for Tailwind CSS v4. You install it as a Tailwind plugin — one line in your CSS — and instantly get 65+ accessible, copy-paste UI components: buttons, modals, drawers, tabs, toasts, carousels, tables, forms, and more.
+Frutjam is a **CSS-only Tailwind CSS component library** built for Tailwind CSS v4. You install it as a Tailwind plugin, one line in your CSS, and instantly get 65+ accessible, copy-paste UI components: buttons, modals, drawers, tabs, toasts, carousels, tables, forms, and more.
 
 Every component works with pure HTML and CSS. No JavaScript framework required. No build pipeline beyond Tailwind itself. Drop it into any stack and start building.
 
@@ -69,22 +69,22 @@ npm install -D frutjam
 
 ## Key Features
 
-- **Zero JavaScript** — every component works with pure CSS and semantic HTML. Native `<dialog>` for modals, `<details>` for accordions, CSS `:has()` for interactive states. No `addEventListener`, no hydration, no runtime.
-- **65+ components** — buttons, modals, tabs, drawers, tooltips, carousels, cards, alerts, toasts, tables, forms, and more. All production-ready.
-- **WCAG AA by default** — every color pair (`--color-primary` / `--color-on-primary`) is hand-tuned in OKLCH to meet WCAG AA contrast requirements. Semantic HTML throughout.
-- **Tailwind v4 native** — built as a Tailwind v4 plugin using `@plugin`. No legacy `tailwind.config.js`. OKLCH design tokens via CSS custom properties.
-- **Framework-agnostic** — works with React, Next.js, Vue, Nuxt, Svelte, HTMX, Django, Laravel Blade, Astro, Rails, plain HTML — anything that outputs HTML.
-- **Themeable** — swap themes with `data-theme="dark"`. Build custom themes in CSS with OKLCH tokens. Supports light, dark, and system preference automatically.
-- **Treeshaken** — only the components you use are included. Tailwind's engine removes unused styles at build time.
-- **CDN-ready** — no build step needed. Import directly from jsDelivr.
+- **Zero JavaScript**: every component works with pure CSS and semantic HTML. Native `<dialog>` for modals, `<details>` for accordions, CSS `:has()` for interactive states. No `addEventListener`, no hydration, no runtime.
+- **65+ components**: buttons, modals, tabs, drawers, tooltips, carousels, cards, alerts, toasts, tables, forms, and more. All production-ready.
+- **WCAG AA by default**: every color pair (`--color-primary` / `--color-on-primary`) is hand-tuned in OKLCH to meet WCAG AA contrast requirements. Semantic HTML throughout.
+- **Tailwind v4 native**: built as a Tailwind v4 plugin using `@plugin`. No legacy `tailwind.config.js`. OKLCH design tokens via CSS custom properties.
+- **Framework-agnostic**: works with React, Next.js, Vue, Nuxt, Svelte, HTMX, Django, Laravel Blade, Astro, Rails, plain HTML, anything that outputs HTML.
+- **Themeable**: swap themes with `data-theme="dark"`. Build custom themes in CSS with OKLCH tokens. Supports light, dark, and system preference automatically.
+- **Treeshaken**: only the components you use are included. Tailwind's engine removes unused styles at build time.
+- **CDN-ready**: no build step needed. Import directly from jsDelivr.
 
 ---
 
-## 🍒 Cherry MCP — AI Editor Integration
+## 🍒 Cherry MCP: AI Editor Integration
 
 Cherry is Frutjam's **free MCP server** that gives AI coding assistants accurate, real-time access to Frutjam component docs.
 
-Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate Tailwind CSS class names — inventing classes that don't exist. Cherry solves this by feeding your AI editor the exact Frutjam specs at the moment it needs them.
+Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate Tailwind CSS class names, inventing classes that don't exist. Cherry solves this by feeding your AI editor the exact Frutjam specs at the moment it needs them.
 
 **Works with:** Claude Code · Cursor · VS Code · Windsurf · Zed · Cline · any MCP-compatible editor
 
@@ -186,7 +186,7 @@ Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate 
   <span class="badge badge-primary">3</span>
 </button>
 
-<!-- CSS-only modal — no JavaScript -->
+<!-- CSS-only modal, no JavaScript -->
 <button popovertarget="my-modal" class="btn btn-primary">Open Modal</button>
 <dialog id="my-modal" popover class="modal">
   <div class="modal-content">
@@ -227,11 +227,11 @@ Without Cherry, AI assistants (Claude Code, Cursor, GitHub Copilot) hallucinate 
 
 Frutjam is designed for WCAG AA compliance from the ground up:
 
-- **Color contrast** — every color token pair is hand-tuned in OKLCH to exceed WCAG AA 4.5:1 contrast ratio for text
-- **Semantic HTML** — native `<dialog>` for modals, `<details>` for accordions, `<nav>` for navigation, correct heading hierarchy
-- **Keyboard navigation** — all interactive components are fully keyboard accessible
-- **Screen reader support** — ARIA attributes included where native semantics are insufficient
-- **Focus management** — visible focus rings on all interactive elements, respects `prefers-reduced-motion`
+- **Color contrast**: every color token pair is hand-tuned in OKLCH to exceed WCAG AA 4.5:1 contrast ratio for text
+- **Semantic HTML**: native `<dialog>` for modals, `<details>` for accordions, `<nav>` for navigation, correct heading hierarchy
+- **Keyboard navigation**: all interactive components are fully keyboard accessible
+- **Screen reader support**: ARIA attributes included where native semantics are insufficient
+- **Focus management**: visible focus rings on all interactive elements, respects `prefers-reduced-motion`
 
 ---
 
@@ -297,7 +297,7 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 
 ## Starter Projects
 
-Working projects with Frutjam already wired up — clone and start building.
+Working projects with Frutjam already wired up: clone and start building.
 
 | Starter | Stack |
 |---------|-------|
@@ -343,7 +343,7 @@ to the machine-translated pages are especially welcome.
 
 ## License
 
-MIT — free for personal and commercial use. See [LICENSE](LICENSE).
+MIT, free for personal and commercial use. See [LICENSE](LICENSE).
 
 ---
 
