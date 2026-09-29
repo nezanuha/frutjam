@@ -199,7 +199,7 @@ new MarkdownEditor('.markdown-editor', {
 - **Dark mode**, add `data-theme="dark"` to any ancestor element
 - **XSS safe**: preview sanitized with DOMPurify
 - **CSP compatible**, no inline event handlers
-- **51 KB gzipped** (245 KB minified, CSS included): EasyMDE is 107 KB gzipped across its JS and CSS
+- **53 KB gzipped** (252 KB minified, CSS included): EasyMDE is 107 KB gzipped across its JS and CSS
 
 ## Rendering markdown in Blade
 
