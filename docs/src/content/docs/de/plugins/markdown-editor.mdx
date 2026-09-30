@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Markdown-Texteditor-JavaScript-Plugin von Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "918050501fd4"
+sourceHash: "90e400ff6686"
+translationHash: "c7824038d582"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -300,6 +300,7 @@ Optionen werden einmal gelesen, wenn der Editor erstellt wird. Eine nachträglic
 | `renderer` | `function` | `marked` | Ersetzt den für die Vorschau verwendeten Markdown-Parser. Empfängt die Markdown-Zeichenfolge und muss eine HTML-Zeichenfolge zurückgeben. |
 | `sanitizer` | `function` | `DOMPurify` | Ersetzt den HTML-Sanitizer. Empfängt den gerenderten HTML-Code und muss den sicheren HTML-Code zur Anzeige zurückgeben. |
 | `onChange` | `function` | `undefined` | Bei jeder Inhaltsänderung wird ein Rückruf ausgelöst: Eingabe, Aktionen in der Symbolleiste, Rückgängigmachen/Wiederherstellen und Fortsetzung der Liste. Empfängt den aktuellen Markdown-String als einziges Argument. |
+| `labels` | `object` | `undefined` | Übersetzungen für die Editor-eigene Schnittstelle, verschlüsselt durch die englische Zeichenfolge. Alles, was Sie weglassen, bleibt auf Englisch. |
 
 </DocTable>
 
@@ -551,6 +552,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 Schnittstellensprache
+
+Der eigene Text des Editors, Tooltips, Menüelemente, modale Felder und Schaltflächen sind standardmäßig Englisch. Pass a `labels` Objekt, um es zu übersetzen. Schlüssel sind die englischen Zeichenfolgen, so wie gettext funktioniert, sodass Sie nur auflisten, was Sie ändern möchten, und alles, was fehlt, wird auf Englisch zurückgesetzt.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+Dies ist neben rechts-nach-links geschriebenen Inhalten am wichtigsten. Arabisch, Urdu und Farsi werden für sich genommen korrekt angezeigt, aber eine Symbolleiste, in der immer noch „Fett“ über von rechts nach links geschriebenem Text steht, ist nur zur Hälfte übersetzt.
 
 ### 🏷 Variablen
 
@@ -964,6 +991,14 @@ Mit **MarkdownEditor** kann ein Entwickler eine alte Website durch eine einfache
 
 Die native Handhabung von Bild-Uploads: Anstatt sich auf langsame, speicherintensive Base64-Strings zu verlassen, ist dies ein erheblicher Gewinn für Leistung und SEO.
 
+### Einfügen und ablegen
+
+Fügen Sie einen Screenshot ein oder ziehen Sie eine Bilddatei in den Editor und sie wird über denselben Endpunkt wie die Symbolleistenschaltfläche hochgeladen. Ein Platzhalter wird sofort angezeigt, sodass der Editor nie eingefroren aussieht, und er wird durch den tatsächlichen Pfad ersetzt, sobald der Upload erfolgt. Wenn der Upload fehlschlägt, wird der Platzhalter durch eine sichtbare Markierung ersetzt und verschwindet nicht lautlos.
+
+Das braucht `uploadUrl` unten konfiguriert. Ohne sie führt das Einfügen eines Bilds zu nichts und der Editor protokolliert eine Warnung, die erklärt, was hinzugefügt werden soll, da die Alternative ein Base64-String in Ihrer Datenbank wäre.
+
+Es werden mehrere Dateien gleichzeitig hochgeladen, sodass die Bilder in der Reihenfolge landen, in der sie eingegangen sind.
+
 ### Konfigurationsoptionen
 
 Das Bildtool unterstützt a `fileInput` Konfiguration für direkte Server-Uploads.
@@ -1099,57 +1134,72 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ### 💡 Warum Parameter verwenden?
 
-In Frameworks wie Laravel oder Django können Sie keine Dateien ohne CSRF-Token hochladen. Durch Hinzufügen `_token` zum `params` objekt, wird Ihre Anfrage nahtlos durch die Sicherheits-Middleware des Backends geleitet, wobei die "Zero Logic" -Philosophie für Ihre serverseitigen Controller beibehalten wird.
+In Frameworks wie Laravel oder Django können Sie keine Dateien ohne CSRF-Token hochladen. Durch Hinzufügen `_token` zum `params` Objekt, Ihre Anfrage durchläuft die Sicherheits-Middleware des Backends nahtlos und behält die „Zero Logic“-Philosophie für Ihre serverseitigen Controller bei.
 
-## Tastaturkürzel
+## ⌨️ Tastaturkürzel
 
-Gängige Formatierungsaktionen können direkt von der Tastatur aus ausgelöst werden, ohne die Symbolleiste zu berühren. Jede Verknüpfung wird auch im Tooltip der entsprechenden Symbolleistenschaltfläche angezeigt.
+Gängige Formatierungsaktionen können direkt über die Tastatur ausgelöst werden, ohne die Symbolleiste zu berühren. Jede Verknüpfung wird auch im Tooltip der entsprechenden Symbolleistenschaltfläche angezeigt.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| Abkürzung | Handlung |
+| Abkürzung | Aktion |
 | --- | --- |
 | `Ctrl + B`  /  `⌘ B` | Umschalten **Fett** |
 | `Ctrl + I`  /  `⌘ I` | *Kursiv* umschalten |
 | `Ctrl + K`  /  `⌘ K` | Link einfügen |
 | `` Ctrl + ` ``  /  `` ⌘ ` `` | Inline umschalten `Code` |
-| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | ~~Durchstreichen ~ ~ umschalten |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Schalten Sie ~~Durchgestrichen~~ um |
 | `Ctrl + 1`  /  `⌘ 1` | Überschrift 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Überschrift 2 |
 | `Ctrl + 3`  /  `⌘ 3` | Überschrift 3 |
 | `Ctrl + L`  /  `⌘ L` | Aufzählungsliste umschalten |
-| `Ctrl + Z`  /  `⌘ Z` | Widerrufen |
+| `Ctrl + Z`  /  `⌘ Z` | Rückgängig machen |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Wiederholen |
-| `Tab` | Rücken Sie die ausgewählten Zeilen ein. |
-| `Shift + Tab` | Ausgewählte Zeilen übertreffen |
-| `Ctrl + F`  /  `⌘ F` | Find-Panel öffnen |
-| `Ctrl + H`  /  `⌘ H` | Fenster Suchen & Ersetzen öffnen |
-| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | Vollbild umschalten |
-| `F11` | Vollbild umschalten |
-| `Escape` | Finde Panel schließen/Vollbildvorschau beenden |
+| `Tab` | Ausgewählte Zeilen einrücken |
+| `Shift + Tab` | Ausgewählte Zeilen ausrücken |
+| `Ctrl + F`  /  `⌘ F` | Öffnen Sie das Suchfeld |
+| `Ctrl + H`  /  `⌘ H` | Öffnen Sie das Bedienfeld „Suchen und Ersetzen“. |
+| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | Vollbildvorschau umschalten |
+| `F11` | Vollbildvorschau umschalten |
+| `Escape` | Schließen Sie das Suchfeld/Vollbildvorschau beenden |
 
 </DocTable>
 
-## Suchen & Ersetzen
+## 🔍 Suchen und Ersetzen
 
-Ein integriertes Bedienfeld zum Suchen und Ersetzen ist im Editor verfügbar: Es ist keine Browsererweiterung oder ein separates Tool erforderlich.
+Im Editor ist ein integriertes Such- und Ersetzungsfeld verfügbar: Es ist keine Browsererweiterung oder ein separates Tool erforderlich.
 
-- Presseinformationen `Ctrl + F` (bzw. `⌘ F`), um das Bedienfeld **Suchen** zu öffnen
-- Presseinformationen `Ctrl + H` (bzw. `⌘ H`), um das Bedienfeld **Suchen & Ersetzen** zu öffnen
--   Die Suche ist **ohne Berücksichtigung der Groß- und Kleinschreibung * * und zeigt einen Live-Match-Zähler an (z. B. *3 von 12*)
--   Navigieren Sie zu Übereinstimmungen mit den **▲/▼** -Buttons oder `Enter` / `Shift + Enter`
--   **Ersetzen** ersetzt die aktuell markierte Übereinstimmung; ** Alle ersetzen ** ersetzt jedes Ereignis auf einmal
-- Presseinformationen `Escape` um das Bedienfeld zu schließen und den Fokus wieder auf den Editor zu richten
+- Drücken Sie `Ctrl + F` (oder `⌘ F`), um das Bedienfeld **Suchen** zu öffnen
+- Drücken Sie `Ctrl + H` (oder `⌘ H`), um das Bedienfeld **Suchen und Ersetzen** zu öffnen
+- Die Suche berücksichtigt **Groß- und Kleinschreibung** und zeigt einen Live-Match-Zähler an (z. B. *3 von 12*)
+- Navigieren Sie durch Übereinstimmungen mit den Tasten **▲ / ▼** oder `Enter` / `Shift + Enter`
+- **Ersetzen** ersetzt die aktuell hervorgehobene Übereinstimmung; **Alle ersetzen** ersetzt jedes Vorkommen auf einmal
+- Drücken Sie `Escape` um das Bedienfeld zu schließen und den Fokus wieder auf den Editor zu richten
 
-Das Panel schwebt in der oberen rechten Ecke des Editor-Inhaltsbereichs und unterbricht das Schreiben nicht.
+Das Bedienfeld verschiebt sich in der oberen rechten Ecke des Editor-Inhaltsbereichs und unterbricht den Schreibvorgang nicht.
 
-## Funktionen
+## 🔗 Links von einer eingefügten URL
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Integration 🔌 nativer Formulare</h2><p class=\"para-sm\">Funktioniert genau wie ein Standard <code>&lt;textarea&gt;</code>. Keine komplexen APIs: Verwenden Sie einfach die <code>value</code> oder <code>name</code> attribut. Es \"funktioniert einfach\" mit Standard-HTML-Formularübermittlungen in PHP, Django oder Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Erweiterter Bild-Upload</h2><p class=\"para-sm\">Konfigurieren Sie native Server-Uploads über API. Vermeiden Sie schwere Base64-Zeichenfolgen, um schnellere Seitenladungen und überlegene SEO zu gewährleisten, indem Sie Bilder in Ihrem eigenen CDN hosten.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid- und einfache Modi</h2><p class=\"para-sm\">Wechseln Sie zwischen einem <strong>Hybrid (WYSIWYG)</strong> erfahrung für die visuelle Bearbeitung oder <strong>Einfacher Markdown</strong> modus für ein traditionelles Codierungsgefühl.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Hochleistung</h2><p class=\"para-sm\">A <strong>53 KB gzipped</strong> bundle (252 KB minimiert, CSS inklusive) optimiert für \"Heavy Content.\" Handhabt massive Dokumente und große Dateien ohne Eingabeverzögerung oder Leistungseinbußen. Entprellte Vorschau-Updates, zwischengespeicherte Stilberechnungen und konfliktfreies Tastaturhandling: Tab und Enter tun also immer genau eines.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Eingebaute Unterstützung</h2><p class=\"para-sm\">Muttersprachliche Unterstützung für Rechts-Links-Sprachen wie Arabisch, Urdu und Farsi. Perfekt für den Aufbau global zugänglicher Anwendungen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Syntaxhervorhebung</h2><p class=\"para-sm\">Verbesserte Lesbarkeit mit klarem Code und Markdown-Formatierung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Adaptive Thematisierung</h2><p class=\"para-sm\">Enthält Unterstützung für den automatischen Dunkelmodus. Es synchronisiert sich mit Ihren Systemeinstellungen oder dem <strong>Frutjam UI</strong> bibliothek für ein nahtloses visuelles Erlebnis.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Intelligente Bearbeitung</h2><p class=\"para-sm\">Automatische Listenfortführung im GitHub-Stil für geordnete Listen, ungeordnete Listen und Checklisten: drücken Sie <code>Enter</code> und der Editor setzt das Muster fort. Kontrollkästchen im Vorschaufenster sind anklickbar und werden sofort mit der Markdown-Quelle synchronisiert.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Vollständig responsiv</h2><p class=\"para-sm\">Eine flüssige, mobile Benutzeroberfläche, die sich perfekt an Desktops, Tablets und Smartphones für die Bearbeitung unterwegs anpasst.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Universalhalter</h2><p class=\"para-sm\">Passend für <strong>ESM, UMD, CommonJS und IIFE</strong>. Arbeitet out of the box über CDN (<code>&lt;script src&gt;</code>), npm oder ein beliebiger Bündler (Vite, Webpack, Rollup): Keine zusätzliche Konfiguration erforderlich.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Zugänglich von Anfang an</h2><p class=\"para-sm\">Volle ARIA-UNTERSTÜTZUNG integriert: Symbolleiste Orientierungspunkt, beschrifteter Vorschaubereich, bildschirmleserfreundliche Schaltflächen, <code>aria-pressed</code> auf dem Vorschau-Schalter, <code>disabled</code> und <code>aria-disabled</code> auf inaktive Werkzeuge und korrigieren Sie die Fokuswiederherstellung, wenn Modale geschlossen werden.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Keine CSS-Konflikte</h2><p class=\"para-sm\">Editor-Stile sind vollständig auf <code>.markdown-editor-wrapper</code>. Tailwinds globales Preflight ist ausgeschlossen, so dass der Editor sicher neben Bootstrap, Tailwind oder einem anderen Framework lebt, ohne seine Stile zu brechen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Tastaturkürzel</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: gängige Formatierungsaktionen, ohne die Maus zu berühren. Jede Verknüpfung wird im Tooltip der Symbolleistenschaltfläche angezeigt.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Suchen &amp; Ersetzen</h2><p class=\"para-sm\">Presse <code>Ctrl+F</code> zu finden oder <code>Ctrl+H</code> zum Öffnen von Suchen &amp; Ersetzen. Suche ohne Berücksichtigung der Groß- und Kleinschreibung mit Live-Match-Zähler, Next/Prev-Navigation, Single Replace und Replace all: ohne den Editor zu verlassen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Vorschau</h2><p class=\"para-sm\">Die gerenderte Vorschau wird über <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> bevor er an den DOM geschrieben wurde. Skript-Tags, Inline-Ereignishandler und bösartige URLs in gestalteten Markdown-Eingaben werden automatisch entfernt: keine Konfiguration erforderlich.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Echtzeit-Vorschau</h2><p class=\"para-sm\">Sehen Sie, wie Ihr Markdown sofort gerendert wird, während Sie tippen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">Einfache Integration</h2><p class=\"para-sm\">Nahtlose Integration in jedes Webprojekt mit minimalem Setup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Anpassbare Symbolleiste</h2><p class=\"para-sm\">Konfigurieren und ordnen Sie Symbolleistenoptionen wie Fett, Kursiv und mehr dynamisch neu.</p></div></div></div>"} />
+Wählen Sie einen Text aus, fügen Sie eine URL darüber ein und Sie erhalten einen Markdown-Link anstelle der URL, die Ihre Auswahl ersetzt.
 
-## Konfigurationsbeispiel
+<Snippet view="code">
 
-Verwenden Sie dieses umfassende Beispiel, um **MarkdownEditor* * mit allen primären Funktionen zu initialisieren, einschließlich benutzerdefinierter Symbolleistenreihenfolge und erweiterter Bild-Upload-Behandlung.
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+Die Regel ist bewusst streng: nur ein Bare `http` oder `https` URLs ohne Leerzeichen werden auf diese Weise behandelt. Das Einfügen eines Satzes, der zufällig eine URL enthält, oder das Einfügen ohne Auswahl verhält sich wie ein gewöhnliches Einfügen.
+
+## Merkmale
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Native Formularintegration</h2><p class=\"para-sm\">Funktioniert genau wie ein Standard <code>&lt;textarea&gt;</code>. Keine komplexen APIs: Verwenden Sie einfach die <code>value</code> oder <code>name</code> Attribut. Es „funktioniert einfach“ mit Standard-HTML-Formularübermittlungen in PHP, Django oder Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Erweiterter Bild-Upload</h2><p class=\"para-sm\">Konfigurieren Sie native Server-Uploads über die API. Vermeiden Sie schwere Base64-Strings, um schnellere Seitenladevorgänge und eine bessere Suchmaschinenoptimierung zu gewährleisten, indem Sie Bilder auf Ihrem eigenen CDN hosten.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid- und Normalmodus</h2><p class=\"para-sm\">Wechseln Sie zwischen a <strong>Hybrid (WYSIWYG)</strong> Erfahrung in der visuellen Bearbeitung bzw <strong>Einfacher Abschlag</strong> Modus für ein traditionelles Codierungsgefühl.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hohe Leistung</h2><p class=\"para-sm\">A <strong>53 KB gezippt</strong> Bundle (252 KB minimiert, CSS enthalten), optimiert für „Heavy Content“. Verarbeitet umfangreiche Dokumente und große Dateien ohne Eingabeverzögerung oder Leistungseinbußen. Entprellte Vorschau-Updates, zwischengespeicherte Stilberechnungen und konfliktfreie Tastaturbedienung: Tab und Enter machen also immer genau das Gleiche.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Integrierte RTL-Unterstützung</h2><p class=\"para-sm\">Native Unterstützung für Rechts-nach-Links-Sprachen wie Arabisch, Urdu und Farsi. Perfekt für die Erstellung global zugänglicher Anwendungen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Syntaxhervorhebung</h2><p class=\"para-sm\">Verbesserte Lesbarkeit durch klaren Code und Markdown-Formatierung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Adaptives Theming</h2><p class=\"para-sm\">Beinhaltet automatische Unterstützung für den Dunkelmodus. Es synchronisiert sich mit Ihren Systemeinstellungen oder dem <strong>Frutjam-Benutzeroberfläche</strong> Bibliothek für ein nahtloses visuelles Erlebnis.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Intelligente Bearbeitung</h2><p class=\"para-sm\">Automatische Listenfortsetzung im GitHub-Stil für geordnete Listen, ungeordnete Listen und Checklisten: Drücken Sie <code>Enter</code> und der Editor setzt das Muster fort. Kontrollkästchen im Vorschaubereich sind anklickbar und werden sofort wieder mit der Markdown-Quelle synchronisiert.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Vollständig reaktionsfähig</h2><p class=\"para-sm\">Eine flüssige, auf Mobilgeräte ausgerichtete Benutzeroberfläche, die sich für die Bearbeitung unterwegs perfekt an Desktops, Tablets und Smartphones anpasst.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Universelle Unterstützung</h2><p class=\"para-sm\">Kompatibel mit <strong>ESM, UMD, CommonJS und IIFE</strong>. Funktioniert sofort über CDN (<code>&lt;script src&gt;</code>), npm oder ein beliebiger Bundler (Vite, Webpack, Rollup): keine zusätzliche Konfiguration erforderlich.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Standardmäßig zugänglich</h2><p class=\"para-sm\">Vollständige ARIA-Unterstützung integriert: Wahrzeichen der Symbolleiste, beschrifteter Vorschaubereich, bildschirmleserfreundliche Schaltflächen, <code>aria-pressed</code> auf dem Vorschau-Schalter, <code>disabled</code> Und <code>aria-disabled</code> bei inaktiven Werkzeugen und korrekte Fokuswiederherstellung, wenn Modalitäten geschlossen werden.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Keine CSS-Konflikte</h2><p class=\"para-sm\">Editor-Stile sind vollständig anwendbar <code>.markdown-editor-wrapper</code>. Der globale Preflight von Tailwind ist ausgeschlossen, sodass der Editor sicher neben Bootstrap, Tailwind oder einem anderen Framework leben kann, ohne deren Stile zu beeinträchtigen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Tastaturkürzel</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: gängige Formatierungsaktionen ohne Berühren der Maus. Jede Verknüpfung wird im Tooltip der Symbolleistenschaltfläche angezeigt.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Suchen und Ersetzen</h2><p class=\"para-sm\">Drücken <code>Ctrl+F</code> finden bzw <code>Ctrl+H</code> , um Suchen und Ersetzen zu öffnen. Suche ohne Berücksichtigung der Groß-/Kleinschreibung mit Live-Match-Zähler, Nächster/Vorheriger-Navigation, Einzelersetzen und Alle ersetzen: ohne den Editor zu verlassen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS-sichere Vorschau</h2><p class=\"para-sm\">Die gerenderte Vorschau wird über bereinigt <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> bevor es in das DOM geschrieben wird. Skript-Tags, Inline-Ereignishandler und schädliche URLs in manipulierten Markdown-Eingaben werden automatisch entfernt: Es ist keine Konfiguration erforderlich.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Echtzeitvorschau</h2><p class=\"para-sm\">Sehen Sie, wie Ihr Markdown während der Eingabe sofort gerendert wird.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Einfache Integration</h2><p class=\"para-sm\">Nahtlose Integration in jedes Webprojekt mit minimalem Setup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Anpassbare Symbolleiste</h2><p class=\"para-sm\">Konfigurieren Sie Symbolleistenoptionen wie Fettschrift, Kursivschrift usw. dynamisch und ordnen Sie sie neu an.</p></div></div></div>"} />
+
+## Vollständiges Konfigurationsbeispiel
+
+Verwenden Sie dieses umfassende Beispiel, um **MarkdownEditor** mit allen Hauptfunktionen zu initialisieren, einschließlich der benutzerdefinierten Symbolleistenreihenfolge und der erweiterten Handhabung des Bild-Uploads.
 
 <Snippet view="code">
 
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
@@ -1191,4 +1246,4 @@ const markdown = document.getElementById('markdown-editor').value;
 
 </Snippet>
 
-<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Fandest du das nützlich?</p><p class=\"text-sm\">Ein GitHub-Stern hilft anderen Entwicklern, den Editor zu entdecken. Es ist Teil von <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. Ein Stern dort hilft auch.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Geben Sie uns auf GitHub einen Stern</a></div>"} />
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Fanden Sie das nützlich?</p><p class=\"text-sm\">Ein GitHub-Stern hilft anderen Entwicklern, den Editor zu entdecken. Es ist Teil von <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. Ein Stern dort hilft auch.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Stern auf GitHub</a></div>"} />

@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam'dan Markdown Metin Düzenleyicisi JavaScript Eklentisi"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "ffd89c08d01b"
+sourceHash: "90e400ff6686"
+translationHash: "6edf4fe327ca"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -300,6 +300,7 @@ Editör oluşturulduğunda seçenekler bir kez okunur. Daha sonra bunları deği
 | `renderer` | `function` | `marked` | Önizleme için kullanılan işaretleme ayrıştırıcısının yerini alır. Markdown dizesini alır ve bir HTML dizesi döndürmesi gerekir. |
 | `sanitizer` | `function` | `DOMPurify` | HTML temizleyicinin yerini alır. İşlenen HTML'yi alır ve görüntülenecek güvenli HTML'yi döndürmesi gerekir. |
 | `onChange` | `function` | `undefined` | Her içerik değişikliğinde geri arama tetiklendi: yazma, araç çubuğu eylemleri, geri alma/yineleme ve listenin devamı. Geçerli işaretleme dizesini tek bağımsız değişken olarak alır. |
+| `labels` | `object` | `undefined` | Editörün kendi arayüzüne yönelik çeviriler, İngilizce dizeyle anahtarlanmıştır. Dışarıda bıraktığınız her şey İngilizce olarak kalır. |
 
 </DocTable>
 
@@ -551,6 +552,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 Arayüz Dili
+
+Editörün kendi metni, araç ipuçları, menü öğeleri, kalıcı alanlar ve düğmeler varsayılan olarak İngilizcedir. bir geçmek `labels` çevirmeye itiraz ediyorum. Anahtarlar, gettext'in çalışma şekli olan İngilizce dizelerdir, bu nedenle yalnızca değiştirmek istediklerinizi listelersiniz ve eksik olan her şey İngilizce'ye geri döner.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+Bu, en çok sağdan sola içerikle birlikte önemlidir. Arapça, Urduca ve Farsça kendi başlarına doğru şekilde yerleştirilmiştir, ancak sağdan sola metin üzerinde hâlâ "Kalın" yazan araç çubuğunun yalnızca yarısı çevrilmiştir.
 
 ### 🏷 Değişkenler
 
@@ -964,6 +991,14 @@ Editör yereli koruduğu için `<textarea>` davranışı, sunucunuz verileri sta
 
 Görüntü yüklemelerini yerel olarak yönetmek: Yavaş, bellek ağırlıklı Base64 dizelerine güvenmek yerine, hem performans hem de SEO açısından önemli bir kazançtır.
 
+### Yapıştır ve bırak
+
+Bir ekran görüntüsünü yapıştırın veya bir görüntü dosyasını düzenleyiciye sürükleyin; araç çubuğu düğmesiyle aynı uç nokta üzerinden yüklenir. Düzenleyicinin hiçbir zaman donmuş görünmemesi için bir yer tutucu hemen görünür ve yükleme gerçekleştiğinde bunun yerini gerçek yol alır. Yükleme başarısız olursa yer tutucu, sessizce kaybolmak yerine görünür bir işaretleyiciyle değiştirilir.
+
+Bu ihtiyaç `uploadUrl` aşağıda yapılandırılmıştır. Bu olmadan, bir resmin yapıştırılması hiçbir şey yapmaz ve editör, ne ekleneceğini açıklayan bir uyarıyı günlüğe kaydeder, çünkü alternatif, veritabanınızdaki bir Base64 dizesi olacaktır.
+
+Aynı anda birden fazla dosya tek tek yüklenir, böylece görüntüler geldikleri sıraya göre iner.
+
 ### Yapılandırma Seçenekleri
 
 Görüntü aracı şunları destekler: `fileInput` doğrudan sunucu yüklemelerini yönetecek yapılandırma.
@@ -1143,6 +1178,21 @@ Düzenleyicinin içinde yerleşik bir bul ve değiştir paneli mevcuttur: taray�
 
 Panel, düzenleyici içerik alanının sağ üst köşesinde kayar ve yazmayı kesintiye uğratmaz.
 
+## 🔗 Yapıştırılan bir URL'den bağlantılar
+
+Bir metin seçin, üzerine bir URL yapıştırın ve seçtiğiniz şeyin yerine geçen URL yerine bir işaretleme bağlantısı elde edersiniz.
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+Kural kasıtlı olarak katıdır: yalnızca çıplak bir `http` veya `https` Boşluk içermeyen URL bu şekilde ele alınır. URL içeren bir cümleyi yapıştırmak veya hiçbir şey seçilmeden yapıştırmak sıradan bir yapıştırma gibi davranır.
+
 ## Özellikler
 
 <RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Yerel Form Entegrasyonu</h2><p class=\"para-sm\">Tam olarak standart gibi çalışır <code>&lt;textarea&gt;</code>. Karmaşık API'ler yok: yalnızca <code>value</code> veya <code>name</code> bağlanmak. PHP, Django veya Node.js'deki standart HTML form gönderimleriyle \"sadece çalışır\".</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Gelişmiş Resim Yükleme</h2><p class=\"para-sm\">Yerel sunucu yüklemelerini API aracılığıyla yapılandırın. Resimleri kendi CDN'nizde barındırarak sayfaların daha hızlı yüklenmesini ve üstün SEO'yu sağlamak için ağır Base64 dizelerinden kaçının.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hibrit ve Sade Modlar</h2><p class=\"para-sm\">Bir arasında geçiş yapın <strong>Hibrit (WYSIWYG)</strong> görsel düzenleme deneyimi veya <strong>Düz İşaretleme</strong> Geleneksel kodlama hissi için mod.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Yüksek Performans</h2><p class=\"para-sm\">A <strong>53 KB gzip'li</strong> \"Ağır İçerik\" için optimize edilmiş paket (252 KB küçültülmüş, CSS dahil). Çok büyük belgeleri ve büyük dosyaları herhangi bir giriş gecikmesi veya performans düşüşü olmadan yönetir. Geri dönen önizleme güncellemeleri, önbelleğe alınmış stil hesaplamaları ve çakışmayan klavye kullanımı: Böylece Sekme ve Enter her zaman tam olarak tek bir şey yapar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Dahili RTL Desteği</h2><p class=\"para-sm\">Arapça, Urduca ve Farsça gibi Sağdan Sola diller için yerel destek. Küresel olarak erişilebilir uygulamalar oluşturmak için mükemmeldir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Sözdizimi Vurgulama</h2><p class=\"para-sm\">Anlaşılır kod ve işaretleme biçimlendirmesiyle gelişmiş okunabilirlik.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Uyarlanabilir Tema</h2><p class=\"para-sm\">Otomatik Karanlık Mod desteğini içerir. Sistem ayarlarınızla veya <strong>Frutjam kullanıcı arayüzü</strong> Kusursuz bir görsel deneyim için kütüphane.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Akıllı Düzenleme</h2><p class=\"para-sm\">Sıralı listeler, sırasız listeler ve kontrol listeleri için GitHub tarzı otomatik liste devamı: tuşuna basın <code>Enter</code> ve editör kalıba devam eder. Önizleme bölmesindeki onay kutuları tıklanabilir ve işaretleme kaynağına anında senkronize edilir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Tamamen duyarlı</h2><p class=\"para-sm\">Hareket halindeyken düzenleme yapmak için masaüstü bilgisayarlara, tabletlere ve akıllı telefonlara mükemmel şekilde uyum sağlayan akıcı, mobil odaklı bir kullanıcı arayüzü.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Evrensel Destek</h2><p class=\"para-sm\">İle uyumlu <strong>ESM, UMD, CommonJS ve IIFE</strong>. CDN aracılığıyla kutudan çıktığı gibi çalışır (<code>&lt;script src&gt;</code>), npm veya herhangi bir paketleyici (Vite, webpack, Rollup): ekstra yapılandırmaya gerek yoktur.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Varsayılan Olarak Erişilebilir</h2><p class=\"para-sm\">Yerleşik tam ARIA desteği: araç çubuğu yer işareti, etiketli önizleme bölgesi, ekran okuyucu dostu düğmeler, <code>aria-pressed</code> önizleme geçişinde, <code>disabled</code> Ve <code>aria-disabled</code> etkin olmayan araçlarda ve modeller kapandığında odak restorasyonunu düzeltin.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Sıfır CSS Çatışması</h2><p class=\"para-sm\">Düzenleyici stilleri tam olarak aşağıdakilere yöneliktir: <code>.markdown-editor-wrapper</code>. Tailwind'in genel ön kontrolü hariç tutulur, böylece editör Bootstrap, Tailwind veya diğer çerçevelerin stillerini bozmadan güvenli bir şekilde birlikte yaşar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Klavye Kısayolları</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: Fareye dokunmadan yaygın biçimlendirme eylemleri. Her kısayol, araç çubuğu düğmesinin araç ipucunda gösterilir.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Bul ve Değiştir</h2><p class=\"para-sm\">Basmak <code>Ctrl+F</code> bulmak veya <code>Ctrl+H</code> Bul ve değiştir'i açmak için. Canlı maç sayacı, sonraki/önceki gezinme, tek değiştirme ve tümünü değiştirme ile büyük/küçük harfe duyarlı olmayan arama: düzenleyiciden çıkmadan.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Güvenli Önizleme</h2><p class=\"para-sm\">Oluşturulan önizleme şu şekilde temizlenir: <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMpurify</a> DOM'a yazılmadan önce. Hazırlanan işaretleme girişindeki komut dosyası etiketleri, satır içi olay işleyicileri ve kötü amaçlı URL'ler otomatik olarak çıkarılır: yapılandırma gerekmez.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Gerçek Zamanlı Önizleme</h2><p class=\"para-sm\">Siz yazarken işaretlemenizin anında oluşturulduğunu görün.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Kolay Entegrasyon</h2><p class=\"para-sm\">Minimum kurulumla herhangi bir web projesine sorunsuz bir şekilde entegre olun.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Özelleştirilebilir Araç Çubuğu</h2><p class=\"para-sm\">Kalın, italik ve daha fazlası gibi araç çubuğu seçeneklerini dinamik olarak yapılandırın ve yeniden sıralayın.</p></div></div></div>"} />
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',

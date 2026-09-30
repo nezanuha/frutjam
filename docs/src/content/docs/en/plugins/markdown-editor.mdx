@@ -298,6 +298,7 @@ Options are read once, when the editor is constructed. Changing them afterwards 
 | `renderer` | `function` | `marked` | Replaces the markdown parser used for the preview. Receives the markdown string and must return an HTML string. |
 | `sanitizer` | `function` | `DOMPurify` | Replaces the HTML sanitizer. Receives the rendered HTML and must return the safe HTML to display. |
 | `onChange` | `function` | `undefined` | Callback fired on every content change: typing, toolbar actions, undo/redo, and list continuation. Receives the current markdown string as its only argument. |
+| `labels` | `object` | `undefined` | Translations for the editor's own interface, keyed by the English string. Anything you leave out stays in English. |
 
 </DocTable>
 
@@ -549,6 +550,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 Interface Language
+
+The editor's own text, tooltips, menu items, modal fields and buttons, is English by default. Pass a `labels` object to translate it. Keys are the English strings, the way gettext works, so you only list what you want to change and anything missing falls back to English.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+This matters most alongside right-to-left content. Arabic, Urdu and Farsi lay out correctly on their own, but a toolbar that still reads "Bold" over right-to-left text is only half translated.
 
 ### 🏷 Variables
 
@@ -962,6 +989,14 @@ With **MarkdownEditor**, a developer can take an old website, replace a plain `<
 
 Handling image uploads natively: rather than relying on slow, memory-heavy Base64 strings, is a significant win for both performance and SEO.
 
+### Paste and drop
+
+Paste a screenshot or drag an image file into the editor and it uploads through the same endpoint as the toolbar button. A placeholder appears immediately so the editor never looks frozen, and it is replaced with the real path once the upload lands. If the upload fails the placeholder is replaced with a visible marker rather than vanishing silently.
+
+This needs `uploadUrl` configured below. Without it, pasting an image does nothing and the editor logs a warning explaining what to add, because the alternative would be a Base64 string in your database.
+
+Several files at once are uploaded one at a time, so the images land in the order they arrived.
+
 ### Configuration Options
 
 The image tool supports a `fileInput` configuration to handle direct server uploads.
@@ -1141,6 +1176,21 @@ A built-in find and replace panel is available inside the editor: no browser ext
 
 The panel floats in the top-right corner of the editor content area and does not interrupt writing.
 
+## 🔗 Links from a pasted URL
+
+Select some text, paste a URL over it, and you get a markdown link instead of the URL replacing what you selected.
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+The rule is deliberately strict: only a bare `http` or `https` URL with no whitespace is treated this way. Pasting a sentence that happens to contain a URL, or pasting with nothing selected, behaves like an ordinary paste.
+
 ## Features
 
 <RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Native Form Integration</h2><p class=\"para-sm\">Works exactly like a standard <code>&lt;textarea&gt;</code>. No complex APIs: just use the <code>value</code> or <code>name</code> attribute. It \"just works\" with standard HTML form submissions in PHP, Django, or Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Advanced Image Upload</h2><p class=\"para-sm\">Configure native server uploads via API. Avoid heavy Base64 strings to ensure faster page loads and superior SEO by hosting images on your own CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid &amp; Plain Modes</h2><p class=\"para-sm\">Switch between a <strong>Hybrid (WYSIWYG)</strong> experience for visual editing or <strong>Plain Markdown</strong> mode for a traditional coding feel.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 High Performance</h2><p class=\"para-sm\">A <strong>53 KB gzipped</strong> bundle (252 KB minified, CSS included) optimized for \"Heavy Content.\" Handles massive documents and large files without any input lag or performance drop. Debounced preview updates, cached style calculations, and conflict-free keyboard handling: so Tab and Enter always do exactly one thing.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Built-in RTL Support</h2><p class=\"para-sm\">Native support for Right-to-Left languages like Arabic, Urdu, and Farsi. Perfect for building globally accessible applications.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Syntax Highlighting</h2><p class=\"para-sm\">Enhanced readability with clear code and markdown formatting.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Adaptive Theming</h2><p class=\"para-sm\">Includes automatic Dark Mode support. It syncs with your system settings or the <strong>Frutjam UI</strong> library for a seamless visual experience.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Smart Editing</h2><p class=\"para-sm\">GitHub-style automatic list continuation for ordered lists, unordered lists, and checklists: press <code>Enter</code> and the editor continues the pattern. Checkboxes in the preview pane are clickable and sync back to the markdown source instantly.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Fully Responsive</h2><p class=\"para-sm\">A fluid, mobile-first UI that adapts perfectly to desktops, tablets, and smartphones for editing on the go.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Universal Support</h2><p class=\"para-sm\">Compatible with <strong>ESM, UMD, CommonJS, and IIFE</strong>. Works out of the box via CDN (<code>&lt;script src&gt;</code>), npm, or any bundler (Vite, webpack, Rollup): no extra configuration needed.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accessible by Default</h2><p class=\"para-sm\">Full ARIA support built in: toolbar landmark, labelled preview region, screen-reader-friendly buttons, <code>aria-pressed</code> on the preview toggle, <code>disabled</code> and <code>aria-disabled</code> on inactive tools, and correct focus restoration when modals close.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero CSS Conflicts</h2><p class=\"para-sm\">Editor styles are fully scoped to <code>.markdown-editor-wrapper</code>. Tailwind's global preflight is excluded so the editor lives safely alongside Bootstrap, Tailwind, or any other framework without breaking their styles.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Keyboard Shortcuts</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: common formatting actions without touching the mouse. Each shortcut is shown in the toolbar button's tooltip.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Find &amp; Replace</h2><p class=\"para-sm\">Press <code>Ctrl+F</code> to find or <code>Ctrl+H</code> to open find &amp; replace. Case-insensitive search with live match counter, next/prev navigation, single replace, and replace all: without leaving the editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Preview</h2><p class=\"para-sm\">The rendered preview is sanitized via <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> before being written to the DOM. Script tags, inline event handlers, and malicious URLs in crafted markdown input are stripped automatically: no configuration required.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Real-time Preview</h2><p class=\"para-sm\">See your markdown rendered instantly as you type.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Easy Integration</h2><p class=\"para-sm\">Seamlessly integrate into any web project with minimal setup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Customizable Toolbar</h2><p class=\"para-sm\">Dynamically configure and reorder toolbar options like bold, italic, and more.</p></div></div></div>"} />
@@ -1163,6 +1213,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',

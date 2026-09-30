@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam 的 Markdown 文字編輯器 JavaScript 插件"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "9e204579c9d1"
+sourceHash: "90e400ff6686"
+translationHash: "42ab6d988202"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -175,7 +175,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### 紅寶石 on Rails
 
-與 `form_with` 開箱即用： `params[:content]` 包含降價。对于涡轮驱动器，请使用 `turbo:load` 而不是 `DOMContentLoaded`.
+與 `form_with` 開箱即用： `params[:content]` 包含降價。對於渦輪驅動器，請使用 `turbo:load` 而不是 `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -278,7 +278,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 </Snippet>
 
-用作 `<MarkdownField v-model="content" />`。在简单的形式中，您可以跳过 `v-model` 與任何其他框架一樣，完全並在提交時從文字區域讀取值。
+用作 `<MarkdownField v-model="content" />`。在簡單的形式中，您可以跳過 `v-model` 與任何其他框架一樣，完全並在提交時從文字區域讀取值。
 
 ## 配置
 
@@ -290,7 +290,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 | 財產 | 類型 | 預設 | 目的 |
 | --- | --- | --- | --- |
-| `mode` | `string` | `'plain'` | 設定初始視圖。使用混合以获得所见即所得的体验，或使用普通的原始语法。 |
+| `mode` | `string` | `'plain'` | 設定初始視圖。使用混合以獲得所見即所得的體驗，或使用普通的原始語法。 |
 | `placeholder` | `string` | `'Write...'` | 編輯器為空時顯示的文字。 |
 | `toolbar` | `array` | `[...]` | 定義顯示哪些工具以及顯示順序。 |
 | `footer` | `假\| 對象` | 全部可見 | 控制編輯器下方顯示的狀態列。設定為 `false` 完全隱藏它，或傳遞一個物件來切換單一統計資料。 |
@@ -300,6 +300,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `renderer` | `function` | `marked` | 替換用於預覽的 Markdown 解析器。接收 markdown 字串並且必須傳回 HTML 字串。 |
 | `sanitizer` | `function` | `DOMPurify` | 取代 HTML 清理程式。接收渲染的 HTML，必須傳回安全的 HTML 來顯示。 |
 | `onChange` | `function` | `undefined` | 每次內容變更時都會觸發回調：鍵入、工具列操作、撤銷/重做和清單延續。接收目前的 markdown 字串作為其唯一的參數。 |
+| `labels` | `object` | `undefined` | 編輯器本身介面的翻譯，由英文字串鍵入。您遺漏的任何內容都將保留為英文。 |
 
 </DocTable>
 
@@ -432,31 +433,31 @@ new MarkdownEditor('#markdown-editor', {
 
 ##### 混合模式
 
-當您鍵入時，視覺格式會即時呈現。
+輸入時會即時呈現視覺格式。
 
 <RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
 
 ##### 普通模式（預設）
 
-專注於原始 Markdown 語法以提供輕量級體驗。
+專注於原始Markdown語法，以獲得輕量級體驗。
 
 <RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
 
-### 🌙 主題化
+### 佈景主🌙題
 
-**MarkdownEditor** 自動從周圍頁面繼承其主題：無需配置。編輯讀到 `data-theme` 從初始化時最近的祖先開始，因此它與您網站的開箱即用主題保持同步。
+* * MarkdownEditor * *自動從周圍頁面繼承其主題：無需配置。編輯器讀取 `data-theme` 在初始化時與最近的祖先保持同步，因此它與您網站的開箱即用主題保持同步。
 
-#### 主題如何解決（優先順序）
+#### 如何解析主題（優先順序）
 
-1.  **`theme` option**：在選項物件中傳遞的明確覆蓋
-2.  **`data-theme` 於 `<textarea>`**：直接在元素上設置
-3.  **`data-theme` 任何祖先**：例如 `<html>`, `<body>`，或包裝器 `<div>`
+1.  **`theme` 選項* * ：在選項物件中傳遞的明確覆寫
+2.  **`data-theme` 於 `<textarea>`* * ：直接在元素上設定
+3.  **`data-theme` 任何祖先* * ：例如 `<html>`, `<body>`或包裹 `<div>`
 
-#### 可用主題
+#### 可使用的佈景主題
 
-`'light'` (預設), `'dark'`, `'snowberry'`, `'darkberry'`
+`'light'` （預設） `'dark'`, `'snowberry'`, `'darkberry'`
 
-##### 選項1，繼承自 `<html>` 或任何祖先（零配置）
+##### 選項1 ，繼承自 `<html>` 或任何祖先（零配置）
 
 <Snippet view="code">
 
@@ -471,7 +472,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-##### 選項 2：設定 `data-theme` 直接在 `<textarea>`
+##### 選項2 ：設定 `data-theme` 直接在 `<textarea>`
 
 <Snippet view="code">
 
@@ -484,7 +485,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-##### 選項 3：顯式 `theme` 選項（覆蓋所有內容）
+##### 選項3 ：明確 `theme` 選項（覆蓋一切）
 
 <Snippet view="code">
 
@@ -496,29 +497,29 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 🎨 透過 CSS 變數自訂主題
+#### 透過CSS變數🎨自訂佈景主題
 
-您可以透過覆寫其 CSS 變數來完全自訂編輯器的外觀 `.markdown-editor-wrapper` 元素或任何 `[data-theme]` 選擇器。所有顏色均使用 [OKLCH 色彩空間](https://oklch.com) 以獲得感知上統一的結果。
+您可以通過覆蓋編輯器的CSS變量來完全自定義編輯器的外觀 `.markdown-editor-wrapper` 元素或任何 `[data-theme]` 選擇器。所有顏色都使用 [OKLCH色彩空間](https://oklch.com) 以獲得感知一致的結果。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 多變的 | 目的 | 淺色預設 | 深色預設 |
+| 變項 | 目的 | 淺色 (預設) | 深色系 (預設值) |
 | --- | --- | --- | --- |
-| `--color-base` | 編輯背景 | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
+| `--color-base` | 編輯器背景 | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
 | `--color-on-base` | 主要文字顏色 | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
-| `--color-primary` | 主要重音（工具列活動，連結） | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
+| `--color-primary` | 主要口音（工具列已啟用、連結） | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
 | `--color-on-primary` | 原色表面上的文字 | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
-| `--color-secondary` | 次要口音 | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
-| `--color-accent` | 反白顯示重音符號（內聯代碼，斜體） | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
-| `--color-neutral` | 中性表面（邊界、分隔線） | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
+| `--color-secondary` | 次要文字色彩強調 | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
+| `--color-accent` | 醒目提示重音（內嵌代碼，斜體） | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-neutral` | 中性表面（邊框、分隔線） | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
 | `--color-error` | 錯誤狀態顏色 | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
-| `--border-radius` | 編輯器框架的圓角 | `0.25rem` |
+| `--border-radius` | 編輯器邊框的圓角 | `0.25rem` |
 
 </DocTable>
 
-##### 自訂主題範例
+##### 自訂佈景主題範例
 
-覆蓋任何變數 `.markdown-editor-wrapper` 編輯器初始化後，或定義自訂 `[data-theme]` 樣式表中的區塊：
+覆蓋上的任何變數 `.markdown-editor-wrapper` 在編輯器初始化後，或定義自訂 `[data-theme]` 樣式表中的區塊：
 
 <Snippet view="code">
 
@@ -552,9 +553,35 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 </Snippet>
 
-### 🏷 變數
+### 介面語言
 
-新增用於插入佔位符的工具列下拉清單。當編寫文件的人不是定義佔位符語法的開發人員時很有用，例如電子郵件、發票或合約範本：他們選擇一個可讀的名稱，並為其插入正確的語法。
+編輯器自己的文字、工具提示、選單項目、對話框欄位和按鈕預設為英文。傳遞 `labels` 以翻譯它。key是英文字符串， gettext的工作方式，因此您只列出要更改的內容，任何缺失的內容都會返回到英文。
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+這與從右到左的內容最為重要。阿拉伯文、烏爾都文和波斯文可自行正確排列，但右至左文字上仍顯示「粗體」的工具列只翻譯了一半。
+
+### 變數
+
+新增工具列下拉式選單以插入佔位符。當撰寫文件的人不是定義佔位符語法的開發人員時很有用，例如電子郵件、發票或合約範本：他們選擇可讀的名稱，並為他們插入正確的語法。
 
 <Snippet view="code">
 
@@ -572,11 +599,11 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-該工具是內聯配置的 `toolbar` 數組，因此它在其他按鈕中的位置取決於您。該按鈕列出了標籤，單擊其中一個即可插入其標籤 `value` 在遊標處，替換任何選擇。如果清單為空，則不會呈現任何內容。
+工具在中內聯配置 `toolbar` 陣列，因此它在其他按鈕中的位置由您決定。按鈕會列出標籤，按一下即可插入 `value` 在遊標上，替換任何選擇。如果清單為空，則不會渲染任何內容。
 
 #### 預覽中的範例值
 
-給定一個條目 `sample` 在預覽中顯示該範例，而文字區域保留真實的佔位符。沒有其中之一的條目將以書面形式顯示，因此您可以將兩者混合使用。
+給定一個條目 `sample` 在預覽中顯示該樣本，而textarea保留真實的佔位符。沒有條目的條目會顯示為寫入狀態，因此您可以將兩者混合。
 
 <Snippet view="code">
 
@@ -592,9 +619,9 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 分組
+#### 群組
 
-給出一個條目 `items` 而不是 `value` 渲染一個有標題的部分。分組條目和平面條目可以混合在一個清單中。
+輸入條目 `items` 而不是 `value` 以呈現標題區段。分組和平面條目可以混合在一個列表中。
 
 <Snippet view="code">
 
@@ -613,17 +640,17 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 要知道的事情
+#### 注意事項
 
-- **編輯器從不解析變數。 ** 它插入文本，然後您的應用程式通常在伺服器端替換實際值。 `sample` 僅影響預覽顯示的內容。
-- **標籤顯示為純文字**，因此標籤中的標記永遠不會呈現。
-- **格式錯誤的條目將被跳過**而不是拋出，並且當未配置任何可用的內容時，根本不會呈現按鈕。
+- * *編輯器永遠不會解析變數。* *它會插入文字，您的應用程式稍後會取代實際值，通常是伺服器端。 `sample` 只會影響預覽顯示的內容。
+- * *標籤以純文字顯示* * ，因此標籤中的標記永遠不會呈現。
+- * *跳過格式不正確的條目* *而不是拋出，並且在未配置任何可用項目時根本不會渲染按鈕。
 
-### 🖋 自訂渲染器
+### 🖋 自定義渲染器
 
-預覽呈現為 [標記的](https://marked.js.org) 並用消毒 [DOM純化](https://github.com/cure53/DOMPurify)。兩者都可以更換。當您的應用程式已經使用另一個程式庫呈現 Markdown 並且您希望預覽與生產完全匹配時，請使用此選項。
+預覽呈現方式 [已標記](https://marked.js.org) 並使用以下方式消毒 [DOMPurify](https://github.com/cure53/DOMPurify)。兩者都可以更換。當您的應用程式已經與另一個程式庫渲染markdown ，並且您希望預覽與生產完全匹配時，請使用此功能。
 
-這兩個選項都是普通函數，它們接受一個字串並傳回一個字串，因此任何解析器和任何清理器都可以工作。
+這兩個選項都是普通函數，它們會接收字串並傳回字串，因此任何剖析器和任何消毒劑都可以運作。
 
 <Snippet view="code">
 
@@ -641,11 +668,11 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-DOMPurify 仍然在輸出上運行，因此您無需配置任何內容即可保持 XSS 保護。
+DOMPurify仍在輸出上運行，因此您可以在不配置任何內容的情況下保持XSS保護。
 
-#### 客製化消毒液
+#### 自訂消毒劑
 
-僅當預設刪除渲染器發出的內容時才需要。 DOMPurify 刪除 `<iframe>` 預設情況下，因此視訊嵌入需要明確允許。 DOMPurify 必須在您自己的程式碼中匯入，因為與編輯器捆綁的副本是內部的。
+僅在默認條帶渲染器發射的東西時才需要。DOMPurify刪除 `<iframe>` 默認情況下，因此視頻嵌入需要明確允許。DOMPurify必須在您自己的代碼中匯入，因為與編輯器捆綁在一起的副本是內部的。
 
 <Snippet view="code">
 
@@ -663,7 +690,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-使用腳本標籤而不是捆綁器，將 DOMPurify 與編輯器一起載入：
+使用script標籤而不是bundler ，在編輯器旁邊載入DOMPurify ：
 
 <Snippet view="code">
 
@@ -674,16 +701,16 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 要知道的事情
+#### 注意事項
 
-- **僅限預覽。 ** 混合模式的即時格式使用單獨的內部渲染器，且不受影響。
-- **任務清單需要插件支援。 **可透過尋找找到可點選的複選框 `input[type="checkbox"]` 在輸出中，所以 markdown-it 需要 `markdown-it-task-lists`。如果編輯器偵測到任務清單語法且沒有複選框，則會記錄警告。
-- **兩者必須同步**並傳回一個字串。一個 `async` 函數寫入 `[object Promise]` 進入預覽。
-- **更換消毒劑取代了您的保護。 ** 傳遞，例如 `html => html` 完全禁用清理，並且僅對完全信任的內容是安全的。
+- * *僅限預覽。* *混合模式的即時格式使用單獨的內部渲染器，不受影響。
+- * *任務清單需要外掛程式支援。* *可透過尋找找到可點擊的核取方塊 `input[type="checkbox"]` 在輸出中，所以markdown-它需要 `markdown-it-task-lists`。如果偵測到工作清單語法且沒有核取方塊，編輯器會記錄警告。
+- * *兩者必須是同步的* *並傳回字串。 `async` 函數寫入 `[object Promise]` 進入預覽。
+- * *更換消毒劑會取代防護裝置。* *傳遞，例如 `html => html` 完全禁用消毒，並且僅對完全受信任的內容是安全的。
 
-### 🎨 設定內部元素的樣式
+### 🎨 樣式內部元素
 
-CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一個 `.markdown-editor-wrapper` 到達工具列、按鈕、預覽和頁腳。仅当没有变量公开您需要的内容时才使用类名。
+CSS變數涵蓋大多數主題，因為它們會繼承，因此設置一個 `.markdown-editor-wrapper` 到達工具列、按鈕、預覽和頁尾。僅當沒有變數公開您需要的內容時，才會觸及類別名稱。
 
 <Snippet view="code">
 
@@ -699,24 +726,24 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 #### 類別參考
 
-這些類別名稱對於樣式來說是穩定且安全的。
+這些類別名稱是穩定且安全的樣式。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 班級 | 元素 |
+| 類別 | 元件 |
 | --- | --- |
-| `.markdown-editor-wrapper` | 包裹整個編輯器的外容器 |
-| `.toolbar` | 編輯區域上方的工具列條 |
-| `.markdown-btn` | 單獨的工具列按鈕 |
+| `.markdown-editor-wrapper` | 包裝整個編輯器的外部容器 |
+| `.toolbar` | 編輯區域上方的工具列 |
+| `.markdown-btn` | 個別工具列按鈕 |
 | `.preview-btn` | 預覽/全螢幕切換按鈕 |
-| `.editor-layout` | 網格並排容納編輯區域和預覽 |
+| `.editor-layout` | 保持編輯區域和預覽並排的網格 |
 | `.textarea-wrapper` | 編輯區域周圍的包裝 |
-| `.editor-textarea` | 底層文字區域元素 |
-| `.display-layer` | 渲染格式化圖層，僅限混合模式 |
-| `.preview-wrapper` | 預覽專欄 |
-| `.preview-content` | 在預覽中渲染的 Markdown |
+| `.editor-textarea` | 底層textarea元素 |
+| `.display-layer` | 渲染格式圖層，僅限混合模式 |
+| `.preview-wrapper` | 預覽欄 |
+| `.preview-content` | 在預覽內渲染扣分 |
 | `.editor-footer` | 編輯器下方的狀態列 |
-| `.find-replace-panel` | 尋找並取代面板 |
+| `.find-replace-panel` | 尋找並更換面板 |
 
 </DocTable>
 
@@ -737,9 +764,9 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 </Snippet>
 
-#### 定位一位編輯者
+#### 鎖定一個編輯器
 
-在一頁上有多個編輯器時，將其中一個編輯器定位為 `data-editor`。包裝器反映了它的 id `<textarea>`， 所以 `<textarea id="notes">` 給你 `[data-editor="notes"]`。 id 本身保留在文字區域中，所以 `getElementById` 繼續工作。
+在一個頁面上有幾個編輯器，針對其中一個編輯器 `data-editor`。包裝鏡像其ID `<textarea>`因此 `<textarea id="notes">` 爲您提供 `[data-editor="notes"]`。ID本身停留在textarea上，因此 `getElementById` 繼續運作。
 
 <Snippet view="code">
 
@@ -752,11 +779,11 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 </Snippet>
 
-### 🪟 全螢幕和分層（z-index）
+### 🪟 全螢幕與圖層(z-index)
 
-在全螢幕模式下，編輯器使用 `z-index: 10000`，這會清除大多數 UI 框架為固定標題和覆蓋層保留的層。如果固定標題或側邊欄仍然覆蓋編輯器，請提高此值。
+在全螢幕中，編輯器使用 `z-index: 10000`，這將清除大多數UI框架為固定標題和疊加層保留的圖層。如果固定的標題或側邊欄仍覆蓋編輯器，請提高此值。
 
-覆蓋它 `--mte-fullscreen-z-index`。該值僅適用於全屏，並且會繼承，因此在任何祖先上設置它都會覆蓋其下面的每個編輯器。
+覆蓋它 `--mte-fullscreen-z-index`。該值僅適用於全螢幕，並且會繼承，因此在任何祖先上設置它會覆蓋其下方的每個編輯器。
 
 <Snippet view="code">
 
@@ -781,13 +808,13 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 ## 內容API
 
-**MarkdownEditor** 的核心優勢之一是它保留了底層 `<textarea>` 完美同步。無論您使用現代 JavaScript 框架還是傳統後端（例如 **Django、PHP 或 Laravel**），工作流程都保持簡單且原生。
+* * MarkdownEditor * *的核心優勢之一是它保留了 `<textarea>` 完全同步。無論您是使用現代JavaScript框架還是* * Django、PHP或Laravel * *等傳統後端，工作流程都保持簡單和原生。
 
-### 閱讀和寫作內容
+### 閱讀和撰寫內容
 
-#### 1\.本土方式（推薦）
+#### 1.原生方式（推薦）
 
-由於編輯器增強了標準文字區域，因此您可以使用熟悉的 DOM 方法。這是無需學習新 API 即可與資料互動的最快方式。
+由於編輯器增強了標準文字區域，因此您可以使用熟悉的DOM方法。這是無需學習新API即可與數據進行交互的最快方式。
 
 <Snippet view="code">
 
@@ -801,9 +828,9 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 </Snippet>
 
-#### 2\.使用變數引用
+#### 2\.使用變數參照
 
-如果您有 textarea 元素的引用，則可以直接使用它：不需要特定於庫的 API。
+如果您有對textarea元素的引用，則可以直接使用它：不需要庫特定的API。
 
 <Snippet view="code">
 
@@ -821,7 +848,7 @@ textarea.value = "## Updated via JS";
 
 #### 3\.設定初始內容伺服器端
 
-設定初始內容的建議方法是直接在 `<textarea>` HTML：這可以自然地與每個後端框架（Django、Laravel、Rails、PHP 等）配合使用，編輯器會在 init 上自動呈現它。
+設置初始內容的建議方法直接在 `<textarea>` HTML ：這可以在每個後端框架（ Django、Laravel、Rails、PHP等）中自然運作，編輯器會在init時自動渲染它。
 
 <Snippet view="code">
 
@@ -832,7 +859,7 @@ textarea.value = "## Updated via JS";
 
 </Snippet>
 
-若要在執行時間讀取或更新內容，請使用本機 `textarea` 價值。稱呼 `editor.render()` 更新後刷新預覽和混合層。
+若要在執行階段讀取或更新內容，請使用原生 `textarea` value. Call `editor.render()` 更新以刷新預覽和混合圖層之後。
 
 <Snippet view="code">
 
@@ -849,9 +876,9 @@ editor.render();
 
 </Snippet>
 
-#### 4\.拆掉編輯器： `destroy()`
+#### 4\.拆除編輯器： `destroy()`
 
-稱呼 `editor.destroy()` 刪除編輯器 DOM 包裝並恢復原始狀態 `<textarea>` 到其在文檔中的位置。在單頁應用程式中卸載視圖時很有用。
+電話 `editor.destroy()` 移除編輯器DOM包裝程式並還原原始 `<textarea>` 至其在文件中的位置。在單頁應用程式中卸載檢視時很有用。
 
 <Snippet view="code">
 
@@ -864,9 +891,9 @@ editor.destroy();
 
 </Snippet>
 
-### 對變化做出反應 `onChange`
+### 通過以下方式對更改作出反應 `onChange`
 
-透過一個 `onChange` 每次內容變更時都會收到回呼通知。接收目前的 Markdown 字串。
+通過 `onChange` 每次內容變更時都會收到通知。接收當前的markdown字符串。
 
 <Snippet view="code">
 
@@ -880,9 +907,9 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 草稿自動儲存 `localStorage`
+#### 草稿自動儲存方式 `localStorage`
 
-使用 `onChange` 每次擊鍵時儲存草稿。在初始化編輯器之前透過預先填充文字區域來恢復它。
+使用 `onChange` 在每次按鍵時儲存草稿在初始化編輯器之前，透過預先填充文字區域來還原它。
 
 <Snippet view="code">
 
@@ -909,11 +936,11 @@ document.querySelector('form').addEventListener('submit', () => {
 
 </Snippet>
 
-### 表格提交
+### 表單提交
 
-因為 **MarkdownEditor** 是直接建構在原生之上的 `<textarea>`，它開箱即用，與每個後端框架（Django、Laravel、PHP、Ruby on Rails 等）相容。
+因爲* * MarkdownEditor * *直接構建於原生 `<textarea>`，它與開箱即用的所有後端框架（ Django、Laravel、PHP、Ruby on Rails等）兼容。
 
-這就是「本地優先」理念的閃光點。您無需在提交表單之前手動同步資料。瀏覽器將編輯器視為標準輸入欄位。
+這就是「原住民優先」理念的閃耀之處。在提交表單之前，您無需手動同步數據。瀏覽器將編輯器視為標準輸入欄位。
 
 <Snippet view="code">
 
@@ -934,45 +961,53 @@ document.querySelector('form').addEventListener('submit', () => {
 
 </Snippet>
 
-<RawHtml html={"<p class=\"text-sm\"><strong>筆記：</strong> MarkdownEditor 外掛程式必須初始化</p>"} />
+<RawHtml html={"<p class=\"text-sm\"><strong>備註:</strong> MarkdownEditor插件初始化必需</p>"} />
 
-只需使用標準 HTML `<form>`。這 `name` 文字區域上的屬性是您的伺服器將用來識別內容的屬性。
+只需使用標準HTML `<form>`本作 `name` textarea上的屬性是伺服器用來識別內容的內容。
 
-##### 🚀 為什麼它會改變後端的遊戲規則
+##### 🚀 為什麼它是後端改變遊戲規則的關鍵
 
-由於編輯器保留了原生 `<textarea>` 行為，您的伺服器將資料作為標準字串處理。需要零額外邏輯：沒有 `preventDefault()` 並且沒有說明書 `FormData` 建造。
+由於編輯器保留原生 `<textarea>` 行為，伺服器會將資料作為標準字串處理。無需額外邏輯：否 `preventDefault()` 也沒有手冊 `FormData` 建造
 
-##### 💡 為什麼這是一個「殺手級功能」：
+##### 💡 為什麼這是「殺手級功能」：
 
-大多數編輯器（如 Quill、Editor.js、simpleMDE、easyMDE）以複雜的 JSON 結構保存資料。如果開發人員使用這些，他們必須重寫他們的資料庫模式和渲染邏輯。
+大多數編輯器（如Quill、Editor.js、simpleMDE、easyMDE ）以複雜的JSON結構儲存資料。如果開發人員使用這些，他們必須重寫其資料庫架構和渲染邏輯。
 
-使用 **MarkdownEditor**，開發人員可以使用舊網站，替換普通網站 `<textarea>` 與您的編輯器一起使用，**後端甚至不知道它發生了變化**。它只是收到與往常相同的原始文本，但用戶獲得了 10 倍更好的體驗。
+使用* * MarkdownEditor * * ，開發人員可以使用舊網站，取代普通網站 `<textarea>` 您的編輯器，而* *後端甚至不知道它已變更* *。它只會收到相同的原始文字，但用戶的體驗要好10倍。
 
 <DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
 
-| 框架/語言 | 如何存取 Markdown 內容 |
+| 架構/語言 | 如何存取Markdown內容 |
 | --- | --- |
 | PHP | `$_POST['content']` |
 | 薑戈 | `request.POST.get('content')` |
-| Node.js（Express） | `req.body.content` |
+| Node.js （ Express ） | `req.body.content` |
 | 拉維爾 | `$request->input('content')` |
 | 紅寶石 on Rails | `params[:content]` |
 
 </DocTable>
 
-## 🖼️ 高級圖片上傳
+## 🖼️ 進階圖片上傳
 
-本地處理圖像上傳：而不是依賴緩慢、佔用大量記憶體的 Base64 字串，這對於效能和 SEO 來說都是一個重大勝利。
+以原生方式處理圖片上傳：與其依賴緩慢且耗費大量記憶體的Base64字串，對於效能和SEO來說都是一大勝利。
 
-### 配置選項
+### 貼上並放下
 
-影像工具支援 `fileInput` 配置來處理直接伺服器上傳。
+貼上螢幕擷取畫面或將影像檔案拖曳到編輯器中，並透過與工具列按鈕相同的端點上傳。佔位符會立即出現，因此編輯器永遠不會凍結，一旦上傳到達，它將被替換為真實路徑。如果上傳失敗，佔位符將替換為可見的標記，而不是無聲地消失。
 
--   `accept`：定義允許的圖像格式陣列（例如“webp”、“avif”）
--   `uploadUrl`：指定後端端點 `File` 對象將透過發送 `POST`
--   `params`：可選對象，用於與映像檔一起傳送附加資料（例如 CSRF 令牌、使用者 ID 或資料夾名稱）
+這需要 `uploadUrl` 下面配置。如果沒有它，貼上圖像無效，編輯器會記錄一個警告，解釋要添加的內容，因為替代方案是資料庫中的Base64字串。
 
-### 使用範例（完整配置）
+系統會一次上傳一個或多個檔案，因此影像會按照送達的順序放置。
+
+### 設定選項
+
+圖片工具支援 `fileInput` 設定以處理直接伺服器上傳。
+
+-   `accept`：定義允許的圖像格式陣列（例如， 'webp' ， 'avif' ）
+-   `uploadUrl`：指定後端端點，其中 `File` 物件將透過傳送 `POST`
+-   `params`：在影像檔案旁邊傳送額外資料（如CSRF權杖、使用者ID或資料夾名稱）的可選物件
+
+### 使用示例（完整配置）
 
 <Snippet view="code">
 
@@ -1003,19 +1038,19 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-### 📡 伺服器集成
+### 📡 伺服器整合
 
-#### 請求
+#### 送出詢價單
 
-編輯發來一條 `POST` 請求為 `multipart/form-data`。預設情況下，它包括：
+編輯器傳送 `POST` 請求為 `multipart/form-data`。預設情況下，它包括：
 
--   `image_file`: 實際的文件對象
--   `image_alt`：使用者輸入的替代文本
-- ...加上中定義的任何自訂數據 `params` 目的
+-   `image_file`：實際的檔案物件
+-   `image_alt`：使用者輸入的替代文字
+-...加上在中定義的任何自定義數據 `params` 物件
 
 #### 所需的回應
 
-若要確認上傳成功並將圖像插入編輯器，您的伺服器**必須**傳回以下 JSON 結構：
+若要確認上傳成功並將圖片插入編輯器，伺服器* *必須* *傳回以下JSON結構：
 
 <Snippet view="code">
 
@@ -1028,16 +1063,16 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-**注意**：確保您使用密鑰 `image_path` 為上傳圖像的 URL。
+* *注意* * ：請務必使用密鑰 `image_path` 上傳圖片的網址。
 
-### 圖像替代文字驗證（`altInput`)
+### 圖片替代文字驗證(`altInput`)
 
-為了確保您的內容保持可訪問性和 SEO 友善性，**MarkdownEditor** 預設強制執行替代文字驗證。
+為確保內容可存取且適合SEO ， * * MarkdownEditor * *預設會強制執行替代文字驗證。
 
-- **預設行為**：如果 `altInput` 沒有定義，預設為 `{ required: true }`
-- **強制可訪問性**：在提供替代說明之前，將阻止使用者插入圖像
+- * *預設行為* * ：如果 `altInput` 未定義，預設為 `{ required: true }`
+- * *強制執行無障礙功能* * ：在提供替代說明之前，用戶將無法插入圖片
 
-#### 1\.預設（無需配置）
+#### 1\.預設(不需要設定)
 
 <Snippet view="code">
 
@@ -1050,9 +1085,9 @@ image: {
 
 </Snippet>
 
-#### 2\.速記（禁用驗證）
+#### 2\.速記（停用驗證）
 
-如果您想允許沒有描述的圖像，只需將布林值設為 `false`.
+如果您想允許沒有描述的圖像，只需將布林值設置為 `false`.
 
 <Snippet view="code">
 
@@ -1064,7 +1099,7 @@ image: {
 
 </Snippet>
 
-#### 3\.基於物件（顯式）
+#### 3\.以物件為基礎（明確）
 
 <Snippet view="code">
 
@@ -1080,7 +1115,7 @@ image: {
 
 ### 標準影像使用（否 `fileInput`)
 
-如果 `fileInput` 未配置時，編輯器預設為簡單的基於 URL 的模式。如果您的用戶主要連結到外部圖像主機，那麼這是理想的選擇。
+如果 `fileInput` 未設定，編輯器預設為簡單的基於URL的對話框。如果您的用戶主要是連結到外部圖片主機，這是理想的選擇。
 
 <Snippet view="code">
 
@@ -1099,53 +1134,68 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ### 💡 為什麼要使用參數？
 
-在 Laravel 或 Django 等框架中，如果沒有 CSRF 令牌，則無法上傳檔案。透過添加 `_token` 到 `params` 對象，您的請求將無縫地通過後端的安全中間件，維護伺服器端控制器的「零邏輯」概念。
+在Laravel或Django等框架中，如果沒有CSRF令牌，則無法上傳文件。通過添加 `_token` 至 `params` 對象，您的請求將無縫地通過後端的安全中間件，為您的服務器端控制器保持“零邏輯”理念。
 
-## ⌨️ 鍵盤快速鍵
+## 鍵盤快速鍵
 
-常見的格式化操作可以直接從鍵盤觸發，無需觸摸工具列。每個快捷方式也顯示在對應的工具列按鈕的工具提示中。
+無需觸摸工具列，即可直接從鍵盤觸發常見的格式化操作。每個捷徑也會顯示在對應工具列按鈕的工具提示中。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 捷徑 | 行動 |
+| 快捷词 | 操作 |
 | --- | --- |
-| `Ctrl + B`  /  `⌘ B` | 切換 **粗體** |
-| `Ctrl + I`  /  `⌘ I` | 切換*斜體* |
+| `Ctrl + B`  /  `⌘ B` | 切換粗體 |
+| `Ctrl + I`  /  `⌘ I` | 切換斜體 |
 | `Ctrl + K`  /  `⌘ K` | 插入連結 |
-| `` Ctrl + ` ``  /  `` ⌘ ` `` | 切換內聯 `Code` |
-| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | 切換~~刪除線~~ |
-| `Ctrl + 1`  /  `⌘ 1` | 標題 1 |
-| `Ctrl + 2`  /  `⌘ 2` | 標題 2 |
-| `Ctrl + 3`  /  `⌘ 3` | 標題 3 |
-| `Ctrl + L`  /  `⌘ L` | 切換項目符號列表 |
-| `Ctrl + Z`  /  `⌘ Z` | 撤銷 |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | 切換檢視行內 `Code` |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | 切換~ ~刪除線~ ~ |
+| `Ctrl + 1`  /  `⌘ 1` | H1 |
+| `Ctrl + 2`  /  `⌘ 2` | H2 |
+| `Ctrl + 3`  /  `⌘ 3` | H3 |
+| `Ctrl + L`  /  `⌘ L` | 切換項目符號清單 |
+| `Ctrl + Z`  /  `⌘ Z` | 還原 |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | 重做 |
-| `Tab` | 縮排選定的行 |
-| `Shift + Tab` | 減少縮排選定的行 |
-| `Ctrl + F`  /  `⌘ F` | 打開尋找面板 |
-| `Ctrl + H`  /  `⌘ H` | 打開尋找和取代面板 |
+| `Tab` | 縮排所選行 |
+| `Shift + Tab` | 縮排所選行 |
+| `Ctrl + F`  /  `⌘ F` | 打開“查找”面板 |
+| `Ctrl + H`  /  `⌘ H` | 開啟「尋找與取代」面板 |
 | `Ctrl + Shift + F`  /  `⌘ ⇧ F` | 切換全螢幕預覽 |
 | `F11` | 切換全螢幕預覽 |
-| `Escape` | 關閉查找面板/退出全螢幕預覽 |
+| `Escape` | 關閉尋找面板/退出全螢幕預覽 |
 
 </DocTable>
 
-## 🔍 尋找和替換
+## 尋找 & 取代
 
-編輯器內提供內建尋找和取代面板：無需瀏覽器擴充功能或單獨的工具。
+編輯器內建內建的尋找與取代面板：無需瀏覽器擴充功能或獨立工具。
 
-- 按 `Ctrl + F` （或者 `⌘ F`) 開啟 **尋找** 面板
-- 按 `Ctrl + H` （或者 `⌘ H`) 開啟 **尋找並取代** 面板
-- 搜尋**不區分大小寫**並顯示即時比賽計數器（例如 *3 of 12*）
-- 使用 **▲ / ▼** 按鈕導覽匹配或 `Enter` / `Shift + Enter`
-- **替換** 取代目前反白顯示的符合項目； **全部替換** 一次取代所有出現的內容
-- 按 `Escape` 關閉面板並將焦點返回編輯器
+按 `Ctrl + F` （或  `⌘ F`)打開* *查找* *面板
+按 `Ctrl + H` （或  `⌘ H`)以開啟* *尋找與取代* *面板
+-搜尋為* *不區分大小寫* * ，並顯示即時比對計數器(例如* 3/12 *)
+-使用* *▲/* ▼*按鈕或 `Enter` / `Shift + Enter`
+- * *取代* *取代當前高亮顯示的匹配項； * *全部取代* *一次取代每個匹配項
+按 `Escape` 關閉面板並將焦點返回到編輯器
 
-此面板浮動在編輯器內容區域的右上角，不會中斷寫入。
+面板浮動在編輯器內容區域的右上角，不會中斷寫入。
 
-## 特徵
+## 來自貼上網址的🔗連結
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 原生表單集成</h2><p class=\"para-sm\">工作原理與標準完全相同 <code>&lt;textarea&gt;</code>。沒有複雜的 API：只需使用 <code>value</code> 或者 <code>name</code> 屬性。它「只適用於」PHP、Django 或 Node.js 中的標準 HTML 表單提交。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高級圖片上傳</h2><p class=\"para-sm\">透過 API 設定本機伺服器上傳。透過在您自己的 CDN 上託管圖像，避免使用繁重的 Base64 字串，以確保更快的頁面加載和卓越的 SEO。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 混合模式和普通模式</h2><p class=\"para-sm\">之間切換 <strong>混合（所見即所得）</strong> 視覺編輯經驗或 <strong>普通降價</strong> 傳統編碼感覺的模式。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">一個 <strong>53 KB gzip 壓縮</strong> 捆綁包（縮小為 252 KB，包含 CSS）針對「重內容」進行了最佳化。處理大量文件和大文件，不會出現任何輸入延遲或效能下降。去抖動預覽更新、快取樣式計算和無衝突鍵盤處理：因此 Tab 和 Enter 總是只做一件事。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 內建 RTL 支持</h2><p class=\"para-sm\">阿拉伯語、烏爾都語和波斯語等從右到左語言的本機支援。非常適合建立全球可訪問的應用程式。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 語法高亮</h2><p class=\"para-sm\">透過清晰的程式碼和 Markdown 格式增強可讀性。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 自適應主題</h2><p class=\"para-sm\">包括自動深色模式支援。它與您的系統設定或 <strong>水果果醬使用者介面</strong> 圖書館提供無縫的視覺體驗。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 智能編輯</h2><p class=\"para-sm\">GitHub 風格的自動清單延續，適用於有序清單、無序列表和清單：按 <code>Enter</code> 編輯繼續這個模式。預覽窗格中的核取方塊可點選並立即同步回 Markdown 來源。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全響應</h2><p class=\"para-sm\">流暢、行動優先的使用者介面，完美適應桌上型電腦、平板電腦和智慧型手機，隨時隨地進行編輯。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 普遍支持</h2><p class=\"para-sm\">相容於 <strong>ESM、UMD、CommonJS 和 IIFE</strong>。透過 CDN 開箱即用（<code>&lt;script src&gt;</code>)、npm 或任何捆綁器（Vite、webpack、Rollup）：無需額外配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 預設可訪問</h2><p class=\"para-sm\">內建完整的 ARIA 支援：工具列地標、標籤的預覽區域、螢幕閱讀器友善的按鈕、 <code>aria-pressed</code> 在預覽開關上， <code>disabled</code> 和 <code>aria-disabled</code> 在非活動工具上，並在模態關閉時正確恢復焦點。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ 零 CSS 衝突</h2><p class=\"para-sm\">編輯器樣式完全適用於 <code>.markdown-editor-wrapper</code>。 Tailwind 的全域預檢被排除，因此編輯器可以安全地與 Bootstrap、Tailwind 或任何其他框架一起使用，而不會破壞它們的風格。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 鍵盤快速鍵</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>：無需觸碰滑鼠的常見格式化操作。每個快捷方式都顯示在工具列按鈕的工具提示中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 尋找和替換</h2><p class=\"para-sm\">按 <code>Ctrl+F</code> 尋找或 <code>Ctrl+H</code> 打開尋找和取代。不區分大小寫的搜索，具有即時匹配計數器、下一個/上一個導航、單一替換和全部替換：無需離開編輯器。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 安全預覽</h2><p class=\"para-sm\">渲染的預覽透過以下方式進行清理 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOM純化</a> 在寫入 DOM 之前。精心設計的 Markdown 輸入中的腳本標籤、內聯事件處理程序和惡意 URL 都會自動刪除：無需配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️即時預覽</h2><p class=\"para-sm\">在您鍵入時查看立即呈現的 Markdown。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 輕鬆集成</h2><p class=\"para-sm\">只需最少的設定即可無縫整合到任何 Web 專案中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 可自訂的工具列</h2><p class=\"para-sm\">動態配置和重新排序工具列選項，例如粗體、斜體等。</p></div></div></div>"} />
+選取文字並貼上網址，系統就會顯示扣分連結，而非取代所選網址的網址。
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+這項規定是刻意嚴格的：只有一點點 `http` 或者 `https` 沒有空白的網址會以這種方式處理。貼上碰巧包含網址的句子，或未選擇任何內容的貼上，其行為與普通貼上相似。
+
+## 特色Features
+
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 原生表單集成</h2><p class=\"para-sm\">運作方式與標準一模一樣 <code>&lt;textarea&gt;</code>。沒有複雜的API ：只需使用 <code>value</code> 或者 <code>name</code> 屬性。它僅適用於PHP、Django或Node.js中的標準HTML表單提交。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 進階圖片上傳</h2><p class=\"para-sm\">透過API設定本機伺服器上傳。避免繁重的Base64字串，透過在您自己的CDN上託管圖像，確保更快的頁面載入和優越的SEO。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 混合和普通模式</h2><p class=\"para-sm\">在之間切換 <strong>混合（所見即所得）</strong> 視覺編輯體驗或 <strong>普通扣分</strong> 模式，帶來傳統的編碼感。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">高效率</h2><p class=\"para-sm\">可 <strong>53 KB gzipped</strong> 捆綁包（ 252 KB縮小，包括CSS ）針對「重度內容」進行了優化。\"處理大量文件和大型檔案，沒有任何輸入延遲或性能下降。發佈預覽更新、快取樣式計算和無衝突鍵盤處理：因此Tab和Enter總是只做一件事。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 內置RTL支持</h2><p class=\"para-sm\">原生支援從右到左的語言，如阿拉伯語、烏爾都語和波斯語。非常適合構建全球可訪問的應用程序。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">語法醒目提示</h2><p class=\"para-sm\">透過清晰的程式碼和markdown格式加強可讀性。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 自適應主題</h2><p class=\"para-sm\">包括自動深色模式支援。它會與您的系統設定或 <strong>Frutjam UI</strong> 提供無縫視覺體驗的圖書館。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 智慧編輯</h2><p class=\"para-sm\">有序清單、無序清單和檢查清單的GitHub風格自動清單連續：按 <code>Enter</code> 然後編輯器繼續圖案預覽窗格中的核取方塊可點擊並立即同步回Markdown來源。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 全方位回應</h2><p class=\"para-sm\">流暢的行動優先使用者介面，可完美適應桌上型電腦、平板電腦和智慧型手機，隨時隨地進行編輯。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 通用支持</h2><p class=\"para-sm\">兼容 <strong>ESM、UMD、CommonJS和LIFE</strong>。通過CDN開箱即用（<code>&lt;script src&gt;</code>）、npm或任何bundler （ Vite、webpack、Rollup ） ：無需額外配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">預♿ 設為可存取</h2><p class=\"para-sm\">內建完整的ARIA支援：工具列地標、標籤預覽區域、螢幕閱讀器友好按鈕、 <code>aria-pressed</code> 在預覽切換上， <code>disabled</code> 以及 <code>aria-disabled</code> 在非活動工具上，並在模態關閉時正確恢復焦點。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ 零 CSS 衝突</h2><p class=\"para-sm\">編輯器樣式完全適用於 <code>.markdown-editor-wrapper</code>。 Tailwind 的全域預檢被排除，因此編輯器可以安全地與 Bootstrap、Tailwind 或任何其他框架一起使用，而不會破壞它們的風格。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">鍵盤快速鍵</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>：無需觸碰滑鼠的常見格式化操作。每個快捷方式都顯示在工具列按鈕的工具提示中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 尋找和替換</h2><p class=\"para-sm\">按 <code>Ctrl+F</code> 尋找或 <code>Ctrl+H</code> 打開尋找和取代。不區分大小寫的搜索，具有即時匹配計數器、下一個/上一個導航、單一替換和全部替換：無需離開編輯器。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 安全預覽</h2><p class=\"para-sm\">渲染的預覽透過以下方式進行清理 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> 在寫入 DOM 之前。精心設計的 Markdown 輸入中的腳本標籤、內聯事件處理程序和惡意 URL 都會自動刪除：無需配置。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️即時預覽</h2><p class=\"para-sm\">在您鍵入時查看立即呈現的 Markdown。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 輕鬆集成</h2><p class=\"para-sm\">只需最少的設定即可無縫整合到任何 Web 專案中。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 可自訂的工具列</h2><p class=\"para-sm\">動態配置和重新排序工具列選項，例如粗體、斜體等。</p></div></div></div>"} />
 
 ## 完整配置範例
 
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',

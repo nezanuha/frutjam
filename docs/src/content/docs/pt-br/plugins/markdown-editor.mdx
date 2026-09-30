@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plug-in JavaScript do Markdown Text Editor da Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "269b8df1aae9"
+sourceHash: "90e400ff6686"
+translationHash: "c0d4b65cd260"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -300,6 +300,7 @@ As opções são lidas uma vez, quando o editor é construído. Alterá-los post
 | `renderer` | `function` | `marked` | Substitui o analisador de redução usado para a visualização. Recebe a string markdown e deve retornar uma string HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Substitui o desinfetante HTML. Recebe o HTML renderizado e deve retornar o HTML seguro para exibição. |
 | `onChange` | `function` | `undefined` | Retorno de chamada disparado em cada alteração de conteúdo: digitação, ações na barra de ferramentas, desfazer/refazer e continuação de lista. Recebe a string de redução atual como seu único argumento. |
+| `labels` | `object` | `undefined` | Traduções para a interface própria do editor, codificadas pela string em inglês. Tudo o que você deixa de fora permanece em inglês. |
 
 </DocTable>
 
@@ -551,6 +552,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 Idioma da interface
+
+O texto, dicas de ferramentas, itens de menu, campos modais e botões do próprio editor são em inglês por padrão. Passe um `labels` objeto de traduzi-lo. As chaves são as strings em inglês, a forma como o gettext funciona, então você lista apenas o que deseja alterar e tudo o que estiver faltando volta para o inglês.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+Isso é mais importante junto com o conteúdo da direita para a esquerda. Árabe, urdu e farsi são apresentados corretamente por conta própria, mas uma barra de ferramentas que ainda diz "Negrito" no texto da direita para a esquerda está apenas parcialmente traduzida.
 
 ### 🏷 Variáveis
 
@@ -964,6 +991,14 @@ Com o **MarkdownEditor**, um desenvolvedor pode pegar um site antigo e substitui
 
 Lidar com uploads de imagens nativamente: em vez de depender de strings Base64 lentas e com muita memória, é uma vitória significativa tanto para o desempenho quanto para o SEO.
 
+### Cole e solte
+
+Cole uma captura de tela ou arraste um arquivo de imagem para o editor e ele será carregado por meio do mesmo terminal do botão da barra de ferramentas. Um espaço reservado aparece imediatamente para que o editor nunca pareça congelado e é substituído pelo caminho real assim que o upload chega. Se o upload falhar, o espaço reservado será substituído por um marcador visível em vez de desaparecer silenciosamente.
+
+Isso precisa `uploadUrl` configurado abaixo. Sem ele, colar uma imagem não adianta nada e o editor registra um aviso explicando o que adicionar, pois a alternativa seria uma string Base64 em seu banco de dados.
+
+Vários arquivos de uma vez são carregados, um de cada vez, para que as imagens cheguem na ordem em que chegaram.
+
 ### Opções de configuração
 
 A ferramenta de imagem suporta um `fileInput` configuração para lidar com uploads diretos do servidor.
@@ -1143,6 +1178,21 @@ Um painel integrado de localização e substituição está disponível dentro d
 
 O painel flutua no canto superior direito da área de conteúdo do editor e não interrompe a escrita.
 
+## 🔗 Links de um URL colado
+
+Selecione algum texto, cole um URL sobre ele e você obterá um link de desconto em vez do URL substituir o que você selecionou.
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+A regra é deliberadamente rigorosa: apenas uma simples `http` ou `https` URL sem espaços em branco é tratado desta forma. Colar uma frase que contenha um URL ou colar sem nada selecionado se comporta como uma colagem comum.
+
 ## Características
 
 <RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integração de formulário nativo</h2><p class=\"para-sm\">Funciona exatamente como um padrão <code>&lt;textarea&gt;</code>. Sem APIs complexas: basta usar o <code>value</code> ou <code>name</code> atributo. Ele \"simplesmente funciona\" com envios de formulários HTML padrão em PHP, Django ou Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Upload avançado de imagens</h2><p class=\"para-sm\">Configure uploads de servidores nativos via API. Evite strings Base64 pesadas para garantir carregamentos de página mais rápidos e SEO superior hospedando imagens em seu próprio CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Modos Híbrido e Simples</h2><p class=\"para-sm\">Alternar entre um <strong>Híbrido (WYSIWYG)</strong> experiência em edição visual ou <strong>Remarcação simples</strong> modo para uma sensação de codificação tradicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Alto desempenho</h2><p class=\"para-sm\">UM <strong>53 KB compactados</strong> pacote (252 KB minificado, CSS incluído) otimizado para \"Conteúdo Pesado\". Lida com documentos e arquivos grandes sem qualquer atraso de entrada ou queda de desempenho. Atualizações de visualização eliminadas, cálculos de estilo em cache e manuseio de teclado sem conflitos: portanto, Tab e Enter sempre fazem exatamente uma coisa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Suporte RTL integrado</h2><p class=\"para-sm\">Suporte nativo para idiomas da direita para a esquerda, como árabe, urdu e farsi. Perfeito para criar aplicativos acessíveis globalmente.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Destaque de sintaxe</h2><p class=\"para-sm\">Legibilidade aprimorada com código claro e formatação remarcada.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Tema Adaptativo</h2><p class=\"para-sm\">Inclui suporte automático ao Modo Escuro. Ele sincroniza com as configurações do sistema ou com o <strong>IU do Frutjam</strong> biblioteca para uma experiência visual perfeita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Edição Inteligente</h2><p class=\"para-sm\">Continuação de lista automática no estilo GitHub para listas ordenadas, listas não ordenadas e listas de verificação: pressione <code>Enter</code> e o editor continua o padrão. As caixas de seleção no painel de visualização podem ser clicadas e sincronizadas instantaneamente com a fonte de redução.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Totalmente responsivo</h2><p class=\"para-sm\">Uma interface de usuário fluida e voltada para dispositivos móveis que se adapta perfeitamente a desktops, tablets e smartphones para edição em qualquer lugar.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Suporte universal</h2><p class=\"para-sm\">Compatível com <strong>ESM, UMD, CommonJS e IIFE</strong>. Funciona imediatamente via CDN (<code>&lt;script src&gt;</code>), npm ou qualquer bundler (Vite, webpack, Rollup): nenhuma configuração extra necessária.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Acessível por padrão</h2><p class=\"para-sm\">Suporte completo para ARIA integrado: ponto de referência da barra de ferramentas, região de visualização rotulada, botões fáceis de ler na tela, <code>aria-pressed</code> no botão de visualização, <code>disabled</code> e <code>aria-disabled</code> em ferramentas inativas e restauração correta do foco quando os modais fecham.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero conflitos de CSS</h2><p class=\"para-sm\">Os estilos do editor têm escopo total para <code>.markdown-editor-wrapper</code>. A comprovação global do Tailwind é excluída para que o editor viva com segurança ao lado do Bootstrap, Tailwind ou qualquer outra estrutura sem quebrar seus estilos.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Atalhos de teclado</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: ações comuns de formatação sem tocar no mouse. Cada atalho é mostrado na dica de ferramenta do botão da barra de ferramentas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Localizar e substituir</h2><p class=\"para-sm\">Imprensa <code>Ctrl+F</code> encontrar ou <code>Ctrl+H</code> para abrir localizar e substituir. Pesquisa sem distinção entre maiúsculas e minúsculas com contador de correspondências ao vivo, navegação seguinte/anterior, substituição única e substituição de todas: sem sair do editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Visualização segura do XSS</h2><p class=\"para-sm\">A visualização renderizada é higienizada via <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurificar</a> antes de ser gravado no DOM. Tags de script, manipuladores de eventos in-line e URLs maliciosos na entrada de markdown criada são removidos automaticamente: nenhuma configuração é necessária.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Visualização em tempo real</h2><p class=\"para-sm\">Veja sua redução renderizada instantaneamente enquanto você digita.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Fácil integração</h2><p class=\"para-sm\">Integre-se perfeitamente a qualquer projeto web com configuração mínima.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Barra de ferramentas personalizável</h2><p class=\"para-sm\">Configure e reordene dinamicamente as opções da barra de ferramentas, como negrito, itálico e muito mais.</p></div></div></div>"} />
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',

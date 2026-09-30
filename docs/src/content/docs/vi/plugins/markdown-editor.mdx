@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript soạn thảo văn bản Markdown của Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "9fd453f3a578"
+sourceHash: "90e400ff6686"
+translationHash: "bbaa5e121651"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -300,6 +300,7 @@ Các tùy chọn được đọc một lần khi trình soạn thảo được x
 | `renderer` | `function` | `marked` | Thay thế trình phân tích cú pháp đánh dấu được sử dụng để xem trước. Nhận chuỗi đánh dấu và phải trả về chuỗi HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Thay thế trình khử trùng HTML. Nhận HTML được hiển thị và phải trả về HTML an toàn để hiển thị. |
 | `onChange` | `function` | `undefined` | Lệnh gọi lại được thực hiện khi có mọi thay đổi về nội dung: gõ, thao tác trên thanh công cụ, hoàn tác/làm lại và tiếp tục danh sách. Nhận chuỗi đánh dấu hiện tại làm đối số duy nhất của nó. |
+| `labels` | `object` | `undefined` | Bản dịch cho giao diện riêng của người soạn thảo, được khóa bằng chuỗi tiếng Anh. Bất cứ điều gì bạn bỏ đi vẫn bằng tiếng Anh. |
 
 </DocTable>
 
@@ -551,6 +552,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 Ngôn ngữ giao diện
+
+Theo mặc định, văn bản, chú giải công cụ, mục menu, trường phương thức và nút của trình chỉnh sửa là tiếng Anh. Vượt qua một `labels` đối tượng dịch nó. Khóa là các chuỗi tiếng Anh, cách thức hoạt động của gettext, vì vậy bạn chỉ liệt kê những gì bạn muốn thay đổi và mọi thứ còn thiếu sẽ quay lại tiếng Anh.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+Điều này quan trọng nhất bên cạnh nội dung từ phải sang trái. Tiếng Ả Rập, tiếng Urdu và tiếng Farsi được sắp xếp chính xác nhưng thanh công cụ vẫn đọc chữ "Đậm" trên văn bản từ phải sang trái chỉ được dịch một nửa.
 
 ### 🏷 Biến
 
@@ -964,6 +991,14 @@ Với **MarkdownEditor**, nhà phát triển có thể lấy một trang web cũ
 
 Xử lý nguyên bản tải lên hình ảnh: thay vì dựa vào các chuỗi Base64 chậm và tốn nhiều bộ nhớ, đây là một lợi thế đáng kể cho cả hiệu suất và SEO.
 
+### Dán và thả
+
+Dán ảnh chụp màn hình hoặc kéo tệp hình ảnh vào trình chỉnh sửa và tải lên thông qua cùng điểm cuối với nút thanh công cụ. Một trình giữ chỗ xuất hiện ngay lập tức để trình chỉnh sửa không bao giờ bị đóng băng và được thay thế bằng đường dẫn thực sau khi quá trình tải lên hoàn tất. Nếu tải lên không thành công, trình giữ chỗ sẽ được thay thế bằng điểm đánh dấu hiển thị thay vì biến mất một cách im lặng.
+
+Điều này cần `uploadUrl` được cấu hình bên dưới. Nếu không có nó, việc dán hình ảnh sẽ không có tác dụng gì và trình chỉnh sửa sẽ ghi lại cảnh báo giải thích nội dung cần thêm vì giải pháp thay thế sẽ là chuỗi Base64 trong cơ sở dữ liệu của bạn.
+
+Một số tệp được tải lên cùng lúc, do đó hình ảnh sẽ xuất hiện theo thứ tự xuất hiện.
+
 ### Tùy chọn cấu hình
 
 Công cụ hình ảnh hỗ trợ `fileInput` cấu hình để xử lý tải lên máy chủ trực tiếp.
@@ -1143,6 +1178,21 @@ Bảng điều khiển tìm và thay thế tích hợp sẵn có sẵn bên tron
 
 Bảng điều khiển nổi ở góc trên bên phải của khu vực nội dung trình soạn thảo và không làm gián đoạn quá trình viết.
 
+## 🔗 Liên kết từ một URL được dán
+
+Chọn một số văn bản, dán URL lên nó và bạn sẽ nhận được liên kết đánh dấu thay vì URL thay thế những gì bạn đã chọn.
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+Quy tắc này được cố tình nghiêm ngặt: chỉ trần trụi `http` hoặc `https` URL không có khoảng trắng được xử lý theo cách này. Dán một câu có chứa URL hoặc dán mà không chọn gì sẽ hoạt động giống như dán thông thường.
+
 ## Đặc trưng
 
 <RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như một tiêu chuẩn <code>&lt;textarea&gt;</code>. Không có API phức tạp: chỉ cần sử dụng <code>value</code> hoặc <code>name</code> thuộc tính. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Chế độ lai & trơn</h2><p class=\"para-sm\">Chuyển đổi giữa một <strong>Lai (WYSIWYG)</strong> kinh nghiệm chỉnh sửa hình ảnh hoặc <strong>Đánh dấu đơn giản</strong> chế độ cho cảm giác mã hóa truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">MỘT <strong>53 KB được nén</strong> gói (được rút gọn 252 KB, bao gồm CSS) được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột: vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Nâng cao khả năng đọc với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ với cài đặt hệ thống của bạn hoặc <strong>Giao diện người dùng Frutjam</strong> thư viện để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra: nhấn <code>Enter</code> và trình soạn thảo tiếp tục mô hình. Các hộp kiểm trong khung xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động tốt thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup): không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Có thể truy cập theo mặc định</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn: mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-pressed</code> trên nút chuyển đổi xem trước, <code>disabled</code> Và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Không có xung đột CSS</h2><p class=\"para-sm\">Các phong cách soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ nên trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm & Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm & thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả: mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Xem trước an toàn XSS</h2><p class=\"para-sm\">Bản xem trước được hiển thị được làm sạch thông qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMThanh lọc</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ: không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',

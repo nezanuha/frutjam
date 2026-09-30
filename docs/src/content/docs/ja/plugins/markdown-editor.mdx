@@ -12,8 +12,8 @@ image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam による Markdown テキスト エディター JavaScript プラグイン"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
 updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "a12cf58d46b6"
-translationHash: "7e1455e4e759"
+sourceHash: "90e400ff6686"
+translationHash: "9f2785a5df10"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -300,6 +300,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `renderer` | `function` | `marked` | プレビューに使用されるマークダウン パーサーを置き換えます。マークダウン文字列を受け取り、HTML 文字列を返す必要があります。 |
 | `sanitizer` | `function` | `DOMPurify` | HTML サニタイザーを置き換えます。レンダリングされた HTML を受け取り、表示するには安全な HTML を返す必要があります。 |
 | `onChange` | `function` | `undefined` | コンテンツの変更 (入力、ツールバーのアクション、元に戻す/やり直し、リストの継続) ごとにコールバックが発生します。現在のマークダウン文字列を唯一の引数として受け取ります。 |
+| `labels` | `object` | `undefined` | エディター独自のインターフェイスの翻訳。英語の文字列をキーとします。省略したものはすべて英語のままです。 |
 
 </DocTable>
 
@@ -551,6 +552,32 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 ```
 
 </Snippet>
+
+### 🌐 インターフェース言語
+
+エディター独自のテキスト、ツールチップ、メニュー項目、モーダル フィールドおよびボタンは、デフォルトでは英語です。渡す `labels` それを翻訳するオブジェクトです。キーは英語の文字列であり、gettext の動作方法であるため、変更したいものだけをリストし、不足しているものは英語に戻ります。
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Heading': 'Titre',
+        'Link': 'Lien',
+        'Image link': 'Lien de l\'image',
+        'URL': 'URL',
+        'Alt text': 'Texte alternatif',
+        'Apply': 'Appliquer',
+        'Uploading...': 'Téléversement...',
+    },
+});
+```
+
+</Snippet>
+
+これは、右から左へのコンテンツと並んで最も重要です。アラビア語、ウルドゥー語、ペルシア語は単独で正しくレイアウトされますが、右から左へ記述するテキストの上に「太字」と表示されたままのツールバーは半分しか翻訳されていません。
 
 ### 🏷 変数
 
@@ -964,6 +991,14 @@ document.querySelector('form').addEventListener('submit', () => {
 
 画像のアップロードをネイティブに処理することは、遅くてメモリを大量に消費する Base64 文字列に依存するのではなく、パフォーマンスと SEO の両方において大きなメリットとなります。
 
+### ペーストしてドロップ
+
+スクリーンショットを貼り付けるか、画像ファイルをエディタにドラッグすると、ツールバー ボタンと同じエンドポイントを介してアップロードされます。プレースホルダーはすぐに表示されるため、エディターがフリーズしているように見えることはなく、アップロードが完了すると実際のパスに置き換えられます。アップロードが失敗した場合、プレースホルダーは静かに消えるのではなく、表示されるマーカーに置き換えられます。
+
+これには必要があります `uploadUrl` 以下で設定します。これがないと、画像を貼り付けても何も行われず、代わりにデータベース内の Base64 文字列が使用されるため、エディターは何を追加するかを説明する警告をログに記録します。
+
+複数のファイルが一度に 1 つずつアップロードされるため、画像は到着した順に表示されます。
+
 ### 構成オプション
 
 画像ツールは、 `fileInput` サーバーへの直接アップロードを処理するための構成。
@@ -1143,6 +1178,21 @@ Laravel や Django などのフレームワークでは、CSRF トークンが�
 
 パネルはエディターのコンテンツ領域の右上隅にフロートしており、書き込みを中断しません。
 
+## 🔗 貼り付けられたURLからのリンク
+
+テキストを選択し、その上に URL を貼り付けると、選択した内容が URL で置き換えられるのではなく、マークダウン リンクが表示されます。
+
+<Snippet view="code">
+
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
+```
+
+</Snippet>
+
+このルールは意図的に厳格です。 `http` または `https` 空白のない URL はこのように処理されます。 URL を含む文を貼り付けるか、何も選択せずに貼り付けると、通常の貼り付けと同様に動作します。
+
 ## 特徴
 
 <RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 ネイティブフォームの統合</h2><p class=\"para-sm\">標準とまったく同じように動作します <code>&lt;textarea&gt;</code>。複雑な API は必要ありません。 <code>value</code> または <code>name</code> 属性。これは、PHP、Django、または Node.js での標準の HTML フォーム送信で「機能」します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高度な画像アップロード</h2><p class=\"para-sm\">API 経由でネイティブ サーバーのアップロードを構成します。独自の CDN で画像をホストすることで、ページの読み込みを高速化し、優れた SEO を実現するには、重い Base64 文字列を避けてください。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 ハイブリッドモードとプレーンモード</h2><p class=\"para-sm\">を切り替えます <strong>ハイブリッド (WYSIWYG)</strong> ビジュアル編集の経験または <strong>プレーンマークダウン</strong> 従来のコーディング感覚のモード。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">あ <strong>53 KB gzip圧縮</strong> 「重いコンテンツ」向けに最適化されたバンドル (252 KB 縮小、CSS が含まれています)。入力遅延やパフォーマンスの低下を引き起こすことなく、大量のドキュメントや大きなファイルを処理できます。デバウンスされたプレビュー更新、キャッシュされたスタイル計算、競合のないキーボード処理: したがって、Tab と Enter は常に 1 つのことを実行します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 組み込みの RTL サポート</h2><p class=\"para-sm\">アラビア語、ウルドゥー語、ペルシア語などの右から左に記述する言語のネイティブ サポート。グローバルにアクセス可能なアプリケーションの構築に最適です。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 構文の強調表示</h2><p class=\"para-sm\">明確なコードとマークダウン形式により可読性が向上しました。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 アダプティブテーマ</h2><p class=\"para-sm\">自動ダークモードのサポートが含まれます。システム設定または <strong>フルジャムUI</strong> シームレスな視覚体験のためのライブラリ。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 スマート編集</h2><p class=\"para-sm\">順序付きリスト、順序なしリスト、チェックリストの GitHub スタイルの自動リスト継続: press <code>Enter</code> そして編集者はパターンを続けます。プレビュー ペインのチェックボックスはクリック可能で、マークダウン ソースに即座に同期されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全にレスポンシブ</h2><p class=\"para-sm\">デスクトップ、タブレット、スマートフォンに完璧に適応する流動的なモバイルファースト UI により、外出先での編集が可能です。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 ユニバーサルサポート</h2><p class=\"para-sm\">と互換性があります <strong>ESM、UMD、CommonJS、IIFE</strong>。 CDN 経由ですぐに動作します (<code>&lt;script src&gt;</code>)、npm、または任意のバンドラー (Vite、webpack、Rollup): 追加の構成は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ デフォルトでアクセス可能</h2><p class=\"para-sm\">完全な ARIA サポートの組み込み: ツールバーのランドマーク、ラベル付きプレビュー領域、スクリーンリーダーに優しいボタン、 <code>aria-pressed</code> プレビュートグルで、 <code>disabled</code> そして <code>aria-disabled</code> 非アクティブなツールで、モーダルが閉じたときにフォーカスが正しく復元されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ CSS 競合なし</h2><p class=\"para-sm\">エディターのスタイルは以下に完全に適用されます。 <code>.markdown-editor-wrapper</code>。 Tailwind のグローバル プリフライトは除外されているため、エディターは Bootstrap、Tailwind、またはその他のフレームワークと安全に共存でき、それらのスタイルを損なうことはありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ キーボード ショートカット</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: マウスに触れずに行う一般的な書式設定アクション。各ショートカットは、ツールバー ボタンのツールチップに表示されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 検索と置換</h2><p class=\"para-sm\">プレス <code>Ctrl+F</code> 見つけるか、 <code>Ctrl+H</code> をクリックして検索と置換を開きます。エディターを離れることなく、ライブ一致カウンター、次/前のナビゲーション、単一置換、およびすべて置換による大文字と小文字を区別しない検索。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS セーフプレビュー</h2><p class=\"para-sm\">レンダリングされたプレビューは次のようにサニタイズされます。 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> DOM に書き込まれる前に。細工されたマークダウン入力内のスクリプト タグ、インライン イベント ハンドラー、悪意のある URL は自動的に削除されます。構成は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ リアルタイムプレビュー</h2><p class=\"para-sm\">入力するとすぐにマークダウンがレンダリングされるのを確認してください。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 簡単な統合</h2><p class=\"para-sm\">最小限のセットアップであらゆる Web プロジェクトにシームレスに統合できます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ カスタマイズ可能なツールバー</h2><p class=\"para-sm\">太字、斜体などのツールバー オプションを動的に構成および並べ替えます。</p></div></div></div>"} />
@@ -1165,6 +1215,11 @@ const editor = new MarkdownEditor('#markdown-editor', {
     },
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
+    },
+    labels: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Uploading...': 'Téléversement...',
     },
     toolbar: [
         'heading', 'bold', 'italic', 'strikethrough', 'blockquote',
