@@ -5,9 +5,8 @@ metaTitle: "Laravel Markdown Editor for Blade Forms | No JS Sync | Frutjam"
 metaDescription: "Add a markdown editor to Laravel forms without breaking form submission. No manual sync, no custom component: $request->input('content') receives the markdown as typed."
 image: "https://cdn.frutjam.com/media/blog/posts/laravel-markdown-editor-textarea.jpg"
 imageAlt: "Illustration of a torn sheet of scribbled notes passing through an archway and emerging as a clean typeset page"
-createdAt: "2026-10-01T00:00:00+00:00"
-updatedAt: "2026-10-01T00:00:00+00:00"
-draft: true
+createdAt: "2026-10-02T00:00:00+00:00"
+updatedAt: "2026-10-02T00:00:00+00:00"
 ---
 
 Add a markdown editor to a Blade form the usual way and it looks fine, until
