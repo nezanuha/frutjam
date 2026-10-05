@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-10-05
+
+### Added
+
+- **Use Frutjam without Tailwind**: `import 'frutjam/css'` gives every component as plain CSS, so UnoCSS, Vite, Astro, Rails or a page with no build step can use them. 30 KB gzipped for all 65+ components, against 40 KB for the full bundle that carries Tailwind's utilities too. Individual pieces are importable as `frutjam/css/components/button`, `frutjam/css/base` and `frutjam/css/themes/darkberry`
+- **`card-link`**: Makes the whole card the click target for one link. The browser outlines only the link text on a stretched link, which is a few words inside a card the mouse can click anywhere on, so the focus ring moves to the card and the inner one is hidden. The ring uses `currentColor`, so it stays readable on `card-primary` and on every theme. Text stays selectable and other buttons in the card keep working
+
+### Fixed
+
+- **Colour tokens were empty in `dist/base.css`**: Compiling `@theme inline` emits `--color-base-soft: var(--color-base-soft)` and `--color-primary: var(--color-primary-500)`, while the themes emit `--color-primary-500: var(--color-primary)`. Both are cycles, so every colour computed to nothing and components rendered transparent. The full bundle was unaffected because Tailwind happens to order those blocks before the themes; a standalone file had no such luck. Only reachable when importing the compiled CSS directly, which was not possible before this release
+
 ## [2.2.6] - 2026-09-17
 
 ### Fixed

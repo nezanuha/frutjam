@@ -33,6 +33,31 @@ function resolveImports(css, baseDir) {
   )
 }
 
+/*
+ * `@theme inline` emits passthrough declarations like `--color-base-soft:
+ * var(--color-base-soft)`. A custom property defined as itself is a cycle, so
+ * it computes to nothing, and whichever rule comes last wins. In the full
+ * bundle those land before the themes and are harmlessly overridden; in a
+ * standalone file they land after, and every colour token goes empty.
+ * They never carry a value, so dropping them is safe in both.
+ */
+function stripSelfReferences(css) {
+  return css.replace(/(--[\w-]+)\s*:\s*var\(\s*\1\s*\)\s*(;|(?=\}))/g, "")
+}
+
+/*
+ * `@theme inline` also emits `--color-primary: var(--color-primary-500)`, while
+ * the themes emit `--color-primary-500: var(--color-primary)`. Together those
+ * are a two step cycle, so both sides compute to nothing. The full bundle gets
+ * away with it because Tailwind puts this block first and the real theme last.
+ * A standalone file has no such luck, and the themes already define every one
+ * of these directly, so the block is removed rather than reordered.
+ */
+function stripThemeInlinePassthrough(css) {
+  return css.replace(/:host,:root\{[^}]*\}/g, (block) =>
+    /--color-[\w-]+:var\(--color-[\w-]+-500\)/.test(block) ? "" : block)
+}
+
 function extractUtilityNames(css) {
   const names = []
   const re = /@utility\s+([\w-]+\*?)\s*\{/g
@@ -192,7 +217,7 @@ const baseCssRaw = [
 
 // Run through Tailwind so @custom-variant / @theme inline compile away correctly
 const baseCompiled = await runTailwind(baseCssRaw)
-writeDist(join(distDir, "base.css"), await minify(baseCompiled))
+writeDist(join(distDir, "base.css"), stripThemeInlinePassthrough(stripSelfReferences(await minify(baseCompiled))))
 
 // ── 3. Themes ─────────────────────────────────────────────────────────────────
 
@@ -226,5 +251,26 @@ for (const [name, filePath] of Object.entries(REGISTRY.utilities)) {
   const compiled = await buildModule(css)
   writeDist(join(distDir, `utilities/${name}.css`), await minify(compiled))
 }
+
+// ── 6. Components bundle, without Tailwind's utilities ────────────────────────
+//
+// frutjam.min.css is the whole of Tailwind plus Frutjam, which is what a
+// development CDN tag wants and what a project using another engine does not:
+// the utilities collide and most of the weight is unused. This bundle is the
+// base, the themes and every component, so .btn and .card work next to UnoCSS,
+// plain CSS, or nothing at all.
+
+console.log("\n[components bundle]")
+
+const stripBanners = (css) => css.replace(/\/\*![\s\S]*?\*\/\s*/g, "")
+
+const bundleParts = [
+  readFile(join(distDir, "base.css")),
+  ...["snowberry", "darkberry"].map((t) => readFile(join(distDir, `themes/${t}.css`))),
+  ...Object.keys(REGISTRY.components).sort().map((n) => readFile(join(distDir, `components/${n}.css`))),
+  ...Object.keys(REGISTRY.utilities).sort().map((n) => readFile(join(distDir, `utilities/${n}.css`))),
+].map(stripBanners)
+
+writeDist(join(distDir, "frutjam.components.css"), await minify(bundleParts.join("\n")))
 
 console.log(`\n🎉 CDN build complete!`)

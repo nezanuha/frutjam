@@ -28,3 +28,18 @@
   gap: 0.5rem;
   margin-block-start: auto;
 }
+
+/*
+ * Makes the whole card the hit area for one link, without nesting anything
+ * inside an anchor. The card is already position: relative, so the pseudo
+ * element fills it. Screen readers still meet the real link, and there is
+ * still one tab stop.
+ */
+@utility card-link {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}
+

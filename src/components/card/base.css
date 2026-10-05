@@ -32,4 +32,25 @@
     border-end-start-radius: inherit;
     border-end-end-radius: inherit;
   }
+
+  /*
+   * With a stretched link the browser outlines the link text, a few words in a
+   * card the user can click anywhere on. Move the ring to the card so what is
+   * highlighted matches what is clickable, and drop the inner one.
+   */
+  /* currentColor, not a token: it resolves to --color-on-card, so the ring is
+     readable on a plain card and on card-primary alike. */
+  &:has(.card-link:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+
+    .card-link:focus-visible {
+      outline: none;
+    }
+  }
+
+  /* The pseudo element covers the text, so keep it selectable. */
+  &:has(.card-link) :where(p, h1, h2, h3, h4, h5, h6) {
+    user-select: text;
+  }
 }
