@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Elementy kart firmy Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "799ea92f2beb"
+sourceHash: "9debf06dbf4b"
+translationHash: "8c5996a095d7"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Karta CSS Tailwind zawierająca wyłącznie CSS ze stylami konturu, cienia i pł
 
 Elementy kart to wszechstronne pojemniki umożliwiające łączenie powiązanych informacji w jedną, spójną wizualnie całość. Zbudowane z semantycznego kodu HTML i elastycznych obszarów treści, karty organizują treść hierarchicznie i dostosowują się do różnych układów. System kart Frutjam oferuje wiele wariantów kolorystycznych, rozmiarów i stylów prezentacji produktów, postów na blogu, referencji i elementów pulpitu nawigacyjnego.
 
-Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka — współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
+Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od frameworka: współpracuje z Django, HTMX, Laravel, React i dowolnym stosem.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od framework
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Element nagłówka wewnątrz karty |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Wyściełany obszar zawartości karty |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Obszar stopki dla przycisków i elementów sterujących akcjami |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modyfikator</span> | Ustawia całą kartę jako cel kliknięcia dla jednego łącza i przesuwa pierścień ostrości na kartę |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Rozmiar</span> | Bardzo mała wyściółka |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Rozmiar</span> | Mała wyściółka |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Rozmiar</span> | Średnie wypełnienie (domyślne) |
@@ -86,7 +87,7 @@ Tylko CSS, nie wymaga JavaScript. Dostępny w WCAG AA i niezależny od framework
 
 ## Karta z Akcjami
 
-Użyj `card-actions`, aby dodać obszar stopki dla przycisków i elementów sterujących akcjami.
+Używać `card-actions` , aby dodać obszar stopki dla przycisków i elementów sterujących akcjami.
 
 <Snippet>
 
@@ -105,9 +106,56 @@ Użyj `card-actions`, aby dodać obszar stopki dla przycisków i elementów ster
 
 </Snippet>
 
+## Karta klikalna
+
+Dodać `card-link` do jednego linku wewnątrz karty, a cała karta staje się celem kliknięcia. Karta nadal jest `article` z nagłówkiem i akapitem, dzięki czemu czytnik ekranu trafia do prawdziwego linku, a nie do opakowania, a zamiast kilku jest jeden tabulator.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+Skupienie się na klawiaturze to część, która robi to dobrze. W przeciwnym razie przeglądarka obrysowałaby tylko tekst łącza, kilka słów na karcie, na którą mysz może kliknąć w dowolnym miejscu, więc `card-link` przesuwa pierścień na kartę i ukrywa wewnętrzny. Pierścień używa `currentColor`, co oznacza, że ​​pozostaje czytelny dalej `card-primary` i na każdy temat.
+
+Tekst na karcie pozostaje wybieralny, a inne przyciski nadal działają, więc karta może jednocześnie przenosić główne miejsce docelowe i dodatkowe działania.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
+```
+
+</Snippet>
+
 ## Rozmiary kart
 
-Wybierz jeden z pięciu wariantów rozmiarów, aby dopasować go do różnych gęstości treści i przypadków użycia.
+Wybierz jeden z pięciu wariantów rozmiarów, aby dopasować się do różnych gęstości treści i przypadków użycia.
 
 <Snippet>
 
@@ -225,7 +273,7 @@ Zastosuj warianty kolorystyczne do kart w celu wizualnego rozróżnienia i znacz
 
 ## Niestandardowy kolor tła i tekstu
 
-Aby uzyskać pełną kontrolę nad kolorami, użyj dowolnego narzędzia tła i koloru tekstu Tailwind bezpośrednio na karcie.
+Użyj dowolnego narzędzia Tailwind do kolorowania tła i tekstu bezpośrednio na karcie, aby uzyskać pełną kontrolę nad kolorami.
 
 <Snippet>
 

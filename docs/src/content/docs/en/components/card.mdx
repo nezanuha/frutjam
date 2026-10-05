@@ -36,6 +36,7 @@ CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic: wor
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Heading element inside the card |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Padded content area of the card |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Footer area for buttons and action controls |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Makes the whole card the click target for one link, and moves the focus ring to the card |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Size</span> | Extra small padding |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Size</span> | Small padding |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Size</span> | Medium padding (default) |
@@ -99,6 +100,53 @@ Use `card-actions` to add a footer area for buttons and action controls.
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Clickable Card
+
+Add `card-link` to one link inside a card and the whole card becomes its click target. The card is still an `article` with a heading and a paragraph, so a screen reader meets the real link rather than a wrapper, and there is one tab stop instead of several.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+Keyboard focus is the part this gets right. The browser would otherwise outline only the link text, a few words inside a card the mouse can click anywhere on, so `card-link` moves the ring to the card and hides the inner one. The ring uses `currentColor`, which means it stays readable on `card-primary` and on every theme.
+
+Text in the card stays selectable, and other buttons keep working, so a card can carry a primary destination and secondary actions at the same time.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

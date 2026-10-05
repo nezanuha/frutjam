@@ -2,7 +2,7 @@
 name: "Carte"
 heading: "Composant de la carte"
 description: "Carte CSS Tailwind uniquement CSS avec styles de contour, d'ombre et plat. Tailles compactes, par défaut et grandes. Emplacements pour le contenu de la carte, le titre de la carte et le pied de page de la carte. WCAG AA, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
-metaTitle: "Card - Composant CSS Tailwind uniquement CSS | Frutjam"
+metaTitle: "Card - Composant CSS Tailwind uniquement CSS | Confiture de fruits"
 metaDescription: "Carte CSS Tailwind avec sections d'en-tête, de corps et de pied de page. Prend en charge les superpositions d'images, les mises en page horizontales et les variantes de thème pour les conteneurs de produits et de contenu."
 order: 0
 related:
@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Composants de cartes par Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "35ca6c45b9a5"
+sourceHash: "9debf06dbf4b"
+translationHash: "3438ba292175"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Carte CSS Tailwind uniquement CSS avec styles de contour, d'ombre et plat. Taill
 
 Les composants de carte sont des conteneurs polyvalents permettant de combiner des informations associées en une seule unité visuellement cohérente. Construites avec du HTML sémantique et des zones de contenu flexibles, les cartes organisent le contenu de manière hiérarchique et s'adaptent à diverses mises en page. Le système de cartes Frutjam propose plusieurs variantes de couleurs, tailles et styles pour les présentations de produits, les articles de blog, les témoignages et les éléments de tableau de bord.
 
-CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework : fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du f
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Élément de titre à l'intérieur de la carte |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Zone de contenu rembourrée de la carte |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Zone de pied de page pour les boutons et les commandes d'action |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Fait de la carte entière la cible du clic pour un lien et déplace la bague de mise au point vers la carte |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Rembourrage très petit |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Petit rembourrage |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Rembourrage moyen (par défaut) |
@@ -86,7 +87,7 @@ CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du f
 
 ## Carte avec actions
 
-Utilisez `card-actions` pour ajouter une zone de pied de page pour les boutons et les contrôles d'action.
+Utiliser `card-actions` pour ajouter une zone de pied de page pour les boutons et les contrôles d'action.
 
 <Snippet>
 
@@ -101,6 +102,53 @@ Utilisez `card-actions` pour ajouter une zone de pied de page pour les boutons e
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Carte cliquable
+
+Ajouter `card-link` à un lien à l’intérieur d’une carte et la carte entière devient sa cible de clic. La carte est toujours un `article` avec un titre et un paragraphe, de sorte qu'un lecteur d'écran rencontre le vrai lien plutôt qu'un wrapper, et il y a un taquet de tabulation au lieu de plusieurs.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+La mise au point du clavier est la partie qui fonctionne correctement. Autrement, le navigateur ne présenterait que le texte du lien, quelques mots à l'intérieur d'une carte sur laquelle la souris peut cliquer n'importe où, donc `card-link` déplace l'anneau vers la carte et cache celui intérieur. La bague utilise `currentColor`, ce qui signifie qu'il reste lisible sur `card-primary` et sur tous les thèmes.
+
+Le texte de la carte reste sélectionnable et les autres boutons continuent de fonctionner, de sorte qu'une carte peut contenir à la fois une destination principale et des actions secondaires.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

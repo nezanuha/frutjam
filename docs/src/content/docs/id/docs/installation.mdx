@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Instalasi - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "fc22fc2c1f6e"
+sourceHash: "2dcd50486ff1"
+translationHash: "0e7875746532"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,15 +48,54 @@ Tambahkan Frutjam ke Anda `input.css` menggunakan `@plugin` direktif:
 
 </Snippet>
 
-## JavaScript & React — Opsional, Tidak Wajib
+## Tanpa Tailwind: UnoCSS, Vite, Astro atau CSS biasa
 
-Frutjam adalah **yang mengutamakan native dan mengutamakan CSS**. Sebagian besar komponen — tombol, lencana, kartu, formulir, peringatan, dan lainnya — berfungsi dengan HTML dan CSS murni, tanpa memerlukan JavaScript. Elemen HTML asli seperti `<dialog>`, `<details>`, Dan `<input type="checkbox">` menangani interaktivitas di mana browser sudah mendukungnya. Semua komponen adalah WCAG AA yang dapat diakses langsung dan bekerja dengan Django, HTMX, Laravel, React, Next.js, dan tumpukan apa pun.
+Frutjam dibuat dengan Tailwind, tetapi komponennya dikompilasi ke CSS biasa yang membaca properti khusus. Jika proyek Anda menggunakan UnoCSS, atau tidak ada mesin utilitas sama sekali, impor stylesheet dan bukan plugin:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+Itulah keseluruhan pengaturannya. Setiap kelas komponen berfungsi, tema diganti `data-theme` seperti biasa, dan tidak ada lagi yang diperlukan. Ini berukuran 30 KB gzip dan membawa gaya dasar, baik tema dan semua 65+ komponen.
+
+Tarik hanya apa yang Anda perlukan saja:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+Atau tanpa langkah pembuatan sama sekali:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Dipasang sebagai plugin Tailwind, Frutjam hanya mengirimkan komponen yang Anda gunakan. Diimpor sebagai stylesheet, semuanya dikirimkan, karena tidak ada langkah pembuatan yang membaca markup Anda.</span></div></div>"} />
+
+## JavaScript & Bereaksi: Opsional, Tidak Wajib
+
+Frutjam adalah **yang mengutamakan native dan mengutamakan CSS**. Sebagian besar komponen: tombol, lencana, kartu, formulir, peringatan, dan banyak lagi: berfungsi dengan HTML dan CSS murni, tidak memerlukan JavaScript. Elemen HTML asli seperti `<dialog>`, `<details>`, Dan `<input type="checkbox">` menangani interaktivitas di mana browser sudah mendukungnya. Semua komponen adalah WCAG AA yang dapat diakses langsung dan bekerja dengan Django, HTMX, Laravel, React, Next.js, dan tumpukan apa pun.
 
 Sejumlah kecil komponen tidak memiliki padanan HTML asli (notifikasi toast, pemfilteran kotak kombo, kontrol carousel). Hanya untuk kasus-kasus tersebut, Frutjam mengirimkan pembantu opsional yang ringan.
 
-### vanila JS— `frutjam/js`
+### vanila JS: `frutjam/js`
 
-Pembantu modul ES framework-agnostic untuk komponen yang membutuhkannya. Lampirkan ke elemen DOM apa pun — tidak diperlukan kerangka kerja.
+Pembantu modul ES framework-agnostic untuk komponen yang membutuhkannya. Lampirkan ke elemen DOM apa pun, tidak diperlukan kerangka kerja.
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### Kait Reaksi — `frutjam/react`
+### Kait Reaksi: `frutjam/react`
 
-Pembungkus React yang tipis di sekitar panggilan DOM asli yang sama. Setiap kait mengembalikan a `ref` Anda melampirkan elemen dan metode untuk mengendalikannya — tidak ada ketergantungan tambahan di luar React itu sendiri.
+Pembungkus React yang tipis di sekitar panggilan DOM asli yang sama. Setiap kait mengembalikan a `ref` Anda melampirkan elemen dan metode untuk mengendalikannya, tidak ada ketergantungan tambahan di luar React itu sendiri.
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ Gunakan perpustakaan frutjam UI versi CDN untuk integrasi yang cepat dan mudah t
 
 Setelah terinstal, coba [komponen tombol](/components/button) untuk melihat Frutjam beraksi, atau jelajahi selengkapnya [perpustakaan komponen](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Integrasi Editor AI</p><h3 class=\"card-title mb-2\">Menggunakan Claude Code, Cursor, atau editor AI lainnya?</h3><p class=\"para-sm mb-3\">Cherry MCP menghadirkan pustaka komponen lengkap Frutjam langsung ke dalam konteks editor AI Anda — nama kelas yang akurat, dokumen langsung, tanpa salin-tempel.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Pelajari tentang Cherry MCP →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Integrasi Editor AI</p><h3 class=\"card-title mb-2\">Menggunakan Claude Code, Cursor, atau editor AI lainnya?</h3><p class=\"para-sm mb-3\">Cherry MCP menghadirkan perpustakaan komponen lengkap Frutjam langsung ke konteks editor AI Anda, nama kelas yang akurat, dokumen langsung, tanpa salin-tempel.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Pelajari tentang Cherry MCP →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Proyek pemula</p><h3 class=\"card-title mb-2\">Membangun dengan Django?</h3><p class=\"para-sm mb-3\">Proyek Django 6 yang berfungsi dengan Frutjam telah terhubung — akun, dasbor, tema dan contoh CRUD yang didukung penurunan harga. Kloning dan mulailah membangun.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Dapatkan starter Django →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Proyek pemula</p><h3 class=\"card-title mb-2\">Membangun dengan Django?</h3><p class=\"para-sm mb-3\">Proyek Django 6 yang berfungsi dengan Frutjam sudah terhubung, akun, dasbor, tema dan contoh CRUD yang didukung penurunan harga. Kloning dan mulailah membangun.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Dapatkan starter Django →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">Ingin memahami pemikiran di balik pendekatan Frutjam yang mengutamakan CSS? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Baca mengapa kami membuatnya seperti ini →</a></p>"} />

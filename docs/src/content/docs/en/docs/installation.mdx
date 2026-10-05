@@ -46,6 +46,45 @@ Add Frutjam to your `input.css` using the `@plugin` directive:
 
 </Snippet>
 
+## Without Tailwind: UnoCSS, Vite, Astro or plain CSS
+
+Frutjam is built with Tailwind, but the components compile to ordinary CSS that reads custom properties. If your project uses UnoCSS, or no utility engine at all, import the stylesheet instead of the plugin:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+That is the whole setup. Every component class works, themes switch with `data-theme` as usual, and nothing else is required. It is 30 KB gzipped and carries the base styles, both themes and all 65+ components.
+
+Pull in only what you need instead:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+Or with no build step at all:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Installed as a Tailwind plugin, Frutjam ships only the components you use. Imported as a stylesheet it ships all of them, because there is no build step reading your markup.</span></div></div>"} />
+
 ## JavaScript & React: Optional, Not Required
 
 Frutjam is **native-first and CSS-first**. The vast majority of components: buttons, badges, cards, forms, alerts, and more: work with pure HTML and CSS, zero JavaScript needed. Native HTML elements like `<dialog>`, `<details>`, and `<input type="checkbox">` handle interactivity where browsers already support it. All components are WCAG AA accessible out of the box and work with Django, HTMX, Laravel, React, Next.js, and any stack.

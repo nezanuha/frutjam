@@ -2,7 +2,7 @@
 name: "卡片"
 heading: "卡组件"
 description: "仅 CSS Tailwind CSS 卡，具有轮廓、阴影和平面样式。紧凑型、默认型和大尺寸。卡片内容、卡片标题、卡片页脚插槽。 WCAG AA，适用于 Django、HTMX、Laravel、React 和任何堆栈。"
-metaTitle: "Card - 仅 CSS Tailwind CSS 组件 |Frutjam"
+metaTitle: "Card - 仅 CSS Tailwind CSS 组件 |弗鲁贾姆"
 metaDescription: "Tailwind CSS 卡包含页眉、正文和页脚部分。支持产品和内容容器的图像叠加、水平布局以及主题变体。"
 order: 0
 related:
@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Frutjam 的卡片组件"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "714c2baf1b14"
+sourceHash: "9debf06dbf4b"
+translationHash: "ccb8cdf5bc71"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ import DocTable from '@/components/DocTable.astro';
 
 卡片组件是多功能容器，用于将相关信息组合成一个视觉上有凝聚力的单元。卡片采用语义 HTML 和灵活的内容区域构建，可分层组织内容并适应各种布局。 Frutjam 卡片系统为产品展示、博客文章、推荐和仪表板元素提供多种颜色变体、尺寸和样式。
 
-仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关 - 可与 Django、HTMX、Laravel、React 和任何堆栈配合使用。
+仅 CSS，无需 JavaScript。 WCAG AA 可访问且与框架无关：适用于 Django、HTMX、Laravel、React 和任何堆栈。
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ import DocTable from '@/components/DocTable.astro';
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 卡片内的标题元素 |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 卡片的填充内容区域 |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 按钮和操作控件的页脚区域 |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">修饰符</span> | 将整张卡片作为一个链接的点击目标，并将聚焦环移动到卡片上 |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 超小衬垫 |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 小填充 |
 | card-md | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 中等填充（默认） |
@@ -86,7 +87,7 @@ import DocTable from '@/components/DocTable.astro';
 
 ## 带有行动的卡片
 
-使用`card-actions` 为按钮和操作控件添加页脚区域。
+使用 `card-actions` 为按钮和操作控件添加页脚区域。
 
 <Snippet>
 
@@ -101,6 +102,53 @@ import DocTable from '@/components/DocTable.astro';
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## 可点击卡片
+
+添加 `card-link` 到卡片内的一个链接，整个卡片将成为其点击目标。该卡仍然是 `article` 带有标题和段落，因此屏幕阅读器遇到的是真正的链接而不是包装，并且有一个制表位而不是多个。
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+键盘焦点是正确的部分。否则，浏览器将仅概述链接文本，即鼠标可以单击卡片内任意位置的几个单词，因此 `card-link` 将环移到卡片上并隐藏里面的环。戒指用途 `currentColor`，这意味着它仍然可读 `card-primary` 以及每个主题。
+
+卡片中的文本保持可选择状态，并且其他按钮继续工作，因此卡片可以同时承载主要目的地和次要操作。
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

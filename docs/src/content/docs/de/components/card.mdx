@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Kartenkomponenten von Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "e681f6602c73"
+sourceHash: "9debf06dbf4b"
+translationHash: "2c1b12e79d1a"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Nur CSS-Tailwind-CSS-Karte mit Umriss-, Schatten- und Flachstilen. Kompakte, Sta
 
 Kartenkomponenten sind vielseitige Behälter zum Kombinieren zusammengehöriger Informationen zu einer einzigen, optisch zusammenhängenden Einheit. Mit semantischem HTML und flexiblen Inhaltsbereichen erstellte Karten organisieren Inhalte hierarchisch und passen sich an verschiedene Layouts an. Das Frutjam-Kartensystem bietet mehrere Farbvarianten, Größen und Stile für Produktpräsentationen, Blogbeiträge, Testimonials und Dashboard-Elemente.
 
-Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig: Funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhä
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Überschriftenelement innerhalb der Karte |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Gepolsterter Inhaltsbereich der Karte |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Fußzeilenbereich für Schaltflächen und Aktionssteuerelemente |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Macht die gesamte Karte zum Klickziel für einen Link und verschiebt den Fokusring auf die Karte |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Extra kleine Polsterung |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Kleine Polsterung |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Mittlere Polsterung (Standard) |
@@ -86,7 +87,7 @@ Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhä
 
 ## Karte mit Aktionen
 
-Verwenden Sie `card-actions`, um einen Fußzeilenbereich für Schaltflächen und Aktionssteuerelemente hinzuzufügen.
+Verwenden `card-actions` um einen Fußzeilenbereich für Schaltflächen und Aktionssteuerelemente hinzuzufügen.
 
 <Snippet>
 
@@ -101,6 +102,53 @@ Verwenden Sie `card-actions`, um einen Fußzeilenbereich für Schaltflächen und
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Anklickbare Karte
+
+Hinzufügen `card-link` auf einen Link innerhalb einer Karte und die gesamte Karte wird zum Klickziel. Die Karte ist immer noch eine `article` mit einer Überschrift und einem Absatz, sodass ein Screenreader eher auf den eigentlichen Link als auf einen Wrapper trifft, und es gibt einen Tabstopp anstelle mehrerer.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+Der Tastaturfokus ist der Teil, der das richtig macht. Der Browser würde sonst nur den Linktext skizzieren, also ein paar Wörter innerhalb einer Karte, auf die die Maus irgendwo klicken kann `card-link` Bewegt den Ring zur Karte und verbirgt den inneren. Der Ring verwendet `currentColor`, was bedeutet, dass es weiterhin lesbar bleibt `card-primary` und zu jedem Thema.
+
+Der Text auf der Karte bleibt auswählbar und andere Schaltflächen funktionieren weiterhin, sodass eine Karte gleichzeitig ein primäres Ziel und sekundäre Aktionen enthalten kann.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

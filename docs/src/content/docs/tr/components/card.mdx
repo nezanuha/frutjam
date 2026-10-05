@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Frutjam'dan kart bileşenleri"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "3af93ed5f1f6"
+sourceHash: "9debf06dbf4b"
+translationHash: "8ed28e7bf26d"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Anahat, gölge ve düz stillere sahip, yalnızca CSS'ye özgü Tailwind CSS kart
 
 Kart bileşenleri, ilgili bilgileri görsel olarak uyumlu tek bir ünitede birleştiren çok yönlü kaplardır. Anlamsal HTML ve esnek içerik alanlarıyla oluşturulan kartlar, içeriği hiyerarşik olarak düzenler ve çeşitli düzenlere uyum sağlar. Frutjam kart sistemi, ürün vitrinleri, blog gönderileri, referanslar ve gösterge tablosu öğeleri için birden fazla renk çeşidi, boyut ve stil sunar.
 
-Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız: Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağı
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kartın içindeki başlık öğesi |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kartın yastıklı içerik alanı |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Düğmeler ve eylem kontrolleri için alt bilgi alanı |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kartın tamamını tek bir bağlantı için tıklama hedefi haline getirir ve odak halkasını karta taşır |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Ekstra küçük dolgu |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Küçük dolgu |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Orta dolgu (varsayılan) |
@@ -86,7 +87,7 @@ Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağı
 
 ## Eylemleri İçeren Kart
 
-Düğmeler ve eylem kontrolleri için alt bilgi alanı eklemek üzere `card-actions`'ı kullanın.
+Kullanmak `card-actions` düğmeler ve eylem kontrolleri için bir alt bilgi alanı eklemek için.
 
 <Snippet>
 
@@ -105,9 +106,56 @@ Düğmeler ve eylem kontrolleri için alt bilgi alanı eklemek üzere `card-acti
 
 </Snippet>
 
+## Tıklanabilir Kart
+
+Eklemek `card-link` bir kartın içindeki tek bir bağlantıya bağlanır ve kartın tamamı onun tıklama hedefi haline gelir. Kart hala bir `article` bir başlık ve bir paragrafla, ekran okuyucu sarmalayıcı yerine gerçek bağlantıyla buluşur ve birkaç sekme yerine bir sekme durağı bulunur.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+Klavye odağı bunun doğru olduğu kısımdır. Aksi halde tarayıcı yalnızca bağlantı metnini, yani farenin herhangi bir yere tıklayabileceği kartın içindeki birkaç kelimeyi özetler. `card-link` yüzüğü karta doğru hareket ettirir ve içtekini gizler. Yüzük kullanır `currentColor`bu da okunabilir kalacağı anlamına gelir `card-primary` ve her temada.
+
+Karttaki metin seçilebilir durumda kalır ve diğer düğmeler çalışmaya devam eder; böylece kart, aynı anda hem birincil hedefi hem de ikincil eylemleri taşıyabilir.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
+```
+
+</Snippet>
+
 ## Kart Boyutları
 
-Farklı içerik yoğunluklarına ve kullanım durumlarına uyacak beş boyut çeşidi arasından seçim yapın.
+Farklı içerik yoğunluklarına ve kullanım durumlarına uyacak beş boyut seçeneği arasından seçim yapın.
 
 <Snippet>
 

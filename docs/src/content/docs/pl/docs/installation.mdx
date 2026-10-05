@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Instalacja - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "e862d6dc34b6"
+sourceHash: "2dcd50486ff1"
+translationHash: "de03d1ee6f8b"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,15 +48,54 @@ Dodaj Frutjam do swojego `input.css` za pomocą `@plugin` dyrektywa:
 
 </Snippet>
 
-## JavaScript i React — opcjonalne, niewymagane
+## Bez Tailwind: UnoCSS, Vite, Astro lub zwykły CSS
 
-Frutjam jest **najpierw natywny i CSS**. Zdecydowana większość komponentów — przycisków, plakietek, kart, formularzy, alertów i innych — działa w czystym HTML i CSS, bez konieczności używania JavaScript. Natywne elementy HTML, takie jak `<dialog>`, `<details>`, I `<input type="checkbox">` obsługiwać interaktywność tam, gdzie przeglądarki już ją obsługują. Wszystkie komponenty są dostępne od razu po wyjęciu z pudełka i współpracują z Django, HTMX, Laravel, React, Next.js i dowolnym stosem.
+Frutjam jest zbudowany przy użyciu Tailwinda, ale komponenty kompilują się do zwykłego CSS, który odczytuje niestandardowe właściwości. Jeśli Twój projekt korzysta z UnoCSS lub w ogóle nie korzysta z silnika narzędziowego, zaimportuj arkusz stylów zamiast wtyczki:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+To jest cała konfiguracja. Każda klasa komponentów działa, motywy przełączają się za pomocą `data-theme` jak zwykle i nic więcej nie trzeba. Ma 30 KB spakowanego w formacie gzip i zawiera podstawowe style, zarówno motywy, jak i wszystkie ponad 65 komponentów.
+
+Zamiast tego wciągnij tylko to, czego potrzebujesz:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+Lub bez etapu kompilacji:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Zainstalowany jako wtyczka Tailwind, Frutjam dostarcza tylko te komponenty, których używasz. Zaimportowany jako arkusz stylów zawiera wszystkie, ponieważ nie ma etapu kompilacji odczytującego znaczniki.</span></div></div>"} />
+
+## JavaScript i React: opcjonalne, niewymagane
+
+Frutjam jest **najpierw natywny i CSS**. Zdecydowana większość komponentów: przyciski, plakietki, karty, formularze, alerty i inne: działa z czystym HTML i CSS, nie wymaga JavaScriptu. Natywne elementy HTML, takie jak `<dialog>`, `<details>`, I `<input type="checkbox">` obsługiwać interaktywność tam, gdzie przeglądarki już ją obsługują. Wszystkie komponenty są dostępne w formacie WCAG AA od razu po wyjęciu z pudełka i współpracują z Django, HTMX, Laravel, React, Next.js i dowolnym stosem.
 
 Niewielka liczba komponentów nie ma natywnego odpowiednika HTML (powiadomienia tostowe, filtrowanie comboboxów, kontrolki karuzeli). Tylko w takich przypadkach Frutjam dostarcza lekkich opcjonalnych pomocników.
 
-### Wanilia JS — `frutjam/js`
+### Wanilia JS: `frutjam/js`
 
-Pomocnicy modułów ES niezależny od platformy dla komponentów, które ich potrzebują. Dołącz do dowolnego elementu DOM — nie jest wymagana żadna struktura.
+Pomocnicy modułów ES niezależny od platformy dla komponentów, które ich potrzebują. Dołącz do dowolnego elementu DOM, nie wymaga frameworka.
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### Haki reagujące — `frutjam/react`
+### Haki reagujące: `frutjam/react`
 
-Thin React otacza te same natywne wywołania DOM. Each hook returns a `ref` dołączasz do elementu i metod jego kontrolowania — żadnych dodatkowych zależności poza samym Reactem.
+Thin React otacza te same natywne wywołania DOM. Każdy hak zwraca a `ref` dołączasz do elementu i metod jego kontrolowania, żadnych dodatkowych zależności poza samym Reactem.
 
 <Snippet view="code">
 
@@ -97,7 +136,7 @@ Dostępne dla: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs
 
 ### Korzystanie z CDN
 
-Skorzystaj z wersji CDN biblioteki frutjam UI, aby uzyskać szybką i łatwą integrację bez konfiguracji lokalnej. Używaj tej wersji frutjam CDN wyłącznie do celów programistycznych, a nie produkcyjnych.
+Skorzystaj z wersji CDN biblioteki frutjam UI, aby uzyskać szybką i łatwą integrację bez konfiguracji lokalnej. Używaj tej wersji frutjamu CDN wyłącznie do celów programistycznych, a nie produkcyjnych.
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ Skorzystaj z wersji CDN biblioteki frutjam UI, aby uzyskać szybką i łatwą in
 
 Po zainstalowaniu wypróbuj [element przycisku](/components/button) aby zobaczyć Frutjama w akcji lub poznać całość [biblioteka komponentów](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Integracja edytora AI</p><h3 class=\"card-title mb-2\">Używasz kodu Claude'a, kursora lub innego edytora AI?</h3><p class=\"para-sm mb-3\">Cherry MCP przenosi pełną bibliotekę komponentów Frutjam bezpośrednio do kontekstu edytora AI — dokładne nazwy klas, aktualne dokumenty, bez kopiowania i wklejania.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Dowiedz się więcej o Cherry MCP →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Integracja edytora AI</p><h3 class=\"card-title mb-2\">Używasz kodu Claude'a, kursora lub innego edytora AI?</h3><p class=\"para-sm mb-3\">Cherry MCP przenosi pełną bibliotekę komponentów Frutjam bezpośrednio do kontekstu edytora AI, dokładne nazwy klas, aktualne dokumenty, bez kopiowania i wklejania.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Dowiedz się więcej o Cherry MCP →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Projekt startowy</p><h3 class=\"card-title mb-2\">Budowanie z Django?</h3><p class=\"para-sm mb-3\">Działający projekt Django 6 z Frutjamem już podłączony — konta, pulpit nawigacyjny, motywy i przykład CRUD wspierany przecenami. Sklonuj go i zacznij budować.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Zdobądź starter Django →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Projekt startowy</p><h3 class=\"card-title mb-2\">Budowanie z Django?</h3><p class=\"para-sm mb-3\">Działający projekt Django 6 z już podłączonym Frutjamem, kontami, pulpitem nawigacyjnym, motywami i przykładem CRUD wspieranym przecenami. Sklonuj go i zacznij budować.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Zdobądź starter Django →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">Chcesz zrozumieć tok myślenia stojący za podejściem Frutjam opartym na CSS? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Przeczytaj, dlaczego zbudowaliśmy to w ten sposób →</a></p>"} />

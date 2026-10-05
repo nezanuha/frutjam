@@ -2,7 +2,7 @@
 name: "Kartu"
 heading: "Komponen Kartu"
 description: "Kartu CSS Tailwind khusus CSS dengan gaya kerangka, bayangan, dan datar. Ukuran ringkas, standar, dan besar. Isi kartu, judul kartu, slot kaki kartu. WCAG AA, bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun."
-metaTitle: "Kartu - Komponen CSS Tailwind Khusus CSS | Frutjam"
+metaTitle: "Kartu - Komponen CSS Tailwind Khusus CSS | buah-buahan"
 metaDescription: "Kartu CSS Tailwind dengan bagian header, body, dan footer. Mendukung hamparan gambar, tata letak horizontal, dan varian tema untuk wadah produk dan konten."
 order: 0
 related:
@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Komponen kartu oleh Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "17724c2ca938"
+sourceHash: "9debf06dbf4b"
+translationHash: "e05e60dbfb82"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Kartu CSS Tailwind khusus CSS dengan gaya kerangka, bayangan, dan datar. Ukuran 
 
 Komponen kartu adalah wadah serbaguna untuk menggabungkan informasi terkait menjadi satu unit yang kohesif secara visual. Dibangun dengan HTML semantik dan area konten yang fleksibel, kartu mengatur konten secara hierarki dan beradaptasi dengan berbagai tata letak. Sistem kartu Frutjam menawarkan berbagai varian warna, ukuran, dan gaya untuk etalase produk, postingan blog, testimonial, dan elemen dasbor.
 
-Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki kerangka kerja — bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
+Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan kerangka-agnostik: bekerja dengan Django, HTMX, Laravel, React, dan tumpukan apa pun.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Elemen judul di dalam kartu |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Area konten kartu yang empuk |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Area footer untuk tombol dan kontrol tindakan |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Pengubah</span> | Menjadikan seluruh kartu sebagai target klik untuk satu tautan, dan memindahkan cincin fokus ke kartu |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan ekstra kecil |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan kecil |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Ukuran</span> | Bantalan sedang (default) |
@@ -86,7 +87,7 @@ Hanya CSS, tidak diperlukan JavaScript. WCAG AA dapat diakses dan tidak memiliki
 
 ## Kartu dengan Tindakan
 
-Gunakan `card-actions` untuk menambahkan area footer untuk tombol dan kontrol tindakan.
+Menggunakan `card-actions` untuk menambahkan area footer untuk tombol dan kontrol tindakan.
 
 <Snippet>
 
@@ -101,6 +102,53 @@ Gunakan `card-actions` untuk menambahkan area footer untuk tombol dan kontrol ti
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Kartu yang Dapat Diklik
+
+Menambahkan `card-link` ke satu tautan di dalam kartu dan seluruh kartu menjadi target kliknya. Kartunya masih berupa `article` dengan judul dan paragraf, sehingga pembaca layar bertemu dengan tautan sebenarnya, bukan pembungkus, dan terdapat satu perhentian tab, bukan beberapa.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+Fokus keyboard adalah bagian yang diperbaiki. Jika tidak, browser hanya akan menguraikan teks tautan, beberapa kata di dalam kartu yang dapat diklik mouse di mana saja, jadi `card-link` memindahkan cincin ke kartu dan menyembunyikan bagian dalamnya. Cincin itu digunakan `currentColor`, yang berarti tetap dapat dibaca `card-primary` dan pada setiap tema.
+
+Teks di kartu tetap dapat dipilih, dan tombol lainnya tetap berfungsi, sehingga kartu dapat membawa tujuan utama dan tindakan sekunder secara bersamaan.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>
@@ -225,7 +273,7 @@ Terapkan varian warna pada kartu untuk diferensiasi visual dan makna semantik.
 
 ## Latar Belakang Kustom dan Warna Teks
 
-Gunakan utilitas latar belakang Tailwind dan warna teks langsung pada kartu untuk kontrol warna penuh.
+Gunakan utilitas latar belakang Tailwind dan warna teks apa pun langsung pada kartu untuk kontrol warna penuh.
 
 <Snippet>
 

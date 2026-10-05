@@ -2,7 +2,7 @@
 name: "Tarjeta"
 heading: "Componente de tarjeta"
 description: "Tarjeta CSS Tailwind solo para CSS con estilos de contorno, sombra y plano. Tamaños compactos, predeterminados y grandes. Contenido de la tarjeta, título de la tarjeta, espacios para el pie de página de la tarjeta. WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
-metaTitle: "Tarjeta - Componente CSS Tailwind solo CSS | Frutjam"
+metaTitle: "Tarjeta - Componente CSS Tailwind solo CSS | mermelada de frutas"
 metaDescription: "Tarjeta CSS Tailwind con secciones de encabezado, cuerpo y pie de página. Admite superposiciones de imágenes, diseños horizontales y variantes de temas para contenedores de productos y contenidos."
 order: 0
 related:
@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Componentes de tarjetas de Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "696b18aa6a2b"
+sourceHash: "9debf06dbf4b"
+translationHash: "372c96e872bd"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -38,6 +38,7 @@ Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Elemento de encabezado dentro de la tarjeta. |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de contenido acolchada de la tarjeta. |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de pie de página para botones y controles de acción |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Convierte toda la tarjeta en el destino del clic para un enlace y mueve el anillo de enfoque a la tarjeta. |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Acolchado extra pequeño |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Pequeño acolchado |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Tamaño</span> | Relleno medio (predeterminado) |
@@ -86,7 +87,7 @@ Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco
 
 ## Tarjeta con acciones
 
-Utilice `card-actions` para agregar un área de pie de página para botones y controles de acción.
+Usar `card-actions` para agregar un área de pie de página para botones y controles de acción.
 
 <Snippet>
 
@@ -101,6 +102,53 @@ Utilice `card-actions` para agregar un área de pie de página para botones y co
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Tarjeta en la que se puede hacer clic
+
+Agregar `card-link` a un enlace dentro de una tarjeta y toda la tarjeta se convierte en su destino de clic. La tarjeta sigue siendo una `article` con un encabezado y un párrafo, por lo que un lector de pantalla encuentra el enlace real en lugar de un envoltorio, y hay una tabulación en lugar de varias.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+El enfoque del teclado es la parte que esto hace bien. De lo contrario, el navegador solo delinearía el texto del enlace, unas pocas palabras dentro de una tarjeta en la que el mouse puede hacer clic en cualquier lugar, por lo que `card-link` mueve el anillo a la tarjeta y oculta el interior. El anillo usa `currentColor`, lo que significa que permanece legible en `card-primary` y sobre cada tema.
+
+El texto de la tarjeta sigue siendo seleccionable y otros botones siguen funcionando, por lo que una tarjeta puede contener un destino principal y acciones secundarias al mismo tiempo.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>
@@ -399,7 +447,7 @@ Cree diseños de tarjetas flexibles que se adapten a diferentes tamaños de pant
 
 </Snippet>
 
-## Combined Variants
+## Variantes combinadas
 
 Mezcle y combine variantes de tamaño, color y estilo para diseños de tarjetas personalizados.
 

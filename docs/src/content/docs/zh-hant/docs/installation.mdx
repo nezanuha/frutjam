@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "安裝 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "1f2a742b61ea"
+sourceHash: "2dcd50486ff1"
+translationHash: "ab088da7dd5f"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -25,9 +25,9 @@ import DocTable from '@/components/DocTable.astro';
 
 ## 如何在 Tailwind CSS 專案中安裝 Frutjam UI 庫？
 
-確保你有一份工作 [順風 CSS](https://tailwindcss.com/docs/installation/using-vite) 項目已安裝，以及 [節點](https://nodejs.org/en/download) 和 NPM 在您的電腦上。 Frutjam 可與 Tailwind 版本 4 搭配使用。
+確保你有一份工作 [順風CSS](https://tailwindcss.com/docs/installation/using-vite) 項目已安裝，以及 [節點](https://nodejs.org/en/download) 以及電腦上的NPM。Frutjam與Tailwind版本4兼容。
 
-### 透過執行以下命令將 frutjam 安裝為節點包：
+### 執行下列指令，將frutjam安裝為Node套件：
 
 <Snippet view="code">
 
@@ -37,7 +37,7 @@ npm i -D frutjam
 
 </Snippet>
 
-將Frutjam 加入您的 `input.css` 使用 `@plugin` 指示：
+將Frutjam添加到您的 `input.css` 使用 `@plugin` 指示詞
 
 <Snippet view="code">
 
@@ -48,15 +48,54 @@ npm i -D frutjam
 
 </Snippet>
 
-## JavaScript 和 React——可選，非必需
+## 無順風： UnoCSS、VITE、Astro或普通CSS
 
-Frutjam 是**原生優先和 CSS 優先**。絕大多數元件（按鈕、徽章、卡片、表單、警報等）都可使用純 HTML 和 CSS，無需任何 JavaScript。原生 HTML 元素如 `<dialog>`, `<details>`， 和 `<input type="checkbox">` 處理瀏覽器已經支援的互動性。所有元件均可透過 WCAG AA 開箱即用，並可與 Django、HTMX、Laravel、React、Next.js 和任何堆疊配合使用。
+Frutjam是使用Tailwind構建的，但組件編譯為讀取自定義屬性的普通CSS。如果您的專案使用UnoCSS或根本沒有公用程式引擎，請匯入樣式表而不是外掛程式：
 
-少數元件沒有本機 HTML 等效項（toast 通知、組合方塊過濾、輪播控制）。僅針對這些情況，Frutjam 提供了輕量級可選助手。
+<Snippet view="code">
 
-### 香草 JS — `frutjam/js`
+```js
+import 'frutjam/css';
+```
 
-與框架無關的 ES 模組助手，用於需要它們的組件。附加到任何 DOM 元素 — 無需框架。
+</Snippet>
+
+這就是整個設定。每個組件類都有效，主題切換 `data-theme` 像往常一樣，不需要其他任何東西。它是30 KB gzip壓縮的，並帶有基本樣式，包括主題和所有65 +組件。
+
+請只填寫您需要的資訊：
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+或者根本沒有構建步驟：
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>作為Tailwind外掛程式安裝， Frutjam僅提供您使用的組件。作為樣式表匯入，它會運送所有樣式表，因為沒有構建步驟可以讀取您的標記。</span></div></div>"} />
+
+## JavaScript和React ：選填，非必填
+
+Frutjam是* *原生優先和CSS優先* *。絕大多數元件：按鈕、徽章、卡片、表單、提醒等：使用純HTML和CSS ，不需要任何JavaScript。原生HTML元素，例如 `<dialog>`, `<details>` 和  `<input type="checkbox">` 處理瀏覽器已支援的交互性。所有元件都開箱即可存取WCAG AA ，並可與Django、HTMX、Laravel、React、Next.js和任何堆疊搭配使用。
+
+少數元件沒有原生HTML等效項目（ Toast通知、組合方塊篩選、輪播控制項）。僅在這些情況下， Frutjam會運送輕量可選的助手。
+
+### Vanilla JS ： `frutjam/js`
+
+與框架無關的ES模組協助程式，用於需要它們的組件。附加到任何DOM元素，不需要框架。
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### 反應鉤子—— `frutjam/react`
+### React Hooks ： `frutjam/react`
 
-圍繞相同的本機 DOM 調用的精簡 React 包裝器。每個鉤子返回一個 `ref` 你附加到元素和方法來控制它——除了 React 本身之外沒有額外的依賴項。
+圍繞相同原生DOM呼叫的精簡React包裝器。每個鉤子都會傳回 `ref` 你附加到元素和方法來控制它，除了React本身之外沒有額外的依賴關係。
 
 <Snippet view="code">
 
@@ -93,11 +132,11 @@ export default function App() {
 
 </Snippet>
 
-適用於： `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+可使用於： `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
 
-### 使用 CDN
+### 使用CDN
 
-使用 frutjam UI 庫的 CDN 版本可快速輕鬆地集成，無需本地設定。將此 CDN 版本的 frutjam 僅用於開發目的，不得用於生產。
+使用frutjam UI庫的CDN版本，無需本地設置即可快速輕鬆集成。僅將此CDN版本的frutjam用於開發目的，而不用於生產。
 
 <Snippet view="code">
 
@@ -110,10 +149,10 @@ export default function App() {
 
 ## 下一步
 
-安裝後，嘗試 [按鈕組件](/components/button) 觀看 Frutjam 的實際應用，或探索完整的 [元件庫](/components).
+安裝後，請嘗試 [按鈕元件](/components/button) 看到Frutjam在行動中，或探索完整的 [元件庫](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI編輯器集成</p><h3 class=\"card-title mb-2\">使用 Claude Code、Cursor 或其他 AI 編輯器？</h3><p class=\"para-sm mb-3\">Cherry MCP 將 Frutjam 的完整組件庫直接帶入您的 AI 編輯器上下文中 — 準確的類名稱、實時文檔，無需複製粘貼。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">了解 Cherry MCP →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI編輯器整合</p><h3 class=\"card-title mb-2\">使用Claude Code、Cursor或其他AI編輯器？</h3><p class=\"para-sm mb-3\">Cherry MCP將Frutjam的完整元件庫直接帶入AI編輯器的上下文、準確的類別名稱、即時文件，無需複製貼上。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">了解Cherry MCP →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">入門項目</p><h3 class=\"card-title mb-2\">使用 Django 建置？</h3><p class=\"para-sm mb-3\">一個 Django 6 專案與 Frutjam 已經連接起來 — 帳戶、儀表板、主題和 Markdown 支援的 CRUD 範例。克隆它並開始構建。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">取得 Django 入門 →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">新手專案</p><h3 class=\"card-title mb-2\">使用Django構建？</h3><p class=\"para-sm mb-3\">使用Frutjam的Django 6專案已連線、帳戶、儀表板、主題和扣分支援的CRUD範例。克隆它並開始構建。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">取得Django入門版 →</a></div></div></div>"} />
 
-<RawHtml html={"<p class=\"mt-6\">想要了解 Frutjam CSS 優先方法背後的想法嗎？ <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">了解我們為什麼這樣建構它 →</a></p>"} />
+<RawHtml html={"<p class=\"mt-6\">想要了解Frutjam CSS-first方法背後的思想？ <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">瞭解我們為何以這種方式打造房源 →</a></p>"} />

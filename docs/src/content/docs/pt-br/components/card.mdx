@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Componentes de cartão da Frutjam"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "b1fca649894d"
+sourceHash: "9debf06dbf4b"
+translationHash: "9ef0efa76510"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ Cartão CSS Tailwind somente CSS com estilos de contorno, sombra e planos. Taman
 
 Os componentes do cartão são recipientes versáteis para combinar informações relacionadas em uma unidade única e visualmente coesa. Construídos com HTML semântico e áreas de conteúdo flexíveis, os cartões organizam o conteúdo hierarquicamente e se adaptam a diversos layouts. O sistema de cartões Frutjam oferece diversas variantes de cores, tamanhos e estilos para vitrines de produtos, postagens em blogs, depoimentos e elementos de painel.
 
-Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura - funciona com Django, HTMX, Laravel, React e qualquer pilha.
+Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de estrutura: funciona com Django, HTMX, Laravel, React e qualquer pilha.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Elemento de título dentro do cartão |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de conteúdo acolchoada do cartão |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Área de rodapé para botões e controles de ação |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Torna o cartão inteiro o alvo de clique de um link e move o anel de foco para o cartão |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Preenchimento extra pequeno |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Preenchimento pequeno |
 | card-md | <span class="badge badge-xs badge-info badge-soft">Tamanho</span> | Preenchimento médio (padrão) |
@@ -86,7 +87,7 @@ Somente CSS, sem necessidade de JavaScript. WCAG AA acessível e independente de
 
 ## Cartão com Ações
 
-Use `card-actions` para adicionar uma área de rodapé para botões e controles de ação.
+Usar `card-actions` para adicionar uma área de rodapé para botões e controles de ação.
 
 <Snippet>
 
@@ -101,6 +102,53 @@ Use `card-actions` para adicionar uma área de rodapé para botões e controles 
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## Cartão clicável
+
+Adicionar `card-link` para um link dentro de um cartão e todo o cartão se torna seu alvo de clique. O cartão ainda é um `article` com um título e um parágrafo, para que um leitor de tela encontre o link real em vez de um wrapper, e haja uma parada de tabulação em vez de várias.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+O foco do teclado é a parte que acerta. Caso contrário, o navegador delinearia apenas o texto do link, algumas palavras dentro de um cartão no qual o mouse pode clicar em qualquer lugar, então `card-link` move o anel para o cartão e esconde o interior. O anel usa `currentColor`, o que significa que permanece legível em `card-primary` e em todos os temas.
+
+O texto no cartão permanece selecionável e outros botões continuam funcionando, para que um cartão possa conter um destino principal e ações secundárias ao mesmo tempo.
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "설치 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "b3bd6b50dd6e"
+sourceHash: "2dcd50486ff1"
+translationHash: "f4432084b257"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,15 +48,54 @@ Frutjam을 추가하세요. `input.css` 사용하여 `@plugin` 지령:
 
 </Snippet>
 
-## JavaScript 및 React — 선택 사항, 필수 아님
+## Tailwind 제외: UnoCSS, Vite, Astro 또는 일반 CSS
+
+Frutjam은 Tailwind로 구축되었지만 구성 요소는 사용자 정의 속성을 읽는 일반 CSS로 컴파일됩니다. 프로젝트가 UnoCSS를 사용하거나 유틸리티 엔진을 전혀 사용하지 않는 경우 플러그인 대신 스타일시트를 가져옵니다.
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+이것이 전체 설정입니다. 모든 구성 요소 클래스가 작동하고 테마는 다음과 같이 전환됩니다. `data-theme` 평소대로이며 다른 것은 필요하지 않습니다. 30KB 크기로 압축되어 있으며 기본 스타일, 테마 및 65개 이상의 구성 요소를 모두 포함하고 있습니다.
+
+대신 필요한 것만 가져오세요.
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+또는 빌드 단계가 전혀 없습니다.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Tailwind 플러그인으로 설치되는 Frutjam은 귀하가 사용하는 구성 요소만 제공합니다. 마크업을 읽는 빌드 단계가 없기 때문에 스타일시트로 가져오면 모든 스타일이 제공됩니다.</span></div></div>"} />
+
+## JavaScript 및 React: 선택 사항, 필수 사항 아님
 
 Frutjam은 **네이티브 우선 및 CSS 우선**입니다. 버튼, 배지, 카드, 양식, 알림 등 대부분의 구성 요소는 JavaScript가 필요 없이 순수 HTML 및 CSS로 작동합니다. 다음과 같은 기본 HTML 요소 `<dialog>`, `<details>`, 그리고 `<input type="checkbox">` 브라우저가 이미 지원하는 상호작용을 처리합니다. 모든 구성 요소는 기본적으로 WCAG AA에 액세스할 수 있으며 Django, HTMX, Laravel, React, Next.js 및 모든 스택에서 작동합니다.
 
 소수의 구성 요소에는 기본 HTML과 동등한 기능(토스트 알림, 콤보 상자 필터링, 캐러셀 컨트롤)이 없습니다. 이러한 경우에만 Frutjam은 가벼운 선택적 도우미를 제공합니다.
 
-### 바닐라 JS — `frutjam/js`
+### 바닐라 JS: `frutjam/js`
 
-프레임워크에 구애받지 않는 ES 모듈 도우미가 필요한 구성 요소를 지원합니다. DOM 요소에 연결하세요. 프레임워크가 필요하지 않습니다.
+프레임워크에 구애받지 않는 ES 모듈 도우미가 필요한 구성 요소를 지원합니다. DOM 요소에 연결하면 프레임워크가 필요하지 않습니다.
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### 반응 후크 — `frutjam/react`
+### 반응 후크: `frutjam/react`
 
-동일한 기본 DOM 호출을 둘러싼 얇은 React 래퍼. 각 후크는 `ref` 요소와 메소드에 연결하여 이를 제어합니다. React 자체 외에는 추가 종속성이 없습니다.
+동일한 기본 DOM 호출을 둘러싼 얇은 React 래퍼. 각 후크는 `ref` 요소와 메소드에 연결하여 이를 제어할 수 있으며 React 자체 외에는 추가 종속성이 없습니다.
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ export default function App() {
 
 설치한 후 다음을 시도해 보세요. [버튼 구성요소](/components/button) Frutja의 실제 작동 모습을 보거나 전체 내용을 살펴보려면 [구성 요소 라이브러리](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI 편집기 통합</p><h3 class=\"card-title mb-2\">Claude Code, Cursor 또는 다른 AI 편집기를 사용하시나요?</h3><p class=\"para-sm mb-3\">Cherry MCP는 Frutjam의 전체 구성 요소 라이브러리를 AI 편집기의 컨텍스트에 직접 제공합니다. 정확한 클래스 이름, 라이브 문서, 복사 붙여넣기 기능이 없습니다.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP에 대해 알아보기 →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI 편집기 통합</p><h3 class=\"card-title mb-2\">Claude Code, Cursor 또는 다른 AI 편집기를 사용하시나요?</h3><p class=\"para-sm mb-3\">Cherry MCP는 Frutjam의 전체 구성 요소 라이브러리를 AI 편집기의 컨텍스트, 정확한 클래스 이름, 라이브 문서에 직접 가져오고 복사-붙여넣기가 필요하지 않습니다.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP에 대해 알아보기 →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">스타터 프로젝트</p><h3 class=\"card-title mb-2\">Django로 빌드를 하시나요?</h3><p class=\"para-sm mb-3\">Frutjam과 함께 작동하는 Django 6 프로젝트(계정, 대시보드, 테마 및 마크다운 지원 CRUD 예제)가 이미 연결되어 있습니다. 그것을 복제하고 구축을 시작하십시오.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django 스타터 받기 →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">스타터 프로젝트</p><h3 class=\"card-title mb-2\">Django로 빌드를 하시나요?</h3><p class=\"para-sm mb-3\">Frutjam, 계정, 대시보드, 테마 및 마크다운 지원 CRUD 예제가 이미 연결되어 있는 작동 중인 Django 6 프로젝트입니다. 그것을 복제하고 구축을 시작하십시오.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django 스타터 받기 →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">Frutjam의 CSS 우선 접근 방식에 대한 생각을 이해하고 싶으십니까? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">우리가 왜 이런 방식으로 구축했는지 읽어보세요 →</a></p>"} />

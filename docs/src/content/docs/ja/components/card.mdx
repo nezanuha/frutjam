@@ -2,7 +2,7 @@
 name: "カード"
 heading: "カードコンポーネント"
 description: "アウトライン、シャドウ、フラット スタイルを備えた CSS のみの Tailwind CSS カード。コンパクト、デフォルト、ラージサイズ。カードの内容、カードのタイトル、カード フッターのスロット。 WCAG AA は、Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。"
-metaTitle: "カード - CSS のみ Tailwind CSS コンポーネント |Frutjam"
+metaTitle: "カード - CSS のみ Tailwind CSS コンポーネント |フルートジャム"
 metaDescription: "Tailwind CSS カードにはヘッダー、ボディ、フッター セクションが含まれます。製品およびコンテンツコンテナの画像オーバーレイ、水平レイアウト、テーマバリアントをサポートします。"
 order: 0
 related:
@@ -14,8 +14,8 @@ image: "https://cdn.frutjam.com/media/components/card.webp"
 imageAlt: "Frutjam のカード コンポーネント"
 createdAt: "2025-09-09T13:33:54.604017+00:00"
 updatedAt: "2026-07-13T09:49:33.249427+00:00"
-sourceHash: "af47779a1055"
-translationHash: "20bc3cfacb02"
+sourceHash: "9debf06dbf4b"
+translationHash: "a4d07873757d"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -26,7 +26,7 @@ import DocTable from '@/components/DocTable.astro';
 
 カード コンポーネントは、関連情報を単一の視覚的にまとまったユニットに結合するための多用途のコンテナです。セマンティック HTML と柔軟なコンテンツ領域で構築されたカードは、コンテンツを階層的に編成し、さまざまなレイアウトに適応します。 Frutjam カード システムは、製品ショーケース、ブログ投稿、お客様の声、ダッシュボード要素に複数のカラー バリエーション、サイズ、スタイルを提供します。
 
-CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能で、フレームワークに依存しない - Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
+CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可能でフレームワークに依存しない: Django、HTMX、Laravel、React、およびあらゆるスタックで動作します。
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -38,6 +38,7 @@ CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可�
 | card-title | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | カード内の見出し要素 |
 | card-content | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | カードのパッド付きコンテンツ領域 |
 | card-actions | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | ボタンとアクション コントロールのフッター領域 |
+| card-link | <span class="badge badge-xs badge-secondary badge-soft">修飾子</span> | カード全体を1つのリンクのクリック対象にし、フォーカスリングをカードに移動します |
 | card-xs | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 極小のパッド |
 | card-sm | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 小さなパッド |
 | card-md | <span class="badge badge-xs badge-info badge-soft">サイズ</span> | 中程度のパディング (デフォルト) |
@@ -86,7 +87,7 @@ CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可�
 
 ## アクション付きカード
 
-`card-actions` を使用して、ボタンとアクション コントロールのフッター領域を追加します。
+使用 `card-actions` ボタンとアクション コントロールのフッター領域を追加します。
 
 <Snippet>
 
@@ -101,6 +102,53 @@ CSS のみ。JavaScript は必要ありません。 WCAG AA にアクセス可�
     </div>
   </div>
 </div>
+```
+
+</Snippet>
+
+## クリッカブルカード
+
+追加 `card-link` カード内の 1 つのリンクにリンクすると、カード全体がクリック対象になります。カードはまだ `article` 見出しと段落があるため、スクリーン リーダーはラッパーではなく実際のリンクに対応し、複数のタブ ストップではなく 1 つのタブ ストップが存在します。
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div class="card-content">
+    <h2 class="card-title" id="kyoto"><a class="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+```jsx
+<article className="card card-outline card-md w-88" aria-labelledby="kyoto">
+  <div className="card-content">
+    <h2 className="card-title" id="kyoto"><a className="card-link" href="/guides/kyoto">Kyoto, day to night</a></h2>
+    <p>Local setup notes, language resources and community links.</p>
+  </div>
+</article>
+```
+
+</Snippet>
+
+キーボードのフォーカスは、これが正しく行われる部分です。それ以外の場合、ブラウザはリンク テキストのアウトラインのみを表示し、マウスでどこでもクリックできるカード内のいくつかの単語を表示します。 `card-link` リングをカードに移動し、内側のリングを非表示にします。リングが使用しているのは、 `currentColor`、つまり、読み取り可能なままになります。 `card-primary` そしてあらゆるテーマについて。
+
+カード内のテキストは選択可能なままで、他のボタンは機能し続けるため、カードには主な宛先と副次的なアクションを同時に伝えることができます。
+
+<Snippet>
+
+```html
+<article class="card card-outline card-md w-88" aria-labelledby="product-1">
+  <div class="card-content">
+    <h2 class="card-title" id="product-1"><a class="card-link" href="/products/1">Product 1</a></h2>
+    <p>Description of the product.</p>
+    <div class="card-actions">
+      <button class="btn btn-sm btn-primary">Add to cart</button>
+      <button class="btn btn-sm btn-outline">Save</button>
+    </div>
+  </div>
+</article>
 ```
 
 </Snippet>

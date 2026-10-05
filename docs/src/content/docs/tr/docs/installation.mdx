@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Kurulum - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "ed0dfbe486e5"
+sourceHash: "2dcd50486ff1"
+translationHash: "2640bca967fc"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,13 +48,52 @@ Frutjam'ı ekleyin `input.css` kullanarak `@plugin` direktif:
 
 </Snippet>
 
-## JavaScript ve React – İsteğe Bağlı, Gerekli Değil
+## Tailwind olmadan: UnoCSS, Vite, Astro veya düz CSS
 
-Frutjam **yerel öncelikli ve CSS önceliklidir**. Bileşenlerin büyük çoğunluğu (düğmeler, rozetler, kartlar, formlar, uyarılar ve daha fazlası) saf HTML ve CSS ile çalışır, hiçbir JavaScript gerektirmez. Yerel HTML öğeleri gibi `<dialog>`, `<details>`, Ve `<input type="checkbox">` Tarayıcıların zaten desteklediği etkileşimi yönetin. Tüm bileşenlere WCAG AA kullanıma hazırdır ve Django, HTMX, Laravel, React, Next.js ve herhangi bir yığınla çalışır.
+Frutjam, Tailwind ile oluşturulmuştur ancak bileşenler, özel özellikleri okuyan sıradan CSS'ye derlenir. Projeniz UnoCSS kullanıyorsa veya hiç yardımcı motor kullanmıyorsa eklenti yerine stil sayfasını içe aktarın:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+Bütün kurulum budur. Her bileşen sınıfı çalışır, temalar değişir `data-theme` her zamanki gibi ve başka hiçbir şeye gerek yok. 30 KB gzip'lidir ve temel stilleri, hem temaları hem de 65'ten fazla bileşeni taşır.
+
+Bunun yerine yalnızca ihtiyacınız olanı çekin:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+Veya hiçbir derleme adımı olmadan:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Tailwind eklentisi olarak kurulan Frutjam, yalnızca kullandığınız bileşenleri gönderir. Bir stil sayfası olarak içe aktarıldığında, bunların tümü gönderilir, çünkü işaretlemenizi okuyan bir oluşturma adımı yoktur.</span></div></div>"} />
+
+## JavaScript ve React: İsteğe Bağlı, Gerekli Değil
+
+Frutjam **yerel öncelikli ve CSS önceliklidir**. Bileşenlerin büyük çoğunluğu: düğmeler, rozetler, kartlar, formlar, uyarılar ve daha fazlası: saf HTML ve CSS ile çalışır, sıfır JavaScript gerektirir. Yerel HTML öğeleri gibi `<dialog>`, `<details>`, Ve `<input type="checkbox">` Tarayıcıların zaten desteklediği etkileşimi yönetin. Tüm bileşenlere WCAG AA kullanıma hazırdır ve Django, HTMX, Laravel, React, Next.js ve herhangi bir yığınla çalışır.
 
 Az sayıda bileşenin yerel HTML eşdeğeri yoktur (kısmen bildirimler, birleşik giriş kutusu filtreleme, atlıkarınca kontrolleri). Frutjam yalnızca bu durumlar için hafif, isteğe bağlı yardımcılar gönderir.
 
-### Vanilya JS — `frutjam/js`
+### Vanilya JS: `frutjam/js`
 
 İhtiyaç duyan bileşenler için çerçeveden bağımsız ES modülü yardımcıları. Herhangi bir DOM öğesine ekleyin; çerçeve gerekmez.
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### Tepki Kancaları — `frutjam/react`
+### Tepki Kancaları: `frutjam/react`
 
-Aynı yerel DOM çağrılarının etrafındaki ince React sarmalayıcıları. Her kanca bir değer döndürür `ref` öğeye ve onu kontrol etmek için yöntemlere bağlanırsınız; React'ın kendisi dışında ekstra bir bağımlılık yoktur.
+Aynı yerel DOM çağrılarının etrafındaki ince React sarmalayıcıları. Her kanca bir değer döndürür `ref` öğeye ve onu kontrol etmek için yöntemlere bağlanırsınız, React'ın kendisi dışında ekstra bir bağımlılık yoktur.
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ Yerel kurulum gerektirmeden hızlı ve kolay entegrasyon için frutjam UI kitapl
 
 Kurulduktan sonra şunu deneyin: [düğme bileşeni](/components/button) Frutjam'ı çalışırken görmek veya tamamını keşfetmek için [bileşen kütüphanesi](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI Düzenleyici Entegrasyonu</p><h3 class=\"card-title mb-2\">Claude Code, Cursor veya başka bir AI düzenleyiciyi mi kullanıyorsunuz?</h3><p class=\"para-sm mb-3\">Cherry MCP, Frutjam'ın tüm bileşen kitaplığını doğrudan AI editörünüzün bağlamına getirir; doğru sınıf adları, canlı belgeler, kopyala-yapıştır gerektirmez.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP hakkında bilgi edinin →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI Düzenleyici Entegrasyonu</p><h3 class=\"card-title mb-2\">Claude Code, Cursor veya başka bir AI düzenleyiciyi mi kullanıyorsunuz?</h3><p class=\"para-sm mb-3\">Cherry MCP, Frutjam'ın tüm bileşen kitaplığını doğrudan AI editörünüzün bağlamına, doğru sınıf adlarına, canlı belgelere, kopyala-yapıştır işlemine gerek kalmadan getirir.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP hakkında bilgi edinin →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Başlangıç ​​projesi</p><h3 class=\"card-title mb-2\">Django ile mi inşa ediyorsunuz?</h3><p class=\"para-sm mb-3\">Frutjam'ın zaten bağlandığı çalışan bir Django 6 projesi; hesaplar, bir kontrol paneli, temalar ve işaretleme destekli bir CRUD örneği. Klonlayın ve oluşturmaya başlayın.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django başlatıcısını edinin →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Başlangıç ​​projesi</p><h3 class=\"card-title mb-2\">Django ile mi inşa ediyorsunuz?</h3><p class=\"para-sm mb-3\">Frutjam'ın zaten bağlandığı, hesapların, kontrol panelinin, temaların ve markdown destekli CRUD örneğinin bulunduğu çalışan bir Django 6 projesi. Klonlayın ve oluşturmaya başlayın.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django başlatıcısını edinin →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">Frutjam'ın CSS öncelikli yaklaşımının ardındaki düşünceyi anlamak ister misiniz? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Neden bu şekilde inşa ettiğimizi okuyun →</a></p>"} />

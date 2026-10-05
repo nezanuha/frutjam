@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "安装 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "42f9831b6eb5"
+sourceHash: "2dcd50486ff1"
+translationHash: "a42a7565136f"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -25,7 +25,7 @@ import DocTable from '@/components/DocTable.astro';
 
 ## 如何在 Tailwind CSS 项目中安装 Frutjam UI 库？
 
-确保你有一份工作 [顺风 CSS](https://tailwindcss.com/docs/installation/using-vite) 项目已安装，以及 [节点](https://nodejs.org/en/download) 和 NPM 在您的计算机上。 Frutjam 可与 Tailwind 版本 4 配合使用。
+确保你有一份工作 [顺风CSS](https://tailwindcss.com/docs/installation/using-vite) 项目已安装，以及 [节点](https://nodejs.org/en/download) 和 NPM 在您的计算机上。 Frutjam 可与 Tailwind 版本 4 配合使用。
 
 ### 通过运行以下命令将 frutjam 安装为节点包：
 
@@ -48,15 +48,54 @@ npm i -D frutjam
 
 </Snippet>
 
-## JavaScript 和 React——可选，非必需
+## 没有 Tailwind：UnoCSS、Vite、Astro 或纯 CSS
 
-Frutjam 是**原生优先和 CSS 优先**。绝大多数组件（按钮、徽章、卡片、表单、警报等）都可使用纯 HTML 和 CSS，无需任何 JavaScript。原生 HTML 元素如 `<dialog>`, `<details>`， 和 `<input type="checkbox">` 处理浏览器已经支持的交互性。所有组件均可通过 WCAG AA 开箱即用，并可与 Django、HTMX、Laravel、React、Next.js 和任何堆栈配合使用。
+Frutjam 是使用 Tailwind 构建的，但组件编译为读取自定义属性的普通 CSS。如果您的项目使用 UnoCSS，或者根本没有实用程序引擎，请导入样式表而不是插件：
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+这就是整个设置。每个组件类都可以工作，主题可以切换 `data-theme` 像往常一样，不需要其他任何东西。它压缩后大小为 30 KB，包含基本样式、主题和所有 65 个以上组件。
+
+只拉入您需要的内容：
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+或者根本没有构建步骤：
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Frutjam 作为 Tailwind 插件安装，仅提供您使用的组件。作为样式表导入，它会提供所有这些内容，因为没有构建步骤读取您的标记。</span></div></div>"} />
+
+## JavaScript 和 React：可选，非必需
+
+Frutjam 是**原生优先和 CSS 优先**。绝大多数组件：按钮、徽章、卡片、表单、警报等：使用纯 HTML 和 CSS，无需任何 JavaScript。原生 HTML 元素如 `<dialog>`, `<details>`， 和 `<input type="checkbox">` 处理浏览器已经支持的交互性。所有组件均可通过 WCAG AA 开箱即用，并可与 Django、HTMX、Laravel、React、Next.js 和任何堆栈配合使用。
 
 少数组件没有本机 HTML 等效项（toast 通知、组合框过滤、轮播控件）。仅针对这些情况，Frutjam 提供了轻量级可选助手。
 
-### 香草 JS — `frutjam/js`
+### 普通JS： `frutjam/js`
 
-与框架无关的 ES 模块助手，用于需要它们的组件。附加到任何 DOM 元素 — 无需框架。
+与框架无关的 ES 模块助手，用于需要它们的组件。附加到任何 DOM 元素，无需框架。
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### 反应钩子—— `frutjam/react`
+### 反应挂钩： `frutjam/react`
 
-围绕相同的本机 DOM 调用的精简 React 包装器。每个钩子返回一个 `ref` 你附加到元素和方法来控制它——除了 React 本身之外没有额外的依赖项。
+围绕相同的本机 DOM 调用的精简 React 包装器。每个钩子返回一个 `ref` 您附加到元素和方法来控制它，除了 React 本身之外没有额外的依赖项。
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ export default function App() {
 
 安装后，尝试 [按钮组件](/components/button) 观看 Frutjam 的实际应用，或探索完整的 [元件库](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI编辑器集成</p><h3 class=\"card-title mb-2\">使用 Claude Code、Cursor 或其他 AI 编辑器？</h3><p class=\"para-sm mb-3\">Cherry MCP 将 Frutjam 的完整组件库直接带入您的 AI 编辑器上下文中 — 准确的类名称、实时文档，无需复制粘贴。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">了解 Cherry MCP →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AI编辑器集成</p><h3 class=\"card-title mb-2\">使用 Claude Code、Cursor 或其他 AI 编辑器？</h3><p class=\"para-sm mb-3\">Cherry MCP 将 Frutjam 的完整组件库直接带入您的 AI 编辑器上下文中，提供准确的类名称、实时文档，无需复制粘贴。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">了解 Cherry MCP →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">入门项目</p><h3 class=\"card-title mb-2\">使用 Django 构建？</h3><p class=\"para-sm mb-3\">一个 Django 6 项目与 Frutjam 已经连接起来 — 帐户、仪表板、主题和 Markdown 支持的 CRUD 示例。克隆它并开始构建。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">获取 Django 入门 →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">入门项目</p><h3 class=\"card-title mb-2\">使用 Django 构建？</h3><p class=\"para-sm mb-3\">一个 Django 6 项目与 Frutjam 已经连接，包括帐户、仪表板、主题和 Markdown 支持的 CRUD 示例。克隆它并开始构建。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">获取 Django 入门 →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">想要了解 Frutjam CSS 优先方法背后的想法吗？ <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">了解我们为什么这样构建它 →</a></p>"} />

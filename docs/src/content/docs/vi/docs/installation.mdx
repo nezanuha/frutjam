@@ -1,7 +1,7 @@
 ---
 name: "Cài đặt"
 heading: "Cài đặt"
-description: "Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào."
+description: "Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập được ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào."
 metaTitle: "Cài đặt Frutjam | Thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS | trái cây"
 metaDescription: "Cài đặt thư viện giao diện người dùng Tailwind CSS chỉ dành cho CSS của Frutjam. Hai lần nhập, không có JavaScript, tương thích Tailwind v4. Hoạt động với Django, HTMX, Laravel và React."
 order: 1
@@ -13,15 +13,15 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Cài đặt - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "32ea08102793"
-translationHash: "61b043fac093"
+sourceHash: "2dcd50486ff1"
+translationHash: "c220626a4ef1"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào.
+Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập được ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào.
 
 ## Làm cách nào để cài đặt thư viện Frutjam UI trong dự án CSS Tailwind?
 
@@ -48,15 +48,54 @@ Thêm Frutjam vào `input.css` sử dụng `@plugin` chỉ thị:
 
 </Snippet>
 
-## JavaScript & React - Tùy chọn, Không bắt buộc
+## Không có Tailwind: UnoCSS, Vite, Astro hoặc CSS đơn giản
 
-Frutjam là **bản địa đầu tiên và CSS đầu tiên**. Phần lớn các thành phần — nút, huy hiệu, thẻ, biểu mẫu, cảnh báo, v.v. — hoạt động với HTML và CSS thuần túy, không cần JavaScript. Các phần tử HTML gốc như `<dialog>`, `<details>`, Và `<input type="checkbox">` xử lý tính tương tác ở những nơi trình duyệt đã hỗ trợ nó. Tất cả các thành phần đều có thể truy cập WCAG AA ngay lập tức và hoạt động với Django, HTMX, Laravel, React, Next.js và bất kỳ ngăn xếp nào.
+Frutjam được xây dựng bằng Tailwind, nhưng các thành phần biên dịch thành CSS thông thường đọc các thuộc tính tùy chỉnh. Nếu dự án của bạn sử dụng UnoCSS hoặc hoàn toàn không có công cụ tiện ích nào, hãy nhập biểu định kiểu thay vì plugin:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css';
+```
+
+</Snippet>
+
+Đó là toàn bộ thiết lập. Mọi lớp thành phần đều hoạt động, chủ đề chuyển đổi với `data-theme` như thường lệ và không yêu cầu gì khác. Nó được nén bằng 30 KB và mang các kiểu cơ bản, cả chủ đề và tất cả hơn 65 thành phần.
+
+Thay vào đó chỉ lấy những gì bạn cần:
+
+<Snippet view="code">
+
+```js
+import 'frutjam/css/base';              // tokens and reset, always needed
+import 'frutjam/css/components/button';
+import 'frutjam/css/components/card';
+import 'frutjam/css/themes/darkberry';  // optional
+```
+
+</Snippet>
+
+Hoặc không có bước xây dựng nào cả:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Được cài đặt dưới dạng plugin Tailwind, Frutjam chỉ cung cấp các thành phần bạn sử dụng. Được nhập dưới dạng biểu định kiểu, nó gửi tất cả chúng vì không có bước xây dựng nào để đọc đánh dấu của bạn.</span></div></div>"} />
+
+## JavaScript & React: Tùy chọn, Không bắt buộc
+
+Frutjam là **bản địa đầu tiên và CSS đầu tiên**. Phần lớn các thành phần: nút, huy hiệu, thẻ, biểu mẫu, cảnh báo, v.v.: hoạt động với HTML và CSS thuần túy, không cần JavaScript. Các phần tử HTML gốc như `<dialog>`, `<details>`, Và `<input type="checkbox">` xử lý tính tương tác ở những nơi trình duyệt đã hỗ trợ nó. Tất cả các thành phần đều có thể truy cập WCAG AA ngay lập tức và hoạt động với Django, HTMX, Laravel, React, Next.js và bất kỳ ngăn xếp nào.
 
 Một số ít thành phần không có HTML gốc tương đương (thông báo bánh mì nướng, lọc hộp tổ hợp, điều khiển băng chuyền). Chỉ dành cho những trường hợp đó, Frutjam cung cấp các trợ giúp tùy chọn nhẹ.
 
-### Vanilla JS — `frutjam/js`
+### Vani JS: `frutjam/js`
 
-Trình trợ giúp mô-đun ES không xác định khung cho các thành phần cần chúng. Đính kèm với bất kỳ phần tử DOM nào - không cần khung.
+Trình trợ giúp mô-đun ES không xác định khung cho các thành phần cần chúng. Đính kèm với bất kỳ phần tử DOM nào, không cần khung.
 
 <Snippet view="code">
 
@@ -71,9 +110,9 @@ modal.toggle()
 
 </Snippet>
 
-### Móc phản ứng - `frutjam/react`
+### Móc phản ứng: `frutjam/react`
 
-Trình bao bọc React mỏng xung quanh các lệnh gọi DOM gốc giống nhau. Mỗi hook trả về một `ref` bạn gắn vào phần tử và các phương thức để kiểm soát nó - không có sự phụ thuộc bổ sung nào ngoài chính React.
+Trình bao bọc React mỏng xung quanh các lệnh gọi DOM gốc giống nhau. Mỗi hook trả về một `ref` bạn gắn vào phần tử và các phương thức để kiểm soát nó, không có sự phụ thuộc bổ sung nào ngoài chính React.
 
 <Snippet view="code">
 
@@ -112,8 +151,8 @@ Sử dụng phiên bản CDN của thư viện giao diện người dùng frutja
 
 Sau khi cài đặt, hãy thử [thành phần nút](/components/button) để xem Frutjam hoạt động hoặc khám phá toàn bộ [thư viện thành phần](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Tích hợp trình chỉnh sửa AI</p><h3 class=\"card-title mb-2\">Sử dụng Mã Claude, Con trỏ hoặc trình soạn thảo AI khác?</h3><p class=\"para-sm mb-3\">Cherry MCP đưa thư viện thành phần đầy đủ của Frutjam trực tiếp vào ngữ cảnh của trình soạn thảo AI của bạn — tên lớp chính xác, tài liệu trực tiếp, không cần sao chép.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Tìm hiểu về Cherry MCP →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">Tích hợp trình chỉnh sửa AI</p><h3 class=\"card-title mb-2\">Sử dụng Mã Claude, Con trỏ hoặc trình soạn thảo AI khác?</h3><p class=\"para-sm mb-3\">Cherry MCP đưa thư viện thành phần đầy đủ của Frutjam trực tiếp vào ngữ cảnh của trình soạn thảo AI của bạn, tên lớp chính xác, tài liệu trực tiếp, không cần sao chép.</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Tìm hiểu về Cherry MCP →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Dự án khởi đầu</p><h3 class=\"card-title mb-2\">Xây dựng với Django?</h3><p class=\"para-sm mb-3\">Một dự án Django 6 đang hoạt động với Frutjam đã được kết nối — tài khoản, trang tổng quan, chủ đề và ví dụ CRUD được hỗ trợ bởi markdown. Sao chép nó và bắt đầu xây dựng.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Nhận bộ khởi động Django →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">Dự án khởi đầu</p><h3 class=\"card-title mb-2\">Xây dựng với Django?</h3><p class=\"para-sm mb-3\">Một dự án Django 6 đang hoạt động với Frutjam đã được kết nối, các tài khoản, trang tổng quan, chủ đề và ví dụ CRUD được hỗ trợ bởi markdown. Sao chép nó và bắt đầu xây dựng.</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Nhận bộ khởi động Django →</a></div></div></div>"} />
 
 <RawHtml html={"<p class=\"mt-6\">Bạn muốn hiểu suy nghĩ đằng sau cách tiếp cận CSS-first của Frutjam? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">Đọc lý do tại sao chúng tôi xây dựng nó theo cách này →</a></p>"} />
