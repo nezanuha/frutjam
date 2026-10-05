@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "安装 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "a42a7565136f"
+sourceHash: "378b497e5857"
+translationHash: "2a54b81f5565"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ npm i -D frutjam
 
 </Snippet>
 
-## 没有 Tailwind：UnoCSS、Vite、Astro 或纯 CSS
+## 乌诺CSS
 
-Frutjam 是使用 Tailwind 构建的，但组件编译为读取自定义属性的普通 CSS。如果您的项目使用 UnoCSS，或者根本没有实用程序引擎，请导入样式表而不是插件：
+Frutjam 提供了预设，因此 UnoCSS 只生成您使用的组件，就像 Tailwind 插件一样。
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+每个类都像在 Tailwind 下一样工作，变体也是如此：
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+添加 `presetAttributify()` 组件名称成为一个属性，每个值都被视为它的一个变体：
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+第二行需要 `transformerVariantGroup()` 对于括号语法。请注意，像这样的属性 `btn` 不是有效的 HTML，因此如果您验证标记，请使用类形式或 UnoCSS `un-` 前缀。
+
+预设带有 Frutjam 的令牌并重置。如果您已经导入 `frutjam/css/base` 你自己，把它关掉 `presetFrutjam({ preflight: false })`.
+
+## 没有实用引擎：Vite、Astro、Rails 或纯 CSS
+
+Frutjam 是使用 Tailwind 构建的，但组件编译为读取自定义属性的普通 CSS。如果您的项目根本不使用实用程序引擎，请导入样式表而不是插件：
 
 <Snippet view="code">
 

@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Instalação - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "735ec64ceb52"
+sourceHash: "378b497e5857"
+translationHash: "1724cb2694d1"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ Adicione Frutjam ao seu `input.css` usando o `@plugin` diretiva:
 
 </Snippet>
 
-## Sem Tailwind: UnoCSS, Vite, Astro ou CSS simples
+## UnoCSS
 
-Frutjam é construído com Tailwind, mas os componentes são compilados em CSS comum que lê propriedades personalizadas. Se o seu projeto usa UnoCSS, ou nenhum mecanismo utilitário, importe a folha de estilo em vez do plugin:
+O Frutjam vem com uma predefinição, então o UnoCSS gera apenas os componentes que você usa, da mesma forma que o plugin Tailwind.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Cada classe funciona como no Tailwind, assim como as variantes:
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+Adicionar `presetAttributify()` e o nome do componente se torna um atributo, com cada valor tratado como uma variante dele:
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+A segunda linha precisa `transformerVariantGroup()` para a sintaxe do colchete. Observe que um atributo como `btn` não é HTML válido, então se você validar sua marcação, use o formulário de classe ou o UnoCSS `un-` prefixo.
+
+A predefinição carrega os tokens e o reset de Frutjam. Se você já importa `frutjam/css/base` você mesmo, desligue isso com `presetFrutjam({ preflight: false })`.
+
+## Sem motor utilitário: Vite, Astro, Rails ou CSS simples
+
+Frutjam é construído com Tailwind, mas os componentes são compilados em CSS comum que lê propriedades personalizadas. Se o seu projeto não usa nenhum mecanismo utilitário, importe a folha de estilo em vez do plugin:
 
 <Snippet view="code">
 

@@ -13,19 +13,19 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Cài đặt - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "c220626a4ef1"
+sourceHash: "378b497e5857"
+translationHash: "f321c4ed0ecd"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập được ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào.
+Cài đặt Frutjam, thư viện giao diện người dùng CSS Tailwind chỉ dành cho CSS, trong vài phút. Hai thành phần nhập, không có JavaScript, WCAG có thể truy cập ngay lập tức. Hoạt động với Django, HTMX, Laravel, React và bất kỳ dự án Tailwind CSS v4 nào.
 
 ## Làm cách nào để cài đặt thư viện Frutjam UI trong dự án CSS Tailwind?
 
-Hãy chắc chắn rằng bạn có một công việc [CSS theo gió](https://tailwindcss.com/docs/installation/using-vite) dự án được cài đặt, cũng như [Nút](https://nodejs.org/en/download) và NPM trên máy tính của bạn. Frutjam hoạt động với Tailwind phiên bản 4.
+Hãy chắc chắn rằng bạn có một công việc [CSS theo gió](https://tailwindcss.com/docs/installation/using-vite) dự án được cài đặt, cũng như [nút](https://nodejs.org/en/download) và NPM trên máy tính của bạn. Frutjam hoạt động với Tailwind phiên bản 4.
 
 ### Cài đặt frutjam dưới dạng gói Node bằng cách chạy lệnh sau:
 
@@ -48,9 +48,54 @@ Thêm Frutjam vào `input.css` sử dụng `@plugin` chỉ thị:
 
 </Snippet>
 
-## Không có Tailwind: UnoCSS, Vite, Astro hoặc CSS đơn giản
+## UnoCSS
 
-Frutjam được xây dựng bằng Tailwind, nhưng các thành phần biên dịch thành CSS thông thường đọc các thuộc tính tùy chỉnh. Nếu dự án của bạn sử dụng UnoCSS hoặc hoàn toàn không có công cụ tiện ích nào, hãy nhập biểu định kiểu thay vì plugin:
+Frutjam gửi một cài đặt trước nên UnoCSS chỉ tạo ra các thành phần bạn sử dụng, giống như cách plugin Tailwind thực hiện.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Mọi lớp đều hoạt động như trong Tailwind và các biến thể cũng vậy:
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+Thêm vào `presetAttributify()` và tên thành phần trở thành một thuộc tính, với mỗi giá trị được coi là một biến thể của nó:
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+Dòng thứ hai cần `transformerVariantGroup()` cho cú pháp khung. Lưu ý rằng một thuộc tính như `btn` không phải là HTML hợp lệ, vì vậy nếu bạn xác thực đánh dấu của mình, hãy sử dụng biểu mẫu lớp hoặc UnoCSS `un-` tiền tố.
+
+Cài đặt trước mang mã thông báo của Frutjam và đặt lại. Nếu bạn đã nhập `frutjam/css/base` chính bạn, hãy tắt nó đi bằng `presetFrutjam({ preflight: false })`.
+
+## Không có công cụ tiện ích: Vite, Astro, Rails hoặc CSS đơn giản
+
+Frutjam được xây dựng bằng Tailwind, nhưng các thành phần biên dịch thành CSS thông thường đọc các thuộc tính tùy chỉnh. Nếu dự án của bạn hoàn toàn không sử dụng công cụ tiện ích, hãy nhập biểu định kiểu thay vì plugin:
 
 <Snippet view="code">
 

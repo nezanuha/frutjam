@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Kurulum - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "2640bca967fc"
+sourceHash: "378b497e5857"
+translationHash: "d50e437a458f"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ Frutjam'ı ekleyin `input.css` kullanarak `@plugin` direktif:
 
 </Snippet>
 
-## Tailwind olmadan: UnoCSS, Vite, Astro veya düz CSS
+## UnoCSS
 
-Frutjam, Tailwind ile oluşturulmuştur ancak bileşenler, özel özellikleri okuyan sıradan CSS'ye derlenir. Projeniz UnoCSS kullanıyorsa veya hiç yardımcı motor kullanmıyorsa eklenti yerine stil sayfasını içe aktarın:
+Frutjam bir ön ayar gönderir; böylece UnoCSS, Tailwind eklentisinin yaptığı gibi yalnızca kullandığınız bileşenleri oluşturur.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Her sınıf ve çeşitleri Tailwind altında olduğu gibi çalışır:
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+Eklemek `presetAttributify()` ve bileşen adı bir öznitelik haline gelir ve her değer onun bir çeşidi olarak değerlendirilir:
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+İkinci satıra ihtiyaç var `transformerVariantGroup()` braket sözdizimi için. Gibi bir özelliğin olduğunu unutmayın `btn` geçerli bir HTML değil, bu nedenle işaretlemenizi doğrulayacaksanız sınıf formunu veya UnoCSS'yi kullanın. `un-` önek.
+
+Ön ayar Frutjam'ın jetonlarını taşır ve sıfırlanır. Zaten içe aktarıyorsanız `frutjam/css/base` kendiniz şunu kapatın `presetFrutjam({ preflight: false })`.
+
+## Yardımcı motor olmadan: Vite, Astro, Rails veya düz CSS
+
+Frutjam, Tailwind ile oluşturulmuştur ancak bileşenler, özel özellikleri okuyan sıradan CSS'ye derlenir. Projeniz hiçbir yardımcı motor kullanmıyorsa eklenti yerine stil sayfasını içe aktarın:
 
 <Snippet view="code">
 

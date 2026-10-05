@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "インスタレーション - フルジャム"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "1013fedb11ee"
+sourceHash: "378b497e5857"
+translationHash: "3e013384d655"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ npm i -D frutjam
 
 </Snippet>
 
-## Tailwind なし: UnoCSS、Vite、Astro、またはプレーン CSS
+## UnoCSS
 
-Frutjam は Tailwind を使用して構築されていますが、コンポーネントはカスタム プロパティを読み取る通常の CSS にコンパイルされます。プロジェクトで UnoCSS を使用する場合、またはユーティリティ エンジンをまったく使用しない場合は、プラグインの代わりにスタイルシートをインポートします。
+Frutjam にはプリセットが同梱されているため、Tailwind プラグインと同じように、UnoCSS は使用するコンポーネントのみを生成します。
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+すべてのクラスは Tailwind での場合と同様に機能し、バリアントも同様に機能します。
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+追加 `presetAttributify()` そしてコンポーネント名は属性になり、各値はそのバリアントとして扱われます。
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+2行目に必要なのは `transformerVariantGroup()` 括弧構文については。次のような属性に注意してください `btn` は有効な HTML ではないため、マークアップを検証する場合は、クラス フォームまたは UnoCSS の `un-` 接頭語。
+
+プリセットには Frutjam のトークンとリセットが含まれています。すでにインポートしている場合 `frutjam/css/base` あなた自身、それをオフにしてください `presetFrutjam({ preflight: false })`.
+
+## ユーティリティ エンジンなし: Vite、Astro、Rails、またはプレーン CSS
+
+Frutjam は Tailwind を使用して構築されていますが、コンポーネントはカスタム プロパティを読み取る通常の CSS にコンパイルされます。プロジェクトでユーティリティ エンジンをまったく使用しない場合は、プラグインの代わりにスタイルシートをインポートします。
 
 <Snippet view="code">
 
@@ -155,4 +200,4 @@ frutjam UI ライブラリの CDN バージョンを使用すると、ローカ�
 
 <RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">スタータープロジェクト</p><h3 class=\"card-title mb-2\">Django で構築しますか?</h3><p class=\"para-sm mb-3\">Frutjam がすでに接続されている、動作する Django 6 プロジェクト、アカウント、ダッシュボード、テーマ、マークダウンに基づく CRUD サンプル。クローンを作成して構築を開始します。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django スターターを入手 →</a></div></div></div>"} />
 
-<RawHtml html={"<p class=\"mt-6\">Frutjam の CSS ファーストのアプローチの背後にある考え方を理解したいですか? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">なぜこのように構築したかをお読みください →</a></p>"} />
+<RawHtml html={"<p class=\"mt-6\">Frutjam の CSS ファーストのアプローチの背後にある考え方を理解したいですか? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">なぜこのように構築したかをお読みください→</a></p>"} />

@@ -46,9 +46,54 @@ Add Frutjam to your `input.css` using the `@plugin` directive:
 
 </Snippet>
 
-## Without Tailwind: UnoCSS, Vite, Astro or plain CSS
+## UnoCSS
 
-Frutjam is built with Tailwind, but the components compile to ordinary CSS that reads custom properties. If your project uses UnoCSS, or no utility engine at all, import the stylesheet instead of the plugin:
+Frutjam ships a preset, so UnoCSS generates only the components you use, the same way the Tailwind plugin does.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Every class works as it does under Tailwind, and so do variants:
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+Add `presetAttributify()` and the component name becomes an attribute, with each value treated as a variant of it:
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+The second line needs `transformerVariantGroup()` for the bracket syntax. Note that an attribute like `btn` is not valid HTML, so if you validate your markup, use the class form or UnoCSS's `un-` prefix.
+
+The preset carries Frutjam's tokens and reset. If you already import `frutjam/css/base` yourself, turn that off with `presetFrutjam({ preflight: false })`.
+
+## Without a utility engine: Vite, Astro, Rails or plain CSS
+
+Frutjam is built with Tailwind, but the components compile to ordinary CSS that reads custom properties. If your project uses no utility engine at all, import the stylesheet instead of the plugin:
 
 <Snippet view="code">
 

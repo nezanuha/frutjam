@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "설치 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "f4432084b257"
+sourceHash: "378b497e5857"
+translationHash: "6810b64b245e"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ Frutjam을 추가하세요. `input.css` 사용하여 `@plugin` 지령:
 
 </Snippet>
 
-## Tailwind 제외: UnoCSS, Vite, Astro 또는 일반 CSS
+## 우노CSS
 
-Frutjam은 Tailwind로 구축되었지만 구성 요소는 사용자 정의 속성을 읽는 일반 CSS로 컴파일됩니다. 프로젝트가 UnoCSS를 사용하거나 유틸리티 엔진을 전혀 사용하지 않는 경우 플러그인 대신 스타일시트를 가져옵니다.
+Frutjam은 사전 설정을 제공하므로 UnoCSS는 Tailwind 플러그인과 동일한 방식으로 사용하는 구성 요소만 생성합니다.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+모든 클래스는 Tailwind에서와 마찬가지로 작동하며 변형도 마찬가지입니다.
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+추가하다 `presetAttributify()` 구성 요소 이름은 속성이 되며 각 값은 해당 속성의 변형으로 처리됩니다.
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+두 번째 줄에 필요한 `transformerVariantGroup()` 대괄호 구문의 경우. 다음과 같은 속성에 유의하세요. `btn` 유효한 HTML이 아니므로 마크업의 유효성을 검사하려면 클래스 양식이나 UnoCSS의 `un-` 접두사.
+
+사전 설정에는 Frutjam의 토큰과 재설정이 포함됩니다. 이미 수입한 경우 `frutjam/css/base` 너 스스로 그걸 꺼 줘 `presetFrutjam({ preflight: false })`.
+
+## 유틸리티 엔진이 없는 경우: Vite, Astro, Rails 또는 일반 CSS
+
+Frutjam은 Tailwind로 구축되었지만 구성 요소는 사용자 정의 속성을 읽는 일반 CSS로 컴파일됩니다. 프로젝트에서 유틸리티 엔진을 전혀 사용하지 않는 경우 플러그인 대신 스타일시트를 가져옵니다.
 
 <Snippet view="code">
 

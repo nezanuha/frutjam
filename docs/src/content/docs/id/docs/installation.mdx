@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Instalasi - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "2dcd50486ff1"
-translationHash: "0e7875746532"
+sourceHash: "378b497e5857"
+translationHash: "032a998c9c1c"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -48,9 +48,54 @@ Tambahkan Frutjam ke Anda `input.css` menggunakan `@plugin` direktif:
 
 </Snippet>
 
-## Tanpa Tailwind: UnoCSS, Vite, Astro atau CSS biasa
+## UnoCSS
 
-Frutjam dibuat dengan Tailwind, tetapi komponennya dikompilasi ke CSS biasa yang membaca properti khusus. Jika proyek Anda menggunakan UnoCSS, atau tidak ada mesin utilitas sama sekali, impor stylesheet dan bukan plugin:
+Frutjam mengirimkan preset, jadi UnoCSS hanya menghasilkan komponen yang Anda gunakan, sama seperti plugin Tailwind.
+
+<Snippet view="code">
+
+```js
+// uno.config.js
+import { defineConfig, presetWind4 } from 'unocss';
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Setiap kelas berfungsi seperti pada Tailwind, begitu pula variannya:
+
+<Snippet view="code">
+
+```html
+<button class="btn btn-error btn-xl">Delete</button>
+<button class="md:btn-error">Red from the medium breakpoint up</button>
+<div class="hover:card-primary">Fills on hover</div>
+```
+
+</Snippet>
+
+Menambahkan `presetAttributify()` dan nama komponen menjadi atribut, dengan setiap nilai diperlakukan sebagai variannya:
+
+<Snippet view="code">
+
+```html
+<button btn="error xl">Delete</button>
+<button btn="md:(error xl)">Red and large from the medium breakpoint up</button>
+```
+
+</Snippet>
+
+Kebutuhan baris kedua `transformerVariantGroup()` untuk sintaks braket. Perhatikan bahwa atribut seperti `btn` bukan HTML yang valid, jadi jika Anda memvalidasi markup Anda, gunakan formulir kelas atau UnoCSS `un-` awalan.
+
+Preset membawa token Frutjam dan mengatur ulang. Jika Anda sudah mengimpor `frutjam/css/base` dirimu sendiri, matikan itu dengan `presetFrutjam({ preflight: false })`.
+
+## Tanpa mesin utilitas: Vite, Astro, Rails atau CSS biasa
+
+Frutjam dibuat dengan Tailwind, tetapi komponennya dikompilasi ke CSS biasa yang membaca properti khusus. Jika proyek Anda tidak menggunakan mesin utilitas sama sekali, impor stylesheet dan bukan plugin:
 
 <Snippet view="code">
 
