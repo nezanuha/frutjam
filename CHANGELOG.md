@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **UnoCSS preset**: `import { presetFrutjam } from 'frutjam/unocss'`. Every class the Tailwind plugin generates is available, only what you use is emitted, and variants work, so `md:btn-error` and `hover:card-primary` behave. With `presetAttributify()` the component name becomes an attribute: `btn="error xl"`, and `btn="md:(error xl)"` with `transformerVariantGroup()`. Built from the same objects the Tailwind plugin uses, so the two cannot drift apart. `@unocss/core` is an optional peer dependency
 - **Use Frutjam without Tailwind**: `import 'frutjam/css'` gives every component as plain CSS, so UnoCSS, Vite, Astro, Rails or a page with no build step can use them. 30 KB gzipped for all 65+ components, against 40 KB for the full bundle that carries Tailwind's utilities too. Individual pieces are importable as `frutjam/css/components/button`, `frutjam/css/base` and `frutjam/css/themes/darkberry`
 - **`card-link`**: Makes the whole card the click target for one link. The browser outlines only the link text on a stretched link, which is a few words inside a card the mouse can click anywhere on, so the focus ring moves to the card and the inner one is hidden. The ring uses `currentColor`, so it stays readable on `card-primary` and on every theme. Text stays selectable and other buttons in the card keep working
 

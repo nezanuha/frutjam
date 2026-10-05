@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./dist/plugin.js",
+    "./unocss": "./dist/unocss/index.js",
     "./css": "./dist/frutjam.components.css",
     "./css/full": "./dist/frutjam.min.css",
     "./css/base": "./dist/base.css",
@@ -35,10 +36,11 @@
     "clean": "rimraf ./dist",
     "build:cdn": "node scripts/build-cdn.mjs",
     "build:plugin": "node scripts/build-plugin.mjs",
-    "build": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs",
-    "prepublishOnly": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node -e \"const fs=require('fs');fs.copyFileSync('README.md','README.github.md');fs.copyFileSync('README.npm.md','README.md');\"",
+    "build": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node scripts/build-unocss.mjs",
+    "prepublishOnly": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node scripts/build-unocss.mjs && node -e \"const fs=require('fs');fs.copyFileSync('README.md','README.github.md');fs.copyFileSync('README.npm.md','README.md');\"",
     "postpublish": "node -e \"const fs=require('fs');fs.copyFileSync('README.github.md','README.md');fs.unlinkSync('README.github.md');\"",
-    "postversion": "git push origin main --tags"
+    "postversion": "git push origin main --tags",
+    "build:unocss": "node scripts/build-unocss.mjs"
   },
   "funding": "https://ko-fi.com/nezanuha",
   "repository": {
@@ -91,10 +93,14 @@
   },
   "peerDependencies": {
     "tailwindcss": "^4.0.0",
-    "react": ">=18"
+    "react": ">=18",
+    "@unocss/core": ">=66"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "@unocss/core": {
       "optional": true
     }
   },
