@@ -84,10 +84,30 @@ for (const [token, obj] of [...tokens].sort(([a], [b]) => a.localeCompare(b))) {
   map[token] = toBody(obj)
 }
 
-// The tokens and reset, inlined rather than read from disk, so the preset works
-// in the browser runtime as well as in a Node build.
+/*
+ * Attributify turns card="outline sm" into card-outline and card-sm, and never
+ * asks for a bare card, so the component itself would go missing. The preset
+ * fixes that at extraction time, which needs to know which tokens are whole
+ * components rather than modifiers of one: a component is a token that other
+ * tokens hang off.
+ */
+const names = Object.keys(map)
+const components = names
+  .filter((token) => names.some((other) => other !== token && other.startsWith(`${token}-`)))
+  // card is a component, card-content is not, even though card-content-foo
+  // would make it look like one. Keep the shortest root of each family.
+  .filter((token) => !names.some((other) => other !== token && token.startsWith(`${other}-`)))
+
+// The tokens, reset and themes, inlined rather than read from disk, so the
+// preset works in the browser runtime as well as in a Node build.
 const { readFileSync } = await import("fs")
-const baseCss = readFileSync(join(distDir, "base.css"), "utf8").replace(/\/\*![\s\S]*?\*\/\s*/g, "")
+const strip = (css) => css.replace(/\/\*![\s\S]*?\*\/\s*/g, "")
+const baseCss = [
+  readFileSync(join(distDir, "base.css"), "utf8"),
+  // Without these, data-theme="dark" does nothing under the preset while it
+  // works everywhere else.
+  ...["snowberry", "darkberry"].map((t) => readFileSync(join(distDir, `themes/${t}.css`), "utf8")),
+].map(strip).join("\n")
 
 mkdirSync(join(distDir, "unocss"), { recursive: true })
 writeFileSync(
@@ -97,14 +117,13 @@ writeFileSync(
     `export const rules = ${JSON.stringify(map)};`,
     `export const preflight = ${JSON.stringify(toBody(orphans))};`,
     `export const base = ${JSON.stringify(baseCss)};`,
+    `export const components = ${JSON.stringify(components)};`,
     "",
   ].join("\n"),
 )
 
-// The preset itself is written by hand; only the data beside it is generated.
-const presetSrc = readFileSync(join(rootDir, "src", "unocss", "index.js"), "utf8")
-writeFileSync(join(distDir, "unocss", "index.js"), `${banner}\n${presetSrc}`)
+// The preset itself is hand written and ships from packages/unocss, the way
+// packages/js and packages/react do. Only the data beside it is generated.
 
 console.log(`\n[unocss]`)
 console.log(`  ✓ dist/unocss/map.js — ${Object.keys(map).length} tokens, ${Object.keys(orphans).length} preflight rules`)
-console.log(`  ✓ dist/unocss/index.js`)
