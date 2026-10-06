@@ -11,13 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **UnoCSS preset**: `import { presetFrutjam } from 'frutjam/unocss'`. Every class the Tailwind plugin generates is available, only what you use is emitted, and variants work, so `md:btn-error` and `hover:card-primary` behave. With `presetAttributify()` the component name becomes an attribute: `btn="error xl"`, and `btn="md:(error xl)"` with `transformerVariantGroup()`. Built from the same objects the Tailwind plugin uses, so the two cannot drift apart. `@unocss/core` is an optional peer dependency
-- **Use Frutjam without Tailwind**: `import 'frutjam/css'` gives every component as plain CSS, so UnoCSS, Vite, Astro, Rails or a page with no build step can use them. 30 KB gzipped for all 65+ components, against 40 KB for the full bundle that carries Tailwind's utilities too. Individual pieces are importable as `frutjam/css/components/button`, `frutjam/css/base` and `frutjam/css/themes/darkberry`
-- **`card-link`**: Makes the whole card the click target for one link. The browser outlines only the link text on a stretched link, which is a few words inside a card the mouse can click anywhere on, so the focus ring moves to the card and the inner one is hidden. The ring uses `currentColor`, so it stays readable on `card-primary` and on every theme. Text stays selectable and other buttons in the card keep working
+- **Use Frutjam without Tailwind**: `import 'frutjam/css'` gives every component as plain CSS, for UnoCSS, Vite, Astro, Rails or a page with no build step at all. 30 KB gzipped, against 40 KB for the bundle that carries Tailwind's utilities too. Single pieces import as `frutjam/css/components/button`, `frutjam/css/base` and `frutjam/css/themes/darkberry`.
+- **UnoCSS preset**: `import { presetFrutjam } from 'frutjam/unocss'`. Every class the Tailwind plugin generates, tree-shaken the same way, with variants: `md:btn-error`, `hover:card-primary`. Add `presetAttributify()` and the component name becomes an attribute, `btn="error xl"`. Options are `preflight`, `prefix` and `layer`. Generated from the same objects the Tailwind plugin ships, so the two cannot describe different components, and `@unocss/core` is an optional peer dependency, so nothing changes for Tailwind users. One exception: UnoCSS reserves `link` for the `:link` pseudo-class and splits on `-`, so `link-2xl` generates nothing unless you set `separators: [':']` or give the preset a `prefix`. It is the only component whose name collides, and only under UnoCSS. The [installation guide](https://frutjam.com/docs/installation) has the detail.
+- **`card-link`**: Makes the whole card the click target for one link, and moves the focus ring to the card so what is highlighted matches what is clickable. Opt-in, existing cards are unchanged.
 
 ### Fixed
 
-- **Colour tokens were empty in `dist/base.css`**: Compiling `@theme inline` emits `--color-base-soft: var(--color-base-soft)` and `--color-primary: var(--color-primary-500)`, while the themes emit `--color-primary-500: var(--color-primary)`. Both are cycles, so every colour computed to nothing and components rendered transparent. The full bundle was unaffected because Tailwind happens to order those blocks before the themes; a standalone file had no such luck. Only reachable when importing the compiled CSS directly, which was not possible before this release
+- **Colour tokens were empty in `dist/base.css`**: `@theme inline` compiled to self-referential and circular custom properties, so every colour resolved to nothing and components rendered transparent. Only reachable by importing the compiled CSS directly, which was not possible before this release.
 
 ## [2.2.6] - 2026-09-17
 
@@ -635,7 +635,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expanded typography utilities with heading-[{size}] and para-[{size}] for arbitrary size support
 - A CDN version of the CSS is now available for fast and easy integration without local setup
 
-### Changed 
+### Changed
 
 - Now only base colors like `--color-primary` and `--color-on-primary` need to be defined; the library automatically generates shades from `50` to `950`
 - Now, simply set a single `border-radius` value in the theme; the Frutjam library automatically applies and adjusts radius values across components for optimal UI consistency

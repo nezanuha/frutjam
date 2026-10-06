@@ -117,6 +117,16 @@ async function minify(css) {
 function writeDist(filePath, content) {
   mkdirSync(dirname(filePath), { recursive: true })
   writeFileSync(filePath, banner + content)
+
+  /*
+   * TypeScript resolves `import 'frutjam/css'` through the exports map and
+   * finds no declaration, so it reports the module as missing. A project's
+   * usual `*.css` ambient types do not help, because the specifier has no
+   * extension on it. An empty declaration beside each stylesheet is what
+   * swiper and the rest ship for the same reason.
+   */
+  if (filePath.endsWith(".css")) writeFileSync(`${filePath}.d.ts`, "export {};\n")
+
   const rel = filePath.replace(rootDir + "/", "").replace(rootDir + "\\", "")
   console.log(`  ✓ ${rel}`)
 }

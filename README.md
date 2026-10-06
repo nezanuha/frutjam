@@ -48,6 +48,22 @@ npm install -D frutjam
 
 **That's it.** All 65+ components are available immediately. No imports, no config, no extra stylesheets.
 
+### Not using Tailwind?
+
+Frutjam works without it. Import the stylesheet and every component class is available, 30 KB gzipped:
+
+```js
+import 'frutjam/css';
+```
+
+UnoCSS users get a preset instead, so only the components you use are emitted:
+
+```js
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({ presets: [presetWind4(), presetFrutjam()] });
+```
+
 ---
 
 ## Why Frutjam?
@@ -292,6 +308,13 @@ Frutjam is designed for WCAG AA compliance from the ground up:
 | Astro | ✅ |
 | Ruby on Rails | ✅ |
 | Any HTML output | ✅ |
+
+| Build setup | How |
+|-----------|--------|
+| Tailwind CSS v4 | `@plugin "frutjam"`, tree-shaken |
+| UnoCSS | `presetFrutjam()`, tree-shaken |
+| Vite, Astro, Rails, plain CSS | `import 'frutjam/css'` |
+| No build step | `<link>` the CDN file |
 
 ---
 

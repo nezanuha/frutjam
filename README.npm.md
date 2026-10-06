@@ -19,6 +19,20 @@ npm install -D frutjam
 
 That's it. All 65+ components available immediately.
 
+### Without Tailwind
+
+```js
+import 'frutjam/css';          // every component, 30 KB gzipped
+```
+
+### With UnoCSS
+
+```js
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({ presets: [presetWind4(), presetFrutjam()] });
+```
+
 ---
 
 ## CDN

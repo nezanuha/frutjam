@@ -33,7 +33,21 @@ Follow the existing coding style. If you're adding UI components or themes:
 
 ### 4. Test Your Changes
 
-Please test thoroughly. If possible, preview your changes in a test project using the library locally.
+Run `npm run build` in the repository root. It runs three steps in order, and
+each one feeds the next:
+
+| Step | Produces |
+| --- | --- |
+| `build-cdn.mjs` | The stylesheets in `dist/`, plus a `.d.ts` beside each one so TypeScript accepts `import 'frutjam/css'` |
+| `build-plugin.mjs` | The Tailwind plugin, and the CSS objects it is built from |
+| `build-unocss.mjs` | The UnoCSS token map, read from those same objects |
+
+Because the last step reads the second's output, a component added to
+`src/components/` reaches Tailwind and UnoCSS together. There is nothing to
+register in either place by hand, and the two cannot end up describing
+different components.
+
+Then preview your changes in a test project using the library locally.
 
 ### 5. Commit and Push
 
@@ -109,6 +123,8 @@ Use `@copy` when a component genuinely shares a structural base with another and
 | Path | What |
 | --- | --- |
 | `src/components/<name>/` | The component's CSS |
+| `packages/js/`, `packages/react/`, `packages/unocss/` | Hand-written integrations, shipped as they are |
+| `dist/` | Everything generated. Never edit it by hand |
 | `docs/src/content/docs/en/<category>/<slug>.mdx` | An English doc page |
 | `docs/src/content/docs/<lang>/<category>/<slug>.mdx` | Its translations |
 | `docs/src/content/blog/<slug>.md` | Blog posts (English only) |
