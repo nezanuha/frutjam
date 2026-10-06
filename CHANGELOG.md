@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.3.0] - 2026-10-05
+## [2.3.0] - 2026-10-06
 
 ### Added
 
@@ -649,7 +649,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.2.6...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/nezanuha/frutjam/compare/v2.2.6...v2.3.0
 [2.2.6]: https://github.com/nezanuha/frutjam/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/nezanuha/frutjam/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/nezanuha/frutjam/compare/v2.2.3...v2.2.4

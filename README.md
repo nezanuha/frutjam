@@ -8,7 +8,7 @@
 
 # Frutjam: CSS-Only Tailwind CSS UI Component Library
 
-**Frutjam** is a free, open-source Tailwind CSS v4 component library. 65+ production-ready UI components with **zero JavaScript**, guaranteed **WCAG AA accessibility**, and a free **MCP server for AI editors** (Cherry). Works with any framework: React, Vue, HTMX, Django, Laravel, plain HTML.
+**Frutjam** is a free, open-source Tailwind CSS v4 component library, and it works with UnoCSS or no build step at all. 65+ production-ready UI components with **zero JavaScript**, guaranteed **WCAG AA accessibility**, and a free **MCP server for AI editors** (Cherry). Works with any framework: React, Vue, HTMX, Django, Laravel, plain HTML.
 
 🌐 **[frutjam.com](https://frutjam.com)** · 📦 **[npm](https://www.npmjs.com/package/frutjam)** · 🍒 **[Cherry MCP](https://frutjam.com/products/cherry)**
 

@@ -1,6 +1,6 @@
 # Frutjam
 
-CSS-only Tailwind CSS v4 component library. 65+ accessible, copy-paste UI components — zero JavaScript, WCAG AA guaranteed, framework-agnostic.
+CSS-only Tailwind CSS v4 component library, also usable with UnoCSS or no build step at all. 65+ accessible, copy-paste UI components — zero JavaScript, WCAG AA guaranteed, framework-agnostic.
 
 **[frutjam.com](https://frutjam.com)** · [Components](https://frutjam.com/components) · [Docs](https://frutjam.com/docs) · [Cherry MCP](https://frutjam.com/products/cherry)
 
