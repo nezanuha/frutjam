@@ -103,6 +103,14 @@ ErrorDocument 500 /500.html
     <FilesMatch "^pagefind(\.js|-entry\.json)$">
         Header set Cache-Control "public, max-age=0, must-revalidate"
     </FilesMatch>
+
+    # The same two resources the HTML already advertises, as RFC 8288 headers
+    # so an agent can find them from the response alone, without parsing the
+    # page. There is no API here, so no api-catalog or service-desc.
+    <FilesMatch "\.html$">
+        Header append Link "</llms.txt>; rel=\"help\"; type=\"text/plain\""
+        Header append Link "</docs>; rel=\"service-doc\"; type=\"text/html\""
+    </FilesMatch>
 </IfModule>
 
 <IfModule mod_expires.c>
