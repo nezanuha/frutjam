@@ -107,9 +107,13 @@ ErrorDocument 500 /500.html
     # The same two resources the HTML already advertises, as RFC 8288 headers
     # so an agent can find them from the response alone, without parsing the
     # page. There is no API here, so no api-catalog or service-desc.
+    # rel takes a bare token here on purpose: escaped quotes in a Header value
+    # reach the response as literal backslashes on this host, which makes the
+    # header unparseable. type is optional, and quoting it would hit the same
+    # problem, since a media type contains a slash and cannot be a token.
     <FilesMatch "\.html$">
-        Header append Link "</llms.txt>; rel=\"help\"; type=\"text/plain\""
-        Header append Link "</docs>; rel=\"service-doc\"; type=\"text/html\""
+        Header append Link "</llms.txt>; rel=help"
+        Header append Link "</docs>; rel=service-doc"
     </FilesMatch>
 </IfModule>
 
