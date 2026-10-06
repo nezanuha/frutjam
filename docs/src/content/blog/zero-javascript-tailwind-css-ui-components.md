@@ -46,7 +46,7 @@ JavaScript is the single largest contributor to poor Core Web Vitals scores. Par
 - Delayed **Time to Interactive (TTI)**, when the page becomes usable
 - Layout shifts from late-rendering JS components: **Cumulative Layout Shift (CLS)**
 
-Removing UI JavaScript eliminates these problems at the root. There is nothing to parse, nothing to initialize, nothing to cause a layout shift. Your server renders HTML; the browser displays it immediately. That is a PageSpeed 100 by default, not by optimization.
+Removing UI JavaScript eliminates these problems at the root. There's nothing to parse, nothing to initialize, nothing to cause a layout shift. Your server renders HTML; the browser displays it immediately. That's a PageSpeed 100 by default, not by optimization.
 
 Google uses Core Web Vitals as a ranking signal. Pages with lower TBT and CLS rank better, all else being equal. Zero JavaScript components give you a structural advantage here, not a performance trick you apply after the fact.
 
@@ -177,7 +177,7 @@ Frutjam's toast is positioned via CSS. For timed auto-dismiss, a single CSS anim
 
 ### Searchable Combobox
 
-A combobox is one UI pattern where pure CSS hits a real limit, filtering a list as the user types requires JavaScript. But you do not have to write it yourself.
+A combobox is one UI pattern where pure CSS hits a real limit, filtering a list as the user types requires JavaScript. But you don't have to write it yourself.
 
 Frutjam ships `createCombobox` from `frutjam/js`, a built-in helper that adds filtering, keyboard navigation (↑ ↓ Enter Escape), and `aria-*` wiring in a single call. The open/close behavior is still CSS-only (`focus-within:combobox-open`):
 
@@ -243,7 +243,7 @@ Every component is immediately available. No JavaScript configuration, no plugin
 Yes. React renders HTML; Frutjam styles HTML. You apply Frutjam class names to JSX elements the same way you apply any CSS class. For modals, call `document.getElementById("myModal").showModal()` from React state, the `<dialog>` handles everything else. Accordions, drawers, and tabs need zero React state at all.
 
 **What about form validation without JavaScript?**
-CSS-only validation works for required fields, pattern matching, and email format checking using the `:invalid` and `:valid` pseudo-classes. For complex validation logic or async server-side checks, a minimal amount of JavaScript (or HTMX) is appropriate. The point is not to eliminate JavaScript entirely, it is to stop using JavaScript for UI state that native HTML handles better.
+CSS-only validation works for required fields, pattern matching, and email format checking using the `:invalid` and `:valid` pseudo-classes. For complex validation logic or async server-side checks, a minimal amount of JavaScript (or HTMX) is appropriate. The point isn't to eliminate JavaScript entirely, it's to stop using JavaScript for UI state that native HTML handles better.
 
 **Is `<dialog>` supported on mobile?**
 Yes. The `<dialog>` element has been supported in Safari on iOS since version 15.4 (released March 2022), Chrome Android since version 37, and Firefox Android since version 98. Global mobile coverage is above 95%.
@@ -252,7 +252,7 @@ Yes. The `<dialog>` element has been supported in Safari on iOS since version 15
 Frutjam uses CSS `@starting-style` combined with `transition` to animate components in and out. This is a native CSS feature supported in all modern browsers since 2023–2024. The animation is defined in the library, you get smooth transitions on `<dialog>`, `<details>`, and popover elements without any JavaScript or animation library.
 
 **Can I use Frutjam alongside a JavaScript framework like Alpine.js?**
-Yes. Frutjam does not own any DOM state, so it coexists cleanly with Alpine.js, Stimulus, or any small JS library. Accordions and drawers are entirely CSS, Alpine never touches them. For modals, you can use either Frutjam's native `showModal()` or wire it to an Alpine variable, both work.
+Yes. Frutjam doesn't own any DOM state, so it coexists cleanly with Alpine.js, Stimulus, or any small JS library. Accordions and drawers are entirely CSS, Alpine never touches them. For modals, you can use either Frutjam's native `showModal()` or wire it to an Alpine variable, both work.
 
 ---
 

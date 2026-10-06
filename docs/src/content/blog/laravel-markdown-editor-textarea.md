@@ -9,8 +9,7 @@ createdAt: "2026-10-02T00:00:00+00:00"
 updatedAt: "2026-10-02T00:00:00+00:00"
 ---
 
-Add a markdown editor to a Blade form the usual way and it looks fine, until
-the form silently refuses to submit:
+Add a markdown editor to a Blade form the usual way and it looks fine, until the form silently refuses to submit:
 
 ```blade
 <textarea id="content" name="content" required>{{ old('content') }}</textarea>
@@ -21,41 +20,28 @@ the form silently refuses to submit:
 const easyMDE = new EasyMDE({ element: document.getElementById('content') });
 ```
 
-Click Save and nothing happens. No validation error, no request, no clue on the
-page. The console says:
+Click Save and nothing happens. No validation error, no request, no clue on the page. The console says:
 
 ```
 An invalid form control with name='content' is not focusable.
 ```
 
-EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The
-hidden field is still `required`, so the browser refuses to submit a form it
-cannot focus the invalid field in, and because the submit event never fires,
-the editor never copies its content back.
+EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The hidden field is still `required`, so the browser refuses to submit a form it can't focus the invalid field in, and because the submit event never fires, the editor never copies its content back.
 
-To be fair to EasyMDE: without `required` it does sync on submit by itself, so a
-plain form works. The trouble is that the value only exists in the textarea
-*during* submit:
+To be fair to EasyMDE: without `required` it does sync on submit by itself, so a plain form works. The trouble is that the value only exists in the textarea *during* submit:
 
 ```javascript
 // Any code that reads the field before submit gets an empty string
 new FormData(document.querySelector('form')).get('content');   // ""
 ```
 
-That breaks anything that serialises the form itself: Livewire, Alpine, htmx,
-autosave, an "unsaved changes" guard, a character counter.
+That breaks anything that serialises the form itself: Livewire, Alpine, htmx, autosave, an "unsaved changes" guard, a character counter.
 
 ## A better approach
 
-[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the
-textarea you already have and leaves it as the field you type into. It is never
-hidden and never copied, so its value is correct at every moment, not just
-during submit.
+[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the textarea you already have and leaves it as the field you type into. It's never hidden and never copied, so its value is correct at every moment, not just during submit.
 
-`required` works because the field is visible. `FormData` works because the
-value is live. And `$request->input()`, form request validation, `old()`
-repopulation, CSRF and mass assignment all behave exactly as they do with a
-plain textarea.
+`required` works because the field is visible. `FormData` works because the value is live. And `$request->input()`, form request validation, `old()` repopulation, CSRF and mass assignment all behave exactly as they do with a plain textarea.
 
 ## Setup
 
@@ -250,17 +236,11 @@ Note the `html_input => 'strip'` setting. Markdown allows raw HTML, so anything 
 
 ## Why the textarea matters
 
-An editor that hides the textarea and edits a copy has to guess when to put the
-content back. CodeMirror guesses "on submit", which is right most of the time,
-until the browser refuses to submit or Livewire reads the form before that
-moment. Every one of those failures is silent, because from the outside the
-field looks fine.
+An editor that hides the textarea and edits a copy has to guess when to put the content back. CodeMirror guesses "on submit", which is right most of the time, until the browser refuses to submit or Livewire reads the form before that moment. Every one of those failures is silent, because from the outside the field looks fine.
 
-An editor that leaves the textarea in place has nothing to guess about. The
-browser owns the value, Laravel reads what the browser sent, and nothing in
-between has an opinion.
+An editor that leaves the textarea in place has nothing to guess about. The browser owns the value, Laravel reads what the browser sent, and nothing in between has an opinion.
 
-That is the whole design, and it is why the Laravel integration in this post is two lines long.
+That's the whole design, and it's why the Laravel integration in this post is two lines long.
 
 ---
 

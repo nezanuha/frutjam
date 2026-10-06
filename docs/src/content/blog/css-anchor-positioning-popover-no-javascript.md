@@ -9,26 +9,17 @@ createdAt: "2026-09-25T00:00:00+00:00"
 updatedAt: "2026-09-25T00:00:00+00:00"
 ---
 
-Every dropdown you have ever built had the same problem underneath it: the panel
-has to appear next to the button, stay there while the page scrolls, and flip to
-the other side when it runs out of room.
+Every dropdown you have ever built had the same problem underneath it: the panel has to appear next to the button, stay there while the page scrolls, and flip to the other side when it runs out of room.
 
-For a decade the only answer was JavaScript. Popper.js, and then Floating UI,
-existed almost entirely to measure two rectangles, do the arithmetic, and
-rewrite `top` and `left` on every scroll and resize.
+For a decade the only answer was JavaScript. Popper.js, and then Floating UI, existed almost entirely to measure two rectangles, do the arithmetic, and rewrite `top` and `left` on every scroll and resize.
 
-That is now a CSS feature, and as of this month it works in every major browser.
+That's now a CSS feature, and as of this month it works in every major browser.
 
 ## What changed
 
-CSS anchor positioning reached [Baseline](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor)
-in September 2026. Chromium shipped it first and the others have now followed;
-MDN has the version table. It is marked *newly available*, which means the
-current release of every major browser supports it, while older installs do
-not.
+CSS anchor positioning reached [Baseline](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-anchor) in September 2026. Chromium shipped it first and the others have now followed; MDN has the version table. It's marked *newly available*, which means the current release of every major browser supports it, while older installs do not.
 
-The idea is simple. One element gives itself a name; another says it wants to be
-positioned relative to that name.
+The idea is simple. One element gives itself a name; another says it wants to be positioned relative to that name.
 
 ```css
 .trigger {
@@ -43,13 +34,9 @@ positioned relative to that name.
 }
 ```
 
-The browser keeps them tethered from then on. Scroll the page, resize the
-window, move the trigger, the panel follows, because the relationship is
-declared rather than calculated.
+The browser keeps them tethered from then on. Scroll the page, resize the window, move the trigger, the panel follows, because the relationship is declared rather than calculated.
 
-`position-try-fallbacks` is the part that used to be most of the library code.
-Give it a list, and when the preferred placement would put the panel off screen,
-the browser tries the next one: flip vertically, flip horizontally, or both.
+`position-try-fallbacks` is the part that used to be most of the library code. Give it a list, and when the preferred placement would put the panel off screen, the browser tries the next one: flip vertically, flip horizontally, or both.
 
 ## What it replaces
 
@@ -70,14 +57,11 @@ const cleanup = autoUpdate(button, panel, () => {
 // and remember to call cleanup() when the panel closes
 ```
 
-That is a dependency, a listener on every scrollable ancestor, a layout read and
-a style write on every frame, and a teardown function you have to remember. The
-CSS above does the same job with no bytes shipped and nothing to clean up.
+That's a dependency, a listener on every scrollable ancestor, a layout read and a style write on every frame, and a teardown function you have to remember. The CSS above does the same job with no bytes shipped and nothing to clean up.
 
 ## How Frutjam's popover uses it
 
-We built the popover on anchor positioning before it was Baseline, so the
-implementation is already in the library. It is three declarations.
+We built the popover on anchor positioning before it was Baseline, so the implementation is already in the library. It's three declarations.
 
 The trigger names itself:
 
@@ -119,36 +103,21 @@ Twelve placement classes, one line of CSS each. In markup you pick one:
 </div>
 ```
 
-That is the whole dropdown. The `popover` attribute gives you click-outside to
-close, Escape to close, and rendering above everything without a `z-index`.
-Anchor positioning decides where it goes. `@starting-style` animates it in.
-There is no JavaScript on the page.
+That's the whole dropdown. The `popover` attribute gives you click-outside to close, Escape to close, and rendering above everything without a `z-index`. Anchor positioning decides where it goes. `@starting-style` animates it in. There's no JavaScript on the page.
 
 ## Logical properties, so RTL comes free
 
-Note what the placement values say: `block-start`, `span-inline-end`. Not top
-and right.
+Note what the placement values say: `block-start`, `span-inline-end`. Not top and right.
 
-Those are logical directions, resolved against the writing direction of the
-document. In an Arabic or Hebrew layout, a popover aligned to `inline-start`
-moves to the right-hand side by itself, because "start" means the side the text
-starts from.
+Those are logical directions, resolved against the writing direction of the document. In an Arabic or Hebrew layout, a popover aligned to `inline-start` moves to the right-hand side by itself, because "start" means the side the text starts from.
 
-A dropdown positioned in pixels needs a second set of rules under `[dir="rtl"]`,
-and someone has to remember to write them. This is the kind of thing that made
-RTL support a project of its own, and the reason so many libraries treat it as
-an afterthought.
+A dropdown positioned in pixels needs a second set of rules under `[dir="rtl"]`, and someone has to remember to write them. This is the kind of thing that made RTL support a project of its own, and the reason so many libraries treat it as an afterthought.
 
 ## What to do about older browsers
 
-*Newly available* means the current version of each major browser has it, not
-every browser in use. Plan for both.
+*Newly available* means the current version of each major browser has it, not every browser in use. Plan for both.
 
-Frutjam's popover degrades quietly. Where anchor positioning is unavailable the
-panel still opens, still closes on Escape and on outside clicks, and still
-renders above the page; it simply falls back to the static position it would
-have had in the flow, near its trigger, instead of being tethered to it.
-Nothing breaks, the placement is just less precise.
+Frutjam's popover degrades quietly. Where anchor positioning is unavailable the panel still opens, still closes on Escape and on outside clicks, and still renders above the page; it simply falls back to the static position it would have had in the flow, near its trigger, instead of being tethered to it. Nothing breaks, the placement is just less precise.
 
 If you want to branch explicitly, feature-query it:
 
@@ -168,14 +137,11 @@ If you want to branch explicitly, feature-query it:
 }
 ```
 
-Worth deciding deliberately rather than by accident: a dropdown that is slightly
-misplaced on an old browser is usually acceptable, while one that opens off
-screen is not.
+Worth deciding deliberately rather than by accident: a dropdown that is slightly misplaced on an old browser is usually acceptable, while one that opens off screen is not.
 
 ## The pattern this belongs to
 
-Anchor positioning is the fourth in a run of features that each deleted a
-category of UI JavaScript:
+Anchor positioning is the fourth in a run of features that each deleted a category of UI JavaScript:
 
 | Feature | What it replaced |
 | --- | --- |
@@ -184,17 +150,10 @@ category of UI JavaScript:
 | `@starting-style` | Animation libraries for enter and exit transitions |
 | Anchor positioning | Popper.js, Floating UI, scroll listeners |
 
-None of these are exotic. They are the boring, load-bearing parts of a UI
-library, and the platform has absorbed them one at a time over about three
-years.
+None of these are exotic. They are the boring, load-bearing parts of a UI library, and the platform has absorbed them one at a time over about three years.
 
-The interesting part is what it does to the cost of a component library. A
-dropdown used to mean a dependency, a runtime and a bundle. Now it is a handful
-of CSS custom properties, and the browser does the work faster than any library
-could, because it already knows where everything is.
+What changes is the cost of a component library. A dropdown used to mean a dependency, a runtime and a bundle. Now it's a handful of CSS custom properties, and the browser does it faster than any library could, because it already knows where everything is.
 
 ---
 
-The [popover component](https://frutjam.com/components/popover) ships all twelve
-placements with edge flipping, and every Frutjam component is CSS-only by
-default.
+The [popover component](https://frutjam.com/components/popover) ships all twelve placements with edge flipping, and every Frutjam component is CSS-only by default.

@@ -9,8 +9,7 @@ createdAt: "2026-09-22T00:00:00+00:00"
 updatedAt: "2026-09-22T00:00:00+00:00"
 ---
 
-Add a markdown editor to a Django form the usual way and it looks fine, until
-the form silently refuses to submit:
+Add a markdown editor to a Django form the usual way and it looks fine, until the form silently refuses to submit:
 
 ```python
 # forms.py: Django adds required=True to every non-blank field
@@ -25,40 +24,28 @@ class PostForm(forms.ModelForm):
 const easyMDE = new EasyMDE({ element: document.getElementById('id_content') });
 ```
 
-Click Save and nothing happens. No validation error, no request, no clue on the
-page. The console says:
+Click Save and nothing happens. No validation error, no request, no clue on the page. The console says:
 
 ```
 An invalid form control with name='content' is not focusable.
 ```
 
-EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The
-hidden field is still `required`, so the browser refuses to submit a form it
-cannot focus the invalid field in. And because the submit event never fires,
-the editor never copies its content back. The user's writing goes nowhere.
+EasyMDE hides your `<textarea>` with `display: none` and edits a copy. The hidden field is still `required`, so the browser refuses to submit a form it cannot focus the invalid field in. And because the submit event never fires, the editor never copies its content back. The user's writing goes nowhere.
 
-To be fair to EasyMDE: on a form *without* `required`, it does sync on submit by
-itself, so plain forms work. The trouble is that Django marks fields required by
-default, and that the value only exists in the textarea *during* submit:
+To be fair to EasyMDE: on a form *without* `required`, it does sync on submit by itself, so plain forms work. The trouble is that Django marks fields required by default, and that the value only exists in the textarea *during* submit:
 
 ```javascript
 // Any code that reads the field before submit gets an empty string
 new FormData(document.querySelector('form')).get('content');   // ""
 ```
 
-That breaks anything that serialises the form itself: htmx, Turbo, Alpine,
-autosave, an "unsaved changes" guard, a character counter.
+That breaks anything that serialises the form itself: htmx, Turbo, Alpine, autosave, an "unsaved changes" guard, a character counter.
 
 ## A better approach
 
-[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the
-textarea you already have and leaves it as the field you type into. It is never
-hidden and never copied, so its value is correct at every moment, not just
-during submit.
+[markdown-text-editor](https://frutjam.com/plugins/markdown-editor) styles the textarea you already have and leaves it as the field you type into. It is never hidden and never copied, so its value is correct at every moment, not just during submit.
 
-`required` works because the field is visible. `FormData` works because the
-value is live. And `request.POST`, form validation, `ModelForm.save()`, CSRF and
-pre-filling on edit all behave exactly as they do with a plain textarea.
+`required` works because the field is visible. `FormData` works because the value is live. And `request.POST`, form validation, `ModelForm.save()`, CSRF and pre-filling on edit all behave exactly as they do with a plain textarea.
 
 ## Setup
 
@@ -148,9 +135,7 @@ def edit_post(request, pk):
 
 ## Validation errors keep the user's text
 
-Server-side validation is the other half of the story. When a form fails
-validation, Django re-renders the page with the submitted data bound to the
-form. Because the markdown lives in the textarea, it comes back with it:
+Server-side validation is the other half of the story. When a form fails validation, Django re-renders the page with the submitted data bound to the form. Because the markdown lives in the textarea, it comes back with it:
 
 ```python
 def create_post(request):
@@ -228,25 +213,15 @@ Sanitize on render, not on save. Storing the raw markdown means you can change h
 
 ## Why the textarea matters
 
-An editor that hides the textarea and edits a copy has to guess when to put the
-content back. CodeMirror guesses "on submit", which is a good guess and right
-most of the time, until the browser refuses to submit or something reads the
-form before that moment. Every one of those failures is silent, because from the
-outside the field looks fine.
+An editor that hides the textarea and edits a copy has to guess when to put the content back. CodeMirror guesses "on submit", which is a good guess and right most of the time, until the browser refuses to submit or something reads the form before that moment. Every one of those failures is silent, because from the outside the field looks fine.
 
-An editor that leaves the textarea in place has nothing to guess about. The
-browser owns the value, Django reads what the browser sent, and nothing in
-between has an opinion.
+An editor that leaves the textarea in place has nothing to guess about. The browser owns the value, Django reads what the browser sent, and nothing in between has an opinion.
 
-That is the whole design, and it is why the Django integration in this post is
-three lines long.
+That is the whole design, and it is why the Django integration in this post is three lines long.
 
 ## Starting from scratch?
 
-[django-frutjam-starter](https://github.com/nezanuha/django-frutjam-starter) is a
-working Django 6 project with all of this already wired up: accounts, a
-dashboard, and this exact markdown editor on a notes form. Clone it, run two
-commands, and you have somewhere to start.
+[django-frutjam-starter](https://github.com/nezanuha/django-frutjam-starter) is a working Django 6 project with all of this already wired up: accounts, a dashboard, and this exact markdown editor on a notes form. Clone it, run two commands, and you have somewhere to start.
 
 ---
 
