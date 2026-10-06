@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "安装 - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "378b497e5857"
-translationHash: "2a54b81f5565"
+sourceHash: "0e3f3382df20"
+translationHash: "d8325c0eff19"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -23,11 +23,7 @@ import DocTable from '@/components/DocTable.astro';
 
 只需几分钟即可安装 Frutjam，这是纯 CSS 的 Tailwind CSS UI 库。两次导入、零 JavaScript、开箱即用的 WCAG 可访问组件。适用于 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 项目。
 
-## 如何在 Tailwind CSS 项目中安装 Frutjam UI 库？
-
-确保你有一份工作 [顺风CSS](https://tailwindcss.com/docs/installation/using-vite) 项目已安装，以及 [节点](https://nodejs.org/en/download) 和 NPM 在您的计算机上。 Frutjam 可与 Tailwind 版本 4 配合使用。
-
-### 通过运行以下命令将 frutjam 安装为节点包：
+## 安装
 
 <Snippet view="code">
 
@@ -37,7 +33,24 @@ npm i -D frutjam
 
 </Snippet>
 
-将Frutjam 添加到您的 `input.css` 使用 `@plugin` 指示：
+然后选择下面与您的设置相匹配的行。每个都为您提供相同的组件。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 你的设置 | 添加什么 | 船舶 |
+| --- | --- | --- |
+| [顺风 CSS v4](#tailwind-css-v4) | `@plugin "frutjam";` | 仅限您使用的 |
+| [乌诺CSS](#unocss) | `presetFrutjam()` | 仅限您使用的 |
+| [Vite、Astro、Rails、纯 CSS](#no-utility-engine) | `import 'frutjam/css'` | 所有组件，gzip 后 30 KB |
+| [没有构建步骤](#no-build-step) | 一个 `<link>` 标签 | 所有组件 |
+
+</DocTable>
+
+## 顺风 CSS v4
+
+你需要一个工作 [顺风 CSS](https://tailwindcss.com/docs/installation/using-vite) 项目，加上 [节点](https://nodejs.org/en/download) 和 npm。 Frutjam 需要 Tailwind 4。
+
+将Frutjam 添加到您的 `input.css` 与 `@plugin` 指示：
 
 <Snippet view="code">
 
@@ -47,6 +60,8 @@ npm i -D frutjam
 ```
 
 </Snippet>
+
+这就是整个设置。所有 65 多个组件均可立即使用，并且 Tailwind 仅提供您的标记使用的组件。
 
 ## 乌诺CSS
 
@@ -91,9 +106,48 @@ export default defineConfig({
 
 第二行需要 `transformerVariantGroup()` 对于括号语法。请注意，像这样的属性 `btn` 不是有效的 HTML，因此如果您验证标记，请使用类形式或 UnoCSS `un-` 前缀。
 
-预设带有 Frutjam 的令牌并重置。如果您已经导入 `frutjam/css/base` 你自己，把它关掉 `presetFrutjam({ preflight: false })`.
+### 选项
 
-## 没有实用引擎：Vite、Astro、Rails 或纯 CSS
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| 选项 | 默认 | 目的 |
+| --- | --- | --- |
+| `preflight` | `true` | 发出 Frutjam 的标记、重置和主题。设置为 `false` 如果你已经导入 `frutjam/css/base` 你自己。 |
+| `prefix` | `''` | 匹配 Tailwind 插件 `prefix`， 所以 `'fj'` 给你 `fj-btn` 和 `fj-btn="error"`. |
+| `layer` | `'frutjam'` | 组件被发送到的级联层。它排序在实用程序之下，因此无论预设的顺序如何，实用程序始终胜过组件。 |
+
+</DocTable>
+
+### 链接组件需要一行配置
+
+UnoCSS 对待 `link` 作为 CSS 的变体 `:link` 伪类，其默认分隔符包括 `-`。所以 `link-2xl` 读作“`2xl`，当未访问时”而不是作为类名，并且不会生成任何内容。它仅影响此组件，并且仅影响 `link-*` 修饰符。
+
+要么告诉 UnoCSS 仅按冒号分割：
+
+<Snippet view="code">
+
+```js
+export default defineConfig({
+  separators: [':'],
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+或者使用前缀，其中包含除 `link` 在名字的前面：
+
+<Snippet view="code">
+
+```js
+presets: [presetWind4(), presetFrutjam({ prefix: 'fj' })],   // fj-link-2xl
+```
+
+</Snippet>
+
+其他所有组件均不受影响。 `link` 是 57 个名字与伪类冲突的唯一一个。
+
+## 无实用发动机
 
 Frutjam 是使用 Tailwind 构建的，但组件编译为读取自定义属性的普通 CSS。如果您的项目根本不使用实用程序引擎，请导入样式表而不是插件：
 
@@ -131,6 +185,29 @@ import 'frutjam/css/themes/darkberry';  // optional
 </Snippet>
 
 <RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Frutjam 作为 Tailwind 插件安装，仅提供您使用的组件。作为样式表导入，它会提供所有这些内容，因为没有构建步骤读取您的标记。</span></div></div>"} />
+
+## 没有构建步骤
+
+放入标签并开始编写标记。将其用于原型或您不构建的页面，而不是用于生产，因为它附带了每个组件。
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+要在同一页面上试验 Tailwind 的实用程序，请在其旁边添加 Tailwind 的浏览器构建：
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
 
 ## JavaScript 和 React：可选，非必需
 
@@ -179,18 +256,6 @@ export default function App() {
 
 适用于： `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
 
-### 使用 CDN
-
-使用 frutjam UI 库的 CDN 版本可快速轻松地集成，无需本地设置。将此 CDN 版本的 frutjam 仅用于开发目的，不得用于生产。
-
-<Snippet view="code">
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-```
-
-</Snippet>
 
 ## 下一步
 

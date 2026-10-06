@@ -21,11 +21,7 @@ import DocTable from '@/components/DocTable.astro';
 
 Install Frutjam, the CSS-only Tailwind CSS UI library, in minutes. Two imports, zero JavaScript, WCAG accessible components out of the box. Works with Django, HTMX, Laravel, React, and any Tailwind CSS v4 project.
 
-## How to install Frutjam UI library in Tailwind CSS project?
-
-Make sure you have a working [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) project installed, as well as [Node](https://nodejs.org/en/download) and NPM on your computer. Frutjam works with Tailwind version 4.
-
-### Install frutjam as a Node package by running the following command:
+## Install
 
 <Snippet view="code">
 
@@ -35,7 +31,24 @@ npm i -D frutjam
 
 </Snippet>
 
-Add Frutjam to your `input.css` using the `@plugin` directive:
+Then pick the line below that matches your setup. Every one gives you the same components.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Your setup | What to add | Ships |
+| --- | --- | --- |
+| [Tailwind CSS v4](#tailwind-css-v4) | `@plugin "frutjam";` | only what you use |
+| [UnoCSS](#unocss) | `presetFrutjam()` | only what you use |
+| [Vite, Astro, Rails, plain CSS](#no-utility-engine) | `import 'frutjam/css'` | all components, 30 KB gzipped |
+| [No build step](#no-build-step) | a `<link>` tag | all components |
+
+</DocTable>
+
+## Tailwind CSS v4
+
+You need a working [Tailwind CSS](https://tailwindcss.com/docs/installation/using-vite) project, plus [Node](https://nodejs.org/en/download) and npm. Frutjam requires Tailwind 4.
+
+Add Frutjam to your `input.css` with the `@plugin` directive:
 
 <Snippet view="code">
 
@@ -45,6 +58,8 @@ Add Frutjam to your `input.css` using the `@plugin` directive:
 ```
 
 </Snippet>
+
+That is the whole setup. All 65+ components are available immediately, and Tailwind ships only the ones your markup uses.
 
 ## UnoCSS
 
@@ -89,9 +104,48 @@ Add `presetAttributify()` and the component name becomes an attribute, with each
 
 The second line needs `transformerVariantGroup()` for the bracket syntax. Note that an attribute like `btn` is not valid HTML, so if you validate your markup, use the class form or UnoCSS's `un-` prefix.
 
-The preset carries Frutjam's tokens and reset. If you already import `frutjam/css/base` yourself, turn that off with `presetFrutjam({ preflight: false })`.
+### Options
 
-## Without a utility engine: Vite, Astro, Rails or plain CSS
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Option | Default | Purpose |
+| --- | --- | --- |
+| `preflight` | `true` | Emits Frutjam's tokens, reset and themes. Set to `false` if you already import `frutjam/css/base` yourself. |
+| `prefix` | `''` | Matches the Tailwind plugin's `prefix`, so `'fj'` gives you `fj-btn` and `fj-btn="error"`. |
+| `layer` | `'frutjam'` | The cascade layer the components are emitted into. It sorts below utilities, so a utility always wins over a component whatever order the presets are in. |
+
+</DocTable>
+
+### The link component needs one line of config
+
+UnoCSS treats `link` as a variant, for the CSS `:link` pseudo-class, and its default separators include `-`. So `link-2xl` is read as "`2xl`, when unvisited" rather than as a class name, and nothing is generated. It affects only this component, and only the `link-*` modifiers.
+
+Either tell UnoCSS to split on colons alone:
+
+<Snippet view="code">
+
+```js
+export default defineConfig({
+  separators: [':'],
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Or use a prefix, which puts something other than `link` at the front of the name:
+
+<Snippet view="code">
+
+```js
+presets: [presetWind4(), presetFrutjam({ prefix: 'fj' })],   // fj-link-2xl
+```
+
+</Snippet>
+
+Every other component is unaffected. `link` is the only one of the 57 whose name collides with a pseudo-class.
+
+## No utility engine
 
 Frutjam is built with Tailwind, but the components compile to ordinary CSS that reads custom properties. If your project uses no utility engine at all, import the stylesheet instead of the plugin:
 
@@ -130,7 +184,30 @@ Or with no build step at all:
 
 <RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Installed as a Tailwind plugin, Frutjam ships only the components you use. Imported as a stylesheet it ships all of them, because there is no build step reading your markup.</span></div></div>"} />
 
-## JavaScript & React: Optional, Not Required
+## No build step
+
+Drop a tag in and start writing markup. Use this for a prototype or a page you do not build, not for production, since it ships every component.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+To experiment with Tailwind's utilities on the same page, add Tailwind's browser build alongside it:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## JavaScript and React: optional, not required
 
 Frutjam is **native-first and CSS-first**. The vast majority of components: buttons, badges, cards, forms, alerts, and more: work with pure HTML and CSS, zero JavaScript needed. Native HTML elements like `<dialog>`, `<details>`, and `<input type="checkbox">` handle interactivity where browsers already support it. All components are WCAG AA accessible out of the box and work with Django, HTMX, Laravel, React, Next.js, and any stack.
 
@@ -177,18 +254,6 @@ export default function App() {
 
 Available for: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
 
-### Using a CDN
-
-Use the CDN version of the frutjam UI library for fast and easy integration without local setup. Use this CDN version of frutjam only for development purposes, not in production.
-
-<Snippet view="code">
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-```
-
-</Snippet>
 
 ## Next Steps
 

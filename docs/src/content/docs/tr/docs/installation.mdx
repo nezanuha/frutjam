@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "Kurulum - Frutjam"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "378b497e5857"
-translationHash: "d50e437a458f"
+sourceHash: "0e3f3382df20"
+translationHash: "58b964925c1c"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -23,11 +23,7 @@ import DocTable from '@/components/DocTable.astro';
 
 Yalnızca CSS'ye özel Tailwind CSS kullanıcı arayüzü kitaplığı olan Frutjam'ı birkaç dakika içinde yükleyin. İki içe aktarma, sıfır JavaScript, kutudan çıktığı gibi WCAG ile erişilebilen bileşenler. Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
 
-## Tailwind CSS projesine Frutjam UI kütüphanesi nasıl kurulur?
-
-Bir çalışmanız olduğundan emin olun [Arka rüzgar CSS](https://tailwindcss.com/docs/installation/using-vite) proje yüklendi, ayrıca [Düğüm](https://nodejs.org/en/download) ve bilgisayarınızda NPM. Frutjam, Tailwind sürüm 4 ile çalışır.
-
-### Aşağıdaki komutu çalıştırarak frutjam'ı Node paketi olarak yükleyin:
+## Düzenlemek
 
 <Snippet view="code">
 
@@ -37,7 +33,24 @@ npm i -D frutjam
 
 </Snippet>
 
-Frutjam'ı ekleyin `input.css` kullanarak `@plugin` direktif:
+Daha sonra aşağıdan kurulumunuza uygun satırı seçin. Her biri size aynı bileşenleri verir.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Kurulumunuz | Ne eklenmeli? | Gemiler |
+| --- | --- | --- |
+| [Arka rüzgar CSS v4](#tailwind-css-v4) | `@plugin "frutjam";` | sadece senin kullandığın şey |
+| [UnoCSS](#unocss) | `presetFrutjam()` | sadece senin kullandığın şey |
+| [Vite, Astro, Raylar, düz CSS](#no-utility-engine) | `import 'frutjam/css'` | tüm bileşenler, 30 KB gzip'li |
+| [Oluşturma adımı yok](#no-build-step) | A `<link>` etiket | tüm bileşenler |
+
+</DocTable>
+
+## Arka rüzgar CSS v4
+
+Çalışmaya ihtiyacın var [Arka rüzgar CSS](https://tailwindcss.com/docs/installation/using-vite) proje artı [Düğüm](https://nodejs.org/en/download) ve npm. Frutjam, Tailwind 4'ü gerektirir.
+
+Frutjam'ı ekleyin `input.css` ile `@plugin` direktif:
 
 <Snippet view="code">
 
@@ -47,6 +60,8 @@ Frutjam'ı ekleyin `input.css` kullanarak `@plugin` direktif:
 ```
 
 </Snippet>
+
+Bütün kurulum budur. 65'ten fazla bileşenin tamamı anında mevcuttur ve Tailwind yalnızca işaretlemenizin kullandığı bileşenleri gönderir.
 
 ## UnoCSS
 
@@ -91,9 +106,48 @@ Eklemek `presetAttributify()` ve bileşen adı bir öznitelik haline gelir ve he
 
 İkinci satıra ihtiyaç var `transformerVariantGroup()` braket sözdizimi için. Gibi bir özelliğin olduğunu unutmayın `btn` geçerli bir HTML değil, bu nedenle işaretlemenizi doğrulayacaksanız sınıf formunu veya UnoCSS'yi kullanın. `un-` önek.
 
-Ön ayar Frutjam'ın jetonlarını taşır ve sıfırlanır. Zaten içe aktarıyorsanız `frutjam/css/base` kendiniz şunu kapatın `presetFrutjam({ preflight: false })`.
+### Seçenekler
 
-## Yardımcı motor olmadan: Vite, Astro, Rails veya düz CSS
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Seçenek | Varsayılan | Amaç |
+| --- | --- | --- |
+| `preflight` | `true` | Frutjam'ın jetonlarını, sıfırlamalarını ve temalarını yayar. Şuna ayarla: `false` zaten içe aktarıyorsanız `frutjam/css/base` kendin. |
+| `prefix` | `''` | Tailwind eklentisininkilerle eşleşir `prefix`, Bu yüzden `'fj'` sana verir `fj-btn` Ve `fj-btn="error"`. |
+| `layer` | `'frutjam'` | Bileşenlerin yayıldığı basamaklı katman. Yardımcı programların altında sıralanır, böylece ön ayarlar hangi sırada olursa olsun bir yardımcı program her zaman bir bileşeni kazanır. |
+
+</DocTable>
+
+### Bağlantı bileşeninin bir yapılandırma satırına ihtiyacı var
+
+UnoCSS işlemleri `link` CSS için bir varyant olarak `:link` sözde sınıf ve onun varsayılan ayırıcıları şunları içerir: `-`. Bu yüzden `link-2xl` " şeklinde okunur`2xl`", ziyaret edilmediğinde" bir sınıf adı olarak değil, hiçbir şey üretilmez. Yalnızca bu bileşeni etkiler ve yalnızca `link-*` değiştiriciler
+
+UnoCSS'ye yalnızca iki nokta üst üste bölünmesini söyleyin:
+
+<Snippet view="code">
+
+```js
+export default defineConfig({
+  separators: [':'],
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+Veya şunun dışında bir şey koyan bir önek kullanın: `link` ismin önünde:
+
+<Snippet view="code">
+
+```js
+presets: [presetWind4(), presetFrutjam({ prefix: 'fj' })],   // fj-link-2xl
+```
+
+</Snippet>
+
+Diğer hiçbir bileşen etkilenmez. `link` 57 kişiden adı sahte sınıfla çatışan tek kişidir.
+
+## Yardımcı motor yok
 
 Frutjam, Tailwind ile oluşturulmuştur ancak bileşenler, özel özellikleri okuyan sıradan CSS'ye derlenir. Projeniz hiçbir yardımcı motor kullanmıyorsa eklenti yerine stil sayfasını içe aktarın:
 
@@ -132,7 +186,30 @@ Veya hiçbir derleme adımı olmadan:
 
 <RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Tailwind eklentisi olarak kurulan Frutjam, yalnızca kullandığınız bileşenleri gönderir. Bir stil sayfası olarak içe aktarıldığında, bunların tümü gönderilir, çünkü işaretlemenizi okuyan bir oluşturma adımı yoktur.</span></div></div>"} />
 
-## JavaScript ve React: İsteğe Bağlı, Gerekli Değil
+## Oluşturma adımı yok
+
+Bir etiket bırakın ve işaretleme yazmaya başlayın. Bunu, her bileşeni gönderdiğinden üretim için değil, oluşturmadığınız bir prototip veya sayfa için kullanın.
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
+
+</Snippet>
+
+Aynı sayfada Tailwind'in yardımcı programlarını denemek için Tailwind'in tarayıcı yapısını da yanına ekleyin:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## JavaScript ve React: isteğe bağlı, gerekli değil
 
 Frutjam **yerel öncelikli ve CSS önceliklidir**. Bileşenlerin büyük çoğunluğu: düğmeler, rozetler, kartlar, formlar, uyarılar ve daha fazlası: saf HTML ve CSS ile çalışır, sıfır JavaScript gerektirir. Yerel HTML öğeleri gibi `<dialog>`, `<details>`, Ve `<input type="checkbox">` Tarayıcıların zaten desteklediği etkileşimi yönetin. Tüm bileşenlere WCAG AA kullanıma hazırdır ve Django, HTMX, Laravel, React, Next.js ve herhangi bir yığınla çalışır.
 
@@ -179,18 +256,6 @@ export default function App() {
 
 Şunlar için kullanılabilir: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
 
-### CDN kullanma
-
-Yerel kurulum gerektirmeden hızlı ve kolay entegrasyon için frutjam UI kitaplığının CDN sürümünü kullanın. Frutjam'ın bu CDN sürümünü yalnızca geliştirme amacıyla kullanın, üretimde değil.
-
-<Snippet view="code">
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-```
-
-</Snippet>
 
 ## Sonraki Adımlar
 

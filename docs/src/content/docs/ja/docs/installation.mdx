@@ -13,8 +13,8 @@ image: "https://cdn.frutjam.com/media/docs/installation.webp"
 imageAlt: "インスタレーション - フルジャム"
 createdAt: "2025-09-05T16:02:19.231238+00:00"
 updatedAt: "2026-07-13T09:55:24.157638+00:00"
-sourceHash: "378b497e5857"
-translationHash: "3e013384d655"
+sourceHash: "0e3f3382df20"
+translationHash: "c2087e863922"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -23,11 +23,7 @@ import DocTable from '@/components/DocTable.astro';
 
 CSS 専用の Tailwind CSS UI ライブラリである Frutjam を数分でインストールします。 2 つのインポート、ゼロ JavaScript、すぐに使える WCAG アクセス可能なコンポーネント。 Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
 
-## Tailwind CSS プロジェクトに Frutjam UI ライブラリをインストールするにはどうすればよいですか?
-
-動作していることを確認してください [追い風 CSS](https://tailwindcss.com/docs/installation/using-vite) プロジェクトがインストールされているだけでなく、 [ノード](https://nodejs.org/en/download) および NPM をコンピュータ上にインストールします。 Frutjam は Tailwind バージョン 4 で動作します。
-
-### 次のコマンドを実行して、frutjam をノード パッケージとしてインストールします。
+## インストール
 
 <Snippet view="code">
 
@@ -37,7 +33,24 @@ npm i -D frutjam
 
 </Snippet>
 
-フルーツジャムを追加 `input.css` を使用して `@plugin` 指令：
+次に、設定に一致する以下の行を選択します。どれも同じコンポーネントを提供します。
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| あなたのセットアップ | 何を追加するか | 船 |
+| --- | --- | --- |
+| [テイルウィンド CSS v4](#tailwind-css-v4) | `@plugin "frutjam";` | 自分が使うものだけを |
+| [UnoCSS](#unocss) | `presetFrutjam()` | 自分が使うものだけを |
+| [Vite、Astro、Rails、プレーン CSS](#no-utility-engine) | `import 'frutjam/css'` | すべてのコンポーネント、30 KB gzip圧縮 |
+| [ビルドステップがありません](#no-build-step) | ある `<link>` タグ | すべてのコンポーネント |
+
+</DocTable>
+
+## テイルウィンド CSS v4
+
+作業が必要です [追い風 CSS](https://tailwindcss.com/docs/installation/using-vite) プロジェクト、プラス [ノード](https://nodejs.org/en/download) そしてnpm。 Frutjam には Tailwind 4 が必要です。
+
+フルーツジャムを追加 `input.css` と `@plugin` 指令：
 
 <Snippet view="code">
 
@@ -47,6 +60,8 @@ npm i -D frutjam
 ```
 
 </Snippet>
+
+それが全体のセットアップです。 65 以上のコンポーネントはすべてすぐに利用でき、Tailwind はマークアップで使用するコンポーネントのみを出荷します。
 
 ## UnoCSS
 
@@ -91,9 +106,48 @@ export default defineConfig({
 
 2行目に必要なのは `transformerVariantGroup()` 括弧構文については。次のような属性に注意してください `btn` は有効な HTML ではないため、マークアップを検証する場合は、クラス フォームまたは UnoCSS の `un-` 接頭語。
 
-プリセットには Frutjam のトークンとリセットが含まれています。すでにインポートしている場合 `frutjam/css/base` あなた自身、それをオフにしてください `presetFrutjam({ preflight: false })`.
+### オプション
 
-## ユーティリティ エンジンなし: Vite、Astro、Rails、またはプレーン CSS
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| オプション | デフォルト | 目的 |
+| --- | --- | --- |
+| `preflight` | `true` | Frutjam のトークン、リセット、テーマを発行します。に設定します `false` すでにインポートしている場合 `frutjam/css/base` あなた自身。 |
+| `prefix` | `''` | Tailwind プラグインと一致します `prefix`、 それで `'fj'` あなたに与えます `fj-btn` そして `fj-btn="error"`. |
+| `layer` | `'frutjam'` | コンポーネントが放出されるカスケード レイヤー。ユーティリティの下にソートされるため、プリセットの順序に関係なく、ユーティリティは常にコンポーネントよりも優先されます。 |
+
+</DocTable>
+
+### リンクコンポーネントには 1 行の設定が必要です
+
+UnoCSS の扱い `link` CSS のバリアントとして `:link` 疑似クラス、およびそのデフォルトの区切り文字には以下が含まれます。 `-`。それで `link-2xl` 「」と読みます`2xl`、未訪問時」をクラス名としてではなく、何も生成されません。このコンポーネントのみに影響し、 `link-*` 修飾子。
+
+UnoCSS にコロンのみで分割するように指示します。
+
+<Snippet view="code">
+
+```js
+export default defineConfig({
+  separators: [':'],
+  presets: [presetWind4(), presetFrutjam()],
+});
+```
+
+</Snippet>
+
+または、プレフィックスを使用して、他のものを置きます `link` 名前の前に:
+
+<Snippet view="code">
+
+```js
+presets: [presetWind4(), presetFrutjam({ prefix: 'fj' })],   // fj-link-2xl
+```
+
+</Snippet>
+
+他のすべてのコンポーネントは影響を受けません。 `link` 57 個の中で名前が疑似クラスと衝突する唯一のクラスです。
+
+## ユーティリティエンジンなし
 
 Frutjam は Tailwind を使用して構築されていますが、コンポーネントはカスタム プロパティを読み取る通常の CSS にコンパイルされます。プロジェクトでユーティリティ エンジンをまったく使用しない場合は、プラグインの代わりにスタイルシートをインポートします。
 
@@ -132,15 +186,38 @@ import 'frutjam/css/themes/darkberry';  // optional
 
 <RawHtml html={"<div class=\"not-prose\"><div class=\"alert alert-info alert-soft mt-6\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/></svg><span>Tailwind プラグインとしてインストールされる Frutjam は、使用するコンポーネントのみを同梱します。スタイルシートとしてインポートすると、マークアップを読み取るビルド ステップがないため、すべてのスタイルシートが同梱されます。</span></div></div>"} />
 
-## JavaScript と React: オプション、必須ではありません
+## ビルドステップがありません
 
-Frutjam は **ネイティブ ファーストかつ CSS ファースト**です。ボタン、バッジ、カード、フォーム、アラートなどのコンポーネントの大部分は、純粋な HTML と CSS で動作し、JavaScript は必要ありません。次のようなネイティブ HTML 要素 `<dialog>`, `<details>`、 そして `<input type="checkbox">` ブラウザーがすでにサポートしている対話性を処理します。すべてのコンポーネントはすぐに WCAG AA にアクセスでき、Django、HTMX、Laravel、React、Next.js、およびあらゆるスタックで動作します。
+タグをドロップしてマークアップの作成を開始します。これは、すべてのコンポーネントを同梱するため、運用環境ではなく、プロトタイプまたは作成しないページに使用してください。
 
-少数のコンポーネントには、ネイティブ HTML に相当するものがありません (トースト通知、コンボボックス フィルタリング、カルーセル コントロール)。そのような場合にのみ、Frutjam には軽量のオプション ヘルパーが付属しています。
+<Snippet view="code">
 
-### バニラ JS: `frutjam/js`
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.components.css">
+```
 
-必要なコンポーネント用のフレームワークに依存しない ES モジュール ヘルパー。フレームワークは必要なく、任意の DOM 要素に接続できます。
+</Snippet>
+
+同じページでTailwindのユーティリティを試すには、Tailwindのブラウザビルドを一緒に追加します。
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+```
+
+</Snippet>
+
+## JavaScriptとReact ：オプション、必須ではありません
+
+Frutjamは**ネイティブファーストとCSSファースト**です。ボタン、バッジ、カード、フォーム、アラートなどのコンポーネントの大部分：純粋なHTMLとCSSで動作し、JavaScriptは必要ありません。次のようなネイティブHTML要素 `<dialog>`, `<details>`、および `<input type="checkbox">` ブラウザがすでにサポートしているインタラクティブ性を処理します。すべてのコンポーネントは、すぐにアクセスできるWCAG AAであり、Django、HTMX、Laravel、React、Next.js、および任意のスタックで動作します。
+
+少数のコンポーネントには、ネイティブのHTML同等物（ TOAST通知、コンボボックスフィルタリング、カルーセルコントロール）がありません。これらのケースでのみ、フルジャムは軽量のオプションのヘルパーを出荷します。
+
+### バニラJS ： `frutjam/js`
+
+それらを必要とするコンポーネントのためのフレームワークに依存しないESモジュールヘルパー。任意のDOM要素に添付します。フレームワークは必要ありません。
 
 <Snippet view="code">
 
@@ -155,9 +232,9 @@ modal.toggle()
 
 </Snippet>
 
-### 反応フック: `frutjam/react`
+### Reactフック： `frutjam/react`
 
-同じネイティブ DOM 呼び出しを囲む Thin React ラッパー。各フックは、 `ref` 要素とそれを制御するメソッドにアタッチするだけで、React 自体以外の追加の依存関係はありません。
+同じネイティブDOM呼び出しの周りのシンReactラッパー。各フックは、 `ref` 要素とそれを制御するメソッドにアタッチし、React自体以外の依存関係はありません。
 
 <Snippet view="code">
 
@@ -177,27 +254,15 @@ export default function App() {
 
 </Snippet>
 
-利用可能な用途: `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
+で利用可能です `useModal`, `useDrawer`, `useCollapsible`, `useTooltip`, `useTabs`, `useToast`, `useCarousel`, `useCombobox`.
 
-### CDN の使用
-
-frutjam UI ライブラリの CDN バージョンを使用すると、ローカル設定なしで迅速かつ簡単に統合できます。 frutjam のこの CDN バージョンは、運用環境ではなく、開発目的でのみ使用してください。
-
-<Snippet view="code">
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frutjam@2/dist/frutjam.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-```
-
-</Snippet>
 
 ## 次のステップ
 
-インストールしたら、試してみてください [ボタンコンポーネント](/components/button) Frutjam の動作を確認したり、全体を探索したりするには [コンポーネントライブラリ](/components).
+インストールが完了したら、 [ボタンコンポーネント](/components/button) フルジャムを実際に見たり、フルジャムを [コンポーネントライブラリ](/components).
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AIエディターの統合</p><h3 class=\"card-title mb-2\">クロード コード、カーソル、または別の AI エディターを使用していますか?</h3><p class=\"para-sm mb-3\">Cherry MCP は、Frutjam の完全なコンポーネント ライブラリを AI エディタのコンテキストに直接導入し、正確なクラス名、ライブ ドキュメントをコピー＆ペーストすることなく提供します。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCP について詳しく知る→</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-secondary badge-soft mb-2\">AIエディター統合</p><h3 class=\"card-title mb-2\">クロードコード、カーソル、または他のAIエディタを使用していますか？</h3><p class=\"para-sm mb-3\">Cherry MCPは、Frutjamの完全なコンポーネントライブラリをAIエディターのコンテキスト、正確なクラス名、ライブドキュメント、コピーペーストなしに直接もたらします。</p><a href=\"/products/cherry\" class=\"btn btn-sm btn-primary\">Cherry MCPについて学ぶ →</a></div></div></div>"} />
 
-<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">スタータープロジェクト</p><h3 class=\"card-title mb-2\">Django で構築しますか?</h3><p class=\"para-sm mb-3\">Frutjam がすでに接続されている、動作する Django 6 プロジェクト、アカウント、ダッシュボード、テーマ、マークダウンに基づく CRUD サンプル。クローンを作成して構築を開始します。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Django スターターを入手 →</a></div></div></div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div class=\"card card-outline card-sm mt-6\"><div class=\"card-content\"><p class=\"badge badge-info badge-soft mb-2\">スタータープロジェクト</p><h3 class=\"card-title mb-2\">Djangoで構築しますか？</h3><p class=\"para-sm mb-3\">Frutjamを使用して動作しているDjango 6プロジェクト、アカウント、ダッシュボード、テーマ、マークダウンされたCRUDの例。クローンを作成して、構築を開始します。</p><a href=\"https://github.com/nezanuha/django-frutjam-starter\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-primary\">Djangoスターターを入手 →</a></div></div></div>"} />
 
-<RawHtml html={"<p class=\"mt-6\">Frutjam の CSS ファーストのアプローチの背後にある考え方を理解したいですか? <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">なぜこのように構築したかをお読みください→</a></p>"} />
+<RawHtml html={"<p class=\"mt-6\">FrutjamのCSSファーストアプローチの背後にある考え方を理解したいですか？ <a href=\"/blog/why-i-built-frutjam-css-first-tailwind-ui-library\">このように構築した理由を読む →</a></p>"} />
