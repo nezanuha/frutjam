@@ -6,7 +6,7 @@ metaDescription: "CSS-only DaisyUI alternative built for Tailwind CSS v4. Zero J
 image: "https://cdn.frutjam.com/media/blog/posts/daisyui-css-only-alternative-tailwind-components.jpg"
 imageAlt: "Clay-style still life of a jar of fruit jam with raspberries beside a plain daisy flower"
 createdAt: "2026-07-05T06:54:27.455443+00:00"
-updatedAt: "2026-07-17T11:49:18.610629+00:00"
+updatedAt: "2026-10-07T10:00:00+00:00"
 ---
 
 Most developers who discover DaisyUI love the idea: semantic component classes on top of Tailwind CSS, a broad component library, and an active ecosystem. It remains the most-installed Tailwind component library on npm for good reason. But when you dig into real projects: WCAG audits, multilingual apps, or fine-grained UI control: specific gaps become hard to ignore.
@@ -192,17 +192,17 @@ createCombobox(document.querySelector('.my-combobox'))
 
 `createCombobox` also wires up all required `aria-*` attributes automatically. You do not write filtering logic, keyboard handlers, or ARIA patterns, the library ships them.
 
-### 6. Tailwind v4 Native
+### 6. Tailwind v4 Native, and Not Only Tailwind
 
-Frutjam is designed around Tailwind v4, the v4 import system, CSS-first configuration, and OKLCH color tokens. Install it and add two lines:
+Frutjam is designed around Tailwind v4: the v4 import system, CSS-first configuration, and OKLCH color tokens. Install it and add one line.
 
 ```bash
-npm install frutjam
+npm i -D frutjam
 ```
 
 ```css
 @import "tailwindcss";
-@import "frutjam";
+@plugin "frutjam";
 ```
 
 ```html
@@ -211,14 +211,30 @@ npm install frutjam
 
 Every component is available immediately. No script tags, no initialization, no build step beyond Tailwind itself.
 
+Since 2.3.0 it also runs without Tailwind, which matters if you're weighing up a move away from it later. There's a UnoCSS preset generated from the same source files as the Tailwind plugin, so the two can't drift:
+
+```js
+import { presetFrutjam } from 'frutjam/unocss';
+
+export default defineConfig({ presets: [presetWind4(), presetFrutjam()] });
+```
+
+And for a project with no utility engine at all, a single import gives you every component in about 30 KB gzipped:
+
+```js
+import 'frutjam/css';
+```
+
+DaisyUI is a Tailwind plugin and stays one. If you ever leave Tailwind, Frutjam goes with you and not one class name in your templates changes.
+
 ---
 
 ## Component Coverage Comparison
 
 | Component | Frutjam | DaisyUI v5 |
 | :--- | :--- | :--- |
-| **Total components** | 53 | 80 |
-| **Built-in themes** | 6 named Berry themes | 25+ |
+| **Total components** | 65+ | 80 |
+| **Built-in themes** | 2 (snowberry, darkberry) plus your own | 25+ |
 | **WCAG AA/AAA guaranteed** | Yes, all themes | Not guaranteed |
 | Button, Badge, Alert | CSS-only | CSS-only |
 | Accordion | CSS-only (`<details>` / `<summary>`) | CSS-only (radio / `<details>`) |
@@ -227,7 +243,7 @@ Every component is available immediately. No script tags, no initialization, no 
 | Popover / Dropdown | Native Popover API: 12 positions, click or hover | Native Popover API / `<details>` / focus-based CSS |
 | Combobox | CSS-only open/close + `createCombobox()` helper | **No combobox component** |
 | RTL support | Yes: `ltr:` / `rtl:` prefixes on modal, drawer | Partial |
-| PageSpeed 100/100 | Yes, zero JS overhead, zero layout shift |: |
+| PageSpeed 100/100 | Yes, zero JS overhead, zero layout shift | Not published |
 | Framework-agnostic | Django, HTMX, Laravel, React, Vue, any stack | Django, HTMX, Laravel, React, Vue, any stack |
 
 ---
@@ -286,7 +302,7 @@ Swap the import in your CSS entry point:
 @plugin "daisyui";
 
 /* After */
-@import "frutjam";
+@plugin "frutjam";
 ```
 
 Most component class names carry over directly:
