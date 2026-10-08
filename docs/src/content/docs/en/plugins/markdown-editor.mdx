@@ -11,7 +11,7 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Markdown Text Editor JavaScript Plugin by Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -44,6 +44,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 TypeScript definitions ship with the package, so options, toolbar entries and variable shapes are checked and autocompleted with no extra install.
+
+The types are importable too, which matters whenever your options are not written inline at the call site. TypeScript only checks for unknown keys on an object literal passed directly, so a config kept in its own variable has a misspelled key silently ignored. Annotating it puts the check back.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+The same applies to a wrapper component, where `MarkdownEditorOptions` is what you forward instead of `any`, so whoever uses your wrapper keeps the checking.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: ES module
 
@@ -356,6 +391,199 @@ The toolbar is modular. You can create a minimal experience or a full-featured p
 -   **Reordering**: The buttons appear in the exact order you list them in the array
 -   **Removing**: Simply omit any key (like `image`) from the array to disable that feature entirely for the user
 -   **Native Fallback**: If you don't provide a `placeholder` in JS, the plugin will automatically use the `placeholder` attribute from your HTML `<textarea>`
+
+### 🧩 Custom Tools
+
+Add a toolbar button of your own without forking. Describe it and drop it into the `toolbar` array, in whatever position you want it.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+The `title` becomes the tooltip and the button's CSS class, so this one is styleable as `.callout-btn`, exactly like the built-in tools.
+
+#### Several tools
+
+Add as many as you like. Each one is its own entry in the array, so you place them individually and they can sit between built-in tools rather than being grouped at one end.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Give each one a distinct `title`. Two tools sharing a title would share a CSS class, and a tool without one falls back to `.custom-btn`.
+
+#### Options
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Property | Type | Purpose |
+| --- | --- | --- |
+| `title` | `string` | Required. Tooltip text, and the source of the button's CSS class. Translatable through `labels`. |
+| `action` | `function` | Required. Receives `(editor, event)`. The click event is passed on so a tool that opens a dialog can hand it to `MarkdownEditor.modal`. |
+| `icon` | `string` | Inline SVG for the button face. |
+| `shortcut` | `string` | A keyboard shortcut such as `Ctrl+Shift+K`. Added to the tooltip, and takes precedence over a built-in using the same keys. |
+
+</DocTable>
+
+A tool with no `action` is skipped with a console warning rather than breaking the toolbar. It renders no button, and its `shortcut`, if it declared one, is not registered either.
+
+#### Working with the content
+
+Use `editor.insertText()` rather than writing to the textarea yourself. It replaces the selection, restores focus, moves the caret, scrolls, re-renders the preview and fires `onChange`. Undo keeps working because the edit goes through the normal path.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Shortcuts
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+The tooltip becomes "Highlight (Ctrl+Shift+H)". Tool shortcuts are checked before the built-in ones, so a custom tool can deliberately take over a combination the editor would otherwise handle.
+
+#### Tools that need their own markup
+
+A dropdown or a dialog cannot be described declaratively, so write a class instead. Extend `MarkdownEditor.Tool`, set `this.button` in the constructor, and implement `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Pass configuration with `{ tool: EmbedTool, config: {...} }`, which arrives as the constructor's second argument. Setting `this.button` to `null` renders nothing, which is useful for a tool that only applies in some configurations.
+
+One thing to watch: `Tool`'s constructor calls `createButton()`, so anything your override needs must come from `this.editor`, not from a field you assign after `super()`.
+
+#### The dialog helper
+
+`MarkdownEditor.modal` is the dialog the built-in link and image tools use, so a tool of yours that collects input looks like the rest of the editor instead of inventing its own popup. It returns the `<dialog>` element, already open, which you query for your fields and close with `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Pass the `event` your `applySyntax()` received. The helper reads it to find which editor the click came from, so the dialog is appended inside that editor's wrapper and picks up its theme. It replaces any dialog already open in that editor, and removes itself from the DOM when closed, so there is nothing to clean up.
+
+#### Rendering markdown yourself
+
+If your tool embeds rendered content, a tooltip body for instance, `editor.renderMarkdown()` produces HTML exactly as the preview does, honouring your `renderer` and `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### A toolbar for your own textarea
+
+When a dialog collects rich text, give it the real formatting tools instead of rebuilding them. The toolbar is bound to the textarea you pass, your `labels` are inherited, and no preview button is added.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+This does not manage the toolbar's lifetime. The buttons are cleaned up with the dialog when it is removed, but if a tool in it registers anything page-wide, a document listener or a timer, release that yourself when the dialog closes.
+
+#### Translation
+
+Custom tools translate like built-in ones, keyed by the title you gave them.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+The CSS class is unaffected, so `.callout-btn` stays `.callout-btn` in every language.
 
 ### 📊 Footer (Status Bar)
 
@@ -1062,6 +1290,22 @@ To confirm a successful upload and insert the image into the editor, your server
 </Snippet>
 
 **Note**: Ensure you use the key `image_path` for the URL of the uploaded image.
+
+You may also return `image_alt`, which is used as a suggestion only when the user left the alt field empty. Anything they typed themselves always wins, so a server that derives alt text from the filename or from image recognition can offer it without overwriting a real description.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+On failure, return `success: false` with an `error` or `message` string. That text is surfaced to the user, so make it something they can act on.
 
 ### Image Alt Text Validation (`altInput`)
 
