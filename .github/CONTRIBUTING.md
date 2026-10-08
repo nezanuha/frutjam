@@ -11,9 +11,10 @@ Thank you for your interest in contributing to **Frutjam**! Whether you're fixin
 Click the **Fork** button on the [GitHub repo](https://github.com/nezanuha/frutjam) and clone your fork locally:
 
 ```bash
-git clone https://github.com/nezanuha/frutjam.git
+git clone https://github.com/YOUR-USERNAME/frutjam.git
 cd frutjam
-````
+git remote add upstream https://github.com/nezanuha/frutjam.git
+```
 
 ### 2. Create a New Branch
 
@@ -28,8 +29,11 @@ git checkout -b fix/button-focus-state
 Follow the existing coding style. If you're adding UI components or themes:
 
 * Keep accessibility in mind (use semantic HTML and ARIA where needed)
-* Use Tailwind utility classes
+* Write plain CSS inside `@utility` blocks, not Tailwind utility classes.
+  Components read custom properties so they can be themed, and `@apply` is
+  avoided throughout. See [Cascade Specificity Rule](#-cascade-specificity-rule)
 * Keep components composable and minimal
+* Adding a whole component? See [Adding a Component](#-adding-a-component)
 
 ### 4. Test Your Changes
 
@@ -65,6 +69,88 @@ Open a pull request on the main repo. In your PR description, include:
 * What your change does
 * Why it's needed
 * Screenshots or code samples, if relevant
+
+---
+
+## 🧩 Adding a Component
+
+A component is a folder of CSS and one documentation page. Nothing has to be
+registered anywhere: the build reads `src/components/`, so a new folder reaches
+the Tailwind plugin, the UnoCSS preset and the CDN bundles at the same time.
+
+### 1. The CSS
+
+Create `src/components/<name>/base.css`. **The build only looks for `base.css`**,
+so it is the entry point, and anything else in the folder is pulled in from it:
+
+```css
+@import "./sizes.css";
+@import "./colors.css";
+
+@utility tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  background: var(--tag-bg, var(--color-base-soft));
+  color: var(--tag-color, var(--color-on-base));
+}
+```
+
+Split the rest by concern, the way existing components do. These names are
+conventions rather than rules, and only the ones you need:
+
+| File | Holds |
+| --- | --- |
+| `base.css` | The base class, and the `@import`s for everything below |
+| `structure.css` | Child parts, such as `card-content` |
+| `sizes.css` | `-xs` through `-2xl` |
+| `colors.css` | `-primary`, `-success` and the rest |
+| `styles.css` | `-outline`, `-soft`, `-dashed` |
+| `states.css` | Hover, focus, disabled, active |
+
+Three things to get right:
+
+**Read tokens, never hard-code colour.** `var(--color-primary)` and
+`var(--color-on-primary)` are themeable and contrast-tested. A literal hex
+value is neither, and it breaks every theme including the two that ship.
+
+**Follow the [Cascade Specificity Rule](#-cascade-specificity-rule).** It is not
+a style preference. Get it wrong and nobody can override your component with a
+utility class.
+
+**Every `on-` pair must pass WCAG AA at 4.5:1.** That guarantee is the reason
+the library exists.
+
+### 2. The documentation page
+
+Create `docs/src/content/docs/en/components/<name>.mdx`. Copy the shape of a
+neighbouring page: frontmatter, the three imports, the intro paragraphs, a
+`<DocTable>` listing every class, then `<Snippet>` examples with an `html` block
+and a `jsx` block.
+
+Write English only. Translations are never required, and copying the English
+file into a language folder untranslated is worse than leaving it out.
+
+### 3. The social image
+
+Add `docs/public/media/components/<name>.webp` at 1200×630 and reference it in
+the frontmatter as `https://cdn.frutjam.com/media/components/<name>.webp`.
+
+### 4. Check it
+
+```sh
+npm run build            # repository root: CSS, Tailwind plugin, UnoCSS preset
+cd docs && npm run build # the site, around 900 pages
+```
+
+Both must finish without errors. Then `npm run dev` in `docs/` and read the page
+at `http://localhost:4321/components/<name>`, in both themes.
+
+### What you do not have to do
+
+Register the component anywhere, write a UnoCSS rule, add it to the sidebar,
+the sitemap, the search index or `llms.txt`, or touch `dist/`. All of it is
+generated from the folder and the `.mdx` file.
 
 ---
 
