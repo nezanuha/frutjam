@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript Editor Teks Penurunan Harga oleh Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "909e2b624e0d"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "78884c090ee5"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 Definisi TypeScript dikirimkan bersama paket, sehingga opsi, entri toolbar, dan bentuk variabel diperiksa dan dilengkapi secara otomatis tanpa instalasi tambahan.
+
+Jenisnya juga dapat diimpor, yang penting setiap kali pilihan Anda tidak ditulis sebaris di situs panggilan. TypeScript hanya memeriksa kunci yang tidak diketahui pada objek literal yang diteruskan secara langsung, sehingga konfigurasi yang disimpan dalam variabelnya sendiri memiliki kunci yang salah eja dan diabaikan secara diam-diam. Menganotasinya akan mengembalikan tanda centang.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+Hal yang sama berlaku untuk komponen wrapper, dimana `MarkdownEditorOptions` adalah apa yang Anda teruskan `any`, jadi siapa pun yang menggunakan pembungkus Anda akan terus memeriksanya.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: modul ES
 
@@ -122,7 +157,7 @@ Kebanyakan editor penurunan harga JavaScript (EasyMDE, SimpleMDE, editor berbasi
 | Mode hibrid WYSIWYG | ✅ | ❌ |
 | Temukan & Ganti bawaan | ✅ | ❌ |
 | dukungan RTL | ✅ Terpasang | Melalui CodeMirror's `direction` pilihan |
-| Pengendali kejadian sebaris (CSP) | ✅ Tidak ada | Beberapa |
+| Pengendali peristiwa sebaris (CSP) | ✅ Tidak ada | Beberapa |
 | Mode gelap/tema | ✅ | Terbatas |
 | Ukuran bundel, di-gzip | 53KB | 107 KB (JS+CSS) |
 
@@ -295,7 +330,7 @@ Opsi dibaca satu kali, saat editor dibuat. Mengubahnya setelahnya tidak berpenga
 | `toolbar` | `array` | `[...]` | Menentukan alat mana yang muncul dan dalam urutan apa. |
 | `footer` | `salah \| objek` | semua terlihat | Mengontrol bilah status yang ditampilkan di bawah editor. Setel ke `false` untuk menyembunyikannya seluruhnya, atau meneruskan objek untuk mengubah statistik individual. |
 | `theme` | `string` | inherited | Menetapkan tema editor secara eksplisit (terang, gelap, snowberry, darkberry). Jika dihilangkan, editor mewarisi `data-theme` dari elemen leluhur terdekat atau `<textarea>` diri. |
-| `minHeight` | `number` | `200` | Tinggi minimum dalam piksel yang akan diperkecil oleh editor ketika kontennya pendek. Pasangkan dengan `maxHeight` untuk mengatur rentang pertumbuhan otomatis. |
+| `minHeight` | `number` | `200` | Tinggi minimum dalam piksel yang akan diperkecil oleh editor ketika kontennya pendek. Pairs with `maxHeight` untuk mengatur rentang pertumbuhan otomatis. |
 | `maxHeight` | `number` | `500` | Tinggi maksimum dalam piksel yang dapat ditingkatkan editor dalam mode non-layar penuh. Setelah konten melebihi ketinggian ini, bilah gulir akan muncul di dalam editor. Editor juga memiliki pegangan tarik sehingga pengguna dapat mengubah ukurannya secara manual melebihi batas ini. |
 | `renderer` | `function` | `marked` | Menggantikan parser penurunan harga yang digunakan untuk pratinjau. Menerima string penurunan harga dan harus mengembalikan string HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Menggantikan pembersih HTML. Menerima HTML yang dirender dan harus mengembalikan HTML aman untuk ditampilkan. |
@@ -358,6 +393,199 @@ Bilah alatnya bersifat modular. Anda dapat menciptakan pengalaman minimal atau p
 - **Penyusunan Ulang**: Tombol muncul sesuai urutan yang Anda cantumkan dalam larik
 - **Menghapus**: Cukup hilangkan tombol apa saja (seperti `image`) dari array untuk menonaktifkan fitur tersebut sepenuhnya bagi pengguna
 - **Pengembalian Asli**: Jika Anda tidak memberikan `placeholder` di JS, plugin akan secara otomatis menggunakan `placeholder` atribut dari HTML Anda `<textarea>`
+
+### 🧩 Alat Khusus
+
+Tambahkan tombol toolbar Anda sendiri tanpa forking. Jelaskan dan masukkan ke dalam `toolbar` array, dalam posisi apa pun yang Anda inginkan.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+Itu `title` menjadi tooltip dan kelas CSS tombol, jadi yang ini dapat ditata sebagai `.callout-btn`, persis seperti alat bawaan.
+
+#### Beberapa alat
+
+Tambahkan sebanyak yang Anda suka. Masing-masing merupakan entri tersendiri dalam array, jadi Anda menempatkannya satu per satu dan mereka dapat ditempatkan di antara alat bawaan, bukannya dikelompokkan di satu sisi.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Berikan masing-masing perbedaan `title`. Dua alat yang berbagi judul akan berbagi kelas CSS, dan alat yang tidak memiliki satu kelas CSS pun akan berbagi `.custom-btn`.
+
+#### Pilihan
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Milik | Jenis | Tujuan |
+| --- | --- | --- |
+| `title` | `string` | Diperlukan. Teks keterangan alat, dan sumber kelas CSS tombol. Dapat diterjemahkan melalui `labels`. |
+| `action` | `function` | Diperlukan. Menerima `(editor, event)`. Peristiwa klik diteruskan sehingga alat yang membuka dialog dapat menyerahkannya `MarkdownEditor.modal`. |
+| `icon` | `string` | SVG sebaris untuk tampilan tombol. |
+| `shortcut` | `string` | Pintasan keyboard seperti `Ctrl+Shift+K`. Ditambahkan ke tooltip, dan lebih diutamakan daripada bawaan menggunakan kunci yang sama. |
+
+</DocTable>
+
+Alat dengan no `action` dilewati dengan peringatan konsol daripada merusak toolbar. Itu tidak membuat tombol, dan itu `shortcut`, jika dinyatakan satu, tidak terdaftar juga.
+
+#### Bekerja dengan konten
+
+Menggunakan `editor.insertText()` daripada menulis sendiri ke textarea. Ini menggantikan pilihan, mengembalikan fokus, memindahkan tanda sisipan, menggulir, merender ulang pratinjau dan mengaktifkan `onChange`. Undo tetap berfungsi karena editannya melalui jalur normal.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Jalan pintas
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+Tooltipnya menjadi "Sorot (Ctrl+Shift+H)". Pintasan alat diperiksa sebelum pintasan bawaan, sehingga alat khusus dapat dengan sengaja mengambil alih kombinasi yang seharusnya ditangani oleh editor.
+
+#### Alat yang membutuhkan markupnya sendiri
+
+Dropdown atau dialog tidak dapat dideskripsikan secara deklaratif, jadi tulislah sebuah kelas saja. Memperpanjang `MarkdownEditor.Tool`, mengatur `this.button` di konstruktor, dan mengimplementasikan `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Lewati konfigurasi dengan `{ tool: EmbedTool, config: {...} }`, yang muncul sebagai argumen kedua konstruktor. Pengaturan `this.button` ke `null` tidak menghasilkan apa pun, yang berguna untuk alat yang hanya berlaku di beberapa konfigurasi.
+
+Satu hal yang perlu diperhatikan: `Tool`panggilan konstruktor `createButton()`, jadi apa pun kebutuhan penggantian Anda harus berasal `this.editor`, bukan dari bidang yang Anda tetapkan setelahnya `super()`.
+
+#### Pembantu dialog
+
+`MarkdownEditor.modal` adalah dialog yang digunakan alat tautan dan gambar bawaan, sehingga alat Anda yang mengumpulkan masukan terlihat seperti editor lainnya, bukan membuat popupnya sendiri. Ini mengembalikan `<dialog>` elemen, sudah terbuka, yang Anda kueri untuk bidang Anda dan tutup dengannya `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Lewati `event` milikmu `applySyntax()` diterima. Helper membacanya untuk menemukan dari editor mana klik tersebut berasal, sehingga dialog ditambahkan ke dalam pembungkus editor tersebut dan mengambil temanya. Ini menggantikan dialog apa pun yang sudah terbuka di editor itu, dan menghapus dirinya sendiri dari DOM ketika ditutup, jadi tidak ada yang perlu dibersihkan.
+
+#### Memberikan penurunan harga sendiri
+
+Jika alat Anda menyematkan konten yang dirender, misalnya isi tooltip, `editor.renderMarkdown()` menghasilkan HTML persis seperti pratinjau, menghormati Anda `renderer` Dan `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Bilah alat untuk area teks Anda sendiri
+
+Saat dialog mengumpulkan teks kaya, berikan alat pemformatan sebenarnya alih-alih membuatnya kembali. Bilah alat terikat pada area teks yang Anda lewati, milik Anda `labels` diwarisi, dan tidak ada tombol pratinjau yang ditambahkan.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Ini tidak mengatur masa pakai toolbar. Tombol-tombol tersebut dibersihkan bersama dialog saat dihapus, namun jika alat di dalamnya mencatat apa pun di seluruh halaman, pendengar dokumen, atau pengatur waktu, lepaskan sendiri saat dialog ditutup.
+
+#### Terjemahan
+
+Alat khusus diterjemahkan seperti alat bawaan, dengan kunci berdasarkan judul yang Anda berikan.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+Kelas CSS tidak terpengaruh, jadi `.callout-btn` tetap `.callout-btn` dalam setiap bahasa.
 
 ### 📊 Catatan Kaki (Bilah Status)
 
@@ -806,15 +1034,15 @@ Timpa dengan `--mte-fullscreen-z-index`. Nilai ini hanya berlaku di layar penuh,
 
 </Snippet>
 
-## Api Konten
+## API Konten
 
-Salah satu kekuatan inti **MarkdownEditor** adalah bahwa ia mempertahankan `<textarea>` disinkronkan dengan sempurna. Apakah Anda menggunakan kerangka kerja JavaScript modern atau backend tradisional seperti **Django, PHP, atau Laravel**, alur kerjanya tetap sederhana dan asli.
+Salah satu kekuatan inti **MarkdownEditor** adalah mempertahankan hal yang mendasarinya `<textarea>` tersinkronisasi dengan sempurna. Baik Anda menggunakan kerangka kerja JavaScript modern atau backend tradisional seperti **Django, PHP, atau Laravel**, alur kerjanya tetap sederhana dan asli.
 
 ### Membaca dan Menulis Konten
 
 #### 1\. Cara Asli (Disarankan)
 
-Karena editor meningkatkan area teks standar, Anda dapat menggunakan metode DOM yang sudah dikenal. Ini adalah cara tercepat untuk berinteraksi dengan data Anda tanpa mempelajari api baru.
+Karena editor menyempurnakan area teks standar, Anda dapat menggunakan metode DOM yang sudah dikenal. Ini adalah cara tercepat untuk berinteraksi dengan data Anda tanpa mempelajari API baru.
 
 <Snippet view="code">
 
@@ -830,7 +1058,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\. Menggunakan Referensi Variabel
 
-Jika Anda memiliki referensi ke elemen textarea, Anda dapat menggunakannya secara langsung: tidak diperlukan api khusus pustaka.
+Jika Anda memiliki referensi ke elemen textarea, Anda dapat menggunakannya secara langsung: tidak diperlukan API khusus perpustakaan.
 
 <Snippet view="code">
 
@@ -846,9 +1074,9 @@ textarea.value = "## Updated via JS";
 
 </Snippet>
 
-#### 3\. Mengatur sisi server konten awal
+#### 3\. Mengatur konten awal di sisi server
 
-Cara yang disarankan untuk mengatur konten awal adalah langsung di `<textarea>` HTML: ini bekerja secara alami dengan setiap kerangka kerja backend (Django, Laravel, Rails, PHP, dll.) dan editor merendernya secara otomatis pada init.
+Cara yang disarankan untuk mengatur konten awal adalah langsung di `<textarea>` HTML: ini bekerja secara alami dengan setiap kerangka backend (Django, Laravel, Rails, PHP, dll.) dan editor merendernya secara otomatis di init.
 
 <Snippet view="code">
 
@@ -859,7 +1087,7 @@ Cara yang disarankan untuk mengatur konten awal adalah langsung di `<textarea>` 
 
 </Snippet>
 
-Untuk membaca atau memperbarui konten saat runtime, gunakan native `textarea` value. Telepon `editor.render()` setelah pembaruan untuk menyegarkan lapisan pratinjau dan hibrida.
+Untuk membaca atau memperbarui konten saat runtime, gunakan yang asli `textarea` nilai. Panggilan `editor.render()` setelah pembaruan untuk menyegarkan pratinjau dan lapisan hibrid.
 
 <Snippet view="code">
 
@@ -1064,6 +1292,22 @@ Untuk mengonfirmasi keberhasilan upload dan memasukkan gambar ke editor, server 
 </Snippet>
 
 **Catatan**: Pastikan Anda menggunakan kuncinya `image_path` untuk URL gambar yang diunggah.
+
+Anda juga dapat kembali `image_alt`, yang digunakan sebagai saran hanya ketika pengguna membiarkan kolom alt kosong. Apa pun yang mereka ketik sendiri selalu menang, sehingga server yang memperoleh teks alternatif dari nama file atau dari pengenalan gambar dapat menawarkannya tanpa menimpa deskripsi sebenarnya.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+Jika gagal, kembalilah `success: false` dengan `error` atau `message` rangkaian. Teks tersebut ditampilkan kepada pengguna, jadi buatlah teks tersebut menjadi sesuatu yang dapat mereka tindak lanjuti.
 
 ### Validasi Teks Alt Gambar (`altInput`)
 

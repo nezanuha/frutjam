@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript de l'éditeur de texte Markdown par Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "4a9c4b5500a0"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "28d2b33872fc"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 Les définitions TypeScript sont livrées avec le package, de sorte que les options, les entrées de la barre d'outils et les formes de variables sont vérifiées et complétées automatiquement sans installation supplémentaire.
+
+Les types sont également importables, ce qui est important chaque fois que vos options ne sont pas écrites en ligne sur le site d'appel. TypeScript vérifie uniquement les clés inconnues sur un littéral d'objet transmis directement, de sorte qu'une configuration conservée dans sa propre variable a une clé mal orthographiée ignorée en silence. L'annoter remet le chèque en place.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+La même chose s'applique à un composant wrapper, où `MarkdownEditorOptions` c'est ce que vous transmettez au lieu de `any`, donc celui qui utilise votre wrapper conserve la vérification.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN : module ES
 
@@ -128,7 +163,7 @@ La plupart des éditeurs de démarques JavaScript (EasyMDE, SimpleMDE, éditeurs
 
 </DocTable>
 
-## Intégration du cadre
+## Intégration du framework
 
 Parce que **MarkdownEditor** préserve le natif `<textarea>`, il s'intègre à tous les frameworks backend sans aucun code supplémentaire. Votre serveur reçoit le contenu de démarque exactement comme il le ferait pour n'importe quel champ de formulaire standard. Pour React et Vue, cela prend quelques lignes, couvertes à la fin de cette section.
 
@@ -295,7 +330,7 @@ Les options sont lues une fois, lorsque l'éditeur est construit. Les modifier e
 | `toolbar` | `array` | `[...]` | Définit quels outils apparaissent et dans quel ordre. |
 | `footer` | `faux \| objet` | tout est visible | Contrôle la barre d'état affichée sous l'éditeur. Régler sur `false` pour le masquer entièrement, ou passez un objet pour basculer les statistiques individuelles. |
 | `theme` | `string` | inherited | Définit explicitement le thème de l'éditeur (clair, foncé, symphorine, mûre). En cas d'omission, l'éditeur hérite `data-theme` de l'élément ancêtre le plus proche ou du `<textarea>` lui-même. |
-| `minHeight` | `number` | `200` | Hauteur minimale en pixels à laquelle l'éditeur se réduira lorsque le contenu est court. S'associe avec `maxHeight` pour définir la plage de croissance automatique. |
+| `minHeight` | `number` | `200` | Hauteur minimale en pixels à laquelle l'éditeur sera réduit lorsque le contenu est court. S'associe avec `maxHeight` pour définir la plage de croissance automatique. |
 | `maxHeight` | `number` | `500` | Hauteur maximale en pixels que l'éditeur peut atteindre en mode non plein écran. Une fois que le contenu dépasse cette hauteur, une barre de défilement apparaît dans l'éditeur. L'éditeur dispose également d'une poignée de déplacement permettant aux utilisateurs de le redimensionner manuellement au-delà de cette limite. |
 | `renderer` | `function` | `marked` | Remplace l'analyseur de démarque utilisé pour l'aperçu. Reçoit la chaîne de démarque et doit renvoyer une chaîne HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Remplace le désinfectant HTML. Reçoit le code HTML rendu et doit renvoyer le code HTML sécurisé à afficher. |
@@ -358,6 +393,199 @@ La barre d'outils est modulaire. Vous pouvez créer une expérience minimale ou 
 - **Réorganisation** : les boutons apparaissent dans l'ordre exact dans lequel vous les répertoriez dans le tableau
 - **Suppression** : omettez simplement n'importe quelle clé (comme `image`) du tableau pour désactiver entièrement cette fonctionnalité pour l'utilisateur
 - **Native Fallback** : si vous ne fournissez pas de `placeholder` en JS, le plugin utilisera automatiquement le `placeholder` attribut de votre code HTML `<textarea>`
+
+### 🧩 Outils personnalisés
+
+Ajoutez votre propre bouton de barre d’outils sans bifurquer. Décrivez-le et déposez-le dans le `toolbar` tableau, dans la position souhaitée.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+Le `title` devient l'info-bulle et la classe CSS du bouton, celle-ci peut donc être stylisée comme `.callout-btn`, exactement comme les outils intégrés.
+
+#### Plusieurs outils
+
+Ajoutez-en autant que vous le souhaitez. Chacun constitue sa propre entrée dans le tableau, vous les placez donc individuellement et ils peuvent être placés entre les outils intégrés plutôt que d'être regroupés à une extrémité.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Donnez à chacun un `title`. Deux outils partageant un titre partageraient une classe CSS, et un outil sans une classe CSS `.custom-btn`.
+
+#### Possibilités
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Propriété | Taper | But |
+| --- | --- | --- |
+| `title` | `string` | Requis. Texte de l'info-bulle et source de la classe CSS du bouton. Traduisible par `labels`. |
+| `action` | `function` | Requis. Reçoit `(editor, event)`. L'événement click est transmis afin qu'un outil qui ouvre une boîte de dialogue puisse le transmettre `MarkdownEditor.modal`. |
+| `icon` | `string` | SVG en ligne pour la face du bouton. |
+| `shortcut` | `string` | Un raccourci clavier tel que `Ctrl+Shift+K`. Ajouté à l'info-bulle et a priorité sur un élément intégré utilisant les mêmes touches. |
+
+</DocTable>
+
+Un outil sans `action` est ignoré avec un avertissement de console plutôt que de casser la barre d'outils. Il ne restitue aucun bouton, et son `shortcut`, s'il en a déclaré un, n'est pas non plus enregistré.
+
+#### Travailler avec le contenu
+
+Utiliser `editor.insertText()` plutôt que d'écrire vous-même dans la zone de texte. Il remplace la sélection, restaure le focus, déplace le curseur, fait défiler, restitue l'aperçu et se déclenche. `onChange`. L'annulation continue de fonctionner car la modification suit le chemin normal.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Raccourcis
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+L'info-bulle devient « Surligner (Ctrl+Maj+H) ». Les raccourcis d'outils sont vérifiés avant ceux intégrés, de sorte qu'un outil personnalisé peut délibérément reprendre une combinaison que l'éditeur gérerait autrement.
+
+#### Outils qui nécessitent leur propre balisage
+
+Une liste déroulante ou une boîte de dialogue ne peut pas être décrite de manière déclarative, alors écrivez plutôt une classe. Étendre `MarkdownEditor.Tool`, ensemble `this.button` dans le constructeur et implémenter `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Passer la configuration avec `{ tool: EmbedTool, config: {...} }`, qui arrive comme deuxième argument du constructeur. Paramètre `this.button` à `null` ne restitue rien, ce qui est utile pour un outil qui ne s'applique que dans certaines configurations.
+
+Une chose à surveiller : `Tool`Le constructeur de appelle `createButton()`, donc tout ce dont vous avez besoin doit provenir `this.editor`, pas à partir d'un champ que vous attribuez après `super()`.
+
+#### L'assistant de dialogue
+
+`MarkdownEditor.modal` est la boîte de dialogue utilisée par les outils de liens et d'images intégrés, donc un de vos outils qui collecte les entrées ressemble au reste de l'éditeur au lieu d'inventer sa propre fenêtre contextuelle. Il renvoie le `<dialog>` élément, déjà ouvert, avec lequel vous interrogez vos champs et fermez avec `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Passez le `event` ton `applySyntax()` reçu. L'assistant le lit pour trouver de quel éditeur le clic provient, de sorte que la boîte de dialogue est ajoutée à l'intérieur du wrapper de cet éditeur et reprend son thème. Il remplace toute boîte de dialogue déjà ouverte dans cet éditeur et se supprime du DOM une fois fermé, il n'y a donc rien à nettoyer.
+
+#### Rendu vous-même
+
+Si votre outil intègre du contenu rendu, un corps d'info-bulle par exemple, `editor.renderMarkdown()` produit du HTML exactement comme le fait l'aperçu, honorant votre `renderer` et `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Une barre d'outils pour votre propre zone de texte
+
+Lorsqu'une boîte de dialogue collecte du texte enrichi, donnez-lui les véritables outils de formatage au lieu de les reconstruire. La barre d'outils est liée à la zone de texte que vous passez, votre `labels` sont hérités et aucun bouton d’aperçu n’est ajouté.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Cela ne gère pas la durée de vie de la barre d'outils. Les boutons sont nettoyés avec la boîte de dialogue lorsqu'elle est supprimée, mais si un outil qu'elle contient enregistre quelque chose sur l'ensemble de la page, un écouteur de document ou un minuteur, libérez-le vous-même lorsque la boîte de dialogue se ferme.
+
+#### Traduction
+
+Les outils personnalisés se traduisent comme des outils intégrés, identifiés par le titre que vous leur avez donné.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+La classe CSS n'est pas affectée, donc `.callout-btn` reste `.callout-btn` dans toutes les langues.
 
 ### 📊 Pied de page (barre d'état)
 
@@ -577,7 +805,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-C’est ce qui compte le plus aux côtés du contenu de droite à gauche. L'arabe, l'ourdou et le farsi s'affichent correctement, mais une barre d'outils qui indique toujours "Gras" sur le texte de droite à gauche n'est qu'à moitié traduite.
+Cela compte le plus avec le contenu de droite à gauche. L'arabe, l'ourdou et le farsi s'affichent correctement, mais une barre d'outils qui indique toujours "Gras" sur le texte de droite à gauche n'est qu'à moitié traduite.
 
 ### 🏷 Variables
 
@@ -1064,6 +1292,22 @@ Pour confirmer un téléchargement réussi et insérer l'image dans l'éditeur, 
 </Snippet>
 
 **Remarque** : Assurez-vous d'utiliser la clé `image_path` pour l'URL de l'image téléchargée.
+
+Vous pouvez également revenir `image_alt`, qui est utilisé comme suggestion uniquement lorsque l'utilisateur a laissé le champ alt vide. Tout ce qu'ils ont tapé eux-mêmes est toujours gagnant, donc un serveur qui dérive le texte alternatif du nom de fichier ou de la reconnaissance d'image peut le proposer sans écraser une véritable description.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+En cas d'échec, retour `success: false` avec un `error` ou `message` chaîne. Ce texte est présenté à l'utilisateur, alors faites-en quelque chose sur lequel il peut agir.
 
 ### Validation du texte alternatif de l'image (`altInput`)
 

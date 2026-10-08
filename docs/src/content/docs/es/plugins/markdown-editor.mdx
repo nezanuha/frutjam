@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Complemento JavaScript del editor de texto Markdown de Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "27ede7079a0d"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "2de5a40ac78d"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 Las definiciones de TypeScript se incluyen con el paquete, por lo que las opciones, las entradas de la barra de herramientas y las formas variables se verifican y se completan automáticamente sin necesidad de instalación adicional.
+
+Los tipos también son importables, lo cual es importante siempre que sus opciones no estén escritas en línea en el sitio de la llamada. TypeScript solo busca claves desconocidas en un objeto literal pasado directamente, por lo que una configuración mantenida en su propia variable tiene una clave mal escrita que se ignora silenciosamente. Al anotarlo se devuelve el cheque.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+Lo mismo se aplica a un componente contenedor, donde `MarkdownEditorOptions` es lo que reenvías en lugar de `any`, por lo que quien utilice su envoltorio se quedará con la comprobación.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: módulo ES
 
@@ -101,7 +136,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 ## La filosofía: "los nativos primero"
 
-La mayoría de los editores rompen el flujo de trabajo web estándar. **MarkdownEditor** lo acepta. Debido a que se encuentra directamente encima de un `<textarea>`, no es necesario aprender una nueva forma de manejar los datos.
+La mayoría de los editores rompen el flujo de trabajo web estándar. **MarkdownEditor** lo acepta. Debido a que se encuentra directamente encima de un `<textarea>`, no es necesario que aprenda una nueva forma de manejar los datos.
 
 - **No se necesita enlace de datos:** Funciona con `<form method="POST">` fuera de la caja
 - **Acceso estándar:** Uso `document.getElementById('editor').value` como una entrada normal.
@@ -349,7 +384,7 @@ La barra de herramientas es modular. Puede crear una experiencia mínima o un pa
 | `redo` | Para volver a aplicar los últimos cambios deshechos. |
 | `indent` | Para aumentar el nivel de sangría. |
 | `outdent` | Para disminuir el nivel de sangría. |
-| `preview` | Alterna una vista previa en pantalla completa, una al lado de la otra. Se puede hacer clic en las casillas de verificación en el panel de vista previa y se actualiza la fuente de rebajas al instante. Presione Escape para salir de la pantalla completa. Si un encabezado fijo cubre el editor en pantalla completa, consulte `--mte-fullscreen-z-index`. |
+| `preview` | Alterna una vista previa en pantalla completa, una al lado de la otra. Se puede hacer clic en las casillas de verificación en el panel de vista previa y actualizan la fuente de rebajas al instante. Presione Escape para salir de la pantalla completa. Si un encabezado fijo cubre el editor en pantalla completa, consulte `--mte-fullscreen-z-index`. |
 
 </DocTable>
 
@@ -358,6 +393,199 @@ La barra de herramientas es modular. Puede crear una experiencia mínima o un pa
 - **Reordenación**: los botones aparecen en el orden exacto en que los enumera en la matriz
 - **Eliminar**: Simplemente omita cualquier clave (como `image`) de la matriz para desactivar esa característica por completo para el usuario
 - **Respaldo nativo**: si no proporcionas un `placeholder` en JS, el complemento utilizará automáticamente el `placeholder` atributo de su HTML `<textarea>`
+
+### 🧩 Herramientas personalizadas
+
+Agregue un botón propio en la barra de herramientas sin bifurcar. Descríbelo y colócalo en el `toolbar` matriz, en la posición que desee.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+El `title` se convierte en la información sobre herramientas y la clase CSS del botón, por lo que a esta se le puede aplicar estilo como `.callout-btn`, exactamente igual que las herramientas integradas.
+
+#### Varias herramientas
+
+Añade tantos como quieras. Cada uno es su propia entrada en la matriz, por lo que los coloca individualmente y pueden ubicarse entre las herramientas integradas en lugar de agruparse en un extremo.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Dale a cada uno un distintivo `title`. Dos herramientas que comparten un título compartirían una clase CSS, y una herramienta sin una recurre a `.custom-btn`.
+
+#### Opciones
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Propiedad | Tipo | Objetivo |
+| --- | --- | --- |
+| `title` | `string` | Requerido. Texto de información sobre herramientas y el origen de la clase CSS del botón. Traducible a través de `labels`. |
+| `action` | `function` | Requerido. Recibe `(editor, event)`. El evento de clic se transmite para que una herramienta que abre un cuadro de diálogo pueda entregárselo. `MarkdownEditor.modal`. |
+| `icon` | `string` | SVG en línea para la cara del botón. |
+| `shortcut` | `string` | Un atajo de teclado como `Ctrl+Shift+K`. Se agrega a la información sobre herramientas y tiene prioridad sobre una función integrada que usa las mismas teclas. |
+
+</DocTable>
+
+Una herramienta sin `action` se omite con una advertencia de la consola en lugar de romper la barra de herramientas. No muestra ningún botón y su `shortcut`, si lo declaró, tampoco está registrado.
+
+#### Trabajando con el contenido
+
+Usar `editor.insertText()` en lugar de escribir usted mismo en el área de texto. Reemplaza la selección, restaura el foco, mueve el cursor, se desplaza, vuelve a renderizar la vista previa y activa `onChange`. Deshacer sigue funcionando porque la edición sigue la ruta normal.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Atajos
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+La información sobre herramientas se convierte en "Resaltar (Ctrl+Shift+H)". Los accesos directos a herramientas se verifican antes que los integrados, por lo que una herramienta personalizada puede asumir deliberadamente una combinación que el editor manejaría de otro modo.
+
+#### Herramientas que necesitan su propio marcado.
+
+Un menú desplegable o un cuadro de diálogo no se pueden describir de forma declarativa, así que escriba una clase en su lugar. Extender `MarkdownEditor.Tool`, colocar `this.button` en el constructor e implementar `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Pasar configuración con `{ tool: EmbedTool, config: {...} }`, que llega como segundo argumento del constructor. Configuración `this.button` a `null` no representa nada, lo cual es útil para una herramienta que solo se aplica en algunas configuraciones.
+
+Una cosa para mirar: `Tool`llamadas al constructor `createButton()`, por lo que cualquier cosa que necesite anular debe provenir de `this.editor`, no desde un campo que usted asigna después `super()`.
+
+#### El ayudante de diálogo
+
+`MarkdownEditor.modal` es el cuadro de diálogo que utilizan las herramientas integradas de enlaces e imágenes, por lo que una herramienta suya que recopila entradas se parece al resto del editor en lugar de inventar su propia ventana emergente. Devuelve el `<dialog>` elemento, ya abierto, que consulta para sus campos y cierra con `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Pasa el `event` su `applySyntax()` recibió. El asistente lo lee para encontrar de qué editor proviene el clic, por lo que el cuadro de diálogo se agrega dentro del contenedor de ese editor y retoma su tema. Reemplaza cualquier cuadro de diálogo que ya esté abierto en ese editor y se elimina del DOM cuando se cierra, por lo que no hay nada que limpiar.
+
+#### Renderizando la rebaja usted mismo
+
+Si su herramienta incorpora contenido renderizado, un cuerpo de información sobre herramientas, por ejemplo, `editor.renderMarkdown()` produce HTML exactamente como lo hace la vista previa, respetando su `renderer` y `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Una barra de herramientas para tu propia área de texto
+
+Cuando un cuadro de diálogo recopila texto enriquecido, bríndele herramientas de formato reales en lugar de reconstruirlas. La barra de herramientas está vinculada al área de texto que pasa, su `labels` se heredan y no se agrega ningún botón de vista previa.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Esto no gestiona la vida útil de la barra de herramientas. Los botones se limpian con el cuadro de diálogo cuando se elimina, pero si una herramienta registra algo en toda la página, un detector de documentos o un temporizador, suéltelo usted mismo cuando se cierre el cuadro de diálogo.
+
+#### Traducción
+
+Las herramientas personalizadas se traducen como las integradas, según el título que les hayas asignado.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+La clase CSS no se ve afectada, por lo que `.callout-btn` corsé `.callout-btn` en cada idioma.
 
 ### 📊 Pie de página (barra de estado)
 
@@ -577,7 +805,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-Esto es más importante junto con el contenido de derecha a izquierda. El árabe, el urdu y el farsi se presentan correctamente por sí solos, pero una barra de herramientas que todavía dice "negrita" sobre el texto de derecha a izquierda sólo está traducida a medias.
+Esto es más importante junto con el contenido de derecha a izquierda. El árabe, el urdu y el farsi se presentan correctamente por sí solos, pero una barra de herramientas que todavía dice "negrita" sobre el texto de derecha a izquierda está sólo a medias traducida.
 
 ### 🏷 Variables
 
@@ -621,7 +849,7 @@ Una entrada dada una `sample` muestra esa muestra en la vista previa, mientras q
 
 #### Agrupamiento
 
-dar una entrada `items` en lugar de un `value` para representar una sección con encabezado. Las entradas agrupadas y planas se pueden combinar en una lista.
+dar una entrada `items` en lugar de un `value` para representar una sección con encabezado. Las entradas agrupadas y planas se pueden mezclar en una lista.
 
 <Snippet view="code">
 
@@ -1065,6 +1293,22 @@ Para confirmar una carga exitosa e insertar la imagen en el editor, su servidor 
 
 **Nota**: asegúrese de utilizar la clave `image_path` para la URL de la imagen cargada.
 
+También puedes regresar `image_alt`, que se utiliza como sugerencia sólo cuando el usuario dejó el campo alt vacío. Todo lo que ellos mismos hayan escrito siempre gana, por lo que un servidor que derive texto alternativo del nombre del archivo o del reconocimiento de imágenes puede ofrecerlo sin sobrescribir una descripción real.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+Si falla, regresa `success: false` con un `error` o `message` cadena. Ese texto se muestra al usuario, así que conviértalo en algo sobre lo que pueda actuar.
+
 ### Validación de texto alternativo de imagen (`altInput`)
 
 Para garantizar que su contenido siga siendo accesible y compatible con SEO, **MarkdownEditor** aplica la validación de texto alternativo de forma predeterminada.
@@ -1173,7 +1417,7 @@ Un panel integrado de búsqueda y reemplazo está disponible dentro del editor: 
 -   Prensa `Ctrl + H` (o `⌘ H`) para abrir el panel **Buscar y reemplazar**
 - La búsqueda **no distingue entre mayúsculas y minúsculas** y muestra un contador de partidos en vivo (por ejemplo, *3 de 12*)
 - Navegar partidos con los botones **▲ / ▼** o `Enter` / `Shift + Enter`
-- **Reemplazar** reemplaza la coincidencia resaltada actual; **Reemplazar todo** reemplaza cada ocurrencia a la vez
+- **Reemplazar** reemplaza la coincidencia resaltada actualmente; **Reemplazar todo** reemplaza cada ocurrencia a la vez
 -   Prensa `Escape` para cerrar el panel y devolver el foco al editor
 
 El panel flota en la esquina superior derecha del área de contenido del editor y no interrumpe la escritura.

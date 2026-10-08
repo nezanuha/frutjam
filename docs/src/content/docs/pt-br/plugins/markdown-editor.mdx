@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plug-in JavaScript do Markdown Text Editor da Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "c0d4b65cd260"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "e396d9fbc35e"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 As definições TypeScript são fornecidas com o pacote, portanto, opções, entradas da barra de ferramentas e formas variáveis ​​são verificadas e preenchidas automaticamente sem instalação extra.
+
+Os tipos também são importáveis, o que é importante sempre que suas opções não estão escritas in-line no site da chamada. O TypeScript verifica apenas chaves desconhecidas em um objeto literal passado diretamente, portanto, uma configuração mantida em sua própria variável tem uma chave com erro ortográfico ignorada silenciosamente. Anotá-lo coloca o cheque de volta.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+O mesmo se aplica a um componente wrapper, onde `MarkdownEditorOptions` é o que você encaminha em vez de `any`, então quem usa seu wrapper mantém a verificação.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: módulo ES
 
@@ -342,7 +377,7 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 | `code` | Quebra o texto selecionado em crases únicos para código embutido. Clicar novamente remove os crases. |
 | `codeblock` | Quebra o texto selecionado em um bloco de código protegido com crase triplo. Clicar novamente remove as cercas. |
 | `hr` | Insere um `---` regra horizontal na posição do cursor em sua própria linha. |
-| `table` | Insere um modelo inicial de tabela de descontos 2x3 na posição do cursor. |
+| `table` | Insere um modelo de tabela inicial de redução 2x3 na posição do cursor. |
 | `image` | Permite inserir imagens via sintaxe de markdown. |
 | `link` | Permite adicionar hiperlinks ao seu texto. |
 | `undo` | Para reverter as últimas alterações. |
@@ -358,6 +393,199 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 - **Reordenação**: os botões aparecem na ordem exata em que você os listou na matriz
 - **Removendo**: Simplesmente omita qualquer tecla (como `image`) da matriz para desabilitar esse recurso inteiramente para o usuário
 - **Backup nativo**: se você não fornecer um `placeholder` em JS, o plugin usará automaticamente o `placeholder` atributo do seu HTML `<textarea>`
+
+### 🧩 Ferramentas personalizadas
+
+Adicione seu próprio botão da barra de ferramentas sem bifurcar. Descreva-o e coloque-o no `toolbar` array, em qualquer posição que você quiser.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+O `title` torna-se a dica de ferramenta e a classe CSS do botão, então este pode ser estilizado como `.callout-btn`, exatamente como as ferramentas integradas.
+
+#### Várias ferramentas
+
+Adicione quantos quiser. Cada um é sua própria entrada na matriz, então você os coloca individualmente e eles podem ficar entre as ferramentas integradas, em vez de serem agrupados em uma extremidade.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Dê a cada um um distinto `title`. Duas ferramentas compartilhando um título compartilhariam uma classe CSS, e uma ferramenta sem um retornaria para `.custom-btn`.
+
+#### Opções
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Propriedade | Tipo | Propósito |
+| --- | --- | --- |
+| `title` | `string` | Obrigatório. Texto da dica de ferramenta e a origem da classe CSS do botão. Traduzível através `labels`. |
+| `action` | `function` | Obrigatório. Recebe `(editor, event)`. O evento click é passado para que uma ferramenta que abre uma caixa de diálogo possa entregá-lo `MarkdownEditor.modal`. |
+| `icon` | `string` | SVG embutido para a face do botão. |
+| `shortcut` | `string` | Um atalho de teclado como `Ctrl+Shift+K`. Adicionado à dica de ferramenta e tem precedência sobre um integrado usando as mesmas teclas. |
+
+</DocTable>
+
+Uma ferramenta sem `action` é ignorado com um aviso do console em vez de quebrar a barra de ferramentas. Ele não renderiza nenhum botão e seu `shortcut`, se declarou um, também não está registrado.
+
+#### Trabalhando com o conteúdo
+
+Usar `editor.insertText()` em vez de escrever você mesmo na área de texto. Ele substitui a seleção, restaura o foco, move o cursor, rola, renderiza novamente a visualização e dispara `onChange`. Desfazer continua funcionando porque a edição segue o caminho normal.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Atalhos
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+A dica de ferramenta se torna "Destacar (Ctrl+Shift+H)". Os atalhos de ferramentas são verificados antes dos integrados, portanto, uma ferramenta personalizada pode assumir deliberadamente uma combinação que o editor manipularia de outra forma.
+
+#### Ferramentas que precisam de marcação própria
+
+Um menu suspenso ou caixa de diálogo não pode ser descrito declarativamente, então escreva uma classe. Estender `MarkdownEditor.Tool`, definir `this.button` no construtor e implementar `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Passe a configuração com `{ tool: EmbedTool, config: {...} }`, que chega como o segundo argumento do construtor. Contexto `this.button` para `null` não renderiza nada, o que é útil para uma ferramenta que só se aplica em algumas configurações.
+
+Uma coisa para observar: `Tool`chamadas do construtor `createButton()`, então qualquer coisa que sua substituição precise deve vir de `this.editor`, não de um campo atribuído após `super()`.
+
+#### O auxiliar de diálogo
+
+`MarkdownEditor.modal` é a caixa de diálogo que as ferramentas integradas de link e imagem usam, portanto, uma ferramenta sua que coleta informações se parece com o resto do editor, em vez de inventar seu próprio pop-up. Ele retorna o `<dialog>` elemento, já aberto, que você consulta para seus campos e fecha com `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Passe o `event` seu `applySyntax()` recebido. O auxiliar lê para descobrir de qual editor veio o clique, então a caixa de diálogo é anexada dentro do wrapper desse editor e escolhe seu tema. Ele substitui qualquer caixa de diálogo já aberta nesse editor e se remove do DOM quando fechado, portanto não há nada para limpar.
+
+#### Renderizando você mesmo o markdown
+
+Se a sua ferramenta incorporar conteúdo renderizado, um corpo de dica de ferramenta, por exemplo, `editor.renderMarkdown()` produz HTML exatamente como a visualização, honrando seu `renderer` e `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Uma barra de ferramentas para sua própria área de texto
+
+Quando uma caixa de diálogo coleta rich text, forneça a ela as ferramentas reais de formatação em vez de reconstruí-las. A barra de ferramentas está vinculada à área de texto que você passa, seu `labels` são herdados e nenhum botão de visualização é adicionado.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Isto não gerencia a vida útil da barra de ferramentas. Os botões são limpos com a caixa de diálogo quando ela é removida, mas se uma ferramenta nela registrar algo em toda a página, um ouvinte de documento ou um cronômetro, libere você mesmo quando a caixa de diálogo fechar.
+
+#### Tradução
+
+As ferramentas personalizadas são traduzidas como as integradas, codificadas pelo título que você deu a elas.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+A classe CSS não é afetada, então `.callout-btn` fica `.callout-btn` em todos os idiomas.
 
 ### 📊 Rodapé (barra de status)
 
@@ -710,7 +938,7 @@ Usando uma tag de script em vez de um bundler, carregue DOMPurify junto com o ed
 
 ### 🎨 Estilização de elementos internos
 
-Variáveis ​​CSS cobrem a maioria dos temas porque são herdadas, portanto, definir uma `.markdown-editor-wrapper` chega à barra de ferramentas, botões, visualização e rodapé. Procure um nome de classe somente quando nenhuma variável expõe o que você precisa.
+As variáveis ​​CSS cobrem a maioria dos temas porque são herdadas, portanto, definir uma `.markdown-editor-wrapper` chega à barra de ferramentas, botões, visualização e rodapé. Procure um nome de classe somente quando nenhuma variável expõe o que você precisa.
 
 <Snippet view="code">
 
@@ -1063,7 +1291,23 @@ Para confirmar um upload bem-sucedido e inserir a imagem no editor, seu servidor
 
 </Snippet>
 
-**Observação**: Certifique-se de usar a chave `image_path` para o URL da imagem enviada.
+**Observação**: certifique-se de usar a chave `image_path` para o URL da imagem enviada.
+
+Você também pode retornar `image_alt`, que é usado como sugestão apenas quando o usuário deixou o campo alt vazio. Qualquer coisa que eles mesmos digitarem sempre vence, então um servidor que deriva o texto alternativo do nome do arquivo ou do reconhecimento de imagem pode oferecê-lo sem substituir uma descrição real.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+Em caso de falha, retorne `success: false` com um `error` ou `message` corda. Esse texto é apresentado ao usuário, então faça dele algo em que ele possa agir.
 
 ### Validação de texto alternativo da imagem (`altInput`)
 

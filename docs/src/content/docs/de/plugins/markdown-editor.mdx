@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Markdown-Texteditor-JavaScript-Plugin von Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "c7824038d582"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "8517538b2eaf"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 TypeScript-Definitionen werden mit dem Paket geliefert, sodass Optionen, Symbolleisteneinträge und Variablenformen ohne zusätzliche Installation überprüft und automatisch vervollständigt werden.
+
+Die Typen sind auch importierbar, was immer dann wichtig ist, wenn Ihre Optionen nicht inline auf der Aufrufseite geschrieben werden. TypeScript prüft nur auf unbekannte Schlüssel für ein direkt übergebenes Objektliteral, sodass bei einer in einer eigenen Variablen gespeicherten Konfiguration ein falsch geschriebener Schlüssel stillschweigend ignoriert wird. Durch das Kommentieren wird der Scheck zurückgesetzt.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+Dasselbe gilt für eine Wrapper-Komponente, wo `MarkdownEditorOptions` ist das, was Sie stattdessen weiterleiten `any`, also behält derjenige, der Ihren Wrapper verwendet, die Kontrolle.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: ES-Modul
 
@@ -348,7 +383,7 @@ Die Symbolleiste ist modular aufgebaut. Durch Modifizieren des Arrays können Si
 | `undo` | Um die letzten Änderungen rückgängig zu machen. |
 | `redo` | Um die letzten rückgängig gemachten Änderungen erneut anzuwenden. |
 | `indent` | Um die Einrückungsebene zu erhöhen. |
-| `outdent` | Zum Verringern der Einrückungsstufe. |
+| `outdent` | Zum Verringern der Einrückungsebene. |
 | `preview` | Schaltet eine Vollbild-Vorschau nebeneinander um. Kontrollkästchen im Vorschaubereich sind anklickbar und aktualisieren die Markdown-Quelle sofort. Drücken Sie Escape, um den Vollbildmodus zu verlassen. Wenn ein fester Header den Editor im Vollbildmodus abdeckt, siehe `--mte-fullscreen-z-index`. |
 
 </DocTable>
@@ -358,6 +393,199 @@ Die Symbolleiste ist modular aufgebaut. Durch Modifizieren des Arrays können Si
 - **Neuordnung**: Die Schaltflächen werden genau in der Reihenfolge angezeigt, in der Sie sie im Array auflisten
 - **Entfernen**: Lassen Sie einfach einen beliebigen Schlüssel weg (z `image`) aus dem Array, um diese Funktion für den Benutzer vollständig zu deaktivieren
 - **Nativer Fallback**: Wenn Sie keinen bereitstellen `placeholder` In JS verwendet das Plugin automatisch das `placeholder` Attribut aus Ihrem HTML `<textarea>`
+
+### 🧩 Benutzerdefinierte Tools
+
+Fügen Sie ohne Verzweigung eine eigene Symbolleistenschaltfläche hinzu. Beschreiben Sie es und legen Sie es in die `toolbar` Array, in welcher Position auch immer Sie es haben möchten.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+Der `title` wird zum Tooltip und zur CSS-Klasse der Schaltfläche, daher kann diese als formatiert werden `.callout-btn`, genau wie die integrierten Tools.
+
+#### Mehrere Werkzeuge
+
+Fügen Sie so viele hinzu, wie Sie möchten. Jedes ist ein eigener Eintrag im Array, sodass Sie sie einzeln platzieren können und zwischen integrierten Werkzeugen platziert werden können, anstatt an einem Ende gruppiert zu werden.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Geben Sie jedem eine eigene Note `title`. Zwei Tools, die einen Titel teilen, würden sich eine CSS-Klasse teilen, und ein Tool ohne einen solchen greift auf diese zurück `.custom-btn`.
+
+#### Optionen
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Eigentum | Typ | Zweck |
+| --- | --- | --- |
+| `title` | `string` | Erforderlich. Tooltip-Text und die Quelle der CSS-Klasse der Schaltfläche. Übersetzbar durch `labels`. |
+| `action` | `function` | Erforderlich. Empfängt `(editor, event)`. Das Click-Ereignis wird weitergegeben, damit ein Tool, das einen Dialog öffnet, es weitergeben kann `MarkdownEditor.modal`. |
+| `icon` | `string` | Inline-SVG für die Schaltflächenoberfläche. |
+| `shortcut` | `string` | Eine Tastenkombination wie z `Ctrl+Shift+K`. Wird der QuickInfo hinzugefügt und hat Vorrang vor einer integrierten Funktion, die dieselben Tasten verwendet. |
+
+</DocTable>
+
+Ein Werkzeug ohne `action` wird mit einer Konsolenwarnung übersprungen, anstatt die Symbolleiste zu beschädigen. Es rendert keine Schaltfläche und es ist `shortcut`, falls es eines deklariert hat, ist ebenfalls nicht registriert.
+
+#### Arbeiten mit den Inhalten
+
+Verwenden `editor.insertText()` anstatt selbst in den Textbereich zu schreiben. Es ersetzt die Auswahl, stellt den Fokus wieder her, verschiebt die Einfügemarke, scrollt, rendert die Vorschau neu und wird ausgelöst `onChange`. Das Rückgängigmachen funktioniert weiterhin, da die Bearbeitung über den normalen Pfad erfolgt.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Verknüpfungen
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+Der Tooltip wird zu „Hervorheben (Strg+Umschalt+H)“. Werkzeugverknüpfungen werden vor den integrierten überprüft, sodass ein benutzerdefiniertes Werkzeug gezielt eine Kombination übernehmen kann, die der Editor sonst verarbeiten würde.
+
+#### Tools, die ein eigenes Markup benötigen
+
+Ein Dropdown oder ein Dialog kann nicht deklarativ beschrieben werden, also schreiben Sie stattdessen eine Klasse. Verlängern `MarkdownEditor.Tool`, Satz `this.button` im Konstruktor und implementieren `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Konfiguration mit übergeben `{ tool: EmbedTool, config: {...} }`, das als zweites Argument des Konstruktors eintrifft. Einstellung `this.button` Zu `null` rendert nichts, was für ein Tool nützlich ist, das nur in einigen Konfigurationen anwendbar ist.
+
+Eine Sache, die Sie beachten sollten: `Tool`Konstruktoraufrufe `createButton()`, also muss alles, was Sie zum Überschreiben benötigen, von dort stammen `this.editor`, nicht aus einem Feld, das Sie danach zuweisen `super()`.
+
+#### Der Dialoghelfer
+
+`MarkdownEditor.modal` ist der Dialog, den die integrierten Link- und Bild-Tools verwenden, sodass ein Tool von Ihnen, das Eingaben sammelt, wie der Rest des Editors aussieht, anstatt ein eigenes Popup zu erfinden. Es gibt die zurück `<dialog>` Element, bereits geöffnet, das Sie nach Ihren Feldern abfragen und mit dem Sie schließen `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Übergeben Sie die `event` dein `applySyntax()` erhalten. Der Helfer liest ihn, um herauszufinden, von welchem ​​Editor der Klick kam, sodass der Dialog in den Wrapper dieses Editors eingefügt wird und sein Thema übernimmt. Es ersetzt alle bereits in diesem Editor geöffneten Dialoge und entfernt sich beim Schließen selbst aus dem DOM, sodass nichts bereinigt werden muss.
+
+#### Markdown selbst rendern
+
+Wenn Ihr Tool gerenderte Inhalte einbettet, beispielsweise einen Tooltip-Text, `editor.renderMarkdown()` erzeugt HTML genau wie die Vorschau und würdigt damit Ihre `renderer` Und `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Eine Symbolleiste für Ihren eigenen Textbereich
+
+Wenn ein Dialog Rich-Text sammelt, geben Sie ihm die echten Formatierungswerkzeuge, anstatt sie neu zu erstellen. Die Symbolleiste ist an den von Ihnen übergebenen Textbereich gebunden `labels` werden vererbt und es wird keine Vorschauschaltfläche hinzugefügt.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Dadurch wird die Lebensdauer der Symbolleiste nicht verwaltet. Die Schaltflächen werden mit dem Dialogfeld bereinigt, wenn es entfernt wird. Wenn jedoch ein darin enthaltenes Tool seitenweit etwas registriert, einen Dokument-Listener oder einen Timer, geben Sie dies selbst frei, wenn das Dialogfeld geschlossen wird.
+
+#### Übersetzung
+
+Benutzerdefinierte Tools werden wie integrierte Tools übersetzt, kodiert nach dem Titel, den Sie ihnen gegeben haben.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+Die CSS-Klasse ist also nicht betroffen `.callout-btn` bleibt `.callout-btn` in jeder Sprache.
 
 ### 📊 Fußzeile (Statusleiste)
 
@@ -497,7 +725,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-#### 🎨 Benutzerdefiniertes Theme über CSS-Variablen
+#### 🎨 Benutzerdefiniertes Design über CSS-Variablen
 
 Sie können das Erscheinungsbild des Editors vollständig anpassen, indem Sie seine CSS-Variablen überschreiben `.markdown-editor-wrapper` Element oder irgendein `[data-theme]` Wähler. Alle Farben verwenden das [OKLCH-Farbraum](https://oklch.com) für wahrnehmungsmäßig einheitliche Ergebnisse.
 
@@ -710,7 +938,7 @@ Laden Sie DOMPurify mit einem Skript-Tag anstelle eines Bundlers zusammen mit de
 
 ### 🎨 Interne Elemente gestalten
 
-CSS-Variablen decken die meisten Themen ab, da sie erben. Setzen Sie also eine Variable ein `.markdown-editor-wrapper` erreicht die Symbolleiste, Schaltflächen, Vorschau und Fußzeile. Greifen Sie nur dann nach einem Klassennamen, wenn keine Variable das bereitstellt, was Sie benötigen.
+CSS-Variablen decken die meisten Themen ab, da sie erben, also setzen Sie eine ein `.markdown-editor-wrapper` erreicht die Symbolleiste, Schaltflächen, Vorschau und Fußzeile. Greifen Sie nur dann nach einem Klassennamen, wenn keine Variable das bereitstellt, was Sie benötigen.
 
 <Snippet view="code">
 
@@ -1064,6 +1292,22 @@ Um einen erfolgreichen Upload zu bestätigen und das Bild in den Editor einzufü
 </Snippet>
 
 **Hinweis**: Stellen Sie sicher, dass Sie den Schlüssel verwenden `image_path` für die URL des hochgeladenen Bildes.
+
+Sie können auch zurückkehren `image_alt`, der nur dann als Vorschlag verwendet wird, wenn der Benutzer das Alt-Feld leer gelassen hat. Alles, was sie selbst eingegeben haben, gewinnt immer, sodass ein Server, der Alternativtext aus dem Dateinamen oder der Bilderkennung ableitet, ihn anbieten kann, ohne eine echte Beschreibung zu überschreiben.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+Bei Misserfolg kehren Sie zurück `success: false` mit einem `error` oder `message` Zeichenfolge. Dieser Text wird dem Benutzer angezeigt, also machen Sie ihn zu etwas, auf das er reagieren kann.
 
 ### Bild-Alt-Text-Validierung (`altInput`)
 

@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Wtyczka JavaScript Markdown Text Editor autorstwa Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-07-18T13:00:27.167336+00:00"
-sourceHash: "90e400ff6686"
-translationHash: "ef0d2ce6c79d"
+updatedAt: "2026-10-08T00:00:00.000000+00:00"
+sourceHash: "7bebc55c7d26"
+translationHash: "174d65cd2d0e"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -46,6 +46,41 @@ new MarkdownEditor('#markdown-editor');
 </Snippet>
 
 Definicje TypeScript są dostarczane z pakietem, więc opcje, wpisy na pasku narzędzi i zmienne kształty są sprawdzane i automatycznie uzupełniane bez dodatkowej instalacji.
+
+Typy można również zaimportować, co ma znaczenie, gdy opcje nie są zapisane bezpośrednio w witrynie wywołań. TypeScript sprawdza tylko nieznane klucze w literale obiektu przekazanym bezpośrednio, więc konfiguracja przechowywana we własnej zmiennej ma błędnie napisany klucz po cichu ignorowany. Dodanie adnotacji powoduje cofnięcie kontroli.
+
+<Snippet view="code">
+
+```typescript
+import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
+
+// Without the annotation this compiles, the editor renders with the default
+// toolbar, and nothing tells you why.
+const config: MarkdownEditorOptions = {
+    placeholder: 'Write...',
+    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
+};
+
+// Building a toolbar conditionally
+const toolbar: ToolbarEntry[] = ['bold', 'italic'];
+if (canUpload) toolbar.push({ image: { fileInput: { uploadUrl: '/api/upload' } } });
+toolbar.push('preview');
+```
+
+</Snippet>
+
+To samo dotyczy komponentu opakowania, gdzie `MarkdownEditorOptions` to jest to, co przekazujesz zamiast `any`, więc ktokolwiek użyje Twojego opakowania, zachowa kontrolę.
+
+<Snippet view="code">
+
+```typescript
+interface EditorProps {
+    value: string;
+    options?: MarkdownEditorOptions;
+}
+```
+
+</Snippet>
 
 #### CDN: moduł ES
 
@@ -294,9 +329,9 @@ Opcje są odczytywane jednorazowo, podczas konstruowania edytora. Późniejsza i
 | `placeholder` | `string` | `'Write...'` | Tekst wyświetlany, gdy edytor jest pusty. |
 | `toolbar` | `array` | `[...]` | Określa, które narzędzia pojawiają się i w jakiej kolejności. |
 | `footer` | `fałsz \| obiekt` | wszystko widoczne | Steruje paskiem stanu wyświetlanym pod edytorem. Zabierać się do pracy `false` aby całkowicie go ukryć, lub przekaż obiekt, aby przełączyć poszczególne statystyki. |
-| `theme` | `string` | inherited | Explicitly sets the editor theme (light, dark, snowberry, darkberry). Jeśli zostanie pominięty, redaktor dziedziczy `data-theme` od najbliższego elementu nadrzędnego lub `<textarea>` się. |
+| `theme` | `string` | inherited | Jawnie ustawia motyw edytora (jasny, ciemny, śnieżna, ciemna jagoda). Jeśli zostanie pominięty, redaktor dziedziczy `data-theme` od najbliższego elementu nadrzędnego lub `<textarea>` się. |
 | `minHeight` | `number` | `200` | Minimalna wysokość w pikselach, do której edytor się zmniejszy, gdy treść będzie krótka. W parze z `maxHeight` aby ustawić zakres automatycznego wzrostu. |
-| `maxHeight` | `number` | `500` | Maksymalna wysokość w pikselach, do jakiej może urosnąć edytor w trybie innym niż pełnoekranowy. Gdy treść przekroczy tę wysokość, w edytorze pojawi się pasek przewijania. Edytor posiada również uchwyt przeciągania, dzięki czemu użytkownicy mogą ręcznie zmieniać jego rozmiar powyżej tego limitu. |
+| `maxHeight` | `number` | `500` | Maksymalna wysokość w pikselach, do jakiej może urosnąć edytor w trybie innym niż pełnoekranowy. Gdy zawartość przekroczy tę wysokość, w edytorze pojawi się pasek przewijania. Edytor posiada również uchwyt przeciągania, dzięki czemu użytkownicy mogą ręcznie zmieniać jego rozmiar powyżej tego limitu. |
 | `renderer` | `function` | `marked` | Zastępuje analizator przecen używany w podglądzie. Odbiera ciąg przeceny i musi zwrócić ciąg HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Zastępuje narzędzie dezynfekujące HTML. Odbiera wyrenderowany kod HTML i musi zwrócić bezpieczny kod HTML do wyświetlenia. |
 | `onChange` | `function` | `undefined` | Wywołanie zwrotne uruchamiane przy każdej zmianie treści: pisaniu, akcjach na pasku narzędzi, cofaniu/ponawianiu i kontynuacji listy. Odbiera bieżący ciąg przeceny jako jedyny argument. |
@@ -358,6 +393,199 @@ Pasek narzędzi jest modułowy. Modyfikując tablicę, możesz stworzyć minimal
 - **Zmiana kolejności**: Przyciski pojawiają się dokładnie w takiej kolejności, w jakiej zostały wymienione w tablicy
 - **Usuwanie**: Po prostu pomiń dowolny klawisz (np `image`) z tablicy, aby całkowicie wyłączyć tę funkcję dla użytkownika
 - **Natywna rezerwa**: Jeśli nie podasz pliku `placeholder` w JS wtyczka automatycznie użyje pliku `placeholder` atrybut z kodu HTML `<textarea>`
+
+### 🧩 Narzędzia niestandardowe
+
+Dodaj własny przycisk paska narzędzi bez rozwidlania. Opisz to i wrzuć do `toolbar` array, w dowolnej pozycji.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: ['bold', 'italic', {
+        custom: {
+            title: 'Callout',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
+            action(editor) {
+                editor.insertText('> [!NOTE]\n> Something worth noting');
+            }
+        }
+    }, 'preview']
+});
+```
+
+</Snippet>
+
+The `title` staje się podpowiedzią i klasą CSS przycisku, więc tę można stylizować jako `.callout-btn`, dokładnie tak samo jak wbudowane narzędzia.
+
+#### Kilka narzędzi
+
+Dodaj tyle, ile chcesz. Każdy z nich stanowi odrębny wpis w tablicy, więc umieszczasz je indywidualnie i mogą znajdować się pomiędzy wbudowanymi narzędziami, a nie być zgrupowane na jednym końcu.
+
+<Snippet view="code">
+
+```javascript
+toolbar: [
+    'bold', 'italic',
+    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
+    'ul', 'ol',
+    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
+    'preview'
+]
+```
+
+</Snippet>
+
+Daj każdemu inny `title`. Dwa narzędzia dzielące tytuł miałyby wspólną klasę CSS, a narzędzie bez jednego wraca do tego `.custom-btn`.
+
+#### Opcje
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Nieruchomość | Typ | Zamiar |
+| --- | --- | --- |
+| `title` | `string` | Wymagany. Tekst podpowiedzi i źródło klasy CSS przycisku. Możliwość przetłumaczenia `labels`. |
+| `action` | `function` | Wymagany. Otrzymuje `(editor, event)`. Zdarzenie kliknięcia jest przekazywane, aby narzędzie otwierające okno dialogowe mogło je przekazać `MarkdownEditor.modal`. |
+| `icon` | `string` | Wbudowany SVG dla tarczy przycisku. |
+| `shortcut` | `string` | Skrót klawiaturowy, np `Ctrl+Shift+K`. Dodano do podpowiedzi i ma pierwszeństwo przed wbudowanymi przy użyciu tych samych klawiszy. |
+
+</DocTable>
+
+Narzędzie bez nr `action` jest pomijany z ostrzeżeniem w konsoli, zamiast przerywać pasek narzędzi. Nie renderuje żadnego przycisku i tyle `shortcut`, jeśli został zadeklarowany, również nie jest zarejestrowany.
+
+#### Praca z treścią
+
+Używać `editor.insertText()` zamiast samodzielnie pisać do pola tekstowego. Zastępuje zaznaczenie, przywraca fokus, przesuwa kursor, przewija, ponownie renderuje podgląd i uruchamia `onChange`. Cofanie nadal działa, ponieważ edycja przebiega normalną ścieżką.
+
+<Snippet view="code">
+
+```javascript
+action(editor) {
+    const textarea = editor.usertextarea;
+    const selected = textarea.value.slice(textarea.selectionStart, textarea.selectionEnd);
+    const wrapped = `==${selected || 'highlight'}==`;
+
+    // (text, where the caret lands, characters to leave outside the selection)
+    editor.insertText(wrapped, wrapped.length, 0);
+}
+```
+
+</Snippet>
+
+#### Skróty
+
+<Snippet view="code">
+
+```javascript
+{ custom: {
+    title: 'Highlight',
+    icon: '<svg>…</svg>',
+    shortcut: 'Ctrl+Shift+H',
+    action: (editor) => editor.insertText('====', 2, 2)
+}}
+```
+
+</Snippet>
+
+Etykietka narzędzia zmieni się na „Podświetlenie (Ctrl+Shift+H)”. Skróty narzędzi są sprawdzane przed skrótami wbudowanymi, więc narzędzie niestandardowe może celowo przejąć kombinację, którą w innym przypadku obsługiwałby edytor.
+
+#### Narzędzia wymagające własnego znacznika
+
+Listy rozwijanej ani okna dialogowego nie można opisać deklaratywnie, więc zamiast tego napisz klasę. Rozszerzyć `MarkdownEditor.Tool`, ustawić `this.button` w konstruktorze i zaimplementuj `applySyntax()`.
+
+<Snippet view="code">
+
+```javascript
+class EmbedTool extends MarkdownEditor.Tool {
+    constructor(editor) {
+        super(editor, 'Embed video');        // tooltip, and .embed-video-btn
+        this.shortcut = 'Ctrl+Shift+E';      // optional
+        this.button = this.createButton('<svg>…</svg>');
+    }
+
+    applySyntax(event) {
+        const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', `
+            <input type="url" class="embed-url fj:me-input fj:w-full">
+            <button type="button" class="embed-go fj:me-btn fj:me-btn-sm">Insert</button>
+        `, 'Embed');
+
+        dialog.querySelector('.embed-go').addEventListener('click', () => {
+            const url = dialog.querySelector('.embed-url').value.trim();
+            if (url) this.editor.insertText(`\n<iframe src="${url}"></iframe>\n`);
+            dialog.close();
+        });
+    }
+
+    destroy() {
+        // Called by editor.destroy(). Release anything you registered here.
+    }
+}
+
+new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+```
+
+</Snippet>
+
+Konfiguracja przejścia za pomocą `{ tool: EmbedTool, config: {...} }`, który pojawia się jako drugi argument konstruktora. Ustawienie `this.button` Do `null` niczego nie renderuje, co jest przydatne w przypadku narzędzia, które ma zastosowanie tylko w niektórych konfiguracjach.
+
+Jedna rzecz do obejrzenia: `Tool`wywołania konstruktora `createButton()`, więc wszystko, czego potrzebujesz do zastąpienia, musi pochodzić `this.editor`, a nie z pola, które przypisujesz później `super()`.
+
+#### Pomocnik okna dialogowego
+
+`MarkdownEditor.modal` to okno dialogowe, z którego korzystają wbudowane narzędzia do tworzenia linków i obrazów, zatem Twoje narzędzie zbierające dane wejściowe wygląda jak reszta edytora, zamiast tworzyć własne wyskakujące okienko. Zwraca `<dialog>` element, już otwarty, do którego odpytujesz swoje pola i zamykasz `dialog.close()`.
+
+<Snippet view="code">
+
+```javascript
+// (event, size classes, body HTML, aria label)
+const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+```
+
+</Snippet>
+
+Przekaż `event` twój `applySyntax()` otrzymane. Pomocnik czyta go, aby dowiedzieć się, z którego edytora pochodzi kliknięcie, więc okno dialogowe jest dołączane do opakowania tego edytora i przejmuje jego motyw. Zastępuje każde okno dialogowe już otwarte w tym edytorze i usuwa się z DOM po zamknięciu, więc nie ma czego czyścić.
+
+#### Samodzielne renderowanie przeceny
+
+Jeśli Twoje narzędzie osadza renderowaną treść, na przykład treść podpowiedzi, `editor.renderMarkdown()` tworzy HTML dokładnie tak, jak robi to podgląd, honorując Twoje `renderer` I `sanitizer`.
+
+<Snippet view="code">
+
+```javascript
+const html = editor.renderMarkdown('**bold** text');
+```
+
+</Snippet>
+
+#### Pasek narzędzi dla własnego pola tekstowego
+
+Kiedy okno dialogowe gromadzi tekst sformatowany, udostępnij mu prawdziwe narzędzia do formatowania, zamiast je odbudowywać. Pasek narzędzi jest powiązany z mijanym obszarem tekstowym, Twoim `labels` są dziedziczone i nie jest dodawany żaden przycisk podglądu.
+
+<Snippet view="code">
+
+```javascript
+const body = dialog.querySelector('textarea');
+const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
+dialog.querySelector('.body-toolbar').appendChild(bar);
+```
+
+</Snippet>
+
+Nie zarządza to czasem życia paska narzędzi. Przyciski są czyszczone wraz z oknem dialogowym po jego usunięciu, ale jeśli zawarte w nim narzędzie zarejestruje cokolwiek na całej stronie, odbiornik dokumentu lub licznik czasu, zwolnij to samodzielnie po zamknięciu okna dialogowego.
+
+#### Tłumaczenie
+
+Narzędzia niestandardowe są tłumaczone jak narzędzia wbudowane, z kluczem według tytułu, który im nadałeś.
+
+<Snippet view="code">
+
+```javascript
+labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+```
+
+</Snippet>
+
+Klasa CSS pozostaje niezmieniona, więc `.callout-btn` gorset `.callout-btn` w każdym języku.
 
 ### 📊 Stopka (pasek stanu)
 
@@ -472,7 +700,7 @@ Koncentruje się na surowej składni Markdown, aby zapewnić lekkość.
 
 </Snippet>
 
-##### Opcja 2: ustaw `data-theme` bezpośrednio na `<textarea>`
+##### Opcja 2: zestaw `data-theme` bezpośrednio na `<textarea>`
 
 <Snippet view="code">
 
@@ -642,7 +870,7 @@ Daj wpis `items` zamiast A `value` aby wyrenderować sekcję nagłówkową. Wpis
 
 #### Rzeczy, które warto wiedzieć
 
-- **Edytor nigdy nie rozwiązuje zmiennych.** Wstawia tekst, a Twoja aplikacja później zastępuje wartości rzeczywiste, zwykle po stronie serwera. `sample` wpływa tylko na to, co wyświetla podgląd.
+- **Edytor nigdy nie rozpoznaje zmiennych.** Wstawia tekst, a Twoja aplikacja później zastępuje wartości rzeczywiste, zwykle po stronie serwera. `sample` wpływa tylko na to, co wyświetla podgląd.
 - **Etykiety są wyświetlane jako zwykły tekst**, więc znaczniki na etykiecie nigdy nie są renderowane.
 - **Zniekształcone wpisy są pomijane** zamiast wyrzucać, a przycisk w ogóle nie jest renderowany, gdy nie skonfigurowano niczego użytecznego.
 
@@ -706,7 +934,7 @@ Używając znacznika skryptu zamiast pakietu pakującego, załaduj DOMPurify wra
 - **Tylko podgląd.** Formatowanie na żywo w trybie hybrydowym wykorzystuje oddzielny wewnętrzny moduł renderujący i nie ma na to wpływu.
 - **Listy zadań wymagają obsługi wtyczek.** Klikalne pola wyboru można znaleźć, szukając `input[type="checkbox"]` na wyjściu, więc przecena jest potrzebna `markdown-it-task-lists`. Edytor rejestruje ostrzeżenie, jeśli wykryje składnię listy zadań i brak pól wyboru.
 - **Oba muszą być synchroniczne** i zwracać ciąg znaków. Jakiś `async` funkcja pisze `[object Promise]` w podglądzie.
-- **Wymiana środka dezynfekującego zastępuje ochronę.** Przejście, np `html => html` całkowicie wyłącza odkażanie i jest bezpieczny tylko dla w pełni zaufanych treści.
+- **Wymiana środka dezynfekującego zastępuje ochronę.** Przejście, np `html => html` całkowicie wyłącza oczyszczanie i jest bezpieczny tylko dla w pełni zaufanych treści.
 
 ### 🎨 Stylizacja elementów wewnętrznych
 
@@ -993,7 +1221,7 @@ Natywna obsługa przesyłania obrazów: zamiast polegać na powolnych, obciąża
 
 ### Wklej i upuść
 
-Wklej zrzut ekranu lub przeciągnij plik obrazu do edytora, a zostanie on przesłany przez ten sam punkt końcowy, co przycisk paska narzędzi. Symbol zastępczy pojawia się natychmiast, dzięki czemu edytor nigdy nie wygląda na zamrożony, a po przesłaniu zostaje zastąpiony prawdziwą ścieżką. Jeśli przesyłanie nie powiedzie się, symbol zastępczy zostanie zastąpiony widocznym znacznikiem, a nie znika po cichu.
+Wklej zrzut ekranu lub przeciągnij plik obrazu do edytora, a zostanie on przesłany przez ten sam punkt końcowy, co przycisk paska narzędzi. Symbol zastępczy pojawia się natychmiast, dzięki czemu edytor nigdy nie sprawia wrażenia zamrożonego, a po przesłaniu pliku zostaje zastąpiony prawdziwą ścieżką. Jeśli przesyłanie nie powiedzie się, symbol zastępczy zostanie zastąpiony widocznym znacznikiem, a nie znika po cichu.
 
 To wymaga `uploadUrl` skonfigurowany poniżej. Bez tego wklejenie obrazu nic nie da, a edytor zarejestruje ostrzeżenie wyjaśniające, co dodać, ponieważ alternatywą byłby ciąg znaków Base64 w Twojej bazie danych.
 
@@ -1065,6 +1293,22 @@ Aby potwierdzić pomyślne przesłanie i wstawić obraz do edytora, Twój serwer
 
 **Uwaga**: Upewnij się, że używasz klucza `image_path` dla adresu URL przesłanego obrazu.
 
+Możesz także wrócić `image_alt`, która jest używana jako sugestia tylko wtedy, gdy użytkownik pozostawił pole alt puste. Wszystko, co sami wpisali, zawsze wygrywa, więc serwer, który pobiera tekst alternatywny z nazwy pliku lub rozpoznawania obrazu, może go zaoferować bez nadpisywania prawdziwego opisu.
+
+<Snippet view="code">
+
+```json
+{
+  "success": true,
+  "image_path": "https://cdn.yourdomain.com/uploads/image.webp",
+  "image_alt": "Two people looking at a laptop"
+}
+```
+
+</Snippet>
+
+W przypadku niepowodzenia wróć `success: false` z `error` Lub `message` smyczkowy. Ten tekst jest wyświetlany użytkownikowi, więc uczyń go czymś, na podstawie czego będzie mógł podjąć działania.
+
 ### Walidacja tekstu alternatywnego obrazu (`altInput`)
 
 Aby mieć pewność, że Twoje treści pozostaną dostępne i przyjazne dla SEO, **MarkdownEditor** domyślnie wymusza sprawdzanie poprawności tekstu alternatywnego.
@@ -1085,7 +1329,7 @@ image: {
 
 </Snippet>
 
-#### 2\. Skrót (wyłącz weryfikację)
+#### 2\. Skrót (wyłącz sprawdzanie poprawności)
 
 Jeśli chcesz zezwolić na obrazy bez opisów, po prostu ustaw wartość logiczną na `false`.
 
@@ -1113,7 +1357,7 @@ image: {
 
 </Snippet>
 
-### Standardowe użycie obrazu (nie `fileInput`)
+### Standardowe wykorzystanie obrazu (nie `fileInput`)
 
 Jeśli `fileInput` nie jest skonfigurowany, edytor domyślnie korzysta z prostego modalu opartego na adresie URL. Jest to idealne rozwiązanie, jeśli Twoi użytkownicy głównie łączą się z zewnętrznymi hostami obrazów.
 
@@ -1146,7 +1390,7 @@ Typowe czynności formatowania można uruchomić bezpośrednio z klawiatury, bez
 | --- | --- |
 | `Ctrl + B`  /  `⌘ B` | Przełącz **Pogrubienie** |
 | `Ctrl + I`  /  `⌘ I` | Przełącz *kursywa* |
-| `Ctrl + K`  /  `⌘ K` | Wstaw link |
+| `Ctrl + K`  /  `⌘ K` | Wstaw łącze |
 | `` Ctrl + ` ``  /  `` ⌘ ` `` | Przełącz w tekście `Code` |
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Przełącz ~~Przekreślenie~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Nagłówek 1 |
@@ -1195,7 +1439,7 @@ Zasada jest celowo surowa: tylko naga `http` Lub `https` Adres URL bez białych 
 
 ## Cechy
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integracja formularzy natywnych</h2><p class=\"para-sm\">Działa dokładnie jak standard <code>&lt;textarea&gt;</code>. Żadnych skomplikowanych interfejsów API: po prostu użyj <code>value</code> Lub <code>name</code> atrybut. To „po prostu działa” ze standardowymi formularzami HTML w PHP, Django lub Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Zaawansowane przesyłanie obrazu</h2><p class=\"para-sm\">Skonfiguruj przesyłanie natywnego serwera za pośrednictwem interfejsu API. Unikaj ciężkich ciągów Base64, aby zapewnić szybsze ładowanie strony i lepsze SEO, hostując obrazy we własnej sieci CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Tryby hybrydowe i zwykłe</h2><p class=\"para-sm\">Przełącz między <strong>Hybrydowy (WYSIWYG)</strong> doświadczenie w edycji wizualnej lub <strong>Zwykły Markdown</strong> tryb zapewniający tradycyjne wrażenia z kodowania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Wysoka wydajność</h2><p class=\"para-sm\">A <strong>53 KB spakowane w formacie gzip</strong> pakiet (zminimalizowany 252 KB, zawiera CSS) zoptymalizowany pod kątem „Ciężkich treści”. Obsługuje ogromne dokumenty i duże pliki bez opóźnień wejściowych i spadków wydajności. Odrzucone aktualizacje podglądu, obliczenia stylu w pamięci podręcznej i bezkonfliktowa obsługa klawiatury: więc Tab i Enter zawsze robią dokładnie jedną rzecz.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Wbudowana obsługa RTL</h2><p class=\"para-sm\">Natywna obsługa języków pisanych od prawej do lewej, takich jak arabski, urdu i perski. Idealny do tworzenia aplikacji dostępnych na całym świecie.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Podświetlanie składni</h2><p class=\"para-sm\">Zwiększona czytelność dzięki przejrzystemu kodowi i formatowaniu przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Motywy adaptacyjne</h2><p class=\"para-sm\">Zawiera automatyczną obsługę trybu ciemnego. Synchronizuje się z ustawieniami systemu lub <strong>Interfejs użytkownika Frutjama</strong> biblioteka zapewniająca płynne wrażenia wizualne.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Inteligentna edycja</h2><p class=\"para-sm\">Automatyczna kontynuacja list w stylu GitHuba dla list uporządkowanych, list nieuporządkowanych i list kontrolnych: naciśnij <code>Enter</code> a redaktor kontynuuje wzór. Pola wyboru w okienku podglądu można kliknąć i natychmiast synchronizować ze źródłem przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 W pełni responsywny</h2><p class=\"para-sm\">Płynny, dostosowany do urządzeń mobilnych interfejs użytkownika, który idealnie dopasowuje się do komputerów stacjonarnych, tabletów i smartfonów, umożliwiając edycję w dowolnym miejscu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Uniwersalne wsparcie</h2><p class=\"para-sm\">Kompatybilny z <strong>ESM, UMD, CommonJS i IIFE</strong>. Działa od razu po wyjęciu z pudełka przez CDN (<code>&lt;script src&gt;</code>), npm lub dowolny pakiet (Vite, webpack, Rollup): nie jest wymagana dodatkowa konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Dostępne domyślnie</h2><p class=\"para-sm\">Wbudowana pełna obsługa ARIA: punkt orientacyjny na pasku narzędzi, oznaczony obszar podglądu, przyciski przyjazne dla czytnika ekranu, <code>aria-pressed</code> na przełączniku podglądu, <code>disabled</code> I <code>aria-disabled</code> na nieaktywnych narzędziach i prawidłowe przywracanie ostrości po zamknięciu modułów.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero konfliktów CSS</h2><p class=\"para-sm\">Style edytora są w pełni dostępne <code>.markdown-editor-wrapper</code>. Globalna inspekcja wstępna Tailwinda jest wykluczona, więc edytor może bezpiecznie współpracować z Bootstrapem, Tailwindem lub jakimkolwiek innym frameworkiem, nie naruszając ich stylu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Skróty klawiaturowe</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: typowe czynności formatowania bez dotykania myszy. Każdy skrót jest pokazany w etykiecie przycisku paska narzędzi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Znajdź i zamień</h2><p class=\"para-sm\">Naciskać <code>Ctrl+F</code> znaleźć lub <code>Ctrl+H</code> aby otworzyć opcję Znajdź i zamień. Wyszukiwanie bez rozróżniania wielkości liter z licznikiem dopasowań na żywo, nawigacją następny/poprzedni, pojedynczą zamianą i zamianą wszystkich: bez opuszczania edytora.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Podgląd bezpiecznego XSS</h2><p class=\"para-sm\">Wyrenderowany podgląd jest oczyszczany poprzez <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPoczyść</a> przed zapisaniem w DOM. Tagi skryptów, wbudowane procedury obsługi zdarzeń i złośliwe adresy URL w spreparowanych danych wejściowych Markdown są usuwane automatycznie: nie jest wymagana żadna konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Podgląd w czasie rzeczywistym</h2><p class=\"para-sm\">Zobacz, jak Twoje przeceny są renderowane natychmiastowo podczas pisania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Łatwa integracja</h2><p class=\"para-sm\">Bezproblemowo integruj się z dowolnym projektem internetowym przy minimalnej konfiguracji.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Konfigurowalny pasek narzędzi</h2><p class=\"para-sm\">Dynamicznie konfiguruj i zmieniaj kolejność opcji paska narzędzi, takich jak pogrubienie, kursywa i inne.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integracja formularzy natywnych</h2><p class=\"para-sm\">Działa dokładnie jak standard <code>&lt;textarea&gt;</code>. Żadnych skomplikowanych interfejsów API: po prostu użyj <code>value</code> Lub <code>name</code> atrybut. To „po prostu działa” ze standardowymi formularzami HTML w PHP, Django lub Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Zaawansowane przesyłanie obrazu</h2><p class=\"para-sm\">Skonfiguruj przesyłanie natywnego serwera za pośrednictwem interfejsu API. Unikaj ciężkich ciągów Base64, aby zapewnić szybsze ładowanie strony i lepsze SEO, hostując obrazy we własnej sieci CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Tryby hybrydowe i zwykłe</h2><p class=\"para-sm\">Przełącz między <strong>Hybrydowy (WYSIWYG)</strong> doświadczenie w edycji wizualnej lub <strong>Zwykły Markdown</strong> tryb zapewniający tradycyjne wrażenia z kodowania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Wysoka wydajność</h2><p class=\"para-sm\">A <strong>53 KB spakowane w formacie gzip</strong> pakiet (zminimalizowany 252 KB, zawiera CSS) zoptymalizowany pod kątem „Ciężkich treści”. Obsługuje ogromne dokumenty i duże pliki bez opóźnień wejściowych i spadków wydajności. Odrzucone aktualizacje podglądu, obliczenia stylu w pamięci podręcznej i bezkonfliktowa obsługa klawiatury: więc Tab i Enter zawsze robią dokładnie jedną rzecz.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Wbudowana obsługa RTL</h2><p class=\"para-sm\">Natywna obsługa języków pisanych od prawej do lewej, takich jak arabski, urdu i perski. Idealny do tworzenia aplikacji dostępnych na całym świecie.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Podświetlanie składni</h2><p class=\"para-sm\">Zwiększona czytelność dzięki przejrzystemu kodowi i formatowaniu przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Motywy adaptacyjne</h2><p class=\"para-sm\">Zawiera automatyczną obsługę trybu ciemnego. Synchronizuje się z ustawieniami systemu lub <strong>Interfejs użytkownika Frutjama</strong> biblioteka zapewniająca płynne wrażenia wizualne.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Inteligentna edycja</h2><p class=\"para-sm\">Automatyczna kontynuacja list w stylu GitHuba dla list uporządkowanych, list nieuporządkowanych i list kontrolnych: naciśnij <code>Enter</code> a redaktor kontynuuje wzór. Pola wyboru w okienku podglądu można kliknąć i natychmiast synchronizować ze źródłem przecen.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 W pełni responsywny</h2><p class=\"para-sm\">Płynny, dostosowany do urządzeń mobilnych interfejs użytkownika, który idealnie dopasowuje się do komputerów stacjonarnych, tabletów i smartfonów, umożliwiając edycję w dowolnym miejscu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Uniwersalne wsparcie</h2><p class=\"para-sm\">Kompatybilny z <strong>ESM, UMD, CommonJS i IIFE</strong>. Działa od razu po wyjęciu z pudełka przez CDN (<code>&lt;script src&gt;</code>), npm lub dowolny pakiet (Vite, webpack, Rollup): nie jest wymagana dodatkowa konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Dostępne domyślnie</h2><p class=\"para-sm\">Wbudowana pełna obsługa ARIA: punkt orientacyjny na pasku narzędzi, oznaczony obszar podglądu, przyciski przyjazne dla czytnika ekranu, <code>aria-pressed</code> na przełączniku podglądu, <code>disabled</code> I <code>aria-disabled</code> na nieaktywnych narzędziach i prawidłowe przywracanie ostrości po zamknięciu modułów.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero konfliktów CSS</h2><p class=\"para-sm\">Style edytora są w pełni dostępne <code>.markdown-editor-wrapper</code>. Globalna inspekcja wstępna Tailwinda jest wykluczona, więc edytor może bezpiecznie współpracować z Bootstrapem, Tailwindem lub jakimkolwiek innym frameworkiem, nie naruszając ich stylu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Skróty klawiaturowe</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: typowe operacje formatowania bez dotykania myszy. Każdy skrót jest pokazany w etykiecie przycisku paska narzędzi.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Znajdź i zamień</h2><p class=\"para-sm\">Naciskać <code>Ctrl+F</code> znaleźć lub <code>Ctrl+H</code> aby otworzyć opcję Znajdź i zamień. Wyszukiwanie bez rozróżniania wielkości liter z licznikiem dopasowań na żywo, nawigacją następny/poprzedni, pojedynczą zamianą i zamianą wszystkich: bez opuszczania edytora.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Podgląd bezpiecznego XSS</h2><p class=\"para-sm\">Wyrenderowany podgląd jest oczyszczany poprzez <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPoczyść</a> przed zapisaniem w DOM. Tagi skryptów, wbudowane procedury obsługi zdarzeń i złośliwe adresy URL w spreparowanych danych wejściowych Markdown są usuwane automatycznie: nie jest wymagana żadna konfiguracja.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Podgląd w czasie rzeczywistym</h2><p class=\"para-sm\">Zobacz, jak Twoje przeceny są renderowane natychmiastowo podczas pisania.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Łatwa integracja</h2><p class=\"para-sm\">Bezproblemowo integruj się z dowolnym projektem internetowym przy minimalnej konfiguracji.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Konfigurowalny pasek narzędzi</h2><p class=\"para-sm\">Dynamicznie konfiguruj i zmieniaj kolejność opcji paska narzędzi, takich jak pogrubienie, kursywa i inne.</p></div></div></div>"} />
 
 ## Przykład pełnej konfiguracji
 
