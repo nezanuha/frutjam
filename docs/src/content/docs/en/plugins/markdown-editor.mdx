@@ -11,7 +11,7 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Markdown Text Editor JavaScript Plugin by Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
+updatedAt: "2026-10-11T00:00:00.000000+00:00"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -364,7 +364,7 @@ The toolbar is modular. You can create a minimal experience or a full-featured p
 
 | Tool | Description |
 | --- | --- |
-| `heading` | Opens a dropdown to select heading level H1–H6 |
+| `heading` | Opens a dropdown to select heading level H1–H6. Narrow the list with `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | Enables bold text formatting. |
 | `italic` | Enables italic text formatting. |
 | `strikethrough` | Allows for text strikethrough. |
@@ -385,6 +385,24 @@ The toolbar is modular. You can create a minimal experience or a full-featured p
 | `preview` | Toggles a fullscreen side-by-side preview. Checkboxes in the preview pane are clickable and update the markdown source instantly. Press Escape to exit fullscreen. If a fixed header covers the editor in fullscreen, see `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### Heading levels
+
+The `heading` dropdown offers H1 to H6. Where H1 belongs to the page rather than the content, which is the case for most CMS body fields, narrow it:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` and `Ctrl+3` follow the same list, so a level you leave out cannot be inserted from the keyboard either, and the button's tooltip lists only the shortcuts that still work. The order you write them in does not matter, the menu is always H1 first. Levels outside 1 to 6 are ignored with a console warning, and a list with nothing usable in it falls back to all six rather than rendering an empty menu.
+
+This restricts the toolbar, not the document. Someone can still type `# Title` by hand and it renders as a heading, because what is valid markdown is the renderer's decision rather than the toolbar's. If the rule has to hold, enforce it on the server.
 
 ##### 💡 Implementation Tips:
 
@@ -1393,7 +1411,7 @@ Common formatting actions can be triggered directly from the keyboard without to
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Toggle ~~Strikethrough~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Heading 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Heading 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Heading 3 |
+| `Ctrl + 3`  /  `⌘ 3` | Heading 3. These three follow whatever the `heading` tool offers, so a level you leave out of `levels` cannot be typed either |
 | `Ctrl + L`  /  `⌘ L` | Toggle bullet list |
 | `Ctrl + Z`  /  `⌘ Z` | Undo |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Redo |
