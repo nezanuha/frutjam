@@ -4,10 +4,9 @@ description: "A practical guide to Tailwind CSS alternatives, from UnoCSS and Pa
 metaTitle: "Tailwind CSS Alternatives: A Practical Guide | Frutjam"
 metaDescription: "Honest guide to Tailwind CSS alternatives: UnoCSS, Panda, Open Props, Pico, Bulma and plain CSS. Pick by the problem you're solving, not by popularity."
 image: "https://cdn.frutjam.com/media/blog/posts/tailwind-css-alternatives.jpg"
-imageAlt: "Clay-style still life of several small jars of jam in different colours beside a single plain jar"
-createdAt: "2026-10-07T10:00:00+00:00"
-updatedAt: "2026-10-07T10:00:00+00:00"
-draft: true
+imageAlt: "Isometric illustration of a floating island city with a glowing central tower, linked by bridges to several surrounding platforms, against a galaxy background"
+createdAt: "2026-10-12T09:00:00+00:00"
+updatedAt: "2026-10-12T09:00:00+00:00"
 ---
 
 "Tailwind alternatives" is one of those searches where the results are almost always useless, because every list gives you the same twelve tools ranked by GitHub stars and none of them ask why you're looking.
