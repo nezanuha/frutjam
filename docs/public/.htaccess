@@ -44,6 +44,10 @@ AddCharset utf-8 .md .txt .json .xml
     # the English page they always meant.
     RewriteRule ^(?:zh-hans|zh-hant|ja|ko|pt-br|es|de|tr|pl|id|vi|fr)/(blog(?:/.*)?|privacy-policy|terms)/?$ /$1 [R=301,L]
     RewriteRule ^(?:zh-hans|zh-hant|ja|ko|pt-br|es|de|tr|pl|id|vi|fr)/write-for-us/?$ https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml [R=301,L]
+    # Same for the contact page. Googlebot was still finding these in
+    # October, long after the others were redirected, because this one
+    # rule was missing.
+    RewriteRule ^(?:zh-hans|zh-hant|ja|ko|pt-br|es|de|tr|pl|id|vi|fr)/contact/?$ https://nezanuha.com/contact [R=301,L]
 
     # ── Pages that became part of the docs ───────────────────────────────────
     # Theming is a docs page now; the plans live on the Cherry page.
