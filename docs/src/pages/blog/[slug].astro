@@ -2,7 +2,7 @@
 /** frutjam.com's frontend/templates/frontend/pages/blog_detail.html */
 import { render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import { publishedPosts, type Post } from '@/lib/site';
+import { formatDate, publishedPosts, type Post } from '@/lib/site';
 
 export async function getStaticPaths() {
   const posts = await publishedPosts(); // newest first
@@ -43,6 +43,17 @@ const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
             </nav>
             <article class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-2 prose prose-frutjam max-w-none px-5 lg:px-8">
                 <h1 class="heading-4xl not-prose">{blog.data.title}</h1>
+                {/* Only guest posts carry a byline. Our own posts are the
+                    house voice and show no author, as they always have. */}
+                {blog.data.author && (
+                <p class="not-prose para-xs mt-2 mb-6">
+                    By {blog.data.authorUrl
+                        ? <a href={blog.data.authorUrl} rel="author noopener" class="link">{blog.data.author}</a>
+                        : blog.data.author}
+                    <span aria-hidden="true"> &middot; </span>
+                    <time datetime={blog.data.createdAt}>{formatDate(blog.data.createdAt)}</time>
+                </p>
+                )}
                 <picture>
                     <source
                         media="(max-width: 599px)"

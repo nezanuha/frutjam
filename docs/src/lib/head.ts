@@ -140,14 +140,19 @@ function blogHead(post: Post): HeadTag[] {
     meta('name', 'twitter:image', `${b.image}?width=1200&height=630&format=jpeg`),
     meta('property', 'article:published_time', b.createdAt),
     meta('property', 'article:modified_time', b.updatedAt),
-    meta('property', 'article:author', 'Nezanuha'),
+    meta('property', 'article:author', b.author || 'Nezanuha'),
     meta('property', 'article:section', 'Blog'),
     ldJson({
       '@context': 'https://schema.org', '@type': 'BlogPosting',
       headline: b.metaTitle, description: b.metaDescription,
       image: `${b.image}?width=1200&height=630&format=webp`,
       datePublished: b.createdAt, dateModified: b.updatedAt,
-      author: AUTHOR, publisher: PUBLISHER, mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      // A guest post is written by a person, not by the company. Saying
+      // otherwise in the structured data is a claim about who wrote it.
+      author: b.author
+        ? { '@type': 'Person', name: b.author, ...(b.authorUrl ? { url: b.authorUrl } : {}) }
+        : AUTHOR,
+      publisher: PUBLISHER, mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     }),
     breadcrumb([['Home', SITE], ['Blog', pageUrl('/blog')], [b.title, url]]),
   ];

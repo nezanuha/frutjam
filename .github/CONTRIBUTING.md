@@ -154,6 +154,54 @@ generated from the folder and the `.mdx` file.
 
 ---
 
+## ✍️ Writing a Blog Post
+
+The blog takes guest posts: tutorials, migration write-ups, comparisons and accessibility work. Pitch first with the [blog pitch template](https://github.com/nezanuha/frutjam/issues/new?template=blog-pitch.yml) so we can agree the scope, then open a pull request adding one file.
+
+### The file
+
+`docs/src/content/blog/<slug>.md`. The slug becomes the URL, so write it the way you want it to read: `/blog/<slug>`. English only — the blog is not translated.
+
+```md
+---
+title: "Every JavaScript Markdown Editor Breaks Your Form"
+description: "One sentence. Shown on the blog index and in the RSS feed."
+metaTitle: "Shorter title | Frutjam"
+metaDescription: "Under 160 characters, for the search result."
+createdAt: "2026-11-01T00:00:00+00:00"
+updatedAt: "2026-11-01T00:00:00+00:00"
+draft: true
+---
+
+Your first paragraph.
+```
+
+Leave `draft: true`. A draft is excluded from the build entirely, so it cannot publish by accident while we are still reviewing. We remove the line when the post goes live.
+
+**Do not add `image` or `imageAlt`.** We generate the cover art so the set stays visually consistent, and the blog template has no fallback — an `image` pointing at a file that does not exist renders a broken URL.
+
+### Two conventions that catch people out
+
+**One paragraph per line.** Do not wrap at 80 columns. The line breaks survive into the rendered page, and the i18n fingerprint counts newlines, so wrapping a paragraph marks translations stale across all 12 languages.
+
+**Every class in a code sample has to exist.** Check `src/components/<name>/` or an existing page under `docs/src/content/docs/en/components/` rather than guessing. Invented class names are the most common reason a post goes back.
+
+### Before you push
+
+```sh
+cd docs
+npm install
+npm run build
+```
+
+The build must finish without errors. It renders around 900 pages and takes a few minutes.
+
+### What happens next
+
+We review on the pull request, make the cover image, and merge. The post publishes with your byline and a link to your site.
+
+---
+
 ## 🔁 The `@copy` Rule
 
 Frutjam ships a custom build-time rule called `@copy`. It lets one `@utility` block inline the CSS body of another, removing the need to repeat declarations or reach for `@apply`.

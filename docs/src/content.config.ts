@@ -41,6 +41,10 @@ const blog = defineCollection({
     createdAt: z.string(),
     updatedAt: z.string(),
     draft: z.boolean().default(false),
+    /** Guest posts only. Omitted means Nezanuha wrote it, which is the default
+     *  everywhere: the byline is hidden and the JSON-LD credits the company. */
+    author: z.string().optional(),
+    authorUrl: z.string().optional(),
   }),
 });
 
