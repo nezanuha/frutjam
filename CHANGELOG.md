@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Bold text, inline code and headings lost the component's color**: `alert` and `chat` forced `color: inherit` on `p` and `li` only. Everything else kept the color set on it elsewhere — by Frutjam's own base layer, or by `--tw-prose-bold` inside a `prose` block — which could land unreadable on the component's background, such as white bold text on a light `alert-info`. The rule now covers `strong`, `b`, `em`, `code` and `h1`–`h6`, and its parent selector is no longer wrapped in `:where()`, so it has enough specificity to win inside `prose` as well.
+- **`prose-frutjam` printed literal backticks around inline code**: Tailwind Typography adds `` ` `` before and after every inline `code` through generated content. Frutjam styles inline code with a background of its own, so the quotes were duplicate decoration on every page using the `prose-frutjam` theme. Plain `prose` without the Frutjam theme is unaffected.
 
 ## [2.3.0] - 2026-10-06
 
