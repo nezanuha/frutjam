@@ -1,4 +1,5 @@
 @import "./placement.css";
+@import "./animation.css";
 
 /* Toast container — positions a stack of alerts on screen */
 @utility toast {
@@ -8,13 +9,40 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
+
+  /* Spans the viewport so placement is a question of alignment, not of
+     which insets are set. Clicks pass straight through to the page. */
+  inset: 0;
   pointer-events: none;
 
   /* Default: bottom-end */
-  inset-block-end: 0;
-  inset-inline-end: 0;
+  justify-content: flex-end;
+  align-items: flex-end;
 
   & > * {
     pointer-events: auto;
+
+    /* Stops a long message spanning the whole screen on a phone. */
+    max-inline-size: min(var(--toast--width, 24rem), 100%);
+
+    transition:
+      translate 200ms ease-out,
+      opacity 200ms ease-out;
+
+    @starting-style {
+      translate: var(--toast-slide--translate, 0 0.5rem);
+      opacity: 0;
+    }
+  }
+
+  @variant motion-reduce {
+    & > * {
+      transition: none;
+
+      @starting-style {
+        translate: none;
+        opacity: 1;
+      }
+    }
   }
 }

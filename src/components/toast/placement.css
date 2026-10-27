@@ -1,33 +1,31 @@
+/* Alignment rather than insets and transforms. The container spans the
+   viewport (pointer-events: none keeps it harmless), so a horizontal and a
+   vertical modifier compose: the previous pair both wrote `transform`, so
+   `toast-center toast-middle` lost its horizontal centring to whichever
+   rule came last. Alignment is also direction-aware without extra rules. */
+
 /* Horizontal placement */
 @utility toast-start {
-  inset-inline-end: auto;
-  inset-inline-start: 0;
+  align-items: flex-start;
 }
 
 @utility toast-center {
-  inset-inline-end: auto;
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
+  align-items: center;
 }
 
 @utility toast-end {
-  inset-inline-start: auto;
-  inset-inline-end: 0;
+  align-items: flex-end;
 }
 
 /* Vertical placement */
 @utility toast-top {
-  inset-block-end: auto;
-  inset-block-start: 0;
+  justify-content: flex-start;
 }
 
 @utility toast-middle {
-  inset-block-end: auto;
-  inset-block-start: 50%;
-  transform: translateY(-50%);
+  justify-content: center;
 }
 
 @utility toast-bottom {
-  inset-block-start: auto;
-  inset-block-end: 0;
+  justify-content: flex-end;
 }

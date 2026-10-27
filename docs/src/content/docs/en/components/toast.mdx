@@ -35,6 +35,11 @@ CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic: wor
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Horizontally centered |
 | toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Anchors to the right (default) |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Vertically centered |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Enters from below, by its own height |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Enters from above |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Enters from the left, from the right in RTL |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">Modifier</span> | Enters from the right, from the left in RTL |
+| --toast--width | <span class="badge badge-xs badge-info badge-soft">Size</span> | Maximum width of each toast, `24rem` by default |
 
 </DocTable>
 
@@ -43,7 +48,7 @@ CSS-only, no JavaScript required. WCAG AA accessible and framework-agnostic: wor
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -58,7 +63,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -79,15 +84,15 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
@@ -99,16 +104,66 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+### Centered
+
+A horizontal and a vertical modifier combine, so `toast-center toast-middle` puts a toast in the middle of the screen.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## Entry Animation
+
+Every toast fades and rises into place on its own. There is nothing to add for that, and no class to turn it on.
+
+The `toast-slide-*` modifiers are for when you want a different direction from the default rise. Pick the edge the toast sits on, so it enters from outside the screen rather than across it: `toast-slide-end` belongs with `toast-end`, `toast-slide-down` with `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+The distance is the toast's own width or height, not the distance to the edge of the screen, so a centered toast starts near the middle rather than off-screen.
+
+There is no exit animation. A toast disappears the moment it is removed from the page, because CSS has no state to transition out of. Fading one out means keeping it in the DOM and animating it yourself.
+
+The animation is skipped for anyone who has asked for reduced motion.
+
+## Width
+
+Each toast is capped at `24rem` so a long message does not span a phone screen. Override `--toast--width` to change it.
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
 </div>
 ```
 
@@ -119,7 +174,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -142,7 +197,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>

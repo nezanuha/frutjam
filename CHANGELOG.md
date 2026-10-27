@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`toast-slide-up`, `-down`, `-start`, `-end`**: pick which edge a toast comes in from. Toasts fade and rise into place by default now, and stay put if you have asked for reduced motion.
+- **`--toast--width`**: toasts stop at `24rem`, so a long one no longer fills a phone screen. Raise it if you want them wider.
+
 ### Fixed
 
-- **Bold text, inline code and headings lost the component's color**: `alert` and `chat` forced `color: inherit` on `p` and `li` only. Everything else kept the color set on it elsewhere — by Frutjam's own base layer, or by `--tw-prose-bold` inside a `prose` block — which could land unreadable on the component's background, such as white bold text on a light `alert-info`. The rule now covers `strong`, `b`, `em`, `code` and `h1`–`h6`, and its parent selector is no longer wrapped in `:where()`, so it has enough specificity to win inside `prose` as well.
-- **`prose-frutjam` printed literal backticks around inline code**: Tailwind Typography adds `` ` `` before and after every inline `code` through generated content. Frutjam styles inline code with a background of its own, so the quotes were duplicate decoration on every page using the `prose-frutjam` theme. Plain `prose` without the Frutjam theme is unaffected.
+- **Bold text came out the wrong color in `alert` and `chat`**: only `p` and `li` inherited the component's color, so a `<strong>` showed up white on a pale `alert-info`. Headings and inline code had it too.
+- **`toast-center` and `toast-middle` would not work together**: you got one or the other, never both. Placement uses alignment now, so any pair works. The container also covers the screen rather than one corner — clicks pass straight through it, but check anywhere you set `.toast` width or position yourself.
+- **`prose-frutjam` wrapped inline code in backticks**: a Tailwind Typography default that was never switched off. Gone now. Plain `prose` keeps it.
 
 ## [2.3.0] - 2026-10-06
 
