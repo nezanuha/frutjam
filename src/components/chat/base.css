@@ -58,7 +58,12 @@
   line-height: 1.5;
   word-break: break-word;
 
-  :where(&) :where(p, li) {
+  /* Both our own base layer and Tailwind Typography set an explicit color
+     on these, which beats inheriting, so without this they keep the page
+     or prose color on top of our background. The parent stays outside
+     :where() on purpose: at zero specificity Typography's .prose rule
+     wins and the text stays mis-colored inside a prose block. */
+  & :where(p, li, strong, b, em, code, h1, h2, h3, h4, h5, h6) {
     color: inherit;
   }
 }
