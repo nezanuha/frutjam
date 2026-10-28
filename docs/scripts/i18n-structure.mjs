@@ -52,7 +52,7 @@ export function structure(body) {
       buffer = [`lang:${open[2].trim()}`];
       continue;
     }
-    if (/^(import |<\/?(Snippet|DocTable|ThemeCards)\b|<RawHtml\b)/.test(trimmed)) {
+    if (/^(import |<\/?(Snippet|DocTable|ThemeCards|ColorScale)\b|<RawHtml\b)/.test(trimmed)) {
       // RawHtml carries markup; compare its tags and classes, not its text.
       components.push(trimmed.startsWith('<RawHtml')
         ? `RawHtml:${[...trimmed.matchAll(/class=\\?"([^"\\]*)/g)].map((m) => m[1]).join('|')}`

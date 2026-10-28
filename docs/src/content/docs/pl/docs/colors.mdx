@@ -12,43 +12,84 @@ image: "https://cdn.frutjam.com/media/docs/colors.webp"
 imageAlt: "System kolorów - Frutjam"
 createdAt: "2026-04-21T19:28:17.544865+00:00"
 updatedAt: "2026-07-13T09:46:02.938788+00:00"
-sourceHash: "d6bbd3acc6a7"
-translationHash: "f69cef06ca6c"
+sourceHash: "ab7b215df5fb"
+translationHash: "7fb1a1728bb6"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
+import ColorScale from '@/components/ColorScale.astro';
 
 System kolorów Frutjam wykorzystuje semantyczne tokeny CSS zaprojektowane tak, aby od razu spełniać współczynniki kontrastu WCAG AA. Brak JavaScript, obsługa trybu ciemnego, kompatybilność z Tailwind CSS v4. Działa z Django, HTMX, Laravel i dowolnym stosem obsługującym tylko CSS.
 
-Frutjam wykorzystuje niestandardowe właściwości CSS jako tokeny projektu dla wszystkich kolorów. Każdy kolor jest zdefiniowany dla motywu i automatycznie współpracuje z klasami narzędzi CSS Tailwind — nie jest wymagana dodatkowa konfiguracja. Tylko CSS, nie wymaga JavaScript. Kontrast WCAG AA gwarantowany dla każdej pary kolorów, współpracuje z Django, HTMX, Laravel, React i dowolnym projektem Tailwind CSS v4.
+Frutjam wykorzystuje niestandardowe właściwości CSS jako tokeny projektu dla wszystkich kolorów. Każdy kolor jest zdefiniowany dla motywu i automatycznie współpracuje z klasami narzędzi CSS Tailwind, bez konieczności dodatkowej konfiguracji. Tylko CSS, nie wymaga JavaScript. Kontrast WCAG AA gwarantowany dla każdej pary kolorów, współpracuje z Django, HTMX, Laravel, React i dowolnym projektem Tailwind CSS v4.
 
 ## Nazwy kolorów
 
-Frutjam definiuje następujące semantyczne role kolorów. Każdy kolor ma pasujący token `on-{color}` dla dostępnego tekstu na pierwszym planie.
+Frutjam definiuje następujące semantyczne role kolorów. Każdy kolor ma odpowiednik `on-{color}` token dla dostępnego tekstu na pierwszym planie.
 
-<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>Kontrast WCAG AA gwarantowany.</strong> Każda para <code>on-{color}</code> jest ręcznie dostrajana w OKLCH, aby spełnić wymagania kontrastu WCAG AA. W przeciwieństwie do bibliotek, które automatycznie obliczają kolory pierwszego planu, Frutjam udostępnia jawne, zweryfikowane pary, dzięki czemu dostęp do komponentów jest zgodny z projektem, a nie przypadkowy.</div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-4\"><span><strong>Gwarantowany kontrast WCAG AA.</strong> Każdy <code>on-{color}</code> para jest ręcznie dostrajana w OKLCH, aby spełnić wymagania kontrastu WCAG AA. W przeciwieństwie do bibliotek, które automatycznie obliczają kolory pierwszego planu, Frutjam udostępnia jawne, zweryfikowane pary, dzięki czemu komponenty są dostępne zgodnie z projektem, a nie przez przypadek.</span></div></div>"} />
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
 | Kolor | Znak | Zamiar |
 | --- | --- | --- |
-| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | Tło strony |
-| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | Powierzchnie, paski boczne, nakładki |
-| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | Podstawowy kolor marki |
-| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | Kolor drugorzędny marki |
-| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | Kolor akcentu/podkreślenia |
-| <span class="badge badge-sm badge-info">info</span> | `--color-info` | Komunikaty informacyjne |
-| <span class="badge badge-sm badge-success">success</span> | `--color-success` | Stany sukcesu |
-| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | Stany ostrzegawcze |
-| <span class="badge badge-sm badge-error">error</span> | `--color-error` | Stany błędne i destrukcyjne |
+| <span class="badge badge-sm bg-base border">opierać</span> | `--color-base` | Tło strony |
+| <span class="badge badge-sm bg-neutral text-on-neutral">neutralny</span> | `--color-neutral` | Powierzchnie, paski boczne, nakładki |
+| <span class="badge badge-sm badge-primary">podstawowy</span> | `--color-primary` | Podstawowy kolor marki |
+| <span class="badge badge-sm badge-secondary">wtórny</span> | `--color-secondary` | Kolor drugorzędny marki |
+| <span class="badge badge-sm badge-accent">akcent</span> | `--color-accent` | Kolor akcentu/podkreślenia |
+| <span class="badge badge-sm badge-info">informacje</span> | `--color-info` | Komunikaty informacyjne |
+| <span class="badge badge-sm badge-success">sukces</span> | `--color-success` | Stany sukcesu |
+| <span class="badge badge-sm badge-warning">ostrzeżenie</span> | `--color-warning` | Stany ostrzegawcze |
+| <span class="badge badge-sm badge-error">błąd</span> | `--color-error` | Stany błędne i destrukcyjne |
+
+</DocTable>
+
+## Skala kolorów (50–950)
+
+Każdy kolor generuje 11-stopniową skalę obliczoną na podstawie głównych zmiennych motywu `color-mix()` w OKLCH, a nie w czasie kompilacji. Set a brand color and all eleven steps follow from it, so you never set them by hand.
+
+Każdy krok jest jednocześnie zmienną CSS i narzędziem Tailwind: użyj `var(--color-primary-700)` we własnym CSS lub `bg-primary-700` w znacznikach. Najedź kursorem na próbkę, aby zobaczyć oba imiona.
+
+<ColorScale />
+
+Ponieważ kroki są obliczane na podstawie motywu, a nie zakodowane na stałe, ta siatka nie jest obrazem kolorów Frutjama. To Twoje kolory. Zmień motyw, a każda powyższa próbka przesunie się wraz z nim, dlatego też obok nich nie są drukowane żadne wartości szesnastkowe.
+
+<Snippet>
+
+```html
+<div class="bg-primary-100 text-primary-900 p-4 rounded">Light tint, dark text</div>
+<div class="bg-success-700 text-success-50 p-4 rounded">Dark shade, light text</div>
+<div class="border-2 border-error-400 text-error-600 p-4 rounded">Border and text</div>
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-warning alert-soft mt-6\"><span><strong>Kroki służą do dekoracji, a nie do tekstu podstawowego.</strong> Krok skali nie ma dopasowania <code>on-</code> koloru, więc nic nie gwarantuje kontrastu z nim. Gdy tekst znajduje się na kolorze, użyj pary testów bibliotecznych: <code>bg-primary</code> z <code>text-on-primary</code>.</span></div></div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Zmienna CSS | Opis |
+| --- | --- |
+| `--color-{color}-50` | 80% odcienia światła, 20% koloru |
+| `--color-{color}-100` | 65% światła, 35% koloru |
+| `--color-{color}-200` | 50% światła, 50% koloru |
+| `--color-{color}-300` | 35% światła, 65% koloru |
+| `--color-{color}-400` | 18% światła, 82% koloru |
+| `--color-{color}-500` | sam kolor taki sam jak `--color-{color}` |
+| `--color-{color}-600` | 18% ciemnego odcienia, 82% koloru |
+| `--color-{color}-700` | 34% ciemności, 66% koloru |
+| `--color-{color}-800` | 50% ciemności, 50% koloru |
+| `--color-{color}-900` | 65% ciemności, 35% koloru |
+| `--color-{color}-950` | 80% ciemności, 20% koloru |
 
 </DocTable>
 
 ## Zajęcia z użyteczności kolorów
 
-Wszystkie kolory Frutjam współpracują z dowolnym narzędziem do tworzenia kolorów CSS Tailwind. Zastąp `{color}` dowolną nazwą koloru z powyższej tabeli.
+Wszystkie kolory Frutjam współpracują z dowolnym narzędziem do tworzenia kolorów CSS Tailwind. Zastępować `{color}` z dowolną nazwą koloru z tabeli powyżej, opcjonalnie z krokiem ze skali 50-950: `bg-primary`, `bg-primary-100`, `text-error-900`, `border-success-300`.
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
@@ -66,6 +107,7 @@ Wszystkie kolory Frutjam współpracują z dowolnym narzędziem do tworzenia kol
 | `caret-{color}` | Wprowadź kolor karetki |
 | `placeholder-{color}` | Kolor tekstu zastępczego |
 | `divide-{color}` | Kolor obramowania rozdzielacza |
+| `{utility}-{color}-{step}` | Na przykład dowolne z powyższych w kroku skali `bg-accent-200` |
 
 </DocTable>
 
@@ -81,7 +123,7 @@ Wszystkie kolory Frutjam współpracują z dowolnym narzędziem do tworzenia kol
 
 #### Modyfikator krycia
 
-Kontroluj krycie kolorów za pomocą modyfikatora `/{value}`, tak jak w przypadku każdego koloru Tailwind.
+Kontroluj przezroczystość kolorów za pomocą `/{value}` modyfikator, tak jak każdy kolor Tailwind.
 
 <Snippet>
 
@@ -93,6 +135,21 @@ Kontroluj krycie kolorów za pomocą modyfikatora `/{value}`, tak jak w przypadk
 
 </Snippet>
 
+## Miękkie i aktywne
+
+Warianty świadome stanu elementów interaktywnych, automatycznie dostosowujące się do jasnych i ciemnych motywów.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| Zmienna CSS | Opis |
+| --- | --- |
+| `--color-{color}-soft` | Subtelnie przyciemnione tło dla miękkich wariantów |
+| `--color-on-{color}-soft` | Kolor tekstu do stosowania na miękkim tle |
+| `--color-{color}-active` | Przyciemniony/rozjaśniony odcień dla stanów najechania i aktywności |
+| `--color-body` | Obliczony kolor tekstu podstawowego (nieco zmiękczony z `on-base`) |
+
+</DocTable>
+
 ## Zmienne CSS motywu
 
 Są to tokeny główne, które definiujesz podczas tworzenia niestandardowego motywu. Wszystkie inne żetony kolorów są obliczane automatycznie na ich podstawie.
@@ -101,7 +158,7 @@ Są to tokeny główne, które definiujesz podczas tworzenia niestandardowego mo
 
 | Zmienna CSS | Opis |
 | --- | --- |
-| `--scheme-color` | Schemat kolorów: `light` lub `dark` |
+| `--scheme-color` | Schemat kolorów: `light` Lub `dark` |
 | `--border-radius` | Podstawowy promień obramowania komponentów |
 | `--color-base` | Kolor tła strony |
 | `--color-on-base` | Domyślny kolor tekstu na tle bazowym |
@@ -121,47 +178,6 @@ Są to tokeny główne, które definiujesz podczas tworzenia niestandardowego mo
 | `--color-on-warning` | Kolor tekstu na tle ostrzeżeń |
 | `--color-error` | Kolor błędu |
 | `--color-on-error` | Kolor tekstu na tle błędów |
-
-</DocTable>
-
-## Obliczone tokeny kolorów
-
-Frutjam automatycznie oblicza te tokeny na podstawie zmiennych motywu głównego — nie ustawia się ich ręcznie. Są one dostępne do użycia w niestandardowym CSS.
-
-### Skala (50–950)
-
-Każdy kolor generuje pełną 11-stopniową skalę odcienia. Zamień `{color}` na dowolną nazwę koloru.
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| Zmienna CSS | Opis |
-| --- | --- |
-| `--color-{color}-50` | Lightest tint (4% color mix) |
-| `--color-{color}-100` | Bardzo jasny odcień |
-| `--color-{color}-200` | Lekki odcień |
-| `--color-{color}-300` | Odcień średnio jasny |
-| `--color-{color}-400` | Lekki odcień |
-| `--color-{color}-500` | Kolor bazowy (taki sam jak `--color-{color}`) |
-| `--color-{color}-600` | Lekki cień |
-| `--color-{color}-700` | Średni odcień |
-| `--color-{color}-800` | Ciemny odcień |
-| `--color-{color}-900` | Bardzo ciemny odcień |
-| `--color-{color}-950` | Najciemniejszy odcień |
-
-</DocTable>
-
-### Miękkie & Aktywny
-
-Warianty świadome stanu elementów interaktywnych, automatycznie dostosowujące się do jasnych i ciemnych motywów.
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| Zmienna CSS | Opis |
-| --- | --- |
-| `--color-{color}-soft` | Subtelnie przyciemnione tło dla miękkich wariantów |
-| `--color-on-{color}-soft` | Kolor tekstu do stosowania na miękkim tle |
-| `--color-{color}-active` | Przyciemniony/rozjaśniony odcień dla stanów najechania i aktywności |
-| `--color-body` | Obliczony kolor tekstu podstawowego (nieznacznie złagodzony w stosunku do `on-base`) |
 
 </DocTable>
 

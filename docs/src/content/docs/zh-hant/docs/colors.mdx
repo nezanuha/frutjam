@@ -2,7 +2,7 @@
 name: "顏色"
 heading: "色彩系統"
 description: "Frutjam 的顏色系統使用語義 CSS 標記，旨在滿足開箱即用的 WCAG AA 對比。無需 JavaScript，支援深色模式，相容於 Tailwind CSS v4。適用於 Django、HTMX、Laravel 和任何純 CSS 堆疊。"
-metaTitle: "Tailwind CSS 顏色系統 -WCAG 無障礙顏色 |Frutjam"
+metaTitle: "Tailwind CSS 顏色系統 -WCAG 無障礙顏色 |弗魯賈姆"
 metaDescription: "基於語義標記建構的 Frutjam 顏色系統。符合 WCAG AA/AAA 標準、深色模式感知、CSS 自訂屬性、Tailwind CSS v4 相容。"
 order: 0
 related:
@@ -12,43 +12,84 @@ image: "https://cdn.frutjam.com/media/docs/colors.webp"
 imageAlt: "顏色系統 - Frutjam"
 createdAt: "2026-04-21T19:28:17.544865+00:00"
 updatedAt: "2026-07-13T09:46:02.938788+00:00"
-sourceHash: "d6bbd3acc6a7"
-translationHash: "acc71a21a521"
+sourceHash: "ab7b215df5fb"
+translationHash: "a26c9b0ddd6a"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
+import ColorScale from '@/components/ColorScale.astro';
 
 Frutjam 的顏色系統使用語義 CSS 標記，旨在滿足開箱即用的 WCAG AA 對比。無需 JavaScript，支援深色模式，相容於 Tailwind CSS v4。適用於 Django、HTMX、Laravel 和任何純 CSS 堆疊。
 
-Frutjam 使用 CSS 自訂屬性作為所有顏色的設計標記。每種顏色都是根據主題定義的，並自動與 Tailwind CSS 實用程式類別一起使用 - 無需額外配置。僅 CSS，無需 JavaScript。 WCAG AA 對比度保證每個顏色對，適用於 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 專案。
+Frutjam 使用 CSS 自訂屬性作為所有顏色的設計標記。每種顏色都是根據主題定義的，並自動與 Tailwind CSS 實用程式類別一起使用，無需額外配置。僅 CSS，無需 JavaScript。 WCAG AA 對比度保證每個顏色對，適用於 Django、HTMX、Laravel、React 和任何 Tailwind CSS v4 專案。
 
 ## 顏色名稱
 
-Frutjam 定義了以下語意顏色角色。每種顏色都有一個匹配的 `on-{color}` 標記，用於可存取的前景文字。
+Frutjam 定義了以下語意顏色角色。每個顏色都有一個搭配 `on-{color}` 可存取前景文字的標記。
 
-<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>保證 WCAG AA 對比。 </strong>每對 <code>on-{color}</code> 均在 OKLCH 中手動調整，以透過 WCAG AA 對比度要求。與自動計算前景色的庫不同，Frutjam 為您提供明確的、經過驗證的顏色對 - 因此您的組件可以通過設計而不是偶然訪問。</div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-4\"><span><strong>WCAG AA 對比度有保證。</strong> 每一個 <code>on-{color}</code> 該對在 OKLCH 中手動調整，以透過 WCAG AA 對比度要求。與自動計算前景色的庫不同，Frutjam 為您提供明確的、經過驗證的對，因此您的組件可以通過設計而不是偶然訪問。</span></div></div>"} />
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
 | 顏色 | 代幣 | 目的 |
 | --- | --- | --- |
-| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | 頁面背景 |
-| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | 表面、側邊欄、覆蓋層 |
-| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | 主要品牌顏色 |
-| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | 次品牌色 |
-| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | 強調/突出顯示顏色 |
-| <span class="badge badge-sm badge-info">info</span> | `--color-info` | 資訊性訊息 |
-| <span class="badge badge-sm badge-success">success</span> | `--color-success` | 成功狀態 |
-| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | 警告狀態 |
-| <span class="badge badge-sm badge-error">error</span> | `--color-error` | 錯誤和破壞性狀態 |
+| <span class="badge badge-sm bg-base border">根據</span> | `--color-base` | 頁面背景 |
+| <span class="badge badge-sm bg-neutral text-on-neutral">中性的</span> | `--color-neutral` | 表面、側邊欄、覆蓋層 |
+| <span class="badge badge-sm badge-primary">基本的</span> | `--color-primary` | 主要品牌顏色 |
+| <span class="badge badge-sm badge-secondary">中學</span> | `--color-secondary` | 次品牌色 |
+| <span class="badge badge-sm badge-accent">口音</span> | `--color-accent` | 強調/突出顯示顏色 |
+| <span class="badge badge-sm badge-info">資訊</span> | `--color-info` | 資訊性訊息 |
+| <span class="badge badge-sm badge-success">成功</span> | `--color-success` | 成功狀態 |
+| <span class="badge badge-sm badge-warning">警告</span> | `--color-warning` | 警告狀態 |
+| <span class="badge badge-sm badge-error">錯誤</span> | `--color-error` | 錯誤和破壞性狀態 |
+
+</DocTable>
+
+## 色階 (50–950)
+
+每種顏色都會產生 11 級比例，根據您的根主題變數計算得出 `color-mix()` 在 OKLCH 中而不是在構建時。設定品牌顏色後，所有十一個步驟都會隨之而來，因此您無需手動設定它們。
+
+每個步驟都是一個 CSS 變數和一個 Tailwind 實用程式：使用 `var(--color-primary-700)` 在你自己的 CSS 中，或者 `bg-primary-700` 在標記中。將滑鼠懸停在樣本上即可查看兩個名字。
+
+<ColorScale />
+
+因為這些步驟是根據您的主題計算的，而不是硬編碼的，所以該網格不是 Frutjam 顏色的圖片。這是你的顏色。切換主題，上面的每個樣本都會隨之移動，這也是為什麼它們旁邊沒有列印十六進位值的原因。
+
+<Snippet>
+
+```html
+<div class="bg-primary-100 text-primary-900 p-4 rounded">Light tint, dark text</div>
+<div class="bg-success-700 text-success-50 p-4 rounded">Dark shade, light text</div>
+<div class="border-2 border-error-400 text-error-600 p-4 rounded">Border and text</div>
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-warning alert-soft mt-6\"><span><strong>步驟是為了裝飾，而不是正文。</strong> 比例步驟沒有匹配 <code>on-</code> 顏色，因此沒有什麼可以保證與之形成對比。當文字位於某種顏色上時，請使用庫測試的顏色對： <code>bg-primary</code> 和 <code>text-on-primary</code>.</span></div></div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 變數 | 描述 |
+| --- | --- |
+| `--color-{color}-50` | 80% 的淺色，20% 的顏色 |
+| `--color-{color}-100` | 65% 光，35% 顏色 |
+| `--color-{color}-200` | 50% 光，50% 顏色 |
+| `--color-{color}-300` | 35% 光，65% 顏色 |
+| `--color-{color}-400` | 18% 光，82% 色彩 |
+| `--color-{color}-500` | 顏色本身，與 `--color-{color}` |
+| `--color-{color}-600` | 18% 深色陰影，82% 彩色 |
+| `--color-{color}-700` | 34% 深色，66% 彩色 |
+| `--color-{color}-800` | 50% 深色，50% 彩色 |
+| `--color-{color}-900` | 65% 深色，35% 彩色 |
+| `--color-{color}-950` | 80% 深色，20% 彩色 |
 
 </DocTable>
 
 ## 顏色實用程式類
 
-所有 Frutjam 顏色均可與任何 Tailwind CSS 顏色實用程式搭配使用。將 `{color}` 替換為上表中的任何顏色名稱。
+所有 Frutjam 顏色均可與任何 Tailwind CSS 顏色實用程式搭配使用。代替 `{color}` 使用上表中的任何顏色名稱，可選地後跟 50-950 範圍內的一個步驟： `bg-primary`, `bg-primary-100`, `text-error-900`, `border-success-300`.
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
@@ -66,6 +107,7 @@ Frutjam 定義了以下語意顏色角色。每種顏色都有一個匹配的 `o
 | `caret-{color}` | 輸入插入符號顏色 |
 | `placeholder-{color}` | 佔位符文字顏色 |
 | `divide-{color}` | 分隔線邊框顏色 |
+| `{utility}-{color}-{step}` | 例如，在縮放步驟中的任何上述內容 `bg-accent-200` |
 
 </DocTable>
 
@@ -79,9 +121,9 @@ Frutjam 定義了以下語意顏色角色。每種顏色都有一個匹配的 `o
 
 </Snippet>
 
-#### 不透明度修改器
+#### 阻光度修飾符
 
-使用 `/{value}` 修飾符控制顏色不透明度，就像任何 Tailwind 顏色一樣。
+使用來控制顏色不透明度 `/{value}` 修改器，就像任何順風顏色一樣。
 
 <Snippet>
 
@@ -93,81 +135,55 @@ Frutjam 定義了以下語意顏色角色。每種顏色都有一個匹配的 `o
 
 </Snippet>
 
-## 主題 CSS 變數
+## Soft & Active
 
-這些是您在建立自訂主題時定義的根標記。所有其他顏色標記都是根據這些自動計算的。
+交互式元素的狀態感知變體，可自動適應亮色和暗色主題。
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
 | CSS 變數 | 描述 |
 | --- | --- |
-| `--scheme-color` | 配色：`light` 或 `dark` |
-| `--border-radius` | 組件的基礎邊框半徑 |
-| `--color-base` | 頁面背景顏色 |
+| `--color-{color}-soft` | 柔和變體的微妙色調背景 |
+| `--color-on-{color}-soft` | 適用於柔和背景的文字顏色 |
+| `--color-{color}-active` | 調暗/調亮陰影，適用於懸停和活動狀態 |
+| `--color-body` | 計算正文文字顏色（略微軟化自 `on-base`) |
+
+</DocTable>
+
+## 佈景主題CSS變數
+
+這些是建立自訂佈景主題時定義的根權杖。所有其他顏色代幣都是從這些代幣自動計算出來的。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS 變數 | 描述 |
+| --- | --- |
+| `--scheme-color` | 配色方案: `light` 或 `dark` |
+| `--border-radius` | 元件的基本邊框半徑 |
+| `--color-base` | 網頁背景顏色 |
 | `--color-on-base` | 基本背景上的預設文字顏色 |
 | `--color-neutral` | 中性表面顏色 |
 | `--color-on-neutral` | 中性表面上的文字顏色 |
 | `--color-primary` | 主要品牌顏色 |
 | `--color-on-primary` | 主要背景上的文字顏色 |
 | `--color-secondary` | 次品牌色 |
-| `--color-on-secondary` | 輔助背景上的文字顏色 |
+| `--color-on-secondary` | 次要背景上的文字顏色 |
 | `--color-accent` | 強調色 |
 | `--color-on-accent` | 強調背景上的文字顏色 |
 | `--color-info` | 訊息顏色 |
 | `--color-on-info` | 資訊背景上的文字顏色 |
-| `--color-success` | 成功色 |
+| `--color-success` | 成功顏色 |
 | `--color-on-success` | 成功背景上的文字顏色 |
-| `--color-warning` | 警告色 |
+| `--color-warning` | 警告顏色 |
 | `--color-on-warning` | 警告背景上的文字顏色 |
-| `--color-error` | 錯誤顏色 |
+| `--color-error` | 錯誤訊息內容色彩 |
 | `--color-on-error` | 錯誤背景上的文字顏色 |
 
 </DocTable>
 
-## 計算顏色標記
+## 自訂佈景主題範例
 
-Frutjam 會根據您的根主題變數自動計算這些標記 - 您無需手動設定它們。它們可用於自訂 CSS。
-
-### 規模 (50–950)
-
-每種顏色都會產生完整的 11 級色調/色調等級。將 `{color}` 替換為任何顏色名稱。
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS 變數 | 描述 |
-| --- | --- |
-| `--color-{color}-50` | Lightest tint (4% color mix) |
-| `--color-{color}-100` | 色調非常淺 |
-| `--color-{color}-200` | 淺色調 |
-| `--color-{color}-300` | 中淺色調 |
-| `--color-{color}-400` | 輕微色調 |
-| `--color-{color}-500` | 基底色（與 `--color-{color}` 相同） |
-| `--color-{color}-600` | 輕微陰影 |
-| `--color-{color}-700` | 中等陰影 |
-| `--color-{color}-800` | 深色陰影 |
-| `--color-{color}-900` | 非常暗的陰影 |
-| `--color-{color}-950` | 最暗的陰影 |
-
-</DocTable>
-
-### 軟&積極的
-
-互動式元素的狀態感知變體，自動適應淺色和深色主題。
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS 變數 | 描述 |
-| --- | --- |
-| `--color-{color}-soft` | 柔和的變體的微妙有色背景 |
-| `--color-on-{color}-soft` | 用於柔和背景的文字顏色 |
-| `--color-{color}-active` | 懸停和活動狀態的深色/淺色陰影 |
-| `--color-body` | 計算出的正文文字顏色（從 `on-base` 稍微柔化） |
-
-</DocTable>
-
-## 自訂主題範例
-
-覆蓋根令牌以建立自訂主題。 Frutjam 會自動計算所有尺度和狀態。
+覆蓋根權杖以創建自定義主題。Frutjam會自動計算所有比例和狀態。
 
 <Snippet view="code">
 

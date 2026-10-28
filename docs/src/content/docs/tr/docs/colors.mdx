@@ -12,43 +12,84 @@ image: "https://cdn.frutjam.com/media/docs/colors.webp"
 imageAlt: "Renk Sistemi - Frutjam"
 createdAt: "2026-04-21T19:28:17.544865+00:00"
 updatedAt: "2026-07-13T09:46:02.938788+00:00"
-sourceHash: "d6bbd3acc6a7"
-translationHash: "ae204ff3aab9"
+sourceHash: "ab7b215df5fb"
+translationHash: "847c6969c490"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
+import ColorScale from '@/components/ColorScale.astro';
 
 Frutjam'ın renk sistemi, WCAG AA kontrast oranlarını kutudan çıkar çıkmaz karşılamak üzere tasarlanmış anlamsal CSS belirteçlerini kullanır. JavaScript yok, karanlık mod uyumlu, Tailwind CSS v4 ile uyumlu. Django, HTMX, Laravel ve yalnızca CSS yığınlarıyla çalışır.
 
-Frutjam, tüm renkler için tasarım belirteçleri olarak CSS özel özelliklerini kullanır. Her renk, temaya göre tanımlanır ve Tailwind CSS yardımcı program sınıflarıyla otomatik olarak çalışır; ekstra yapılandırmaya gerek yoktur. Yalnızca CSS, JavaScript gerekmez. WCAG AA kontrastı her renk çiftinde garanti edilir; Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
+Frutjam, tüm renkler için tasarım belirteçleri olarak CSS özel özelliklerini kullanır. Her renk, temaya göre tanımlanır ve otomatik olarak Tailwind CSS yardımcı program sınıflarıyla çalışır; ekstra yapılandırmaya gerek yoktur. Yalnızca CSS, JavaScript gerekmez. WCAG AA kontrastı her renk çiftinde garanti edilir; Django, HTMX, Laravel, React ve herhangi bir Tailwind CSS v4 projesiyle çalışır.
 
 ## Renk İsimleri
 
-Frutjam aşağıdaki anlamsal renk rollerini tanımlar. Her rengin, erişilebilir ön plan metni için eşleşen bir `on-{color}` belirteci vardır.
+Frutjam aşağıdaki anlamsal renk rollerini tanımlar. Her rengin bir eşleşmesi vardır `on-{color}` erişilebilir ön plan metni için belirteç.
 
-<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>WCAG AA Kontrast Garantilidir.</strong> Her <code>on-{color}</code> çifti, WCAG AA kontrast gereksinimlerini karşılayacak şekilde OKLCH'de elle ayarlanmıştır. Ön plan renklerini otomatik olarak hesaplayan kitaplıkların aksine, Frutjam size açık ve doğrulanmış çiftler sunar; böylece bileşenlerinize tesadüfen değil, tasarım gereği erişilebilir olur.</div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-4\"><span><strong>WCAG AA kontrast garantilidir.</strong> Her <code>on-{color}</code> çifti, WCAG AA kontrast gereksinimlerini karşılayacak şekilde OKLCH'de elle ayarlanmıştır. Ön plan renklerini otomatik olarak hesaplayan kitaplıkların aksine, Frutjam size açık, doğrulanmış çiftler sunar, böylece bileşenlerinize tesadüfen değil, tasarım gereği erişilebilir.</span></div></div>"} />
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
 | Renk | Jeton | Amaç |
 | --- | --- | --- |
-| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | Sayfa arka planı |
-| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | Yüzeyler, kenar çubukları, kaplamalar |
-| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | Birincil marka rengi |
-| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | İkincil marka rengi |
-| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | Vurgu / vurgu rengi |
-| <span class="badge badge-sm badge-info">info</span> | `--color-info` | Bilgilendirici mesajlar |
-| <span class="badge badge-sm badge-success">success</span> | `--color-success` | Başarı durumları |
-| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | Uyarı durumları |
-| <span class="badge badge-sm badge-error">error</span> | `--color-error` | Hata ve yıkıcı durumlar |
+| <span class="badge badge-sm bg-base border">temel</span> | `--color-base` | Sayfa arka planı |
+| <span class="badge badge-sm bg-neutral text-on-neutral">doğal</span> | `--color-neutral` | Yüzeyler, kenar çubukları, kaplamalar |
+| <span class="badge badge-sm badge-primary">öncelik</span> | `--color-primary` | Birincil marka rengi |
+| <span class="badge badge-sm badge-secondary">ikincil</span> | `--color-secondary` | İkincil marka rengi |
+| <span class="badge badge-sm badge-accent">aksan</span> | `--color-accent` | Vurgu / vurgu rengi |
+| <span class="badge badge-sm badge-info">bilgi</span> | `--color-info` | Bilgilendirici mesajlar |
+| <span class="badge badge-sm badge-success">başarı</span> | `--color-success` | Başarı durumları |
+| <span class="badge badge-sm badge-warning">uyarı</span> | `--color-warning` | Uyarı durumları |
+| <span class="badge badge-sm badge-error">hata</span> | `--color-error` | Hata ve yıkıcı durumlar |
+
+</DocTable>
+
+## Renk Skalası (50–950)
+
+Her renk, kök tema değişkenlerinizden hesaplanan 11 adımlı bir ölçek oluşturur. `color-mix()` derleme zamanında değil OKLCH'de. Bir marka rengi belirleyin ve on bir adımın tümü bundan takip eder, böylece bunları asla elle ayarlamazsınız.
+
+Her adım aynı anda bir CSS değişkeni ve bir Tailwind yardımcı programıdır: `var(--color-primary-700)` kendi CSS'nizde veya `bg-primary-700` işaretlemede. Her iki adı da görmek için bir renk örneğinin üzerine gelin.
+
+<ColorScale />
+
+Adımlar sabit kod yerine temanıza göre hesaplandığından, bu ızgara Frutjam'ın renklerinin bir resmi değildir. O sizin renklerinizdir. Temayı değiştirdiğinizde yukarıdaki her renk örneği onunla birlikte hareket eder, bu da yanlarında onaltılık değerlerin basılmamasının nedenidir.
+
+<Snippet>
+
+```html
+<div class="bg-primary-100 text-primary-900 p-4 rounded">Light tint, dark text</div>
+<div class="bg-success-700 text-success-50 p-4 rounded">Dark shade, light text</div>
+<div class="border-2 border-error-400 text-error-600 p-4 rounded">Border and text</div>
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-warning alert-soft mt-6\"><span><strong>Adımlar gövde metni için değil dekorasyon amaçlıdır.</strong> Bir ölçek adımının eşleşmesi yok <code>on-</code> renk olduğundan hiçbir şey ona karşı kontrastı garanti etmez. Metin bir rengin üzerinde durduğunda kitaplığın test ettiği çifti kullanın: <code>bg-primary</code> ile <code>text-on-primary</code>.</span></div></div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS Değişkeni | Tanım |
+| --- | --- |
+| `--color-{color}-50` | Açık gölgenin %80'i, rengin %20'si |
+| `--color-{color}-100` | %65 ışık, %35 renkli |
+| `--color-{color}-200` | %50 ışık, %50 renkli |
+| `--color-{color}-300` | %35 ışık, %65 renkli |
+| `--color-{color}-400` | %18 ışık, %82 renkli |
+| `--color-{color}-500` | rengin kendisi, aynı `--color-{color}` |
+| `--color-{color}-600` | %18 koyu gölge, %82 renkli |
+| `--color-{color}-700` | %34 koyu, %66 renkli |
+| `--color-{color}-800` | %50 koyu, %50 renkli |
+| `--color-{color}-900` | %65 koyu, %35 renkli |
+| `--color-{color}-950` | %80 koyu, %20 renkli |
 
 </DocTable>
 
 ## Renk Yardımcı Program Sınıfları
 
-Tüm Frutjam renkleri herhangi bir Tailwind CSS renk yardımcı programıyla çalışır. `{color}`'i yukarıdaki tablodaki herhangi bir renk adıyla değiştirin.
+Tüm Frutjam renkleri herhangi bir Tailwind CSS renk yardımcı programıyla çalışır. Yer değiştirmek `{color}` Yukarıdaki tablodan herhangi bir renk adıyla, isteğe bağlı olarak ardından 50-950 ölçeğinden bir adımla: `bg-primary`, `bg-primary-100`, `text-error-900`, `border-success-300`.
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
@@ -66,6 +107,7 @@ Tüm Frutjam renkleri herhangi bir Tailwind CSS renk yardımcı programıyla ça
 | `caret-{color}` | Giriş düzeltme işareti rengi |
 | `placeholder-{color}` | Yer tutucu metin rengi |
 | `divide-{color}` | Bölücü kenarlık rengi |
+| `{utility}-{color}-{step}` | Örneğin bir ölçek adımında yukarıdakilerden herhangi biri `bg-accent-200` |
 
 </DocTable>
 
@@ -81,7 +123,7 @@ Tüm Frutjam renkleri herhangi bir Tailwind CSS renk yardımcı programıyla ça
 
 #### Opaklık Değiştirici
 
-Herhangi bir Tailwind renginde olduğu gibi, renk opaklığını `/{value}` değiştiricisiyle kontrol edin.
+Renk opaklığını kontrol edin `/{value}` değiştirici, tıpkı herhangi bir Tailwind rengi gibi.
 
 <Snippet>
 
@@ -92,6 +134,21 @@ Herhangi bir Tailwind renginde olduğu gibi, renk opaklığını `/{value}` değ
 ```
 
 </Snippet>
+
+## Yumuşak ve Aktif
+
+Açık ve koyu temalara otomatik olarak uyum sağlayan, etkileşimli öğeler için durum bilinçli değişkenler.
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS Değişkeni | Tanım |
+| --- | --- |
+| `--color-{color}-soft` | Yumuşak çeşitler için ince renkli arka plan |
+| `--color-on-{color}-soft` | Yumuşak arka planlarda kullanım için metin rengi |
+| `--color-{color}-active` | Fareyle üzerine gelme ve etkin durumlar için koyulaştırılmış/açıklaştırılmış gölge |
+| `--color-body` | Hesaplanan gövde metni rengi (biraz yumuşatılmış) `on-base`) |
+
+</DocTable>
 
 ## Tema CSS Değişkenleri
 
@@ -121,47 +178,6 @@ Bunlar, özel bir tema oluştururken tanımladığınız kök belirteçlerdir. D
 | `--color-on-warning` | Uyarı arka planlarındaki metin rengi |
 | `--color-error` | Hata rengi |
 | `--color-on-error` | Hata arka planlarındaki metin rengi |
-
-</DocTable>
-
-## Hesaplanan Renk Belirteçleri
-
-Frutjam bu belirteçleri kök tema değişkenlerinizden otomatik olarak hesaplar; bunları manuel olarak ayarlamazsınız. Özel CSS'de kullanılabilirler.
-
-### Ölçek (50–950)
-
-Her renk, 11 adımlı tam bir renk tonu/gölge ölçeği oluşturur. `{color}`'i herhangi bir renk adıyla değiştirin.
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS Değişkeni | Tanım |
-| --- | --- |
-| `--color-{color}-50` | Lightest tint (4% color mix) |
-| `--color-{color}-100` | Çok hafif renk tonu |
-| `--color-{color}-200` | Açık renk tonu |
-| `--color-{color}-300` | Orta-açık renk tonu |
-| `--color-{color}-400` | Hafif renk tonu |
-| `--color-{color}-500` | Temel renk (`--color-{color}` ile aynı) |
-| `--color-{color}-600` | Hafif gölge |
-| `--color-{color}-700` | Orta gölge |
-| `--color-{color}-800` | Koyu gölge |
-| `--color-{color}-900` | Çok koyu gölge |
-| `--color-{color}-950` | En koyu gölge |
-
-</DocTable>
-
-### Yumuşak ve Aktif
-
-Açık ve koyu temalara otomatik olarak uyum sağlayan, etkileşimli öğeler için durum bilinçli değişkenler.
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS Değişkeni | Tanım |
-| --- | --- |
-| `--color-{color}-soft` | Yumuşak çeşitler için ince renkli arka plan |
-| `--color-on-{color}-soft` | Yumuşak arka planlarda kullanım için metin rengi |
-| `--color-{color}-active` | Fareyle üzerine gelme ve etkin durumlar için koyulaştırılmış/açıklaştırılmış gölge |
-| `--color-body` | Hesaplanan gövde metni rengi (`on-base`'den biraz yumuşatılmıştır) |
 
 </DocTable>
 

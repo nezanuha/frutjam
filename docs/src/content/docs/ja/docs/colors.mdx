@@ -2,8 +2,8 @@
 name: "色"
 heading: "カラーシステム"
 description: "Frutjam のカラー システムは、すぐに WCAG AA コントラスト比を満たすように設計されたセマンティック CSS トークンを使用します。 JavaScript なし、ダークモード対応、Tailwind CSS v4 と互換性あり。 Django、HTMX、Laravel、および CSS のみのスタックで動作します。"
-metaTitle: "Tailwind CSS カラー システム -WCAG アクセシブル カラー |Frutjam"
-metaDescription: "Frutjam カラー システムはセマンティック トークンに基づいて構築されています。 WCAG AA/AAA 準拠、ダーク モード対応、CSS カスタム プロパティ、Tailwind CSS v4 互換。"
+metaTitle: "Tailwind CSS カラー システム -WCAG アクセシブル カラー |フルートジャム"
+metaDescription: "Frutjam カラー システムはセマンティック トークンに基づいて構築されています。 WCAG AA/AAA 準拠、ダークモード対応、CSS カスタム プロパティ、Tailwind CSS v4 互換。"
 order: 0
 related:
   - "docs/themes"
@@ -12,43 +12,84 @@ image: "https://cdn.frutjam.com/media/docs/colors.webp"
 imageAlt: "カラーシステム - フルジャム"
 createdAt: "2026-04-21T19:28:17.544865+00:00"
 updatedAt: "2026-07-13T09:46:02.938788+00:00"
-sourceHash: "d6bbd3acc6a7"
-translationHash: "1d6e958ba678"
+sourceHash: "ab7b215df5fb"
+translationHash: "d0ab300e6952"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
+import ColorScale from '@/components/ColorScale.astro';
 
 Frutjam のカラー システムは、すぐに WCAG AA コントラスト比を満たすように設計されたセマンティック CSS トークンを使用します。 JavaScript なし、ダークモード対応、Tailwind CSS v4 と互換性あり。 Django、HTMX、Laravel、および CSS のみのスタックで動作します。
 
-Frutjam は、すべての色のデザイン トークンとして CSS カスタム プロパティを使用します。すべての色はテーマごとに定義され、Tailwind CSS ユーティリティ クラスと自動的に連携します。追加の構成は必要ありません。 CSS のみ。JavaScript は必要ありません。 WCAG AA コントラストはすべての色のペアで保証されており、Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
+Frutjam は、すべての色のデザイン トークンとして CSS カスタム プロパティを使用します。すべての色はテーマごとに定義され、Tailwind CSS ユーティリティ クラスと自動的に連携するため、追加の構成は必要ありません。 CSS のみ。JavaScript は必要ありません。 WCAG AA コントラストはすべての色のペアで保証されており、Django、HTMX、Laravel、React、およびあらゆる Tailwind CSS v4 プロジェクトで動作します。
 
 ## 色の名前
 
-Frutjam は、次のセマンティックな色の役割を定義します。各色には、アクセス可能な前景テキストに対応する `on-{color}` トークンがあります。
+Frutjam は、次のセマンティックな色の役割を定義します。それぞれの色には相性があります `on-{color}` アクセス可能な前景テキストのトークン。
 
-<RawHtml html={"<div class=\"alert alert-info mb-4\"><strong>WCAG AA コントラスト保証。</strong> すべての <code>on-{color}</code> ペアは、WCAG AA コントラスト要件を満たすために OKLCH で手動で調整されます。前景色を自動的に計算するライブラリとは異なり、Frutjam では明示的で検証済みのペアが提供されるため、コンポーネントは偶然ではなく設計によってアクセス可能になります。</div>"} />
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-info alert-soft mb-4\"><span><strong>WCAG AA コントラスト保証。</strong> 毎 <code>on-{color}</code> このペアは、WCAG AA コントラスト要件を満たすために OKLCH で手動で調整されます。前景色を自動的に計算するライブラリとは異なり、Frutjam では明示的で検証済みのペアが提供されるため、コンポーネントは偶然ではなく設計によってアクセス可能になります。</span></div></div>"} />
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
 | 色 | トークン | 目的 |
 | --- | --- | --- |
-| <span class="badge badge-sm bg-base border">base</span> | `--color-base` | ページの背景 |
-| <span class="badge badge-sm bg-neutral text-on-neutral">neutral</span> | `--color-neutral` | サーフェス、サイドバー、オーバーレイ |
-| <span class="badge badge-sm badge-primary">primary</span> | `--color-primary` | ブランドのメインカラー |
-| <span class="badge badge-sm badge-secondary">secondary</span> | `--color-secondary` | 二次ブランドカラー |
-| <span class="badge badge-sm badge-accent">accent</span> | `--color-accent` | アクセント/ハイライトカラー |
-| <span class="badge badge-sm badge-info">info</span> | `--color-info` | 情報メッセージ |
-| <span class="badge badge-sm badge-success">success</span> | `--color-success` | 成功状態 |
-| <span class="badge badge-sm badge-warning">warning</span> | `--color-warning` | 警告状態 |
-| <span class="badge badge-sm badge-error">error</span> | `--color-error` | エラー状態と破壊状態 |
+| <span class="badge badge-sm bg-base border">ベース</span> | `--color-base` | ページの背景 |
+| <span class="badge badge-sm bg-neutral text-on-neutral">中性</span> | `--color-neutral` | サーフェス、サイドバー、オーバーレイ |
+| <span class="badge badge-sm badge-primary">主要な</span> | `--color-primary` | ブランドのメインカラー |
+| <span class="badge badge-sm badge-secondary">二次的</span> | `--color-secondary` | 二次ブランドカラー |
+| <span class="badge badge-sm badge-accent">アクセント</span> | `--color-accent` | アクセント/ハイライトカラー |
+| <span class="badge badge-sm badge-info">情報</span> | `--color-info` | 情報メッセージ |
+| <span class="badge badge-sm badge-success">成功</span> | `--color-success` | 成功状態 |
+| <span class="badge badge-sm badge-warning">警告</span> | `--color-warning` | 警告状態 |
+| <span class="badge badge-sm badge-error">エラー</span> | `--color-error` | エラー状態と破壊状態 |
+
+</DocTable>
+
+## カラー スケール (50 ～ 950)
+
+各色は 11 段階のスケールを生成し、ルート テーマ変数から次のように計算されます。 `color-mix()` ビルド時ではなくOKLCHで。ブランドカラーを設定すると、それに基づいて 11 のステップがすべて実行されるため、手動で設定する必要はありません。
+
+各ステップは、CSS 変数と Tailwind ユーティリティを同時に使用します。 `var(--color-primary-700)` 独自の CSS 内、または `bg-primary-700` マークアップで。見本にカーソルを置くと、両方の名前が表示されます。
+
+<ColorScale />
+
+ステップはハードコーディングされているのではなくテーマから計算されるため、このグリッドは Frutjam の色の図ではありません。それはあなたの色です。テーマを切り替えると、上のすべてのスウォッチがそれに合わせて移動します。テーマの横に 16 進数の値が印刷されないのもそのためです。
+
+<Snippet>
+
+```html
+<div class="bg-primary-100 text-primary-900 p-4 rounded">Light tint, dark text</div>
+<div class="bg-success-700 text-success-50 p-4 rounded">Dark shade, light text</div>
+<div class="border-2 border-error-400 text-error-600 p-4 rounded">Border and text</div>
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"not-prose\"><div role=\"alert\" class=\"alert alert-sm alert-warning alert-soft mt-6\"><span><strong>ステップは装飾用であり、本文用ではありません。</strong> スケール ステップに一致するものがありません <code>on-</code> 色なので、それに対するコントラストを保証するものはありません。テキストが色上にある場合は、ライブラリがテストするペアを使用します。 <code>bg-primary</code> と <code>text-on-primary</code>.</span></div></div>"} />
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS変数 | 説明 |
+| --- | --- |
+| `--color-{color}-50` | 明るい色合いの 80%、カラーの 20% |
+| `--color-{color}-100` | 65% ライト、35% カラー |
+| `--color-{color}-200` | 50% ライト、50% カラー |
+| `--color-{color}-300` | 35% ライト、65% カラー |
+| `--color-{color}-400` | 18% ライト、82% カラー |
+| `--color-{color}-500` | 色自体は同じです `--color-{color}` |
+| `--color-{color}-600` | 18% の暗い色合い、82% のカラー |
+| `--color-{color}-700` | 34% ダーク、66% カラー |
+| `--color-{color}-800` | 50% ダーク、50% カラー |
+| `--color-{color}-900` | 65% ダーク、35% カラー |
+| `--color-{color}-950` | 80% ダーク、20% カラー |
 
 </DocTable>
 
 ## カラーユーティリティクラス
 
-Frutjam のすべてのカラーは、Tailwind CSS カラー ユーティリティで機能します。 `{color}` を上の表の任意の色の名前に置き換えます。
+Frutjam のすべてのカラーは、Tailwind CSS カラー ユーティリティで機能します。交換する `{color}` 上の表の任意の色の名前を使用し、必要に応じて 50 ～ 950 スケールのステップを続けます。 `bg-primary`, `bg-primary-100`, `text-error-900`, `border-success-300`.
 
 <DocTable wrapper="overflow-x-auto" table="table table-sm">
 
@@ -66,6 +107,7 @@ Frutjam のすべてのカラーは、Tailwind CSS カラー ユーティリテ�
 | `caret-{color}` | 入力キャレットの色 |
 | `placeholder-{color}` | プレースホルダーのテキストの色 |
 | `divide-{color}` | 区切り線の境界線の色 |
+| `{utility}-{color}-{step}` | スケール ステップでの上記のいずれか。たとえば、 `bg-accent-200` |
 
 </DocTable>
 
@@ -81,7 +123,7 @@ Frutjam のすべてのカラーは、Tailwind CSS カラー ユーティリテ�
 
 #### 不透明度修飾子
 
-Tailwind カラーと同様に、`/{value}` 修飾子を使用して色の不透明度を制御します。
+色の不透明度を制御します。 `/{value}` 他の Tailwind カラーと同様に、修飾子です。
 
 <Snippet>
 
@@ -93,6 +135,21 @@ Tailwind カラーと同様に、`/{value}` 修飾子を使用して色の不透
 
 </Snippet>
 
+## ソフト＆アクティブ
+
+インタラクティブ要素の状態を認識するバリアント。明るいテーマと暗いテーマに自動的に適応します。
+
+<DocTable wrapper="overflow-x-auto" table="table table-sm">
+
+| CSS変数 | 説明 |
+| --- | --- |
+| `--color-{color}-soft` | ソフトなバリエーションの微妙な色合いの背景 |
+| `--color-on-{color}-soft` | 柔らかい背景で使用するためのテキストの色 |
+| `--color-{color}-active` | ホバー状態およびアクティブ状態の暗く/明るくされたシェード |
+| `--color-body` | 計算された本文のテキストの色 (元の色からわずかに柔らかくなります) `on-base`) |
+
+</DocTable>
+
 ## テーマの CSS 変数
 
 これらは、カスタム テーマの作成時に定義するルート トークンです。他のすべてのカラー トークンはこれらから自動的に計算されます。
@@ -101,7 +158,7 @@ Tailwind カラーと同様に、`/{value}` 修飾子を使用して色の不透
 
 | CSS変数 | 説明 |
 | --- | --- |
-| `--scheme-color` | 配色: `light`または`dark` |
+| `--scheme-color` | 配色： `light` または `dark` |
 | `--border-radius` | コンポーネントの基本境界半径 |
 | `--color-base` | ページの背景色 |
 | `--color-on-base` | ベースの背景のデフォルトのテキストの色 |
@@ -121,47 +178,6 @@ Tailwind カラーと同様に、`/{value}` 修飾子を使用して色の不透
 | `--color-on-warning` | 警告背景の文字の色 |
 | `--color-error` | エラーの色 |
 | `--color-on-error` | エラー背景のテキストの色 |
-
-</DocTable>
-
-## 計算されたカラートークン
-
-Frutjam はルート テーマ変数からこれらのトークンを自動的に計算します。手動で設定する必要はありません。これらはカスタム CSS で使用できます。
-
-### スケール (50 ～ 950)
-
-すべての色は、完全な 11 段階の色合い/陰影スケールを生成します。 `{color}` を任意の色の名前に置き換えます。
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS変数 | 説明 |
-| --- | --- |
-| `--color-{color}-50` | Lightest tint (4% color mix) |
-| `--color-{color}-100` | とても明るい色合い |
-| `--color-{color}-200` | 明るい色合い |
-| `--color-{color}-300` | 中程度の明るい色合い |
-| `--color-{color}-400` | わずかな色合い |
-| `--color-{color}-500` | 基本色 (`--color-{color}` と同じ) |
-| `--color-{color}-600` | わずかな日陰 |
-| `--color-{color}-700` | 中程度の色合い |
-| `--color-{color}-800` | 暗い色合い |
-| `--color-{color}-900` | 非常に暗い色合い |
-| `--color-{color}-950` | 最も暗い色合い |
-
-</DocTable>
-
-### ソフト&アクティブ
-
-インタラクティブ要素の状態を認識するバリアント。明るいテーマと暗いテーマに自動的に適応します。
-
-<DocTable wrapper="overflow-x-auto" table="table table-sm">
-
-| CSS変数 | 説明 |
-| --- | --- |
-| `--color-{color}-soft` | ソフトなバリエーションの微妙な色合いの背景 |
-| `--color-on-{color}-soft` | 柔らかい背景で使用するためのテキストの色 |
-| `--color-{color}-active` | ホバー状態およびアクティブ状態の暗く/明るくされたシェード |
-| `--color-body` | 計算された本文テキストの色 (`on-base` からわずかに柔らかくなります) |
 
 </DocTable>
 

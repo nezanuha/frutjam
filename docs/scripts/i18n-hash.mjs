@@ -23,7 +23,7 @@ export const TRANSLATED_FIELDS = ['name', 'heading', 'description', 'metaTitle',
 
 // <RawHtml> is not listed: its markup carries translated text (callout boxes),
 // so it counts as words — never copied from English, part of the fingerprint.
-const COMPONENT_LINE = /^(import |export |<\/?(Snippet|DocTable|ThemeCards)\b)/;
+const COMPONENT_LINE = /^(import |export |<\/?(Snippet|DocTable|ThemeCards|ColorScale)\b)/;
 const TABLE_SEPARATOR = /^\|[\s:|-]+\|$/;
 const CLASS_TOKEN = /^[a-z0-9][\w\-.:/[\]]*$/;
 
