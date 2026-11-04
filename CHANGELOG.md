@@ -9,14 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`toast-slide-up`, `-down`, `-start`, `-end`**: pick which edge a toast comes in from. Toasts fade and rise into place by default now, and stay put if you have asked for reduced motion.
-- **`--toast--width`**: toasts stop at `24rem`, so a long one no longer fills a phone screen. Raise it if you want them wider.
+- **`toast-slide-up`, `-down`, `-start`, `-end`**: Set which direction a toast slides in from. They all fade and rise in by default, and don't animate at all if you've got reduced motion turned on.
+- **`--toast--width`**: Caps a toast at `24rem` so a long message doesn't stretch across a phone. Bump it if that's too narrow.
 
 ### Fixed
 
-- **Bold text came out the wrong color in `alert` and `chat`**: only `p` and `li` inherited the component's color, so a `<strong>` showed up white on a pale `alert-info`. Headings and inline code had it too.
-- **`toast-center` and `toast-middle` would not work together**: you got one or the other, never both. Placement uses alignment now, so any pair works. The container also covers the screen rather than one corner — clicks pass straight through it, but check anywhere you set `.toast` width or position yourself.
-- **`prose-frutjam` wrapped inline code in backticks**: a Tailwind Typography default that was never switched off. Gone now. Plain `prose` keeps it.
+- **`progress`, `drawer`, `footer`, `hero` and `sidebar` came out the wrong size without Tailwind**: They size themselves off `--spacing`, and the standalone stylesheets from 2.3.0 don't set it, so a progress bar ended up with no height at all. Thanks to @tridev-tej for catching it.
+- **Bold text was the wrong color inside `alert` and `chat`**: Only `p` and `li` picked up the component's color, so a `<strong>` could come out white on a pale `alert-info`. Headings and inline code the same.
+- **`toast-center` and `toast-middle` cancelled each other out**: You could have one or the other but never both, so a toast in the middle of the screen wasn't possible. Uses alignment now rather than transforms. The container stretches across the viewport as part of that; clicks still pass through it, but worth a look if you've styled `.toast` yourself.
+- **`prose-frutjam` was printing backticks around inline code**: Typography adds them by default and it had never been turned off.
 
 ## [2.3.0] - 2026-10-06
 
