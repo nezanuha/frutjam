@@ -55,6 +55,7 @@
     "build:cdn": "node scripts/build-cdn.mjs",
     "build:plugin": "node scripts/build-plugin.mjs",
     "build": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node scripts/build-unocss.mjs",
+    "test": "node --test \"scripts/*.test.mjs\"",
     "prepublishOnly": "rimraf ./dist && node scripts/build-cdn.mjs && node scripts/build-plugin.mjs && node scripts/build-unocss.mjs && node -e \"const fs=require('fs');fs.copyFileSync('README.md','README.github.md');fs.copyFileSync('README.npm.md','README.md');\"",
     "postpublish": "node -e \"const fs=require('fs');fs.copyFileSync('README.github.md','README.md');fs.unlinkSync('README.github.md');\"",
     "postversion": "git push origin main --tags",

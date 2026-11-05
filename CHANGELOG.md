@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **`progress`, `drawer`, `footer`, `hero` and `sidebar` came out the wrong size without Tailwind**: They size themselves off `--spacing`, and the standalone stylesheets from 2.3.0 don't set it, so a progress bar ended up with no height at all. Thanks to @tridev-tej for catching it.
+- **Font sizes collapsed without Tailwind**: `para`, `para-xs` through `para-9xl`, `accordion` and `table` read `--text-*` from Tailwind's theme, which the standalone stylesheets don't have, so the text came out at whatever size it inherited. Same cause as the sizing bug above.
+- **A disabled `input` had the wrong border color**: it read `--input`, which doesn't exist. Should have been `--color-input`, which the component defines two lines up.
 - **Bold text was the wrong color inside `alert` and `chat`**: Only `p` and `li` picked up the component's color, so a `<strong>` could come out white on a pale `alert-info`. Headings and inline code the same.
 - **`toast-center` and `toast-middle` cancelled each other out**: You could have one or the other but never both, so a toast in the middle of the screen wasn't possible. Uses alignment now rather than transforms. The container stretches across the viewport as part of that; clicks still pass through it, but worth a look if you've styled `.toast` yourself.
 - **`prose-frutjam` was printing backticks around inline code**: Typography adds them by default and it had never been turned off.
