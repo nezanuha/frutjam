@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-11-05
+
 ### Added
 
 - **`toast-slide-up`, `-down`, `-start`, `-end`**: Set which direction a toast slides in from. They all fade and rise in by default, and don't animate at all if you've got reduced motion turned on.
@@ -661,7 +663,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/nezanuha/frutjam/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/nezanuha/frutjam/compare/v2.2.6...v2.3.0
 [2.2.6]: https://github.com/nezanuha/frutjam/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/nezanuha/frutjam/compare/v2.2.4...v2.2.5
