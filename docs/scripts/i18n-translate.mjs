@@ -289,11 +289,29 @@ async function translateOne(text, target) {
   throw lastError;
 }
 
+/** One line of progress, rewritten in place, and only when a person is watching.
+ *  A page of 600 strings at one request each is several minutes of silence
+ *  otherwise, which looks exactly like a hang. */
+function showProgress(target, done, total, startedAt) {
+  if (!process.stdout.isTTY) return;
+  const elapsed = (Date.now() - startedAt) / 1000;
+  const left = done > 0 ? Math.round((elapsed / done) * (total - done)) : 0;
+  const eta = left >= 60 ? `${Math.floor(left / 60)}m ${left % 60}s` : `${left}s`;
+  process.stdout.write(`    ${target}: ${done}/${total} strings, ~${eta} left    `);
+}
+
+/** Clears the progress line so the next message starts on a clean one. */
+function clearProgress() {
+  if (process.stdout.isTTY) process.stdout.write(`${' '.repeat(52)}`);
+}
+
 /** Every string translated, or an exception: never a partial page. */
 async function translateAll(strings, target, { translate = translateOne, delay = DELAY, backoff = BACKOFF } = {}) {
   const cache = new Map();
   const out = [];
+  const startedAt = Date.now();
   for (const text of strings) {
+    showProgress(target, out.length, strings.length, startedAt);
     if (cache.has(text)) {
       out.push(cache.get(text));
       continue;
@@ -311,6 +329,7 @@ async function translateAll(strings, target, { translate = translateOne, delay =
       } catch (error) {
         lastError = error;
         const wait = backoff * (attempt + 1);
+        clearProgress();
         console.log(`    ${target}: refused (${String(error.message).slice(0, 60)}); waiting ${wait / 1000}s`);
         await sleep(wait);
       }
@@ -320,6 +339,7 @@ async function translateAll(strings, target, { translate = translateOne, delay =
     out.push(result);
     await sleep(delay);
   }
+  clearProgress();
   return out;
 }
 
