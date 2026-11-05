@@ -1,8 +1,8 @@
 ---
 name: "吐司"
 heading: "吐司組件"
-description: "僅 CSS Tailwind CSS toast 用於通知定位 - 頂部、底部、開始、結束和中心放置。沒有用於佈局的 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
-metaTitle: "Toast - 僅 CSS 的 Tailwind CSS 元件 |Frutjam"
+description: "僅 CSS Tailwind CSS toast 用於通知定位：頂部、底部、開始、結束和中心放置。沒有用於佈局的 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。"
+metaTitle: "Toast - 僅 CSS 的 Tailwind CSS 元件 |弗魯賈姆"
 metaDescription: "Tailwind CSS Toast 具有可設定的位置和堆疊。用於可存取、非侵入式使用者通知的成功、錯誤、警告和資訊變體。"
 order: 0
 related:
@@ -12,19 +12,19 @@ image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
 imageAlt: "Frutjam 的吐司"
 createdAt: "2026-04-19T15:57:25.964725+00:00"
 updatedAt: "2026-07-13T09:53:05.411034+00:00"
-sourceHash: "3b7a1888c719"
-translationHash: "617a8e4a58eb"
+sourceHash: "063b1dde9777"
+translationHash: "f19d6c275ecd"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-僅 CSS Tailwind CSS toast 用於通知定位 - 頂部、底部、開始、結束和中心放置。沒有用於佈局的 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+僅 CSS Tailwind CSS toast 用於通知定位：頂部、底部、開始、結束和中心放置。沒有用於佈局的 JavaScript。 WCAG AA 可訪問，可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
 
-Toast 元件在螢幕邊緣顯示簡短的、非侵入性的通知。 Toast 採用固定定位和警報組件構建，可傳達系統回饋，例如成功確認、錯誤訊息或狀態更新。 Frutjam toast 系統支援六個放置位置 - 非常適合表單提交、非同步操作和即時通知。
+Toast 元件在螢幕邊緣顯示簡短的、非侵入性的通知。 Toast 採用固定定位和警報組件構建，可傳達系統回饋，例如成功確認、錯誤訊息或狀態更新。 Frutjam toast 系統支援六個放置位置，非常適合表單提交、非同步操作和即時通知。
 
-僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關 - 可與 Django、HTMX、Laravel、React 和任何堆疊配合使用。
+僅 CSS，無需 JavaScript。 WCAG AA 可存取且與框架無關：適用於 Django、HTMX、Laravel、React 和任何堆疊。
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -37,6 +37,11 @@ Toast 元件在螢幕邊緣顯示簡短的、非侵入性的通知。 Toast 採�
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 水平居中 |
 | toast-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 錨點位於右側（預設） |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 垂直居中 |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從下方進入，按其自身高度 |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從上方進入 |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從左進入，RTL 從右進入 |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">修飾符</span> | 從右進入，RTL 從左到右進入 |
+| --toast--寬度 | <span class="badge badge-xs badge-info badge-soft">尺寸</span> | 每個吐司的最大寬度， `24rem` 預設情況下 |
 
 </DocTable>
 
@@ -45,7 +50,7 @@ Toast 元件在螢幕邊緣顯示簡短的、非侵入性的通知。 Toast 採�
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -60,7 +65,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -81,15 +86,15 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
@@ -101,16 +106,66 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+### 居中
+
+水平和垂直修改器結合在一起，所以 `toast-center toast-middle` 在螢幕中間放一個吐司。
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## 入場動畫
+
+每片吐司都會自行褪色併升起。沒有什麼可以添加的，也沒有類別可以打開它。
+
+這 `toast-slide-*` 當您想要與預設上升不同的方向時，可以使用修改器。選擇吐司所在的邊緣，這樣它就會從螢幕外部進入，而不是穿過螢幕： `toast-slide-end` 屬於 `toast-end`, `toast-slide-down` 和 `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+該距離是 toast 本身的寬度或高度，而不是到螢幕邊緣的距離，因此居中的 toast 從中間附近開始，而不是在螢幕外。
+
+沒有退出動畫。 Toast 從頁面中刪除後就會消失，因為 CSS 沒有可以轉換的狀態。淡出一個意味著將其保留在 DOM 中並自己為其設置動畫。
+
+對於任何要求減少動作的人來說，動畫都會被跳過。
+
+## 寬度
+
+每個吐司的上限為 `24rem` 因此長消息不會跨越手機螢幕。覆蓋 `--toast--width` 改變它。
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
 </div>
 ```
 
@@ -121,7 +176,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -144,7 +199,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>

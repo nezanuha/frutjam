@@ -1,8 +1,8 @@
 ---
 name: "Tostada"
 heading: "Componente tostado"
-description: "Brinda CSS Tailwind solo CSS para el posicionamiento de notificaciones: ubicación superior, inferior, inicial, final y central. Sin JavaScript para el diseño. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
-metaTitle: "Toast: componente CSS Tailwind solo para CSS | Frutjam"
+description: "Tostada CSS de Tailwind solo CSS para posicionamiento de notificaciones: ubicación superior, inferior, inicial, final y central. Sin JavaScript para el diseño. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila."
+metaTitle: "Toast: componente CSS Tailwind solo para CSS | mermelada de frutas"
 metaDescription: "Tailwind CSS Toast con posiciones configurables y apilamiento. Variantes de éxito, error, advertencia e información para notificaciones de usuario accesibles y no intrusivas."
 order: 0
 related:
@@ -12,15 +12,15 @@ image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
 imageAlt: "Tostada de Mermelada de Frutos"
 createdAt: "2026-04-19T15:57:25.964725+00:00"
 updatedAt: "2026-07-13T09:53:05.411034+00:00"
-sourceHash: "3b7a1888c719"
-translationHash: "43f4d47511fb"
+sourceHash: "063b1dde9777"
+translationHash: "223a6ca413aa"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Brinda CSS Tailwind solo CSS para el posicionamiento de notificaciones: ubicación superior, inferior, inicial, final y central. Sin JavaScript para el diseño. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
+Tostada CSS de Tailwind solo CSS para posicionamiento de notificaciones: ubicación superior, inferior, inicial, final y central. Sin JavaScript para el diseño. Accesible a WCAG AA, funciona con Django, HTMX, Laravel, React y cualquier pila.
 
 Los componentes de Toast muestran notificaciones breves y no intrusivas ubicadas en los bordes de la pantalla. Construidos con componentes de alerta y posicionamiento fijo, los brindis comunican comentarios del sistema, como confirmaciones de éxito, mensajes de error o actualizaciones de estado. El sistema de brindis de Frutjam admite seis posiciones de ubicación, ideal para envíos de formularios, operaciones asíncronas y notificaciones en tiempo real.
 
@@ -37,6 +37,11 @@ Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Centrado horizontalmente |
 | toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Anclajes a la derecha (predeterminado) |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Centrado verticalmente |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Entra desde abajo, por su propia altura. |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Entra desde arriba |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Entra por la izquierda, por la derecha en RTL |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">Modificador</span> | Entra por la derecha, por la izquierda en RTL |
+| --toast--anchura | <span class="badge badge-xs badge-info badge-soft">Dimensión empresarial</span> | Ancho máximo de cada tostada, `24rem` por defecto |
 
 </DocTable>
 
@@ -45,7 +50,7 @@ Solo CSS, no se requiere JavaScript. WCAG AA accesible e independiente del marco
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -60,7 +65,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -74,22 +79,22 @@ export default function ToastDemo() {
 
 </Snippet>
 
-## Posiciones de brindis
+## Posiciones de Toast
 
-### Posiciones superiores
+### Altos Cargos
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
@@ -101,27 +106,77 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
 </div>
 ```
 
 </Snippet>
 
-## Colores tostados
+### Centrado
+
+Un modificador horizontal y uno vertical se combinan, por lo que `toast-center toast-middle` pone un brindis en el medio de la pantalla.
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## Entrada Animación
+
+Cada tostada se desvanece y se coloca en su lugar por sí sola. No hay nada que añadir para eso, y no hay clase para encenderlo.
+
+El  `toast-slide-*` los modificadores son para cuando se desea una dirección diferente de la subida predeterminada. Elige el borde sobre el que se asienta la tostada, para que entre desde fuera de la pantalla en lugar de cruzarla: `toast-slide-end` pertenece a `toast-end`, `toast-slide-down` con `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+La distancia es el ancho o la altura de la tostada, no la distancia al borde de la pantalla, por lo que una tostada centrada comienza cerca del centro en lugar de fuera de la pantalla.
+
+No hay animación de salida. Una tostada desaparece en el momento en que se elimina de la página, porque CSS no tiene un estado del que salir. Desvanecer uno significa mantenerlo en el Dom y animarlo usted mismo.
+
+La animación se omite para cualquier persona que haya pedido movimiento reducido.
+
+## Anchura
+
+Cada tostada tiene un límite de `24rem` para que un mensaje largo no abarque la pantalla de un teléfono. Anular `--toast--width` No es así.
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
+</div>
+```
+
+</Snippet>
+
+## Colores de tostadas
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -139,12 +194,12 @@ export default function ToastDemo() {
 
 </Snippet>
 
-## Múltiples brindis
+## Múltiples tostadas
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>

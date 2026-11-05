@@ -1,7 +1,7 @@
 ---
 name: "Toast"
 heading: "Toast-Komponente"
-description: "Nur CSS Tailwind CSS-Toast für die Positionierung von Benachrichtigungen – oben, unten, am Anfang, am Ende und in der Mitte. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
+description: "Nur CSS-Tailwind-CSS-Toast für die Benachrichtigungspositionierung: oben, unten, Anfang, Ende und Mittenplatzierung. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack."
 metaTitle: "Toast – Nur CSS-Tailwind-CSS-Komponente | Frutjam"
 metaDescription: "Tailwind CSS Toast mit konfigurierbaren Positionen und Stapelung. Erfolgs-, Fehler-, Warn- und Infovarianten für zugängliche, nicht aufdringliche Benutzerbenachrichtigungen."
 order: 0
@@ -12,19 +12,19 @@ image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
 imageAlt: "Toast von Frutjam"
 createdAt: "2026-04-19T15:57:25.964725+00:00"
 updatedAt: "2026-07-13T09:53:05.411034+00:00"
-sourceHash: "3b7a1888c719"
-translationHash: "c90ff7eb35a3"
+sourceHash: "063b1dde9777"
+translationHash: "9033d68f01b8"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Nur CSS Tailwind CSS-Toast für die Positionierung von Benachrichtigungen – oben, unten, am Anfang, am Ende und in der Mitte. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+Nur CSS-Tailwind-CSS-Toast für die Benachrichtigungspositionierung: oben, unten, Anfang, Ende und Mittenplatzierung. Kein JavaScript für das Layout. WCAG AA zugänglich, funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
 
-Toast-Komponenten zeigen kurze, unaufdringliche Benachrichtigungen an den Rändern des Bildschirms an. Toasts basieren auf festen Positionierungs- und Warnkomponenten und übermitteln Systemrückmeldungen wie Erfolgsbestätigungen, Fehlermeldungen oder Statusaktualisierungen. Das Frutjam-Toastsystem unterstützt sechs Platzierungspositionen – ideal für Formularübermittlungen, asynchrone Vorgänge und Echtzeitbenachrichtigungen.
+Toast-Komponenten zeigen kurze, unaufdringliche Benachrichtigungen an den Rändern des Bildschirms an. Toasts basieren auf festen Positionierungs- und Warnkomponenten und übermitteln Systemrückmeldungen wie Erfolgsbestätigungen, Fehlermeldungen oder Statusaktualisierungen. Das Frutjam-Toastsystem unterstützt sechs Platzierungspositionen, ideal für Formularübermittlungen, asynchrone Vorgänge und Echtzeitbenachrichtigungen.
 
-Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig – funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
+Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhängig: Funktioniert mit Django, HTMX, Laravel, React und jedem Stack.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -37,6 +37,11 @@ Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhä
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Horizontal zentriert |
 | toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Anker nach rechts (Standard) |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Vertikal zentriert |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Eintritt von unten, durch eigene Höhe |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Eintritt von oben |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Tritt von links ein, von rechts bei RTL |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">Modifikator</span> | Tritt von rechts ein, von links bei RTL |
+| --toast--width | <span class="badge badge-xs badge-info badge-soft">Größe</span> | Maximale Breite jedes Toasts, `24rem` standardmäßig |
 
 </DocTable>
 
@@ -45,7 +50,7 @@ Nur CSS, kein JavaScript erforderlich. WCAG AA zugänglich und Framework-unabhä
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -60,7 +65,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -81,15 +86,15 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
@@ -101,16 +106,66 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+### Zentriert
+
+Ein horizontaler und ein vertikaler Modifikator kombinieren also `toast-center toast-middle` platziert einen Toast in der Mitte des Bildschirms.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## Eintrittsanimation
+
+Jeder Toast verblasst und steigt von selbst an seinen Platz. Dazu gibt es nichts hinzuzufügen und keine Klasse, um es zu aktivieren.
+
+Der `toast-slide-*` Modifikatoren sind für den Fall gedacht, dass Sie eine andere Richtung als die Standardanstiegsrichtung wünschen. Wählen Sie die Kante aus, auf der der Toast liegt, sodass er von außerhalb des Bildschirms eindringt und nicht darüber hinweg: `toast-slide-end` gehört dazu `toast-end`, `toast-slide-down` mit `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+Der Abstand ist die eigene Breite oder Höhe des Toasts, nicht der Abstand zum Rand des Bildschirms. Ein zentrierter Toast beginnt also in der Mitte und nicht außerhalb des Bildschirms.
+
+Es gibt keine Exit-Animation. Ein Toast verschwindet, sobald er von der Seite entfernt wird, da CSS keinen Status hat, aus dem er übergehen kann. Eines auszublenden bedeutet, es im DOM zu belassen und es selbst zu animieren.
+
+Die Animation wird für alle übersprungen, die eine reduzierte Bewegung gewünscht haben.
+
+## Breite
+
+Jeder Toast ist mit einer Obergrenze versehen `24rem` Daher erstreckt sich eine lange Nachricht nicht über den gesamten Telefonbildschirm. Überschreiben `--toast--width` um es zu ändern.
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
 </div>
 ```
 
@@ -121,7 +176,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -144,7 +199,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>

@@ -1,7 +1,7 @@
 ---
 name: "Tost"
 heading: "Tost Bileşeni"
-description: "Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu - üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
+description: "Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu: üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır."
 metaTitle: "Toast - Yalnızca CSS'de Tailwind CSS Bileşeni | Frutjam"
 metaDescription: "Yapılandırılabilir konumlara ve istiflemeye sahip Tailwind CSS Toast. Erişilebilir, müdahaleci olmayan kullanıcı bildirimleri için başarı, hata, uyarı ve bilgi çeşitleri."
 order: 0
@@ -12,19 +12,19 @@ image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
 imageAlt: "Frutjam'dan tost"
 createdAt: "2026-04-19T15:57:25.964725+00:00"
 updatedAt: "2026-07-13T09:53:05.411034+00:00"
-sourceHash: "3b7a1888c719"
-translationHash: "94a2aaf64b4e"
+sourceHash: "063b1dde9777"
+translationHash: "1cb2923cfa2e"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu - üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
+Bildirim konumlandırma için yalnızca CSS Tailwind CSS tostu: üst, alt, başlangıç, bitiş ve orta yerleşim. Düzen için JavaScript yok. WCAG AA'ya erişilebilir; Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
 
-Toast bileşenleri, ekranın kenarlarına yerleştirilmiş kısa, müdahaleci olmayan bildirimler görüntüler. Sabit konumlandırma ve uyarı bileşenleriyle oluşturulan tostlar, başarı onayları, hata mesajları veya durum güncellemeleri gibi sistem geri bildirimlerini iletir. Frutjam tost sistemi altı yerleştirme pozisyonunu destekler; form gönderimleri, eşzamansız işlemler ve gerçek zamanlı bildirimler için idealdir.
+Toast bileşenleri, ekranın kenarlarına yerleştirilmiş kısa, müdahaleci olmayan bildirimler görüntüler. Sabit konumlandırma ve uyarı bileşenleriyle oluşturulan tostlar, başarı onayları, hata mesajları veya durum güncellemeleri gibi sistem geri bildirimlerini iletir. Frutjam tost sistemi, form gönderimleri, eşzamansız işlemler ve gerçek zamanlı bildirimler için ideal olan altı yerleştirme konumunu destekler.
 
-Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız — Django, HTMX, Laravel, React ve tüm yığınlarla çalışır.
+Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağımsız: Django, HTMX, Laravel, React ve herhangi bir yığınla çalışır.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
@@ -37,6 +37,11 @@ Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağı
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Yatay olarak ortalanmış |
 | toast-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Sağdaki bağlantı noktaları (varsayılan) |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Dikey olarak ortalanmış |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Kendi yüksekliğinde aşağıdan girer |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | Yukarıdan girer |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | RTL'de soldan, sağdan girer |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">Değiştirici</span> | RTL'de sağdan, soldan girer |
+| --kızartma--genişlik | <span class="badge badge-xs badge-info badge-soft">Boyut</span> | Her tostun maksimum genişliği, `24rem` varsayılan olarak |
 
 </DocTable>
 
@@ -45,7 +50,7 @@ Yalnızca CSS, JavaScript gerekmez. WCAG AA erişilebilir ve çerçeveden bağı
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -60,7 +65,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -81,15 +86,15 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
@@ -101,16 +106,66 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
+</div>
+```
+
+</Snippet>
+
+### ortalanmış
+
+Yatay ve dikey değiştirici birleştirilir, böylece `toast-center toast-middle` ekranın ortasına bir kadeh kaldırıyor.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## Giriş Animasyonu
+
+Her tost kendi kendine solar ve yerine oturur. Bunun için eklenecek hiçbir şey yok ve onu açacak bir sınıf yok.
+
+The `toast-slide-*` değiştiriciler, varsayılan artıştan farklı bir yön istediğinizde kullanılır. Tostun oturduğu kenarı seçin, böylece ekranın karşısından değil dışından girer: `toast-slide-end` aittir `toast-end`, `toast-slide-down` ile `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+Mesafe, ekranın kenarına olan mesafe değil, tostun kendi genişliği veya yüksekliğidir, bu nedenle ortalanmış bir tost, ekran dışında değil, ortasına yakın bir yerde başlar.
+
+Çıkış animasyonu bulunmamaktadır. Bir tost, sayfadan kaldırıldığı anda kaybolur, çünkü CSS'nin geçiş yapacak bir durumu yoktur. Birini soldurmak, onu DOM'da tutmak ve kendiniz canlandırmak anlamına gelir.
+
+Hareketin azaltılmasını isteyen herkes için animasyon atlanır.
+
+## Genişlik
+
+Her tostun başlığı şu şekildedir: `24rem` bu nedenle uzun bir mesaj bir telefon ekranını kapsamaz. Geçersiz kıl `--toast--width` değiştirmek için.
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
 </div>
 ```
 
@@ -121,7 +176,7 @@ export default function ToastDemo() {
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -139,12 +194,12 @@ export default function ToastDemo() {
 
 </Snippet>
 
-## Çoklu Tostlar
+## Çoklu Tost
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>

@@ -1,9 +1,9 @@
 ---
-name: "Griller"
-heading: "Composant de pain grillé"
-description: "Toast CSS Tailwind uniquement CSS pour le positionnement des notifications : placement en haut, en bas, au début, à la fin et au centre. Pas de JavaScript pour la mise en page. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
-metaTitle: "Toast - Composant CSS Tailwind uniquement CSS | Frutjam"
-metaDescription: "Tailwind CSS Toast avec positions et empilement configurables. Variantes de réussite, d'erreur, d'avertissement et d'informations pour des notifications utilisateur accessibles et non intrusives."
+name: "Tartine"
+heading: "Composant de toast"
+description: "Toast CSS Tailwind CSS uniquement pour le positionnement des notifications : positionnement en haut, en bas, en début, en fin et au centre. Pas de JavaScript pour la mise en page. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile."
+metaTitle: "Toast - Composant CSS Tailwind CSS uniquement | Frutjam"
+metaDescription: "Toast CSS Tailwind avec positions configurables et empilage. Variantes de succès, d'erreur, d'avertissement et d'informations pour des notifications utilisateur accessibles et non intrusives."
 order: 0
 related:
   - "components/alert"
@@ -12,31 +12,36 @@ image: "https://cdn.frutjam.com/media/components/toast_ds2ce1U.webp"
 imageAlt: "Toast par Frutjam"
 createdAt: "2026-04-19T15:57:25.964725+00:00"
 updatedAt: "2026-07-13T09:53:05.411034+00:00"
-sourceHash: "3b7a1888c719"
-translationHash: "c5d8353445dd"
+sourceHash: "063b1dde9777"
+translationHash: "4a2192e0c9ad"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-Toast CSS Tailwind uniquement CSS pour le positionnement des notifications : placement en haut, en bas, au début, à la fin et au centre. Pas de JavaScript pour la mise en page. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+Toast CSS Tailwind CSS uniquement pour le positionnement des notifications : positionnement en haut, en bas, en début, en fin et au centre. Pas de JavaScript pour la mise en page. WCAG AA accessible, fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
 
-Les composants Toast affichent des notifications brèves et non intrusives positionnées sur les bords de l'écran. Construits avec des composants de positionnement et d'alerte fixes, les toasts communiquent des commentaires du système tels que des confirmations de réussite, des messages d'erreur ou des mises à jour de statut. Le système de toast Frutjam prend en charge six positions de placement, idéales pour les soumissions de formulaires, les opérations asynchrones et les notifications en temps réel.
+Les composants Toast affichent des notifications brèves et non intrusives positionnées sur les bords de l'écran. Construits avec des composants de positionnement et d'alerte fixes, les toasts communiquent les commentaires du système tels que les confirmations de succès, les messages d'erreur ou les mises à jour de statut. Le système de pain grillé Frutjam prend en charge six positions de placement, idéal pour les soumissions de formulaires, les opérations asynchrones et les notifications en temps réel.
 
-CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework – fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
+CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du framework : fonctionne avec Django, HTMX, Laravel, React et n'importe quelle pile.
 
 <DocTable wrapper="overflow-y-auto max-h-72" table="table table-sm not-prose">
 
-| Classe | Taper | Description |
+| Classe | Type | Description |
 | --- | --- | --- |
-| toast | <span class="badge badge-xs">Base</span> | Fixed-position notification container |
-| toast-top | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Anchors to the top of the viewport |
-| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Anchors to the bottom of the viewport (default) |
-| toast-start | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Anchors to the left |
+| toast | <span class="badge badge-xs">Base</span> | Conteneur de notification à position fixe |
+| toast-top | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Ancrages au sommet de la fenêtre |
+| toast-bottom | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Ancrages au bas de la fenêtre (par défaut) |
+| toast-start | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Ancres à gauche |
 | toast-center | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Centré horizontalement |
-| toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Anchors to the right (default) |
+| toast-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Ancrages à droite (par défaut) |
 | toast-middle | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Centré verticalement |
+| toast-slide-up | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Entre par le bas, par sa propre hauteur |
+| toast-slide-down | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Entrées par le haut |
+| toast-slide-start | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Entre par la gauche, par la droite dans RTL |
+| toast-slide-end | <span class="badge badge-xs badge-secondary badge-soft">Modificateur</span> | Entre par la droite, par la gauche dans RTL |
+| --toast--width | <span class="badge badge-xs badge-info badge-soft">Taille</span> | Largeur maximale de chaque toast, `24rem` par défaut |
 
 </DocTable>
 
@@ -45,7 +50,7 @@ CSS uniquement, aucun JavaScript requis. WCAG AA accessible et indépendant du f
 <Snippet>
 
 ```html
-<div class="toast">
+<div role="status" aria-live="polite" class="toast">
   <div class="alert alert-info">
     <span>New message arrived.</span>
   </div>
@@ -60,7 +65,7 @@ export default function ToastDemo() {
   return (
     <>
       <button className="btn" onClick={() => toast.info('New message arrived.')}>Show Toast</button>
-      <div className="toast">
+      <div role="status" aria-live="polite" className="toast">
         {toast.toasts.map(t => (
           <div key={t.id} className={`alert${t.type ? ` alert-${t.type}` : ''}`}>
             <span>{t.message}</span>
@@ -74,54 +79,104 @@ export default function ToastDemo() {
 
 </Snippet>
 
-## Toast Positions
+## Positions de toast
 
-### Top Positions
+### Principales positions
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-start">
+<div role="status" aria-live="polite" class="toast toast-top toast-start">
   <div class="alert alert-info"><span>Top Start</span></div>
 </div>
 
-<div class="toast toast-top toast-center">
+<div role="status" aria-live="polite" class="toast toast-top toast-center">
   <div class="alert alert-info"><span>Top Center</span></div>
 </div>
 
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-info"><span>Top End</span></div>
 </div>
 ```
 
 </Snippet>
 
-### Bottom Positions
+### .
 
 <Snippet>
 
 ```html
-<div class="toast toast-bottom toast-start">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-start">
   <div class="alert alert-info"><span>Bottom Start</span></div>
 </div>
 
-<div class="toast toast-bottom toast-center">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-center">
   <div class="alert alert-info"><span>Bottom Center</span></div>
 </div>
 
-<div class="toast toast-bottom toast-end">
+<div role="status" aria-live="polite" class="toast toast-bottom toast-end">
   <div class="alert alert-info"><span>Bottom End</span></div>
 </div>
 ```
 
 </Snippet>
 
-## Toast Colors
+### Centré
+
+Un modificateur horizontal et un modificateur vertical se combinent, donc `toast-center toast-middle` met un toast au milieu de l'écran.
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-middle toast-center">
+  <div class="alert alert-info"><span>Middle Center</span></div>
+</div>
+```
+
+</Snippet>
+
+## Animation d’entrée
+
+Chaque toast s'estompe et se met en place tout seul. Il n'y a rien à ajouter pour cela, et aucune classe pour l'activer.
+
+La `toast-slide-*` les modificateurs sont pour quand vous voulez une direction différente de la montée par défaut. Choisissez le bord sur lequel repose le pain grillé, de sorte qu'il pénètre de l'extérieur de l'écran plutôt que de le traverser : `toast-slide-end` appartient à `toast-end`, `toast-slide-down` avec `toast-top`.
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end toast-slide-down">
+  <div class="alert alert-info"><span>Drops in from the top</span></div>
+</div>
+```
+
+</Snippet>
+
+La distance est la largeur ou la hauteur du pain grillé, et non la distance jusqu'au bord de l'écran, de sorte qu'un pain grillé centré commence près du milieu plutôt qu'en dehors de l'écran.
+
+Il n'y a pas d'animation de sortie. Un toast disparaît au moment où il est supprimé de la page, car CSS n'a pas d'état de transition. Fading one out signifie le garder dans le Dom et l'animer soi-même.
+
+L'animation est ignorée pour tous ceux qui ont demandé un mouvement réduit.
+
+## Largeur
+
+Chaque toast est plafonné à `24rem` afin qu'un message long ne s'étende pas sur un écran de téléphone. Remplacer `--toast--width` pour le changer.
+
+<Snippet view="code">
+
+```html
+<div role="status" aria-live="polite" class="toast [--toast--width:32rem]">
+  <div class="alert alert-info"><span>A wider toast.</span></div>
+</div>
+```
+
+</Snippet>
+
+## Couleurs de toast
+
+<Snippet>
+
+```html
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>File saved successfully.</span>
   </div>
@@ -139,12 +194,12 @@ export default function ToastDemo() {
 
 </Snippet>
 
-## Multiple Toasts
+## Toasts multiples
 
 <Snippet>
 
 ```html
-<div class="toast toast-top toast-end">
+<div role="status" aria-live="polite" class="toast toast-top toast-end">
   <div class="alert alert-success">
     <span>Profile updated.</span>
   </div>
