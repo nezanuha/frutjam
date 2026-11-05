@@ -1,16 +1,16 @@
 ---
 title: "SimpleMDE Alternative: The Diff Is Smaller Than You Think"
-description: "SimpleMDE has not shipped a commit since June 2024 and has 290 open issues. Here is how to move to markdown-text-editor, including the option and toolbar mapping, and an honest list of what you lose."
+description: "SimpleMDE has not shipped a commit since June 2024 and has 200+ open issues. Here is how to move to markdown-text-editor, including the option and toolbar mapping, and an honest list of what you lose."
 metaTitle: "SimpleMDE Alternative — Migration Guide | Frutjam"
 metaDescription: "A practical SimpleMDE migration guide: option mapping, toolbar names, the sync code you delete, and what is missing. SimpleMDE is unmaintained since June 2024."
 image: "https://cdn.frutjam.com/media/blog/posts/simplemde-alternative.jpg"
 imageAlt: "Screen-print illustration of a dusty abandoned panel beside a working one, a single cable being unplugged from the first and seated into the second"
 createdAt: "2026-10-20T00:00:00+00:00"
-updatedAt: "2026-10-20T00:00:00+00:00"
+updatedAt: "2026-11-05T00:00:00+00:00"
 draft: false
 ---
 
-SimpleMDE's last commit was June 2024. It has 290 open issues and 10,141 stars, which is an awkward combination: enough people depend on it that it still does 94,000 installs a month, and nobody is answering any of them.
+SimpleMDE's last commit was June 2024. It has 200+ open issues and 10,000+ stars, which is an awkward combination: enough people depend on it that it still does 94,000 installs a month, and nobody is answering any of them.
 
 If you're on it, you've probably already decided to move. This is the part nobody writes down: what the migration actually costs.
 
