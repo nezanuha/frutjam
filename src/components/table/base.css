@@ -19,6 +19,22 @@
     padding-inline: 1rem;
     padding-block: 0.75rem;
     vertical-align: middle;
+  }
+
+  /*
+    A cell that asked for an alignment keeps it.
+
+    `align="center"` is a presentational attribute, and the cascade ranks those
+    below every author declaration, so setting text-align on the cells here
+    silently overruled it. That is how a markdown table renders: the delimiter
+    row carries the column's alignment and the renderer writes it onto every
+    cell, so `:---:` and `---:` did nothing inside a .table.
+
+    The table itself still sets `text-align: start`, but inheritance alone will
+    not do: a th carries the user agent's own `text-align: center`, which beats
+    an inherited value, so headers need a declaration of their own.
+  */
+  :where(th:not([align]), td:not([align])) {
     text-align: start;
   }
 

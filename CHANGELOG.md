@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`table` ignored column alignment**: Markdown's `:---:` and `---:` say a column should be centered or right-aligned, and `.table` pushed everything left anyway. A cell that asks for an alignment now keeps it.
+
 ## [2.4.0] - 2026-11-05
 
 ### Added
