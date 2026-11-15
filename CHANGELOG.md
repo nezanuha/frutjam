@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.1] - 2026-11-15
+
 ### Fixed
 
 - **`table` ignored column alignment**: Markdown's `:---:` and `---:` say a column should be centered or right-aligned, and `.table` pushed everything left anyway. A cell that asks for an alignment now keeps it.
@@ -669,7 +671,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/nezanuha/frutjam/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/nezanuha/frutjam/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/nezanuha/frutjam/compare/v2.2.6...v2.3.0
 [2.2.6]: https://github.com/nezanuha/frutjam/compare/v2.2.5...v2.2.6
