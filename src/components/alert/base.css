@@ -55,4 +55,33 @@
     & :where(p, li, strong, b, em, code, h1, h2, h3, h4, h5, h6) {
       color: inherit;
     }
+
+    /* A button inside an alert belongs to the alert, so it is painted from
+       the alert's colors rather than the base palette. Without this, an
+       action in a warning alert comes out as a grey rectangle on an amber
+       strip: the button has no way to know what it is standing on, and
+       every author has to remember to pair alert-warning with btn-warning
+       by hand, with nothing to catch them when they forget.
+
+       Inheritance cannot do this. The button sets --color-btn on itself,
+       and an element's own declaration beats an inherited one, so the
+       colors have to be handed down by a rule that reaches the button.
+
+       Specificity is the whole design here. .alert is (0,1,0), :where()
+       adds nothing, and :not() contributes (0,1,0), which makes this
+       (0,2,0): enough to beat the button's own defaults at (0,1,0).
+       The colored variants are excluded rather than outweighed, so a
+       btn-primary inside an alert is still primary -- an author who names
+       a color means it. Shape variants are not excluded: ghost and outline
+       carry no color of their own and are exactly what an alert's actions
+       usually want. */
+    & :where(.btn):not(.btn-primary, .btn-secondary, .btn-accent, .btn-info,
+                       .btn-neutral, .btn-success, .btn-warning, .btn-error) {
+      --color-btn: var(--color-alert);
+      --color-on-btn: var(--color-on-alert);
+      --color-btn-active: var(--color-alert-active);
+      --color-btn-soft: var(--color-alert-soft);
+      --color-on-btn-soft: var(--color-on-alert-soft);
+      --btn-variant-text: var(--alert-variant-text);
+    }
 }

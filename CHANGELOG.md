@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **`alert` now paints its buttons**: A plain `btn` inside an alert takes the alert's colors rather than the page's, so an action in a warning alert comes out amber instead of grey. A button that names a color of its own, like `btn-primary`, is left alone.
+
 ## [2.4.1] - 2026-11-15
 
 ### Fixed
