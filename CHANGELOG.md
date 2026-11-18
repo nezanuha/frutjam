@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.2] - 2026-11-18
+
 ### Changed
 
 - **`alert` now paints its buttons**: A plain `btn` inside an alert takes the alert's colors rather than the page's, so an action in a warning alert comes out amber instead of grey. A button that names a color of its own, like `btn-primary`, is left alone.
@@ -675,7 +677,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.1...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.2...HEAD
+[2.4.2]: https://github.com/nezanuha/frutjam/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/nezanuha/frutjam/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/nezanuha/frutjam/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/nezanuha/frutjam/compare/v2.2.6...v2.3.0
