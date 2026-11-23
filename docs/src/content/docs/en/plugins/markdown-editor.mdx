@@ -1168,6 +1168,34 @@ An editor that restored automatically would put Monday's draft over Tuesday's
 work and say nothing. Nothing on this side can tell which version is wanted,
 so it asks, and the text on the page is untouched until you answer.
 
+#### Looking before you choose
+
+**Compare** opens a line-by-line view of what Restore would change: lines the
+draft would take off the page, lines it would put there instead, and the length
+of each version.
+
+Without it, pressing Restore was the only way to find out what a draft held,
+which made looking and committing the same action. On a draft written against
+text a colleague has since changed, that is the worst pairing available: the
+warning tells you the choice costs something without telling you what, and the
+only way to find out is to pay.
+
+The comparison is by line, not by character, because the question a reader is
+answering is "is this mine", and whole lines answer it. Lines identical at the
+top and bottom of both versions are left out, so what you see is the part that
+differs.
+
+#### Restore is one undo step
+
+`Ctrl+Z` puts the page's text back. That matters most in the case above, where
+a draft and the server disagree: Restore is reversible, so the worst that
+happens is you look and change your mind.
+
+Until 2.0 it was not. Assigning the textarea's value raises no input event, and
+the undo history is built from those, so the replaced text had nowhere to go.
+Restoring also clears the stored draft, which left reloading the page as the
+only way back, and nothing said so.
+
 #### When the page has moved on
 
 The draft remembers the text the textarea held when it was taken. If the
