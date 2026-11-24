@@ -1170,9 +1170,15 @@ so it asks, and the text on the page is untouched until you answer.
 
 #### Looking before you choose
 
-**Compare** opens a line-by-line view of what Restore would change: lines the
-draft would take off the page, lines it would put there instead, and the length
-of each version.
+**Compare** opens the two versions side by side: the page on one side, the
+draft on the other, with the length of each and only the lines that differ.
+Lines identical at the top and bottom of both are left out, so what is on
+screen is the part in question.
+
+It is not the preview pane, although it is the same shape. That pane renders
+one document through your renderer and sanitiser; this needs two documents
+plain text lined up. Rendering would also answer the wrong question here,
+since two different sentences look alike once both are just bold.
 
 Without it, pressing Restore was the only way to find out what a draft held,
 which made looking and committing the same action. On a draft written against
@@ -1180,10 +1186,9 @@ text a colleague has since changed, that is the worst pairing available: the
 warning tells you the choice costs something without telling you what, and the
 only way to find out is to pay.
 
-The comparison is by line, not by character, because the question a reader is
-answering is "is this mine", and whole lines answer it. Lines identical at the
-top and bottom of both versions are left out, so what you see is the part that
-differs.
+By line rather than by character: a character diff of two paragraphs is a
+confetti of fragments, and the question being answered is "is this mine",
+which whole lines answer.
 
 #### Restore is one undo step
 
@@ -1263,7 +1268,8 @@ is added above, and two drafts change places with them.
 
 -   **Nothing leaves the browser.** The draft is never sent anywhere. It is not a backup, and it is gone when site data is cleared.
 -   **It is not version history.** One draft per field, overwritten as you type.
--   **Storage can refuse.** Private browsing throws on access rather than returning null, and a full quota throws on write. Both are caught: the draft is skipped and typing carries on.
+-   **Storage can refuse.** Private browsing throws on access rather than returning null, and a full quota throws on write. Both are caught, so typing carries on either way, but a refused write is reported in the console rather than passed over: a draft that is not being kept is worth knowing about before you need it.
+-   **There is a size limit, and it is the browser's.** `localStorage` holds roughly 5MB per origin, shared with everything else your application keeps there, and it counts UTF-16, so a million characters is about two of those megabytes. A document long enough to pass that cannot be drafted locally; the console says so when it happens.
 
 ### 🏷 Variables
 
