@@ -1170,50 +1170,19 @@ so it asks, and the text on the page is untouched until you answer.
 
 #### Looking before you choose
 
-The strip has **one button**. It opens a dialog asking two questions in turn:
-what kind of answer you want, then which document.
+The strip has **one button**. It opens a dialog holding the difference: the
+lines the draft would take out, the lines it would put in, and a few either
+side to say where in the document it happened, with the length of each version
+above it.
 
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Tab | Shows |
-| --- | --- |
-| **Changes** | what would I lose by taking this |
-| **Preview** > **Draft 2,340 chars** | the draft, rendered |
-| **Preview** > **Page 1,980 chars** | what is on the page now, rendered |
-
-</DocTable>
-
-**Changes** is where you land, because it is the question with the worse
-consequences: the lines the draft would take out, the lines it would put in,
-and a few either side to say where in the document it happened. By line rather
-than by character, since a character diff of two paragraphs is a confetti of
-fragments and whole lines are what a reader answers from.
-
-**Preview** renders either version through your own renderer and sanitiser, the
-same pair the preview pane uses, because once a document is mostly headings and
-tables its markdown source answers "is this mine" badly. One version at a time:
-stacking them meant scrolling the whole of one to reach the other, and columns
-would reflow the prose differently in each.
-
-The two lengths label the inner pair, so you can see both without opening
-either.
+By line rather than by character, since a character diff of two paragraphs is a
+confetti of fragments and whole lines are what a reader answers from.
 
 **Restore** and **Discard** are in the dialog and nowhere else. Both are
 irreversible -- one overwrites the document, the other deletes the only copy of
 the draft -- and neither is a thing to do from a bar that appeared while you
 were reading something else. The strip costs nothing to ignore, which is the
 quick path if the draft is not what you want.
-
-A dialog rather than a second pane beside the editor, for a reason worth
-knowing if you are building something similar. Side by side only helps when the
-lines on the left correspond to the lines on the right, and halving the editor's
-width reflows prose differently in each half, so the correspondence is gone --
-which was the only reason to use columns. Read top to bottom there is nothing
-to align, it works at any width, and it works on a phone.
-
-The editor behind the dialog does not move. Comparing is a decision with two
-outcomes, not a way of editing, so nothing about the layout changes to ask the
-question.
 
 Without it, pressing Restore was the only way to find out what a draft held,
 which made looking and committing the same action. On a draft written against
