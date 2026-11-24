@@ -1170,23 +1170,37 @@ so it asks, and the text on the page is untouched until you answer.
 
 #### Looking before you choose
 
-**Compare** opens a dialog holding the difference: the lines the draft would
-take out, the lines it would put in, and a few either side to say where in the
-document it happened. **Restore** and **Discard** are in there too, next to
-what you are deciding about.
+The strip has **one button**. It opens a dialog with three tabs and the two
+answers:
 
-A second tab **renders both versions**, the page and the draft, one above the
-other and each at the dialog's full width, through your own renderer and
-sanitiser. The difference answers "what would I lose"; this answers "is this
-the version I meant", which the markdown source answers badly once a document
-is mostly headings and tables.
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-Stacked rather than in columns, deliberately. Two columns reflow the prose
-differently in each one, and these are read in turn rather than line against
-line, so the height costs nothing and the width is worth having.
+| Tab | Answers |
+| --- | --- |
+| **Changes** | what would I lose by taking this |
+| **Draft 2,340 chars** | is this the version I meant |
+| **Page 1,980 chars** | what do I have now |
 
-The difference is the tab you land on, because it is the question with the
-worse consequences.
+</DocTable>
+
+**Changes** is where you land, because it is the question with the worse
+consequences: the lines the draft would take out, the lines it would put in,
+and a few either side to say where in the document it happened. By line rather
+than by character, since a character diff of two paragraphs is a confetti of
+fragments and whole lines are what a reader answers from.
+
+The other two render through your own renderer and sanitiser, the same pair the
+preview pane uses, because once a document is mostly headings and tables its
+markdown source answers "is this mine" badly. One version per tab: stacking
+them meant scrolling the whole of one to reach the other, and columns would
+reflow the prose differently in each. The tabs carry the two lengths, so you
+can see both without opening either.
+
+**Restore** and **Discard** are in the dialog and nowhere else. Both are
+irreversible -- one overwrites the document, the other deletes the only copy of
+the draft -- and neither is a thing to do from a bar that appeared while you
+were reading something else. The strip costs nothing to ignore, which is the
+quick path if the draft is not what you want.
 
 A dialog rather than a second pane beside the editor, for a reason worth
 knowing if you are building something similar. Side by side only helps when the
@@ -1278,7 +1292,7 @@ is added above, and two drafts change places with them.
 
 #### What clears it
 
--   **Restore** and **Discard**, both.
+-   **Restore** and **Discard**, both, from the dialog.
 -   **Submitting the form.** At that point the application has the text for real.
 -   **Typing the document back** to what it started as. That is not unsaved work.
 -   **Age.** Drafts older than `maxAge` are dropped unread.
