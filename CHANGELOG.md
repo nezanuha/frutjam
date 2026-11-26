@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.3] - 2026-11-26
+
 ### Fixed
 
 - **Some modifiers ignored your Tailwind prefix, and shipped even when unused**: `table-hover`, the zebras and pins, the table sizes, `swap-rotate` and `drawer-content` went out as base rules rather than utilities, so a `prefix(fj)` never reached them and they were included whether you used them or not. They are ordinary utilities now: 1,981 bytes off a project that uses one component, and identical output for everyone else.
@@ -683,7 +685,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.2...HEAD
+[Unreleased]: https://github.com/nezanuha/frutjam/compare/v2.4.3...HEAD
+[2.4.3]: https://github.com/nezanuha/frutjam/compare/v2.4.2...v2.4.3
 [2.4.2]: https://github.com/nezanuha/frutjam/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/nezanuha/frutjam/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/nezanuha/frutjam/compare/v2.3.0...v2.4.0
