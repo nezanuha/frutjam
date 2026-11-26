@@ -19,6 +19,15 @@ const FRUTJAM_VERSION = JSON.parse(
 ).version;
 
 /**
+ * The markdown editor the plugin page documents, read from the copy actually
+ * installed here. The page's demos run that copy, so a badge taken from it
+ * cannot drift from what a reader is looking at.
+ */
+const MTE_VERSION = JSON.parse(
+  readFileSync(new URL('./node_modules/markdown-text-editor/package.json', import.meta.url), 'utf8')
+).version;
+
+/**
  * Doc previews import `frutjam/js` (modal, drawer, carousel, combobox...)
  * through an import map, as frutjam.com did. Serve the installed package's
  * helpers so previews always run the version the CSS came from.
@@ -137,7 +146,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
-    define: { __FRUTJAM_VERSION__: JSON.stringify(FRUTJAM_VERSION) },
+    define: {
+      __FRUTJAM_VERSION__: JSON.stringify(FRUTJAM_VERSION),
+      __MTE_VERSION__: JSON.stringify(MTE_VERSION),
+    },
   },
   integrations: [
     frutjamJs(),

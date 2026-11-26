@@ -3,9 +3,12 @@ import categories from '@/data/categories.json';
 import { DEFAULT_LANG, isEnglishOnlyPath, langUrl, splitLang } from './i18n';
 
 declare const __FRUTJAM_VERSION__: string;
+declare const __MTE_VERSION__: string;
 
 export const SITE = 'https://frutjam.com';
 export const FRUTJAM_VERSION = __FRUTJAM_VERSION__;
+/** The markdown editor version installed here, shown on its plugin page. */
+export const MTE_VERSION = __MTE_VERSION__;
 
 /** Pages frutjam.com served only in English: no language switcher, no hreflang. */
 export function isEnglishOnly(pathname: string) {

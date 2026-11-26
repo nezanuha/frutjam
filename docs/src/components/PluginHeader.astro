@@ -27,9 +27,11 @@ interface Props {
   path: string;
   repo: string;
   npm: string;
+  /** The version installed here, which is the one the page's demos run. */
+  version: string;
 }
 
-const { name, path, repo, npm } = Astro.props;
+const { name, path, repo, npm, version } = Astro.props;
 const { lang } = splitLang(Astro.url.pathname);
 const t = useTranslations(lang);
 ---
@@ -75,6 +77,18 @@ const t = useTranslations(lang);
         </svg>
         <span class="truncate">{name}</span>
       </a>
+
+      {/* The version the demos on this page are running, read from the copy
+          installed here rather than written down, so it cannot drift from
+          what the reader is looking at. It links to the releases, because
+          the next question after "which version" is "what changed". */}
+      <a
+        href={`${repo}/releases`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="badge badge-xs badge-soft shrink-0 max-sm:hidden"
+        aria-label={t('Version %(version)s, see the releases', { version })}
+      >v{version}</a>
     </div>
 
     <div class="header-end gap-x-2">
