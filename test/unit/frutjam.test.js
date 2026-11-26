@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll } from "vitest"
 import postcss from "postcss"
 import tailwindcss from "@tailwindcss/postcss"
-import frutjam from "frutjam"
+import frutjam from "frutjam/postcss"
 
 async function build(options = {}) {
   const result = await postcss([
