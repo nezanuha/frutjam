@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Some modifiers ignored your Tailwind prefix, and shipped even when unused**: `table-hover`, the zebras and pins, the table sizes, `swap-rotate` and `drawer-content` went out as base rules rather than utilities, so a `prefix(fj)` never reached them and they were included whether you used them or not. They are ordinary utilities now: 1,981 bytes off a project that uses one component, and identical output for everyone else.
 - **`countdown` shipped 5.9 kB to every project**: the rule carrying the digits 000 to 999 sat outside the utility, so it went out even when nothing used a countdown, in a rule that could never match anyway. It is nested inside the utility now.
+- **`tag-soft` and `tag-outline` were unreadable without a color**: both drew the label in a surface color, so a plain `tag tag-soft` came out grey on grey and the outline one was nearly invisible, worst on the dark themes. They have their own `--color-tag-soft` pair and `--tag-variant-text` now, the way `badge` always had.
 
 ## [2.4.2] - 2026-11-18
 
