@@ -3,6 +3,7 @@
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import DocPage from '@/components/DocPage.astro';
+import PluginPage from '@/components/PluginPage.astro';
 import { categoryOf, docUrl, langOf, slugOf, type Doc } from '@/lib/site';
 import { DEFAULT_LANG } from '@/lib/i18n';
 
@@ -17,8 +18,10 @@ export async function getStaticPaths() {
 }
 
 const { doc } = Astro.props as { doc: Doc };
+/** Plugins are products, not components: their own layout, with a hero. */
+const Page = categoryOf(doc) === 'plugins' ? PluginPage : DocPage;
 ---
 
 <Base path={docUrl(doc)} sidebar>
-<DocPage doc={doc} />
+<Page doc={doc} />
 </Base>

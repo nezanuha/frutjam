@@ -1,32 +1,32 @@
 ---
-name: "마크다운 에디터"
+name: "마크다운 편집기"
 heading: "이미 가지고 있는 텍스트 영역의 도구 모음, 실시간 미리보기 및 WYSIWYG"
-description: "텍스트 영역을 대체하는 대신 텍스트 영역을 향상시키는 감점 편집기이므로 양식 제출, 유효성 검사 및 필수 필드가 계속 작동합니다. 위지윅 및 일반 마크다운 모드, 실시간 미리보기, 찾기 및 바꾸기, RTL 지원, 다크 모드. Django, Laravel, Rails, Node.js, PHP 및 모든 스택에서 독립 실행형으로 작동합니다."
-metaTitle: "마크다운 텍스트 편집기 자바스크립트 플러그인 | Frutjam"
-metaDescription: "텍스트 영역을 교체하지 않고도 텍스트 영역을 향상시키는 가벼운 JavaScript 마크다운 편집기. Django, Laravel, Rails, PHP 및 Node.js에서 그대로 작동합니다. WYSIWYG, RTL."
+description: "텍스트 영역을 교체하는 대신 향상시켜 양식 제출, 유효성 검사 및 필수 필드가 계속 작동하도록 하는 마크다운 편집기입니다. WYSIWYG 및 일반 마크다운 모드, 실시간 미리보기, 찾기 및 바꾸기, RTL 지원, 다크 모드. Django, Laravel, Rails, Node.js, PHP 및 모든 스택에서 독립형으로 작동합니다."
+metaTitle: "마크다운 텍스트 편집기 JavaScript 플러그인 | 프루잠"
+metaDescription: "텍스트 영역을 교체하지 않고 향상시키는 경량 JavaScript 마크다운 편집기입니다. Django, Laravel, Rails, PHP 및 Node.js에서 있는 그대로 작동합니다. 위지위그, RTL."
 order: 0
 related:
   - "components/textarea"
   - "components/input"
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
-imageAlt: "Frutjam의 Markdown Text Editor JavaScript 플러그인"
+imageAlt: "Frutjam의 마크다운 텍스트 편집기 JavaScript 플러그인"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "d76f60dd1ec9"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "d7b6bc559fff"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-텍스트 영역을 대체하는 대신 텍스트 영역을 향상시키는 감점 편집기이므로 양식 제출, 유효성 검사 및 필수 필드가 계속 작동합니다. 위지윅 및 일반 마크다운 모드, 실시간 미리보기, 찾기 및 바꾸기, RTL 지원, 다크 모드. Django, Laravel, Rails, Node.js, PHP 및 모든 스택에서 독립 실행형으로 작동합니다.
+텍스트 영역을 교체하는 대신 향상시켜 양식 제출, 유효성 검사 및 필수 필드가 계속 작동하도록 하는 마크다운 편집기입니다. WYSIWYG 및 일반 마크다운 모드, 실시간 미리보기, 찾기 및 바꾸기, RTL 지원, 다크 모드. Django, Laravel, Rails, Node.js, PHP 및 모든 스택에서 독립형으로 작동합니다.
 
-* * Frutjam과 Tailwind가 필요하지 않습니다. * * 스타일이 번들로 제공되므로 편집기는 모든 프로젝트에 참여할 수 있습니다.
+**Frutjam 및 Tailwind가 필요하지 않습니다.** 스타일이 번들로 제공되므로 편집기는 모든 프로젝트에 적용됩니다.
 
 ## 설치
 
-#### NPM (번들러: 바이트, 웹팩, 롤업 등)
+#### NPM(번들러: Vite, webpack, Rollup 등)
 
 <Snippet view="code">
 
@@ -39,15 +39,19 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
 
-TypeScript 정의는 패키지와 함께 제공되므로 옵션, 도구 모음 항목 및 변수 모양이 추가 설치 없이 검사되고 자동 완성됩니다.
+스타일시트는 2.0.0과 별도의 파일입니다. 가져오거나 **링크**하세요. 둘 다 사용하면 안 됩니다. 완전히 잊어버리더라도 설명 없이 스타일을 지정하지 않고 렌더링하는 대신 편집기가 계속 작동하여 콘솔에 추가할 내용을 알려줍니다.
 
-유형도 가져올 수 있으므로 통화 사이트에 옵션이 인라인으로 작성되지 않을 때마다 중요합니다. TypeScript는 직접 전달된 개체 리터럴에서 알 수 없는 키만 검사하므로 자체 변수에 보관된 구성에는 맞춤법이 틀린 키가 자동으로 무시됩니다. 주석을 달면 수표가 되돌아갑니다.
+TypeScript 정의는 패키지와 함께 제공되므로 추가 설치 없이 옵션, 도구 모음 항목 및 변수 모양이 확인되고 자동 완성됩니다.
+
+유형도 가져올 수 있으며 이는 호출 사이트에서 옵션이 인라인으로 작성되지 않을 때마다 중요합니다. TypeScript는 직접 전달된 객체 리터럴에서 알 수 없는 키만 확인하므로 자체 변수에 유지된 구성에는 철자가 틀린 키가 자동으로 무시됩니다. 주석을 달면 수표가 다시 반환됩니다.
 
 <Snippet view="code">
 
@@ -69,7 +73,7 @@ toolbar.push('preview');
 
 </Snippet>
 
-래퍼 컴포넌트도 마찬가지입니다. `MarkdownEditorOptions` 대신 전달하는 것입니다. `any`그래서 당신의 래퍼를 사용하는 사람은 검사를 유지합니다.
+래퍼 구성 요소에도 동일하게 적용됩니다. `MarkdownEditorOptions` 대신에 당신이 전달하는 것입니다 `any`, 따라서 래퍼를 사용하는 사람은 누구나 확인을 유지합니다.
 
 <Snippet view="code">
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -95,13 +101,15 @@ interface EditorProps {
 
 </Snippet>
 
-#### CDN: 글로벌 스크립트 태그 (IIFE)
+#### CDN: 전역 스크립트 태그(IIFE)
 
-가져오기 필요 없음: MarkdownEditor는 자동으로 전역 변수로 사용할 수 있습니다.
+가져오기가 필요하지 않습니다. MarkdownEditor는 자동으로 전역 변수로 사용할 수 있습니다.
 
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -115,13 +123,13 @@ interface EditorProps {
 
 </Snippet>
 
-## 마크다운 에디터
+## 마크다운 편집기 데모
 
 <RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
 
-## 빠른 설치
+## 빠른 시작
 
-옵션 객체를 전달하여 편집기를 사용자 정의합니다. 모든 옵션은 선택 사항입니다. 기본값을 사용하려면 아무 것도 생략하십시오.
+편집기를 사용자 정의하려면 옵션 객체를 전달하세요. 모든 옵션은 선택 사항입니다. 기본값을 사용하려면 모두 생략하세요.
 
 <Snippet view="code">
 
@@ -134,42 +142,42 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-## 철학: "Native-First"
+## 철학: "네이티브 우선"
 
-대부분의 편집자는 표준 웹 워크플로우를 위반합니다. * * MarkdownEditor * * 는 그것을 수용합니다. 왜냐하면 그것은 `<textarea>`데이터를 처리하는 새로운 방법을 배울 필요가 없습니다.
+대부분의 편집자는 표준 웹 작업흐름을 깨뜨립니다. **MarkdownEditor**는 이를 수용합니다. 바로 위에 놓여 있기 때문에 `<textarea>`, 데이터를 처리하는 새로운 방법을 배울 필요가 없습니다.
 
-- * * 데이터 바인딩 필요 없음: * * 와 호환 `<form method="POST">` 수백 대 지원 가능 
-- * * 표준 액세스: * * 사용 `document.getElementById('editor').value` 일반 입력처럼 말이죠.
-- * * 백엔드 불가지론: * * 일반 양식 필드와 마찬가지로 모든 백엔드 (Python, Node.js, PHP 등) 에서 작동합니다.
+- **데이터 바인딩이 필요하지 않음:** 다음과 함께 작동 `<form method="POST">` 상자 밖으로
+- **일반 액세스:** 사용 `document.getElementById('editor').value` 일반 입력과 같습니다.
+- **백엔드 불가지론:** 일반 양식 필드처럼 모든 백엔드(Python, Node.js, PHP 등)에서 작동합니다.
 
-## MarkdownEditor vs EasyMDE/SimpleMDE
+## MarkdownEditor 대 EasyMDE/SimpleMDE
 
-대부분의 JavaScript 마크다운 편집기 (EasyMDE, SimpleMDE, CodeMirror 기반 편집기) * * `<textarea>`* * 양식이 제출되면 내용을 다시 작성하여 사본을 편집합니다. 다른 값이 필요할 때까지 작동합니다: a `required` 브라우저가 초점을 맞출 수 없는 필드는 제출물을 완전히 차단합니다. `.value` 또는 `FormData` read before submit은 htmx, Turbo, autosave 및 unsaved-changes 가드를 파괴하는 빈 문자열을 반환합니다. * * MarkdownEditor는 다릅니다. * * 이미 있는 텍스트 영역의 스타일을 지정하고 입력한 필드로 남겨두므로 매 순간 값이 정확합니다.
+대부분의 JavaScript 마크다운 편집기(EasyMDE, SimpleMDE, CodeMirror 기반 편집기)는 ** `<textarea>`** 사본을 편집하고 양식이 제출되면 내용을 다시 작성합니다. 다른 것에 값이 필요할 때까지 작동합니다. `required` 브라우저가 초점을 맞출 수 없는 필드는 제출을 완전히 차단합니다. `.value` 또는 `FormData` 제출 전 읽기는 htmx, Turbo, 자동 저장 및 저장되지 않은 변경 사항 가드를 중단하는 빈 문자열을 반환합니다. **MarkdownEditor는 다릅니다.** 이미 가지고 있는 텍스트 영역의 스타일을 지정하고 이를 입력한 필드로 남겨 두므로 매 순간 값이 정확합니다.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 추천 | MarkdownEditor | EasyMDE/SimpleMDE |
+| 특징 | 마크다운편집기 | EasyMDE / SimpleMDE |
 | --- | --- | --- |
-| 보존된 네이티브 텍스트 영역 | ✅ | ❌ 숨김, 사본으로 편집됨 |
-| 다음과 함께 작동합니다. `required` -항목 | ✅ | ❌ 브라우저가 제출을 차단합니다 |
-| `.value` 제출하기 전에 수정 | ✅ | 양식이 제출될 때까지 ❌ 비어 있음 |
-| 로 직렬화 `FormData`, htmx, 터보 | ✅ | 에디터 자체 API ❌ 필요 |
-| 위지윅 하이브리드 모드 | ✅ | ❌ |
+| 기본 텍스트 영역이 보존됨 | ✅ | ❌ 숨김, 사본으로 편집됨 |
+| 함께 작동 `required` 전지 | ✅ | ❌ 브라우저가 제출을 차단합니다. |
+| `.value` 제출하기 전에 수정하세요 | ✅ | ❌ 양식이 제출될 때까지 비어 있습니다. |
+| 직렬화 `FormData`, HTMX, 터보 | ✅ | ❌ 에디터 자체 API가 필요합니다. |
+| WYSIWYG 하이브리드 모드 | ✅ | ❌ |
 | 내장된 찾기 및 바꾸기 | ✅ | ❌ |
-| RTL 지원 | 내장 | CodeMirror를 통해 `direction` 옵션 |
-| 인라인 이벤트 처리기 (CSP) | 없음 | 어느 정도 줌 |
-| 다크 모드/테마 | ✅ | 한정 |
-| 번들 크기 (gz 압축) | 53 KB | 107KB (JS + CSS) |
+| RTL 지원 | ✅ 내장 | CodeMirror를 통해 `direction` 옵션 |
+| 인라인 이벤트 핸들러(CSP) | ✅ 없음 | 일부 |
+| 다크 모드/테마 | ✅ | 제한된 |
+| 번들 크기, gzip으로 압축됨 | 41KB JS + 13KB CSS | 107KB(JS + CSS) |
 
 </DocTable>
 
 ## 프레임워크 통합
 
-* * MarkdownEditor * * 는 네이티브를 유지하기 때문에 `<textarea>`추가 코드 없이 모든 백엔드 프레임워크와 통합됩니다. 서버는 표준 양식 필드에서와 동일한 감점 내용을 받습니다. React와 Vue의 경우 이 섹션의 끝 부분에서 다루는 몇 줄이 필요합니다.
+**MarkdownEditor**는 네이티브를 유지하기 때문에 `<textarea>`, 추가 코드 없이 모든 백엔드 프레임워크와 통합됩니다. 귀하의 서버는 표준 양식 필드에서와 마찬가지로 마크다운 콘텐츠를 받습니다. React와 Vue의 경우 몇 줄만 사용하면 되며 이 섹션의 끝부분에서 다룹니다.
 
 ### 장고
 
-추가 `class` 텍스트 영역 위젯으로 이동하여 편집기를 초기화합니다. `request.POST['content']` 추가 단계 없이 작동합니다.
+추가 `class` 텍스트 영역 위젯에 추가하고 편집기를 초기화합니다. `request.POST['content']` 추가 단계 없이 작동합니다.
 
 <Snippet view="code">
 
@@ -197,7 +205,7 @@ new MarkdownEditor('.markdown-editor');
 
 ### 라라벨
 
-사용 `f.text_area` 클래스와 함께: `$request->input('content')` 감점을 직접 받습니다.
+사용 `f.text_area` 수업이 있는 경우: `$request->input('content')` 마크다운을 직접 받습니다.
 
 <Snippet view="code">
 
@@ -208,9 +216,9 @@ new MarkdownEditor('.markdown-editor');
 
 </Snippet>
 
-### 루비 온 레일
+### 루비 온 레일즈
 
-다음과 함께 작동합니다. `form_with` 수백 대 지원 가능  `params[:content]` 감점이 포함되어 있습니다. 터보 드라이브의 경우 `turbo:load` 대신에 `DOMContentLoaded`.
+함께 작동 `form_with` 즉시 사용 가능: `params[:content]` 마크다운이 포함되어 있습니다. 터보 드라이브의 경우 다음을 사용하십시오. `turbo:load` 대신에 `DOMContentLoaded`.
 
 <Snippet view="code">
 
@@ -225,9 +233,9 @@ document.addEventListener('turbo:load', () => {
 
 </Snippet>
 
-### Node.js/Express
+### Node.js/익스프레스
 
-`req.body.content` 양식 제출 시 감점을 받습니다: 동기화 단계 없음, 사용자 정의 추출 없음.
+`req.body.content` 양식 제출 시 마크다운을 받습니다. 동기화 단계가 없고 사용자 정의 추출이 없습니다.
 
 <Snippet view="code">
 
@@ -241,7 +249,7 @@ document.addEventListener('turbo:load', () => {
 
 ### PHP
 
-`$_POST['content']` 표준 텍스트 영역과 동일하게 작동합니다. 드롭 인하고 기존 양식 처리를 변경하지 않아도 됩니다.
+`$_POST['content']` 표준 텍스트 영역과 똑같이 작동합니다. 텍스트 영역을 끌어다 놓으면 기존 양식 처리에 변경 사항이 필요하지 않습니다.
 
 <Snippet view="code">
 
@@ -256,9 +264,9 @@ document.addEventListener('turbo:load', () => {
 
 </Snippet>
 
-### 반응
+### 반응하다
 
-효과에서 편집기를 만들고 마운트 해제 시 제거합니다. 사용 `defaultValue` 전체 인프라를 `value`: 편집기가 텍스트 영역에 직접 쓰므로 제어된 바인딩이 사용자가 입력하는 내용을 덮어씁니다.
+효과에 편집기를 생성하고 마운트 해제 시 제거합니다. 사용 `defaultValue` 오히려 `value`: 편집기는 텍스트 영역에 직접 쓰기 때문에 제어된 바인딩은 사용자가 입력하는 내용을 덮어씁니다.
 
 <Snippet view="code">
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,11 +295,13 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-재방문자 `editor.destroy()` 이 효과에서 StrictMode도 다룹니다. StrictMode는 개발 중인 효과를 두 번 실행하고 그렇지 않으면 한 텍스트 영역에 두 명의 편집자를 남깁니다. 빈 종속성 배열은 의도적입니다. 옵션은 편집기를 만들 때 한 번 읽으므로 효과를 다시 실행하면 모든 변경 사항에 대해 해당 배열을 해체하고 다시 빌드합니다.
+돌아오는 중 `editor.destroy()` 이 효과는 개발 중에 효과를 두 번 실행하고 그렇지 않으면 하나의 텍스트 영역에 두 개의 편집기를 남겨두는 StrictMode도 포함합니다. 빈 종속성 배열은 의도적인 것입니다. 옵션은 편집기가 생성될 때 한 번 읽혀지므로 효과를 다시 실행하면 해당 배열이 해체되고 렌더링할 때마다 다시 빌드됩니다.
 
-### Vue
+그렇기 때문에 또한 `onChange` 심판을 거칩니다. 이를 생성자에 직접 전달하면 마운트 시 수신한 함수에 편집기가 고정되고, 부모의 인라인 화살표는 변경 사항이 닫히는 순간 쓸모 없게 됩니다.
 
-같은 생각입니다. 에서 초기값을 한 번 설정하십시오. `onMounted` 바인딩하지 마십시오. `:value`또는 를 통해 다시 방출되는 모든 키 입력 `v-model` 텍스트 영역을 덮어씁니다.
+### 뷰
+
+같은 생각입니다. 초기값을 한번 설정해 보세요. `onMounted` 그리고 묶지마 `:value`또는 다시 방출되는 모든 키 입력 `v-model` 텍스트 영역을 덮어씁니다.
 
 <Snippet view="code">
 
@@ -313,29 +330,55 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 </Snippet>
 
-'이라는 것은 그냥 ' . `<MarkdownField v-model="content" />`. 평범한 형태로 건너뛸 수 있습니다. `v-model` 다른 프레임워크와 마찬가지로 제출 시 텍스트 영역의 값을 완전히 읽습니다.
+다음과 같이 사용됨 `<MarkdownField v-model="content" />`. 일반 형식에서는 건너뛸 수 있습니다. `v-model` 다른 프레임워크와 마찬가지로 제출 시 텍스트 영역에서 값을 완전히 읽습니다.
+
+
+### 서버 측 렌더링
+
+서버에서 편집기를 가져오면 문제가 발생하지 않으므로 Next.js, Remix, Nuxt 및 SvelteKit은 필요하지 않습니다. `dynamic(..., { ssr: false })` 그 주위에 포장지.
+
+작동하는 이유는 위의 규칙입니다. 편집기는 내부에서 생성됩니다. `useEffect`, `onMounted` 또는 `onMount`, 그 중 어느 것도 서버에서 실행되지 않습니다. DOM 작업은 브라우저에 유지됩니다.
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+그만큼 `<textarea>` 콘텐츠가 이미 포함된 서버 HTML로 제공되므로 기다릴 것도 없고 팝업되는 것도 없습니다. React는 양쪽에 동일한 마크업을 렌더링하고 편집기는 하이드레이션 후에 이를 향상시키므로 경고할 불일치가 없습니다.
 
 ## 구성
 
-다음을 전달하여 편집기의 동작과 인터페이스를 완전히 사용자 정의할 수 있습니다. `options` object. 옵션을 생략하면 * * default * * 값이 사용됩니다.
+다음을 전달하여 편집기의 동작과 인터페이스를 완전히 사용자 정의할 수 있습니다. `options` 물체. 옵션을 생략하면 **기본값** 값이 사용됩니다.
 
-옵션은 편집기가 구성될 때 한 번 읽힙니다. 이후에 변경해도 아무런 영향이 없습니다: call `destroy()` 대신 새 편집기를 만듭니다.
+옵션은 편집기가 구성될 때 한 번 읽혀집니다. 나중에 변경해도 아무런 효과가 없습니다. `destroy()` 대신 새 편집기를 만드세요.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 속성 | 유형 | 기본 | 목적 |
+| 재산 | 유형 | 기본 | 목적 |
 | --- | --- | --- | --- |
-| `mode` | `string` | `'plain'` | 초기 보기를 설정합니다. WYSIWYG 경험을 위해 하이브리드를 사용하거나 원시 구문을 위해 일반을 사용하십시오. |
+| `mode` | `string` | `'plain'` | 초기 보기를 설정합니다. WYSIWYG 환경에는 하이브리드를 사용하고 원시 구문에는 일반을 사용하세요. |
 | `placeholder` | `string` | `'Write...'` | 편집기가 비어 있을 때 표시되는 텍스트입니다. |
-| `toolbar` | `array` | `[...]` | 어떤 도구가 표시되고 어떤 순서로 표시되는지 정의합니다. |
-| `footer` | 거짓| 대상 | 모두 | 편집기 아래에 표시된 상태 표시줄을 제어합니다. 다음으로 설정 `false` 전체를 숨기거나 개체를 전달하여 개별 통계를 전환할 수 있습니다. |
-| `theme` | `string` | inherited | 편집기 테마 (라이트, 다크, 스노우베리, 다크베리) 를 명시적으로 설정합니다. 생략하면 편집기는 `data-theme` 가장 가까운 조상 요소 또는 `<textarea>` 현재 동영상 |
-| `minHeight` | `number` | `200` | 콘텐츠가 짧을 때 편집기가 축소할 최소 높이 (픽셀) 입니다. `maxHeight` 자동 성장 범위를 설정합니다. |
-| `maxHeight` | `number` | `500` | 전체 화면이 아닌 모드에서 편집기가 확장할 수 있는 최대 높이 (픽셀) 입니다. 콘텐츠가 이 높이를 초과하면 편집기 내부에 스크롤 막대가 나타납니다. 편집기에는 드래그 핸들도 있어 사용자가 이 제한을 초과하여 수동으로 크기를 조정할 수 있습니다. |
-| `renderer` | `function` | `marked` | 미리 보기에 사용된 감점 분석기를 대체합니다. 마크다운 문자열을 수신하고 HTML 문자열을 반환해야 합니다. |
-| `sanitizer` | `function` | `DOMPurify` | HTML 살균제를 교체합니다. 렌더링된 HTML을 수신하고 표시할 안전한 HTML을 반환해야 합니다. |
+| `toolbar` | `array` | `[...]` | 표시되는 도구와 순서를 정의합니다. |
+| `footer` | `거짓 \| 개체` | 모두 보이는 | 편집기 아래에 표시되는 상태 표시줄을 제어합니다. 다음으로 설정 `false` 완전히 숨기거나 개체를 전달하여 개별 통계를 전환합니다. |
+| `theme` | `string` | inherited | 편집기 테마(밝음, 어두움, 스노우베리, 다크베리)를 명시적으로 설정합니다. 생략하면 편집기가 상속합니다. `data-theme` 가장 가까운 조상 요소 또는 `<textarea>` 그 자체. |
+| `minHeight` | `number` | `200` | 콘텐츠가 짧을 때 편집기가 축소되는 최소 높이(픽셀)입니다. 다음과 짝을 이룹니다. `maxHeight` 자동 증가 범위를 설정합니다. |
+| `maxHeight` | `number` | `500` | 전체 화면이 아닌 모드에서 편집기가 확장될 수 있는 최대 높이(픽셀)입니다. 콘텐츠가 이 높이를 초과하면 편집기 내부에 스크롤 막대가 나타납니다. 편집기에는 드래그 핸들도 있어 사용자가 이 제한을 초과하여 수동으로 크기를 조정할 수 있습니다. |
+| `renderer` | `function` | `marked` | 미리보기에 사용되는 마크다운 파서를 대체합니다. 마크다운 문자열을 수신하고 HTML 문자열을 반환해야 합니다. |
+| `sanitizer` | `function` | `DOMPurify` | HTML 살균제를 대체합니다. 렌더링된 HTML을 수신하고 표시할 안전한 HTML을 반환해야 합니다. |
 | `onChange` | `function` | `undefined` | 입력, 도구 모음 작업, 실행 취소/다시 실행, 목록 연속 등 콘텐츠가 변경될 때마다 콜백이 실행됩니다. 현재 마크다운 문자열을 유일한 인수로 받습니다. |
-| `labels` | `object` | `undefined` | 영어 문자열로 입력된 편집자 자체 인터페이스에 대한 번역입니다. 생략한 내용은 모두 영어로 유지됩니다. |
+| `locale` | `object` | `undefined` | 영어 문자열로 입력된 편집자 자체 인터페이스에 대한 번역입니다. 생략한 내용은 모두 영어로 유지됩니다. |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 | 도구 | 설명 |
 | --- | --- |
-| `heading` | 제목 수준 H1~H6을 선택하는 드롭다운을 엽니다. |
+| `heading` | 제목 수준 H1~H6을 선택할 수 있는 드롭다운을 엽니다. 다음을 사용하여 목록을 좁힙니다. `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | 굵은 텍스트 형식을 활성화합니다. |
 | `italic` | 기울임꼴 텍스트 서식을 활성화합니다. |
 | `strikethrough` | 텍스트 취소선을 허용합니다. |
@@ -387,6 +430,24 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `preview` | 전체 화면 병렬 미리보기를 전환합니다. 미리보기 창의 확인란을 클릭할 수 있으며 마크다운 소스를 즉시 업데이트할 수 있습니다. 전체 화면을 종료하려면 Esc를 누르세요. 고정 헤더가 전체 화면에서 편집기를 덮는 경우 다음을 참조하세요. `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### 제목 수준
+
+그만큼 `heading` 드롭다운에서는 H1~H6을 제공합니다. H1이 콘텐츠가 아닌 페이지에 속하는 경우(대부분의 CMS 본문 필드의 경우) 범위를 좁힙니다.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` 그리고 `Ctrl+3` 동일한 목록을 따르므로 생략한 레벨은 키보드에서도 삽입할 수 없으며 버튼의 도구 설명에는 여전히 작동하는 단축키만 나열됩니다. 작성 순서는 중요하지 않습니다. 메뉴는 항상 H1이 먼저입니다. 1~6 이외의 레벨은 콘솔 경고와 함께 무시되며, 사용할 수 있는 항목이 없는 목록은 빈 메뉴를 렌더링하는 대신 6개 모두로 대체됩니다.
+
+이는 문서가 아닌 도구 모음을 제한합니다. 누군가는 여전히 입력할 수 있습니다. `# Title` 유효한 마크다운은 툴바의 결정이 아닌 렌더러의 결정이기 때문에 직접 작성하면 제목으로 렌더링됩니다. 규칙을 유지해야 하는 경우 서버에서 이를 시행하세요.
 
 ##### 💡 구현 팁:
 
@@ -442,9 +503,9 @@ toolbar: [
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| 속성 | 유형 | 목적 |
+| 재산 | 유형 | 목적 |
 | --- | --- | --- |
-| `title` | `string` | 필수의. 도구 설명 텍스트 및 버튼의 CSS 클래스 소스입니다. 다음을 통해 번역 가능 `labels`. |
+| `title` | `string` | 필수의. 도구 설명 텍스트 및 버튼 CSS 클래스의 소스입니다. 다음을 통해 번역 가능 `locale`. |
 | `action` | `function` | 필수의. 수신 `(editor, event)`. 클릭 이벤트가 전달되므로 대화 상자를 여는 도구가 이를 전달할 수 있습니다. `MarkdownEditor.modal`. |
 | `icon` | `string` | 버튼 면의 인라인 SVG입니다. |
 | `shortcut` | `string` | 다음과 같은 키보드 단축키 `Ctrl+Shift+K`. 툴팁에 추가되며 동일한 키를 사용하는 내장 항목보다 우선합니다. |
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### 자신만의 텍스트 영역을 위한 도구 모음
 
-대화 상자가 서식 있는 텍스트를 수집할 때 다시 작성하는 대신 실제 서식 도구를 제공하세요. 도구 모음은 전달한 텍스트 영역에 바인딩되어 있습니다. `labels` 상속되며 미리보기 버튼이 추가되지 않습니다.
+대화 상자가 서식 있는 텍스트를 수집할 때 다시 작성하는 대신 실제 서식 도구를 제공하세요. 도구 모음은 전달한 텍스트 영역에 바인딩되어 있습니다. `locale` 문자열은 상속되며 미리보기 버튼이 추가되지 않습니다.
 
 <Snippet view="code">
 
@@ -580,12 +641,12 @@ dialog.querySelector('.body-toolbar').appendChild(bar);
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
 
-CSS 클래스는 영향을 받지 않습니다. `.callout-btn` 숙박 `.callout-btn` 모든 언어로.
+CSS 클래스는 영향을 받지 않으므로 `.callout-btn` 숙박 `.callout-btn` 모든 언어로.
 
 ### 📊 바닥글(상태 표시줄)
 
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 인터페이스 언어
 
-편집기 자체의 텍스트, 도구 설명, 메뉴 항목, 모달 필드 및 버튼은 기본적으로 영어입니다. 통과 `labels` 번역할 개체입니다. 키는 gettext가 작동하는 방식인 영어 문자열이므로 변경하려는 항목만 나열하고 누락된 항목은 영어로 대체됩니다.
+편집기 자체의 텍스트, 도구 설명, 메뉴 항목, 모달 필드 및 버튼은 기본적으로 영어입니다. 통과 `locale` 번역할 개체입니다. 키는 gettext가 작동하는 방식인 영어 문자열이므로 변경하려는 항목만 나열하고 누락된 항목은 영어로 대체됩니다.
+
+`locale` 언어 코드가 아닌 문자열 자체를 사용합니다. `locale: 'es'` 효과가 없으며 콘솔에 그렇게 표시됩니다. 대신 원하는 언어를 가져오면 아무도 사용하지 않는 언어를 다운로드하지 않습니다. 그것은 불렸다 `labels` 2.0.0 이전에는 그 이름이 여전히 작동합니다.
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -805,7 +868,82 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-이는 오른쪽에서 왼쪽으로 읽는 콘텐츠와 함께 가장 중요합니다. 아랍어, 우르두어 및 페르시아어는 자체적으로 올바르게 배치되지만 오른쪽에서 왼쪽으로 쓰는 텍스트 위에 여전히 "굵게"라고 읽는 도구 모음은 절반만 번역됩니다.
+이는 오른쪽에서 왼쪽으로 읽는 콘텐츠와 함께 가장 중요합니다. 아랍어, 우르두어, 페르시아어는 자체적으로 올바르게 배치되지만 오른쪽에서 왼쪽으로 쓰는 텍스트 위에 여전히 "굵게"라고 읽는 도구 모음은 절반만 번역됩니다.
+
+#### 문자열의 전체 목록
+
+그 중 45개가 있으며, 패키지에 목록이 배송되므로 굳이 찾아볼 필요가 없습니다. 키와 값이 동일하므로 번역이 아닌 복사용 템플릿입니다.
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+카운트는 `{n}` 자리 표시자를 사용하면 영어 단어 순서에 얽매이지 않고 번역에서 숫자의 위치를 ​​결정할 수 있습니다.
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### 나만의 번역 사용
+
+`locale` 평범한 물체를 취하므로 그것이 어디서 오는지는 당신에게 달려 있습니다. 대부분의 프로젝트에는 이미 번역 시스템이 있으며 이를 편집자에게 제공하면 나머지 인터페이스와 문구가 일관되게 유지됩니다. Django에서는 문자열이 `.po` 다른 모든 내용이 포함된 파일:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+i18next 또는 vue-i18n과 같은 클라이언트 측 카탈로그를 사용하여 키를 매핑하십시오. `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 변수
 
@@ -871,14 +1009,14 @@ new MarkdownEditor('#markdown-editor', {
 #### 알아야 할 사항
 
 - **편집기는 변수를 확인하지 않습니다.** 텍스트를 삽입하고 응용 프로그램은 나중에 일반적으로 서버 측에서 실제 값을 대체합니다. `sample` 미리보기에 표시되는 내용에만 영향을 미칩니다.
-- **레이블은 일반 텍스트로 표시**되므로 레이블의 마크업은 렌더링되지 않습니다.
+- **레이블은 일반 텍스트로 표시되므로** 레이블의 마크업은 렌더링되지 않습니다.
 - **잘못된 항목은 던지는 대신 건너뛰고** 사용할 수 있는 항목이 구성되지 않으면 버튼이 전혀 렌더링되지 않습니다.
 
 ### 🖋 사용자 정의 렌더러
 
 미리보기는 다음과 같이 렌더링됩니다. [두드러진](https://marked.js.org) 그리고 소독으로 [DOMPurify](https://github.com/cure53/DOMPurify). 둘 다 교체 가능합니다. 애플리케이션이 이미 다른 라이브러리를 사용하여 마크다운을 렌더링하고 미리보기가 프로덕션과 정확히 일치하도록 하려는 경우 이 기능을 사용하세요.
 
-두 옵션 모두 문자열을 가져와 문자열을 반환하는 일반 함수이므로 모든 파서와 새니타이저가 작동합니다.
+두 옵션 모두 문자열을 가져와서 문자열을 반환하는 일반 함수이므로 모든 파서와 새니타이저가 작동합니다.
 
 <Snippet view="code">
 
@@ -934,11 +1072,11 @@ new MarkdownEditor('#markdown-editor', {
 - **미리보기 전용.** 하이브리드 모드의 라이브 포맷은 별도의 내부 렌더러를 사용하며 영향을 받지 않습니다.
 - **작업 목록에는 플러그인 지원이 필요합니다.** 클릭 가능한 확인란은 다음을 검색하여 찾을 수 있습니다. `input[type="checkbox"]` 출력에 마크다운이 필요합니다. `markdown-it-task-lists`. 편집기는 작업 목록 구문을 감지하고 확인란이 없으면 경고를 기록합니다.
 - **둘 다 동기식이어야 하며** 문자열을 반환해야 합니다. 안 `async` 함수 쓰기 `[object Promise]` 미리보기에 들어갑니다.
-- **소독제를 교체하면 보호 기능도 대체됩니다.** `html => html` 삭제를 완전히 비활성화하고 완전히 신뢰할 수 있는 콘텐츠에만 안전합니다.
+- **소독제를 교체하면 보호 기능이 대체됩니다.** `html => html` 완전히 삭제되지 않으며 완전히 신뢰할 수 있는 콘텐츠에 대해서만 안전합니다.
 
 ### 🎨 내부 요소 스타일링
 
-CSS 변수는 상속되기 때문에 대부분의 테마를 다루므로 하나를 설정합니다. `.markdown-editor-wrapper` 도구 모음, 버튼, 미리 보기 및 바닥글에 도달합니다. 필요한 것을 노출하는 변수가 없는 경우에만 클래스 이름을 찾으세요.
+CSS 변수는 상속되기 때문에 대부분의 테마를 다루므로 하나를 설정합니다. `.markdown-editor-wrapper` 도구 모음, 버튼, 미리 보기 및 바닥글에 도달합니다. 필요한 것을 노출하는 변수가 없을 때만 클래스 이름을 찾으세요.
 
 <Snippet view="code">
 
@@ -1030,6 +1168,34 @@ CSS 변수는 상속되기 때문에 대부분의 테마를 다루므로 하나�
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 콘텐츠 보안 정책
+
+편집기는 인라인 이벤트 핸들러를 추가하지 않으며 no를 사용합니다. `eval`, 그리고 2.0.0부터는 더 이상 주입하지 않습니다. `<style>` 요소. 엄격한 정책에는 필요하지 않습니다. `'unsafe-inline'` 어느 방향으로든 예외는 있습니다.
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+2.0.0 이전에는 CSS가 JavaScript 내부로 전달되어 로드 시 삽입되었습니다. `style-src 'unsafe-inline'` 거절합니다 ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). nonce가 고려되어 삭제되었습니다. nonce가 있는 정책과 정적으로 호스팅되는 사이트에만 도움이 됩니다. `style-src 'self'` 요청마다 새로운 nonce를 생성하는 서버가 없습니다. 스타일시트를 연결하면 일부 정책이 아닌 모든 정책이 적용됩니다.
+
+편집기가 제어하지 않는 한 가지는 사용자가 작성하는 마크다운입니다. DOMPurify는 유지합니다 `style` 속성은 기본적으로 `<span style="color:red">` 문서는 미리보기에도 남아 있으며 엄격한 `style-src-attr` 보고할 것입니다. 그 (것)들을 벗기십시오 `sanitizer` 그것이 당신에게 중요한 경우 옵션:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1211,13 +1377,13 @@ document.querySelector('form').addEventListener('submit', () => {
 | 장고 | `request.POST.get('content')` |
 | Node.js(익스프레스) | `req.body.content` |
 | 라라벨 | `$request->input('content')` |
-| 루비 온 레일 | `params[:content]` |
+| 루비 온 레일즈 | `params[:content]` |
 
 </DocTable>
 
 ## 🖼️ 고급 이미지 업로드
 
-이미지 업로드를 기본적으로 처리하는 것은 느리고 메모리 사용량이 많은 Base64 문자열에 의존하는 대신 성능과 SEO 모두에 있어 상당한 이점입니다.
+느리고 메모리 사용량이 많은 Base64 문자열에 의존하는 대신 이미지 업로드를 기본적으로 처리하는 것은 성능과 SEO 모두에 있어 중요한 승리입니다.
 
 ### 붙여넣고 놓기
 
@@ -1359,7 +1525,7 @@ image: {
 
 ### 표준 이미지 사용(아니요 `fileInput`)
 
-만약에 `fileInput` 구성되지 않은 경우 편집기는 기본적으로 단순 URL 기반 모달을 사용합니다. 이는 사용자가 주로 외부 이미지 호스트에 연결하는 경우에 이상적입니다.
+만약에 `fileInput` 구성되지 않은 경우 편집기는 기본적으로 단순 URL 기반 모달을 사용합니다. 이는 사용자가 대부분 외부 이미지 호스트에 연결하는 경우에 이상적입니다.
 
 <Snippet view="code">
 
@@ -1378,7 +1544,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ### 💡 매개변수를 사용하는 이유는 무엇인가요?
 
-Laravel 또는 Django와 같은 프레임워크에서는 CSRF 토큰 없이는 파일을 업로드할 수 없습니다. 추가하여 `_token` 에 `params` 개체가 있는 경우 귀하의 요청은 백엔드의 보안 미들웨어를 원활하게 통과하여 서버측 컨트롤러에 대한 "제로 로직" 철학을 유지합니다.
+Laravel 또는 Django와 같은 프레임워크에서는 CSRF 토큰 없이는 파일을 업로드할 수 없습니다. 추가하여 `_token` 에 `params` 개체를 사용하면 요청이 백엔드의 보안 미들웨어를 원활하게 통과하여 서버 측 컨트롤러에 대한 "제로 로직" 철학을 유지합니다.
 
 ## ⌨️ 키보드 단축키
 
@@ -1395,7 +1561,7 @@ Laravel 또는 Django와 같은 프레임워크에서는 CSRF 토큰 없이는 �
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | ~~취소선~~ 전환 |
 | `Ctrl + 1`  /  `⌘ 1` | 제목 1 |
 | `Ctrl + 2`  /  `⌘ 2` | 제목 2 |
-| `Ctrl + 3`  /  `⌘ 3` | 제목 3 |
+| `Ctrl + 3`  /  `⌘ 3` | 제목 3. 이 세 개는 무엇이든 따릅니다. `heading` 도구가 제공되므로 생략할 수 있는 수준 `levels` 둘 중 하나를 입력할 수 없습니다. |
 | `Ctrl + L`  /  `⌘ L` | 글머리 기호 목록 전환 |
 | `Ctrl + Z`  /  `⌘ Z` | 끄르다 |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | 다시 하다 |
@@ -1411,11 +1577,11 @@ Laravel 또는 Django와 같은 프레임워크에서는 CSRF 토큰 없이는 �
 
 ## 🔍 찾기 및 바꾸기
 
-편집기 내에서 내장된 찾기 및 바꾸기 패널을 사용할 수 있습니다. 브라우저 확장이나 별도의 도구가 필요하지 않습니다.
+내장된 찾기 및 바꾸기 패널은 편집기 내에서 사용할 수 있습니다. 브라우저 확장이나 별도의 도구가 필요하지 않습니다.
 
 -   누르다 `Ctrl + F` (또는 `⌘ F`) **찾기** 패널을 엽니다.
--   누르다 `Ctrl + H` (또는 `⌘ H`)를 눌러 **찾기 및 바꾸기** 패널을 엽니다.
-- 검색은 **대소문자를 구분하지 않으며** 실시간 일치 카운터를 표시합니다(예: *12개 중 3개*)
+-   누르다 `Ctrl + H` (또는 `⌘ H`) **찾기 및 바꾸기** 패널을 엽니다.
+- 검색은 **대소문자를 구분하지 않으며** 실시간 일치 카운터를 표시합니다(예: *3/12*).
 - **▲ / ▼** 버튼을 사용하여 경기를 탐색하거나 `Enter` / `Shift + Enter`
 - **바꾸기**는 현재 강조 표시된 일치 항목을 대체합니다. **모두 바꾸기**는 모든 항목을 한 번에 바꿉니다.
 -   누르다 `Escape` 패널을 닫고 포커스를 편집기로 되돌리려면
@@ -1439,7 +1605,7 @@ Read [the docs](https://example.com) <- what you get
 
 ## 특징
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 기본 양식 통합</h2><p class=\"para-sm\">표준과 정확히 동일하게 작동합니다. <code>&lt;textarea&gt;</code>. 복잡한 API가 없습니다. <code>value</code> 또는 <code>name</code> 기인하다. PHP, Django 또는 Node.js의 표준 HTML 양식 제출과 함께 \"작동\"합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 고급 이미지 업로드</h2><p class=\"para-sm\">API를 통해 기본 서버 업로드를 구성합니다. 자체 CDN에서 이미지를 호스팅하여 더 빠른 페이지 로드와 뛰어난 SEO를 보장하려면 무거운 Base64 문자열을 피하세요.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 하이브리드 및 일반 모드</h2><p class=\"para-sm\">사이를 전환 <strong>하이브리드(WYSIWYG)</strong> 영상 편집 경험이 있거나 <strong>일반 마크다운</strong> 전통적인 코딩 느낌을 위한 모드입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 고성능</h2><p class=\"para-sm\">에이 <strong>gzip으로 압축된 53KB</strong> \"무거운 콘텐츠\"에 최적화된 번들(252KB 축소, CSS 포함)입니다. 입력 지연이나 성능 저하 없이 대용량 문서 및 대용량 파일을 처리합니다. 디바운스된 미리보기 업데이트, 캐시된 스타일 계산 및 충돌 없는 키보드 처리: 따라서 Tab과 Enter는 항상 정확히 한 가지 작업을 수행합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 내장 RTL 지원</h2><p class=\"para-sm\">아랍어, 우르두어, 페르시아어와 같은 오른쪽에서 왼쪽으로 쓰는 언어를 기본적으로 지원합니다. 전 세계적으로 액세스 가능한 애플리케이션을 구축하는 데 적합합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 구문 강조</h2><p class=\"para-sm\">명확한 코드와 마크다운 형식으로 가독성이 향상되었습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 적응형 테마</h2><p class=\"para-sm\">자동 다크 모드 지원이 포함됩니다. 시스템 설정 또는 <strong>프루트잼 UI</strong> 원활한 시각적 경험을 위한 라이브러리입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 스마트 편집</h2><p class=\"para-sm\">정렬된 목록, 정렬되지 않은 목록 및 체크리스트에 대한 GitHub 스타일 자동 목록 연속: 누르기 <code>Enter</code> 편집자는 패턴을 계속합니다. 미리보기 창의 확인란을 클릭할 수 있으며 즉시 마크다운 소스에 다시 동기화됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 완전 반응형</h2><p class=\"para-sm\">이동 중에 편집할 수 있도록 데스크톱, 태블릿, 스마트폰에 완벽하게 적응하는 유연한 모바일 우선 UI입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 범용 지원</h2><p class=\"para-sm\">호환 가능 <strong>ESM, UMD, CommonJS 및 IIFE</strong>. CDN을 통해 즉시 작동합니다(<code>&lt;script src&gt;</code>), npm 또는 모든 번들러(Vite, webpack, Rollup): 추가 구성이 필요하지 않습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 기본적으로 액세스 가능</h2><p class=\"para-sm\">전체 ARIA 지원 내장: 도구 모음 랜드마크, 레이블이 지정된 미리보기 영역, 화면 판독기 친화적인 버튼, <code>aria-pressed</code> 미리보기 토글에서 <code>disabled</code> 그리고 <code>aria-disabled</code> 비활성 도구에 대한 정보 및 모달이 닫힐 때 올바른 초점 복원.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ CSS 충돌 없음</h2><p class=\"para-sm\">편집기 스타일의 범위는 다음과 같습니다. <code>.markdown-editor-wrapper</code>. Tailwind의 전역 프리플라이트가 제외되므로 편집자는 스타일을 손상시키지 않고 Bootstrap, Tailwind 또는 기타 프레임워크와 함께 안전하게 사용할 수 있습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 키보드 단축키</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: 마우스를 건드리지 않고도 일반적인 서식 지정 작업을 수행할 수 있습니다. 각 단축키는 도구 모음 버튼의 도구 설명에 표시됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 찾기 및 바꾸기</h2><p class=\"para-sm\">누르다 <code>Ctrl+F</code> 찾거나 <code>Ctrl+H</code> 찾기 및 바꾸기를 엽니다. 실시간 일치 카운터, 다음/이전 탐색, 단일 교체 및 모두 교체를 통한 대소문자 구분 검색: 편집기를 종료하지 않고도 가능합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 안전 미리보기</h2><p class=\"para-sm\">렌더링된 미리보기는 다음을 통해 삭제됩니다. <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> DOM에 기록되기 전에. 조작된 마크다운 입력의 스크립트 태그, 인라인 이벤트 핸들러 및 악성 URL은 자동으로 제거됩니다. 구성이 필요하지 않습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ 실시간 미리보기</h2><p class=\"para-sm\">입력하는 즉시 렌더링된 마크다운을 확인하세요.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 손쉬운 통합</h2><p class=\"para-sm\">최소한의 설정으로 모든 웹 프로젝트에 원활하게 통합됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 사용자 정의 가능한 도구 모음</h2><p class=\"para-sm\">굵게, 기울임꼴 등과 같은 도구 모음 옵션을 동적으로 구성하고 순서를 변경합니다.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 기본 양식 통합</h2><p class=\"para-sm\">표준과 정확히 동일하게 작동합니다. <code>&lt;textarea&gt;</code>. 복잡한 API가 없습니다. <code>value</code> 또는 <code>name</code> 기인하다. PHP, Django 또는 Node.js의 표준 HTML 양식 제출과 함께 \"작동\"합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 고급 이미지 업로드</h2><p class=\"para-sm\">API를 통해 기본 서버 업로드를 구성합니다. 자체 CDN에서 이미지를 호스팅하여 더 빠른 페이지 로드와 뛰어난 SEO를 보장하려면 무거운 Base64 문자열을 피하세요.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 하이브리드 및 일반 모드</h2><p class=\"para-sm\">사이를 전환 <strong>하이브리드(WYSIWYG)</strong> 영상 편집 경험이 있거나 <strong>일반 마크다운</strong> 전통적인 코딩 느낌을 위한 모드입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 고성능</h2><p class=\"para-sm\">에이 <strong>gzip으로 압축된 53KB</strong> \"무거운 콘텐츠\"에 최적화된 번들(252KB 축소, CSS 포함) 입력 지연이나 성능 저하 없이 대용량 문서 및 대용량 파일을 처리합니다. 디바운스된 미리보기 업데이트, 캐시된 스타일 계산 및 충돌 없는 키보드 처리: 따라서 Tab과 Enter는 항상 정확히 한 가지 작업을 수행합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 내장 RTL 지원</h2><p class=\"para-sm\">아랍어, 우르두어, 페르시아어와 같은 오른쪽에서 왼쪽으로 쓰는 언어를 기본적으로 지원합니다. 전 세계적으로 액세스 가능한 애플리케이션을 구축하는 데 적합합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 구문 강조</h2><p class=\"para-sm\">명확한 코드와 마크다운 형식으로 가독성이 향상되었습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 적응형 테마</h2><p class=\"para-sm\">자동 다크 모드 지원이 포함됩니다. 시스템 설정 또는 <strong>프루트잼 UI</strong> 원활한 시각적 경험을 위한 라이브러리입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 스마트 편집</h2><p class=\"para-sm\">정렬된 목록, 정렬되지 않은 목록 및 체크리스트에 대한 GitHub 스타일 자동 목록 연속: 누르기 <code>Enter</code> 편집자는 패턴을 계속합니다. 미리보기 창의 확인란을 클릭할 수 있으며 즉시 마크다운 소스에 다시 동기화됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 완전 반응형</h2><p class=\"para-sm\">이동 중에 편집할 수 있도록 데스크톱, 태블릿, 스마트폰에 완벽하게 적응하는 유연한 모바일 우선 UI입니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 범용 지원</h2><p class=\"para-sm\">호환 가능 <strong>ESM, UMD, CommonJS, IIFE</strong>. CDN을 통해 즉시 작동합니다(<code>&lt;script src&gt;</code>), npm 또는 모든 번들러(Vite, webpack, Rollup): 추가 구성이 필요하지 않습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ 기본적으로 액세스 가능</h2><p class=\"para-sm\">전체 ARIA 지원 내장: 도구 모음 랜드마크, 레이블이 지정된 미리보기 영역, 화면 판독기 친화적인 버튼, <code>aria-pressed</code> 미리보기 토글에서 <code>disabled</code> 그리고 <code>aria-disabled</code> 비활성 도구에 대한 정보 및 모달이 닫힐 때 올바른 초점 복원.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ CSS 충돌 없음</h2><p class=\"para-sm\">편집기 스타일의 범위는 다음과 같습니다. <code>.markdown-editor-wrapper</code>. Tailwind의 전역 프리플라이트가 제외되므로 편집자는 스타일을 손상시키지 않고 Bootstrap, Tailwind 또는 기타 프레임워크와 함께 안전하게 사용할 수 있습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ 키보드 단축키</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: 마우스를 건드리지 않고도 일반적인 서식 지정 작업을 수행할 수 있습니다. 각 단축키는 도구 모음 버튼의 도구 설명에 표시됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 찾기 및 바꾸기</h2><p class=\"para-sm\">누르다 <code>Ctrl+F</code> 찾거나 <code>Ctrl+H</code> 찾기 및 바꾸기를 엽니다. 실시간 일치 카운터, 다음/이전 탐색, 단일 교체 및 모두 교체를 통해 대소문자를 구분하지 않는 검색: 편집기를 종료하지 않고도 가능합니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS 안전 미리보기</h2><p class=\"para-sm\">렌더링된 미리보기는 다음을 통해 삭제됩니다. <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> DOM에 기록되기 전에. 조작된 마크다운 입력의 스크립트 태그, 인라인 이벤트 핸들러 및 악성 URL은 자동으로 제거됩니다. 구성이 필요하지 않습니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ 실시간 미리보기</h2><p class=\"para-sm\">입력하는 즉시 렌더링된 마크다운을 확인하세요.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 손쉬운 통합</h2><p class=\"para-sm\">최소한의 설정으로 모든 웹 프로젝트에 원활하게 통합됩니다.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ 사용자 정의 가능한 도구 모음</h2><p class=\"para-sm\">굵게, 기울임꼴 등과 같은 도구 모음 옵션을 동적으로 구성하고 순서를 변경합니다.</p></div></div></div>"} />
 
 ## 전체 구성 예
 
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

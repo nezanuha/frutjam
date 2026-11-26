@@ -6,6 +6,16 @@
  * Frutjam's navigation: no component menu, no site search, no version badge.
  * What stays is what a visitor evaluating the plugin needs — the demo, the
  * source, the package, and a way to change language or theme.
+ *
+ * Two marks, left to right: Frutjam's, which goes to frutjam.com, and the
+ * product's, which goes to the top of this page. People arrive here from a
+ * search for a markdown editor with no idea who made it, and the lineage
+ * should be one click away rather than a word buried in the nav.
+ *
+ * The theme menu is the same markup as the main site's, ids included: the
+ * selector in app.ts binds to `input[name="theme"]` and highlights through
+ * `#themeSelectorPopover`, so sharing the ids is what makes it work. The two
+ * headers never render on the same page, so the ids cannot collide.
  */
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
@@ -24,35 +34,93 @@ const { lang } = splitLang(Astro.url.pathname);
 const t = useTranslations(lang);
 ---
 
-<header class="header header-sticky">
+<header class="header header-sticky header-blur">
   <div class="header-content px-4 lg:px-8">
-    <div class="header-start">
-      <a href={langUrl(lang, path)} class="font-semibold text-lg flex items-center gap-x-2" title={name}>
-        {/* A textarea with its resize grip: the product in one glyph. No filled
-            plate behind it, so it reads correctly on every theme. */}
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0 text-primary">
-          <rect x="2.5" y="4.5" width="19" height="15" rx="3.5" stroke="currentColor" stroke-width="1.8" />
-          <path d="M6.5 9h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-          <path d="M6.5 12.5h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.55" />
-          <path d="M6.5 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.55" />
-          <path d="M16 18.5l3-3M18 18.5l1-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.8" />
+    <div class="header-start gap-x-3">
+      {/* Frutjam's own mark, and the way back to the library. */}
+      <a href={langUrl(lang, '/')} class="flex items-center shrink-0" title="Frutjam" aria-label="Frutjam">
+        <svg width="26" height="26" class="h-6 w-6" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0,240) scale(0.1,-0.1)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"/>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"/>
+          </g>
         </svg>
-        <span>{name}</span>
+      </a>
+
+      <div class="divider divider-vertical h-6 my-0 max-sm:hidden"></div>
+
+      {/* The product mark: Lucide's `square-m` (lucide-static 0.544.0, ISC) —
+          an M monogram in a rounded panel.
+
+          Taken from Lucide unchanged, because every other icon on this site
+          is Lucide: 24×24, stroke 2, round caps, no opacity. A hand-drawn
+          mark at stroke 1.7 with three opacity levels sat next to them and
+          read as a smudge, which is what drawing one icon in a different
+          hand costs.
+
+          Not the markdown M-down-arrow, though it is free to use. That is the
+          badge for the *format* — "markdown accepted here" — so every tool
+          wears it and none is told apart by it. An M monogram says Markdown
+          without borrowing the category's symbol, and holds up alone at
+          favicon size where a pencil would say only "edit".
+
+          Outline in currentColor, not a filled plate: Frutjam's mark is a few
+          pixels to the left and that one is a solid blue square. Two filled
+          plates side by side read as one smudge. */}
+      <a href={langUrl(lang, path)} class="font-semibold text-base lg:text-lg flex items-center gap-x-2 min-w-0" title={name}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0 text-primary">
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M8 16V8l4 4 4-4v8" />
+        </svg>
+        <span class="truncate">{name}</span>
       </a>
     </div>
 
     <div class="header-end gap-x-2">
-      <nav class="navbar max-lg:hidden">
+      <nav class="navbar max-lg:hidden" aria-label={t('Plugin navigation')}>
         <ul class="navbar-list gap-x-5">
           <li><a href="#markdown-editor-demo" class="link link-hover link-sm">{t('Demo')}</a></li>
           <li><a href="#installation" class="link link-hover link-sm">{t('Installation')}</a></li>
-          <li>
-            <a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">npm</a>
-          </li>
+          <li><a href="#everything-it-does" class="link link-hover link-sm">{t('Features')}</a></li>
+          <li><a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">npm</a></li>
         </ul>
       </nav>
 
+      <div class="divider divider-vertical h-6 my-0 max-lg:hidden"></div>
+
       <LanguageSwitcher />
+
+      <div class="popover popover-bottom-end">
+        <button type="button" popovertarget="themeSelectorPopover" class="popover-toggle btn btn-outline btn-soft btn-xs btn-square theme-selection" aria-label={t('Theme')}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        </button>
+        <div tabindex="0" class="popover-content" id="themeSelectorPopover" popover>
+          <ul class="menu menu-sm">
+            <li>
+              <label for="popover-snowberry-theme" class="menu-item snowberry-theme">
+                <input type="radio" name="theme" id="popover-snowberry-theme" value="snowberry" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v1"/><path d="M12 20v1"/><path d="M3 12h1"/><path d="M20 12h1"/><path d="m18.364 5.636-.707.707"/><path d="m6.343 17.657-.707.707"/><path d="m5.636 5.636.707.707"/><path d="m17.657 17.657.707.707"/></svg>
+                {t('Snowberry')}
+              </label>
+            </li>
+            <li>
+              <label for="popover-darkberry-theme" class="menu-item darkberry-theme">
+                <input type="radio" name="theme" id="popover-darkberry-theme" value="darkberry" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                {t('Darkberry')}
+              </label>
+            </li>
+            <li>
+              <label for="popover-system-theme" class="menu-item system-theme">
+                <input type="radio" name="theme" id="popover-system-theme" value="system" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                {t('System')}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <a href={repo} target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-outline btn-pill" aria-label="GitHub">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.21.09 1.85 1.25 1.85 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5Z"/></svg>

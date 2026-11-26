@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript Editor Teks Penurunan Harga oleh Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "78884c090ee5"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "7eed17937e43"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,15 +39,19 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
 
+Stylesheet adalah file terpisah dari 2.0.0. Impor **atau** tautkan, jangan keduanya. Jika Anda lupa sepenuhnya, editor masih berfungsi dan memberi tahu Anda apa yang harus ditambahkan di konsol, daripada merender tanpa gaya tanpa penjelasan.
+
 Definisi TypeScript dikirimkan bersama paket, sehingga opsi, entri toolbar, dan bentuk variabel diperiksa dan dilengkapi secara otomatis tanpa instalasi tambahan.
 
-Jenisnya juga dapat diimpor, yang penting setiap kali pilihan Anda tidak ditulis sebaris di situs panggilan. TypeScript hanya memeriksa kunci yang tidak diketahui pada objek literal yang diteruskan secara langsung, sehingga konfigurasi yang disimpan dalam variabelnya sendiri memiliki kunci yang salah eja dan diabaikan secara diam-diam. Menganotasinya akan mengembalikan tanda centang.
+Jenisnya juga dapat diimpor, yang penting setiap kali pilihan Anda tidak ditulis sebaris di situs panggilan. TypeScript hanya memeriksa kunci yang tidak diketahui pada literal objek yang diteruskan secara langsung, sehingga konfigurasi yang disimpan dalam variabelnya sendiri memiliki kunci yang salah eja diabaikan secara diam-diam. Menganotasinya akan mengembalikan tanda centang.
 
 <Snippet view="code">
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ Tidak perlu impor: MarkdownEditor tersedia sebagai variabel global secara otomat
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -138,13 +146,13 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 Kebanyakan editor melanggar alur kerja web standar. **MarkdownEditor** menerimanya. Karena letaknya tepat di atas a `<textarea>`, Anda tidak perlu mempelajari cara baru untuk menangani data.
 
-- **Tidak Perlu Pengikatan Data:** Dapat digunakan dengan `<form method="POST">` di luar kotak
+- **Tidak Perlu Pengikatan Data:** Dapat digunakan dengan `<form method="POST">` keluar dari kotak
 - **Akses Standar:** Gunakan `document.getElementById('editor').value` seperti masukan biasa.
-- **Backend Agnostic:** Berfungsi dengan backend apa pun (Python, Node.js, PHP, dll.) seperti kolom formulir normal
+- **Backend Agnostic:** Berfungsi dengan backend apa pun (Python, Node.js, PHP, dll.) seperti kolom formulir biasa
 
 ## MarkdownEditor vs EasyMDE / SimpleMDE
 
-Kebanyakan editor penurunan harga JavaScript (EasyMDE, SimpleMDE, editor berbasis CodeMirror) **menyembunyikan Anda `<textarea>`** dan edit salinannya, tulis kembali isinya saat formulir diserahkan. Itu berfungsi sampai sesuatu yang lain membutuhkan nilai: a `required` bidang browser tidak dapat fokus memblokir pengiriman seluruhnya, dan `.value` atau `FormData` read before submit mengembalikan string kosong, yang merusak penjaga htmx, Turbo, penyimpanan otomatis, dan perubahan yang belum disimpan. **MarkdownEditor berbeda.** Ini memberi gaya pada area teks yang sudah Anda miliki dan membiarkannya sebagai bidang yang Anda ketik, sehingga nilainya selalu benar.
+Kebanyakan editor penurunan harga JavaScript (EasyMDE, SimpleMDE, editor berbasis CodeMirror) **menyembunyikan Anda `<textarea>`** dan edit salinannya, tulis kembali isinya saat formulir diserahkan. Itu berfungsi sampai sesuatu yang lain membutuhkan nilai: a `required` bidang browser tidak dapat fokus memblokir pengiriman seluruhnya, dan `.value` atau `FormData` read before submit mengembalikan string kosong, yang merusak penjaga htmx, Turbo, penyimpanan otomatis, dan perubahan yang belum disimpan. **MarkdownEditor is different.** It styles the textarea you already have and leaves it as the field you type into, so the value is correct at every moment.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -152,14 +160,14 @@ Kebanyakan editor penurunan harga JavaScript (EasyMDE, SimpleMDE, editor berbasi
 | --- | --- | --- |
 | Textarea asli dipertahankan | ✅ | ❌ Tersembunyi, diedit sebagai salinan |
 | Bekerja dengan `required` bidang | ✅ | ❌ Browser memblokir pengiriman |
-| `.value` benar sebelum diserahkan | ✅ | ❌ Kosongkan sampai formulir dikirimkan |
+| `.value` benar sebelum diserahkan | ✅ | ❌ Kosongkan sampai formulir diserahkan |
 | Serialisasi dengan `FormData`, htmx, Turbo | ✅ | ❌ Memerlukan API milik editor sendiri |
 | Mode hibrid WYSIWYG | ✅ | ❌ |
 | Temukan & Ganti bawaan | ✅ | ❌ |
 | dukungan RTL | ✅ Terpasang | Melalui CodeMirror's `direction` pilihan |
 | Pengendali peristiwa sebaris (CSP) | ✅ Tidak ada | Beberapa |
 | Mode gelap/tema | ✅ | Terbatas |
-| Ukuran bundel, di-gzip | 53KB | 107 KB (JS+CSS) |
+| Ukuran bundel, di-gzip | 41 KB JS + 13 KB CSS | 107 KB (JS+CSS) |
 
 </DocTable>
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-Kembali `editor.destroy()` dari efeknya juga mencakup StrictMode, yang menjalankan efek dua kali dalam pengembangan dan jika tidak, akan meninggalkan dua editor pada satu area teks. Array ketergantungan yang kosong memang disengaja: opsi dibaca satu kali ketika editor dibuat, jadi menjalankan kembali efeknya akan menghancurkannya dan membangunnya kembali pada setiap perubahan.
+Kembali `editor.destroy()` dari efeknya juga mencakup StrictMode, yang menjalankan efek dua kali dalam pengembangan dan jika tidak, akan meninggalkan dua editor pada satu area teks. Array ketergantungan yang kosong memang disengaja: opsi dibaca satu kali saat editor dibuat, jadi menjalankan kembali efeknya akan menghancurkannya dan membangunnya kembali pada setiap render.
+
+Itu juga alasannya `onChange` melewati wasit. Meneruskannya langsung ke konstruktor akan menyematkan editor ke fungsi apa pun yang diterimanya saat dipasang, dan panah sebaris di induknya akan menjadi basi saat apa pun yang ditutupnya berubah.
 
 ### Lihat
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 Digunakan sebagai `<MarkdownField v-model="content" />`. Dalam bentuk biasa Anda bisa melewatinya `v-model` seluruhnya dan membaca nilai dari textarea saat dikirimkan, seperti halnya kerangka kerja lainnya.
 
+
+### Render sisi server
+
+Mengimpor editor di server tidak akan gagal, jadi Next.js, Remix, Nuxt, dan SvelteKit tidak perlu `dynamic(..., { ssr: false })` pembungkus di sekelilingnya.
+
+Alasan kerjanya adalah aturan di atas: editor dibuat di dalam `useEffect`, `onMounted` atau `onMount`, dan tidak ada satupun yang berjalan di server. Pekerjaan DOM tetap berada di browser.
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+Itu `<textarea>` dikirimkan dalam HTML server dengan konten yang sudah ada di dalamnya, jadi tidak ada yang perlu ditunggu dan tidak ada yang muncul. React merender markup yang sama di kedua sisi dan editor menyempurnakannya setelah hidrasi, jadi tidak ada ketidakcocokan yang perlu diperingatkan.
+
 ## Konfigurasi
 
 Anda dapat sepenuhnya menyesuaikan perilaku dan antarmuka editor dengan meneruskan `options` obyek. Jika Anda menghilangkan opsi, nilai **default** akan digunakan.
@@ -330,12 +373,12 @@ Opsi dibaca satu kali, saat editor dibuat. Mengubahnya setelahnya tidak berpenga
 | `toolbar` | `array` | `[...]` | Menentukan alat mana yang muncul dan dalam urutan apa. |
 | `footer` | `salah \| objek` | semua terlihat | Mengontrol bilah status yang ditampilkan di bawah editor. Setel ke `false` untuk menyembunyikannya seluruhnya, atau meneruskan objek untuk mengubah statistik individual. |
 | `theme` | `string` | inherited | Menetapkan tema editor secara eksplisit (terang, gelap, snowberry, darkberry). Jika dihilangkan, editor mewarisi `data-theme` dari elemen leluhur terdekat atau `<textarea>` diri. |
-| `minHeight` | `number` | `200` | Tinggi minimum dalam piksel yang akan diperkecil oleh editor ketika kontennya pendek. Pairs with `maxHeight` untuk mengatur rentang pertumbuhan otomatis. |
+| `minHeight` | `number` | `200` | Tinggi minimum dalam piksel yang akan diperkecil oleh editor ketika kontennya pendek. Pasangkan dengan `maxHeight` untuk mengatur rentang pertumbuhan otomatis. |
 | `maxHeight` | `number` | `500` | Tinggi maksimum dalam piksel yang dapat ditingkatkan editor dalam mode non-layar penuh. Setelah konten melebihi ketinggian ini, bilah gulir akan muncul di dalam editor. Editor juga memiliki pegangan tarik sehingga pengguna dapat mengubah ukurannya secara manual melebihi batas ini. |
 | `renderer` | `function` | `marked` | Menggantikan parser penurunan harga yang digunakan untuk pratinjau. Menerima string penurunan harga dan harus mengembalikan string HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Menggantikan pembersih HTML. Menerima HTML yang dirender dan harus mengembalikan HTML aman untuk ditampilkan. |
 | `onChange` | `function` | `undefined` | Callback diaktifkan pada setiap perubahan konten: pengetikan, tindakan toolbar, undo/redo, dan kelanjutan daftar. Menerima string penurunan harga saat ini sebagai satu-satunya argumennya. |
-| `labels` | `object` | `undefined` | Terjemahan untuk antarmuka editor sendiri, dikunci dengan string bahasa Inggris. Apa pun yang Anda tinggalkan akan tetap dalam bahasa Inggris. |
+| `locale` | `object` | `undefined` | Terjemahan untuk antarmuka editor sendiri, dikunci dengan string bahasa Inggris. Apa pun yang Anda tinggalkan akan tetap dalam bahasa Inggris. |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ Bilah alatnya bersifat modular. Anda dapat menciptakan pengalaman minimal atau p
 
 | Alat | Keterangan |
 | --- | --- |
-| `heading` | Membuka tarik-turun untuk memilih tingkat judul H1–H6 |
+| `heading` | Membuka tarik-turun untuk memilih tingkat judul H1–H6. Persempit daftar dengan `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | Mengaktifkan pemformatan teks tebal. |
 | `italic` | Mengaktifkan pemformatan teks miring. |
 | `strikethrough` | Memungkinkan teks dicoret. |
@@ -387,6 +430,24 @@ Bilah alatnya bersifat modular. Anda dapat menciptakan pengalaman minimal atau p
 | `preview` | Mengalihkan pratinjau layar penuh berdampingan. Kotak centang di panel pratinjau dapat diklik dan memperbarui sumber penurunan harga secara instan. Tekan Escape untuk keluar dari layar penuh. Jika header tetap menutupi editor dalam layar penuh, lihat `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### Tingkatan pos
+
+Itu `heading` dropdown menawarkan H1 hingga H6. Jika H1 adalah milik halaman dan bukan konten, seperti yang terjadi pada sebagian besar bidang isi CMS, persempitlah:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` Dan `Ctrl+3` ikuti daftar yang sama, sehingga level yang Anda tinggalkan juga tidak dapat disisipkan dari keyboard, dan tooltip tombol hanya mencantumkan pintasan yang masih berfungsi. Urutan penulisannya tidak masalah, menunya selalu H1 dulu. Level di luar 1 hingga 6 diabaikan dengan peringatan konsol, dan daftar yang tidak berisi apa pun yang dapat digunakan akan dikembalikan ke keenamnya daripada menampilkan menu kosong.
+
+Ini membatasi toolbar, bukan dokumen. Seseorang masih bisa mengetik `# Title` dengan tangan dan ditampilkan sebagai judul, karena penurunan harga yang valid adalah keputusan penyaji, bukan keputusan toolbar. Jika aturan harus ditegakkan, terapkan di server.
 
 ##### 💡 Kiat Penerapan:
 
@@ -444,7 +505,7 @@ Berikan masing-masing perbedaan `title`. Dua alat yang berbagi judul akan berbag
 
 | Milik | Jenis | Tujuan |
 | --- | --- | --- |
-| `title` | `string` | Diperlukan. Teks keterangan alat, dan sumber kelas CSS tombol. Dapat diterjemahkan melalui `labels`. |
+| `title` | `string` | Diperlukan. Teks keterangan alat, dan sumber kelas CSS tombol. Dapat diterjemahkan melalui `locale`. |
 | `action` | `function` | Diperlukan. Menerima `(editor, event)`. Peristiwa klik diteruskan sehingga alat yang membuka dialog dapat menyerahkannya `MarkdownEditor.modal`. |
 | `icon` | `string` | SVG sebaris untuk tampilan tombol. |
 | `shortcut` | `string` | Pintasan keyboard seperti `Ctrl+Shift+K`. Ditambahkan ke tooltip, dan lebih diutamakan daripada bawaan menggunakan kunci yang sama. |
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### Bilah alat untuk area teks Anda sendiri
 
-Saat dialog mengumpulkan teks kaya, berikan alat pemformatan sebenarnya alih-alih membuatnya kembali. Bilah alat terikat pada area teks yang Anda lewati, milik Anda `labels` diwarisi, dan tidak ada tombol pratinjau yang ditambahkan.
+Saat dialog mengumpulkan teks kaya, berikan alat pemformatan sebenarnya alih-alih membuatnya kembali. Bilah alat terikat pada area teks yang Anda lewati, milik Anda `locale` string diwarisi, dan tidak ada tombol pratinjau yang ditambahkan.
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ Alat khusus diterjemahkan seperti alat bawaan, dengan kunci berdasarkan judul ya
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 Bahasa Antarmuka
 
-Teks, keterangan alat, item menu, bidang modal, dan tombol milik editor, secara default adalah bahasa Inggris. Lulus a `labels` keberatan untuk menerjemahkannya. Kuncinya adalah string bahasa Inggris, cara kerja gettext, jadi Anda hanya mencantumkan apa yang ingin Anda ubah dan apa pun yang hilang akan dikembalikan ke bahasa Inggris.
+Teks, keterangan alat, item menu, bidang modal, dan tombol milik editor, secara default adalah bahasa Inggris. Lulus a `locale` keberatan untuk menerjemahkannya. Kuncinya adalah string bahasa Inggris, cara kerja gettext, jadi Anda hanya mencantumkan apa yang ingin Anda ubah dan apa pun yang hilang akan dikembalikan ke bahasa Inggris.
+
+`locale` mengambil stringnya sendiri, bukan kode bahasa. `locale: 'es'` tidak berpengaruh dan mengatakannya di konsol. Impor bahasa yang Anda inginkan, sehingga tidak ada yang mengunduh bahasa yang tidak mereka gunakan. Itu disebut `labels` sebelum 2.0.0, dan nama itu masih berfungsi.
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 Hal ini paling penting dibandingkan dengan konten kanan-ke-kiri. Bahasa Arab, Urdu, dan Farsi ditata dengan benar, namun bilah alat yang masih bertuliskan "Tebal" di atas teks dari kanan ke kiri hanya setengah diterjemahkan.
+
+#### Daftar lengkap string
+
+Ada 45 di antaranya, dan paket mengirimkan daftarnya sehingga Anda tidak perlu mencarinya. Kunci dan nilainya identik, jadi ini adalah templat untuk disalin, bukan terjemahan.
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+Hitungan membawa a `{n}` placeholder sehingga terjemahan Anda menentukan ke mana nomor tersebut pergi, daripada terjebak dengan urutan kata dalam bahasa Inggris.
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### Menggunakan terjemahan Anda sendiri
+
+`locale` mengambil benda biasa, jadi dari mana asalnya terserah Anda. Sebagian besar proyek telah memiliki sistem terjemahan, dan memberi masukan kepada editor untuk menjaga susunan kata tetap konsisten dengan antarmuka lainnya. Di Django string berakhir di file Anda `.po` file dengan yang lainnya:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+Dengan katalog sisi klien seperti i18next atau vue-i18n, petakan kunci melalui `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 Variabel
 
@@ -1030,6 +1168,34 @@ Timpa dengan `--mte-fullscreen-z-index`. Nilai ini hanya berlaku di layar penuh,
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 Kebijakan Keamanan Konten
+
+Editor tidak menambahkan event handler inline, tidak menggunakan `eval`, dan dari 2.0.0 menyuntikkan no `<style>` elemen. Tidak diperlukan kebijakan yang ketat `'unsafe-inline'` pengecualian untuk itu, di kedua arah:
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+Sebelum versi 2.0.0, CSS dibawa ke dalam JavaScript dan disuntikkan saat dimuat, yang tidak termasuk dalam kebijakan `style-src 'unsafe-inline'` menolak ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). Nonce telah dipertimbangkan dan dihapus: ini hanya membantu kebijakan yang memilikinya, dan situs yang dihosting secara statis `style-src 'self'` tidak memiliki server yang mencetak nonce baru per permintaan. Menautkan stylesheet mencakup setiap kebijakan, bukan beberapa kebijakan.
+
+Satu hal yang tidak dikontrol oleh editor adalah penurunan harga yang ditulis pengguna Anda. DOMPurify terus `style` atribut secara default, jadi `<span style="color:red">` dalam dokumen bertahan dalam pratinjau dan ketat `style-src-attr` akan melaporkannya. Lepaskan mereka dengan `sanitizer` pilihan jika itu penting bagi Anda:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1307,7 +1473,7 @@ Anda juga dapat kembali `image_alt`, yang digunakan sebagai saran hanya ketika p
 
 </Snippet>
 
-Jika gagal, kembalilah `success: false` dengan `error` atau `message` rangkaian. Teks tersebut ditampilkan kepada pengguna, jadi buatlah teks tersebut menjadi sesuatu yang dapat mereka tindak lanjuti.
+Jika gagal, kembalilah `success: false` dengan sebuah `error` atau `message` rangkaian. Teks tersebut ditampilkan kepada pengguna, jadi buatlah teks tersebut menjadi sesuatu yang dapat mereka tindak lanjuti.
 
 ### Validasi Teks Alt Gambar (`altInput`)
 
@@ -1395,7 +1561,7 @@ Tindakan pemformatan umum dapat dipicu langsung dari keyboard tanpa menyentuh to
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Alihkan ~~Dicoret~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Judul 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Judul 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Pos 3 |
+| `Ctrl + 3`  /  `⌘ 3` | Pos 3. Ketiganya mengikuti apapun itu `heading` penawaran alat, jadi level yang Anda tinggalkan `levels` juga tidak bisa diketik |
 | `Ctrl + L`  /  `⌘ L` | Alihkan daftar poin |
 | `Ctrl + Z`  /  `⌘ Z` | Membuka |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Mengulangi |
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',
@@ -1490,4 +1656,4 @@ const markdown = document.getElementById('markdown-editor').value;
 
 </Snippet>
 
-<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Apakah ini berguna?</p><p class=\"text-sm\">Bintang GitHub membantu pengembang lain menemukan editornya. Itu bagian dari <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">buah-buahan</a>. Sebuah bintang di sana juga membantu.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Bintangi di GitHub</a></div>"} />
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Apakah ini bermanfaat?</p><p class=\"text-sm\">Bintang GitHub membantu pengembang lain menemukan editornya. Itu bagian dari <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">buah-buahan</a>. Sebuah bintang di sana juga membantu.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Bintangi di GitHub</a></div>"} />

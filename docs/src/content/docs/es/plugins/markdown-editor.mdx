@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Complemento JavaScript del editor de texto Markdown de Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "2de5a40ac78d"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "247e13851c4b"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+La hoja de estilo es un archivo independiente de 2.0.0. Importarlo **o** vincularlo, nunca ambos. Si lo olvidas por completo, el editor aún funciona y te dice qué agregar en la consola, en lugar de mostrarlo sin estilo y sin explicación.
 
 Las definiciones de TypeScript se incluyen con el paquete, por lo que las opciones, las entradas de la barra de herramientas y las formas variables se verifican y se completan automáticamente sin necesidad de instalación adicional.
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ No es necesario importar: MarkdownEditor está disponible como una variable glob
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -140,7 +148,7 @@ La mayoría de los editores rompen el flujo de trabajo web estándar. **Markdown
 
 - **No se necesita enlace de datos:** Funciona con `<form method="POST">` fuera de la caja
 - **Acceso estándar:** Uso `document.getElementById('editor').value` como una entrada normal.
-- **Agnóstico del backend:** Funciona con cualquier backend (Python, Node.js, PHP, etc.) como un campo de formulario normal.
+- **Agnóstico del backend:** Funciona con cualquier backend (Python, Node.js, PHP, etc.) como un campo de formulario normal
 
 ## MarkdownEditor frente a EasyMDE/SimpleMDE
 
@@ -159,7 +167,7 @@ La mayoría de los editores de rebajas de JavaScript (EasyMDE, SimpleMDE, editor
 | soporte RTL | ✅ Construido en | A través de CodeMirror `direction` opción |
 | Controladores de eventos en línea (CSP) | ✅ Ninguno | Alguno |
 | Modo oscuro/temática | ✅ | Limitado |
-| Tamaño del paquete, comprimido | 53KB | 107KB (JS+CSS) |
+| Tamaño del paquete, comprimido | 41 KB JS + 13 KB CSS | 107KB (JS+CSS) |
 
 </DocTable>
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-Regresando `editor.destroy()` El efecto también cubre StrictMode, que ejecuta efectos dos veces en desarrollo y, de lo contrario, dejaría dos editores en un área de texto. La matriz de dependencia vacía es deliberada: las opciones se leen una vez cuando se crea el editor, por lo que volver a ejecutar el efecto lo eliminaría y lo reconstruiría con cada cambio.
+Regresando `editor.destroy()` El efecto también cubre StrictMode, que ejecuta efectos dos veces en desarrollo y, de lo contrario, dejaría dos editores en un área de texto. La matriz de dependencia vacía es deliberada: las opciones se leen una vez cuando se crea el editor, por lo que volver a ejecutar el efecto lo eliminaría y lo reconstruiría en cada renderizado.
+
+Por eso también `onChange` pasa por un árbitro. Pasarlo directamente al constructor fijaría el editor a cualquier función que recibió en el montaje, y una flecha en línea en el padre se quedaría obsoleta en el momento en que cualquier cosa que cierre cambie.
 
 ### vista
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 Utilizado como `<MarkdownField v-model="content" />`. En forma simple puedes omitir `v-model` por completo y lea el valor del área de texto al enviar, como con cualquier otro marco.
 
+
+### Representación del lado del servidor
+
+Importar el editor al servidor no arroja resultados, por lo que Next.js, Remix, Nuxt y SvelteKit no necesitan `dynamic(..., { ssr: false })` envoltorio a su alrededor.
+
+La razón por la que funciona es la regla anterior: el editor se crea dentro `useEffect`, `onMounted` o `onMount`, y ninguno de ellos se ejecuta en el servidor. El trabajo DOM permanece en el navegador.
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+El `<textarea>` Se envía en el servidor HTML con su contenido ya incluido, por lo que no hay nada que esperar ni nada que aparezca. React muestra el mismo marcado en ambos lados y el editor lo mejora después de la hidratación, por lo que no hay discrepancias sobre las cuales advertir.
+
 ## Configuración
 
 Puede personalizar completamente el comportamiento y la interfaz del editor pasando un `options` objeto. Si omite una opción, se utiliza el valor **predeterminado**.
@@ -335,7 +378,7 @@ Las opciones se leen una vez, cuando se construye el editor. Cambiarlos posterio
 | `renderer` | `function` | `marked` | Reemplaza el analizador de rebajas utilizado para la vista previa. Recibe la cadena de rebajas y debe devolver una cadena HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Reemplaza el desinfectante HTML. Recibe el HTML renderizado y debe devolver el HTML seguro para mostrarlo. |
 | `onChange` | `function` | `undefined` | La devolución de llamada se activa con cada cambio de contenido: escritura, acciones de la barra de herramientas, deshacer/rehacer y continuación de la lista. Recibe la cadena de rebajas actual como único argumento. |
-| `labels` | `object` | `undefined` | Traducciones para la propia interfaz del editor, codificadas por la cadena en inglés. Todo lo que omitas permanecerá en inglés. |
+| `locale` | `object` | `undefined` | Traducciones para la propia interfaz del editor, codificadas por la cadena en inglés. Todo lo que omitas permanecerá en inglés. |
 
 </DocTable>
 
@@ -360,13 +403,13 @@ La barra de herramientas es modular. Puede crear una experiencia mínima o un pa
 
 </DocTable>
 
-#### Referencia de herramientas
+#### Referencia de herramienta
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Herramienta | Descripción |
 | --- | --- |
-| `heading` | Abre un menú desplegable para seleccionar el nivel de título H1–H6 |
+| `heading` | Abre un menú desplegable para seleccionar el nivel de encabezado H1–H6. Restringe la lista con `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | Habilita el formato de texto en negrita. |
 | `italic` | Habilita el formato de texto en cursiva. |
 | `strikethrough` | Permite tachar texto. |
@@ -387,6 +430,24 @@ La barra de herramientas es modular. Puede crear una experiencia mínima o un pa
 | `preview` | Alterna una vista previa en pantalla completa, una al lado de la otra. Se puede hacer clic en las casillas de verificación en el panel de vista previa y actualizan la fuente de rebajas al instante. Presione Escape para salir de la pantalla completa. Si un encabezado fijo cubre el editor en pantalla completa, consulte `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### niveles de encabezado
+
+El `heading` El menú desplegable ofrece H1 a H6. Cuando H1 pertenece a la página en lugar del contenido, como es el caso de la mayoría de los campos del cuerpo del CMS, limítelo:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` y `Ctrl+3` siga la misma lista, por lo que un nivel que omita tampoco se puede insertar desde el teclado, y la información sobre herramientas del botón enumera solo los atajos que aún funcionan. El orden en que los escribas no importa, el menú siempre es H1 primero. Los niveles fuera del 1 al 6 se ignoran con una advertencia de la consola, y una lista sin nada utilizable vuelve a los seis en lugar de mostrar un menú vacío.
+
+Esto restringe la barra de herramientas, no el documento. Alguien todavía puede escribir `# Title` a mano y se representa como un encabezado, porque lo que es una rebaja válida es la decisión del renderizador y no de la barra de herramientas. Si la regla tiene que cumplirse, aplíquela en el servidor.
 
 ##### 💡 Consejos de implementación:
 
@@ -444,7 +505,7 @@ Dale a cada uno un distintivo `title`. Dos herramientas que comparten un título
 
 | Propiedad | Tipo | Objetivo |
 | --- | --- | --- |
-| `title` | `string` | Requerido. Texto de información sobre herramientas y el origen de la clase CSS del botón. Traducible a través de `labels`. |
+| `title` | `string` | Requerido. Texto de información sobre herramientas y el origen de la clase CSS del botón. Traducible a través de `locale`. |
 | `action` | `function` | Requerido. Recibe `(editor, event)`. El evento de clic se transmite para que una herramienta que abre un cuadro de diálogo pueda entregárselo. `MarkdownEditor.modal`. |
 | `icon` | `string` | SVG en línea para la cara del botón. |
 | `shortcut` | `string` | Un atajo de teclado como `Ctrl+Shift+K`. Se agrega a la información sobre herramientas y tiene prioridad sobre una función integrada que usa las mismas teclas. |
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### Una barra de herramientas para tu propia área de texto
 
-Cuando un cuadro de diálogo recopila texto enriquecido, bríndele herramientas de formato reales en lugar de reconstruirlas. La barra de herramientas está vinculada al área de texto que pasa, su `labels` se heredan y no se agrega ningún botón de vista previa.
+Cuando un cuadro de diálogo recopila texto enriquecido, bríndele herramientas de formato reales en lugar de reconstruirlas. La barra de herramientas está vinculada al área de texto que pasa, su `locale` las cadenas se heredan y no se agrega ningún botón de vista previa.
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ Las herramientas personalizadas se traducen como las integradas, según el títu
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 Idioma de la interfaz
 
-El texto, la información sobre herramientas, los elementos de menú, los campos modales y los botones del propio editor están en inglés de forma predeterminada. pasar un `labels` objeto de traducirlo. Las claves son las cadenas en inglés, la forma en que funciona gettext, por lo que solo enumera lo que desea cambiar y todo lo que falta vuelve al inglés.
+El texto, la información sobre herramientas, los elementos de menú, los campos modales y los botones del propio editor están en inglés de forma predeterminada. pasar un `locale` objeto de traducirlo. Las claves son las cadenas en inglés, la forma en que funciona gettext, por lo que solo enumera lo que desea cambiar y todo lo que falta vuelve al inglés.
+
+`locale` toma las cadenas en sí, no un código de idioma. `locale: 'es'` no tiene ningún efecto y lo dice en la consola. En su lugar, importe el que desee, para que nadie descargue los idiomas que no está utilizando. fue llamado `labels` antes de 2.0.0, y ese nombre todavía funciona.
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -805,7 +868,82 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-Esto es más importante junto con el contenido de derecha a izquierda. El árabe, el urdu y el farsi se presentan correctamente por sí solos, pero una barra de herramientas que todavía dice "negrita" sobre el texto de derecha a izquierda está sólo a medias traducida.
+Esto es más importante junto con el contenido de derecha a izquierda. El árabe, el urdu y el farsi se presentan correctamente por sí solos, pero una barra de herramientas que todavía dice "negrita" sobre el texto de derecha a izquierda sólo está traducida a medias.
+
+#### La lista completa de cadenas.
+
+Hay 45 y el paquete envía la lista para que no tengas que buscarlos. Las claves y los valores son idénticos, por lo que es una plantilla para copiar en lugar de una traducción.
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+Los condes llevan un `{n}` marcador de posición para que su traducción decida dónde va el número, en lugar de quedarse atascado con el orden de las palabras en inglés.
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### Usando tus propias traducciones
+
+`locale` toma un objeto simple, por lo que su procedencia depende de usted. La mayoría de los proyectos ya tienen un sistema de traducción, y alimentar al editor desde él mantiene la redacción coherente con el resto de la interfaz. En Django las cuerdas terminan en tu `.po` archivos con todo lo demás:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+Con un catálogo del lado del cliente como i18next o vue-i18n, asigne las claves a través de su `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 Variables
 
@@ -918,7 +1056,7 @@ new MarkdownEditor('#markdown-editor', {
 
 </Snippet>
 
-Usando una etiqueta de script en lugar de un paquete, cargue DOMPurify junto con el editor:
+Usando una etiqueta de secuencia de comandos en lugar de un paquete, cargue DOMPurify junto con el editor:
 
 <Snippet view="code">
 
@@ -1030,6 +1168,34 @@ Anularlo con `--mte-fullscreen-z-index`. El valor se aplica solo en pantalla com
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 Política de seguridad de contenidos
+
+El editor no agrega controladores de eventos en línea, no utiliza `eval`, y desde 2.0.0 no inyecta `<style>` elemento. Una política estricta no necesita `'unsafe-inline'` excepción para ello, en cualquier dirección:
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+Antes de 2.0.0, el CSS se llevaba dentro de JavaScript y se inyectaba durante la carga, lo cual era una política sin `style-src 'unsafe-inline'` se niega ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). Se consideró y se eliminó un nonce: solo ayuda a las políticas que tienen uno y un sitio alojado estáticamente en `style-src 'self'` no tiene ningún servidor que genere un nonce nuevo por solicitud. Vincular la hoja de estilo cubre todas las políticas en lugar de algunas de ellas.
+
+Una cosa que el editor no controla es la rebaja que escriben sus usuarios. DOMPurify mantiene `style` atributos por defecto, por lo que `<span style="color:red">` en un documento sobrevive en la vista previa y una estricta `style-src-attr` lo reportará. Desnúdelas con el `sanitizer` opción si eso te importa:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1231,7 +1397,7 @@ Se cargan varios archivos a la vez, uno a la vez, por lo que las imágenes llega
 
 La herramienta de imagen admite una `fileInput` configuración para manejar cargas directas al servidor.
 
--   `accept`: Defina una variedad de formatos de imagen permitidos (por ejemplo, 'webp', 'avif')
+-   `accept`: define una variedad de formatos de imagen permitidos (por ejemplo, 'webp', 'avif')
 -   `uploadUrl`: especifique el punto final de backend donde `File` El objeto será enviado a través de `POST`
 -   `params`: Objeto opcional para enviar datos adicionales (como tokens CSRF, ID de usuario o nombres de carpetas) junto con el archivo de imagen.
 
@@ -1395,7 +1561,7 @@ Las acciones de formato comunes se pueden activar directamente desde el teclado 
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Alternar ~~Tachado~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Título 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Título 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Título 3 |
+| `Ctrl + 3`  /  `⌘ 3` | Título 3. Estos tres siguen cualquiera que sea el `heading` ofertas de herramientas, por lo que un nivel que dejas fuera `levels` tampoco se puede escribir |
 | `Ctrl + L`  /  `⌘ L` | Alternar lista de viñetas |
 | `Ctrl + Z`  /  `⌘ Z` | Deshacer |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Rehacer |
@@ -1439,7 +1605,7 @@ La regla es deliberadamente estricta: sólo una mínima `http` o `https` La URL 
 
 ## Características
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integración de formularios nativos</h2><p class=\"para-sm\">Funciona exactamente como un estándar <code>&lt;textarea&gt;</code>. Sin API complejas: solo use el <code>value</code> o <code>name</code> atributo. \"Simplemente funciona\" con envíos de formularios HTML estándar en PHP, Django o Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Carga de imágenes avanzada</h2><p class=\"para-sm\">Configure las cargas del servidor nativo a través de API. Evite cadenas Base64 pesadas para garantizar cargas de página más rápidas y un SEO superior al alojar imágenes en su propia CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Modos híbridos y simples</h2><p class=\"para-sm\">Cambiar entre un <strong>Híbrido (WYSIWYG)</strong> experiencia en edición visual o <strong>Rebaja simple</strong> Modo para una sensación de codificación tradicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Alto rendimiento</h2><p class=\"para-sm\">A <strong>53 KB comprimidos</strong> paquete (252 KB minimizado, CSS incluido) optimizado para \"contenido pesado\". Maneja documentos y archivos de gran tamaño sin ningún retraso en la entrada ni caída del rendimiento. Actualizaciones de vista previa sin rebote, cálculos de estilo en caché y manejo del teclado sin conflictos: por lo que Tab y Enter siempre hacen exactamente una cosa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Soporte RTL incorporado</h2><p class=\"para-sm\">Soporte nativo para idiomas de derecha a izquierda como árabe, urdu y farsi. Perfecto para crear aplicaciones accesibles globalmente.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Resaltado de sintaxis</h2><p class=\"para-sm\">Legibilidad mejorada con código claro y formato de rebajas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Temas adaptativos</h2><p class=\"para-sm\">Incluye soporte automático para el modo oscuro. Se sincroniza con la configuración de su sistema o con el <strong>UI de mermelada de frutas</strong> Biblioteca para una experiencia visual perfecta.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Edición inteligente</h2><p class=\"para-sm\">Continuación automática de listas estilo GitHub para listas ordenadas, listas desordenadas y listas de verificación: presione <code>Enter</code> y el editor continúa el patrón. Se puede hacer clic en las casillas de verificación en el panel de vista previa y se sincronizan con la fuente de rebajas al instante.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Totalmente receptivo</h2><p class=\"para-sm\">Una interfaz de usuario fluida y pensada para dispositivos móviles que se adapta perfectamente a computadoras de escritorio, tabletas y teléfonos inteligentes para editar sobre la marcha.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Soporte universal</h2><p class=\"para-sm\">compatible con <strong>ESM, UMD, CommonJS y IIFE</strong>. Funciona de inmediato a través de CDN (<code>&lt;script src&gt;</code>), npm o cualquier paquete (Vite, webpack, Rollup): no se necesita configuración adicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accesible por defecto</h2><p class=\"para-sm\">Compatibilidad total con ARIA integrada: punto de referencia de la barra de herramientas, región de vista previa etiquetada, botones fáciles de leer en pantalla, <code>aria-pressed</code> en la palanca de vista previa, <code>disabled</code> y <code>aria-disabled</code> en herramientas inactivas y restauración correcta del enfoque cuando se cierran los modales.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Cero conflictos de CSS</h2><p class=\"para-sm\">Los estilos del editor tienen un alcance completo para <code>.markdown-editor-wrapper</code>. La verificación previa global de Tailwind está excluida, por lo que el editor convive de forma segura junto con Bootstrap, Tailwind o cualquier otro marco sin alterar sus estilos.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Atajos de teclado</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: acciones de formato comunes sin tocar el mouse. Cada acceso directo se muestra en la información sobre herramientas del botón de la barra de herramientas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Buscar y reemplazar</h2><p class=\"para-sm\">Prensa <code>Ctrl+F</code> encontrar o <code>Ctrl+H</code> para abrir buscar y reemplazar. Búsqueda que no distingue entre mayúsculas y minúsculas con contador de partidos en vivo, navegación siguiente/anterior, reemplazo único y reemplazar todo: sin salir del editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Vista previa segura XSS</h2><p class=\"para-sm\">La vista previa renderizada se desinfecta mediante <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurificar</a> antes de escribirse en el DOM. Las etiquetas de script, los controladores de eventos en línea y las URL maliciosas en las entradas de rebajas diseñadas se eliminan automáticamente: no se requiere configuración.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Vista previa en tiempo real</h2><p class=\"para-sm\">Vea su descuento renderizado instantáneamente a medida que escribe.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Fácil integración</h2><p class=\"para-sm\">Integre perfectamente en cualquier proyecto web con una configuración mínima.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Barra de herramientas personalizable</h2><p class=\"para-sm\">Configure y reordene dinámicamente las opciones de la barra de herramientas como negrita, cursiva y más.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Integración de formularios nativos</h2><p class=\"para-sm\">Funciona exactamente como un estándar <code>&lt;textarea&gt;</code>. Sin API complejas: solo use el <code>value</code> o <code>name</code> atributo. \"Simplemente funciona\" con envíos de formularios HTML estándar en PHP, Django o Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Carga de imágenes avanzada</h2><p class=\"para-sm\">Configure las cargas del servidor nativo a través de API. Evite cadenas Base64 pesadas para garantizar cargas de página más rápidas y un SEO superior al alojar imágenes en su propia CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Modos híbridos y simples</h2><p class=\"para-sm\">Cambiar entre un <strong>Híbrido (WYSIWYG)</strong> experiencia en edición visual o <strong>Rebaja simple</strong> modo para una sensación de codificación tradicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Alto rendimiento</h2><p class=\"para-sm\">A <strong>53 KB comprimidos</strong> paquete (252 KB minimizado, CSS incluido) optimizado para \"contenido pesado\". Maneja documentos y archivos de gran tamaño sin ningún retraso en la entrada ni caída del rendimiento. Actualizaciones de vista previa sin rebote, cálculos de estilo en caché y manejo del teclado sin conflictos: por lo tanto, Tab y Enter siempre hacen exactamente una cosa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Soporte RTL incorporado</h2><p class=\"para-sm\">Soporte nativo para idiomas de derecha a izquierda como árabe, urdu y farsi. Perfecto para crear aplicaciones accesibles globalmente.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Resaltado de sintaxis</h2><p class=\"para-sm\">Legibilidad mejorada con código claro y formato de rebajas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Temas adaptativos</h2><p class=\"para-sm\">Incluye soporte automático para el modo oscuro. Se sincroniza con la configuración de su sistema o con el <strong>UI de mermelada de frutas</strong> Biblioteca para una experiencia visual perfecta.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Edición inteligente</h2><p class=\"para-sm\">Continuación automática de listas estilo GitHub para listas ordenadas, listas desordenadas y listas de verificación: presione <code>Enter</code> y el editor continúa el patrón. Se puede hacer clic en las casillas de verificación en el panel de vista previa y se sincronizan con la fuente de rebajas al instante.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Totalmente receptivo</h2><p class=\"para-sm\">Una interfaz de usuario fluida y pensada para dispositivos móviles que se adapta perfectamente a computadoras de escritorio, tabletas y teléfonos inteligentes para editar sobre la marcha.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Soporte universal</h2><p class=\"para-sm\">compatible con <strong>ESM, UMD, CommonJS y IIFE</strong>. Funciona de inmediato a través de CDN (<code>&lt;script src&gt;</code>), npm o cualquier paquete (Vite, webpack, Rollup): no se necesita configuración adicional.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accesible por defecto</h2><p class=\"para-sm\">Compatibilidad total con ARIA integrada: punto de referencia de la barra de herramientas, región de vista previa etiquetada, botones fáciles de leer en pantalla, <code>aria-pressed</code> en la palanca de vista previa, <code>disabled</code> y <code>aria-disabled</code> en herramientas inactivas y restauración correcta del enfoque cuando se cierran los modales.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Cero conflictos de CSS</h2><p class=\"para-sm\">Los estilos del editor tienen un alcance completo para <code>.markdown-editor-wrapper</code>. La verificación previa global de Tailwind está excluida, por lo que el editor convive de forma segura junto con Bootstrap, Tailwind o cualquier otro marco sin alterar sus estilos.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Atajos de teclado</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: acciones de formato comunes sin tocar el mouse. Cada acceso directo se muestra en la información sobre herramientas del botón de la barra de herramientas.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Buscar y reemplazar</h2><p class=\"para-sm\">Prensa <code>Ctrl+F</code> encontrar o <code>Ctrl+H</code> para abrir buscar y reemplazar. Búsqueda que no distingue entre mayúsculas y minúsculas con contador de partidos en vivo, navegación siguiente/anterior, reemplazo único y reemplazar todo: sin salir del editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Vista previa segura XSS</h2><p class=\"para-sm\">La vista previa renderizada se desinfecta mediante <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurificar</a> antes de escribirse en el DOM. Las etiquetas de script, los controladores de eventos en línea y las URL maliciosas en las entradas de rebajas diseñadas se eliminan automáticamente: no se requiere configuración.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Vista previa en tiempo real</h2><p class=\"para-sm\">Vea su descuento renderizado instantáneamente a medida que escribe.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Fácil integración</h2><p class=\"para-sm\">Integre perfectamente en cualquier proyecto web con una configuración mínima.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Barra de herramientas personalizable</h2><p class=\"para-sm\">Configure y reordene dinámicamente las opciones de la barra de herramientas como negrita, cursiva y más.</p></div></div></div>"} />
 
 ## Ejemplo de configuración completa
 
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

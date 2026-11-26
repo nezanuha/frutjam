@@ -281,13 +281,39 @@ function initTocScrollspy() {
   const article = document.querySelector('article');
   if (!article) return;
 
-  const headings = [...article.querySelectorAll<HTMLElement>('h2[id], h3[id]')];
+  /**
+   * Only track headings the contents list actually shows. A page whose list
+   * is top-level only — the plugin pages, with thirty sections — still has
+   * its h3s in the article, and tracking one of those matched no link, so
+   * the highlight blinked off every time the reader scrolled into a
+   * subsection and back on at the next h2. Ignoring them keeps the enclosing
+   * section lit the whole way through it.
+   */
+  const linkable = new Set(
+    tocLinks.map((l) => l.getAttribute('href')?.slice(1)).filter((id): id is string => Boolean(id)),
+  );
+  const headings = [...article.querySelectorAll<HTMLElement>('h2[id], h3[id]')]
+    .filter((h) => linkable.has(h.id));
   if (!headings.length) return;
 
   let ticking = false;
   let cachedOffsets = headings.map((h) => h.offsetTop);
 
-  const tocContainer = document.querySelector('#toc-menu')?.closest('div');
+  /**
+   * The element that actually scrolls, found by walking up rather than
+   * assumed to be the nearest div. The plugin page puts the list straight
+   * into the sticky sidebar and the component pages wrap it in a box of
+   * their own; `closest('div')` picked the wrong one of those and then
+   * scrolled something that could not scroll.
+   */
+  const tocContainer = (() => {
+    for (let el = document.querySelector('#toc-menu')?.parentElement; el; el = el.parentElement) {
+      const overflowY = getComputedStyle(el).overflowY;
+      if (overflowY === 'auto' || overflowY === 'scroll') return el;
+      if (el.tagName === 'BODY') break;
+    }
+    return null;
+  })();
   let lastActiveId: string | null = null;
   let tocScrollTimer: ReturnType<typeof setTimeout>;
 
@@ -308,11 +334,41 @@ function initTocScrollspy() {
       lastActiveId = activeId;
       clearTimeout(tocScrollTimer);
       tocScrollTimer = setTimeout(() => {
-        tocLinks.forEach((link) => link.classList.toggle('menu-active', link.getAttribute('href') === `#${activeId}`));
+        /**
+         * `menu-active` paints the highlight; `aria-current` is what says it
+         * out loud. Without the attribute a screen reader reader gets no
+         * sense of position in the page at all — the highlight is colour and
+         * nothing else. Set on the link rather than removed from the others,
+         * so exactly one entry is ever current.
+         */
+        tocLinks.forEach((link) => {
+          const isCurrent = link.getAttribute('href') === `#${activeId}`;
+          link.classList.toggle('menu-active', isCurrent);
+          if (isCurrent) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
         const activeLink = tocLinks.find((l) => l.getAttribute('href') === `#${activeId}`);
-        if (activeLink && tocContainer) {
-          const linkOffset = activeLink.getBoundingClientRect().top - tocContainer.getBoundingClientRect().top + tocContainer.scrollTop;
-          tocContainer.scrollTo({ top: linkOffset - tocContainer.clientHeight / 2 + activeLink.offsetHeight / 2, behavior: 'smooth' });
+        /**
+         * Only move the list when the highlight would otherwise be off it.
+         * Re-centring on every heading means the contents slide under the
+         * reader's eyes the whole way down the page, which is the jumping
+         * people report — and on a page with thirty sections it happens
+         * constantly. A margin keeps the next entry or two in view, so the
+         * list settles instead of tracking the scroll.
+         */
+        if (activeLink && tocContainer && tocContainer.scrollHeight > tocContainer.clientHeight) {
+          const link = activeLink.getBoundingClientRect();
+          const box = tocContainer.getBoundingClientRect();
+          const margin = 48;
+          const above = link.top < box.top + margin;
+          const below = link.bottom > box.bottom - margin;
+          if (above || below) {
+            const offset = link.top - box.top + tocContainer.scrollTop;
+            tocContainer.scrollTo({
+              top: offset - tocContainer.clientHeight / 2 + link.height / 2,
+              behavior: 'smooth',
+            });
+          }
         }
       }, 80);
     }
@@ -355,15 +411,106 @@ async function initApp() {
     initClipboard();
     initTocScrollspy();
 
-    if (document.querySelector('.plain-markdown-editor, .hybrid-markdown-editor')) {
-      const { default: MarkdownEditor } = await import('markdown-text-editor');
-      document.querySelectorAll('.plain-markdown-editor').forEach((element) => {
-        new MarkdownEditor(element, { placeholder: 'Start writing...' });
-      });
-      document.querySelectorAll('.hybrid-markdown-editor').forEach((element) => {
-        new MarkdownEditor(element, { placeholder: 'Start writing...', mode: 'hybrid' });
-      });
-    }
+    await initMarkdownEditors();
+  }
+}
+
+/**
+ * The editors on the plugin page, and the two on the home page.
+ *
+ * Each demo is a class, and the options live here rather than in an attribute
+ * on the textarea: the docs page then only has to say which demo it wants, and
+ * what a demo actually does is readable in one place instead of spread across
+ * escaped JSON in MDX.
+ *
+ * Add a demo by adding a line. The key is the class, so `mte-variables` means
+ * `<textarea class="mte-variables">`.
+ */
+const MTE_DEMOS: Record<string, Record<string, unknown>> = {
+  // the two the home page and the older docs pages already use
+  'plain-markdown-editor': {},
+  'hybrid-markdown-editor': { mode: 'hybrid' },
+
+  // modes, side by side
+  'mte-hybrid': { mode: 'hybrid' },
+  'mte-plain': {},
+
+  // how small it goes
+  'mte-minimal': {
+    toolbar: ['bold', 'italic', 'link'],
+    footer: false,
+    minHeight: 120,
+  },
+
+  // a comment box: no headings, no images, counts what matters
+  'mte-comment': {
+    toolbar: ['bold', 'italic', 'strikethrough', 'link', 'code', 'ul', 'ol'],
+    footer: { chars: true, words: true, line: false, col: false },
+    minHeight: 140,
+    find: false,
+  },
+
+  // a CMS body field: H1 belongs to the page, so the dropdown starts at H2
+  'mte-blog': {
+    mode: 'hybrid',
+    toolbar: [
+      'undo', 'redo', { heading: { levels: [2, 3, 4] } }, 'bold', 'italic',
+      'blockquote', 'ul', 'ol', 'code', 'codeblock', 'table', 'link', 'image',
+      'preview',
+    ],
+    footer: { words: true, chars: true, line: true, col: true },
+  },
+
+  // merge tags, with sample values the preview substitutes
+  'mte-variables': {
+    toolbar: ['bold', 'italic', 'variables', 'preview'],
+    variables: [
+      { label: 'First name', value: '{{first_name}}', sample: 'Hannes' },
+      { label: 'Company', value: '{{company}}', sample: 'Northwind' },
+      {
+        label: 'Invoice',
+        items: [
+          { label: 'Number', value: '{{invoice.number}}', sample: 'INV-2026-0041' },
+          { label: 'Total', value: '{{invoice.total}}', sample: '€1,240.00' },
+          { label: 'Due date', value: '{{invoice.due}}', sample: '12 December 2026' },
+        ],
+      },
+    ],
+  },
+
+  // type a draft, reload the page, and it offers it back
+  'mte-autosave': { autosave: { key: 'docs-demo' } },
+
+  // a document long enough that finding something in it is the point
+  'mte-find': { mode: 'hybrid' },
+
+  // starts with a table in it, so the bar beside it has something to edit
+  'mte-table': { mode: 'hybrid', tableBar: true },
+
+  // every count the status bar can show
+  'mte-footer': { footer: { line: true, col: true, chars: true, words: true } },
+};
+
+async function initMarkdownEditors() {
+  const selector = Object.keys(MTE_DEMOS).map((name) => '.' + name).join(', ');
+  if (!document.querySelector(selector)) return;
+
+  // When this moves to markdown-text-editor@2, add the stylesheet here:
+  //
+  //   await import('markdown-text-editor/style.css');
+  //
+  // 2.0 stopped injecting a <style> tag, so without it every editor on the
+  // page renders unstyled. 1.9.x carries its CSS inside the JavaScript and
+  // exports no stylesheet to import, which is why this is a note and not a
+  // line of code. The demos for anything 2.0 added -- the variables list,
+  // draft recovery, the table bar -- also do nothing until that bump,
+  // because 1.9.x ignores options it has never heard of.
+  const { default: MarkdownEditor } = await import('markdown-text-editor');
+
+  for (const [name, options] of Object.entries(MTE_DEMOS)) {
+    document.querySelectorAll('.' + name).forEach((element) => {
+      new MarkdownEditor(element, { placeholder: 'Start writing...', ...options });
+    });
   }
 }
 

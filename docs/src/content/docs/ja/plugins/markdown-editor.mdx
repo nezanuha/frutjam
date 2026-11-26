@@ -1,7 +1,7 @@
 ---
 name: "マークダウンエディター"
 heading: "ツールバー、ライブプレビュー、および既存のテキストエリアの WYSIWYG"
-description: "テキストエリアを置き換えるのではなく拡張するマークダウン エディターにより、フォームの送信、検証、および必須フィールドが機能し続けます。 WYSIWYG およびプレーン Markdown モード、ライブ プレビュー、検索と置換、RTL サポート、ダーク モード。 Django、Laravel、Rails、Node.js、PHP、およびあらゆるスタックでスタンドアロンで動作します。"
+description: "テキストエリアを置き換えるのではなく拡張するマークダウン エディターにより、フォームの送信、検証、必須フィールドが機能し続けます。 WYSIWYG およびプレーン Markdown モード、ライブ プレビュー、検索と置換、RTL サポート、ダーク モード。 Django、Laravel、Rails、Node.js、PHP、およびあらゆるスタックでスタンドアロンで動作します。"
 metaTitle: "マークダウン テキスト エディター JavaScript プラグイン |フルートジャム"
 metaDescription: "テキストエリアを置き換えずに強化する軽量の JavaScript マークダウン エディター。 Django、Laravel、Rails、PHP、Node.js でそのまま動作します。ウィシウィグ、RTL。"
 order: 0
@@ -11,18 +11,18 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam による Markdown テキスト エディター JavaScript プラグイン"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "5fc248215763"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "04dba84f9c73"
 ---
 
 import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-テキストエリアを置き換えるのではなく拡張するマークダウン エディターにより、フォームの送信、検証、および必須フィールドが機能し続けます。 WYSIWYG およびプレーン Markdown モード、ライブ プレビュー、検索と置換、RTL サポート、ダーク モード。 Django、Laravel、Rails、Node.js、PHP、およびあらゆるスタックでスタンドアロンで動作します。
+テキストエリアを置き換えるのではなく拡張するマークダウン エディターにより、フォームの送信、検証、必須フィールドが機能し続けます。 WYSIWYG およびプレーン Markdown モード、ライブ プレビュー、検索と置換、RTL サポート、ダーク モード。 Django、Laravel、Rails、Node.js、PHP、およびあらゆるスタックでスタンドアロンで動作します。
 
-**Frutjam も Tailwind も必要ありません。** スタイルがバンドルされているため、エディターはどのプロジェクトにもドロップできます。
+**Frutjam も Tailwind も必要ありません。** スタイルがバンドルされているため、エディターはどのプロジェクトにも組み込まれます。
 
 ## インストール
 
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+スタイルシートは 2.0.0 とは別のファイルです。インポートする ** または ** リンクします。両方は使用しないでください。完全に忘れてしまった場合でも、エディターは機能し、何の説明もなくスタイルなしでレンダリングされるのではなく、コンソールに何を追加するかを指示します。
 
 TypeScript 定義はパッケージに同梱されているため、オプション、ツールバーのエントリ、変数の形状がチェックされ、追加のインストールなしでオートコンプリートされます。
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -115,7 +123,7 @@ interface EditorProps {
 
 </Snippet>
 
-## マークダウン エディターのデモ
+## マークダウンエディターのデモ
 
 <RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
 
@@ -136,7 +144,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 ## 理念：「ネイティブファースト」
 
-ほとんどのエディターは標準的な Web ワークフローを壊します。 **MarkdownEditor** はこれを採用しています。直接上に置いてあるので、 `<textarea>`、データを処理する新しい方法を学ぶ必要はありません。
+ほとんどのエディターは標準的な Web ワークフローを破っています。 **MarkdownEditor** はこれを採用しています。直接上に置いてあるので、 `<textarea>`、データを処理する新しい方法を学ぶ必要はありません。
 
 - **データ バインディングは必要ありません:** で動作します `<form method="POST">` 箱から出して
 - **標準アクセス:** 使用 `document.getElementById('editor').value` 通常の入力と同じように。
@@ -159,7 +167,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 | RTLのサポート | ✅ 内蔵 | CodeMirror 経由 `direction` オプション |
 | インライン イベント ハンドラー (CSP) | ✅ なし | いくつかの |
 | ダークモード/テーマ設定 | ✅ | 限定 |
-| バンドルのサイズ、gzip 圧縮 | 53KB | 107KB（JS+CSS） |
+| バンドルのサイズ、gzip 圧縮 | 41KBのJS + 13KBのCSS | 107KB（JS+CSS） |
 
 </DocTable>
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-戻る `editor.destroy()` エフェクトからは、開発中にエフェクトを 2 回実行する StrictMode もカバーされており、そうでない場合は 1 つのテキストエリアに 2 つのエディターが残ることになります。空の依存関係配列は意図的です。オプションはエディターの作成時に一度読み取られるため、エフェクトを再実行するとエフェクトが破棄され、変更のたびに再構築されます。
+戻る `editor.destroy()` エフェクトからは、開発中にエフェクトを 2 回実行する StrictMode もカバーされており、そうでない場合は 1 つのテキストエリアに 2 つのエディターが残ることになります。空の依存関係配列は意図的なものです。オプションはエディターの作成時に一度読み取られるため、エフェクトを再実行するとレンダリングのたびにエフェクトが破棄され、再構築されます。
+
+それも理由です `onChange` 参照を通過します。これをコンストラクターに直接渡すと、マウント時に受け取った関数にエディターが固定され、親のインライン矢印は、閉じられたものが変更されるとすぐに失効します。
 
 ### ヴュー
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 として使用されます `<MarkdownField v-model="content" />`。単純な形式ではスキップできます `v-model` 他のフレームワークと同様に、送信時にテキストエリアから値を完全に読み取ります。
 
+
+### サーバーサイドレンダリング
+
+サーバー上のエディターのインポートはスローされないため、Next.js、Remix、Nuxt、および SvelteKit は必要ありません。 `dynamic(..., { ssr: false })` それを包むラッパー。
+
+これが機能する理由は上記のルールです。エディターは内部で作成されます。 `useEffect`, `onMounted` または `onMount`、そしてそれらはどれもサーバー上で実行されません。 DOM の作業はブラウザ内に残ります。
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+の `<textarea>` は、コンテンツが既に含まれている状態でサーバー HTML に送信されるため、待つ必要はなく、ポップインするものはありません。React は両側で同じマークアップをレンダリングし、エディターはハイドレーション後にそれを強化するため、警告するような不一致はありません。
+
 ## 構成
 
 エディターの動作とインターフェースを完全にカスタマイズするには、 `options` 物体。オプションを省略した場合は、**デフォルト** 値が使用されます。
@@ -335,7 +378,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `renderer` | `function` | `marked` | プレビューに使用されるマークダウン パーサーを置き換えます。マークダウン文字列を受け取り、HTML 文字列を返す必要があります。 |
 | `sanitizer` | `function` | `DOMPurify` | HTML サニタイザーを置き換えます。レンダリングされた HTML を受け取り、表示するには安全な HTML を返す必要があります。 |
 | `onChange` | `function` | `undefined` | コンテンツの変更 (入力、ツールバーのアクション、元に戻す/やり直し、リストの継続) ごとにコールバックが発生します。現在のマークダウン文字列を唯一の引数として受け取ります。 |
-| `labels` | `object` | `undefined` | エディター独自のインターフェイスの翻訳。英語の文字列をキーとします。省略したものはすべて英語のままです。 |
+| `locale` | `object` | `undefined` | エディター独自のインターフェイスの翻訳。英語の文字列をキーとします。省略したものはすべて英語のままです。 |
 
 </DocTable>
 
@@ -356,7 +399,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | メディア | `link`, `image` |
 | 編集 | `undo`, `redo`, `indent`, `outdent` |
 | ビュー | `preview` |
-| テンプレート | `{ variables: [...] }`、インラインで構成 |
+| テンプレート | `{ variables: [...] }`、インライン構成 |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 | 道具 | 説明 |
 | --- | --- |
-| `heading` | ドロップダウンを開いて見出しレベル H1 ～ H6 を選択します |
+| `heading` | ドロップダウンを開いて見出しレベル H1 ～ H6 を選択します。リストを絞り込む `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | 太字のテキストの書式設定を有効にします。 |
 | `italic` | 斜体のテキストの書式設定を有効にします。 |
 | `strikethrough` | テキストの取り消し線を許可します。 |
@@ -388,6 +431,24 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 </DocTable>
 
+#### 見出しレベル
+
+の `heading` ドロップダウンには H1 から H6 までが表示されます。 H1 がコンテンツではなくページに属する場合 (ほとんどの CMS 本文フィールドの場合)、次のように絞り込みます。
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` そして `Ctrl+3` 同じリストに従うため、省略したレベルはキーボードから挿入することもできず、ボタンのツールチップには引き続き機能するショートカットのみがリストされます。書き込む順序は重要ではありません。メニューは常に H1 から始まります。 1 ～ 6 以外のレベルは無視され、コンソールに警告が表示されます。リストに使用可能なものが何も含まれていない場合は、空のメニューが表示されるのではなく、6 つすべてに戻ります。
+
+これにより、ドキュメントではなくツールバーが制限されます。まだ入力できる人もいる `# Title` 有効なマークダウンはツールバーではなくレンダラーの決定であるため、それが見出しとしてレンダリングされます。ルールを保持する必要がある場合は、サーバー上でルールを強制します。
+
 ##### 💡 実装のヒント:
 
 - **並べ替え**: ボタンは、配列にリストしたとおりの順序で表示されます。
@@ -396,7 +457,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 ### 🧩 カスタムツール
 
-フォークせずに独自のツールバー ボタンを追加します。 Describe it and drop it into the `toolbar` 配列を任意の位置に配置します。
+フォークせずに独自のツールバー ボタンを追加します。それを説明して、 `toolbar` 配列を任意の位置に配置します。
 
 <Snippet view="code">
 
@@ -444,8 +505,8 @@ toolbar: [
 
 | 財産 | タイプ | 目的 |
 | --- | --- | --- |
-| `title` | `string` | 必須。ツールヒントのテキスト、およびボタンの CSS クラスのソース。を通じて翻訳可能 `labels`. |
-| `action` | `function` | 必須。受信します `(editor, event)`。クリック イベントは渡されるため、ダイアログを開くツールはそれを次のユーザーに渡すことができます。 `MarkdownEditor.modal`. |
+| `title` | `string` | 必須。ツールヒントのテキスト、およびボタンの CSS クラスのソース。を通じて翻訳可能 `locale`. |
+| `action` | `function` | 必須。受信します `(editor, event)`。クリック イベントは渡されるため、ダイアログを開くツールからクリック イベントを渡すことができます。 `MarkdownEditor.modal`. |
 | `icon` | `string` | ボタン面のインライン SVG。 |
 | `shortcut` | `string` | 次のようなキーボード ショートカット `Ctrl+Shift+K`。ツールチップに追加され、同じキーを使用する組み込みよりも優先されます。 |
 
@@ -455,7 +516,7 @@ toolbar: [
 
 #### コンテンツの操作
 
-使用 `editor.insertText()` 自分でテキストエリアに書き込むのではなく。選択内容を置き換え、フォーカスを復元し、キャレットを移動し、スクロールし、プレビューを再レンダリングして起動します。 `onChange`。編集は通常のパスを経由するため、元に戻す機能は引き続き機能します。
+使用 `editor.insertText()` 自分でテキストエリアに書き込むのではなく。選択内容を置き換え、フォーカスを復元し、キャレットを移動し、スクロールし、プレビューを再レンダリングして起動します。 `onChange`。編集は通常のパスを経由するため、「元に戻す」は引き続き機能します。
 
 <Snippet view="code">
 
@@ -528,7 +589,7 @@ new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview']
 
 設定を渡す `{ tool: EmbedTool, config: {...} }`、コンストラクターの 2 番目の引数として到着します。設定 `this.button` に `null` は何もレンダリングしません。これは、一部の構成にのみ適用されるツールに役立ちます。
 
-注意すべき点が 1 つあります: `Tool`のコンストラクター呼び出し `createButton()`したがって、オーバーライドに必要なものはすべてそこから取得する必要があります `this.editor`、後で割り当てるフィールドからのものではありません `super()`.
+注意すべき点が 1 つあります。 `Tool`のコンストラクター呼び出し `createButton()`したがって、オーバーライドに必要なものはすべてそこから取得する必要があります `this.editor`、後で割り当てるフィールドからのものではありません `super()`.
 
 #### ダイアログヘルパー
 
@@ -543,7 +604,7 @@ const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
 
 </Snippet>
 
-を渡す `event` あなたの `applySyntax()` 受け取った。ヘルパーはそれを読み取って、クリックがどのエディターから行われたのかを特定するため、ダイアログがそのエディターのラッパー内に追加され、そのテーマが選択されます。エディターで既に開いているダイアログを置き換え、閉じると DOM から自身を削除するため、クリーンアップするものは何もありません。
+を渡す `event` あなたの `applySyntax()` 受け取った。ヘルパーはそれを読み取って、クリックがどのエディターから行われたのかを確認するため、ダイアログがそのエディターのラッパー内に追加され、そのテーマが選択されます。エディターで既に開いているダイアログを置き換え、閉じると DOM から自身を削除するため、クリーンアップするものは何もありません。
 
 #### 自分でマークダウンをレンダリングする
 
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### 独自のテキストエリアのツールバー
 
-ダイアログがリッチ テキストを収集する場合、ダイアログを再構築するのではなく、実際の書式設定ツールを提供します。ツールバーは、渡したテキストエリアにバインドされています。 `labels` が継承され、プレビューボタンは追加されません。
+ダイアログがリッチ テキストを収集するときは、ダイアログを再構築するのではなく、実際の書式設定ツールを提供します。ツールバーは、渡したテキストエリアにバインドされています。 `locale` 文字列は継承され、プレビュー ボタンは追加されません。
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ dialog.querySelector('.body-toolbar').appendChild(bar);
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -738,7 +799,7 @@ new MarkdownEditor('#markdown-editor', {
 | `--color-primary` | プライマリアクセント (ツールバーがアクティブ、リンク) | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
 | `--color-on-primary` | 原色の表面上の文字 | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
 | `--color-secondary` | 第二アクセント | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
-| `--color-accent` | 強調表示アクセント (インライン コード、斜体) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
+| `--color-accent` | アクセントを強調表示 (インライン コード、斜体) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
 | `--color-neutral` | ニュートラルなサーフェス（境界線、仕切り） | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
 | `--color-error` | エラー状態の色 | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
 | `--border-radius` | エディターフレームの角丸め | `0.25rem` |
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 インターフェース言語
 
-エディター独自のテキスト、ツールヒント、メニュー項目、モーダル フィールドおよびボタンは、デフォルトでは英語です。渡す `labels` それを翻訳するオブジェクトです。キーは英語の文字列であり、gettext の動作方法であるため、変更したいものだけをリストし、不足しているものは英語に戻ります。
+エディター独自のテキスト、ツールチップ、メニュー項目、モーダル フィールドおよびボタンは、デフォルトでは英語です。渡す `locale` それを翻訳するオブジェクトです。キーは英語の文字列であり、gettext の動作方法であるため、変更したいものだけをリストし、不足しているものは英語に戻ります。
+
+`locale` 言語コードではなく、文字列自体を受け取ります。 `locale: 'es'` 効果はなく、コンソールにそのように表示されます。代わりに必要な言語をインポートするので、使用していない言語をダウンロードする人はいません。と呼ばれていました `labels` 2.0.0 より前では、その名前はまだ機能します。
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 これは、右から左へのコンテンツと並んで最も重要です。アラビア語、ウルドゥー語、ペルシア語は単独で正しくレイアウトされますが、右から左へ記述するテキストの上に「太字」と表示されたままのツールバーは半分しか翻訳されていません。
+
+#### 文字列の完全なリスト
+
+それらは 45 個あり、パッケージにリストが同梱されているため、探しに行く必要はありません。キーと値は同一であるため、翻訳ではなくコピーするテンプレートです。
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+カウントには `{n}` プレースホルダーを使用すると、英語の語順にとらわれずに、翻訳によって数字がどこに配置されるかが決まります。
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### 独自の翻訳を使用する
+
+`locale` はプレーンなオブジェクトを使用するため、それがどこから来たのかはあなた次第です。ほとんどのプロジェクトにはすでに翻訳システムがあり、そこからエディターに入力することで、インターフェースの残りの部分と文言の一貫性が保たれます。 Django では、文字列は最終的に `.po` 他のすべてを含むファイル:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+i18next や vue-i18n などのクライアント側カタログを使用して、キーをマッピングします。 `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 変数
 
@@ -878,7 +1016,7 @@ new MarkdownEditor('#markdown-editor', {
 
 プレビューは次のようにレンダリングされます。 [マークされた](https://marked.js.org) そして消毒した [DOMPurify](https://github.com/cure53/DOMPurify)。どちらも交換可能です。アプリケーションがすでに別のライブラリを使用してマークダウンをレンダリングしており、プレビューを本番環境と正確に一致させたい場合に、これを使用します。
 
-どちらのオプションも文字列を受け取って文字列を返す単純な関数であるため、どのパーサーやサニタイザーでも機能します。
+どちらのオプションも文字列を受け取って文字列を返す単純な関数なので、どのパーサーやサニタイザーでも機能します。
 
 <Snippet view="code">
 
@@ -932,13 +1070,13 @@ new MarkdownEditor('#markdown-editor', {
 #### 知っておくべきこと
 
 - **プレビューのみ。** ハイブリッド モードのライブ フォーマットは別の内部レンダラーを使用するため、影響を受けません。
-- **タスク リストにはプラグインのサポートが必要です。** クリック可能なチェックボックスは、次の検索によって見つかります。 `input[type="checkbox"]` 出力にはマークダウンが必要です `markdown-it-task-lists`。エディターは、タスク リスト構文が検出され、チェックボックスが検出されない場合、警告をログに記録します。
+- **タスク リストにはプラグインのサポートが必要です。** クリック可能なチェックボックスは、次の検索によって見つかります。 `input[type="checkbox"]` 出力にはマークダウンが必要です `markdown-it-task-lists`。エディターは、タスク リストの構文を検出し、チェックボックスを検出しない場合、警告をログに記録します。
 - **両方とも同期である必要があります**。文字列を返します。アン `async` 関数の書き込み `[object Promise]` プレビューに入ります。
 - **サニタイザーを交換すると、保護が置き換えられます。** などのパススルー `html => html` サニタイズを完全に無効にし、完全に信頼できるコンテンツに対してのみ安全です。
 
 ### 🎨 内部要素のスタイル設定
 
-CSS 変数は継承するため、ほとんどのテーマをカバーするため、CSS 変数をオンに設定すると、 `.markdown-editor-wrapper` ツールバー、ボタン、プレビュー、フッターに到達します。必要なものを公開する変数がない場合にのみ、クラス名にアクセスしてください。
+CSS 変数は継承するため、ほとんどのテーマをカバーします。 `.markdown-editor-wrapper` ツールバー、ボタン、プレビュー、フッターに到達します。必要なものを公開する変数がない場合にのみ、クラス名に手を伸ばしてください。
 
 <Snippet view="code">
 
@@ -1030,6 +1168,34 @@ CSS 変数は継承するため、ほとんどのテーマをカバーするた�
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 コンテンツセキュリティポリシー
+
+エディターはインライン イベント ハンドラーを追加せず、何も使用しません。 `eval`、2.0.0 からは何も注入しません。 `<style>` 要素。厳格なポリシーは必要ありません `'unsafe-inline'` どちらの方向でも例外です。
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+2.0.0 より前では、CSS は JavaScript 内で運ばれ、読み込み時に挿入されていましたが、これはポリシーに含まれていませんでした。 `style-src 'unsafe-inline'` 拒否します([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)）。 nonce は考慮され、削除されました。nonce は、静的にホストされているサイトを持つポリシーにのみ役立ちます。 `style-src 'self'` リクエストごとに新しい nonce を生成するサーバーはありません。スタイルシートをリンクすると、一部のポリシーではなくすべてのポリシーがカバーされます。
+
+エディターが制御できないことの 1 つは、ユーザーが作成するマークダウンです。 DOMPurify が保持する `style` デフォルトでは属性があるため、 `<span style="color:red">` ドキュメント内の内容はプレビューまで存続し、厳密な `style-src-attr` それを報告します。それらを剥ぎ取ります `sanitizer` それが重要な場合のオプション:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1137,7 +1303,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 
 #### ドラフトの自動保存 `localStorage`
 
-使用 `onChange` キーストロークごとに下書きを保存します。エディタを初期化する前にテキストエリアを事前に入力して復元します。
+使用 `onChange` キーストロークごとに下書きを保存します。エディターを初期化する前にテキストエリアを事前に入力して復元します。
 
 <Snippet view="code">
 
@@ -1166,9 +1332,9 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ### フォームの送信
 
-**MarkdownEditor** はネイティブ上に直接構築されているため、 `<textarea>`すべてのバックエンドフレームワーク（ Django、Laravel、PHP、Ruby on Railsなど）と互換性があります。
+**MarkdownEditor** はネイティブ上に直接構築されているため、 `<textarea>`、すぐに使用できるすべてのバックエンド フレームワーク (Django、Laravel、PHP、Ruby on Rails など) と互換性があります。
 
-ここは「ネイティブファースト」の哲学が輝く場所です。フォームを送信する前にデータを手動で同期する必要はありません。ブラウザは、エディタを標準入力フィールドとまったく同じように扱います。
+ここで「ネイティブファースト」の哲学が光ります。フォームを送信する前にデータを手動で同期する必要はありません。ブラウザはエディタを標準の入力フィールドとまったく同じように扱います。
 
 <Snippet view="code">
 
@@ -1189,27 +1355,27 @@ document.querySelector('form').addEventListener('submit', () => {
 
 </Snippet>
 
-<RawHtml html={"<p class=\"text-sm\"><strong>注:</strong> MarkdownEditorプラグインの初期化は必須です</p>"} />
+<RawHtml html={"<p class=\"text-sm\"><strong>注記：</strong> MarkdownEditorプラグインの初期化が必須</p>"} />
 
-標準のHTMLを使用するだけです `<form>`The  `name` textareaの属性は、サーバーがコンテンツを識別するために使用するものです。
+標準の HTML を使用するだけです `<form>`。の `name` textarea の属性は、サーバーがコンテンツを識別するために使用するものです。
 
-##### バックエンドのゲームチェンジャーである🚀理由
+##### 🚀 バックエンドにとって大きな変革となる理由
 
-エディタはネイティブを保持するため `<textarea>` サーバーはデータを標準文字列として処理します。余分なロジックは必要ありません：いいえ `preventDefault()` マニュアルなし `FormData` 構造
+エディターはネイティブを保持するため、 `<textarea>` この動作では、サーバーはデータを標準の文字列として処理します。追加のロジックは必要ありません: いいえ `preventDefault()` そしてマニュアルなし `FormData` 工事。
 
-##### これが「キラー機能」である💡理由：
+##### 💡 これが「キラー機能」である理由:
 
-ほとんどのエディタ（ Quill、Editor.js、simpleMDE、easyMDEなど）は、複雑なJSON構造でデータを保存します。開発者がこれらを使用する場合、データベーススキーマとレンダリングロジックを書き換える必要があります。
+ほとんどのエディター (Quill、Editor.js、simpleMDE、easyMDE など) は、データを複雑な JSON 構造で保存します。開発者がこれらを使用する場合、データベース スキーマとレンダリング ロジックを書き直す必要があります。
 
-** MarkdownEditor **を使用すると、開発者は古いWebサイトを取得し、プレーンを置き換えることができます。 `<textarea>` **バックエンドはそれが変更されたことを認識していません**。いつもと同じ生のテキストを受け取るだけですが、ユーザーは10倍優れたエクスペリエンスを得ます。
+**MarkdownEditor** を使用すると、開発者は古い Web サイトを取得して、プレーンな Web サイトを置き換えることができます。 `<textarea>` エディターで編集すると、**バックエンドはそれが変更されたことさえ認識しません**。いつもと同じ生のテキストを受け取るだけですが、ユーザーは 10 倍優れたエクスペリエンスを得ることができます。
 
 <DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
 
-| フレームワーク/言語 | Markdownコンテンツへのアクセス方法 |
+| フレームワーク/言語 | Markdown コンテンツにアクセスする方法 |
 | --- | --- |
 | PHP | `$_POST['content']` |
 | ジャンゴ | `request.POST.get('content')` |
-| node.js express | `req.body.content` |
+| Node.js (高速) | `req.body.content` |
 | ララベル | `$request->input('content')` |
 | ルビー・オン・レール | `params[:content]` |
 
@@ -1217,23 +1383,23 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ## 🖼️ 高度な画像アップロード
 
-画像のアップロードをネイティブに処理する：低速でメモリ負荷の高いBase 64文字列に依存するのではなく、パフォーマンスとSEOの両方にとって大きな勝利です。
+画像のアップロードをネイティブに処理することは、遅くてメモリを大量に消費する Base64 文字列に依存するのではなく、パフォーマンスと SEO の両方において大きなメリットとなります。
 
-### 貼り付けてドロップ
+### ペーストしてドロップする
 
-スクリーンショットを貼り付けるか、画像ファイルをエディターにドラッグすると、ツールバーボタンと同じエンドポイントを介してアップロードされます。プレースホルダーがすぐに表示されるため、エディターがフリーズすることはなく、アップロードが完了すると実際のパスに置き換えられます。アップロードに失敗すると、プレースホルダーは静かに消えるのではなく、目に見えるマーカーに置き換えられます。
+スクリーンショットを貼り付けるか、画像ファイルをエディタにドラッグすると、ツールバー ボタンと同じエンドポイントを介してアップロードされます。プレースホルダーはすぐに表示されるため、エディターがフリーズしているように見えることはなく、アップロードが完了すると実際のパスに置き換えられます。アップロードが失敗した場合、プレースホルダーは静かに消えるのではなく、表示されるマーカーに置き換えられます。
 
-これには `uploadUrl` 以下に構成されています。それがなければ、画像を貼り付けることは何もなく、エディタは何を追加するかを説明する警告をログに記録します。これは、代替案がデータベースのBase 64文字列になるためです。
+これには必要があります `uploadUrl` 以下で設定します。これがないと、画像を貼り付けても何も行われず、代わりにデータベース内の Base64 文字列が使用されるため、エディターは何を追加するかを説明する警告をログに記録します。
 
-複数のファイルが一度に1つずつアップロードされるため、画像は到着した順序で表示されます。
+複数のファイルが一度に 1 つずつアップロードされるため、画像は到着した順に表示されます。
 
-### 設定オプション
+### 構成オプション
 
-画像ツールは、 `fileInput` 直接のサーバーアップロードを処理するための設定。
+画像ツールは、 `fileInput` サーバーへの直接アップロードを処理するための構成。
 
--   `accept`:許可されている画像フォーマットの配列を定義します(例: 'webp ',' avif ')
--   `uploadUrl`：バックエンドエンドポイントを指定します。 `File` オブジェクトはを介して送信されます `POST`
--   `params`：画像ファイルと一緒に追加データ（ CSRFトークン、ユーザーID、フォルダー名など）を送信するためのオプションのオブジェクト
+-   `accept`: 許可される画像形式の配列を定義します (例: 「webp」、「avif」)
+-   `uploadUrl`: バックエンド エンドポイントを指定します。 `File` オブジェクトは経由で送信されます `POST`
+-   `params`: 画像ファイルと一緒に追加データ (CSRF トークン、ユーザー ID、フォルダー名など) を送信するためのオプションのオブジェクト
 
 ### 使用例（フルコンフィグ）
 
@@ -1268,17 +1434,17 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 ### 📡 サーバー統合
 
-#### リクエストを送信します。
+#### リクエスト
 
-エディターは次のメッセージを送信します。 `POST` としてリクエストする `multipart/form-data`。デフォルトでは、次のものが含まれます。
+編集者が送信するのは、 `POST` としてリクエストする `multipart/form-data`。デフォルトでは、次のものが含まれます。
 
--   `image_file`:実際のファイルオブジェクト
--   `image_alt`：ユーザーが入力した代替テキスト
--...に定義されている任意のカスタムデータを加えて `params` オブジェクト
+-   `image_file`: 実際のファイルオブジェクト
+-   `image_alt`: ユーザーが入力した代替テキスト
+- ...さらに、 `params` 物体
 
 #### 必要な対応
 
-正常にアップロードされたことを確認し、エディターに画像を挿入するには、サーバーは**次のJSON構造を返す**必要があります。
+アップロードが成功したことを確認し、画像をエディタに挿入するには、サーバーは次の JSON 構造を返す必要があります**。
 
 <Snippet view="code">
 
@@ -1291,9 +1457,9 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-**注意**：必ずキーを使用してください `image_path` アップロードされた画像のURL。
+**注意**: 必ずキーを使用してください `image_path` アップロードされた画像の URL です。
 
-戻ることもできます `image_alt`これは、ユーザーがaltフィールドを空のままにした場合にのみ提案として使用されます。彼らが自分で入力したものは常に勝利するので、ファイル名や画像認識からaltテキストを派生させるサーバーは、実際の説明を上書きすることなくそれを提供することができます。
+戻ることもできます `image_alt`これは、ユーザーが alt フィールドを空のままにした場合にのみ提案として使用されます。ユーザーが自分で入力したものが常に優先されるため、ファイル名または画像認識から代替テキストを取得するサーバーは、実際の説明を上書きすることなく代替テキストを提供できます。
 
 <Snippet view="code">
 
@@ -1307,16 +1473,16 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-失敗したら、戻る `success: false` with an `error` または `message` 文字列。そのテキストはユーザーに表示されるため、ユーザーが操作できるようにします。
+失敗したら戻る `success: false` と `error` または `message` 弦。そのテキストはユーザーに表示されるので、ユーザーが操作できるものにします。
 
-### 画像代替テキスト検証（`altInput`)
+### 画像代替テキストの検証 (`altInput`)
 
-コンテンツがアクセス可能でSEOに優しい状態を維持するために、** MarkdownEditor **はデフォルトで代替テキスト検証を強制します。
+コンテンツがアクセス可能で SEO フレンドリーであることを保証するために、**MarkdownEditor** はデフォルトで代替テキストの検証を強制します。
 
-- ** Default Behavior **: If `altInput` 定義されていません。デフォルトは `{ required: true }`
-- **アクセシビリティの強制**： altの説明が提供されるまで、ユーザーが画像を挿入することはできません
+- **デフォルトの動作**: `altInput` は定義されていません。デフォルトでは `{ required: true }`
+- **アクセシビリティの強制**: 代替説明が提供されるまで、ユーザーは画像を挿入できません。
 
-#### 1 \。デフォルト（設定は必要ありません）
+#### 1\。デフォルト (設定は必要ありません)
 
 <Snippet view="code">
 
@@ -1329,9 +1495,9 @@ image: {
 
 </Snippet>
 
-#### 2\.速記（検証を無効にする）
+#### 2\。短縮表現 (検証を無効にする)
 
-説明のない画像を許可する場合は、ブール値を次のように設定します。 `false`.
+説明のない画像を許可したい場合は、ブール値を次のように設定します。 `false`.
 
 <Snippet view="code">
 
@@ -1343,7 +1509,7 @@ image: {
 
 </Snippet>
 
-#### 3\.オブジェクトベース（明示的）
+#### 3\。オブジェクトベース (明示的)
 
 <Snippet view="code">
 
@@ -1357,9 +1523,9 @@ image: {
 
 </Snippet>
 
-### 標準画像使用量（いいえ `fileInput`)
+### 標準的な画像の使用 (いいえ `fileInput`)
 
-状況 `fileInput` 設定されていない場合、エディタはデフォルトで単純なURLベースのモーダルになります。これは、ユーザーが主に外部の画像ホストにリンクしている場合に理想的です。
+もし `fileInput` が構成されていない場合、エディターはデフォルトで単純な URL ベースのモーダルになります。これは、ユーザーが主に外部イメージ ホストにリンクしている場合に最適です。
 
 <Snippet view="code">
 
@@ -1376,55 +1542,55 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-### パラメータを使用する💡メリットは？
+### 💡 params を使用する理由?
 
-LaravelやDjangoなどのフレームワークでは、CSRFトークンなしでファイルをアップロードすることはできません。 `_token` になります。 `params` リクエストはバックエンドのセキュリティミドルウェアをシームレスに通過し、サーバー側コントローラーの「ゼロロジック」の哲学を維持します。
+Laravel や Django などのフレームワークでは、CSRF トークンがないとファイルをアップロードできません。追加することで `_token` に `params` オブジェクトを使用すると、リクエストはバックエンドのセキュリティ ミドルウェアをシームレスに通過し、サーバー側コントローラーの「ゼロ ロジック」哲学が維持されます。
 
-## キーボードショートカット
+## ⌨️ キーボード ショートカット
 
-一般的な書式設定アクションは、ツールバーに触れることなく、キーボードから直接トリガーできます。各ショートカットは、対応するツールバーボタンのツールチップにも表示されます。
+一般的な書式設定アクションは、ツールバーに触れずにキーボードから直接トリガーできます。各ショートカットは、対応するツールバー ボタンのツールチップにも表示されます。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| ショートカット | 行うべきこと |
+| ショートカット | アクション |
 | --- | --- |
-| `Ctrl + B`  /  `⌘ B` | 切り替え: 太字 |
-| `Ctrl + I`  /  `⌘ I` | 切り替え: イタリック |
-| `Ctrl + K`  /  `⌘ K` | リンクを挿入 |
-| `` Ctrl + ` ``  /  `` ⌘ ` `` | インライン切り替え `Code` |
-| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | トグル~~取り消し線~~ |
+| `Ctrl + B`  /  `⌘ B` | **太字**を切り替えます |
+| `Ctrl + I`  /  `⌘ I` | トグル *斜体* |
+| `Ctrl + K`  /  `⌘ K` | リンクの挿入 |
+| `` Ctrl + ` ``  /  `` ⌘ ` `` | インラインの切り替え `Code` |
+| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | ~~取り消し線~~の切り替え |
 | `Ctrl + 1`  /  `⌘ 1` | 見出し1 |
 | `Ctrl + 2`  /  `⌘ 2` | 見出し2 |
-| `Ctrl + 3`  /  `⌘ 3` | 見出し3 |
-| `Ctrl + L`  /  `⌘ L` | 箇条書きリストを切り替える |
-| `Ctrl + Z`  /  `⌘ Z` | 取り消し |
+| `Ctrl + 3`  /  `⌘ 3` | 見出し 3. これら 3 つは、 `heading` ツールが提供するので、除外するレベル `levels` どちらも入力できません |
+| `Ctrl + L`  /  `⌘ L` | 箇条書きリストの切り替え |
+| `Ctrl + Z`  /  `⌘ Z` | 元に戻す |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | やり直し |
-| `Tab` | 選択した行をインデント |
-| `Shift + Tab` | 選択した行をインデント解除 |
+| `Tab` | 選択した行をインデントします |
+| `Shift + Tab` | 選択した行のインデントを解除する |
 | `Ctrl + F`  /  `⌘ F` | 検索パネルを開く |
 | `Ctrl + H`  /  `⌘ H` | 検索と置換パネルを開く |
-| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | フルスクリーン表示の切り替え |
-| `F11` | フルスクリーン表示の切り替え |
-| `Escape` | 検索パネルを閉じる/全画面プレビューを終了する |
+| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | 全画面プレビューの切り替え |
+| `F11` | 全画面プレビューの切り替え |
+| `Escape` | 検索パネルを閉じる / 全画面プレビューを終了する |
 
 </DocTable>
 
-## 検索と置換
+## 🔍 検索と置換
 
-エディター内には組み込みの検索と置換パネルがあります。ブラウザーの拡張機能や個別のツールは必要ありません。
+組み込みの検索および置換パネルはエディタ内で使用できます。ブラウザ拡張機能や別個のツールは必要ありません。
 
-プレス記事 `Ctrl + F` または `⌘ F`）をクリックして** Find **パネルを開きます
-プレス記事 `Ctrl + H` または `⌘ H`）をクリックして** Find & Replace **パネルを開きます
--検索は**大文字と小文字を区別しない**で、ライブマッチカウンターを表示します（例：* 3/12 *）
-- **/**ボタンを使用して一致▲を▼ナビゲートするか、 `Enter` / `Shift + Enter`
-- ** Replace **は現在のハイライトされた一致を置き換えます。** Replace All **はすべてのオカレンスを一度に置き換えます
-プレス記事 `Escape` パネルを閉じてエディタにフォーカスを戻します
+-   プレス `Ctrl + F` （または `⌘ F`) **検索**パネルを開きます
+-   プレス `Ctrl + H` （または `⌘ H`) [**検索と置換**] パネルを開きます
+- 検索では **大文字と小文字が区別されません**。ライブ マッチ カウンター (例: *3/12*) が表示されます。
+- **▲ / ▼** ボタンまたは `Enter` / `Shift + Enter`
+- **置換** は、現在強調表示されている一致を置換します。 **すべて置換** すべての出現箇所を一度に置換します
+-   プレス `Escape` パネルを閉じてエディタにフォーカスを戻すには
 
-パネルはエディターコンテンツエリアの右上隅に浮かび、書き込みを中断しません。
+パネルはエディターのコンテンツ領域の右上隅にフロートしており、書き込みを中断しません。
 
-## 貼り付けられたURLからの🔗リンク
+## 🔗 貼り付けられたURLからのリンク
 
-テキストを選択し、その上にURLを貼り付けると、選択したURLではなくマークダウンリンクが表示されます。
+テキストを選択し、その上に URL を貼り付けると、選択した内容が URL で置き換えられるのではなく、マークダウン リンクが表示されます。
 
 <Snippet view="code">
 
@@ -1435,15 +1601,15 @@ Read [the docs](https://example.com) <- what you get
 
 </Snippet>
 
-規則は意図的に厳格です：ほんのわずかな `http` または `https` 空白のないURLはこのように扱われます。URLが含まれている文章を貼り付けるか、何も選択されていない状態で貼り付けると、通常の貼り付けのように動作します。
+このルールは意図的に厳格です。 `http` または `https` 空白のない URL はこのように処理されます。偶然 URL を含む文を貼り付けるか、何も選択せずに貼り付けると、通常の貼り付けと同様に動作します。
 
-## 特長
+## 特徴
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 ネイティブフォームの統合</h2><p class=\"para-sm\">標準とまったく同じように動作します <code>&lt;textarea&gt;</code>。複雑なAPIはありません。 <code>value</code> または <code>name</code> 属性。PHP、Django、またはNode.jsでの標準的なHTMLフォームの送信で「ちょうど動作」します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高度な画像アップロード</h2><p class=\"para-sm\">API経由でネイティブサーバーのアップロードを構成します。重いBase 64文字列を避けて、独自のCDNで画像をホストすることで、ページの読み込みを高速化し、優れたSEOを確保します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 ハイブリッドモードとプレーンモード</h2><p class=\"para-sm\">を切り替える <strong>ハイブリッド（ WYSIWYG ）</strong> ビジュアル編集の経験、または <strong>プレーン・マークダウン</strong> 伝統的なコーディング感覚のためのモード。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">高性能</h2><p class=\"para-sm\">A <strong>53 KB gzip</strong> バンドル（ 252 KB縮小、CSSを含む）は、「ヘビーコンテンツ」に最適化されています。\"入力の遅れやパフォーマンスの低下なしに、大量のドキュメントや大きなファイルを処理します。プレビューの更新、キャッシュされたスタイルの計算、および競合のないキーボードの処理を発表しました。そのため、TabとEnterは常に1つのことを行います。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 組み込みのRTLサポート</h2><p class=\"para-sm\">アラビア語、ウルドゥー語、ペルシア語などの右から左への言語のネイティブサポート。グローバルにアクセス可能なアプリケーションの構築に最適です。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">シンタックスハイライト</h2><p class=\"para-sm\">明確なコードとマークダウン形式により、読みやすさが向上しました。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 アダプティブテーマ</h2><p class=\"para-sm\">ダークモードの自動サポートが含まれています。それはあなたのシステム設定または <strong>Frutjam UI</strong> シームレスなビジュアルエクスペリエンスのためのライブラリ。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 スマート編集</h2><p class=\"para-sm\">順序付きリスト、順序なしリスト、チェックリストのGitHubスタイルの自動リスト継続：押す <code>Enter</code> エディターはパターンを続行します。プレビューペインのチェックボックスはクリック可能で、マークダウンソースに即座に同期されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">完全レスポンシブ </h2><p class=\"para-sm\">外出先で編集するためのデスクトップ、タブレット、スマートフォンに完璧に適応する、流動的なモバイルファーストのUI。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">ユニバーサルなバンドサポート</h2><p class=\"para-sm\">互換性： <strong>ESM、UMD、CommonJS、LIFE</strong>。CDNを介して箱から出して動作します（<code>&lt;script src&gt;</code>）、npm、または任意のバンドル（ Vite、webpack、Rollup ） ：追加の設定は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">デフォルトで♿アクセス可能</h2><p class=\"para-sm\">ARIAのフルサポートが組み込まれています：ツールバーのランドマーク、ラベル付きプレビュー領域、スクリーンリーダーに優しいボタン、 <code>aria-pressed</code> プレビュートグルで、 <code>disabled</code> そして <code>aria-disabled</code> 非アクティブなツールで、モーダルが閉じたときにフォーカスの復元を修正します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">CSSの競合🛡️ゼロ</h2><p class=\"para-sm\">エディタースタイルのスコープは完全に <code>.markdown-editor-wrapper</code>。Tailwindのグローバルプリフライトは除外されるため、エディターはスタイルを壊すことなく、Bootstrap、Tailwind、またはその他のフレームワークと一緒に安全に暮らします。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">キーボードショートカット</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>:マウスをタッチせずに一般的な書式設定アクション。各ショートカットは、ツールバーボタンのツールチップに表示されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">検索と置換</h2><p class=\"para-sm\">プレス記事 <code>Ctrl+F</code> を見つけるか、 <code>Ctrl+H</code> 検索と置換を開きます。ライブマッチカウンター、次/前のナビゲーション、単一置換、およびすべて置換による大文字と小文字を区別しない検索：エディタを離れることなく。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSSセーフプレビュー</h2><p class=\"para-sm\">レンダリングされたプレビューは、 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> dOMに書き込まれる前に。スクリプトタグ、インラインイベントハンドラー、および不正なマークダウン入力の悪意のあるURLは自動的に削除されます。設定は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ リアルタイムプレビュー</h2><p class=\"para-sm\">入力するとすぐにマークダウンが表示されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">容易な統合：</h2><p class=\"para-sm\">最小限のセットアップで、あらゆるWebプロジェクトにシームレスに統合できます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ カスタマイズ可能なツールバー</h2><p class=\"para-sm\">太字、斜体などのツールバーオプションを動的に設定して並べ替えます。</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 ネイティブフォームの統合</h2><p class=\"para-sm\">標準とまったく同じように動作します <code>&lt;textarea&gt;</code>。複雑な API は必要ありません。 <code>value</code> または <code>name</code> 属性。これは、PHP、Django、または Node.js での標準の HTML フォーム送信で「機能」します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ 高度な画像アップロード</h2><p class=\"para-sm\">API 経由でネイティブ サーバーのアップロードを構成します。独自の CDN で画像をホストすることで、ページの読み込みを高速化し、優れた SEO を実現するには、重い Base64 文字列を避けてください。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 ハイブリッドモードとプレーンモード</h2><p class=\"para-sm\">を切り替えます <strong>ハイブリッド (WYSIWYG)</strong> ビジュアル編集の経験または <strong>プレーンマークダウン</strong> 従来のコーディング感覚のモード。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 高性能</h2><p class=\"para-sm\">あ <strong>53 KB gzip圧縮</strong> 「重いコンテンツ」向けに最適化されたバンドル (252 KB 縮小、CSS が含まれています)。入力遅延やパフォーマンスの低下を引き起こすことなく、大量のドキュメントや大きなファイルを処理できます。デバウンスされたプレビュー更新、キャッシュされたスタイル計算、競合のないキーボード処理: したがって、Tab と Enter は常に 1 つのことを実行します。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 組み込みの RTL サポート</h2><p class=\"para-sm\">アラビア語、ウルドゥー語、ペルシア語などの右から左に記述する言語のネイティブ サポート。グローバルにアクセス可能なアプリケーションの構築に最適です。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ 構文の強調表示</h2><p class=\"para-sm\">明確なコードとマークダウン形式により可読性が向上しました。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 アダプティブテーマ</h2><p class=\"para-sm\">自動ダークモードのサポートが含まれます。システム設定または <strong>フルジャムUI</strong> シームレスな視覚体験のためのライブラリ。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 スマート編集</h2><p class=\"para-sm\">順序付きリスト、順序なしリスト、チェックリストの GitHub スタイルの自動リスト継続: press <code>Enter</code> そして編集者はパターンを続けます。プレビュー ペインのチェックボックスはクリック可能で、マークダウン ソースに即座に同期されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 完全にレスポンシブ</h2><p class=\"para-sm\">デスクトップ、タブレット、スマートフォンに完璧に適応する流動的なモバイルファースト UI により、外出先での編集が可能です。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 ユニバーサルサポート</h2><p class=\"para-sm\">と互換性があります <strong>ESM、UMD、CommonJS、IIFE</strong>。 CDN 経由ですぐに動作します (<code>&lt;script src&gt;</code>)、npm、または任意のバンドラー (Vite、webpack、Rollup): 追加の構成は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ デフォルトでアクセス可能</h2><p class=\"para-sm\">完全な ARIA サポートの組み込み: ツールバーのランドマーク、ラベル付きプレビュー領域、スクリーンリーダーに優しいボタン、 <code>aria-pressed</code> プレビュートグルで、 <code>disabled</code> そして <code>aria-disabled</code> 非アクティブなツールで、モーダルが閉じたときにフォーカスが正しく復元されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ CSS 競合なし</h2><p class=\"para-sm\">エディターのスタイルは以下に完全に適用されます。 <code>.markdown-editor-wrapper</code>。 Tailwind のグローバル プリフライトは除外されているため、エディターは Bootstrap、Tailwind、またはその他のフレームワークと安全に共存でき、それらのスタイルを損なうことはありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ キーボード ショートカット</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: マウスに触れずに行う一般的な書式設定アクション。各ショートカットは、ツールバー ボタンのツールチップに表示されます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 検索と置換</h2><p class=\"para-sm\">プレス <code>Ctrl+F</code> 見つけるか、 <code>Ctrl+H</code> をクリックして検索と置換を開きます。エディターを離れることなく、ライブ一致カウンター、次/前のナビゲーション、単一置換、およびすべて置換による大文字と小文字を区別しない検索。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS セーフプレビュー</h2><p class=\"para-sm\">レンダリングされたプレビューは次のようにサニタイズされます。 <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> DOM に書き込まれる前に。細工されたマークダウン入力内のスクリプト タグ、インライン イベント ハンドラー、悪意のある URL は自動的に削除されます。構成は必要ありません。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ リアルタイムプレビュー</h2><p class=\"para-sm\">入力するとすぐにマークダウンがレンダリングされるのを確認してください。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 簡単な統合</h2><p class=\"para-sm\">最小限のセットアップであらゆる Web プロジェクトにシームレスに統合できます。</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ カスタマイズ可能なツールバー</h2><p class=\"para-sm\">太字、斜体などのツールバー オプションを動的に構成および並べ替えます。</p></div></div></div>"} />
 
-## レイアウト例
+## 完全な構成例
 
-この包括的な例を使用して、カスタムツールバーの並べ替えや高度な画像アップロード処理など、すべての主な機能を備えた** MarkdownEditor **を初期化します。
+この包括的な例を使用して、カスタム ツールバーの順序付けや高度な画像アップロード処理など、すべての主要な機能を備えた **MarkdownEditor** を初期化します。
 
 <Snippet view="code">
 
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',
@@ -1490,4 +1656,4 @@ const markdown = document.getElementById('markdown-editor').value;
 
 </Snippet>
 
-<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">これは役に立ちましたか？</p><p class=\"text-sm\">GitHubスターは、他の開発者がエディターを発見するのに役立ちます。これはの一部です <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">フルッチャム</a>。そこにある星も役に立ちます。</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">GitHubでStarを付ける</a></div>"} />
+<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">これは役に立ちましたか?</p><p class=\"text-sm\">GitHub スターは、他の開発者がエディターを発見するのに役立ちます。の一部です <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">フルートジャム</a>。そこにある星も役に立ちます。</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">GitHub でスターを付ける</a></div>"} />

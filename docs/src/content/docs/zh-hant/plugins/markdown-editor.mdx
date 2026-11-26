@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam 的 Markdown 文字編輯器 JavaScript 插件"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "c1500f0e7e78"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "969bad1686b0"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+從 2.0.0 開始，樣式表是一個單獨的檔案。導入它**或**連結它，但絕不能兩者兼而有之。如果您完全忘記了它，編輯器仍然可以工作並告訴您在控制台中添加什麼，而不是在沒有任何解釋的情況下渲染無樣式。
 
 TypeScript 定義隨軟體包一起提供，因此選項、工具列條目和變數形狀都會被檢查並自動完成，無需額外安裝。
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -159,7 +167,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 | RTL 支持 | ✅ 內置 | 透過 CodeMirror 的 `direction` 選項 |
 | 內嵌事件處理程序 (CSP) | ✅ 無 | 一些 |
 | 深色模式/主題 | ✅ | 有限的 |
-| 捆綁包大小，gzip 壓縮 | 53 KB | 107 KB（JS + CSS） |
+| 捆綁包大小，gzip 壓縮 | 41 KB JS + 13 KB CSS | 107 KB（JS + CSS） |
 
 </DocTable>
 
@@ -227,7 +235,7 @@ document.addEventListener('turbo:load', () => {
 
 ### Node.js / Express
 
-`req.body.content` 接收表單提交時的降價：沒有同步步驟，沒有自訂提取。
+`req.body.content` 接收表單提交的降價：沒有同步步驟，沒有自訂提取。
 
 <Snippet view="code">
 
@@ -258,7 +266,7 @@ document.addEventListener('turbo:load', () => {
 
 ### 反應
 
-在效果中建立編輯器並在卸載時銷毀它。使用 `defaultValue` 而不是 `value`：編輯器直接寫入文字區域，因此受控綁定將覆蓋使用者鍵入的內容。
+在效果中建立編輯器並在卸載時銷毀它。使用 `defaultValue` 而不是 `value`：編輯器直接寫入文字區域，因此受控綁定將覆蓋使用者輸入的內容。
 
 <Snippet view="code">
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-返回 `editor.destroy()` from theeffect 還涵蓋了 StrictMode，它在開發過程中運行兩次效果，否則會在一個文字區域上留下兩個編輯器。空依賴數組是故意的：在建立編輯器時會讀取一次選項，因此重新運行效果會拆除它並在每次更改時重建它。
+返回 `editor.destroy()` from theeffect 還涵蓋了 StrictMode，它在開發過程中運行兩次效果，否則會在一個文字區域上留下兩個編輯器。空的依賴項數組是故意的：創建編輯器時會讀取一次選項，因此重新運行效果會拆除它並在每次渲染時重建它。
+
+這也是為什麼 `onChange` 經過裁判。將它直接傳遞到構造函數中會將編輯器固定到它在掛載時接收到的任何函數，並且父級中的內聯箭頭在它關閉任何更改時都會變得陳舊。
 
 ### 維埃
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 用作 `<MarkdownField v-model="content" />`。在簡單的形式中，您可以跳過 `v-model` 與任何其他框架一樣，完全並在提交時從文字區域讀取值。
 
+
+### 服務端渲染
+
+在伺服器上匯入編輯器不會拋出異常，因此 Next.js、Remix、Nuxt 和 SvelteKit 不需要 `dynamic(..., { ssr: false })` 圍繞它的包裝。
+
+它起作用的原因是上面的規則：編輯器是在內部創建的 `useEffect`, `onMounted` 或者 `onMount`，並且這些都沒有在伺服器上運行。 DOM 工作保留在瀏覽器中。
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+這 `<textarea>` 其內容已經存在於伺服器 HTML 中，因此無需等待，也不會彈出任何內容。 React 在兩側渲染相同的標記，並且編輯器在水合後增強它，因此沒有需要警告的不匹配情況。
+
 ## 配置
 
 您可以透過傳遞一個來完全自訂編輯器的行為和介面 `options` 目的。如果省略選項，則使用 **預設** 值。
@@ -332,10 +375,10 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `theme` | `string` | inherited | 明確設定編輯器主題（淺色、深色、雪莓、黑莓）。如果省略，編輯器繼承 `data-theme` 從最近的祖先元素或 `<textarea>` 本身。 |
 | `minHeight` | `number` | `200` | 當內容較短時，編輯器將縮小到的最小高度（以像素為單位）。配對 `maxHeight` 設定自動增長範圍。 |
 | `maxHeight` | `number` | `500` | 編輯器在非全螢幕模式下可以增長到的最大高度（以像素為單位）。一旦內容超過此高度，編輯器內就會出現捲軸。該編輯器還有一個拖曳手柄，因此使用者可以手動將其大小調整到超出此限制。 |
-| `renderer` | `function` | `marked` | 替換用於預覽的 Markdown 解析器。接收 markdown 字串並且必須傳回 HTML 字串。 |
+| `renderer` | `function` | `marked` | 替换用于预览的 Markdown 解析器。接收 markdown 字串並且必須傳回 HTML 字串。 |
 | `sanitizer` | `function` | `DOMPurify` | 取代 HTML 清理程式。接收渲染的 HTML，必須傳回安全的 HTML 來顯示。 |
 | `onChange` | `function` | `undefined` | 每次內容變更時都會觸發回調：鍵入、工具列操作、撤銷/重做和清單延續。接收目前的 markdown 字串作為其唯一的參數。 |
-| `labels` | `object` | `undefined` | 編輯器本身介面的翻譯，由英文字串鍵入。您遺漏的任何內容都將保留為英文。 |
+| `locale` | `object` | `undefined` | 编辑器自己界面的翻译，由英文字符串键入。您遺漏的任何內容都將保留為英文。 |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 | 工具 | 描述 |
 | --- | --- |
-| `heading` | 開啟下拉式選單以選擇標題等級 H1–H6 |
+| `heading` | 開啟下拉式選單以選擇標題等級 H1–H6。縮小清單範圍 `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | 啟用粗體文字格式。 |
 | `italic` | 啟用斜體文字格式。 |
 | `strikethrough` | 允許文字刪除線。 |
@@ -374,8 +417,8 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `ul` | （無序列表）：將文字轉換為項目符號清單。 |
 | `checklist` | 在文字中新增複選框，使其非常適合任務、待辦事項清單或追蹤完成狀態。 |
 | `blockquote` | 反白顯示引用或強調的文字。 |
-| `code` | 將選定的文字包含在單一反引號中以實現內聯代碼。再次點選可刪除反引號。 |
-| `codeblock` | 將選定的文字包裝在三重反引號圍欄程式碼區塊中。再次點選可移除柵欄。 |
+| `code` | 将选定的文本包含在单个反引号中以实现内联代码。再次點選可刪除反引號。 |
+| `codeblock` | 將選定的文字包裝在三重反引號圍欄代碼區塊中。再次點選可移除柵欄。 |
 | `hr` | 插入一個 `---` 水平線位於其自己的行上的遊標位置。 |
 | `table` | 在遊標位置插入起始 2x3 Markdown 表格範本。 |
 | `image` | 讓您透過 Markdown 語法插入圖片。 |
@@ -387,6 +430,24 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `preview` | 切換全螢幕並排預覽。預覽窗格中的核取方塊可按一下並立即更新 Markdown 來源。按 Esc 鍵退出全螢幕。如果固定標題覆蓋全螢幕編輯器，請參閱 `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### 標題級別
+
+這 `heading` 下拉式選單提供 H1 到 H6。如果 H1 屬於頁面而不是內容（大多數 CMS 正文欄位都是這種情況），請縮小範圍：
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` 和 `Ctrl+3` 遵循相同的列表，因此您遺漏的等級也無法從鍵盤插入，按鈕的工具提示僅列出仍然有效的快捷鍵。您編寫它們的順序並不重要，選單始終是 H1 第一個。 1 到 6 之外的級別將被忽略，並顯示控制台警告，並且其中沒有可用內容的清單將回退到所有 6 個級別，而不是呈現一個空選單。
+
+這限制了工具列，而不是文件。有人仍然可以打字 `# Title` 手動並呈現為標題，因為有效的降價是呈現器的決定而不是工具列的決定。如果規則必須成立，請在伺服器上強制執行。
 
 ##### 💡實施技巧：
 
@@ -420,7 +481,7 @@ new MarkdownEditor('#markdown-editor', {
 
 #### 幾個工具
 
-添加任意數量。每個工具都是數組中自己的條目，因此您可以單獨放置它們，並且它們可以位於內建工具之間，而不是分組在一端。
+新增任意數量。每個工具都是數組中自己的條目，因此您可以單獨放置它們，並且它們可以位於內建工具之間，而不是分組在一端。
 
 <Snippet view="code">
 
@@ -436,7 +497,7 @@ toolbar: [
 
 </Snippet>
 
-賦予每一個獨特的 `title`。共享同一個標題的兩個工具將共享一個 CSS 類，而沒有標題的工具會退回到 `.custom-btn`.
+賦予每一個獨特的 `title`。共享一個標題的兩個工具將共享一個 CSS 類，而沒有一個工具的工具會退回到 `.custom-btn`.
 
 #### 選項
 
@@ -444,8 +505,8 @@ toolbar: [
 
 | 財產 | 類型 | 目的 |
 | --- | --- | --- |
-| `title` | `string` | 必需的。工具提示文字和按鈕 CSS 類別的來源。可翻譯透過 `labels`. |
-| `action` | `function` | 必需的。收到 `(editor, event)`。单击事件被传递，以便打开对话框的工具可以将其传递给 `MarkdownEditor.modal`. |
+| `title` | `string` | 必需的。工具提示文字和按鈕 CSS 類別的來源。可翻譯透過 `locale`. |
+| `action` | `function` | 必需的。收到 `(editor, event)`。按一下事件被傳遞，以便開啟對話方塊的工具可以將其傳遞給 `MarkdownEditor.modal`. |
 | `icon` | `string` | 按鈕面的內嵌 SVG。 |
 | `shortcut` | `string` | 鍵盤快速鍵，如 `Ctrl+Shift+K`。新增至工具提示，並優先於使用相同按鍵的內建工具提示。 |
 
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### 您自己的文字區域的工具列
 
-當對話方塊收集富文本時，為其提供真正的格式化工具，而不是重建它們。工具列綁定到您傳遞的文字區域，您的 `labels` 都是繼承的，沒有加入預覽按鈕。
+當對話方塊收集富文本時，為其提供真正的格式化工具，而不是重建它們。工具列綁定到您傳遞的文字區域，您的 `locale` 繼承字串，不加入預覽按鈕。
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ dialog.querySelector('.body-toolbar').appendChild(bar);
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 介面語言
 
-編輯器自己的文字、工具提示、選單項目、模式欄位和按鈕預設為英文。透過一個 `labels` 物件翻譯它。鍵是英文字串，即 gettext 的工作方式，因此您只需列出要更改的內容，而缺少的任何內容都會恢復為英文。
+編輯器自己的文字、工具提示、選單項目、模式欄位和按鈕預設為英文。透過一個 `locale` 物件翻譯它。鍵是英文字串，即 gettext 的工作方式，因此您只需列出要更改的內容，而缺少的任何內容都會恢復為英文。
+
+`locale` 接受字串本身，而不是語言代碼。 `locale: 'es'` 沒有任何效果，並在控制台中這樣說。匯入您想要的語言，這樣就沒有人下載他們不使用的語言。它被稱為 `labels` 2.0.0 之前，該名稱仍然有效。
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 這與從右到左的內容一起最重要。阿拉伯語、烏爾都語和波斯語本身佈局正確，但在從右到左的文本上仍然顯示“粗體”的工具列僅翻譯了一半。
+
+#### 完整的字串列表
+
+總共有 45 個，包裹中附有清單，因此您無需再去尋找。鍵和值是相同的，因此它是一個複製模板而不是翻譯。
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+計數帶有 `{n}` 佔位符，以便您的翻譯決定數字的去向，而不是受英語詞序的束縛。
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### 使用您自己的翻譯
+
+`locale` 接受一個普通的對象，所以它來自哪裡取決於你。大多數項目已經有一個翻譯系統，並從中向編輯器提供資訊可以使措辭與介面的其餘部分保持一致。在 Django 中，字串最終出現在你的 `.po` 與其他所有文件一起使用的文件：
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+使用 i18next 或 vue-i18n 等客戶端目錄，透過您的映射映射鍵 `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 變數
 
@@ -933,8 +1071,8 @@ new MarkdownEditor('#markdown-editor', {
 
 - **僅限預覽。 ** 混合模式的即時格式使用單獨的內部渲染器，且不受影響。
 - **任務清單需要插件支援。 **可透過尋找找到可點選的複選框 `input[type="checkbox"]` 在輸出中，所以 markdown-it 需要 `markdown-it-task-lists`。如果編輯器偵測到任務清單語法且沒有複選框，則會記錄警告。
-- **兩者必須同步**並傳回一個字串。一個 `async` 函數寫入 `[object Promise]` 進入預覽。
-- **更换消毒剂就取代了您的保护。 ** 傳遞，例如 `html => html` 完全禁用清理，並且僅對完全信任的內容是安全的。
+- **兩者必須同步**並傳回字串。一個 `async` 函數寫入 `[object Promise]` 進入預覽。
+- **更換消毒劑取代了您的保護。 ** 傳遞，例如 `html => html` 完全禁用清理，並且僅對完全信任的內容是安全的。
 
 ### 🎨 設定內部元素的樣式
 
@@ -954,7 +1092,7 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 #### 類別參考
 
-這些類別名稱對於樣式來說是穩定且安全的。
+這些類別名稱是穩定且安全的樣式。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -1034,9 +1172,37 @@ CSS 變數涵蓋了大多數主題，因為它們是繼承的，因此設定一�
 
 </Snippet>
 
+### 🔒 內容安全政策
+
+編輯器不加入內聯事件處理程序，不使用 `eval`，並且從 2.0.0 開始注入 no `<style>` 元素。严格的政策不需要 `'unsafe-inline'` 例外情況，無論是哪個方向：
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+在 2.0.0 之前，CSS 是在 JavaScript 中攜帶並在載入時注入的，這是一個沒有策略的策略 `style-src 'unsafe-inline'` 拒絕（[#42](https://github.com/nezanuha/markdown-text-editor/issues/42)）。考慮並放棄了隨機數：它只對具有隨機數的策略以及靜態託管網站有幫助 `style-src 'self'` 沒有伺服器為每個請求產生新的隨機數。連結樣式表涵蓋了每個策略而不是其中的某些策略。
+
+編輯器無法控制的一件事是用戶編寫的降價。 DOMPurify 保留 `style` 預設屬性，所以 `<span style="color:red">` 在文件中保留到預覽和嚴格的 `style-src-attr` 會報告它。用剝離它們 `sanitizer` 如果這對您很重要，請選擇：
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
+```
+
+</Snippet>
+
 ## 內容API
 
-**MarkdownEditor** 的核心優勢之一是它保留了底層 `<textarea>` 完美同步。无论您使用现代 JavaScript 框架还是传统后端（例如 **Django、PHP 或 Laravel**），工作流程都保持简单且原生。
+**MarkdownEditor** 的核心優勢之一是它保留了底層 `<textarea>` 完美同步。無論您使用現代 JavaScript 框架還是傳統後端（例如 **Django、PHP 或 Laravel**），工作流程都保持簡單且原生。
 
 ### 閱讀和寫作內容
 
@@ -1106,7 +1272,7 @@ editor.render();
 
 #### 4\.拆掉編輯器： `destroy()`
 
-稱呼 `editor.destroy()` 刪除編輯器 DOM 包裝並恢復原始狀態 `<textarea>` 到其在文檔中的位置。在單頁應用程式中卸載視圖時很有用。
+稱呼 `editor.destroy()` 刪除編輯器 DOM 包裝並恢復原始狀態 `<textarea>` 到其在文檔中的位置。在单页应用程序中卸载视图时很有用。
 
 <Snippet view="code">
 
@@ -1307,7 +1473,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 
 </Snippet>
 
-失敗時返回 `success: false` 與一個 `error` 或者 `message` 细绳。該文字會呈現給用戶，因此請使其成為他們可以採取行動的內容。
+失敗時返回 `success: false` 與一個 `error` 或者 `message` 細繩。該文字會呈現給用戶，因此請使其成為他們可以採取行動的內容。
 
 ### 圖像替代文字驗證（`altInput`)
 
@@ -1395,7 +1561,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | 切換~~刪除線~~ |
 | `Ctrl + 1`  /  `⌘ 1` | 標題 1 |
 | `Ctrl + 2`  /  `⌘ 2` | 標題 2 |
-| `Ctrl + 3`  /  `⌘ 3` | 標題 3 |
+| `Ctrl + 3`  /  `⌘ 3` | 標題 3. 這三個遵循以下任何內容 `heading` 工具提供，因此您忽略了一個級別 `levels` 也無法輸入 |
 | `Ctrl + L`  /  `⌘ L` | 切換項目符號列表 |
 | `Ctrl + Z`  /  `⌘ Z` | 撤銷 |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | 重做 |
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

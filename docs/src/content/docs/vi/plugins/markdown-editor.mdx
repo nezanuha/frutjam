@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plugin JavaScript soạn thảo văn bản Markdown của Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "060d69d8e900"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "cafbf8c0660c"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+Biểu định kiểu là một tệp riêng biệt với 2.0.0. Nhập nó **hoặc** liên kết nó, không bao giờ cả hai. Nếu bạn quên hoàn toàn, trình soạn thảo vẫn hoạt động và cho bạn biết những gì cần thêm vào bảng điều khiển, thay vì hiển thị không theo kiểu mà không có lời giải thích.
 
 Các định nghĩa TypeScript đi kèm với gói, do đó các tùy chọn, mục thanh công cụ và hình dạng biến đổi được kiểm tra và tự động hoàn thành mà không cần cài đặt thêm.
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ Không cần nhập: MarkdownEditor tự động có sẵn dưới dạng biến
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -148,7 +156,7 @@ Hầu hết các trình soạn thảo đánh dấu JavaScript (EasyMDE, SimpleMD
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| Tính năng | Trình chỉnh sửa Markdown | EasyMDE / SimpleMDE |
+| Tính năng | MarkdownTrình chỉnh sửa | EasyMDE / SimpleMDE |
 | --- | --- | --- |
 | Vùng văn bản gốc được bảo tồn | ✅ | ❌ Ẩn, chỉnh sửa dưới dạng bản sao |
 | Hoạt động với `required` lĩnh vực | ✅ | ❌ Trình duyệt chặn gửi |
@@ -159,7 +167,7 @@ Hầu hết các trình soạn thảo đánh dấu JavaScript (EasyMDE, SimpleMD
 | Hỗ trợ RTL | ✅ Tích hợp sẵn | Thông qua CodeMirror `direction` lựa chọn |
 | Trình xử lý sự kiện nội tuyến (CSP) | ✅ Không có | Một số |
 | Chế độ tối / chủ đề | ✅ | Giới hạn |
-| Kích thước gói, được nén | 53 KB | 107 KB (JS + CSS) |
+| Kích thước gói, được nén | 41 KB JS + 13 KB CSS | 107 KB (JS + CSS) |
 
 </DocTable>
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-Trở về `editor.destroy()` từ hiệu ứng này cũng bao gồm StrictMode, chạy các hiệu ứng hai lần trong quá trình phát triển và nếu không thì sẽ để lại hai trình soạn thảo trên một vùng văn bản. Mảng phụ thuộc trống là có chủ ý: các tùy chọn được đọc một lần khi trình soạn thảo được tạo, do đó, việc chạy lại hiệu ứng sẽ phá bỏ nó và xây dựng lại nó sau mỗi thay đổi.
+Trở về `editor.destroy()` từ hiệu ứng này cũng bao gồm StrictMode, chạy các hiệu ứng hai lần trong quá trình phát triển và nếu không thì sẽ để lại hai trình soạn thảo trên một vùng văn bản. Mảng phụ thuộc trống là có chủ ý: các tùy chọn được đọc một lần khi trình chỉnh sửa được tạo, do đó, việc chạy lại hiệu ứng sẽ phá bỏ nó và xây dựng lại nó trên mỗi lần kết xuất.
+
+Đó cũng là lý do tại sao `onChange` trải qua một ref. Việc chuyển thẳng nó vào hàm tạo sẽ ghim trình soạn thảo vào bất kỳ chức năng nào mà nó nhận được khi gắn kết và một mũi tên nội tuyến trong phần tử mẹ sẽ trở nên lỗi thời ngay khi bất kỳ thứ gì nó đóng khi thay đổi.
 
 ### Vue
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 Được sử dụng như `<MarkdownField v-model="content" />`. Ở dạng đơn giản, bạn có thể bỏ qua `v-model` hoàn toàn và đọc giá trị từ vùng văn bản khi gửi, như với bất kỳ khung công tác nào khác.
 
+
+### Kết xuất phía máy chủ
+
+Nhập trình soạn thảo trên máy chủ không bị ném, vì vậy Next.js, Remix, Nuxt và SvelteKit không cần `dynamic(..., { ssr: false })` bao bọc xung quanh nó.
+
+Lý do nó hoạt động là do quy tắc trên: trình soạn thảo được tạo bên trong `useEffect`, `onMounted` hoặc `onMount`và không có cái nào chạy trên máy chủ. Công việc DOM vẫn ở trong trình duyệt.
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+các `<textarea>` gửi trong HTML máy chủ với nội dung đã có sẵn trong đó, vì vậy không có gì phải chờ đợi và không có gì xuất hiện. React hiển thị cùng một đánh dấu ở cả hai bên và trình soạn thảo sẽ cải thiện nó sau khi hydrat hóa, do đó không có sự không khớp nào cần cảnh báo.
+
 ## Cấu hình
 
 Bạn hoàn toàn có thể tùy chỉnh hành vi và giao diện của trình soạn thảo bằng cách chuyển một `options` sự vật. Nếu bạn bỏ qua một tùy chọn, giá trị **mặc định** sẽ được sử dụng.
@@ -335,7 +378,7 @@ Các tùy chọn được đọc một lần khi trình soạn thảo được x
 | `renderer` | `function` | `marked` | Thay thế trình phân tích cú pháp đánh dấu được sử dụng để xem trước. Nhận chuỗi đánh dấu và phải trả về chuỗi HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Thay thế trình khử trùng HTML. Nhận HTML được hiển thị và phải trả về HTML an toàn để hiển thị. |
 | `onChange` | `function` | `undefined` | Lệnh gọi lại được thực hiện khi có mọi thay đổi về nội dung: gõ, thao tác trên thanh công cụ, hoàn tác/làm lại và tiếp tục danh sách. Nhận chuỗi đánh dấu hiện tại làm đối số duy nhất của nó. |
-| `labels` | `object` | `undefined` | Bản dịch cho giao diện riêng của người soạn thảo, được khóa bằng chuỗi tiếng Anh. Bất cứ điều gì bạn bỏ đi vẫn bằng tiếng Anh. |
+| `locale` | `object` | `undefined` | Bản dịch cho giao diện riêng của người soạn thảo, được khóa bằng chuỗi tiếng Anh. Bất cứ điều gì bạn bỏ đi vẫn bằng tiếng Anh. |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 
 | Dụng cụ | Sự miêu tả |
 | --- | --- |
-| `heading` | Mở menu thả xuống để chọn cấp tiêu đề H1–H6 |
+| `heading` | Mở menu thả xuống để chọn cấp tiêu đề H1–H6. Thu hẹp danh sách với `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | Cho phép định dạng văn bản in đậm. |
 | `italic` | Cho phép định dạng văn bản in nghiêng. |
 | `strikethrough` | Cho phép gạch ngang văn bản. |
@@ -387,6 +430,24 @@ Thanh công cụ có tính mô-đun. Bạn có thể tạo trải nghiệm tối
 | `preview` | Chuyển đổi chế độ xem trước toàn màn hình cạnh nhau. Các hộp kiểm trong khung xem trước có thể nhấp vào được và cập nhật nguồn đánh dấu ngay lập tức. Nhấn Escape để thoát toàn màn hình. Nếu tiêu đề cố định bao phủ trình chỉnh sửa ở chế độ toàn màn hình, hãy xem `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### Cấp độ tiêu đề
+
+các `heading` danh sách thả xuống cung cấp H1 đến H6. Trong đó H1 thuộc về trang chứ không phải nội dung, trường hợp này xảy ra với hầu hết các trường nội dung CMS, hãy thu hẹp nó:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` Và `Ctrl+3` tuân theo cùng một danh sách, do đó, cấp độ bạn bỏ qua cũng không thể được chèn từ bàn phím và chú giải công cụ của nút chỉ liệt kê các phím tắt vẫn hoạt động. Thứ tự bạn viết chúng không quan trọng, menu luôn là H1 trước tiên. Các cấp độ bên ngoài từ 1 đến 6 sẽ bị bỏ qua với cảnh báo trên bảng điều khiển và một danh sách không có gì có thể sử dụng được sẽ quay trở lại tất cả sáu cấp độ thay vì hiển thị một menu trống.
+
+Điều này hạn chế thanh công cụ, không phải tài liệu. Ai đó vẫn có thể gõ `# Title` bằng tay và nó hiển thị dưới dạng tiêu đề, bởi vì đánh dấu hợp lệ là quyết định của trình kết xuất chứ không phải của thanh công cụ. Nếu quy tắc phải được giữ nguyên, hãy thực thi quy tắc đó trên máy chủ.
 
 ##### 💡 Mẹo thực hiện:
 
@@ -420,7 +481,7 @@ các `title` trở thành chú giải công cụ và lớp CSS của nút, vì v
 
 #### Một số công cụ
 
-Thêm bao nhiêu tùy thích. Mỗi mục là mục riêng trong mảng, do đó bạn đặt chúng riêng lẻ và chúng có thể nằm giữa các công cụ tích hợp thay vì được nhóm ở một đầu.
+Thêm bao nhiêu tùy thích. Mỗi mục là một mục riêng trong mảng, vì vậy bạn đặt chúng riêng lẻ và chúng có thể nằm giữa các công cụ tích hợp thay vì được nhóm ở một đầu.
 
 <Snippet view="code">
 
@@ -444,7 +505,7 @@ Cung cấp cho mỗi người một sự khác biệt `title`. Hai công cụ c�
 
 | Tài sản | Kiểu | Mục đích |
 | --- | --- | --- |
-| `title` | `string` | Yêu cầu. Văn bản chú giải công cụ và nguồn lớp CSS của nút. Có thể dịch qua `labels`. |
+| `title` | `string` | Yêu cầu. Văn bản chú giải công cụ và nguồn lớp CSS của nút. Có thể dịch qua `locale`. |
 | `action` | `function` | Yêu cầu. Nhận `(editor, event)`. Sự kiện nhấp chuột được chuyển tiếp để công cụ mở hộp thoại có thể chuyển nó cho `MarkdownEditor.modal`. |
 | `icon` | `string` | SVG nội tuyến cho mặt nút. |
 | `shortcut` | `string` | Một phím tắt như `Ctrl+Shift+K`. Đã thêm vào chú giải công cụ và được ưu tiên hơn phần tích hợp sẵn bằng cách sử dụng cùng các phím. |
@@ -532,7 +593,7 @@ Một điều cần xem: `Tool`lệnh gọi hàm tạo của `createButton()`, v
 
 #### Trình trợ giúp hộp thoại
 
-`MarkdownEditor.modal` là hộp thoại mà các công cụ hình ảnh và liên kết tích hợp sử dụng, do đó, công cụ thu thập thông tin đầu vào của bạn trông giống như phần còn lại của trình chỉnh sửa thay vì phát minh ra cửa sổ bật lên của riêng nó. Nó trả về `<dialog>` phần tử, đã mở, mà bạn truy vấn các trường của mình và đóng bằng `dialog.close()`.
+`MarkdownEditor.modal` là hộp thoại mà các công cụ hình ảnh và liên kết tích hợp sử dụng, do đó, công cụ thu thập dữ liệu đầu vào của bạn trông giống như phần còn lại của trình chỉnh sửa thay vì phát minh ra cửa sổ bật lên của riêng nó. Nó trả về `<dialog>` phần tử, đã mở, mà bạn truy vấn các trường của mình và đóng bằng `dialog.close()`.
 
 <Snippet view="code">
 
@@ -543,11 +604,11 @@ const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
 
 </Snippet>
 
-Vượt qua `event` của bạn `applySyntax()` đã nhận. Trình trợ giúp đọc nó để tìm trình soạn thảo mà cú nhấp chuột đến từ trình soạn thảo nào, do đó, hộp thoại sẽ được thêm vào bên trong trình bao bọc của trình soạn thảo đó và chọn chủ đề của nó. Nó thay thế bất kỳ hộp thoại nào đã mở trong trình chỉnh sửa đó và tự xóa chính nó khỏi DOM khi đóng, do đó không có gì phải dọn dẹp.
+Vượt qua `event` của bạn `applySyntax()` đã nhận. Trình trợ giúp đọc nó để tìm xem nhấp chuột đến từ trình chỉnh sửa nào, do đó, hộp thoại sẽ được thêm vào bên trong trình bao bọc của trình chỉnh sửa đó và chọn chủ đề của nó. Nó thay thế bất kỳ hộp thoại nào đã mở trong trình chỉnh sửa đó và tự xóa chính nó khỏi DOM khi đóng, do đó không có gì phải dọn dẹp.
 
 #### Tự mình hiển thị markdown
 
-Nếu công cụ của bạn nhúng nội dung được hiển thị, chẳng hạn như nội dung chú giải công cụ, `editor.renderMarkdown()` tạo ra HTML chính xác như bản xem trước, tôn trọng `renderer` Và `sanitizer`.
+Nếu công cụ của bạn nhúng nội dung được hiển thị, chẳng hạn như nội dung chú giải công cụ, `editor.renderMarkdown()` tạo ra HTML chính xác như bản xem trước, tôn vinh `renderer` Và `sanitizer`.
 
 <Snippet view="code">
 
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### Một thanh công cụ cho vùng văn bản của riêng bạn
 
-Khi một hộp thoại thu thập văn bản có định dạng, hãy cung cấp cho nó các công cụ định dạng thực sự thay vì xây dựng lại chúng. Thanh công cụ được liên kết với vùng văn bản bạn chuyển qua, `labels` được kế thừa và không có nút xem trước nào được thêm vào.
+Khi một hộp thoại thu thập văn bản có định dạng, hãy cung cấp cho nó các công cụ định dạng thực sự thay vì xây dựng lại chúng. Thanh công cụ được liên kết với vùng văn bản bạn chuyển qua, `locale` chuỗi được kế thừa và không có nút xem trước nào được thêm vào.
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ Các công cụ tùy chỉnh dịch giống như các công cụ tích hợp s�
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 Ngôn ngữ giao diện
 
-Theo mặc định, văn bản, chú giải công cụ, mục menu, trường phương thức và nút của trình chỉnh sửa là tiếng Anh. Vượt qua một `labels` đối tượng dịch nó. Khóa là các chuỗi tiếng Anh, cách thức hoạt động của gettext, vì vậy bạn chỉ liệt kê những gì bạn muốn thay đổi và mọi thứ còn thiếu sẽ quay lại tiếng Anh.
+Theo mặc định, văn bản, chú giải công cụ, mục menu, trường phương thức và nút của trình chỉnh sửa là tiếng Anh. Vượt qua một `locale` đối tượng dịch nó. Khóa là các chuỗi tiếng Anh, cách thức hoạt động của gettext, vì vậy bạn chỉ liệt kê những gì bạn muốn thay đổi và mọi thứ còn thiếu sẽ quay lại tiếng Anh.
+
+`locale` lấy chính các chuỗi chứ không phải mã ngôn ngữ. `locale: 'es'` không có tác dụng và nói như vậy trong bảng điều khiển. Thay vào đó, hãy nhập ngôn ngữ bạn muốn để không ai tải xuống ngôn ngữ mà họ không sử dụng. Nó được gọi là `labels` trước 2.0.0 và tên đó vẫn hoạt động.
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 Điều này quan trọng nhất bên cạnh nội dung từ phải sang trái. Tiếng Ả Rập, tiếng Urdu và tiếng Farsi được sắp xếp chính xác nhưng thanh công cụ vẫn đọc chữ "Đậm" trên văn bản từ phải sang trái chỉ được dịch một nửa.
+
+#### Danh sách đầy đủ các chuỗi
+
+Có 45 chiếc trong số đó và gói hàng sẽ gửi danh sách nên bạn không cần phải đi tìm. Khóa và giá trị giống hệt nhau nên đây là mẫu để sao chép chứ không phải bản dịch.
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+Số lượng mang theo một `{n}` giữ chỗ để bản dịch của bạn quyết định số sẽ đi đến đâu thay vì bị mắc kẹt với thứ tự từ tiếng Anh.
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### Sử dụng bản dịch của riêng bạn
+
+`locale` lấy một đối tượng đơn giản, vì vậy nó đến từ đâu là tùy thuộc vào bạn. Hầu hết các dự án đều đã có hệ thống dịch thuật và việc cung cấp cho trình soạn thảo từ hệ thống này sẽ giúp từ ngữ nhất quán với phần còn lại của giao diện. Ở Django, các chuỗi kết thúc trong `.po` tập tin với mọi thứ khác:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+Với danh mục phía máy khách như i18next hoặc vue-i18n, hãy ánh xạ các khóa thông qua `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 Biến
 
@@ -1034,6 +1172,34 @@ Ghi đè nó bằng `--mte-fullscreen-z-index`. Giá trị chỉ áp dụng ở 
 
 </Snippet>
 
+### 🔒 Chính sách bảo mật nội dung
+
+Trình chỉnh sửa không thêm trình xử lý sự kiện nội tuyến, không sử dụng `eval`và từ 2.0.0 tiêm không `<style>` yếu tố. Một chính sách nghiêm ngặt không cần `'unsafe-inline'` ngoại lệ cho nó, theo một trong hai hướng:
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+Trước 2.0.0, CSS được đưa vào bên trong JavaScript và được đưa vào khi tải, một chính sách không có `style-src 'unsafe-inline'` từ chối ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). Một nonce đã được xem xét và loại bỏ: nó chỉ hỗ trợ các chính sách có một nonce và một trang web được lưu trữ tĩnh trên `style-src 'self'` không có máy chủ nào tạo ra một nonce mới cho mỗi yêu cầu. Việc liên kết biểu định kiểu bao gồm mọi chính sách thay vì một số chính sách.
+
+Một điều mà biên tập viên không kiểm soát được là phần đánh dấu mà người dùng của bạn viết. DOMPurify giữ `style` thuộc tính theo mặc định, vì vậy `<span style="color:red">` trong một tài liệu vẫn tồn tại trong bản xem trước và một quy định nghiêm ngặt `style-src-attr` sẽ báo cáo nó. Loại bỏ chúng bằng `sanitizer` tùy chọn nếu điều đó quan trọng với bạn:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
+```
+
+</Snippet>
+
 ## API nội dung
 
 Một trong những điểm mạnh cốt lõi của **MarkdownEditor** là nó giữ nguyên `<textarea>` được đồng bộ hóa hoàn hảo. Cho dù bạn đang sử dụng khung JavaScript hiện đại hay chương trình phụ trợ truyền thống như **Django, PHP hay Laravel**, quy trình làm việc vẫn đơn giản và nguyên bản.
@@ -1058,7 +1224,7 @@ document.getElementById('markdown-editor').value = "# New Heading Content";
 
 #### 2\. Sử dụng tham chiếu biến
 
-Nếu bạn có một tham chiếu đến phần tử vùng văn bản, bạn có thể sử dụng nó trực tiếp: không cần API dành riêng cho thư viện.
+Nếu bạn có tham chiếu đến phần tử vùng văn bản, bạn có thể sử dụng trực tiếp: không cần API dành riêng cho thư viện.
 
 <Snippet view="code">
 
@@ -1166,9 +1332,9 @@ document.querySelector('form').addEventListener('submit', () => {
 
 ### Gửi biểu mẫu
 
-Bởi vì **MarkdownEditor** được xây dựng trực tiếp trên mã gốc `<textarea>`, nó tương thích với mọi khung công tác phụ trợ (Django, Laravel, PHP, Ruby on Rails, v.v.) ngay lập tức.
+Vì **MarkdownEditor** được xây dựng trực tiếp trên mã gốc `<textarea>`, nó tương thích với mọi khung công tác phụ trợ (Django, Laravel, PHP, Ruby on Rails, v.v.) ngay lập tức.
 
-Đây là nơi triết lý "Bản địa là trên hết" tỏa sáng. Bạn không cần phải đồng bộ hóa dữ liệu theo cách thủ công trước khi gửi biểu mẫu. Trình duyệt xử lý trình chỉnh sửa chính xác như trường nhập tiêu chuẩn.
+Đây là nơi triết lý "Native-First" tỏa sáng. Bạn không cần phải đồng bộ hóa dữ liệu theo cách thủ công trước khi gửi biểu mẫu. Trình duyệt xử lý trình soạn thảo chính xác như trường nhập tiêu chuẩn.
 
 <Snippet view="code">
 
@@ -1217,7 +1383,7 @@ Với **MarkdownEditor**, nhà phát triển có thể lấy một trang web cũ
 
 ## 🖼️ Tải lên hình ảnh nâng cao
 
-Xử lý nguyên bản tải lên hình ảnh: thay vì dựa vào các chuỗi Base64 chậm và tốn nhiều bộ nhớ, đây là một lợi thế đáng kể cho cả hiệu suất và SEO.
+Xử lý nguyên bản tải lên hình ảnh: thay vì dựa vào chuỗi Base64 chậm, ngốn nhiều bộ nhớ, đây là một lợi thế đáng kể cho cả hiệu suất và SEO.
 
 ### Dán và thả
 
@@ -1276,7 +1442,7 @@ Biên tập viên gửi một `POST` yêu cầu như `multipart/form-data`. Theo
 -   `image_alt`: Văn bản thay thế được người dùng nhập vào
 - ...cộng với mọi dữ liệu tùy chỉnh được xác định trong `params` sự vật
 
-#### Phản hồi cần thiết
+#### Phản hồi bắt buộc
 
 Để xác nhận tải lên thành công và chèn hình ảnh vào trình chỉnh sửa, máy chủ của bạn **phải** trả về cấu trúc JSON sau:
 
@@ -1395,7 +1561,7 @@ Các hành động định dạng phổ biến có thể được kích hoạt t
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Chuyển đổi ~~Gạch ngang~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Tiêu đề 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Tiêu đề 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Tiêu đề 3 |
+| `Ctrl + 3`  /  `⌘ 3` | Tiêu đề 3. Ba tiêu đề này theo sau bất cứ điều gì `heading` công cụ cung cấp, do đó, mức độ bạn bỏ qua `levels` cũng không gõ được |
 | `Ctrl + L`  /  `⌘ L` | Chuyển đổi danh sách dấu đầu dòng |
 | `Ctrl + Z`  /  `⌘ Z` | Hoàn tác |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Làm lại |
@@ -1411,11 +1577,11 @@ Các hành động định dạng phổ biến có thể được kích hoạt t
 
 ## 🔍 Tìm & Thay thế
 
-Bảng điều khiển tìm và thay thế tích hợp sẵn có sẵn bên trong trình chỉnh sửa: không cần tiện ích mở rộng trình duyệt hoặc công cụ riêng biệt.
+Bảng điều khiển tìm và thay thế tích hợp có sẵn bên trong trình chỉnh sửa: không cần tiện ích mở rộng trình duyệt hoặc công cụ riêng biệt.
 
 -   Nhấn `Ctrl + F` (hoặc `⌘ F`) để mở bảng **Tìm**
 -   Nhấn `Ctrl + H` (hoặc `⌘ H`) để mở bảng **Tìm & Thay thế**
-- Tìm kiếm **không phân biệt chữ hoa chữ thường** và hiển thị bộ đếm trận đấu trực tiếp (ví dụ: *3 trên 12*)
+- Tìm kiếm **không phân biệt chữ hoa chữ thường** và hiển thị bộ đếm kết quả khớp trực tiếp (ví dụ: *3 trên 12*)
 - Điều hướng các kết quả khớp bằng các nút **▲ / ▼** hoặc `Enter` / `Shift + Enter`
 - **Thay thế** thay thế kết quả được đánh dấu hiện tại; **Thay thế tất cả** thay thế mọi lần xuất hiện cùng một lúc
 -   Nhấn `Escape` để đóng bảng điều khiển và trả lại tiêu điểm cho trình chỉnh sửa
@@ -1424,7 +1590,7 @@ Bảng điều khiển nổi ở góc trên bên phải của khu vực nội du
 
 ## 🔗 Liên kết từ một URL được dán
 
-Chọn một số văn bản, dán URL lên nó và bạn sẽ nhận được liên kết đánh dấu thay vì URL thay thế những gì bạn đã chọn.
+Chọn một số văn bản, dán URL lên nó và bạn nhận được liên kết đánh dấu thay vì URL thay thế những gì bạn đã chọn.
 
 <Snippet view="code">
 
@@ -1439,11 +1605,11 @@ Quy tắc này được cố tình nghiêm ngặt: chỉ trần trụi `http` ho
 
 ## Đặc trưng
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như một tiêu chuẩn <code>&lt;textarea&gt;</code>. Không có API phức tạp: chỉ cần sử dụng <code>value</code> hoặc <code>name</code> thuộc tính. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Chế độ lai & trơn</h2><p class=\"para-sm\">Chuyển đổi giữa một <strong>Lai (WYSIWYG)</strong> kinh nghiệm chỉnh sửa hình ảnh hoặc <strong>Đánh dấu đơn giản</strong> chế độ cho cảm giác mã hóa truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">MỘT <strong>53 KB được nén</strong> gói (được rút gọn 252 KB, bao gồm CSS) được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột: vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ Từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Khả năng đọc nâng cao với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ với cài đặt hệ thống của bạn hoặc <strong>Giao diện người dùng Frutjam</strong> thư viện để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra: nhấn <code>Enter</code> và trình soạn thảo tiếp tục mô hình. Các hộp kiểm trong ngăn xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động tốt thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup): không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Có thể truy cập theo mặc định</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn: mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-pressed</code> trên nút chuyển đổi xem trước, <code>disabled</code> Và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Không có xung đột CSS</h2><p class=\"para-sm\">Các phong cách soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ nên trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm & Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm & thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả: mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Xem trước an toàn XSS</h2><p class=\"para-sm\">Bản xem trước được hiển thị được làm sạch thông qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMThanh lọc</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ: không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
+<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Tích hợp biểu mẫu gốc</h2><p class=\"para-sm\">Hoạt động chính xác như một tiêu chuẩn <code>&lt;textarea&gt;</code>. Không có API phức tạp: chỉ cần sử dụng <code>value</code> hoặc <code>name</code> thuộc tính. Nó \"chỉ hoạt động\" với việc gửi biểu mẫu HTML tiêu chuẩn bằng PHP, Django hoặc Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Tải lên hình ảnh nâng cao</h2><p class=\"para-sm\">Định cấu hình tải lên máy chủ gốc thông qua API. Tránh các chuỗi Base64 nặng để đảm bảo tải trang nhanh hơn và SEO vượt trội bằng cách lưu trữ hình ảnh trên CDN của riêng bạn.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Chế độ lai & trơn</h2><p class=\"para-sm\">Chuyển đổi giữa một <strong>Lai (WYSIWYG)</strong> kinh nghiệm chỉnh sửa hình ảnh hoặc <strong>Đánh dấu đơn giản</strong> chế độ cho cảm giác mã hóa truyền thống.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 Hiệu suất cao</h2><p class=\"para-sm\">MỘT <strong>53 KB được nén</strong> gói (được rút gọn 252 KB, bao gồm CSS) được tối ưu hóa cho \"Nội dung nặng\". Xử lý các tài liệu lớn và các tệp lớn mà không có bất kỳ độ trễ đầu vào hoặc giảm hiệu suất nào. Các bản cập nhật xem trước đã được gỡ bỏ, tính toán kiểu được lưu trong bộ nhớ đệm và xử lý bàn phím không xung đột: vì vậy Tab và Enter luôn thực hiện chính xác một việc.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Hỗ trợ RTL tích hợp</h2><p class=\"para-sm\">Hỗ trợ gốc cho các ngôn ngữ từ phải sang trái như tiếng Ả Rập, tiếng Urdu và tiếng Farsi. Hoàn hảo để xây dựng các ứng dụng có thể truy cập toàn cầu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Đánh dấu cú pháp</h2><p class=\"para-sm\">Khả năng đọc nâng cao với mã rõ ràng và định dạng đánh dấu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Chủ đề thích ứng</h2><p class=\"para-sm\">Bao gồm hỗ trợ Chế độ tối tự động. Nó đồng bộ với cài đặt hệ thống của bạn hoặc <strong>Giao diện người dùng Frutjam</strong> thư viện để có trải nghiệm hình ảnh liền mạch.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Chỉnh sửa thông minh</h2><p class=\"para-sm\">Tiếp tục danh sách tự động theo kiểu GitHub cho danh sách có thứ tự, danh sách không có thứ tự và danh sách kiểm tra: nhấn <code>Enter</code> và trình soạn thảo tiếp tục mô hình. Các hộp kiểm trong ngăn xem trước có thể nhấp vào được và đồng bộ hóa trở lại nguồn đánh dấu ngay lập tức.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Hoàn toàn đáp ứng</h2><p class=\"para-sm\">Giao diện người dùng linh hoạt, ưu tiên thiết bị di động, thích ứng hoàn hảo với máy tính để bàn, máy tính bảng và điện thoại thông minh để chỉnh sửa khi đang di chuyển.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Hỗ trợ toàn cầu</h2><p class=\"para-sm\">Tương thích với <strong>ESM, UMD, CommonJS và IIFE</strong>. Hoạt động tốt thông qua CDN (<code>&lt;script src&gt;</code>), npm hoặc bất kỳ gói nào (Vite, webpack, Rollup): không cần cấu hình bổ sung.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Có thể truy cập theo mặc định</h2><p class=\"para-sm\">Hỗ trợ ARIA đầy đủ được tích hợp sẵn: mốc thanh công cụ, vùng xem trước được gắn nhãn, các nút thân thiện với trình đọc màn hình, <code>aria-pressed</code> trên nút chuyển đổi xem trước, <code>disabled</code> Và <code>aria-disabled</code> trên các công cụ không hoạt động và khôi phục tiêu điểm chính xác khi các chế độ đóng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Không có xung đột CSS</h2><p class=\"para-sm\">Các phong cách soạn thảo hoàn toàn nằm trong phạm vi <code>.markdown-editor-wrapper</code>. Tính năng kiểm tra trước toàn cầu của Tailwind bị loại trừ nên trình soạn thảo hoạt động an toàn cùng với Bootstrap, Tailwind hoặc bất kỳ khung nào khác mà không phá vỡ phong cách của chúng.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Phím tắt</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: các thao tác định dạng phổ biến mà không cần chạm vào chuột. Mỗi phím tắt được hiển thị trong chú giải công cụ của nút thanh công cụ.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Tìm & Thay thế</h2><p class=\"para-sm\">Nhấn <code>Ctrl+F</code> để tìm hoặc <code>Ctrl+H</code> để mở tìm & thay thế. Tìm kiếm không phân biệt chữ hoa chữ thường với bộ đếm so khớp trực tiếp, điều hướng tiếp theo/trước, thay thế một lần và thay thế tất cả: mà không cần rời khỏi trình chỉnh sửa.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 Xem trước an toàn XSS</h2><p class=\"para-sm\">Bản xem trước được hiển thị được làm sạch thông qua <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMThanh lọc</a> trước khi được ghi vào DOM. Thẻ tập lệnh, trình xử lý sự kiện nội tuyến và URL độc hại trong đầu vào đánh dấu thủ công sẽ tự động bị loại bỏ: không cần cấu hình.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♥️ Xem trước theo thời gian thực</h2><p class=\"para-sm\">Xem phần đánh dấu của bạn được hiển thị ngay lập tức khi bạn nhập.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Tích hợp dễ dàng</h2><p class=\"para-sm\">Tích hợp liền mạch vào bất kỳ dự án web nào với thiết lập tối thiểu.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Thanh công cụ có thể tùy chỉnh</h2><p class=\"para-sm\">Tự động định cấu hình và sắp xếp lại các tùy chọn thanh công cụ như in đậm, in nghiêng, v.v.</p></div></div></div>"} />
 
 ## Ví dụ về cấu hình đầy đủ
 
-Sử dụng ví dụ toàn diện này để khởi tạo **MarkdownEditor** với tất cả các tính năng chính, bao gồm thứ tự thanh công cụ tùy chỉnh và xử lý tải lên hình ảnh nâng cao.
+Sử dụng ví dụ toàn diện này để khởi tạo **MarkdownEditor** với tất cả các tính năng chính, bao gồm sắp xếp thanh công cụ tùy chỉnh và xử lý tải lên hình ảnh nâng cao.
 
 <Snippet view="code">
 
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

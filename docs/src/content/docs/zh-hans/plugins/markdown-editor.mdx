@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Frutjam 的 Markdown 文本编辑器 JavaScript 插件"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "9b278542decf"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "0e3ee501964a"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+从 2.0.0 开始，样式表是一个单独的文件。导入它**或**链接它，但绝不能两者兼而有之。如果您完全忘记了它，编辑器仍然可以工作并告诉您在控制台中添加什么，而不是在没有任何解释的情况下渲染无样式。
 
 TypeScript 定义随软件包一起提供，因此选项、工具栏条目和变量形状都会被检查并自动完成，无需额外安装。
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -159,7 +167,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
 | RTL 支持 | ✅ 内置 | 通过 CodeMirror 的 `direction` 选项 |
 | 内联事件处理程序 (CSP) | ✅ 无 | 一些 |
 | 深色模式/主题 | ✅ | 有限的 |
-| 捆绑包大小，gzip 压缩 | 53 KB | 107 KB（JS + CSS） |
+| 捆绑包大小，gzip 压缩 | 41 KB JS + 13 KB CSS | 107 KB（JS + CSS） |
 
 </DocTable>
 
@@ -227,7 +235,7 @@ document.addEventListener('turbo:load', () => {
 
 ### Node.js / Express
 
-`req.body.content` 接收表单提交时的降价：没有同步步骤，没有自定义提取。
+`req.body.content` 接收表单提交的降价：没有同步步骤，没有自定义提取。
 
 <Snippet view="code">
 
@@ -258,7 +266,7 @@ document.addEventListener('turbo:load', () => {
 
 ### 反应
 
-在效果中创建编辑器并在卸载时销毁它。使用 `defaultValue` 而不是 `value`：编辑器直接写入文本区域，因此受控绑定将覆盖用户键入的内容。
+在效果中创建编辑器并在卸载时销毁它。使用 `defaultValue` 而不是 `value`：编辑器直接写入文本区域，因此受控绑定将覆盖用户输入的内容。
 
 <Snippet view="code">
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-返回 `editor.destroy()` from theeffect 还涵盖了 StrictMode，它在开发过程中运行两次效果，否则会在一个文本区域上留下两个编辑器。空依赖数组是故意的：创建编辑器时会读取一次选项，因此重新运行效果会拆除它并在每次更改时重建它。
+返回 `editor.destroy()` from theeffect 还涵盖了 StrictMode，它在开发过程中运行两次效果，否则会在一个文本区域上留下两个编辑器。空的依赖项数组是故意的：创建编辑器时会读取一次选项，因此重新运行效果会拆除它并在每次渲染时重建它。
+
+这也是为什么 `onChange` 经过裁判。将它直接传递到构造函数中会将编辑器固定到它在挂载时接收到的任何函数，并且父级中的内联箭头在它关闭任何更改时都会变得陈旧。
 
 ### 维埃
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 用作 `<MarkdownField v-model="content" />`。在简单的形式中，您可以跳过 `v-model` 与任何其他框架一样，完全并在提交时从文本区域读取值。
 
+
+### 服务端渲染
+
+在服务器上导入编辑器不会抛出异常，因此 Next.js、Remix、Nuxt 和 SvelteKit 不需要 `dynamic(..., { ssr: false })` 围绕它的包装。
+
+它起作用的原因是上面的规则：编辑器是在内部创建的 `useEffect`, `onMounted` 或者 `onMount`，并且这些都没有在服务器上运行。 DOM 工作保留在浏览器中。
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+这 `<textarea>` 其内容已经存在于服务器 HTML 中，因此无需等待，也不会弹出任何内容。React 在两侧渲染相同的标记，并且编辑器在水合后增强它，因此没有需要警告的不匹配情况。
+
 ## 配置
 
 您可以通过传递一个来完全自定义编辑器的行为和界面 `options` 目的。如果省略选项，则使用 **默认** 值。
@@ -335,7 +378,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `renderer` | `function` | `marked` | 替换用于预览的 Markdown 解析器。接收 markdown 字符串并且必须返回 HTML 字符串。 |
 | `sanitizer` | `function` | `DOMPurify` | 取代 HTML 清理程序。接收渲染的 HTML，并且必须返回安全的 HTML 来显示。 |
 | `onChange` | `function` | `undefined` | 每次内容更改时都会触发回调：键入、工具栏操作、撤消/重做和列表延续。接收当前的 markdown 字符串作为其唯一的参数。 |
-| `labels` | `object` | `undefined` | 编辑器自己界面的翻译，由英文字符串键入。您遗漏的任何内容都将保留为英文。 |
+| `locale` | `object` | `undefined` | 编辑器自己界面的翻译，由英文字符串键入。您遗漏的任何内容都将保留为英文。 |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 | 工具 | 描述 |
 | --- | --- |
-| `heading` | 打开下拉菜单以选择标题级别 H1–H6 |
+| `heading` | 打开下拉菜单以选择标题级别 H1–H6。缩小列表范围 `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | 启用粗体文本格式。 |
 | `italic` | 启用斜体文本格式。 |
 | `strikethrough` | 允许文本删除线。 |
@@ -387,6 +430,24 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 | `preview` | 切换全屏并排预览。预览窗格中的复选框可单击并立即更新 Markdown 源。按 Esc 键退出全屏。如果固定标题覆盖全屏编辑器，请参阅 `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### 标题级别
+
+这 `heading` 下拉菜单提供 H1 到 H6。如果 H1 属于页面而不是内容（大多数 CMS 正文字段都是这种情况），请缩小范围：
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` 和 `Ctrl+3` 遵循相同的列表，因此您遗漏的级别也无法从键盘插入，并且按钮的工具提示仅列出仍然有效的快捷键。您编写它们的顺序并不重要，菜单始终是 H1 第一个。 1 到 6 之外的级别将被忽略，并显示控制台警告，并且其中没有可用内容的列表将回退到所有 6 个级别，而不是呈现一个空菜单。
+
+这限制了工具栏，而不是文档。有人仍然可以打字 `# Title` 手动并呈现为标题，因为有效的降价是呈现器的决定而不是工具栏的决定。如果规则必须成立，请在服务器上强制执行。
 
 ##### 💡实施技巧：
 
@@ -436,7 +497,7 @@ toolbar: [
 
 </Snippet>
 
-赋予每一个独特的 `title`。共享同一个标题的两个工具将共享一个 CSS 类，而没有标题的工具会退回到 `.custom-btn`.
+赋予每一个独特的 `title`。共享一个标题的两个工具将共享一个 CSS 类，而没有一个工具的工具会退回到 `.custom-btn`.
 
 #### 选项
 
@@ -444,7 +505,7 @@ toolbar: [
 
 | 财产 | 类型 | 目的 |
 | --- | --- | --- |
-| `title` | `string` | 必需的。工具提示文本和按钮 CSS 类的源。可翻译通过 `labels`. |
+| `title` | `string` | 必需的。工具提示文本和按钮 CSS 类的源。可翻译通过 `locale`. |
 | `action` | `function` | 必需的。收到 `(editor, event)`。单击事件被传递，以便打开对话框的工具可以将其传递给 `MarkdownEditor.modal`. |
 | `icon` | `string` | 按钮面的内联 SVG。 |
 | `shortcut` | `string` | 键盘快捷键，例如 `Ctrl+Shift+K`。添加到工具提示，并优先于使用相同键的内置工具提示。 |
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### 您自己的文本区域的工具栏
 
-当对话框收集富文本时，为其提供真正的格式化工具，而不是重建它们。工具栏绑定到您传递的文本区域，您的 `labels` 都是继承的，并且没有添加预览按钮。
+当对话框收集富文本时，为其提供真正的格式化工具，而不是重建它们。工具栏绑定到您传递的文本区域，您的 `locale` 继承字符串，不添加预览按钮。
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ dialog.querySelector('.body-toolbar').appendChild(bar);
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 界面语言
 
-编辑器自己的文本、工具提示、菜单项、模式字段和按钮默认为英文。通过一个 `labels` 对象翻译它。键是英文字符串，即 gettext 的工作方式，因此您只需列出要更改的内容，而缺少的任何内容都会恢复为英文。
+编辑器自己的文本、工具提示、菜单项、模式字段和按钮默认为英文。通过一个 `locale` 对象翻译它。键是英文字符串，即 gettext 的工作方式，因此您只需列出要更改的内容，而缺少的任何内容都会恢复为英文。
+
+`locale` 接受字符串本身，而不是语言代码。 `locale: 'es'` 没有任何效果，并在控制台中这样说。导入您想要的语言，这样就没有人下载他们不使用的语言。它被称为 `labels` 2.0.0 之前，该名称仍然有效。
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 这与从右到左的内容一起最重要。阿拉伯语、乌尔都语和波斯语本身布局正确，但在从右到左的文本上仍然显示“粗体”的工具栏仅翻译了一半。
+
+#### 完整的字符串列表
+
+一共有 45 个，包裹中附有清单，因此您无需再去寻找。键和值是相同的，因此它是一个复制模板而不是翻译。
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+计数带有 `{n}` 占位符，以便您的翻译决定数字的去向，而不是受英语词序的束缚。
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### 使用您自己的翻译
+
+`locale` 接受一个普通的对象，所以它来自哪里取决于你。大多数项目已经有一个翻译系统，并从中向编辑器提供信息可以使措辞与界面的其余部分保持一致。在 Django 中，字符串最终出现在你的 `.po` 与其他所有文件一起使用的文件：
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+使用 i18next 或 vue-i18n 等客户端目录，通过您的映射映射键 `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 变量
 
@@ -954,7 +1092,7 @@ CSS 变量涵盖了大多数主题，因为它们是继承的，因此设置一�
 
 #### 类参考
 
-这些类名对于样式来说是稳定且安全的。
+这些类名称是稳定且安全的样式。
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -1030,6 +1168,34 @@ CSS 变量涵盖了大多数主题，因为它们是继承的，因此设置一�
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 内容安全政策
+
+编辑器不添加内联事件处理程序，不使用 `eval`，并且从 2.0.0 开始注入 no `<style>` 元素。严格的政策不需要 `'unsafe-inline'` 例外情况，无论是哪个方向：
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+在 2.0.0 之前，CSS 是在 JavaScript 中携带并在加载时注入的，这是一个没有策略的策略 `style-src 'unsafe-inline'` 拒绝（[#42](https://github.com/nezanuha/markdown-text-editor/issues/42)）。考虑并放弃了随机数：它只对具有随机数的策略以及静态托管网站有帮助 `style-src 'self'` 没有服务器为每个请求生成新的随机数。链接样式表涵盖了每个策略而不是其中的某些策略。
+
+编辑器无法控制的一件事是用户编写的降价。 DOMPurify 保留 `style` 默认属性，所以 `<span style="color:red">` 在文档中保留到预览和严格的 `style-src-attr` 会报告它。用剥离它们 `sanitizer` 如果这对您很重要，请选择：
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1395,7 +1561,7 @@ const editor = new MarkdownEditor('#markdown-editor', options);
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | 切换~~删除线~~ |
 | `Ctrl + 1`  /  `⌘ 1` | 标题 1 |
 | `Ctrl + 2`  /  `⌘ 2` | 标题 2 |
-| `Ctrl + 3`  /  `⌘ 3` | 标题 3 |
+| `Ctrl + 3`  /  `⌘ 3` | 标题 3. 这三个遵循以下任意内容 `heading` 工具提供，因此您忽略了一个级别 `levels` 也无法输入 |
 | `Ctrl + L`  /  `⌘ L` | 切换项目符号列表 |
 | `Ctrl + Z`  /  `⌘ Z` | 撤消 |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | 重做 |
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

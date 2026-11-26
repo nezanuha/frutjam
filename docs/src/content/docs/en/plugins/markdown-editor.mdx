@@ -1,9 +1,9 @@
 ---
 name: "Markdown Editor"
-heading: "Toolbar, live preview and WYSIWYG on the textarea you already have"
-description: "A markdown editor that enhances your textarea instead of replacing it, so form submission, validation and required fields keep working. WYSIWYG and plain Markdown modes, live preview, find & replace, RTL support, dark mode. Works standalone with Django, Laravel, Rails, Node.js, PHP, and any stack."
-metaTitle: "Markdown Text Editor JavaScript Plugin | Frutjam"
-metaDescription: "Lightweight JavaScript markdown editor that enhances your textarea without replacing it. Works as-is with Django, Laravel, Rails, PHP and Node.js. WYSIWYG, RTL."
+heading: "A markdown editor that keeps your textarea"
+description: "Drop it on the <textarea> you already have. Forms, validation, required fields and FormData keep working, because the textarea is still the field. WYSIWYG hybrid mode, live preview, find and replace, drafts, merge tags, uploads, 56 languages, RTL, dark mode."
+metaTitle: "Markdown Editor — JavaScript plugin for the textarea you have | Frutjam"
+metaDescription: "A JavaScript markdown editor that enhances a <textarea> instead of replacing it. Hybrid WYSIWYG, preview, find and replace, draft recovery, merge tags, uploads. Works with Django, Laravel, Rails, PHP, Node, React and Vue."
 order: 0
 related:
   - "components/textarea"
@@ -18,13 +18,38 @@ import Snippet from '@/components/Snippet.astro';
 import RawHtml from '@/components/RawHtml.astro';
 import DocTable from '@/components/DocTable.astro';
 
-A markdown editor that enhances your textarea instead of replacing it, so form submission, validation and required fields keep working. WYSIWYG and plain Markdown modes, live preview, find & replace, RTL support, dark mode. Works standalone with Django, Laravel, Rails, Node.js, PHP, and any stack.
+Most markdown editors hide your `<textarea>` and edit a copy of it. This one
+styles the textarea you already have and leaves it as the field you type into.
 
-**No Frutjam and no Tailwind required.** The styles are bundled, so the editor drops into any project.
+That one decision is why there is nothing to wire up. `required` still blocks a
+submit. `FormData` still has the markdown in it. htmx, Turbo, your
+unsaved-changes guard and your server all keep working, because as far as they
+are concerned nothing changed.
+
+## Markdown editor demo
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:23rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-hybrid\" rows=\"8\" aria-label=\"Markdown editor demo, hybrid mode\" placeholder=\"Start writing...\"># Try me\n\nThis is **hybrid mode**: the formatting shows as you type, and the markdown is still right there. Select a word and press the **B** in the toolbar.\n\n- a list\n- that continues when you press Enter\n\n| Column | Another |\n| --- | --- |\n| Click a cell | and a bar appears |\n</textarea></div>"} />
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#notes', { mode: 'hybrid' });
+```
+
+</Snippet>
+
+## Everything it does
+
+One screen, so nothing stays hidden. **On** means you already have it; **opt-in**
+means one option turns it on.
+
+<RawHtml html={"<div class=\"grid sm:grid-cols-2 lg:grid-cols-3 gap-4 not-prose my-8\"><article class=\"card card-outline card-sm\" aria-labelledby=\"f-hybrid-mode\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-hybrid-mode\"><a class=\"card-link\" href=\"#two-ways-to-write\">Hybrid mode</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">Formatting as you type, markers still visible.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-toolbar\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-toolbar\"><a class=\"card-link\" href=\"#toolbar\">Toolbar</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Nineteen tools. Reorder them, trim them, add your own.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-live-preview\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-live-preview\"><a class=\"card-link\" href=\"#preview\">Live preview</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Side by side, fullscreen, checkboxes you can tick.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-find-amp-replace\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-find-amp-replace\"><a class=\"card-link\" href=\"#find-and-replace\">Find &amp; replace</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Ctrl+F. Every match at once, regex, case kept on replace.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-table-editing\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-table-editing\"><a class=\"card-link\" href=\"#editing-tables\">Table editing</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">A bar beside the table: add, delete, align, tidy.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-draft-recovery\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-draft-recovery\"><a class=\"card-link\" href=\"#draft-recovery\">Draft recovery</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">Offers back what was being written, after a crash.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-merge-tags\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-merge-tags\"><a class=\"card-link\" href=\"#variables\">Merge tags</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">Your placeholders, in a menu and completed as you type.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-uploads\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-uploads\"><a class=\"card-link\" href=\"#uploading-files\">Uploads</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">One endpoint for the dialog, pasting and dropping.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-rich-paste\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-rich-paste\"><a class=\"card-link\" href=\"#pasting-formatted-text\">Rich paste</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Paste a web page or a Word document, keep the formatting.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-status-bar\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-status-bar\"><a class=\"card-link\" href=\"#status-bar\">Status bar</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Line, column, characters, and words if you ask.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-theming\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-theming\"><a class=\"card-link\" href=\"#theming\">Theming</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Four themes, inherited from the page, or your own variables.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-56-languages\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-56-languages\"><a class=\"card-link\" href=\"#interface-language\">56 languages</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">Import one and pass it. RTL lays out on its own.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-maths\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-maths\"><a class=\"card-link\" href=\"#maths\">Maths</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">TeX delimiters from the toolbar. Bring a renderer.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-your-own-tools\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-your-own-tools\"><a class=\"card-link\" href=\"#custom-tools\">Your own tools</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">A button, a dialog, an async call to your server.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-swap-the-parser\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-swap-the-parser\"><a class=\"card-link\" href=\"#custom-renderer\">Swap the parser</a></h3><span class=\"badge badge-xs badge-soft badge-neutral\">opt-in</span></div><p class=\"para-xs fj-muted\">markdown-it, your own sanitizer, your own plugins.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-keyboard\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-keyboard\"><a class=\"card-link\" href=\"#keyboard\">Keyboard</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">Shortcuts, one tab stop, arrows across the toolbar.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-accessibility\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-accessibility\"><a class=\"card-link\" href=\"#accessibility\">Accessibility</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">State announced, motion dropped on request, RTL.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-long-documents\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-long-documents\"><a class=\"card-link\" href=\"#what-it-does-to-stay-quick\">Long documents</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">A keystroke costs the same at 150,000 characters as at 100.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-strict-csp\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-strict-csp\"><a class=\"card-link\" href=\"#content-security-policy\">Strict CSP</a></h3><span class=\"badge badge-xs badge-soft badge-success\">on</span></div><p class=\"para-xs fj-muted\">No inline handlers, no eval, no injected style tag.</p></div></article><article class=\"card card-outline card-sm\" aria-labelledby=\"f-coming-from-1-x\"><div class=\"card-content\"><div class=\"flex items-baseline justify-between gap-2\"><h3 class=\"card-title heading-sm\" id=\"f-coming-from-1-x\"><a class=\"card-link\" href=\"#upgrading-from-1x\">Coming from 1.x</a></h3><span class=\"badge badge-xs badge-soft badge-warning\">read me</span></div><p class=\"para-xs fj-muted\">One line has to change. The rest still answers to its old name.</p></div></article></div>"} />
 
 ## Installation
 
-#### NPM (bundlers: Vite, webpack, Rollup, etc.)
+Two files: the script and the stylesheet. The stylesheet is separate from 2.0,
+so link it or import it — if you forget, the editor still works and tells you
+what is missing in the console.
 
 <Snippet view="code">
 
@@ -40,446 +65,241 @@ npm install markdown-text-editor
 import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
 
-new MarkdownEditor('#markdown-editor');
+new MarkdownEditor('#notes');
 ```
 
 </Snippet>
 
-The stylesheet is a separate file from 2.0.0. Import it **or** link it, never both. If you forget it entirely the editor still works and tells you what to add in the console, rather than rendering unstyled with no explanation.
-
-TypeScript definitions ship with the package, so options, toolbar entries and variable shapes are checked and autocompleted with no extra install.
-
-The types are importable too, which matters whenever your options are not written inline at the call site. TypeScript only checks for unknown keys on an object literal passed directly, so a config kept in its own variable has a misspelled key silently ignored. Annotating it puts the check back.
-
-<Snippet view="code">
-
-```typescript
-import MarkdownEditor, { type MarkdownEditorOptions, type ToolbarEntry } from 'markdown-text-editor';
-
-// Without the annotation this compiles, the editor renders with the default
-// toolbar, and nothing tells you why.
-const config: MarkdownEditorOptions = {
-    placeholder: 'Write...',
-    toolbr: ['bold', 'preview'],   // Error: did you mean to write 'toolbar'?
-};
-
-// Building a toolbar conditionally
-const toolbar: ToolbarEntry[] = ['bold', 'italic'];
-if (canUpload) toolbar.push('image');
-toolbar.push('preview');
-```
-
-</Snippet>
-
-The same applies to a wrapper component, where `MarkdownEditorOptions` is what you forward instead of `any`, so whoever uses your wrapper keeps the checking.
-
-<Snippet view="code">
-
-```typescript
-interface EditorProps {
-    value: string;
-    options?: MarkdownEditorOptions;
-}
-```
-
-</Snippet>
-
-#### CDN: ES module
+No build step? Use the CDN. The `<script src>` build carries marked and
+DOMPurify inside it, so this is everything:
 
 <Snippet view="code">
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.css">
+<textarea id="notes" name="content"></textarea>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.min.js"></script>
+<script>new MarkdownEditor('#notes');</script>
+```
+
+</Snippet>
+
+Or as an ES module, straight from the CDN with no bundler:
+
+<Snippet view="code">
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.css">
+<textarea id="notes" name="content"></textarea>
 
 <script type="module">
-  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
-  new MarkdownEditor('#markdown-editor');
+  import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.es.js';
+  new MarkdownEditor('#notes');
 </script>
 ```
 
 </Snippet>
 
-#### CDN: global script tag (IIFE)
+TypeScript types ship with the package. Nothing to install, and the options,
+toolbar entries and variable shapes are all checked.
 
-No import needed: MarkdownEditor is available as a global variable automatically.
+## Two ways to write
+
+This is the thing people miss, so it is the second thing on the page: there are
+**two modes**, and the one you get by default is not the interesting one.
+
+### Hybrid — formatting appears as you type
+
+`mode: 'hybrid'`. Headings get bigger, bold goes bold, links underline, and the
+markers stay visible and editable. Nothing is hidden from you, and the text in
+the box is still markdown.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:21rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-hybrid\" rows=\"7\" aria-label=\"Markdown editor demo, hybrid mode\" placeholder=\"Start writing...\">## Hybrid\n\nType **bold**, *italic*, `code` or a [link](https://frutjam.com) and watch it change as you type. The asterisks stay where you can see them.\n\n> A quote, for good measure\n</textarea></div>"} />
 
 <Snippet view="code">
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
-
-<form action="/api/save" method="POST">
-  <textarea id="markdown-editor" name="content"># Hello World</textarea>
-  <button type="submit">Save Content</button>
-</form>
-
-<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
-<script>
-  new MarkdownEditor('#markdown-editor');
-</script>
+```javascript
+new MarkdownEditor('#notes', { mode: 'hybrid' });
 ```
 
 </Snippet>
 
-## Upgrading from 1.x
+### Plain — the markdown, as written
 
-One line has to change, and it is the stylesheet. Everything else that was
-renamed in 2.0 still answers to its old name.
+The default. Monospaced, no styling of the source, and the preview button shows
+you the rendered version when you want it. Pick this where people know markdown
+and want nothing in the way.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:21rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-plain\" rows=\"7\" aria-label=\"Markdown editor demo, plain mode\" placeholder=\"Start writing...\">## Plain\n\nThe source stays source. **Bold** looks like `**Bold**`, which is what some people want.\n\nPress the preview button at the end of the toolbar to see it rendered.\n</textarea></div>"} />
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#notes');            // plain is the default
+new MarkdownEditor('#notes', { mode: 'plain' });   // the same thing, said out loud
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"alert alert-info alert-soft my-6 not-prose\"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg><span class=\"para-sm\"><strong>Mode is set once</strong>, when the editor is created. There is no runtime switch: the two draw the text in different ways, and swapping them under someone mid-sentence is worse than picking one.</span></div>"} />
+
+## Every option, in one table
+
+All of them are optional. Leave one out and you get the default.
+
+Options are read **once**, when the editor is created. Changing them afterwards
+does nothing: call `destroy()` and make a new editor.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| What changed | What to do |
-| --- | --- |
-| **The CSS is a separate file.** It used to be injected as a `<style>` tag at load. | Add the stylesheet, once per page. Nothing renders correctly until you do, and the console says so. |
-| `dist/markdown-text-editor.umd.js` is gone. | It is `dist/markdown-text-editor.cjs`. Only a path that reached past the package for that filename is affected; `import` and `require` resolve on their own. |
-| `labels` became `locale`. | Nothing, today. Both work; `locale` is the name going forward. |
-| `label` is deprecated. | Nothing, today. An `aria-label` or a `<label for>` on the textarea does the same thing natively, and the editor already prefers either over the option. |
-| `{ image: { fileInput: { uploadUrl } } }` in the toolbar became top-level `upload`. | Move it when you can: this is the one of the four that will be removed, in a future major version, because it is the one that costs you something to keep -- pasting and dropping a file cannot upload without the image button on the toolbar. The editor says so once in the console. |
-| `{ variables: [...] }` in the toolbar became top-level `variables`. | Nothing, today. |
-| Uploads go out over `XMLHttpRequest` instead of `fetch`. | Nothing, unless a test of yours stubs `fetch` to catch an upload. Same body, same credentials, same errors -- `fetch` just cannot report progress. |
-
-</DocTable>
-
-Each of these says so once in the console the first time the editor sees it,
-naming the replacement. Only `fileInput` is going, in a future major version;
-the other three keep working and no removal is planned for them.
-
-#### The stylesheet, in whichever form your page takes
-
-<Snippet view="code">
-
-```javascript
-// with a bundler, once, anywhere in your app's entry
-import 'markdown-text-editor/style.css';
-```
-
-</Snippet>
-
-<Snippet view="code">
-
-```html
-<!-- or in the page, next to the script tag -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.css">
-```
-
-</Snippet>
-
-Import it **or** link it, never both. If you forget it entirely the editor still
-works and tells you what to add in the console, rather than rendering unstyled with
-no explanation.
-
-#### Worth turning on while you are here
-
-None of these change anything if you leave them out.
-
-<Snippet view="code">
-
-```javascript
-new MarkdownEditor('#editor', {
-    upload: '/api/upload',   // the image dialog, pasting and dropping, in one place
-    autosave: true,          // offers back what was being written, after a crash
-    pasteHtml: true,         // pasted web pages and documents keep their formatting
-    tableBar: true,          // on by default: the bar beside a table you are editing
-});
-```
-
-</Snippet>
-
-## Markdown Editor Demo
-
-<RawHtml html={"<textarea class=\"hybrid-markdown-editor\" rows=\"5\" placeholder=\"Start writing...\"># Markdown Editor</textarea>"} />
-
-## Quick Start
-
-Pass an options object to customise the editor. All options are optional: omit any to use the default value.
-
-<Snippet view="code">
-
-```javascript
-const editor = new MarkdownEditor('#markdown-editor', {
-  placeholder: 'Write your markdown...',
-  toolbar: ['heading', 'bold', 'italic', 'strikethrough', 'ul', 'ol', 'checklist', 'blockquote', 'link', 'preview'],
-});
-```
-
-</Snippet>
-
-## The Philosophy: "Native-First"
-
-Most editors break the standard web workflow. **MarkdownEditor** embraces it. Because it sits directly on top of a `<textarea>`, you don't need to learn a new way to handle data.
-
--   **No Data Binding Needed:** Works with `<form method="POST">` out of the box
--   **Standard Access:** Use `document.getElementById('editor').value` just like a normal input.
--   **Backend Agnostic:** Works with any backend (Python, Node.js, PHP, etc.) just like a normal form field
-
-## MarkdownEditor vs EasyMDE / SimpleMDE
-
-Most JavaScript markdown editors (EasyMDE, SimpleMDE, CodeMirror-based editors) **hide your `<textarea>`** and edit a copy, writing the content back when the form is submitted. That works until something else needs the value: a `required` field the browser cannot focus blocks the submit entirely, and `.value` or `FormData` read before submit returns an empty string, which breaks htmx, Turbo, autosave and unsaved-changes guards. **MarkdownEditor is different.** It styles the textarea you already have and leaves it as the field you type into, so the value is correct at every moment.
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Feature | MarkdownEditor | EasyMDE / SimpleMDE |
-| --- | --- | --- |
-| Native textarea preserved | ✅ | ❌ Hidden, edited as a copy |
-| Works with `required` fields | ✅ | ❌ Browser blocks the submit |
-| `.value` correct before submit | ✅ | ❌ Empty until the form submits |
-| Serialises with `FormData`, htmx, Turbo | ✅ | ❌ Needs the editor's own API |
-| WYSIWYG hybrid mode | ✅ | ❌ |
-| Built-in Find & Replace | ✅ | ❌ |
-| RTL support | ✅ Built in | Via CodeMirror's `direction` option |
-| Inline event handlers (CSP) | ✅ None | Some |
-| Dark mode / theming | ✅ | Limited |
-| Bundle size, gzipped | 57 KB JS + 16 KB CSS via `<script>`, 34 KB JS + 16 KB CSS via a bundler, where marked and DOMPurify are your bundler's to dedupe | 107 KB (JS + CSS) |
-
-</DocTable>
-
-## Framework Integration
-
-Because **MarkdownEditor** preserves the native `<textarea>`, it integrates with every backend framework without any extra code. Your server receives the markdown content exactly as it would from any standard form field. For React and Vue it takes a few lines, covered at the end of this section.
-
-### Django
-
-Add a `class` to your textarea widget and initialize the editor: `request.POST['content']` works with no extra steps.
-
-<Snippet view="code">
-
-```python
-# forms.py
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['content']
-        widgets = {
-            'content': forms.Textarea(attrs={'class': 'markdown-editor'}),
-        }
-```
-
-</Snippet>
-
-<Snippet view="code">
-
-```javascript
-new MarkdownEditor('.markdown-editor');
-// request.POST['content'] contains the markdown on submit
-```
-
-</Snippet>
-
-### Laravel
-
-Use `f.text_area` with a class: `$request->input('content')` receives the markdown directly.
-
-<Snippet view="code">
-
-```html
-<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
-<script>new MarkdownEditor('.markdown-editor');</script>
-```
-
-</Snippet>
-
-### Ruby on Rails
-
-Works with `form_with` out of the box: `params[:content]` contains the markdown. For Turbo Drive, use `turbo:load` instead of `DOMContentLoaded`.
-
-<Snippet view="code">
-
-```javascript
-document.addEventListener('turbo:load', () => {
-    document.querySelectorAll('.markdown-editor:not([data-mde-init])').forEach(el => {
-        el.setAttribute('data-mde-init', 'true');
-        new MarkdownEditor(el);
-    });
-});
-```
-
-</Snippet>
-
-### Node.js / Express
-
-`req.body.content` receives the markdown on form submit: no sync step, no custom extraction.
-
-<Snippet view="code">
-
-```html
-<textarea name="content" class="markdown-editor"></textarea>
-<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
-<script>new MarkdownEditor('.markdown-editor');</script>
-```
-
-</Snippet>
-
-### PHP
-
-`$_POST['content']` works exactly as with any standard textarea: drop it in and your existing form handling requires zero changes.
-
-<Snippet view="code">
-
-```html
-<form method="POST" action="save.php">
-  <textarea name="content" class="markdown-editor"></textarea>
-  <button type="submit">Save</button>
-</form>
-<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
-<script>new MarkdownEditor('.markdown-editor');</script>
-```
-
-</Snippet>
-
-### React
-
-Create the editor in an effect and destroy it on unmount. Use `defaultValue` rather than `value`: the editor writes to the textarea directly, so a controlled binding would overwrite what the user is typing.
-
-<Snippet view="code">
-
-```javascript
-import { useEffect, useRef } from 'react';
-import MarkdownEditor from 'markdown-text-editor';
-
-function MarkdownField({ name, defaultValue = '', onChange }) {
-    const ref = useRef(null);
-
-    // Options are read once at construction, so the editor would hold on to
-    // whichever onChange it was handed first. A ref keeps it current.
-    const onChangeRef = useRef(onChange);
-    onChangeRef.current = onChange;
-
-    useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, {
-            onChange: (value) => onChangeRef.current?.(value),
-        });
-        return () => editor.destroy();
-    }, []);
-
-    return &lt;textarea ref={ref} name={name} defaultValue={defaultValue} /&gt;;
-}
-```
-
-</Snippet>
-
-Returning `editor.destroy()` from the effect also covers StrictMode, which runs effects twice in development and would otherwise leave two editors on one textarea. The empty dependency array is deliberate: options are read once when the editor is created, so re-running the effect would tear it down and rebuild it on every render.
-
-That is also why `onChange` goes through a ref. Passing it straight into the constructor would pin the editor to whichever function it received on mount, and an inline arrow in the parent would go stale the moment anything it closes over changes.
-
-### Vue
-
-Same idea. Set the initial value once in `onMounted` and do not bind `:value`, or every keystroke emitted back through `v-model` would overwrite the textarea.
-
-<Snippet view="code">
-
-```javascript
-&lt;script setup&gt;
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import MarkdownEditor from 'markdown-text-editor';
-
-const el = ref(null);
-const props = defineProps({ modelValue: { type: String, default: '' } });
-const emit = defineEmits(['update:modelValue']);
-let editor = null;
-
-onMounted(() => {
-    el.value.value = props.modelValue;
-    editor = new MarkdownEditor(el.value, {
-        onChange: value =&gt; emit('update:modelValue', value)
-    });
-});
-
-onBeforeUnmount(() =&gt; editor?.destroy());
-&lt;/script&gt;
-
-&lt;template&gt;&lt;textarea ref="el"&gt;&lt;/textarea&gt;&lt;/template&gt;
-```
-
-</Snippet>
-
-Used as `<MarkdownField v-model="content" />`. In a plain form you can skip `v-model` entirely and read the value from the textarea on submit, as with any other framework.
-
-
-### Server-side rendering
-
-Importing the editor on the server does not throw, so Next.js, Remix, Nuxt and SvelteKit need no `dynamic(..., { ssr: false })` wrapper around it.
-
-The reason it works is the rule above: the editor is created inside `useEffect`, `onMounted` or `onMount`, and none of those run on the server. The DOM work stays in the browser.
-
-<Snippet view="code">
-
-```javascript
-// app/page.tsx — a server component, nothing opted out of SSR
-import MarkdownField from './MarkdownField';
-
-export default function Page() {
-    return (
-        <form method="post">
-            <MarkdownField name="content" defaultValue="# Hello" />
-        </form>
-    );
-}
-```
-
-</Snippet>
-
-The `<textarea>` ships in the server HTML with its content already in it, so there is nothing to wait for and nothing that pops in. React renders the same markup on both sides and the editor enhances it after hydration, so there is no mismatch to warn about.
-
-## Configuration
-
-You can fully customize the editor's behavior and interface by passing an `options` object. If you omit an option, the **default** value is used.
-
-Options are read once, when the editor is constructed. Changing them afterwards has no effect: call `destroy()` and create a new editor instead.
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Property | Type | Default | Purpose |
+| Option | Type | Default | What it does |
 | --- | --- | --- | --- |
-| `mode` | `string` | `'plain'` | Sets the initial view. Use hybrid for a WYSIWYG experience or plain for raw syntax. |
-| `placeholder` | `string` | `'Write your markdown...'` | Text shown when the editor is empty. Not applied if the textarea carries a `placeholder` of its own. |
-| `toolbar` | `array` | every tool that needs no setup | Defines which tools appear and in what order. Passing it replaces the whole set rather than adding to it. The default is listed under [Toolbar Customization](#toolbar-customization). |
-| `footer` | `boolean \| object` | all but `words` | Controls the status bar shown below the editor. Set to `false` to hide it entirely, or pass an object to toggle individual stats. |
-| `find` | `boolean` | `true` | Find and replace, opened with `Ctrl+F`. Set `false` to leave that shortcut to the browser. |
-| `tableBar` | `boolean` | follows the toolbar | The controls that open beside a table when you click inside one, or on `Alt+T`. Omit it and they come with the `table` tool. Set `true` to offer them without that tool, for content that already holds tables; `false` to edit the pipes by hand. `Tab` between cells works either way. |
-| `pasteHtml` | `boolean` | `true` | Converts formatted text pasted from a web page or a word processor into markdown, instead of dropping to plain text. Set `false` to always paste plain. |
-| `autosave` | `boolean \| object` | `false` | Keeps a draft of what is being typed in the browser and offers it back after a crash. Off by default, because it writes to a disk this library does not own. The object form takes `key` (what identifies this draft, in place of the page address and the field's `id`), `maxAge` (milliseconds before a draft is dropped unread, a week by default) and `debounce` (milliseconds after typing stops before it saves, `1000` by default). |
-| `variables` | `array \| object` | — | The placeholders your users insert rather than type. The array is the list; the object form is `` `{ items, complete }` ``, where `complete` turns off completing as you type. Put `'variables'` in `toolbar` for the dropdown; the list is read whether or not the button is there, because the preview uses its sample values. |
-| `upload` | `string \| object \| function` | — | Where uploaded files go, used by the image dialog, by pasting and by dropping alike. See [Uploading Files](#uploading-files). |
-| `theme` | `string` | inherited | Explicitly sets the editor theme (light, dark, snowberry, darkberry). If omitted, the editor inherits `data-theme` from the nearest ancestor element or the `<textarea>` itself. |
-| `minHeight` | `number` | `200` | Minimum height in pixels the editor will shrink to when content is short. Pairs with `maxHeight` to set the auto-grow range. |
-| `maxHeight` | `number` | `500` | Maximum height in pixels the editor can grow to in non-fullscreen mode. Once content exceeds this height a scrollbar appears inside the editor. The editor also has a drag handle so users can manually resize it beyond this limit. |
-| `renderer` | `function` | `marked` | Replaces the markdown parser used for the preview. Receives the markdown string and must return an HTML string. |
-| `sanitizer` | `function` | `DOMPurify` | Replaces the HTML sanitizer. Receives the rendered HTML and must return the safe HTML to display. |
-| `onChange` | `function` | `undefined` | Callback fired on every content change: typing, toolbar actions, undo/redo, and list continuation. Receives the current markdown string as its only argument. |
-| `locale` | `object` | `undefined` | Translations for the editor's own interface, keyed by the English string. Anything you leave out stays in English. |
+| [`mode`](#two-ways-to-write) | `string` | `'plain'` | `'hybrid'` shows formatting as you type. |
+| `placeholder` | `string` | — | Shown when empty. A `placeholder` already on the textarea wins. |
+| [`toolbar`](#toolbar) | `array` | the 19 tools that need no setup | Which tools, in which order. Replaces the default rather than adding to it. |
+| [`footer`](#status-bar) | `boolean \| object` | on, without `words` | The status bar. `false` hides it, an object picks the counts. |
+| [`find`](#find-and-replace) | `boolean` | `true` | `Ctrl+F`. `false` gives the shortcut back to the browser. |
+| [`tableBar`](#editing-tables) | `boolean` | follows the toolbar | The bar beside a table. `true` offers it without the table tool, `false` never. |
+| [`pasteHtml`](#pasting-formatted-text) | `boolean` | `true` | Pasted rich text becomes markdown. `false` always pastes plain. |
+| [`autosave`](#draft-recovery) | `boolean \| object` | `false` | Keeps a draft in the browser. Object form: `key`, `maxAge`, `debounce`. |
+| [`variables`](#variables) | `array \| object` | — | Your placeholders. Object form: `` `{ items, complete }` ``. |
+| [`upload`](#uploading-files) | `string \| object \| function` | — | Where files go. A URL, a config object, or your own function. |
+| [`theme`](#theming) | `string` | inherited | `light`, `dark`, `snowberry`, `darkberry`. |
+| `minHeight` | `number` | `200` | Pixels it shrinks to. |
+| `maxHeight` | `number` | `500` | Pixels it grows to before scrolling. Draggable past it. |
+| [`renderer`](#custom-renderer) | `function` | `marked` | Markdown in, HTML out. |
+| [`sanitizer`](#custom-renderer) | `function` | `DOMPurify` | HTML in, safe HTML out. |
+| [`onChange`](#reacting-to-changes) | `function` | — | Called with the markdown on every change. |
+| [`locale`](#interface-language) | `object` | — | Translations for the editor's own words. |
 
 </DocTable>
 
-Each feature the editor offers that is not a toolbar button has one option
-named after it: pass `false` to turn it off, or an object to configure it where
-there is anything to configure.
+Every feature that is not a toolbar button has one option named after it. Pass
+`false` to turn it off, or an object where there is something to configure.
 
 <Snippet view="code">
 
 ```javascript
-const editor = new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
+    mode: 'hybrid',
     toolbar: ['bold', 'italic', 'table', 'preview'],
+    footer: { words: true },
     find: true,
     tableBar: true,
-    footer: { words: true },
 });
 ```
 
 </Snippet>
 
-### 🛠 Toolbar Customization
 
-The toolbar is modular. You can create a minimal experience or a full-featured power suite by modifying the array.
+## Set it up for the job
 
-#### What you get by default
+Four shapes that cover most fields. Each one is a live editor — type in it, then
+copy the config.
 
-Leave `toolbar` out and you get every tool that works without setting anything
-up, in this order:
+### A comment box
+
+No headings, no images, nothing that turns a comment into an article. Counts
+characters and words, since a comment usually has a limit.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:15rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-comment\" rows=\"4\" aria-label=\"Markdown editor demo, set up as a comment box\" placeholder=\"Leave a comment...\"></textarea></div>"} />
 
 <Snippet view="code">
 
 ```javascript
-// The default toolbar, written out. Leaving `toolbar` off gives you exactly this.
+new MarkdownEditor('#comment', {
+    toolbar: ['bold', 'italic', 'strikethrough', 'link', 'code', 'ul', 'ol'],
+    footer: { chars: true, words: true, line: false, col: false },
+    minHeight: 140,
+    find: false,            // Ctrl+F stays the browser's
+});
+```
+
+</Snippet>
+
+### A CMS body field
+
+Hybrid, because the person writing the post is not thinking about asterisks.
+The heading dropdown starts at H2, since H1 belongs to the page template.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:23rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-blog\" rows=\"8\" aria-label=\"Markdown editor demo, set up as a post body\" placeholder=\"Start writing...\">## A post\n\nWrite the way you would in any editor. The heading menu offers H2 to H4 here, because the page already has an H1.\n\n![An image](https://cdn.frutjam.com/media/plugins/markdown-editor.webp)\n</textarea></div>"} />
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#body', {
+    mode: 'hybrid',
+    toolbar: [
+        'undo', 'redo',
+        { heading: { levels: [2, 3, 4] } },
+        'bold', 'italic', 'blockquote',
+        'ul', 'ol', 'code', 'codeblock',
+        'table', 'link', 'image',
+        'preview',
+    ],
+    footer: { words: true, chars: true, line: true, col: true },
+    upload: '/api/upload',          // see Uploading files
+    autosave: true,                 // see Draft recovery
+});
+```
+
+</Snippet>
+
+### The smallest useful editor
+
+Three buttons and no status bar. For a one-line bio, a changelog note, a field
+in a crowded form.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:14rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-minimal\" rows=\"3\" aria-label=\"Markdown editor demo, three tools only\" placeholder=\"A short bio...\"></textarea></div>"} />
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#bio', {
+    toolbar: ['bold', 'italic', 'link'],
+    footer: false,
+    minHeight: 120,
+});
+```
+
+</Snippet>
+
+### A template or email editor
+
+The one people reach for merge tags in. The dropdown inserts them, typing
+`{{` completes them, and the preview shows the sample values so the layout
+reads like a real message.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:21rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-variables\" rows=\"7\" aria-label=\"Markdown editor demo with merge tags\" placeholder=\"Start writing...\">Hi {{first_name}},\n\nInvoice {{invoice.number}} for {{invoice.total}} is due on {{invoice.due}}.\n\nType two braces anywhere to insert another.\n</textarea></div>"} />
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#template', {
+    toolbar: ['bold', 'italic', 'variables', 'preview'],
+    variables: [
+        { label: 'First name', value: '{{first_name}}', sample: 'Hannes' },
+        { label: 'Company',    value: '{{company}}',    sample: 'Northwind' },
+        { label: 'Invoice', items: [
+            { label: 'Number', value: '{{invoice.number}}', sample: 'INV-2026-0041' },
+            { label: 'Total',  value: '{{invoice.total}}',  sample: '€1,240.00' },
+        ]},
+    ],
+});
+```
+
+</Snippet>
+
+## Toolbar
+
+Leave `toolbar` out and you get every tool that works with no setup, in this
+order:
+
+<Snippet view="code">
+
+```javascript
+// the default, written out
 toolbar: [
     'undo', 'redo',
     'heading', 'blockquote',
@@ -493,158 +313,128 @@ toolbar: [
 
 </Snippet>
 
-Two tools are **not** in that list, because neither can work until you supply
-something:
+Two tools are missing from it, and both for the same reason — neither can work
+until you supply something:
 
-- **`math`** needs a `renderer` that understands TeX. The editor does not render
-  maths itself, so on a default toolbar the button would insert `$x^2$` and the
-  preview would show the dollar signs as written.
-- **`variables`** needs your own list of placeholders. Nobody else can supply
-  it, and with nothing configured the tool adds no button at all.
+- **`math`** needs a [`renderer`](#maths) that understands TeX. Without one the
+  button would insert `$x^2$` and the preview would show the dollar signs.
+- **`variables`** needs [your own list](#variables) of placeholders. With
+  nothing configured it draws no button at all.
 
-That is the rule for every tool, including any added later: **on by default if
-it needs no configuration, opt-in if it does.**
+That is the rule for anything added later too: **on by default if it needs no
+configuration, opt-in if it does.**
 
-#### Passing `toolbar` replaces the set
+Passing `toolbar` **replaces** the default rather than adding to it. A list you
+write out stays exactly as written and will not grow new buttons in a later
+version — which is the point, for a toolbar curated down to five. If you want
+the defaults, leave the option out instead of copying the list above.
 
-It is not added to the default, it is used instead of it. So a list you write
-out stays exactly as written, and will not gain tools added to the default in a
-later version. That is deliberate — a toolbar curated down to five buttons
-should not grow new ones on its own — but it means **if you want the defaults,
-leave the option out** rather than copying the list above.
-
-#### Available Tools
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Category | Tool Keys |
-| --- | --- |
-| Typography | `heading`, `bold`, `italic`, `strikethrough`, `blockquote` |
-| Lists | `ul` (bullet), `ol` (numbered), `checklist` |
-| Code | `code` (inline), `codeblock` (fenced block) |
-| Inserts | `hr` (horizontal rule), `table` (table with a size picker), `math` (TeX delimiters — **opt-in**, needs a `renderer`) |
-| Media | `link`, `image` |
-| Editing | `undo`, `redo`, `indent`, `outdent` |
-| View | `preview` |
-| Templates | `{ variables: [...] }`, configured inline — **opt-in** |
-
-</DocTable>
-
-#### Tool Reference
+<div class="accordion my-6">
+<details name="ref-toolbar" id="the-tools">
+<summary>Every tool key, and what it does</summary>
+<div class="accordion-content">
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| Tool | Description |
+| Key | What it does |
 | --- | --- |
-| `heading` | Opens a dropdown to select heading level H1–H6. Narrow the list with `{ heading: { levels: [2, 3, 4] } }` |
-| `bold` | Enables bold text formatting. |
-| `italic` | Enables italic text formatting. |
-| `strikethrough` | Allows for text strikethrough. |
-| `ol` | (Ordered List): Converts text into a numbered list format. |
-| `ul` | (Unordered List): Converts text into a bullet point list. |
-| `checklist` | Adds checkboxes to your text, making it great for tasks, to-do lists, or tracking completion status. |
-| `blockquote` | Highlight quoted or emphasized text. |
-| `code` | Wraps selected text in single backticks for inline code. Clicking again removes the backticks. |
-| `codeblock` | Wraps selected text in a triple-backtick fenced code block. Clicking again removes the fences. |
-| `hr` | Inserts a `---` horizontal rule at the cursor position on its own line. |
-| `table` | Opens a grid to pick the size from, and inserts a table of that size. Clicking inside a table afterwards opens controls for adding, deleting and aligning columns and rows: see [Editing Tables](#editing-tables). |
-| `math` | **Not on the default toolbar** — add it by name. Wraps the selection in TeX delimiters, `$...$` inline or `$$...$$` over several lines. The editor does not render TeX itself, so it needs a `renderer`: see [Maths](#maths). |
-| `image` | Allows you to insert images via markdown syntax. |
-| `link` | Lets you add hyperlinks to your text. |
-| `undo` | To reverse the last changes. |
-| `redo` | To reapply the last undone changes. |
-| `indent` | To increase the indentation level. |
-| `outdent` | To decrease the indentation level. |
-| `preview` | Toggles a fullscreen side-by-side preview. Checkboxes in the preview pane are clickable and update the markdown source instantly. Press Escape to exit fullscreen. If a fixed header covers the editor in fullscreen, see `--mte-fullscreen-z-index`. |
+| `heading` | A dropdown, H1 to H6. Narrow it with `{ heading: { levels: [2, 3, 4] } }`. |
+| `bold` `italic` `strikethrough` | Wrap the selection. Press again to unwrap. |
+| `blockquote` | Prefixes the lines with `>`. |
+| `ul` `ol` `checklist` | Bullets, numbers, `- [ ]` boxes. Enter continues the list. |
+| `outdent` `indent` | Move lines in and out. `Tab` does it too, outside a table. |
+| `code` | Inline backticks. Longer fences if the text already holds one. |
+| `codeblock` | A fenced block. Press again to unwrap. |
+| `hr` | A `---` rule on its own line. |
+| `table` | Pick a size from a grid. Clicking in a table afterwards opens [the bar](#editing-tables). |
+| `link` `image` | Dialogs that prefill from whatever you selected. |
+| `undo` `redo` | History of what changed, with the caret put back. |
+| `preview` | The [side-by-side preview](#preview). Always drawn last, wherever you list it. |
+| `math` | **Opt-in.** TeX delimiters. See [Maths](#maths). |
+| `variables` | **Opt-in.** Your placeholders. See [Variables](#variables). |
 
 </DocTable>
 
-#### Heading levels
+Order is the array's order. To remove a tool, leave it out. To rename a button
+for a screen reader or a tooltip, use [`locale`](#interface-language).
 
-The `heading` dropdown offers H1 to H6. Where H1 belongs to the page rather than the content, which is the case for most CMS body fields, narrow it:
+</div>
+</details>
+</div>
+
+### Heading levels
+
+H1 usually belongs to the page, not the content. Narrow the dropdown and the
+keyboard follows:
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', {
-    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+new MarkdownEditor('#body', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview'],
 });
 ```
 
 </Snippet>
 
-`Ctrl+1`, `Ctrl+2` and `Ctrl+3` follow the same list, so a level you leave out cannot be inserted from the keyboard either, and the button's tooltip lists only the shortcuts that still work. The order you write them in does not matter, the menu is always H1 first. Levels outside 1 to 6 are ignored with a console warning, and a list with nothing usable in it falls back to all six rather than rendering an empty menu.
+`Ctrl+1` to `Ctrl+3` map onto the list you gave, so a level you left out cannot
+be typed from the keyboard either, and the tooltip only claims the shortcuts
+that work. The order you write them in does not matter — the menu is always H1
+first. Junk is ignored with a console warning and you get all six back rather
+than an empty menu.
 
-This restricts the toolbar, not the document. Someone can still type `# Title` by hand and it renders as a heading, because what is valid markdown is the renderer's decision rather than the toolbar's. If the rule has to hold, enforce it on the server.
+This restricts the toolbar, not the document: someone can still type `# Title`
+and it renders as a heading, because what counts as markdown is the renderer's
+business. If the rule has to hold, hold it on the server.
 
-##### 💡 Implementation Tips:
+## Custom tools
 
--   **Reordering**: The buttons appear in the exact order you list them in the array
--   **Removing**: Simply omit any key (like `image`) from the array to disable that feature entirely for the user
--   **Native Fallback**: If you don't provide a `placeholder` in JS, the plugin will automatically use the `placeholder` attribute from your HTML `<textarea>`
-
-### 🧩 Custom Tools
-
-Add a toolbar button of your own without forking. Describe it and drop it into the `toolbar` array, in whatever position you want it.
+A button of your own, dropped into the array wherever you want it. No forking,
+no build step.
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', {
+new MarkdownEditor('#notes', {
     toolbar: ['bold', 'italic', {
         custom: {
             title: 'Callout',
             icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">…</svg>',
             action(editor) {
                 editor.insertText('> [!NOTE]\n> Something worth noting');
-            }
-        }
-    }, 'preview']
+            },
+        },
+    }, 'preview'],
 });
 ```
 
 </Snippet>
 
-The `title` becomes the tooltip and the button's CSS class, so this one is styleable as `.callout-btn`, exactly like the built-in tools.
-
-#### Several tools
-
-Add as many as you like. Each one is its own entry in the array, so you place them individually and they can sit between built-in tools rather than being grouped at one end.
-
-<Snippet view="code">
-
-```javascript
-toolbar: [
-    'bold', 'italic',
-    { custom: { title: 'Callout',   icon: svg1, action: insertCallout } },
-    'ul', 'ol',
-    { custom: { title: 'Signature', icon: svg2, action: insertSignature } },
-    'preview'
-]
-```
-
-</Snippet>
-
-Give each one a distinct `title`. Two tools sharing a title would share a CSS class, and a tool without one falls back to `.custom-btn`.
-
-#### Options
+The `title` is the tooltip and the CSS class, so that one is `.callout-btn`,
+exactly like a built-in tool. Add as many as you like, each its own entry, each
+with a distinct title — two tools sharing a title share a class, and one with
+no title falls back to `.custom-btn`.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Property | Type | Purpose |
 | --- | --- | --- |
-| `title` | `string` | Required. Tooltip text, and the source of the button's CSS class. Translatable through `locale`. |
-| `action` | `function` | Required. Receives `(editor, event)`. The click event is passed on so a tool that opens a dialog can hand it to `MarkdownEditor.modal`. |
-| `icon` | `string` | Inline SVG for the button face. |
-| `shortcut` | `string` | A keyboard shortcut such as `Ctrl+Shift+K`. Added to the tooltip, and takes precedence over a built-in using the same keys. |
+| `title` | `string` | Required. Tooltip, CSS class, and the key `locale` translates. |
+| `action` | `function` | Required. Gets `(editor, event)`. Pass the event on if you open a dialog. |
+| `icon` | `string` | Inline SVG for the face of the button. |
+| `shortcut` | `string` | e.g. `Ctrl+Shift+K`. Shown in the tooltip, and beats a built-in using the same keys. |
 
 </DocTable>
 
-A tool with no `action` is skipped with a console warning rather than breaking the toolbar. It renders no button, and its `shortcut`, if it declared one, is not registered either.
+A tool with no `action` is skipped with a console warning rather than breaking
+the toolbar, and its shortcut is not registered either.
 
-#### Working with the content
+### Changing the document
 
-Use `editor.insertText()` rather than writing to the textarea yourself. It replaces the selection, restores focus, moves the caret, scrolls, re-renders the preview and fires `onChange`. Undo keeps working because the edit goes through the normal path.
+Use `editor.insertText()` rather than writing to the textarea yourself. It
+replaces the selection, restores focus, moves the caret, scrolls, re-renders the
+preview and fires `onChange` — and undo keeps working, because the edit went
+through the normal path.
 
 <Snippet view="code">
 
@@ -661,12 +451,11 @@ action(editor) {
 
 </Snippet>
 
-#### A slow tool (async)
+### A tool that waits on a server
 
-A tool that calls a server cannot finish inside the click. Put something in
-the document straight away and swap it for the real text when the answer
-arrives: a button that does nothing for two seconds reads as a broken button.
-The image upload works exactly this way.
+A button that does nothing for two seconds reads as broken. Put something in the
+document immediately and swap it when the answer arrives — the image upload
+works exactly this way.
 
 <Snippet view="code">
 
@@ -680,7 +469,7 @@ async function rewrite(editor) {
     editor.insertText(token, token.length, 0);
 
     const put = (replacement) => {
-        // Search for the token instead of remembering where it went. The
+        // Search for the token rather than remembering where it went: the
         // document keeps moving while the request is in flight, and it may
         // have been deleted altogether.
         const at = textarea.value.indexOf(token);
@@ -701,7 +490,7 @@ async function rewrite(editor) {
         if (!response.ok) throw new Error('HTTP ' + response.status);
         put((await response.json()).text);
     } catch (error) {
-        put(selected);          // put their paragraph back
+        put(selected);                      // put their paragraph back
         console.error('[rewrite] failed', error);
     }
 }
@@ -711,36 +500,22 @@ async function rewrite(editor) {
 
 Four things there are worth copying whatever your tool does:
 
--   **Insert a placeholder first.** `insertText` immediately, swap later.
--   **Find the placeholder by searching for it**, not by remembering an offset. The document moves while you wait.
--   **Restore the original if the call fails.** Losing someone's paragraph to a failed request is the one outcome worth engineering against. The image upload leaves a visible `Upload failed` marker for the same reason: a placeholder that silently disappears looks like nothing happened.
--   **Put the waiting text through `editor.label()`**, so it translates with the rest of the interface.
+- **Insert a placeholder first**, swap it later.
+- **Find it by searching**, not by remembering an offset.
+- **Restore the original if the call fails.** Losing someone's paragraph to a
+  failed request is the one outcome worth engineering against.
+- **Put the waiting text through `editor.label()`**, so it translates with the
+  rest of the interface.
 
-This is the shape for anything that waits: a translation service, a spell or
-grammar check, a house-style linter, or a language model. The editor has no
-AI of its own and no key of its own, so the endpoint is yours and the key
-stays on your server, where a browser cannot read it.
+That shape fits anything that waits: a translator, a spell check, a house-style
+linter, a language model. The editor has no AI and no key of its own — the
+endpoint is yours and the key stays on your server, where a browser cannot read
+it.
 
-#### Shortcuts
+### A tool with its own markup
 
-<Snippet view="code">
-
-```javascript
-{ custom: {
-    title: 'Highlight',
-    icon: '<svg>…</svg>',
-    shortcut: 'Ctrl+Shift+H',
-    action: (editor) => editor.insertText('====', 2, 2)
-}}
-```
-
-</Snippet>
-
-The tooltip becomes "Highlight (Ctrl+Shift+H)". Tool shortcuts are checked before the built-in ones, so a custom tool can deliberately take over a combination the editor would otherwise handle.
-
-#### Tools that need their own markup
-
-A dropdown or a dialog cannot be described declaratively, so write a class instead. Extend `MarkdownEditor.Tool`, set `this.button` in the constructor, and implement `applySyntax()`.
+A dropdown or a dialog cannot be described declaratively, so write a class.
+Extend `MarkdownEditor.Tool`, set `this.button`, implement `applySyntax()`.
 
 <Snippet view="code">
 
@@ -766,401 +541,369 @@ class EmbedTool extends MarkdownEditor.Tool {
     }
 
     destroy() {
-        // Called by editor.destroy(). Release anything you registered here.
+        // editor.destroy() calls this. Release anything you registered.
     }
 }
 
-new MarkdownEditor('#markdown-editor', { toolbar: ['bold', EmbedTool, 'preview'] });
+new MarkdownEditor('#notes', { toolbar: ['bold', EmbedTool, 'preview'] });
 ```
 
 </Snippet>
 
-Pass configuration with `{ tool: EmbedTool, config: {...} }`, which arrives as the constructor's second argument. Setting `this.button` to `null` renders nothing, which is useful for a tool that only applies in some configurations.
+Configuration goes as `{ tool: EmbedTool, config: {...} }` and arrives as the
+constructor's second argument. `this.button = null` renders nothing, for a tool
+that only applies sometimes. One thing to watch: `Tool`'s constructor calls
+`createButton()`, so anything your override needs has to come from
+`this.editor`, not from a field you assign after `super()`.
 
-One thing to watch: `Tool`'s constructor calls `createButton()`, so anything your override needs must come from `this.editor`, not from a field you assign after `super()`.
-
-#### Two helpers your tool inherits
-
-`Tool` gives you these, and a tool that wraps a selection wants both.
+### What a tool inherits
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Helper | What it does |
 | --- | --- |
-| `this.trimSelection()` | Shrinks the selection so it holds no leading or trailing whitespace, then call your wrapping code. Double-clicking a word selects the space after it, so without this you get `**word **` and nothing renders as bold. Call it first in `applySyntax()`. Line-based tools should not: a trailing newline is what tells them which lines the selection covers. |
-| `this.editor.label(text)` | Returns the translation for a string, or the string itself. Use it for anything your tool shows, so a `locale` can cover your tool as well as the built-in ones. |
+| `this.trimSelection()` | Shrinks the selection off surrounding whitespace. Double-clicking a word takes the space after it, and `**word **` renders as nothing. Call it first. Line-based tools should not — a trailing newline is what tells them which lines are covered. |
+| `this.editor.label(text)` | The translation, or the string itself. Use it for anything your tool shows. |
+| `MarkdownEditor.modal(event, size, html, label)` | The dialog the link and image tools use, so yours looks like the rest. Returns the open `<dialog>`; close it with `dialog.close()`. Pass the event you were given — it finds the editor, inherits the theme, and cleans itself up. |
+| `editor.renderMarkdown(md)` | HTML exactly as the preview makes it, honouring your `renderer` and `sanitizer`. |
+| `editor.createToolbar(textarea, tools)` | A real toolbar bound to another textarea, for a dialog that collects rich text. Your `locale` is inherited; no preview button is added. |
 
 </DocTable>
 
-#### The dialog helper
-
-`MarkdownEditor.modal` is the dialog the built-in link and image tools use, so a tool of yours that collects input looks like the rest of the editor instead of inventing its own popup. It returns the `<dialog>` element, already open, which you query for your fields and close with `dialog.close()`.
+Custom tools translate like built-in ones, keyed on the title you gave:
 
 <Snippet view="code">
 
 ```javascript
-// (event, size classes, body HTML, aria label)
-const dialog = MarkdownEditor.modal(event, 'fj:max-w-sm', '…', 'Embed');
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar vídeo' }
 ```
 
 </Snippet>
 
-Pass the `event` your `applySyntax()` received. The helper reads it to find which editor the click came from, so the dialog is appended inside that editor's wrapper and picks up its theme. It replaces any dialog already open in that editor, and removes itself from the DOM when closed, so there is nothing to clean up.
+The class is unaffected, so `.callout-btn` stays `.callout-btn` in every
+language.
 
-#### Rendering markdown yourself
 
-If your tool embeds rendered content, a tooltip body for instance, `editor.renderMarkdown()` produces HTML exactly as the preview does, honouring your `renderer` and `sanitizer`.
+## Preview
 
-<Snippet view="code">
+The last button on the toolbar opens the rendered document beside the text,
+fullscreen. Scroll one side and the other follows. Tables are drawn as a grid in there, with a border and a rule down every column, so a wide table reads as a table. Tick a checkbox in the
+preview and the markdown updates — it writes back to the source.
 
-```javascript
-const html = editor.renderMarkdown('**bold** text');
-```
+`Escape` or `F11` closes it, and the button fills in while it is open so the
+state is visible rather than remembered.
 
-</Snippet>
+Below the medium breakpoint there is only room for one pane, so the preview
+takes the screen and the toolbar dims: it would be acting on a textarea you
+cannot see.
 
-#### A toolbar for your own textarea
-
-When a dialog collects rich text, give it the real formatting tools instead of rebuilding them. The toolbar is bound to the textarea you pass, your `locale` strings are inherited, and no preview button is added.
-
-<Snippet view="code">
-
-```javascript
-const body = dialog.querySelector('textarea');
-const bar = editor.createToolbar(body, ['bold', 'italic', 'strikethrough']);
-dialog.querySelector('.body-toolbar').appendChild(bar);
-```
-
-</Snippet>
-
-This does not manage the toolbar's lifetime. The buttons are cleaned up with the dialog when it is removed, but if a tool in it registers anything page-wide, a document listener or a timer, release that yourself when the dialog closes.
-
-#### Translation
-
-Custom tools translate like built-in ones, keyed by the title you gave them.
-
-<Snippet view="code">
-
-```javascript
-locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
-```
-
-</Snippet>
-
-The CSS class is unaffected, so `.callout-btn` stays `.callout-btn` in every language.
-
-### 📊 Footer (Status Bar)
-
-The footer sits below the editor and shows the cursor's **line**, **column**, the document's **character count**, and optionally the **word count**, all updated in real time. It is visible by default and each stat can be toggled independently.
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Key | Type | Default | Description |
-| --- | --- | --- | --- |
-| `line` | `boolean` | `true` | Show the current line number. |
-| `col` | `boolean` | `true` | Show the current column number. |
-| `chars` | `boolean` | `true` | Show the total character count. |
-| `words` | `boolean` | `false` | Show the total word count. Off by default: set to `true` to enable. |
-
-</DocTable>
-
-#### Usage Examples
-
-<Snippet view="code">
-
-```javascript
-// Default — line, col, and chars visible
-new MarkdownEditor('#editor');
-
-// Disable the footer entirely
-new MarkdownEditor('#editor', { footer: false });
-
-// Hide only character count
-new MarkdownEditor('#editor', { footer: { chars: false } });
-
-// Hide line and column, keep character count
-new MarkdownEditor('#editor', { footer: { line: false, col: false } });
-
-// Show only line number
-new MarkdownEditor('#editor', { footer: { col: false, chars: false } });
-
-// Enable word count alongside the defaults
-new MarkdownEditor('#editor', { footer: { words: true } });
-
-// Show word count only
-new MarkdownEditor('#editor', { footer: { line: false, col: false, chars: false, words: true } });
-```
-
-</Snippet>
-
-### 🔀 Editing Modes
-
-**MarkdownEditor** offers two distinct ways to write and format your content. You can toggle between a traditional syntax-focused view or a modern, visual-first experience.
-
--   `plain` (**Default**): A clean, high-performance Markdown environment where syntax (like `**bold**` or `# heading`) is visible. Ideal for developers and Markdown purists
--   `hybrid`: A WYSIWYG-inspired experience that renders formatting (Bold, Italics, Headings) in real-time as you type, while still maintaining the underlying Markdown structure.
-
-<Snippet view="code">
-
-```javascript
-// Default initialization (Plain Mode)
-new MarkdownEditor('#markdown-editor');
-
-// Explicit Plain Mode
-new MarkdownEditor('#markdown-editor', {
-    mode: 'plain'
-});
-
-// Hybrid (Visual) Mode
-new MarkdownEditor('#markdown-editor', {
-    mode: 'hybrid'
-});
-```
-
-</Snippet>
-
-#### Hybrid and Plain Mode Preview:
-
-##### Hybrid Mode
-
-Visual formatting is rendered in real-time while you type.
-
-<RawHtml html={"<textarea class=\"hybrid-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Hybrid mode markdown editor This will render visual styles immediately.</textarea>"} />
-
-##### Plain Mode (Default)
-
-Focuses on raw Markdown syntax for a lightweight experience.
-
-<RawHtml html={"<textarea class=\"plain-markdown-editor mb-4\" rows=\"5\" placeholder=\"Start writing...\"># Plain mode markdown editor This shows the raw **syntax**.</textarea>"} />
-
-### 🌙 Theming
-
-**MarkdownEditor** automatically inherits its theme from the surrounding page: no configuration required. The editor reads `data-theme` from the nearest ancestor at initialisation, so it stays in sync with your site's theme out of the box.
-
-#### How theme is resolved (priority order)
-
-1.  **`theme` option**: explicit override passed in the options object
-2.  **`data-theme` on the `<textarea>`**: set directly on the element
-3.  **`data-theme` on any ancestor**: e.g. `<html>`, `<body>`, or a wrapper `<div>`
-
-#### Available themes
-
-`'light'` (default), `'dark'`, `'snowberry'`, `'darkberry'`
-
-##### Option 1, inherit from `<html>` or any ancestor (zero config)
-
-<Snippet view="code">
-
-```html
-<html data-theme="dark">
-  ...
-  <textarea id="markdown-editor"></textarea>
-  <script>
-    new MarkdownEditor('#markdown-editor'); // picks up dark automatically
-  </script>
-```
-
-</Snippet>
-
-##### Option 2: set `data-theme` directly on the `<textarea>`
-
-<Snippet view="code">
-
-```html
-<textarea id="markdown-editor" data-theme="dark"></textarea>
-<script>
-  new MarkdownEditor('#markdown-editor');
-</script>
-```
-
-</Snippet>
-
-##### Option 3: explicit `theme` option (overrides everything)
-
-<Snippet view="code">
-
-```javascript
-new MarkdownEditor('#markdown-editor', {
-    theme: 'dark'
-});
-```
-
-</Snippet>
-
-#### 🎨 Custom Theme via CSS Variables
-
-You can fully customize the editor's look by overriding its CSS variables on the `.markdown-editor-wrapper` element or any `[data-theme]` selector. All colors use the [OKLCH color space](https://oklch.com) for perceptually uniform results.
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Variable | Purpose | Light default | Dark default |
-| --- | --- | --- | --- |
-| `--color-base` | Editor background | `oklch(100% 0 0)` | `oklch(10.9% 0 0)` |
-| `--color-on-base` | Primary text color | `oklch(22% 0 0)` | `oklch(98% 0 0)` |
-| `--color-primary` | Primary accent (toolbar active, links) | `oklch(51.1% .262 277)` | `oklch(66.4% .184 286)` |
-| `--color-on-primary` | Text on primary-colored surfaces | `oklch(96.2% .018 272)` | `oklch(10% .01 270)` |
-| `--color-secondary` | Secondary accent | `oklch(59.1% .293 323)` | `oklch(65% .18 220)` |
-| `--color-accent` | Highlight accent (inline code, italic) | `oklch(54.1% .281 293)` | `oklch(75% .18 50)` |
-| `--color-neutral` | Neutral surfaces (borders, dividers) | `oklch(15% 0 0)` | `oklch(85% 0 0)` |
-| `--color-error` | Error state color | `oklch(57.7% .245 27)` | `oklch(60% .22 30)` |
-| `--border-radius` | Corner rounding of the editor frame | `0.25rem` |
-
-</DocTable>
-
-##### Custom theme example
-
-Override any variable on `.markdown-editor-wrapper` after the editor initialises, or define a custom `[data-theme]` block in your stylesheet:
+If a fixed header covers the editor in fullscreen, raise one variable:
 
 <Snippet view="code">
 
 ```css
-/* Override individual variables */
 .markdown-editor-wrapper {
-    --color-primary: oklch(60% 0.2 30);   /* orange accent */
-    --border-radius: 0.5rem;
-}
-
-/* Or define a full custom theme */
-[data-theme="brand"] .markdown-editor-wrapper,
-.markdown-editor-wrapper[data-theme="brand"] {
-    --color-base:       oklch(15% 0.01 250);
-    --color-on-base:    oklch(95% 0 0);
-    --color-primary:    oklch(65% 0.22 145);   /* green */
-    --color-on-primary: oklch(10% 0 0);
-    --color-accent:     oklch(75% 0.18 60);
-    --color-neutral:    oklch(80% 0 0);
-    --border-radius:    0.75rem;
+    --mte-fullscreen-z-index: 20000;   /* 10000 by default */
 }
 ```
 
 </Snippet>
 
+## Find and replace
+
+`Ctrl+F` opens it, `Ctrl+H` opens it with the replace row already showing.
+Every match in the document is highlighted at once with the current one picked
+out, and the counter reads as a fraction — `3/12`.
+
+Try it in here. There is plenty to find:
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:25rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-find\" rows=\"9\" aria-label=\"Markdown editor demo for find and replace\" placeholder=\"Start writing...\">## Release notes\n\nThe editor now ships the editor's own stylesheet separately, which means the editor is lighter when the editor is not the only thing on the page.\n\nPress Ctrl+F and search for **editor**. Then press Ctrl+H and replace it with **plugin** — turn on `AB` first and the capital E is kept.\n\n- editor\n- Editor\n- EDITOR\n</textarea></div>"} />
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Switch | Key | What it does |
+| --- | --- | --- |
+| `Aa` | `Alt+C` | Match case |
+| `ab` | `Alt+W` | Whole word only |
+| `.*` | `Alt+R` | Read the search as a regular expression. `$1` and friends work in the replacement |
+| `[ ]` | `Alt+L` | Search only what you had selected. The range keeps covering the same text as you edit around it |
+| `AB` | `Alt+P` | Keep the case of what you replace: one lower-case replacement turns "Cat" into "Dog" and "CAT" into "DOG" |
+
+</DocTable>
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Key | Action |
+| --- | --- |
+| `Enter` / `Shift+Enter` | Next / previous match |
+| `F3` / `Shift+F3` | The same, from anywhere in the document |
+| `Ctrl+Alt+Enter` | Replace all |
+| `Escape` | Close and go back to the text |
+
+</DocTable>
+
+The switches work while the caret is back in the document too, so you can click
+a match, read it in context, and change an option without returning to the box.
+
+Set `find: false` to give `Ctrl+F` back to the browser, for documents short
+enough not to need this.
+
+**Without a mouse or a screen**: the panel is a labelled `search` landmark,
+every switch reports its pressed state rather than only looking different, each
+control carries its shortcut in `aria-keyshortcuts`, and the arrows and replace
+buttons go disabled when there is nothing to act on instead of answering with
+silence. The match count is spoken once you stop typing rather than
+interrupting itself on every keystroke.
+
+On a narrow editor the switches fold behind a chevron, decided by the panel's
+own width rather than the window's — so an editor in a sidebar behaves like one
+on a phone. Past four hundred matches only the current one is drawn, so a
+document full of a common word stays responsive.
+
+## Editing tables
+
+The `table` button opens a grid to pick a size from. Click inside a table
+afterwards and a small bar opens beside it.
+
+Click in this one:
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:25rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-table\" rows=\"9\" aria-label=\"Markdown editor demo with a table\" placeholder=\"Start writing...\">## Pricing\n\n| Plan | Seats | Price |\n| --- | --- | --- |\n| Starter | 3 | 9 |\n| Team | 20 | 29 |\n| Business | unlimited | 99 |\n\nClick a cell. Add a column, align it right, then press Tidy.\n</textarea></div>"} />
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Control | What it does |
+| --- | --- |
+| Column `+` / `−` | Add a column after the one you are in, or delete it |
+| Row `+` / `−` | Add a row below the one you are in, or delete it |
+| Align left / centre / right | Set the alignment of the column you are in |
+| Tidy | Line the pipes up, so the source reads as a table |
+
+</DocTable>
+
+Keys work whether or not the bar is showing:
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Key | Action |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Next or previous cell |
+| `Tab` in the last cell | Start a new row |
+| `Enter` | Move down the column; from an empty row, leave the table |
+| `Alt+T` | Open the bar for the table you are in |
+
+</DocTable>
+
+The bar comes with the `table` tool. `tableBar` says otherwise: `false` for
+people who would rather edit pipes by hand, `true` to offer it on a toolbar
+with **no** table button — which is what you want when the content already holds
+tables but nobody should be inserting new ones. `Tab` between cells works either
+way.
+
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', { theme: 'brand' });
+// table tool, no bar
+new MarkdownEditor('#notes', { toolbar: ['bold', 'table', 'preview'], tableBar: false });
+
+// no table tool, but existing tables stay editable
+new MarkdownEditor('#notes', { toolbar: ['bold', 'preview'], tableBar: true });
 ```
 
 </Snippet>
 
-### 🌐 Interface Language
+## Variables
 
-The editor's own text, tooltips, menu items, modal fields and buttons, is English by default. Pass a `locale` object to translate it. Keys are the English strings, the way gettext works, so you only list what you want to change and anything missing falls back to English.
+Also called merge tags or placeholders: the `{{customer.name}}` that gets filled
+in later. Give the editor your list and people stop mistyping them.
 
-`locale` takes the strings themselves, not a language code. `locale: 'es'` has no effect and says so in the console. Import the one you want instead, so nobody downloads the languages they are not using. It was called `labels` before 2.0.0, and that name still works.
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:21rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-variables\" rows=\"7\" aria-label=\"Markdown editor demo with merge tags\" placeholder=\"Start writing...\">Hi {{first_name}},\n\nThanks for signing up to {{company}}. Open the Variables button in the toolbar, or just type two braces here: \n</textarea></div>"} />
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', {
-    locale: {
-        'Bold': 'Gras',
-        'Italic': 'Italique',
-        'Heading': 'Titre',
-        'Link': 'Lien',
-        'Image link': 'Lien de l\'image',
-        'URL': 'URL',
-        'Alt text': 'Texte alternatif',
-        'Apply': 'Appliquer',
-        'Uploading...': 'Téléversement...',
+new MarkdownEditor('#template', {
+    toolbar: ['bold', 'italic', 'variables', 'preview'],
+    variables: [
+        { label: 'First name', value: '{{first_name}}', sample: 'Hannes' },
+        { label: 'Company',    value: '{{company}}',    sample: 'Northwind' },
+    ],
+});
+```
+
+</Snippet>
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Key | Type | Purpose |
+| --- | --- | --- |
+| `label` | `string` | What the menu shows. |
+| `value` | `string` | What gets inserted. Any syntax you like — `{{x}}`, `[x]`, `<<x>>`, `%x%`. |
+| `sample` | `string` | Optional. What the **preview** shows instead of the placeholder, so the layout reads like a real message. The textarea keeps the real one. |
+
+</DocTable>
+
+The list is read whether or not `'variables'` is on the toolbar, because the
+preview uses the sample values either way.
+
+### Groups
+
+Nest with `items` where a flat list would get long. One level deep, mixed
+freely with ungrouped entries:
+
+<Snippet view="code">
+
+```javascript
+variables: [
+    { label: 'Today', value: '{{today}}', sample: '25 November 2026' },
+    { label: 'Customer', items: [
+        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes Weber' },
+        { label: 'Email', value: '{{customer.email}}', sample: 'h@example.com' },
+    ]},
+    { label: 'Invoice', items: [
+        { label: 'Number', value: '{{invoice.number}}', sample: 'INV-2026-0041' },
+        { label: 'Total',  value: '{{invoice.total}}',  sample: '€1,240.00' },
+    ]},
+]
+```
+
+</Snippet>
+
+### Completing as you type
+
+Start typing a placeholder and the list appears under the caret, narrowing as
+you go. Arrows move, `Enter` or `Tab` inserts, `Escape` closes.
+
+What opens it is whatever **your own values** start with, so `{{today}}`,
+`{{ today }}` and `<< today >>` each complete from their own opening. Nothing to
+configure.
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#template', {
+    variables: {
+        items: [{ label: 'First name', value: '{{first_name}}' }],
+        complete: false,          // the typed trigger, on by default
     },
 });
 ```
 
 </Snippet>
 
-This matters most alongside right-to-left content. Arabic, Urdu and Farsi lay out correctly on their own, but a toolbar that still reads "Bold" over right-to-left text is only half translated.
+The object form exists for exactly that one setting. The array form is the same
+thing with completion left on.
 
-Fifty-six languages ship with the package, under
-`markdown-text-editor/locale/`. **They are machine-translated and have not been
-checked by native speakers**, which each file says of itself: it exports
-`reviewed`, currently `false` everywhere, so you can tell at a glance and decide
-whether to vet one before shipping it. Every file is checked against the English
-template on each release for missing keys and for lost `{n}` placeholders, so what
-is wrong with any of them is wording rather than wiring. Corrections are welcome
-and are the fastest contribution to make.
+## Draft recovery
 
-#### The full list of strings
-
-There are 78 of them, and the package ships the list so you do not have to go looking. Keys and values are identical, so it is a template to copy rather than a translation.
+A tab crashes, a laptop sleeps and never wakes, somebody closes the wrong
+window. Whatever was typed and not submitted is gone, because the only copy was
+in a textarea.
 
 <Snippet view="code">
 
 ```javascript
-import template from 'markdown-text-editor/locale/template.js';
-// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+new MarkdownEditor('#content', { autosave: true });
 ```
 
 </Snippet>
 
-Counts carry a `{n}` placeholder so your translation decides where the number goes, rather than being stuck with English word order.
+**Try it:** type something below, reload this page, and it will offer the draft
+back.
+
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:19rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-autosave\" rows=\"6\" aria-label=\"Markdown editor demo with draft recovery\" placeholder=\"Type something, then reload the page...\"></textarea></div>"} />
+
+### It never restores on its own
+
+That is the part worth understanding. A draft is a second copy of the same
+text, and two copies disagree sooner or later:
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| | |
+| --- | --- |
+| Monday | you type a draft, and it is stored |
+| Monday | you submit, and the server saves it |
+| Tuesday | somebody else edits the document, so the server is newer |
+| Wednesday | you open the page, and the textarea has their text in it |
+
+</DocTable>
+
+An editor that restored automatically would put Monday's draft over Tuesday's
+work and say nothing. So it offers instead: a strip above the toolbar, with how
+long ago the draft was taken, and one button — **Review**.
+
+### Review shows you the difference
+
+The dialog holds the draft against what is on the page, line by line: what the
+draft would take out, what it would put in, and a few lines either side to say
+where in the document it happened. **Restore** and **Discard** live in there and
+only in there, because both are irreversible and neither belongs on a bar that
+appeared while you were reading something else.
+
+Ignoring the strip costs nothing, which is the quick path. Closing it means
+"not now" — the draft stays stored and is offered again next load.
+
+### Both answers can be taken back
+
+Restore or discard, and the strip says what happened and offers **Undo**. Undo
+puts the draft back in storage either way, and after a restore it reverses the
+document change as well. So neither click destroys anything: you end up where
+you were before it.
+
+A restore is also one undo step in the editor itself, so `Ctrl+Z` works on it
+like any other edit.
+
+### When the page has moved on
+
+If the text on the page changed since the draft was taken, the strip says so.
+That is the case where the draft is most likely to be the stale copy, and it is
+the one the dialog is for.
+
+### Where the draft is kept
+
+`localStorage`, under a key built from the page's address and the field's `id`
+or `name`. Two editors on one page are two drafts; the same document at two
+addresses is two records, which is usually right.
 
 <Snippet view="code">
 
 ```javascript
-locale: {
-    '{n} words': '{n} palabras',
-    '{n} chars': '{n} caracteres',
-}
+new MarkdownEditor('#content', {
+    autosave: {
+        key: 'post-42',               // say it yourself, where the address is not stable
+        maxAge: 24 * 60 * 60 * 1000,  // dropped unread after a day. A week by default
+        debounce: 1000,               // milliseconds after typing stops
+    },
+});
 ```
 
 </Snippet>
 
-#### Using your own translations
+Pass `key` where the address carries something incidental — a campaign
+parameter, a session id — or where one record is edited at several URLs.
 
-`locale` takes a plain object, so where it comes from is up to you. Most projects already have a translation system, and feeding the editor from it keeps the wording consistent with the rest of the interface. In Django the strings end up in your `.po` files with everything else:
+### What clears it
 
-<Snippet view="code">
+Submitting the form, restoring the draft, discarding it, or deleting your way
+back to the text the page loaded with. A draft older than `maxAge` is dropped
+unread.
 
-```python
-from django.utils.translation import gettext as _
+### Things to know
 
-def edit(request):
-    return render(request, 'edit.html', {
-        'mte_strings': {
-            'Bold': _('Bold'),
-            'Italic': _('Italic'),
-            'Apply': _('Apply'),
-            'Uploading...': _('Uploading...'),
-        },
-    })
-```
+- **Off unless you ask.** It writes what someone is typing to a disk this
+  library does not own, on machines that are sometimes shared. That is the
+  application's call, not a default.
+- **`localStorage` holds about 5 MB per origin**, shared with everything else
+  your app keeps there, and counted in UTF-16. A draft past roughly 2.5 million
+  characters is refused — the console says so, once, and your text is never at
+  risk, because the textarea is the document.
+- **It is not a backup.** It survives a crash, not a cleared browser, and it
+  never leaves the machine.
 
-</Snippet>
-
-<Snippet view="code">
-
-```html
-{{ mte_strings|json_script:"mte-strings" }}
-
-<script type="module">
-    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
-    new MarkdownEditor('#markdown-editor', { locale: strings });
-</script>
-```
-
-</Snippet>
-
-With a client-side catalogue such as i18next or vue-i18n, map the keys through your `t()`:
-
-<Snippet view="code">
-
-```javascript
-import template from 'markdown-text-editor/locale/template.js';
-
-const strings = Object.fromEntries(
-    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
-);
-```
-
-</Snippet>
-
-### 📋 Pasting Formatted Text
+## Pasting formatted text
 
 Copy a few paragraphs from a web page, a wiki or a word processor, paste them
-in, and the headings, links, lists and tables arrive as markdown. Before, the
-clipboard's plain text was all that came through and the formatting had to be
-put back by hand.
+in, and the headings, links, lists and tables arrive as markdown.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -1175,805 +918,176 @@ put back by hand.
 
 </DocTable>
 
-Markdown characters in the pasted prose are escaped, so a sentence containing
-an asterisk stays a sentence rather than turning into emphasis.
+Markdown characters in the pasted prose are escaped, so a sentence with an
+asterisk in it stays a sentence.
 
-The conversion declines more often than it acts. If the clipboard carries no
-formatting worth converting, or the result would match the plain text anyway,
-the browser does its own paste and keeps its own undo entry. A URL pasted over
-a selection still becomes a link around that selection, which is the more
-specific thing to have meant.
-
-Pasted HTML goes through the same sanitizer as the preview, so a page carrying
-a script tag or an inline event handler loses it on the way in.
+The conversion declines more often than it acts. Where the clipboard carries no
+formatting worth keeping, or the result would match the plain text anyway, the
+browser does its own paste and keeps its own undo entry. Pasted HTML goes
+through the same sanitizer as the preview, so a page carrying a script tag loses
+it on the way in.
 
 <Snippet view="code">
 
 ```javascript
-// Always paste plain text, as it worked before 2.0
-new MarkdownEditor('#markdown-editor', { pasteHtml: false });
+new MarkdownEditor('#notes', { pasteHtml: false });   // always paste plain
 ```
 
 </Snippet>
 
-### 💾 Draft Recovery
+### A URL pasted over a selection becomes a link
 
-A tab crashes, a laptop sleeps and never wakes, somebody closes the wrong
-window. Whatever was typed and not submitted is gone, because the only copy
-of it was in a textarea.
-
-`autosave` keeps a second copy in the browser and offers it back.
+Select some text, paste a URL over it, and you get the link rather than the URL
+replacing what you selected.
 
 <Snippet view="code">
 
-```javascript
-new MarkdownEditor('#content', { autosave: true });
+```markdown
+Read the docs                        <- select "the docs", paste https://example.com
+Read [the docs](https://example.com) <- what you get
 ```
 
 </Snippet>
 
-Type, wait a second, and the draft is saved. Come back to a page whose text
-no longer matches it and a strip appears above the toolbar:
+Deliberately strict: only a bare `http` or `https` URL with no whitespace in it.
+Pasting a sentence that happens to contain a URL, or pasting with nothing
+selected, is an ordinary paste.
 
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+## Maths
 
-| | |
-| --- | --- |
-| **Unsaved draft**, with the time it was taken | `Restore` puts it in the editor, `Discard` throws it away |
+Add `math` to the toolbar. The button, or `Alt+M`, wraps the selection in TeX
+delimiters — `$...$` on one line, `$$...$$` across several. Press again to take
+them off.
 
-</DocTable>
+The editor writes the delimiters and nothing else. **It does not render TeX**,
+because maths is not part of markdown and a TeX engine is several times the size
+of the whole editor. What you get is portable markdown that GitHub, Obsidian and
+Jupyter all render.
 
-#### It never restores on its own
-
-This is the part worth understanding, because it looks like a missing
-feature until you have been bitten by the alternative.
-
-The text your server put in the textarea may be **newer** than the draft:
-
-```
-Monday     you type a draft                     saved in your browser
-Monday     you leave without submitting
-Tuesday    a colleague edits the same document  the server is now newer
-Wednesday  you open the page                    their text is in the box
-```
-
-An editor that restored automatically would put Monday's draft over Tuesday's
-work and say nothing. Nothing on this side can tell which version is wanted,
-so it asks, and the text on the page is untouched until you answer.
-
-#### Looking before you choose
-
-The strip has **one button**, **Review**. It opens a dialog holding the difference: the
-lines the draft would take out, the lines it would put in, and a few either
-side to say where in the document it happened, with the length of each version
-above it.
-
-By line rather than by character, since a character diff of two paragraphs is a
-confetti of fragments and whole lines are what a reader answers from.
-
-Both strips close. On the offer that means **not now**: the draft stays in
-storage and is offered again on the next load, because unsaved work that
-stopped asking after one dismissal would go quiet and then expire. Discarding
-is the other thing, and it is behind the dialog where it can show what it is
-about to delete.
-
-Both answers leave the strip behind, saying what happened and offering
-**Undo**, and it goes when you use it or when you next type. Closing that one
-is not undoing: the answer stands.
-
-Undo puts the draft back in storage either way, and after a restore it reverses
-the document change as well. So neither accidental click destroys anything: the
-strip comes back and you are where you were before it. Discard needs this more
-than restore does -- restoring is one editor undo step regardless, while a
-discarded draft has nothing else to give it back.
-
-**Restore** and **Discard** are in the dialog and nowhere else. Both are
-irreversible -- one overwrites the document, the other deletes the only copy of
-the draft -- and neither is a thing to do from a bar that appeared while you
-were reading something else. The strip costs nothing to ignore, which is the
-quick path if the draft is not what you want.
-
-Without it, pressing Restore was the only way to find out what a draft held,
-which made looking and committing the same action. On a draft written against
-text a colleague has since changed, that is the worst pairing available: the
-warning tells you the choice costs something without telling you what, and the
-only way to find out is to pay.
-
-By line rather than by character: a character diff of two paragraphs is a
-confetti of fragments, and the question being answered is "is this mine",
-which whole lines answer.
-
-#### Restore is one undo step
-
-`Ctrl+Z` puts the page's text back. That matters most in the case above, where
-a draft and the server disagree: Restore is reversible, so the worst that
-happens is you look and change your mind.
-
-Until 2.0 it was not. Assigning the textarea's value raises no input event, and
-the undo history is built from those, so the replaced text had nowhere to go.
-Restoring also clears the stored draft, which left reloading the page as the
-only way back, and nothing said so.
-
-#### When the page has moved on
-
-The draft remembers the text the textarea held when it was taken. If the
-textarea starts with something else today, somebody saved in between, and the
-strip says so and turns amber:
-
-```
-unchanged   Unsaved draft   17/11/2026, 10:18
-changed     Unsaved draft   17/11/2026, 10:18   The document has changed since then
-```
-
-Restoring is still offered, because the draft may well be the version you
-want. You now know it costs you their edit. `Ctrl+Z` undoes a restore if you
-change your mind.
-
-#### Off unless you ask
-
-Every other option here defaults on. This one does not: it writes what
-somebody is typing to a disk this library does not own, on machines that are
-sometimes shared, and that is a decision for the application rather than a
-default.
-
-#### Where the draft is kept
-
-In `localStorage`, under a key built from the page address and the field's own
-`id` or `name`:
-
-```
-mte:draft:/posts/7/edit:content
-```
-
-Two editors on a page are two drafts. The same form at two addresses is two
-records, and the query string and hash count: `/edit?id=7` and `/edit?id=9`
-do not share a draft, nor do `/#/posts/7` and `/#/posts/9`.
-
-Where the address carries something incidental, a campaign parameter say, give
-the key yourself. Your application knows what identifies the record:
+To see it in the preview, bring a renderer and its stylesheet:
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#content', {
-    autosave: {
-        key: 'post-7',        // instead of the address
-        maxAge: 86400000,     // drop drafts older than a day; a week by default
-        debounce: 1000,       // how long after typing stops, in milliseconds
-    },
+import markdownIt from 'markdown-it';
+import katex from '@vscode/markdown-it-katex';
+import 'katex/dist/katex.min.css';
+
+new MarkdownEditor('#notes', {
+    toolbar: ['bold', 'italic', 'math', 'preview'],
+    renderer: md => markdownIt().use(katex).render(md),
 });
 ```
 
 </Snippet>
 
-If the textarea has no `id` or `name`, the key falls back to the field's
-position on the page and the console says so. Positions move when a textarea
-is added above, and two drafts change places with them.
+Without one the preview shows `$x^2$` as written, and the console says so once
+rather than leaving you wondering whether the button worked.
 
-#### What clears it
+## Status bar
 
--   **Restore** and **Discard**, both, from the dialog.
--   **Submitting the form.** At that point the application has the text for real.
--   **Typing the document back** to what it started as. That is not unsaved work.
--   **Age.** Drafts older than `maxAge` are dropped unread.
+Line, column and character count, under the editor, updated as you type. Word
+count is there too, off by default.
 
-#### Things to know
-
--   **Nothing leaves the browser.** The draft is never sent anywhere. It is not a backup, and it is gone when site data is cleared.
--   **It is not version history.** One draft per field, overwritten as you type.
--   **Storage can refuse.** Private browsing throws on access rather than returning null, and a full quota throws on write. Both are caught, so typing carries on either way, but a refused write is reported in the console rather than passed over: a draft that is not being kept is worth knowing about before you need it.
--   **There is a size limit, and it is the browser's.** `localStorage` holds roughly 5MB per origin, shared with everything else your application keeps there, and it counts UTF-16, so a million characters is about two of those megabytes. A document long enough to pass that cannot be drafted locally; the console says so when it happens.
-
-### 🏷 Variables
-
-Adds a toolbar dropdown for inserting placeholders. Useful when the person writing a document is not the developer who defined the placeholder syntax, as with email, invoice or contract templates: they pick a readable name and the correct syntax is inserted for them.
-
-**Not on the default toolbar**, because the list of placeholders can only come from you. Put `'variables'` in `toolbar` for the button and the list in `variables`; given none, the tool adds no button at all.
+<RawHtml html={"<div class=\"not-prose my-5\" style=\"min-height:17rem\"><p class=\"mte-demo-label\">Live demo &mdash; type in it</p><textarea class=\"mte-footer\" rows=\"5\" aria-label=\"Markdown editor demo with every status bar count\" placeholder=\"Start writing...\">Move the caret around and watch the line and column change. The word count is on in this one.\n</textarea></div>"} />
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', {
-    toolbar: ['bold', 'italic', 'link', 'variables', 'preview'],
-    variables: [
-        { label: 'Customer Name', value: '{{customer.name}}' },
-        { label: 'Invoice No',    value: '{{invoice.number}}' }
-    ]
-});
+new MarkdownEditor('#notes', { footer: { words: true } });  // add the word count
+new MarkdownEditor('#notes', { footer: false });            // no status bar
 ```
 
 </Snippet>
-
-`'variables'` sits wherever you put it in the array, so its position among the
-other buttons is up to you. The button lists the labels, and clicking one
-inserts its `value` at the cursor, replacing any selection. Nothing is rendered
-if the list is empty.
-
-The list is read whether or not the button is on the toolbar, because two other
-things need it: the preview substitutes sample values, and the typed completion
-below reads the punctuation your placeholders use. Both run before the toolbar
-is built.
-
-Before 2.0 the list was configured inside the toolbar array, as
-`` `{ variables: [...] }` ``. That still works, so nothing written against 1.7
-needs touching. Where both are given, the top-level option wins.
-
-#### Sample values in the preview
-
-An entry given a `sample` shows that sample in the preview, while the textarea keeps the real placeholder. Entries without one appear as written, so you can mix both.
-
-<Snippet view="code">
-
-```javascript
-{ variables: [
-    { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' },
-    { label: 'Invoice No',    value: '{{invoice.number}}' }
-]}
-
-// textarea : Hi {{customer.name}}, invoice {{invoice.number}}
-// preview  : Hi Hannes, invoice {{invoice.number}}
-```
-
-</Snippet>
-
-#### Grouping
-
-Give an entry `items` instead of a `value` to render a headed section. Grouped and flat entries can be mixed in one list.
-
-<Snippet view="code">
-
-```javascript
-{ variables: [
-    { label: 'Today', value: '{{today}}', sample: '10 September 2026' },
-    { label: 'Customer', items: [
-        { label: 'Name',  value: '{{customer.name}}',  sample: 'Hannes' },
-        { label: 'Email', value: '{{customer.email}}', sample: 'hannes@example.com' }
-    ]},
-    { label: 'Invoice', items: [
-        { label: 'Number', value: '{{invoice.number}}' }
-    ]}
-]}
-```
-
-</Snippet>
-
-#### Completing as you type
-
-Typing `{{` opens the same list under the cursor, narrowed as you keep typing
-against both the label and the placeholder. The arrow keys move through it,
-`Enter` or `Tab` inserts, and `Escape` closes it. Closing braces already after
-the cursor are swallowed rather than left behind.
-
-What opens it comes from your own placeholders, not from a fixed rule. The
-editor reads the punctuation each `value` starts and ends with, so whatever
-you write is what people type:
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| Your `value` | Opens on | Inserts |
+| Key | Default | Shows |
 | --- | --- | --- |
-| `{{today}}` | `{{` | `{{today}}` |
-| `{{ today }}` | `{{` or `{{ ` | `{{ today }}` |
-| `<< today >>` | `<<` | `<< today >>` |
-| `[[today]]` | `[[` | `[[today]]` |
-| `today` | nothing to type | toolbar button only |
+| `line` | `true` | The line the caret is on |
+| `col` | `true` | The column |
+| `chars` | `true` | Characters in the document |
+| `words` | `false` | Words |
 
 </DocTable>
 
-One optional space after the opening, because Handlebars and Mustache write
-`{{today}}` while Django, Jinja and Liquid write `{{ today }}`, and someone
-used to the second types the space out of habit.
+Counts go through `locale` with a `{n}` placeholder, so a translation decides
+where the number sits.
 
-A closing already sitting after the cursor is swallowed whatever its shape, so
-an editor that auto-closes brackets does not leave you with `<< today >>>>`.
 
-Mixing delimiters keeps them apart. With both `{{customer.name}}` and
-`<< today >>` configured, typing `{{` offers only the first and `<<` only the
-second, on the grounds that a host using both means them for different
-things.
+## Uploading files
 
-The dropdown stays, for the first time someone meets a template. The
-completion is for every time after that, when the name is already known.
-
-Nothing is inserted unless a key says so, so `{{` typed for its own sake
-costs a dismissed menu. To turn it off, give `variables` its object form and
-set `complete: false`:
+A file reaches the editor three ways — the image button's picker, a pasted
+screenshot, and a file dropped on the textarea. `upload` is where all three go.
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#markdown-editor', {
-    toolbar: ['bold', 'italic', 'variables', 'preview'],
-    variables: {
-        items: [{ label: 'Customer Name', value: '{{customer.name}}' }],
-        complete: false,
-    },
-});
+new MarkdownEditor('#notes', { upload: '/api/upload' });
 ```
 
 </Snippet>
 
-This was `variableComplete` at the top level in the 2.0 betas. It moved in with
-the list it belongs to, and the old name says where it went in the console
-rather than being ignored.
-
-#### Things to know
-
--   **The editor never resolves variables.** It inserts text, and your application substitutes real values later, usually server-side. `sample` only affects what the preview displays.
--   **Labels are shown as plain text**, so markup in a label is never rendered.
--   **Malformed entries are skipped** rather than throwing, and the button is not rendered at all when nothing usable is configured.
-
-### 🖋 Custom Renderer
-
-The preview is rendered with [marked](https://marked.js.org) and sanitized with [DOMPurify](https://github.com/cure53/DOMPurify). Both can be replaced. Use this when your application already renders markdown with another library and you want the preview to match production exactly.
-
-Both options are plain functions that take a string and return a string, so any parser and any sanitizer works.
-
-<Snippet view="code">
-
-```javascript
-import MarkdownIt from 'markdown-it';
-import taskLists from 'markdown-it-task-lists';
-import MarkdownEditor from 'markdown-text-editor';
-
-const md = new MarkdownIt({ linkify: true, breaks: true }).use(taskLists);
-
-new MarkdownEditor('#markdown-editor', {
-    renderer: markdown => md.render(markdown)
-});
-```
-
-</Snippet>
-
-DOMPurify still runs on the output, so you keep XSS protection without configuring anything.
-
-#### Custom sanitizer
-
-Only needed when the default strips something your renderer emits. DOMPurify removes `<iframe>` by default, so video embeds need it allowed explicitly. DOMPurify must be imported in your own code, since the copy bundled with the editor is internal.
-
-<Snippet view="code">
-
-```javascript
-import DOMPurify from 'dompurify';
-
-new MarkdownEditor('#markdown-editor', {
-    renderer:  markdown => md.render(markdown),
-    sanitizer: html => DOMPurify.sanitize(html, {
-        ADD_TAGS: ['iframe'],
-        ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder']
-    })
-});
-```
-
-</Snippet>
-
-Using a script tag instead of a bundler, load DOMPurify alongside the editor:
-
-<Snippet view="code">
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/dompurify"></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor"></script>
-```
-
-</Snippet>
-
-#### Things to know
-
--   **Preview only.** Hybrid mode's live formatting uses a separate internal renderer and is not affected.
--   **Task lists need plugin support.** Clickable checkboxes are found by looking for `input[type="checkbox"]` in the output, so markdown-it needs `markdown-it-task-lists`. The editor logs a warning if it detects task list syntax and no checkboxes.
--   **Both must be synchronous** and return a string. An `async` function writes `[object Promise]` into the preview.
--   **Replacing the sanitizer replaces your protection.** A pass-through such as `html => html` disables sanitizing entirely and is only safe for fully trusted content.
-
-### 🎨 Styling Internal Elements
-
-CSS variables cover most theming because they inherit, so setting one on `.markdown-editor-wrapper` reaches the toolbar, buttons, preview and footer. Reach for a class name only when no variable exposes what you need.
-
-<Snippet view="code">
-
-```css
-/* Variables set on the wrapper inherit down to every child */
-.markdown-editor-wrapper {
-    --border-radius: 12px;   /* rounds the editor and its toolbar buttons */
-    --color-primary: oklch(60% 0.2 30);
-}
-```
-
-</Snippet>
-
-#### Class reference
-
-These class names are stable and safe to style against.
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Class | Element |
-| --- | --- |
-| `.markdown-editor-wrapper` | Outer container wrapping the whole editor |
-| `.editor-notices` | Where notices addressed to the reader appear, above the toolbar. Empty, and with no height, until there is one |
-| `.toolbar` | Toolbar strip above the editing area |
-| `.markdown-btn` | Individual toolbar button |
-| `.preview-btn` | The preview / fullscreen toggle button |
-| `.editor-layout` | Grid holding the editing area and preview side by side |
-| `.textarea-wrapper` | Wrapper around the editing area |
-| `.editor-textarea` | The underlying textarea element |
-| `.display-layer` | Rendered formatting layer, hybrid mode only |
-| `.preview-wrapper` | Preview column |
-| `.preview-content` | Rendered markdown inside the preview |
-| `.editor-footer` | Status bar below the editor |
-| `.find-replace-panel` | Find and replace panel |
-
-</DocTable>
-
-<Snippet view="code">
-
-```css
-/* Some variables are set by the component on itself, which beats an
-   inherited value. Target the element directly for those. */
-.markdown-editor-wrapper .markdown-btn {
-    --btn--font-size: 0.875rem;
-}
-
-/* And use classes for anything no variable exposes */
-.markdown-editor-wrapper .toolbar {
-    border-bottom: 2px solid oklch(60% 0.2 30);
-}
-```
-
-</Snippet>
-
-#### Targeting one editor
-
-With several editors on one page, target one of them with `data-editor`. The wrapper mirrors the id of its `<textarea>`, so `<textarea id="notes">` gives you `[data-editor="notes"]`. The id itself stays on the textarea, so `getElementById` keeps working.
-
-<Snippet view="code">
-
-```css
-/* one editor only */
-[data-editor="notes"] {
-    --border-radius: 0;
-}
-```
-
-</Snippet>
-
-### 🪟 Fullscreen & Layering (z-index)
-
-In fullscreen the editor uses `z-index: 10000`, which clears the layers most UI frameworks reserve for fixed headers and overlays. If a fixed header or sidebar still covers the editor, raise this value.
-
-Override it with `--mte-fullscreen-z-index`. The value applies only in fullscreen, and it inherits, so setting it on any ancestor covers every editor beneath it.
-
-<Snippet view="code">
-
-```css
-/* every editor on the page */
-.markdown-editor-wrapper {
-    --mte-fullscreen-z-index: 20000;
-}
-
-/* one section only - the value inherits down */
-#admin-panel {
-    --mte-fullscreen-z-index: 20000;
-}
-
-/* a single editor, by its textarea id */
-[data-editor="notes"] {
-    --mte-fullscreen-z-index: 20000;
-}
-```
-
-</Snippet>
-
-### 🔒 Content Security Policy
-
-The editor adds no inline event handlers, uses no `eval`, and from 2.0.0 injects no `<style>` element. A strict policy needs no `'unsafe-inline'` exception for it, in either direction:
-
-<Snippet view="code">
-
-```
-Content-Security-Policy: script-src 'self'; style-src 'self'
-```
-
-</Snippet>
-
-Before 2.0.0 the CSS was carried inside the JavaScript and injected at load, which a policy without `style-src 'unsafe-inline'` refuses ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). A nonce was considered and dropped: it only helps policies that have one, and a statically hosted site on `style-src 'self'` has no server minting a fresh nonce per request. Linking the stylesheet covers every policy instead of some of them.
-
-One thing the editor does not control is the markdown your users write. DOMPurify keeps `style` attributes by default, so `<span style="color:red">` in a document survives into the preview and a strict `style-src-attr` will report it. Strip them with the `sanitizer` option if that matters to you:
-
-<Snippet view="code">
-
-```javascript
-import DOMPurify from 'dompurify';
-
-new MarkdownEditor('#markdown-editor', {
-    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
-});
-```
-
-</Snippet>
-
-## Content API
-
-One of the core strengths of **MarkdownEditor** is that it keeps the underlying `<textarea>` perfectly synchronized. Whether you are using a modern JavaScript framework or a traditional backend like **Django, PHP, or Laravel**, the workflow remains simple and native.
-
-### Reading and Writing Content
-
-#### 1\. The Native Way (Recommended)
-
-Because the editor enhances a standard textarea, you can use familiar DOM methods. This is the fastest way to interact with your data without learning a new API.
-
-<Snippet view="code">
-
-```javascript
-// Retrieve content via ID
-const markdown = document.getElementById('markdown-editor').value;
-
-// Set content via ID (The editor UI updates automatically)
-document.getElementById('markdown-editor').value = "# New Heading Content";
-```
-
-</Snippet>
-
-#### 2\. Using a Variable Reference
-
-If you have a reference to the textarea element, you can use it directly: no library-specific API needed.
-
-<Snippet view="code">
-
-```javascript
-const textarea = document.getElementById('markdown-editor');
-
-// Retrieve content
-const markdown = textarea.value;
-
-// Set content (the editor UI reflects this immediately)
-textarea.value = "## Updated via JS";
-```
-
-</Snippet>
-
-#### 3\. Setting initial content server-side
-
-The recommended way to set initial content is directly in the `<textarea>` HTML: this works naturally with every backend framework (Django, Laravel, Rails, PHP, etc.) and the editor renders it automatically on init.
-
-<Snippet view="code">
-
-```html
-<!-- Recommended: set content server-side -->
-<textarea id="markdown-editor"># Hello World</textarea>
-```
-
-</Snippet>
-
-To read or update content at runtime, use the native `textarea` value. Call `editor.render()` after an update to refresh the preview and hybrid layer.
-
-<Snippet view="code">
-
-```javascript
-const textarea = document.getElementById('markdown-editor');
-
-// Read
-const markdown = textarea.value;
-
-// Update at runtime
-textarea.value = '# New content';
-editor.render();
-```
-
-</Snippet>
-
-#### 4\. Tearing down the editor: `destroy()`
-
-Call `editor.destroy()` to remove the editor DOM wrapper and restore the original `<textarea>` to its position in the document. Useful in single-page applications when unmounting a view.
-
-<Snippet view="code">
-
-```javascript
-const editor = new MarkdownEditor('#markdown-editor');
-
-// Remove the editor and restore the plain textarea
-editor.destroy();
-```
-
-</Snippet>
-
-### Reacting to changes with `onChange`
-
-Pass an `onChange` callback to be notified on every content change. Receives the current markdown string.
-
-<Snippet view="code">
-
-```javascript
-const editor = new MarkdownEditor('#markdown-editor', {
-    onChange(value) {
-        console.log('Content changed:', value.length, 'characters');
-    }
-});
-```
-
-</Snippet>
-
-#### Saving a draft
-
-The editor does this itself from 2.0, so there is nothing to write:
-
-<Snippet view="code">
-
-```javascript
-new MarkdownEditor('#markdown-editor', { autosave: true });
-```
-
-</Snippet>
-
-Hand-rolling it with `onChange` and `localStorage` used to be the advice here,
-and it is worth saying why that advice was wrong rather than merely longer. The
-obvious version restores the saved text over whatever the page was loaded with:
-
-<Snippet view="code">
-
-```javascript
-if (saved && !textarea.value) textarea.value = saved;   // don't
-```
-
-</Snippet>
-
-The text already on the page came from your database and may be the newer of
-the two, so overwriting it without asking can quietly lose an edit made
-somewhere else. [Draft Recovery](#draft-recovery) offers the draft back with
-the time it was taken and lets the writer choose, clears it when the form
-submits, and drops drafts older than `maxAge` unread.
-
-Use `onChange` for persistence the editor cannot do for you, such as saving to
-your own server:
-
-<Snippet view="code">
-
-```javascript
-let pending;
-new MarkdownEditor('#markdown-editor', {
-    onChange(value) {
-        clearTimeout(pending);
-        pending = setTimeout(() => {
-            fetch('/api/posts/42/draft', { method: 'PUT', body: value });
-        }, 2000);
-    }
-});
-```
-
-</Snippet>
-
-### Form Submission
-
-Because **MarkdownEditor** is built directly on the native `<textarea>`, it is compatible with every backend framework (Django, Laravel, PHP, Ruby on Rails, etc.) right out of the box.
-
-This is where the "Native-First" philosophy shines. You don't need to manually sync data before submitting a form. The browser treats the editor exactly like a standard input field.
-
-<Snippet view="code">
-
-```html
-<form method="POST" action="/api/submit">
-  <textarea id="markdown-editor" name="content" class="h-48" rows="5">
-    # Initial Content
-  </textarea>
-
-  <button type="submit">Submit to Server</button>
-</form>
-
-<script>
-  // Just initialize it. That's it.
-  new MarkdownEditor('#markdown-editor');
-</script>
-```
-
-</Snippet>
-
-<RawHtml html={"<p class=\"text-sm\"><strong>Note:</strong> MarkdownEditor plugin initialization mandatory</p>"} />
-
-Just use a standard HTML `<form>`. The `name` attribute on the textarea is what your server will use to identify the content.
-
-##### 🚀 Why it's a Game-Changer for Backends
-
-Since the editor preserves the native `<textarea>` behavior, your server handles the data as a standard string. There is zero extra logic required: no `preventDefault()` and no manual `FormData` construction.
-
-##### 💡 Why this is a "Killer Feature":
-
-Most editors (like Quill, Editor.js, simpleMDE, easyMDE) save data in complex JSON structures. If a developer uses those, they have to rewrite their database schema and their rendering logic.
-
-With **MarkdownEditor**, a developer can take an old website, replace a plain `<textarea>` with your editor, and the **backend doesn't even know it changed**. It just receives the same raw text it always did, but the user gets a 10x better experience.
-
-<DocTable wrapper="overflow-x-auto w-full" table="table table-xs not-prose">
-
-| Framework / Language | How to access the Markdown content |
-| --- | --- |
-| PHP | `$_POST['content']` |
-| Django | `request.POST.get('content')` |
-| Node.js (Express) | `req.body.content` |
-| Laravel | `$request->input('content')` |
-| Ruby on Rails | `params[:content]` |
-
-</DocTable>
-
-## 🖼️ Uploading Files
-
-A file reaches the editor three ways: the image button's file picker, a pasted
-screenshot, and a file dropped onto the textarea. `upload` is where all three
-go.
-
-<Snippet view="code">
-
-```javascript
-new MarkdownEditor('#editor', { upload: '/api/upload' });
-```
-
-</Snippet>
-
-That is the whole configuration for the common case. Your endpoint receives the
-file as `multipart/form-data` and answers with a URL.
-
-Before 2.0 this lived inside the toolbar, as
-`{ image: { fileInput: { uploadUrl } } }`. That form still works and is
-documented at the end of this section, but it tied uploading to the image
-button: leave the button off the toolbar and pasting a screenshot stopped
-working too. An endpoint is not a button.
-
-#### Three forms
+That is the whole configuration for the common case: your endpoint gets the file
+as `multipart/form-data` and answers with a URL.
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Written as | Use it when |
 | --- | --- |
 | `upload: '/api/upload'` | Your endpoint answers with a URL. Most hosts. |
-| `upload: { url, ... }` | You need a CSRF header, a size limit, file types past images, or your endpoint answers in its own shape. |
-| `upload: async (file, alt) => url` | You do the request: a presigned PUT to S3, an upload library, anything the options below cannot describe. |
+| `upload: { url, ... }` | You need a CSRF header, a size limit, types past images, or your endpoint answers in its own shape. |
+| `upload: async (file, alt) => url` | You do the request yourself: a presigned PUT, an upload library, anything the options cannot describe. |
 
 </DocTable>
 
-#### Options
+<div class="accordion my-6">
+<details name="ref-upload">
+<summary>Every upload option</summary>
+<div class="accordion-content">
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Property | Type | Default | Purpose |
 | --- | --- | --- | --- |
-| `url` | `string` | — | Where the file is POSTed. The only required option. |
-| `field` | `string` | `'image_file'` | Name of the form field carrying the file. Change it when your endpoint already exists and reads something else, rather than writing a second endpoint to rename one key. |
-| `headers` | `object` | — | Sent with the request. Where a CSRF token goes when the framework wants one in a header: `X-CSRFToken` for Django, `X-CSRF-TOKEN` for Laravel. `Content-Type` is ignored, because the browser writes it itself with the multipart boundary. |
-| `params` | `object` | `{}` | Extra form fields sent alongside the file: a folder, a post id, or a CSRF token in the body. |
-| `response` | `function` | reads the shapes below | Reads your endpoint's answer, for a shape the editor does not already understand. Return a URL string or an object with `path` or `url`, and optionally `alt`. Throw to report a failure. |
-| `accept` | `string[]` | `['image/*']` | What may be uploaded, as `'png'`, `'image/png'` or `'image/*'`. This decides what the editor will even look at: a type outside the list is left alone on paste and drop. Widen it and other kinds of file become uploadable. |
-| `maxSize` | `number` | no limit | Largest file accepted, in bytes. Unlike `accept`, going over it is reported rather than ignored, because the file was one you said you would take. |
-| `insert` | `function` | see below | What is written into the document once the upload lands. Receives `(file, url, alt)` and returns markdown. |
-| `onProgress` | `function` | — | Called as the bytes go out, with `(file, loaded, total)`, for a progress bar of your own. Only fires for the built-in `url` upload; a function passed as `upload` reports its own progress. |
+| `url` | `string` | — | Where the file is POSTed. The only required one. |
+| `field` | `string` | `'image_file'` | Name of the form field carrying the file. Change it when your endpoint already reads something else, rather than writing a second endpoint to rename a key. |
+| `headers` | `object` | — | Sent with the request. Where a CSRF token goes: `X-CSRFToken` for Django, `X-CSRF-TOKEN` for Laravel. `Content-Type` is ignored — the browser writes it with the multipart boundary. |
+| `params` | `object` | `{}` | Extra form fields: a folder, a post id, a token in the body. |
+| `response` | `function` | reads the shapes below | Reads an answer the editor does not already understand. Return a URL string, or an object with `path` or `url` and optionally `alt`. Throw to report a failure. |
+| `accept` | `string[]` | `['image/*']` | What may be uploaded, as `'png'`, `'image/png'` or `'image/*'`. Decides what the editor will even look at: a type outside the list is left alone on paste and drop. |
+| `maxSize` | `number` | no limit | Largest file, in bytes. Unlike `accept`, going over it is reported — the file was one you said you would take. |
+| `insert` | `function` | see below | The markdown written once it lands. Gets `(file, url, alt)`. |
+| `onProgress` | `function` | — | `(file, loaded, total)` as the bytes go out, for a progress bar of your own. |
 | `paste` | `boolean` | `true` | `false` leaves pasted files alone. |
-| `drop` | `boolean` | `true` | `false` refuses dropped files. The drop is still swallowed, because letting it through hands the file to the browser, which navigates away and takes the unsaved document with it. |
+| `drop` | `boolean` | `true` | `false` refuses dropped files. The drop is still swallowed — letting it through hands the file to the browser, which navigates away and takes the unsaved document with it. |
 
 </DocTable>
 
-The alt text always travels as `image_alt`, whatever `field` is set to. There is
-no option for it: an endpoint that cannot read `image_file`, because it already
-exists under another name, can still read a string called `image_alt`.
+The alt text always travels as `image_alt`, whatever `field` says. There is no
+option for it on purpose: an endpoint that cannot read `image_file` because it
+already exists under another name can still read a string called `image_alt`.
 
-#### Paste and drop
+</div>
+</details>
+</div>
 
-Paste a screenshot or drag a file onto the editor and it goes to the same
-endpoint as the toolbar button. A placeholder appears at once so the editor
-never looks frozen, and it is replaced with the real path when the upload
-lands. If it fails, the placeholder becomes a visible marker rather than
-vanishing, which without devtools open would look like nothing had happened.
+### Paste and drop
+
+Both go to the same endpoint as the button. A placeholder appears at once so the
+editor never looks frozen, and it is replaced when the upload lands. If it
+fails, the placeholder becomes a visible marker rather than vanishing — which
+without devtools open would look like nothing happened.
 
 Several files at once go up one at a time, so they land in the order they
 arrived.
 
-With no `upload` configured, pasting a file does nothing and the console says
-what to add. A dropped file is swallowed all the same: letting the event
-through would hand the file to the browser, which navigates to it and loses
-whatever was unsaved.
-
-Uploading no longer needs the image button on the toolbar:
+Uploading needs no image button at all:
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     toolbar: ['bold', 'italic', 'link', 'preview'],   // no image tool
     upload: '/api/upload',
 });
@@ -1981,14 +1095,13 @@ new MarkdownEditor('#editor', {
 
 </Snippet>
 
-What that gives up is the dialog: there is no way to insert an image by typing
-a URL, and no alt text field, so `image_alt` always arrives empty.
+What that gives up is the dialog: no way to insert an image by typing a URL, and
+no alt field, so `image_alt` always arrives empty.
 
-#### What lands in the document
+With no `upload` configured, pasting a file does nothing and the console says
+what to add. A dropped file is swallowed all the same, for the reason above.
 
-Markdown has syntax for exactly one of these. Video and audio are raw HTML
-because there is nothing else to write, and anything else is a link named after
-the file, which is what every forum and issue tracker does with an attachment.
+### What lands in the document
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
@@ -2001,13 +1114,16 @@ the file, which is what every forum and issue tracker does with an attachment.
 
 </DocTable>
 
-Images are all that is accepted until you say otherwise. Widen `accept` and the
-rest follows:
+Markdown has syntax for exactly one of those. Video and audio are raw HTML
+because there is nothing else to write, and anything else is a link named after
+the file — which is what every forum and issue tracker does with an attachment.
+
+Images are all that is accepted until you say otherwise:
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     upload: {
         url: '/api/upload',
         accept: ['image/*', 'video/mp4', 'application/pdf'],
@@ -2018,10 +1134,10 @@ new MarkdownEditor('#editor', {
 
 </Snippet>
 
-Writing the HTML for a video is a bet that whatever renders this markdown
-allows HTML through. Most publishing pipelines do; `markdown-it` with
-`html: false` and Python-Markdown do not, and there a reader sees the tag as
-text. Give `insert` where that is true of yours:
+Writing HTML for a video is a bet that whatever renders this markdown allows it
+through. Most pipelines do; `markdown-it` with `html: false` and
+Python-Markdown do not, and there a reader sees the tag as text. Give `insert`
+where that is true of yours:
 
 <Snippet view="code">
 
@@ -2033,20 +1149,12 @@ insert: (file, url, alt) => file.type.startsWith('video/')
 
 </Snippet>
 
-### 📡 Server Integration
+### What your endpoint receives
 
-#### The Request
+A `POST` as `multipart/form-data`, carrying `image_file` (or whatever `field`
+names), `image_alt`, anything in `params`, and anything in `headers` as headers.
 
-A `POST` as `multipart/form-data`, carrying:
-
--   `image_file`: the file, or whatever `field` names
--   `image_alt`: the alt text the user typed, empty on paste and drop
--   anything in `params`
--   anything in `headers`, as headers
-
-#### The Response
-
-Answer with a URL. Any of these is understood without configuration:
+Answer with a URL. Any of these is understood with no configuration:
 
 <Snippet view="code">
 
@@ -2061,16 +1169,11 @@ Answer with a URL. Any of these is understood without configuration:
 
 `url` and `path` are read first. `image_path` is the contract 1.8 shipped with
 and still works, but an endpoint that stores PDFs should not have to call its
-answer that.
+answer that. `alt` is a suggestion, used only where the user left the field
+empty, so a server that derives alt text can offer it without overwriting a real
+description.
 
-`alt` or `image_alt` is a suggestion, used only where the user left the field
-empty, so a server that derives alt text from the filename or from image
-recognition can offer it without overwriting a real description.
-
-**Answer `200` even when it failed.** The editor checks the HTTP status before
-it reads the body, so a `422` or `400` is reported as a flat
-`Upload failed: 422` and your `error` string is never seen. Keep non-2xx for
-things the user cannot act on.
+<RawHtml html={"<div class=\"alert alert-warning alert-soft my-6 not-prose\"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg><span class=\"para-sm\"><strong>Answer 200 even when it failed.</strong> The editor checks the HTTP status before it reads the body, so a <code>422</code> becomes a flat <code>Upload failed: 422</code> and your <code>error</code> string is never seen. Keep non-2xx for things the user cannot act on.</span></div>"} />
 
 An endpoint that already exists in its own shape needs `response`, not a
 rewrite:
@@ -2078,7 +1181,7 @@ rewrite:
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     upload: {
         url: '/api/media',
         field: 'file',
@@ -2089,12 +1192,17 @@ new MarkdownEditor('#editor', {
 
 </Snippet>
 
-#### Django
+### Your endpoint, four ways
+
+<div class="tabs tabs-underline">
+
+<input type="radio" name="srv" class="tab" aria-label="Django" checked />
+<div class="tab-content pt-5">
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     upload: {
         url: '/api/upload/',
         headers: { 'X-CSRFToken': document.cookie.match(/csrftoken=([^;]+)/)?.[1] },
@@ -2148,20 +1256,16 @@ def upload(request):
 
 </Snippet>
 
-#### Laravel
+</div>
 
-<Snippet view="code">
-
-```html
-<meta name="csrf-token" content="{{ csrf_token() }}">
-```
-
-</Snippet>
+<input type="radio" name="srv" class="tab" aria-label="Laravel" />
+<div class="tab-content pt-5">
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+// <meta name="csrf-token" content="{{ csrf_token() }}"> in your layout
+new MarkdownEditor('#notes', {
     upload: {
         url: '/api/upload',
         headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
@@ -2173,34 +1277,10 @@ new MarkdownEditor('#editor', {
 
 </Snippet>
 
-<Snippet view="code">
+</div>
 
-```php
-public function store(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'image_file' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            'success' => false,
-            'error'   => $validator->errors()->first('image_file'),
-        ]);
-    }
-
-    $path = $request->file('image_file')->store('uploads', 'public');
-
-    return response()->json([
-        'url' => Storage::disk('public')->url($path),
-        'alt' => $request->input('image_alt', ''),
-    ]);
-}
-```
-
-</Snippet>
-
-#### Node.js / Express
+<input type="radio" name="srv" class="tab" aria-label="Node.js / Express" />
+<div class="tab-content pt-5">
 
 <Snippet view="code">
 
@@ -2232,7 +1312,10 @@ app.post('/api/upload', (req, res) => {
 
 </Snippet>
 
-#### PHP
+</div>
+
+<input type="radio" name="srv" class="tab" aria-label="PHP" />
+<div class="tab-content pt-5">
 
 <Snippet view="code">
 
@@ -2259,7 +1342,18 @@ echo json_encode(['url' => "/uploads/$name", 'alt' => $_POST['image_alt'] ?? '']
 
 </Snippet>
 
-#### Validate on the server as well
+</div>
+
+</div>
+
+Six things that come up once uploads are working. Each is self-contained —
+open the one you need.
+
+<div class="accordion my-6">
+<details name="upload-more" id="validate-on-the-server-as-well">
+<summary>Validate on the server as well</summary>
+<div class="accordion-content">
+
 
 `accept` and `maxSize` stop a 200 MB video leaving the browser, which is worth
 having. They stop nothing else: your endpoint is reachable without this editor
@@ -2267,11 +1361,11 @@ in front of it. Every example above re-checks both.
 
 The declared type is worth less than it looks, too. `$_FILES['type']` and
 Django's `file.content_type` are both supplied by the browser and chosen by
-whoever is uploading. The PHP example reads the magic bytes with `finfo`; do
-the equivalent wherever it matters.
+whoever is uploading. The PHP example reads the magic bytes with `finfo`; do the
+equivalent wherever it matters.
 
-Large files also need the server told, or the request dies before your code
-runs and the editor reports a flat `Upload failed: 413`:
+Large files also need the server told, or the request dies before your code runs
+and the editor reports a flat `Upload failed: 413`:
 
 <Snippet view="code">
 
@@ -2281,14 +1375,20 @@ client_max_body_size 50M;
 
 </Snippet>
 
-#### Not through your server at all
+</div>
+</details>
+
+<details name="upload-more" id="straight-to-storage-not-through-your-server">
+<summary>Straight to storage, not through your server</summary>
+<div class="accordion-content">
+
 
 Pass a function and the bytes never touch it:
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     upload: async (file, alt) => {
         const { uploadUrl, publicUrl } = await fetch(
             '/api/sign?name=' + encodeURIComponent(file.name)
@@ -2304,14 +1404,20 @@ new MarkdownEditor('#editor', {
 
 Return a URL string, or an object with `path` or `url` and optionally `alt`.
 
-#### Showing progress
+</div>
+</details>
+
+<details name="upload-more" id="showing-progress">
+<summary>Showing progress</summary>
+<div class="accordion-content">
+
 
 <Snippet view="code">
 
 ```javascript
 const bar = document.querySelector('#upload-progress');
 
-new MarkdownEditor('#editor', {
+new MarkdownEditor('#notes', {
     upload: {
         url: '/api/upload',
         accept: ['image/*', 'video/mp4'],
@@ -2326,395 +1432,851 @@ new MarkdownEditor('#editor', {
 
 </Snippet>
 
-The image dialog's own button counts up on its own, with no configuration. An
-endpoint that accepts video cannot leave a button saying nothing for a minute.
+The image dialog's own button counts up with no configuration. An endpoint that
+accepts video cannot leave a button saying nothing for a minute.
 
-### The pre-2.0 form
+</div>
+</details>
+
+<details name="upload-more" id="alt-text">
+<summary>Alt text</summary>
+<div class="accordion-content">
+
+
+The image dialog asks for alt text and requires it by default, because an image
+with none is invisible to anyone using a screen reader.
+
+<Snippet view="code">
+
+```javascript
+// required, which is the default
+toolbar: ['bold', 'image', 'preview']
+
+// ask, but let it through empty
+toolbar: ['bold', { image: { altInput: false } }, 'preview']
+
+// the long way of saying the default
+toolbar: ['bold', { image: { altInput: { required: true } } }, 'preview']
+```
+
+</Snippet>
+
+</div>
+</details>
+
+<details name="upload-more" id="the-image-tool-with-no-upload">
+<summary>The image tool with no `upload`</summary>
+<div class="accordion-content">
+
+
+It still works. The dialog drops the file picker and asks for a URL and alt
+text, which is all some sites need — images already live on a CDN and nobody
+uploads from the editor.
+
+</div>
+</details>
+
+<details name="upload-more" id="the-pre-20-form">
+<summary>The pre-2.0 form</summary>
+<div class="accordion-content">
+
 
 `{ image: { fileInput: { uploadUrl, accept, params } } }` inside the toolbar
 still works, so nothing written against 1.x needs touching. It says once per
-page what replaced it, because the thing it cannot do is what people were
-turning up to ask for.
+page what replaced it, and it is the one deprecation with a removal planned —
+because the thing it cannot do is upload from a paste or a drop, which is what
+people on it turn up asking for.
+
+</div>
+</details>
+
+</div>
+
+## Theming
+
+The editor reads `data-theme` from the nearest ancestor when it starts, so on a
+page that already themes itself there is nothing to do.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Wins | Where |
+| --- | --- |
+| 1 | the `theme` option |
+| 2 | `data-theme` on the `<textarea>` |
+| 3 | `data-theme` on any ancestor — `<html>`, `<body>`, a wrapper |
+
+</DocTable>
+
+Four themes ship: `light`, `dark`, `snowberry`, `darkberry`.
 
 <Snippet view="code">
 
-```javascript
-// still works, deprecated
-toolbar: [{ image: { fileInput: { uploadUrl: '/api/upload' } } }]
-
-// the same thing
-upload: '/api/upload'
+```html
+<!-- inherited, no configuration -->
+<html data-theme="dark">
+  <textarea id="notes"></textarea>
+  <script>new MarkdownEditor('#notes');</script>
 ```
 
 </Snippet>
 
-`upload` wins where both are given. What moving it out buys: a CSRF token in a
-header, your endpoint's own response shape, a size limit honoured on paste and
-drop as well as in the dialog, file types past images, a progress callback, and
-uploading with no image button at all.
-
-
-### Image Alt Text Validation (`altInput`)
-
-To ensure your content remains accessible and SEO-friendly, **MarkdownEditor** enforces alt text validation by default.
-
--   **Default Behavior**: If `altInput` is not defined, it defaults to `{ required: true }`
--   **Enforce Accessibility**: Users will be prevented from inserting an image until an alt description is provided
-
-#### 1\. Default (No configuration needed)
-
 <Snippet view="code">
 
 ```javascript
-// Alt text is REQUIRED by default
-toolbar: ['bold', 'image', 'preview'],
-upload: '/api/upload'
+new MarkdownEditor('#notes', { theme: 'dark' });   // or say it explicitly
 ```
 
 </Snippet>
 
-#### 2\. Shorthand (Disable Validation)
+### Your own colours
 
-If you want to allow images without descriptions, simply set the boolean to `false`.
+Every colour is a CSS variable in [OKLCH](https://oklch.com), set on
+`.markdown-editor-wrapper` or on a `[data-theme]` block of your own. They
+inherit, so one declaration reaches the toolbar, the buttons, the preview and
+the status bar.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Variable | What it paints |
+| --- | --- |
+| `--color-base` | The editor's background |
+| `--color-on-base` | Text |
+| `--color-primary` | Active toolbar state, links, the caret |
+| `--color-on-primary` | Text on primary-coloured surfaces |
+| `--color-secondary` | Secondary accent |
+| `--color-accent` | Inline code, italics |
+| `--color-neutral` | Borders and dividers |
+| `--color-error` | Error states |
+| `--border-radius` | Corner rounding, the editor and its buttons |
+| `--mte-fullscreen-z-index` | Layer in fullscreen. `10000` by default |
+
+</DocTable>
 
 <Snippet view="code">
 
-```javascript
-image: {
-  altInput: false // Users can now skip the alt text field
+```css
+/* a tweak */
+.markdown-editor-wrapper {
+    --color-primary: oklch(60% 0.2 30);   /* orange */
+    --border-radius: 0.5rem;
+}
+
+/* or a whole theme of your own */
+[data-theme="brand"] .markdown-editor-wrapper,
+.markdown-editor-wrapper[data-theme="brand"] {
+    --color-base:       oklch(15% 0.01 250);
+    --color-on-base:    oklch(95% 0 0);
+    --color-primary:    oklch(65% 0.22 145);
+    --color-on-primary: oklch(10% 0 0);
+    --color-accent:     oklch(75% 0.18 60);
+    --color-neutral:    oklch(80% 0 0);
+    --border-radius:    0.75rem;
 }
 ```
 
 </Snippet>
 
-#### 3\. Object-based (Explicit)
-
 <Snippet view="code">
 
 ```javascript
-image: {
-    altInput: {
-        required: false // Disables alt text validation — users can skip the alt field
-    }
-}
+new MarkdownEditor('#notes', { theme: 'brand' });
 ```
 
 </Snippet>
 
-### The image tool with no `upload`
+<div class="accordion my-6">
+<details name="ref-style">
+<summary>Every class you can style against</summary>
+<div class="accordion-content">
 
-With no endpoint configured the image dialog offers the URL field alone, which
-is all you need if your users mostly link to images hosted elsewhere. Pasting
-and dropping do nothing, and say so once in the console.
-
-<Snippet view="code">
-
-```javascript
-const options = {
-  toolbar: [
-    'link',
-    'image',
-    'preview'
-  ],
-}
-const editor = new MarkdownEditor('#markdown-editor', options);
-```
-
-</Snippet>
-
-### 💡 CSRF tokens
-
-Laravel and Django both refuse a file upload without one. Either place works:
-`headers` puts it where the framework looks by default, as `X-CSRF-TOKEN` or
-`X-CSRFToken`, and `params` puts it in the body as a form field, which is what
-`_token` and `csrfmiddlewaretoken` are. The header is usually less work,
-because the middleware already reads it and nothing has to reach the token at
-render time.
-
-## ⌨️ Keyboard Shortcuts
-
-Common formatting actions can be triggered directly from the keyboard without touching the toolbar. Each shortcut is also shown in the corresponding toolbar button's tooltip.
+Variables cover most of it. Reach for a class only where no variable exposes
+what you want. These names are stable:
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-| Shortcut | Action |
+| Class | Element |
 | --- | --- |
-| `Ctrl + B`  /  `⌘ B` | Toggle **Bold** |
-| `Ctrl + I`  /  `⌘ I` | Toggle *Italic* |
-| `Ctrl + K`  /  `⌘ K` | Insert Link |
-| `` Ctrl + ` ``  /  `` ⌘ ` `` | Toggle inline `Code` |
-| `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Toggle ~~Strikethrough~~ |
-| `Ctrl + 1`  /  `⌘ 1` | Heading 1 |
-| `Ctrl + 2`  /  `⌘ 2` | Heading 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Heading 3. These three follow whatever the `heading` tool offers, so a level you leave out of `levels` cannot be typed either |
-| `Ctrl + L`  /  `⌘ L` | Toggle bullet list |
-| `Alt + M` | Toggle maths, `$...$` on one line or `$$...$$` over several. Needs the `math` tool, which is not on the default toolbar |
-| `Alt + T` | Open the table controls beside the table the cursor is in |
-| `Left` / `Right` / `Home` / `End` | Move between the tools once the toolbar has focus. The whole toolbar is a single tab stop |
-| `Ctrl + Z`  /  `⌘ Z` | Undo |
-| `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Redo |
-| `Tab` | Indent selected lines, or move to the next cell inside a table |
-| `Shift + Tab` | Outdent selected lines, or move to the previous cell inside a table |
-| `Ctrl + F`  /  `⌘ F` | Open Find panel |
-| `Ctrl + H`  /  `⌘ H` | Open Find & Replace panel |
-| `Alt + C` | Match case, while the find panel is open |
-| `Alt + W` | Whole word |
-| `Alt + R` | Regular expression |
-| `Alt + L` | Find in selection |
-| `Alt + P` | Preserve case |
-| `F3` / `Shift + F3` | Next / previous match, without leaving the document |
-| `Ctrl + Alt + Enter` | Replace all |
-| `Ctrl + Shift + F`  /  `⌘ ⇧ F` | Toggle fullscreen preview |
-| `F11` | Toggle fullscreen preview |
-| `Escape` | Close Find panel / Exit fullscreen preview |
+| `.markdown-editor-wrapper` | The whole editor |
+| `.editor-notices` | Where notices to the reader appear, above the toolbar. No height until there is one |
+| `.toolbar` | The strip above the editing area |
+| `.markdown-btn` | A toolbar button |
+| `.preview-btn` | The preview toggle |
+| `.editor-layout` | The grid holding the text and the preview |
+| `.textarea-wrapper` | Wrapper around the editing area |
+| `.editor-textarea` | Your textarea |
+| `.display-layer` | The formatting layer, hybrid mode only |
+| `.preview-wrapper` / `.preview-content` | The preview column, and the rendered markdown in it |
+| `.editor-footer` | The status bar |
+| `.find-replace-panel` | The find panel |
 
 </DocTable>
 
-## 🔍 Find & Replace
+<Snippet view="code">
 
-A find and replace panel built into the editor: no browser extension, no separate tool.
+```css
+/* some variables are set by the component on itself, which beats an
+   inherited value — target the element for those */
+.markdown-editor-wrapper .markdown-btn { --btn--font-size: 0.875rem; }
 
-Open it with `Ctrl + F` (`⌘ F`), or with `Ctrl + H` (`⌘ H`) to open it with the replace row already showing. Every match in the document is highlighted at once with the one you are on picked out, and the counter reads as a fraction, `3/12`.
+/* and use a class for anything no variable exposes */
+.markdown-editor-wrapper .toolbar { border-bottom: 2px solid oklch(60% 0.2 30); }
+```
 
-#### The switches
+</Snippet>
 
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+With several editors on a page, `data-editor` picks one out. The wrapper mirrors
+the textarea's id, so `<textarea id="notes">` gives you `[data-editor="notes"]`
+— and the id stays on the textarea, so `getElementById` keeps working.
 
-| Switch | Shortcut | What it does |
-| --- | --- | --- |
-| `Aa` | `Alt + C` | Match case |
-| `ab` | `Alt + W` | Whole word only |
-| `.*` | `Alt + R` | Read the search as a regular expression. `$1` and friends work in the replacement |
-| `[ ]` | `Alt + L` | Search only the text you had selected. The range keeps covering the same text as you edit around it |
-| `AB` | `Alt + P` | Keep the case of what you replace, so one lower-case replacement turns "Cat" into "Dog" and "CAT" into "DOG" |
+<Snippet view="code">
 
-</DocTable>
+```css
+[data-editor="notes"] { --border-radius: 0; }
+```
 
-These work while the caret is back in the document as well as inside the panel, so you can click a match to read it in context and then change an option without going back to the box.
+</Snippet>
 
-The panel is on by default. Set `find` to `false` to leave `Ctrl + F` to the browser's own find, for an editor whose documents are short enough not to need it.
+</div>
+</details>
+</div>
+
+## Interface language
+
+The editor's own words — tooltips, menus, dialog fields, buttons — are English
+by default. `locale` translates them, keyed on the English string the way
+gettext works, so you list only what you want to change and anything missing
+stays English.
 
 <Snippet view="code">
 
 ```javascript
-new MarkdownEditor('#editor', {
-  find: false,
+import es from 'markdown-text-editor/locale/es';
+
+new MarkdownEditor('#notes', { locale: es });
+```
+
+</Snippet>
+
+Fifty-six languages ship, under `markdown-text-editor/locale/`. Import the one
+you want and only that one reaches your bundle.
+
+**They are machine-translated and have not been checked by native speakers.**
+Each file says so of itself — it exports `reviewed`, `false` everywhere for now
+— so you can decide whether to vet one before shipping it. Every file is checked
+against the English template on each release for missing keys and lost `{n}`
+placeholders, so what is wrong with any of them is wording rather than wiring.
+Corrections are the fastest contribution to make.
+
+`locale` takes the strings, not a language code: `locale: 'es'` does nothing and
+says so in the console.
+
+### Part of a language, or your own wording
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#notes', {
+    locale: {
+        'Bold': 'Gras',
+        'Italic': 'Italique',
+        'Link': 'Lien',
+        'Alt text': 'Texte alternatif',
+        'Uploading...': 'Téléversement...',
+        '{n} words': '{n} mots',      // {n} is where the number goes
+    },
 });
 ```
 
 </Snippet>
 
-#### Moving and replacing
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Key | Action |
-| --- | --- |
-| `Enter` / `Shift + Enter` | Next / previous match |
-| `F3` / `Shift + F3` | The same, from anywhere in the document |
-| `Ctrl + Alt + Enter` | Replace all |
-| `Escape` | Close the panel and return to the text |
-
-</DocTable>
-
-#### Reading without a mouse or a screen
-
-The panel is a labelled `search` landmark. Every switch reports its own pressed state rather than only looking different, each control carries its shortcut in `aria-keyshortcuts` as well as in its tooltip, and the arrows and replace buttons are disabled when there is nothing to act on instead of answering with silence. The match count is spoken once you stop typing rather than interrupting itself on every keystroke.
-
-On a narrow editor the switches fold behind the chevron, decided by the panel's own width rather than the window's, so an editor in a narrow column behaves the same as one on a phone. Past four hundred matches only the current one is drawn, so a document full of a common word stays responsive.
-
-## 📐 Editing Tables
-
-With `table` on the toolbar, the button opens a grid to pick a size from rather than inserting a fixed template.
-
-Click inside a table in the text and a small bar opens beside it:
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Control | What it does |
-| --- | --- |
-| Column `+` / `−` | Add a column after the one the cursor is in, or delete that column |
-| Row `+` / `−` | Add a row below the one the cursor is in, or delete that row |
-| Align left / centre / right | Set the alignment of the column the cursor is in |
-| Tidy | Line the pipes up so the markdown source reads as a table |
-
-</DocTable>
-
-Keys work whether or not the bar is showing:
-
-<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
-
-| Key | Action |
-| --- | --- |
-| `Tab` / `Shift + Tab` | Move to the next or previous cell |
-| `Tab` in the last cell | Start a new row |
-| `Enter` | Move down the column; from an empty row, leave the table |
-
-</DocTable>
-
-The bar comes with the `table` tool, so a toolbar without that tool has no bar.
-Set `tableBar` to say otherwise: `false` turns it off for people who
-would rather edit the pipes by hand, and `true` offers it on a toolbar with no
-table button, which is what you want when the content already holds tables but
-nobody should be inserting new ones. `Tab` between cells keeps working either way.
+All 78 strings ship as a template, so you do not have to go looking:
 
 <Snippet view="code">
 
 ```javascript
-// Table tool on the toolbar, but no bar
-new MarkdownEditor('#editor', {
-  toolbar: ['bold', 'italic', 'table', 'preview'],
-  tableBar: false,
-});
-
-// No table tool, but tables already in the content can still be edited
-new MarkdownEditor('#editor', {
-  toolbar: ['bold', 'italic', 'preview'],
-  tableBar: true,
-});
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
 ```
 
 </Snippet>
 
-## 🧮 Maths
+Already have a translation system? Feed the editor from it, and the wording
+stays consistent with the rest of your interface:
 
-With `math` on the toolbar, the button or `Alt + M` wraps the selection in TeX delimiters: `$...$` on one line, `$$...$$` when the selection spans several. Pressing it again takes the delimiters off, whether they sit inside the selection or just outside it.
+<Snippet view="code">
 
-The editor writes the delimiters and nothing else. **It does not render TeX**, because maths is not part of markdown and a TeX engine is several times the size of the whole editor. What you get is portable markdown: GitHub, Obsidian and Jupyter all render it.
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
 
-To see it rendered in the preview, pass a `renderer` that understands TeX, and load that renderer's stylesheet:
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+
+new MarkdownEditor('#notes', { locale: strings });
+```
+
+</Snippet>
+
+In Django the strings land in your `.po` files with everything else:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#notes', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+This matters most alongside right-to-left content. Arabic, Urdu and Farsi lay
+out correctly on their own — but a toolbar still reading "Bold" over
+right-to-left text is only half translated.
+
+## Custom renderer
+
+The preview uses [marked](https://marked.js.org) and
+[DOMPurify](https://github.com/cure53/DOMPurify). Swap either one.
 
 <Snippet view="code">
 
 ```javascript
 import markdownIt from 'markdown-it';
-import katex from '@vscode/markdown-it-katex';
-import 'katex/dist/katex.min.css';
+import footnote from 'markdown-it-footnote';
 
-new MarkdownEditor('#editor', {
-  toolbar: ['bold', 'italic', 'math', 'preview'],
-  renderer: md => markdownIt().use(katex).render(md),
+new MarkdownEditor('#notes', {
+    renderer: md => markdownIt({ html: false, linkify: true }).use(footnote).render(md),
 });
 ```
 
 </Snippet>
 
-Without one the preview shows `$x^2$` exactly as written, and the editor says so once in the browser console rather than leaving you to wonder whether the button worked.
-
-## 🔗 Links from a pasted URL
-
-Select some text, paste a URL over it, and you get a markdown link instead of the URL replacing what you selected.
+Markdown in, HTML out. The result still goes through the sanitizer, so a
+renderer with `html: true` is no less safe than the default.
 
 <Snippet view="code">
 
-```markdown
-Read the docs                        <- select "the docs", paste https://example.com
-Read [the docs](https://example.com) <- what you get
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#notes', {
+    // keep the sanitizer, tighten it
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
 
-The rule is deliberately strict: only a bare `http` or `https` URL with no whitespace is treated this way. Pasting a sentence that happens to contain a URL, or pasting with nothing selected, behaves like an ordinary paste.
+Two things to know. A renderer that **throws** does not take the editor with it:
+the preview falls back to escaped plain text, says so once in the console, and
+the document is untouched. And the preview's clickable checkboxes come from the
+renderer's output — if yours emits no `<input type="checkbox">` for `- [ ]`, the
+console tells you which plugin to add.
 
-## 🩺 What the console might tell you
+## Content security policy
 
-The editor never fails silently at something you can fix. If it prints one of
-these, this is what it means.
+No inline event handlers, no `eval`, and from 2.0 no injected `<style>`. A
+strict policy needs no exception for the editor in either direction:
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+Before 2.0 the CSS was carried in the JavaScript and injected at load, which a
+policy without `style-src 'unsafe-inline'` refuses
+([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). A nonce was
+considered and dropped: it only helps policies that have one, and a statically
+hosted site on `style-src 'self'` has no server minting a fresh nonce per
+request. Linking the stylesheet covers every policy instead of some.
+
+One thing the editor does not control is the markdown your users write.
+DOMPurify keeps `style` attributes, so `<span style="color:red">` in a document
+survives into the preview and a strict `style-src-attr` will report it. Strip
+them with `sanitizer` if that matters to you.
+
+## Accessibility
+
+Built in, not configured. If you are evaluating the editor against a
+standard, this is the list.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| | |
+| --- | --- |
+| **The toolbar is one tab stop** | Arrow keys move along it, `Home` and `End` jump to the ends. It used to cost nineteen presses of `Tab` to get past. The arrows follow the text direction, so they mirror in Arabic and Hebrew. |
+| **Every button announces its shortcut** | "Bold (Ctrl+B)", in the accessible name as well as the tooltip, so nobody has to see a tooltip to learn one. |
+| **State is reported, not just drawn** | `aria-pressed` on the preview toggle and on each find switch. A dimmed tool carries `aria-disabled` rather than `disabled`, so it stays in the tab order and a screen reader can still cross the bar it was reading. |
+| **The field has a name in your language** | A textarea with a `<label>`, an `aria-label` or an `aria-labelledby` is left alone. Without one the editor supplies a name, and it goes through `locale` like everything else — a Spanish editor does not read "Markdown editor". |
+| **Dialogs behave like dialogs** | The link and image dialogs are real `<dialog>` elements with their own accessible names, and focus returns to where it came from on close. |
+| **The find panel is a landmark** | A labelled `search` region. Shortcuts are in `aria-keyshortcuts`, the arrows go disabled when there is nothing to move to, and the match count is spoken once you stop typing rather than interrupting itself on every keystroke. |
+| **Icons are hidden from screen readers** | Every SVG is `aria-hidden`, because the button already has a name. |
+| **Notices are announced** | The draft strip is a `role="status"` region, so it is read without stealing focus from what you were typing. |
+| **Motion is dropped on request** | `prefers-reduced-motion: reduce` turns off every transition and animation inside the editor. Nothing that moves in it carries meaning the end state does not. |
+| **Contrast is checked** | The dimmed markdown markers in hybrid mode read at 4.54:1 against the light theme. Interface parts are asked for 3:1. |
+
+</DocTable>
+
+Right-to-left needs no option. The editor reads the direction from the page
+and lays itself out accordingly — the toolbar, the find panel, the preview
+split, the variables menu and the table bar all mirror. What it cannot do is
+translate itself, so pass a [`locale`](#interface-language) as well: a toolbar
+reading "Bold" over right-to-left text is only half done.
+
+## What it does to stay quick
+
+A keystroke costs about the same in a long document as a short one, which
+took some doing.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| | |
+| --- | --- |
+| **Hybrid redraws only what changed** | A line whose text and fence state are both unchanged keeps the markup it already had. Re-highlighting the whole document on every keystroke is what made long files crawl. |
+| **It measures itself rarely** | Reading an element height makes the browser lay out the page first. The editor only measures when the text gets shorter or its width changes. At 150,000 characters that took a keystroke from about 220ms to about 5ms. |
+| **The preview is debounced, and skipped while closed** | Parsing and sanitising a whole document into a pane nobody can see is work thrown away. It renders when it is open. |
+| **Undo stores what changed** | One span per step — where the change starts, what was there, what is there now — rather than a copy of the document or a character-level diff of it. A 5,000-character paste into 100,000 characters costs 0.4ms. |
+| **Find stops drawing past 400 matches** | Only the current one is marked, so a document full of a common word stays responsive. |
+| **The preview scrolls by ratio** | No layout thrash on either side while you scroll. |
+
+</DocTable>
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| Download | Gzipped |
+| --- | --- |
+| `<script src>`, marked and DOMPurify inside it | 57 kB JS + 16 kB CSS |
+| Through a bundler, which resolves those two itself | 34 kB JS + 16 kB CSS |
+
+</DocTable>
+
+The stylesheet is cached separately from the script, so a CSS-only release
+does not re-download the JavaScript and vice versa.
+## Reading and writing content
+
+The textarea is the field. That is the whole API.
+
+<Snippet view="code">
+
+```javascript
+const field = document.getElementById('notes');
+
+field.value;                    // the markdown, correct at every moment
+field.value = '# New content';  // set it
+new FormData(form).get('content');   // works, because it is a real field
+```
+
+</Snippet>
+
+Writing to `.value` directly does not notify the editor, which matters in
+hybrid mode and for the preview. Either use `insertText`, or tell it:
+
+<Snippet view="code">
+
+```javascript
+field.value = '# New content';
+editor.render();          // redraw the formatting layer and the preview
+editor.notifyChange();    // and fire onChange
+```
+
+</Snippet>
+
+Server-rendered content needs nothing special — put it in the textarea and the
+editor picks it up:
+
+<Snippet view="code">
+
+```html
+<textarea id="notes" name="content">{{ post.content }}</textarea>
+```
+
+</Snippet>
+
+### Reacting to changes
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#notes', {
+    onChange: (markdown) => {
+        document.querySelector('#count').textContent = markdown.length;
+    },
+});
+```
+
+</Snippet>
+
+Fired for everything that changes the document: typing, toolbar actions, undo
+and redo, list continuation, a restored draft, a pasted document, a replace.
+Debounce it yourself if it does anything expensive.
+
+### Tearing it down
+
+<Snippet view="code">
+
+```javascript
+editor.destroy();
+```
+
+</Snippet>
+
+Puts your textarea back where it was with its content and its classes intact,
+removes every listener, and releases the dialogs, the find panel, the draft
+timer and the fullscreen lock. Call it before you remove the element from the
+DOM — in a React cleanup, a Vue `onBeforeUnmount`, or a Turbo teardown.
+
+## Keyboard
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-sm">
+
+| Keys | Does |
+| --- | --- |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">B</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘B</kbd> | Bold |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">I</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘I</kbd> | Italic |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">K</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘K</kbd> | Link |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">`</kbd> | Inline code |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">S</kbd> | Strikethrough |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">1</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">2</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">3</kbd> | Headings, following whatever the `heading` tool offers |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">L</kbd> | Bullet list |
+| <kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">M</kbd> | Maths, with the `math` tool on the toolbar |
+| <kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">T</kbd> | The table bar, for the table you are in |
+| <kbd class="kbd kbd-xs">Tab</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Tab</kbd> | Indent and outdent, or move between table cells |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Z</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Z</kbd> | Undo and redo |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">F</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">H</kbd> | Find, and find with replace |
+| <kbd class="kbd kbd-xs">F3</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">F3</kbd> | Next and previous match, from anywhere |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Enter</kbd> | Replace all |
+| <kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">C</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">W</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">R</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">L</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Alt</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">P</kbd> | The find switches: case, whole word, regex, in selection, preserve case |
+| <kbd class="kbd kbd-xs">F11</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">F</kbd> | Fullscreen preview |
+| <kbd class="kbd kbd-xs">Escape</kbd> | Close the find panel, or leave fullscreen |
+| <kbd class="kbd kbd-xs">←</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">→</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Home</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">End</kbd> | Move along the toolbar once it has focus — the whole bar is one tab stop |
+
+</DocTable>
+
+Every shortcut is in the matching button's tooltip too, so nobody has to come
+back here for it. The arrow keys follow the text direction, so they mirror in
+Arabic and Hebrew.
+
+## Frameworks
+
+Nothing to install and no wrapper, because the field is a textarea. Create the
+editor after the element exists, and destroy it when the component goes away.
+
+<div class="tabs tabs-underline">
+
+<input type="radio" name="fw" class="tab" aria-label="Django" checked />
+<div class="tab-content pt-5">
+
+<Snippet view="code">
+
+```python
+# forms.py
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content']
+        widgets = {'content': forms.Textarea(attrs={'class': 'markdown-editor'})}
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('.markdown-editor');
+// request.POST['content'] has the markdown
+```
+
+</Snippet>
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="Laravel" />
+<div class="tab-content pt-5">
+
+<Snippet view="code">
+
+```html
+<textarea name="content" class="markdown-editor">{{ old('content') }}</textarea>
+<script>new MarkdownEditor('.markdown-editor');</script>
+<!-- $request->input('content') -->
+```
+
+</Snippet>
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="Rails" />
+<div class="tab-content pt-5">
+
+Turbo replaces the body without reloading, so hook `turbo:load` and guard
+against double-initialising:
+
+<Snippet view="code">
+
+```javascript
+document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.markdown-editor:not([data-mte-init])').forEach(el => {
+        el.setAttribute('data-mte-init', 'true');
+        new MarkdownEditor(el);
+    });
+});
+// params[:content]
+```
+
+</Snippet>
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="Express and PHP" />
+<div class="tab-content pt-5">
+
+<Snippet view="code">
+
+```html
+<form method="POST" action="/save">
+  <textarea name="content" class="markdown-editor"></textarea>
+  <button type="submit">Save</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.min.js"></script>
+<script>new MarkdownEditor('.markdown-editor');</script>
+<!-- req.body.content, or $_POST['content'] -->
+```
+
+</Snippet>
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="React" />
+<div class="tab-content pt-5">
+
+Create it in an effect, destroy it on cleanup. Use `defaultValue`, not `value`:
+the editor writes to the textarea directly, so a controlled binding would
+overwrite what is being typed.
+
+<Snippet view="code">
+
+```javascript
+import { useEffect, useRef } from 'react';
+import MarkdownEditor from 'markdown-text-editor';
+
+function MarkdownField({ name, defaultValue = '', onChange }) {
+    const ref = useRef(null);
+
+    // Options are read once, so the editor would hold on to whichever
+    // onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
+    useEffect(() => {
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
+        return () => editor.destroy();
+    }, []);
+
+    return <textarea ref={ref} name={name} defaultValue={defaultValue} />;
+}
+```
+
+</Snippet>
+
+The cleanup also covers StrictMode, which runs effects twice in development and
+would otherwise leave two editors on one textarea. The empty dependency array is
+deliberate: options are read once, so re-running the effect would tear the
+editor down and rebuild it on every render.
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="Vue" />
+<div class="tab-content pt-5">
+
+<Snippet view="code">
+
+```javascript
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import MarkdownEditor from 'markdown-text-editor';
+
+const el = ref(null);
+const props = defineProps({ modelValue: { type: String, default: '' } });
+const emit = defineEmits(['update:modelValue']);
+let editor = null;
+
+onMounted(() => {
+    el.value.value = props.modelValue;         // set it once
+    editor = new MarkdownEditor(el.value, {
+        onChange: value => emit('update:modelValue', value),
+    });
+});
+
+onBeforeUnmount(() => editor?.destroy());
+```
+
+</Snippet>
+
+Do not bind `:value`, or every keystroke emitted back through `v-model` would
+overwrite the textarea. In a plain form you can skip `v-model` and read the
+value on submit, as with any other framework.
+
+</div>
+
+<input type="radio" name="fw" class="tab" aria-label="Server-side rendering" />
+<div class="tab-content pt-5">
+
+Importing the editor on the server does not throw, so Next.js, Remix, Nuxt and
+SvelteKit need no `dynamic(..., { ssr: false })` wrapper. The editor is created
+inside `useEffect` or `onMounted`, and neither runs on the server.
+
+The textarea ships in the server HTML with its content already in it, so there
+is nothing to wait for and nothing that pops in. React renders the same markup
+on both sides and the editor enhances it after hydration — no mismatch warning.
+
+</div>
+
+</div>
+
+## Upgrading from 1.x
+
+One line has to change, and it is the stylesheet. Everything else that was
+renamed in 2.0 still answers to its old name.
+
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
+
+| What changed | What to do |
+| --- | --- |
+| **The CSS is a separate file.** It used to be injected as a `<style>` tag. | Add the stylesheet, once per page. Nothing renders correctly until you do, and the console says so. |
+| `dist/markdown-text-editor.umd.js` is gone. | It is `dist/markdown-text-editor.cjs`. Only a path that reached past the package for that filename is affected; `import` and `require` resolve on their own. |
+| `labels` became `locale`. | Nothing, today. Both work. |
+| `label` is deprecated. | Nothing, today. An `aria-label` or a `<label for>` on the textarea does the same natively, and the editor already prefers either. |
+| `{ image: { fileInput: { uploadUrl } } }` became top-level `upload`. | Move it when you can: this is the one of the four that will be removed, in a future major version, because it cannot upload from a paste or a drop. |
+| `{ variables: [...] }` in the toolbar became top-level `variables`. | Nothing, today. |
+| Uploads go out over `XMLHttpRequest` instead of `fetch`. | Nothing, unless a test stubs `fetch` to catch an upload. Same body, same credentials, same errors — `fetch` just cannot report progress. |
+
+</DocTable>
+
+Each of these says so once in the console the first time the editor sees it,
+naming the replacement.
+
+<Snippet view="code">
+
+```javascript
+// with a bundler, once, anywhere in your entry
+import 'markdown-text-editor/style.css';
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+<!-- or in the page, next to the script tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor@2/dist/markdown-text-editor.css">
+```
+
+</Snippet>
+
+<RawHtml html={"<div class=\"alert alert-warning alert-soft my-6 not-prose\"><svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg><span class=\"para-sm\"><strong>Import it or link it, never both.</strong> Two copies of the stylesheet is the one way to get this wrong.</span></div>"} />
+
+While you are here, three things are worth turning on. None of them change
+anything if you leave them out:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#notes', {
+    upload: '/api/upload',   // the dialog, pasting and dropping, in one place
+    autosave: true,          // offers back what was being written, after a crash
+    mode: 'hybrid',          // formatting as you type
+});
+```
+
+</Snippet>
+
+## What the console might tell you
+
+It never fails silently at something you can fix.
+
+<div class="accordion my-6">
+<details name="ref-console">
+<summary>Every message, and what it means</summary>
+<div class="accordion-content">
 
 <DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
 | Message starts with | What happened |
 | --- | --- |
-| *Stylesheet not loaded* | The CSS is a separate file in 2.x. Link `dist/markdown-text-editor.css`, or import `markdown-text-editor/style.css`. The editor works, it just looks unstyled. |
-| *locale: '...' has no effect* | `locale` takes the strings, not a language code. Import the one you want from `markdown-text-editor/locale/`. |
-| *toolbar takes an array of tools* | Something other than an array was passed, e.g. `toolbar: 'bold'`. The default toolbar is used instead. |
-| *toolbar: no tool matches* | A name in the array is not a tool. Check the spelling against [Available Tools](#available-tools); the entry is skipped. |
-| *A custom tool needs an action function* | A declarative `{ custom: {...} }` entry has no `action`. It renders no button. |
-| *heading levels must be an array* | `{ heading: { levels } }` got something else. All six levels are offered. |
-| *Maths syntax found, but nothing rendered it* | The editor writes `$...$` but does not render TeX. Pass a `renderer` that does, and load its stylesheet. |
-| *Task list syntax found, but the custom renderer emitted no checkbox* | Your `renderer` does not handle `- [ ]`. The preview's checkboxes come from the renderer's output. |
-| *The renderer threw* | Your renderer, or the default one, failed on this document. The preview falls back to plain text; what you typed is untouched. |
-| *A file was pasted / dropped but no upload endpoint is configured* | Pass `upload` to accept pasted and dropped files. The drop is swallowed either way, so the unsaved document survives it. |
-| *image.fileInput still works, and will be removed in a future major version* | The pre-2.0 form, said once. It is the one deprecation that will go, because it cannot upload from a paste or a drop. |
-| *labels is now locale* / *label is an aria-label* / *variables moved from the toolbar array* | Options that were renamed in 2.0, each said once. Nothing is broken and nothing is going away: the old forms keep working, and the note is so your config matches these pages. |
+| *Stylesheet not loaded* | The CSS is a separate file from 2.0. Link it or import it. The editor works, it just looks unstyled. |
+| *locale: '...' has no effect* | `locale` takes the strings, not a language code. Import the one you want. |
+| *toolbar takes an array of tools* | Something other than an array, e.g. `toolbar: 'bold'`. The default is used instead. |
+| *toolbar: no tool matches* | A name in the array is not a tool. Check it against [the tools](#the-tools); the entry is skipped. |
+| *A custom tool needs an action function* | A `{ custom: {...} }` entry has no `action`. It renders no button. |
+| *heading levels must be an array* | `{ heading: { levels } }` got something else. All six are offered. |
+| *Maths syntax found, but nothing rendered it* | Pass a `renderer` that understands TeX, and load its stylesheet. |
+| *Task list syntax found, but the custom renderer emitted no checkbox* | Your `renderer` does not handle `- [ ]`. The preview's checkboxes come from its output. |
+| *The renderer threw* | Yours, or the default one, failed on this document. The preview falls back to plain text; what you typed is untouched. |
+| *A file was pasted / dropped but no upload endpoint is configured* | Pass `upload`. The drop is swallowed either way, so the unsaved document survives it. |
+| *autosave could not write the draft* | The document is past what `localStorage` will take, or the browser is refusing it. Your text is fine; the draft is not being kept. |
+| *image.fileInput still works, and will be removed* | The pre-2.0 form, said once. The one deprecation that will go. |
+| *labels is now locale* / *label is an aria-label* / *variables moved from the toolbar array* | Renamed in 2.0, each said once. Nothing is broken and nothing is going away. |
 | *Image upload failed* | The endpoint answered with an error. The placeholder is marked in the text. |
-| *tablePopover is now tableBar* | Renamed in 2.0. It only ever existed in a beta. |
-| *variableComplete moved in with the list it belongs to* | It is `` `variables: { items, complete }` `` now. It only ever existed in a beta. |
 
 </DocTable>
 
-## Features
+</div>
+</details>
+</div>
 
-<RawHtml html={"<div class=\"grid lg:grid-cols-3 gap-4 not-prose\"><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔌 Native Form Integration</h2><p class=\"para-sm\">Works exactly like a standard <code>&lt;textarea&gt;</code>. No complex APIs: just use the <code>value</code> or <code>name</code> attribute. It \"just works\" with standard HTML form submissions in PHP, Django, or Node.js.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🖼️ Advanced Image Upload</h2><p class=\"para-sm\">Configure native server uploads via API. Avoid heavy Base64 strings to ensure faster page loads and superior SEO by hosting images on your own CDN.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔀 Hybrid &amp; Plain Modes</h2><p class=\"para-sm\">Switch between a <strong>Hybrid (WYSIWYG)</strong> experience for visual editing or <strong>Plain Markdown</strong> mode for a traditional coding feel.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🚀 High Performance</h2><p class=\"para-sm\">A <strong>72 KB gzipped</strong> bundle from a <code>&lt;script&gt;</code> tag (316 KB minified, CSS included), or <strong>49 KB</strong> through a bundler, which resolves the two runtime dependencies itself and shares them with your own copies. Debounced preview updates, cached style calculations, and conflict-free keyboard handling: so Tab and Enter always do exactly one thing. A keystroke costs the same in a long document as a short one: the editor stops measuring its own height once it can grow no further, and hybrid mode re-highlights only the lines you changed.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌍 Built-in RTL Support</h2><p class=\"para-sm\">Native support for Right-to-Left languages like Arabic, Urdu, and Farsi. Perfect for building globally accessible applications.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">✨ Syntax Highlighting</h2><p class=\"para-sm\">Enhanced readability with clear code and markdown formatting.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🌙 Adaptive Theming</h2><p class=\"para-sm\">Includes automatic Dark Mode support. It syncs with your system settings or the <strong>Frutjam UI</strong> library for a seamless visual experience.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📝 Smart Editing</h2><p class=\"para-sm\">GitHub-style automatic list continuation for ordered lists, unordered lists, and checklists: press <code>Enter</code> and the editor continues the pattern. Checkboxes in the preview pane are clickable and sync back to the markdown source instantly.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📱 Fully Responsive</h2><p class=\"para-sm\">A fluid, mobile-first UI that adapts perfectly to desktops, tablets, and smartphones for editing on the go.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">📦 Universal Support</h2><p class=\"para-sm\">Compatible with <strong>ESM, UMD, CommonJS, and IIFE</strong>. Works out of the box via CDN (<code>&lt;script src&gt;</code>), npm, or any bundler (Vite, webpack, Rollup): no extra configuration needed.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">♿ Accessible by Default</h2><p class=\"para-sm\">Full ARIA support built in: toolbar landmark, labelled preview region, screen-reader-friendly buttons, <code>aria-pressed</code> on the preview toggle, <code>disabled</code> and <code>aria-disabled</code> on inactive tools, and correct focus restoration when modals close.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛡️ Zero CSS Conflicts</h2><p class=\"para-sm\">Editor styles are fully scoped to <code>.markdown-editor-wrapper</code>. Tailwind's global preflight is excluded so the editor lives safely alongside Bootstrap, Tailwind, or any other framework without breaking their styles.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">⌨️ Keyboard Shortcuts</h2><p class=\"para-sm\"><code>Ctrl+B</code>, <code>Ctrl+I</code>, <code>Ctrl+K</code>, <code>Ctrl+`</code>, <code>Ctrl+Shift+S</code>: common formatting actions without touching the mouse. Each shortcut is shown in the toolbar button's tooltip.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔍 Find &amp; Replace</h2><p class=\"para-sm\">Press <code>Ctrl+F</code> to find or <code>Ctrl+H</code> to open find &amp; replace. Case-insensitive search with live match counter, next/prev navigation, single replace, and replace all: without leaving the editor.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔒 XSS Safe Preview</h2><p class=\"para-sm\">The rendered preview is sanitized via <a href=\"https://github.com/cure53/DOMPurify\" target=\"_blank\">DOMPurify</a> before being written to the DOM. Script tags, inline event handlers, and malicious URLs in crafted markdown input are stripped automatically: no configuration required.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">▶️ Real-time Preview</h2><p class=\"para-sm\">See your markdown rendered instantly as you type.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🔗 Easy Integration</h2><p class=\"para-sm\">Seamlessly integrate into any web project with minimal setup.</p></div></div><div class=\"card card-sm card-outline\"><div class=\"card-content\"><h2 class=\"card-title\">🛠️ Customizable Toolbar</h2><p class=\"para-sm\">Dynamically configure and reorder toolbar options like bold, italic, and more.</p></div></div></div>"} />
+## How it compares
 
-## Full Configuration Example
+Most JavaScript markdown editors — EasyMDE, SimpleMDE, anything built on
+CodeMirror — hide your textarea and edit a copy, writing back on submit. That
+works until something else needs the value.
 
-Everything in one place. Nothing here is required: `new MarkdownEditor('#editor')`
-is a working editor, and most of what follows restates a default.
+<DocTable wrapper="overflow-x-auto w-full not-prose" table="table table-md">
 
-<Snippet view="code">
+| | MarkdownEditor | EasyMDE / SimpleMDE |
+| --- | --- | --- |
+| Your textarea | Still the field you type in | Hidden, edited as a copy |
+| `required` fields | Work | The browser cannot focus a hidden field, so the submit is blocked |
+| `.value` before submit | Correct, always | Empty until the form submits |
+| `FormData`, htmx, Turbo | Work | Need the editor's own API |
+| Hybrid WYSIWYG | Yes | No |
+| Find and replace | Built in | No |
+| RTL | Built in | Via CodeMirror's `direction` |
+| Inline handlers (CSP) | None | Some |
+| Dark mode | Four themes, inherited | Limited |
+| Size, gzipped | 72 kB with a `<script>` tag, 49 kB through a bundler | 107 kB |
 
-```javascript
-import fr from 'markdown-text-editor/locale/fr';
+</DocTable>
 
-const editor = new MarkdownEditor('#markdown-editor', {
-    mode: 'hybrid',                 // 'plain' shows raw syntax. default plain
-    placeholder: 'Start writing...',
-    theme: 'light',                 // light | dark | snowberry | darkberry
-    minHeight: 300,
-    maxHeight: 700,
+The rest of this page is the consequence of that one decision. There is no
+`getValue()` because `.value` already works, no sync step because there is
+nothing to sync, and no framework wrapper because a textarea needs none.
 
-    toolbar: [
-        'undo', 'redo',
-        { heading: { levels: [2, 3, 4] } },
-        'bold', 'italic', 'strikethrough', 'blockquote',
-        'ul', 'ol', 'checklist', 'outdent', 'indent',
-        'code', 'codeblock', 'math',
-        'hr', 'table', 'link',
-        { image: { altInput: { required: true } } },
-        'variables',
-        'preview'
-    ],
+## Where to go next
 
-    footer: { line: true, col: true, chars: true, words: true },
-
-    find: true,                     // false leaves Ctrl+F to the browser
-    tableBar: true,                 // omit to follow the toolbar
-    pasteHtml: true,                // pasted rich text becomes markdown
-
-    variables: [
-        { label: 'Today',         value: '{{today}}', sample: '10 September 2026' },
-        { label: 'Customer Name', value: '{{customer.name}}', sample: 'Hannes' }
-    ],
-
-    autosave: {                     // or just `true`
-        key: 'post-42',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        debounce: 1000,
-    },
-
-    upload: {
-        url: '/api/upload',
-        headers: { 'X-CSRFToken': csrf },
-        accept: ['image/*', 'video/mp4'],
-        maxSize: 50 * 1024 * 1024,
-        onProgress: (file, loaded, total) => { bar.value = loaded / total; },
-    },
-
-    locale: fr,                     // or your own { English: translation }
-
-    onChange(value) {
-        console.log('Content updated:', value.length, 'characters');
-    },
-});
-
-// Read content natively
-const markdown = document.getElementById('markdown-editor').value;
-
-// destroy() when the view unmounts (SPAs)
-// editor.destroy();
-```
-
-</Snippet>
-
-<RawHtml html={"<div class=\"not-prose my-6 p-4 rounded-lg border border-base-200 bg-base-50 flex flex-col sm:flex-row sm:items-center gap-3\"><div class=\"flex-1\"><p class=\"heading mb-2\">Found this useful?</p><p class=\"text-sm\">A GitHub star helps other developers discover the editor. It's part of <a href=\"https://github.com/nezanuha/frutjam\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline underline-offset-2\">Frutjam</a>. A star there helps too.</p></div><a href=\"https://github.com/nezanuha/markdown-text-editor\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn btn-primary btn-sm shrink-0\">Star on GitHub</a></div>"} />
+<RawHtml html={"<div class=\"grid sm:grid-cols-2 lg:grid-cols-4 gap-4 not-prose my-6\"><article class=\"card card-outline card-sm\"><div class=\"card-content\"><h3 class=\"card-title heading-sm\"><a class=\"card-link\" href=\"#installation\">Install it</a></h3><p class=\"para-xs fj-muted\">Two files, five minutes.</p></div></article><article class=\"card card-outline card-sm\"><div class=\"card-content\"><h3 class=\"card-title heading-sm\"><a class=\"card-link\" href=\"https://github.com/nezanuha/markdown-text-editor\">Source</a></h3><p class=\"para-xs fj-muted\">Issues, the changelog, and the code.</p></div></article><article class=\"card card-outline card-sm\"><div class=\"card-content\"><h3 class=\"card-title heading-sm\"><a class=\"card-link\" href=\"https://www.npmjs.com/package/markdown-text-editor\">npm</a></h3><p class=\"para-xs fj-muted\">Versions and the install command.</p></div></article><article class=\"card card-outline card-sm\"><div class=\"card-content\"><h3 class=\"card-title heading-sm\"><a class=\"card-link\" href=\"/\">Frutjam</a></h3><p class=\"para-xs fj-muted\">The component library this editor is styled with.</p></div></article></div>"} />

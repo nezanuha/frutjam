@@ -1,0 +1,310 @@
+---
+/**
+ * Layout for the standalone plugin pages (currently Markdown Text Editor).
+ *
+ * The plugin pages are product pages that happen to be documentation. A
+ * component page is read by someone who already decided to use Frutjam and
+ * wants one class name; a plugin page is read by someone deciding whether to
+ * install anything at all, and then read again, later, to look one thing up.
+ * Those are two different jobs, so this layout does two things DocPage does
+ * not:
+ *
+ *   A hero. The product's name, what it does, the install line, and the way
+ *   to the demo — above the fold, before the first heading.
+ *
+ *   A table of contents that fits. DocPage caps its contents at half the
+ *   viewport and fades the overflow, which is right for a page with six
+ *   headings and useless for one with thirty: the reader sees eight of them
+ *   and has no way to know the rest exist. Here the list runs the full height
+ *   of the sidebar, scrolls on its own, shows only the top-level sections, and
+ *   groups them under labels, so thirty entries stay scannable.
+ *
+ * Everything else — the copy/AI row, the out-of-date notice, the edit link —
+ * is the same as a doc page, because it is the same documentation.
+ */
+import { getEntry, render } from 'astro:content';
+import { fingerprint, skeleton } from '../../scripts/i18n-hash.mjs';
+import { lastCommitDate } from '@/lib/git-dates.mjs';
+import { SITE, categoryOf, docUrl, formatDate, langOf, type Doc } from '@/lib/site';
+import { DEFAULT_LANG, langUrl, useTranslations } from '@/lib/i18n';
+
+interface TocItem {
+  text: string;
+  id: string;
+  children: TocItem[];
+}
+
+const { doc } = Astro.props as { doc: Doc };
+const lang = langOf(doc);
+const t = useTranslations(lang);
+const { Content, remarkPluginFrontmatter } = await render(doc);
+const toc = (remarkPluginFrontmatter.toc ?? []) as TocItem[];
+
+const path = docUrl(doc);
+const canonicalUrl = `${SITE}${path}`;
+
+const promptText = `Fetch and read the Frutjam documentation at this URL: ${canonicalUrl}.md\nThen help me add the Markdown Text Editor plugin to my project. Include the correct options, events and class names.`;
+const aiQuery = encodeURIComponent(promptText).replace(/%2F/g, '/');
+
+/** Same staleness check as a doc page: say so rather than let the reader trust old text. */
+const englishPage = lang === DEFAULT_LANG ? undefined : await getEntry('docs', `${DEFAULT_LANG}/${categoryOf(doc)}/${doc.id.split('/').slice(2).join('/')}`);
+const outOfDate = Boolean(
+  englishPage && doc.data.sourceHash && (
+    doc.data.sourceHash !== fingerprint(englishPage.data, englishPage.body ?? '')
+    || skeleton(doc.body ?? '') !== skeleton(englishPage.body ?? '')
+  )
+);
+
+const updatedAt = lastCommitDate('docs', doc.id, 'mdx') ?? doc.data.updatedAt;
+const editUrl = `https://github.com/nezanuha/frutjam/edit/main/docs/src/content/docs/${doc.id}.mdx`;
+
+const INSTALL = 'npm install markdown-text-editor';
+const REPO = 'https://github.com/nezanuha/markdown-text-editor';
+
+/**
+ * What the reader gets without configuring anything, in two or three words
+ * each. The page's own description buries most of these at the end of a
+ * paragraph, and the one people are most surprised by — typing with the
+ * formatting visible, no markdown syntax on screen — is first here for that
+ * reason.
+ */
+const HIGHLIGHTS = [
+  'Hybrid WYSIWYG',
+  'Live preview',
+  'Find and replace',
+  'Draft recovery',
+  'Merge tags',
+  'Uploads',
+  'Tables',
+  'Maths',
+  '56 languages',
+  'RTL',
+];
+
+/**
+ * The thirty top-level sections of the markdown editor page, in six groups.
+ *
+ * Grouping is by hand because the order a page reads in is not the order
+ * things are looked up in, and no heuristic knows which is which. The ids are
+ * GitHub-style slugs of the `##` headings. A heading that is not listed here
+ * still appears, under the last group, so renaming a section degrades the
+ * grouping instead of hiding the section.
+ */
+const GROUPS: Array<{ label: string; ids: string[] }> = [
+  {
+    label: 'Start here',
+    ids: ['markdown-editor-demo', 'everything-it-does', 'installation', 'two-ways-to-write'],
+  },
+  {
+    label: 'Configure',
+    ids: ['every-option-in-one-table', 'set-it-up-for-the-job', 'toolbar', 'custom-tools'],
+  },
+  {
+    label: 'Writing',
+    ids: [
+      'preview', 'find-and-replace', 'editing-tables', 'variables',
+      'draft-recovery', 'pasting-formatted-text', 'maths', 'status-bar',
+    ],
+  },
+  {
+    label: 'Files and look',
+    ids: ['uploading-files', 'theming', 'interface-language'],
+  },
+  {
+    label: 'Build on it',
+    // Listed in the order the page has them, so this reads the way it renders.
+    ids: [
+      'custom-renderer', 'content-security-policy', 'accessibility',
+      'what-it-does-to-stay-quick', 'reading-and-writing-content', 'keyboard', 'frameworks',
+    ],
+  },
+  {
+    label: 'Moving over',
+    ids: ['upgrading-from-1x', 'what-the-console-might-tell-you', 'how-it-compares', 'where-to-go-next'],
+  },
+];
+
+/**
+ * Each group takes its entries from `toc`, which is in document order, and
+ * uses its own id list only to decide membership. Ordering by the hand-written
+ * list instead let a group list its sections in an order the page does not
+ * follow, and the highlight then leapt up and down the sidebar as the reader
+ * scrolled straight down — which is exactly what "Build on it" did, listing
+ * Frameworks before Keyboard, Accessibility and CSP when the page has them
+ * the other way round. Reading the order off the page makes that impossible
+ * rather than merely fixed.
+ */
+const matched = GROUPS.map((g) => {
+  const wanted = new Set(g.ids);
+  return { label: g.label, items: toc.filter((h) => wanted.has(h.id)) };
+});
+const placed = new Set(matched.flatMap((g) => g.items.map((h) => h.id)));
+const leftover = toc.filter((h) => !placed.has(h.id));
+
+/**
+ * The ids above are the English page's. A translation that has fallen far
+ * behind has different headings, so almost nothing matches — and appending
+ * thirty unmatched sections to the last group would file the whole page under
+ * "Moving over". Below two thirds matched, the labels are describing a page
+ * that is not there: drop them and show one plain list, which is what the
+ * reader of a stale translation should get. Above it, a renamed section or two
+ * joins the last group and the grouping still tells the truth.
+ */
+const grouped = placed.size >= toc.length * (2 / 3)
+  ? matched.map((g, i) => (i === matched.length - 1 ? { ...g, items: [...g.items, ...leftover] } : g))
+  : [{ label: '', items: toc }];
+---
+
+<main id="main-content" class="pb-3.5 surface surface-outline border-0">
+    {/* ── Hero ─────────────────────────────────────────────────────────────
+        Sized with the type scale rather than a clamp, and every element has
+        its space reserved, so nothing moves between the first paint and the
+        font loading. */}
+    <div class="border-b border-base-100 px-5 lg:px-8 py-10 lg:py-14">
+        <div class="max-w-3xl">
+            <p class="para-xs uppercase tracking-widest mb-3">{t('Frutjam plugin')}</p>
+            <h1 class="heading-3xl lg:heading-4xl mb-4">{doc.data.heading}</h1>
+            {/* Not doc.data.description: that one ends in the feature list
+                the badges below already carry, and reading the same ten words
+                twice in one screen is how a hero stops being read at all. */}
+            <p class="para-base lg:para-lg mb-6">{t('Drop it on the <textarea> you already have. Forms, validation and FormData keep working, because the textarea is still the field.')}</p>
+
+            <div class="flex flex-wrap items-center gap-2 mb-7">
+                <a href="#markdown-editor-demo" class="btn btn-primary btn-sm">{t('Try the demo')}</a>
+                <a href="#installation" class="btn btn-sm btn-outline">{t('Installation')}</a>
+                <a href={REPO} target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-ghost">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.21.09 1.85 1.25 1.85 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .5Z"/></svg>
+                    {t('Source')}
+                </a>
+            </div>
+
+            {/* The install line, where someone who has already decided looks
+                for it. `copy-clipboard` needs a `.tooltip` ancestor: that is
+                where it writes its confirmation. */}
+            {/* Only the command scrolls. The copy button sits outside that
+                box, because a copy button that scrolls off the end of the
+                thing it copies is worse than no copy button. */}
+            <div class="surface surface-outline rounded-lg flex items-center gap-x-2 w-fit max-w-full ps-3 pe-1 py-1 font-mono text-sm">
+                <span class="select-none" aria-hidden="true">$</span>
+                <code class="whitespace-nowrap overflow-x-auto scrollbar-none [-ms-overflow-style:none] min-w-0 bg-transparent px-0 py-1">{INSTALL}</code>
+                <span class="tooltip tooltip-top shrink-0" data-tip={t('Copy')}>
+                    <button type="button" class="copy-clipboard btn btn-xs btn-square btn-ghost" data-clipboard={INSTALL} aria-label={t('Copy install command')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    </button>
+                </span>
+            </div>
+
+            <ul class="flex flex-wrap gap-1.5 mt-7" aria-label={t('Features')}>
+                {HIGHLIGHTS.map((h) => <li><span class="badge badge-xs badge-outline badge-soft">{t(h)}</span></li>)}
+            </ul>
+
+            {/* One string, not three joined by a separator: a translator needs
+                the whole sentence to put the parts in the right order. */}
+            <p class="para-xs mt-6">{t('MIT licensed. No dependencies to install. 49 kB gzipped through a bundler.')}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-14 pt-6">
+            <article data-pagefind-body data-pagefind-meta="category:Plugins" class="col-span-14 lg:col-span-11 lg:col-start-1 lg:row-start-1 prose prose-sm prose-headings:font-bold prose-frutjam max-w-none px-5 lg:px-8">
+                <div data-pagefind-ignore class="not-prose flex flex-wrap items-center gap-2 mb-8">
+                    <button type="button" class="btn btn-xs btn-outline btn-soft" aria-label={t('Copy markdown to clipboard')} id="copy-page">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        <span class="hidden lg:inline">{t('Copy Page')}</span>
+                    </button>
+                    <div class="popover popover-hover popover-bottom-start">
+                        <button type="button" class="popover-toggle btn btn-xs btn-outline btn-soft">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+                            <span class="hidden lg:inline">{t('Open in AI')}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </button>
+                        <div tabindex="0" class="popover-content" id="pageActionMoreOption">
+                            <ul class="menu">
+                                <li><a href={`https://claude.ai/new?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Claude')}</a></li>
+                                <li><a href={`https://chatgpt.com?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('ChatGPT')}</a></li>
+                                <li><a href={`https://www.perplexity.ai/?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Perplexity')}</a></li>
+                                <li><a href={`https://v0.dev?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('v0')}</a></li>
+                                <li><a href={`https://scira.ai/?q=${aiQuery}`} target="_blank" rel="noopener noreferrer" class="menu-item">{t('Scira')}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href={`${path}.md`} target="_blank" rel="noopener noreferrer" class="btn btn-xs btn-outline btn-soft">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+                        <span class="hidden lg:inline">{t('Markdown')}</span>
+                    </a>
+                </div>
+
+                {outOfDate && (
+                <div data-pagefind-ignore class="alert alert-warning alert-soft not-prose mb-6" role="note">
+                    <div class="alert-content">
+                        <p class="para-sm">{t('This translation is older than the English page and may be missing recent changes.')}</p>
+                        <a href={langUrl(DEFAULT_LANG, path.replace(`/${lang}`, ''))} class="link link-sm">{t('Read the English version')}</a>
+                    </div>
+                </div>
+                )}
+
+                <Content />
+
+                <footer data-pagefind-ignore class="mt-12">
+                    <div class="not-prose flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-base-100">
+                        <a href={editUrl} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs inline-flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+                            {t('Edit page')}
+                        </a>
+                        <p class="para-xs">{t('Last updated')}: <time datetime={updatedAt}>{formatDate(updatedAt)}</time></p>
+                    </div>
+                </footer>
+            </article>
+
+            {/* ── Contents ─────────────────────────────────────────────────────
+                Full height, its own scroll, top-level sections only. Thirty
+                links under six labels, instead of eight links and a fade. */}
+            {/* One scroll container, not two. `sidebar` is already
+                position: sticky with overflow-y: auto and a max-height, so
+                nesting a second scrolling box inside it gave the wheel two
+                things to scroll and gave the scrollspy the wrong element to
+                move. The list is the sidebar's own overflow now, and the
+                heading stays put above it. */}
+            <aside class="hidden lg:block lg:col-span-3 lg:col-start-12 lg:row-start-1" aria-labelledby="toc-heading">
+                <nav id="toc-scroll" class="lg:sidebar gap-y-0 px-2 pb-6 border-e-0! lg:top-26 not-prose" aria-labelledby="toc-heading">
+                    <p id="toc-heading" class="menu-title sticky top-0 z-10 bg-base py-2">{t('On this page')}</p>
+                    <ul class="menu menu-sm" id="toc-menu">
+                        {grouped.map((group) => group.items.length > 0 && (
+                        <li>
+                            {group.label && <p class="para-xs uppercase tracking-wider px-3 pt-3 pb-1">{t(group.label)}</p>}
+                            <ul>
+                                {group.items.map((h) => (
+                                <li><a href={`#${h.id}`} class="menu-item toc-link">{h.text}</a></li>
+                                ))}
+                            </ul>
+                        </li>
+                        ))}
+                    </ul>
+                </nav>
+            </aside>
+    </div>
+</main>
+
+<style>
+  /* Thirty links do not fit, so the sidebar scrolls. A scroll container with
+     no scrollbar reads as a list that simply ends: give it a thin one that is
+     visible without being furniture. Not a Frutjam component — Frutjam has no
+     scrollbar utility, and this is a browser affordance rather than a piece of
+     interface. */
+  #toc-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-base-200) transparent;
+    scroll-behavior: smooth;
+  }
+  #toc-scroll::-webkit-scrollbar { width: 6px; }
+  #toc-scroll::-webkit-scrollbar-track { background: transparent; }
+  #toc-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-base-200);
+    border-radius: 3px;
+  }
+  #toc-scroll:hover { scrollbar-color: var(--color-base-300) transparent; }
+  #toc-scroll:hover::-webkit-scrollbar-thumb { background: var(--color-base-300); }
+
+  @media (prefers-reduced-motion: reduce) {
+    #toc-scroll { scroll-behavior: auto; }
+  }
+</style>

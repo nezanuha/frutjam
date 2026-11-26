@@ -11,9 +11,9 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Plug-in JavaScript do Markdown Text Editor da Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-10-08T00:00:00.000000+00:00"
-sourceHash: "7bebc55c7d26"
-translationHash: "e396d9fbc35e"
+updatedAt: "2026-10-22T00:00:00.000000+00:00"
+sourceHash: "a0f1c0f5d145"
+translationHash: "50d69c073059"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -39,11 +39,15 @@ npm install markdown-text-editor
 <Snippet view="code">
 
 ```javascript
+import 'markdown-text-editor/style.css';
 import MarkdownEditor from 'markdown-text-editor';
+
 new MarkdownEditor('#markdown-editor');
 ```
 
 </Snippet>
+
+A folha de estilo é um arquivo separado da versão 2.0.0. Importe-o **ou** vincule-o, nunca ambos. Se você esquecer completamente, o editor ainda funciona e informa o que adicionar no console, em vez de renderizar sem estilo e sem explicação.
 
 As definições TypeScript são fornecidas com o pacote, portanto, opções, entradas da barra de ferramentas e formas variáveis ​​são verificadas e preenchidas automaticamente sem instalação extra.
 
@@ -87,6 +91,8 @@ interface EditorProps {
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <script type="module">
   import MarkdownEditor from 'https://cdn.jsdelivr.net/npm/markdown-text-editor/+esm';
   new MarkdownEditor('#markdown-editor');
@@ -102,6 +108,8 @@ Nenhuma importação necessária: MarkdownEditor está disponível automaticamen
 <Snippet view="code">
 
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-text-editor/dist/markdown-text-editor.css">
+
 <form action="/api/save" method="POST">
   <textarea id="markdown-editor" name="content"># Hello World</textarea>
   <button type="submit">Save Content</button>
@@ -159,7 +167,7 @@ A maioria dos editores de markdown JavaScript (EasyMDE, SimpleMDE, editores base
 | Suporte RTL | ✅ Embutido | Através do CodeMirror `direction` opção |
 | Manipuladores de eventos embutidos (CSP) | ✅ Nenhum | Alguns |
 | Modo escuro / tema | ✅ | Limitado |
-| Tamanho do pacote, compactado | 53 KB | 107 KB (JS + CSS) |
+| Tamanho do pacote, compactado | 41 KB JS + 13 KB CSS | 107 KB (JS + CSS) |
 
 </DocTable>
 
@@ -269,8 +277,15 @@ import MarkdownEditor from 'markdown-text-editor';
 function MarkdownField({ name, defaultValue = '', onChange }) {
     const ref = useRef(null);
 
+    // Options are read once at construction, so the editor would hold on to
+    // whichever onChange it was handed first. A ref keeps it current.
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
+
     useEffect(() => {
-        const editor = new MarkdownEditor(ref.current, { onChange });
+        const editor = new MarkdownEditor(ref.current, {
+            onChange: (value) => onChangeRef.current?.(value),
+        });
         return () => editor.destroy();
     }, []);
 
@@ -280,7 +295,9 @@ function MarkdownField({ name, defaultValue = '', onChange }) {
 
 </Snippet>
 
-Retornando `editor.destroy()` do efeito também abrange StrictMode, que executa efeitos duas vezes no desenvolvimento e, de outra forma, deixaria dois editores em uma área de texto. A matriz de dependência vazia é deliberada: as opções são lidas uma vez quando o editor é criado, portanto, executar novamente o efeito o destruiria e o reconstruiria a cada alteração.
+Retornando `editor.destroy()` do efeito também abrange StrictMode, que executa efeitos duas vezes no desenvolvimento e, de outra forma, deixaria dois editores em uma área de texto. A matriz de dependência vazia é deliberada: as opções são lidas uma vez quando o editor é criado, portanto, executar novamente o efeito o destruiria e o reconstruiria a cada renderização.
+
+É também por isso `onChange` passa por uma ref. Passá-lo diretamente para o construtor fixaria o editor em qualquer função que ele recebesse na montagem, e uma seta embutida no pai ficaria obsoleta no momento em que qualquer coisa que ele fechasse fosse alterada.
 
 ### Vista
 
@@ -315,6 +332,32 @@ onBeforeUnmount(() =&gt; editor?.destroy());
 
 Usado como `<MarkdownField v-model="content" />`. De forma simples você pode pular `v-model` inteiramente e leia o valor da área de texto no envio, como acontece com qualquer outra estrutura.
 
+
+### Renderização do lado do servidor
+
+A importação do editor para o servidor não é lançada, então Next.js, Remix, Nuxt e SvelteKit não precisam `dynamic(..., { ssr: false })` invólucro em torno dele.
+
+A razão pela qual funciona é a regra acima: o editor é criado dentro `useEffect`, `onMounted` ou `onMount`, e nenhum deles é executado no servidor. O trabalho do DOM permanece no navegador.
+
+<Snippet view="code">
+
+```javascript
+// app/page.tsx — a server component, nothing opted out of SSR
+import MarkdownField from './MarkdownField';
+
+export default function Page() {
+    return (
+        <form method="post">
+            <MarkdownField name="content" defaultValue="# Hello" />
+        </form>
+    );
+}
+```
+
+</Snippet>
+
+O `<textarea>` vem no servidor HTML com seu conteúdo já contido, então não há nada pelo que esperar e nada aparece. O React renderiza a mesma marcação em ambos os lados e o editor a aprimora após a hidratação, para que não haja incompatibilidade sobre a qual alertar.
+
 ## Configuração
 
 Você pode personalizar totalmente o comportamento e a interface do editor passando um `options` objeto. Se você omitir uma opção, o valor **padrão** será usado.
@@ -335,7 +378,7 @@ As opções são lidas uma vez, quando o editor é construído. Alterá-los post
 | `renderer` | `function` | `marked` | Substitui o analisador de redução usado para a visualização. Recebe a string markdown e deve retornar uma string HTML. |
 | `sanitizer` | `function` | `DOMPurify` | Substitui o desinfetante HTML. Recebe o HTML renderizado e deve retornar o HTML seguro para exibição. |
 | `onChange` | `function` | `undefined` | Retorno de chamada disparado em cada alteração de conteúdo: digitação, ações na barra de ferramentas, desfazer/refazer e continuação de lista. Recebe a string de redução atual como seu único argumento. |
-| `labels` | `object` | `undefined` | Traduções para a interface própria do editor, codificadas pela string em inglês. Tudo o que você deixa de fora permanece em inglês. |
+| `locale` | `object` | `undefined` | Traduções para a interface própria do editor, codificadas pela string em inglês. Tudo o que você deixa de fora permanece em inglês. |
 
 </DocTable>
 
@@ -366,7 +409,7 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 
 | Ferramenta | Descrição |
 | --- | --- |
-| `heading` | Abre um menu suspenso para selecionar o nível de título H1–H6 |
+| `heading` | Abre um menu suspenso para selecionar o nível de título H1–H6. Limite a lista com `{ heading: { levels: [2, 3, 4] } }` |
 | `bold` | Ativa a formatação de texto em negrito. |
 | `italic` | Ativa a formatação de texto em itálico. |
 | `strikethrough` | Permite tachado de texto. |
@@ -377,7 +420,7 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 | `code` | Quebra o texto selecionado em crases únicos para código embutido. Clicar novamente remove os crases. |
 | `codeblock` | Quebra o texto selecionado em um bloco de código protegido com crase triplo. Clicar novamente remove as cercas. |
 | `hr` | Insere um `---` regra horizontal na posição do cursor em sua própria linha. |
-| `table` | Insere um modelo de tabela inicial de redução 2x3 na posição do cursor. |
+| `table` | Insere um modelo inicial de tabela de descontos 2x3 na posição do cursor. |
 | `image` | Permite inserir imagens via sintaxe de markdown. |
 | `link` | Permite adicionar hiperlinks ao seu texto. |
 | `undo` | Para reverter as últimas alterações. |
@@ -387,6 +430,24 @@ A barra de ferramentas é modular. Você pode criar uma experiência mínima ou 
 | `preview` | Alterna uma visualização lado a lado em tela cheia. As caixas de seleção no painel de visualização são clicáveis ​​e atualizam a fonte de redução instantaneamente. Pressione Escape para sair da tela cheia. Se um cabeçalho fixo cobrir o editor em tela cheia, consulte `--mte-fullscreen-z-index`. |
 
 </DocTable>
+
+#### Níveis de título
+
+O `heading` o menu suspenso oferece H1 a H6. Onde H1 pertence à página e não ao conteúdo, que é o caso da maioria dos campos do corpo do CMS, restrinja-o:
+
+<Snippet view="code">
+
+```javascript
+new MarkdownEditor('#markdown-editor', {
+    toolbar: [{ heading: { levels: [2, 3, 4] } }, 'bold', 'italic', 'preview']
+});
+```
+
+</Snippet>
+
+`Ctrl+1`, `Ctrl+2` e `Ctrl+3` siga a mesma lista, portanto, um nível omitido também não poderá ser inserido no teclado, e a dica de ferramenta do botão lista apenas os atalhos que ainda funcionam. A ordem em que você os escreve não importa, o menu é sempre H1 primeiro. Os níveis fora de 1 a 6 são ignorados com um aviso do console, e uma lista sem nada utilizável retorna para todos os seis, em vez de renderizar um menu vazio.
+
+Isto restringe a barra de ferramentas, não o documento. Alguém ainda pode digitar `# Title` manualmente e é renderizado como um título, porque o que é uma marcação válida é a decisão do renderizador e não da barra de ferramentas. Se a regra tiver que ser mantida, aplique-a no servidor.
 
 ##### 💡 Dicas de implementação:
 
@@ -444,7 +505,7 @@ Dê a cada um um distinto `title`. Duas ferramentas compartilhando um título co
 
 | Propriedade | Tipo | Propósito |
 | --- | --- | --- |
-| `title` | `string` | Obrigatório. Texto da dica de ferramenta e a origem da classe CSS do botão. Traduzível através `labels`. |
+| `title` | `string` | Obrigatório. Texto da dica de ferramenta e a origem da classe CSS do botão. Traduzível através `locale`. |
 | `action` | `function` | Obrigatório. Recebe `(editor, event)`. O evento click é passado para que uma ferramenta que abre uma caixa de diálogo possa entregá-lo `MarkdownEditor.modal`. |
 | `icon` | `string` | SVG embutido para a face do botão. |
 | `shortcut` | `string` | Um atalho de teclado como `Ctrl+Shift+K`. Adicionado à dica de ferramenta e tem precedência sobre um integrado usando as mesmas teclas. |
@@ -559,7 +620,7 @@ const html = editor.renderMarkdown('**bold** text');
 
 #### Uma barra de ferramentas para sua própria área de texto
 
-Quando uma caixa de diálogo coleta rich text, forneça a ela as ferramentas reais de formatação em vez de reconstruí-las. A barra de ferramentas está vinculada à área de texto que você passa, seu `labels` são herdados e nenhum botão de visualização é adicionado.
+Quando uma caixa de diálogo coleta rich text, forneça a ela as ferramentas reais de formatação em vez de reconstruí-las. A barra de ferramentas está vinculada à área de texto que você passa, seu `locale` strings são herdadas e nenhum botão de visualização é adicionado.
 
 <Snippet view="code">
 
@@ -580,7 +641,7 @@ As ferramentas personalizadas são traduzidas como as integradas, codificadas pe
 <Snippet view="code">
 
 ```javascript
-labels: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
+locale: { 'Callout': 'Aviso', 'Embed video': 'Insertar video' }
 ```
 
 </Snippet>
@@ -783,13 +844,15 @@ new MarkdownEditor('#markdown-editor', { theme: 'brand' });
 
 ### 🌐 Idioma da interface
 
-O texto, dicas de ferramentas, itens de menu, campos modais e botões do próprio editor são em inglês por padrão. Passe um `labels` objeto de traduzi-lo. As chaves são as strings em inglês, a forma como o gettext funciona, então você lista apenas o que deseja alterar e tudo o que estiver faltando volta para o inglês.
+O texto, dicas de ferramentas, itens de menu, campos modais e botões do próprio editor são em inglês por padrão. Passe um `locale` objeto de traduzi-lo. As chaves são as strings em inglês, a forma como o gettext funciona, então você lista apenas o que deseja alterar e tudo o que estiver faltando volta para o inglês.
+
+`locale` pega as strings em si, não um código de idioma. `locale: 'es'` não tem efeito e diz isso no console. Em vez disso, importe o que você deseja, para que ninguém baixe os idiomas que não está usando. Foi chamado `labels` antes de 2.0.0, e esse nome ainda funciona.
 
 <Snippet view="code">
 
 ```javascript
 new MarkdownEditor('#markdown-editor', {
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Heading': 'Titre',
@@ -806,6 +869,81 @@ new MarkdownEditor('#markdown-editor', {
 </Snippet>
 
 Isso é mais importante junto com o conteúdo da direita para a esquerda. Árabe, urdu e farsi são apresentados corretamente por conta própria, mas uma barra de ferramentas que ainda diz "Negrito" no texto da direita para a esquerda está apenas parcialmente traduzida.
+
+#### A lista completa de strings
+
+São 45 deles, e o pacote vem com a lista para que você não precise procurar. Chaves e valores são idênticos, portanto é um modelo para copiar e não uma tradução.
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+// { "Bold": "Bold", "Match case": "Match case", "{n} words": "{n} words", ... }
+```
+
+</Snippet>
+
+As contagens carregam um `{n}` espaço reservado para que sua tradução decida para onde vai o número, em vez de ficar presa à ordem das palavras em inglês.
+
+<Snippet view="code">
+
+```javascript
+locale: {
+    '{n} words': '{n} palabras',
+    '{n} chars': '{n} caracteres',
+}
+```
+
+</Snippet>
+
+#### Usando suas próprias traduções
+
+`locale` pega um objeto simples, então de onde ele vem depende de você. A maioria dos projetos já possui um sistema de tradução, e alimentar o editor a partir dele mantém o texto consistente com o restante da interface. No Django as strings terminam no seu `.po` arquivos com todo o resto:
+
+<Snippet view="code">
+
+```python
+from django.utils.translation import gettext as _
+
+def edit(request):
+    return render(request, 'edit.html', {
+        'mte_strings': {
+            'Bold': _('Bold'),
+            'Italic': _('Italic'),
+            'Apply': _('Apply'),
+            'Uploading...': _('Uploading...'),
+        },
+    })
+```
+
+</Snippet>
+
+<Snippet view="code">
+
+```html
+{{ mte_strings|json_script:"mte-strings" }}
+
+<script type="module">
+    const strings = JSON.parse(document.getElementById('mte-strings').textContent);
+    new MarkdownEditor('#markdown-editor', { locale: strings });
+</script>
+```
+
+</Snippet>
+
+Com um catálogo do lado do cliente como i18next ou vue-i18n, mapeie as chaves através do seu `t()`:
+
+<Snippet view="code">
+
+```javascript
+import template from 'markdown-text-editor/locale/template.js';
+
+const strings = Object.fromEntries(
+    Object.keys(template).map(key => [key, i18n.t(`editor.${key}`)])
+);
+```
+
+</Snippet>
 
 ### 🏷 Variáveis
 
@@ -1009,7 +1147,7 @@ Com vários editores em uma página, direcione um deles com `data-editor`. O wra
 
 ### 🪟 Tela cheia e camadas (índice z)
 
-Em tela cheia o editor usa `z-index: 10000`, que limpa as camadas que a maioria das estruturas de UI reserva para cabeçalhos fixos e sobreposições. Se um cabeçalho fixo ou barra lateral ainda cobrir o editor, aumente esse valor.
+Em tela cheia o editor usa `z-index: 10000`, que limpa as camadas que a maioria das estruturas de UI reservam para cabeçalhos fixos e sobreposições. Se um cabeçalho fixo ou barra lateral ainda cobrir o editor, aumente esse valor.
 
 Substitua-o por `--mte-fullscreen-z-index`. O valor se aplica apenas em tela cheia e é herdado, portanto, defini-lo em qualquer ancestral abrange todos os editores abaixo dele.
 
@@ -1030,6 +1168,34 @@ Substitua-o por `--mte-fullscreen-z-index`. O valor se aplica apenas em tela che
 [data-editor="notes"] {
     --mte-fullscreen-z-index: 20000;
 }
+```
+
+</Snippet>
+
+### 🔒 Política de segurança de conteúdo
+
+O editor não adiciona manipuladores de eventos in-line, não usa `eval`, e a partir de 2.0.0 não injeta nenhum `<style>` elemento. Uma política rigorosa não precisa de `'unsafe-inline'` exceção para isso, em qualquer direção:
+
+<Snippet view="code">
+
+```
+Content-Security-Policy: script-src 'self'; style-src 'self'
+```
+
+</Snippet>
+
+Antes da versão 2.0.0 o CSS era carregado dentro do JavaScript e injetado no carregamento, o que era uma política sem `style-src 'unsafe-inline'` recusa ([#42](https://github.com/nezanuha/markdown-text-editor/issues/42)). Um nonce foi considerado e descartado: ele só ajuda as políticas que possuem um e um site hospedado estaticamente em `style-src 'self'` não tem servidor cunhando um novo nonce por solicitação. Vincular a folha de estilo abrange todas as políticas em vez de algumas delas.
+
+Uma coisa que o editor não controla é a redução que seus usuários escrevem. DOMPurify mantém `style` atributos por padrão, então `<span style="color:red">` em um documento sobrevive na visualização e em um rigoroso `style-src-attr` irá denunciá-lo. Descasque-os com o `sanitizer` opção se isso for importante para você:
+
+<Snippet view="code">
+
+```javascript
+import DOMPurify from 'dompurify';
+
+new MarkdownEditor('#markdown-editor', {
+    sanitizer: html => DOMPurify.sanitize(html, { FORBID_ATTR: ['style'] }),
+});
 ```
 
 </Snippet>
@@ -1395,7 +1561,7 @@ Ações comuns de formatação podem ser acionadas diretamente no teclado, sem t
 | `Ctrl + Shift + S`  /  `⌘ ⇧ S` | Alternar ~~Tachado~~ |
 | `Ctrl + 1`  /  `⌘ 1` | Título 1 |
 | `Ctrl + 2`  /  `⌘ 2` | Título 2 |
-| `Ctrl + 3`  /  `⌘ 3` | Título 3 |
+| `Ctrl + 3`  /  `⌘ 3` | Título 3. Esses três seguem qualquer que seja o `heading` ofertas de ferramentas, então um nível que você deixa de fora `levels` também não pode ser digitado |
 | `Ctrl + L`  /  `⌘ L` | Alternar lista com marcadores |
 | `Ctrl + Z`  /  `⌘ Z` | Desfazer |
 | `Ctrl + Shift + Z`  /  `⌘ ⇧ Z` | Refazer |
@@ -1460,7 +1626,7 @@ const editor = new MarkdownEditor('#markdown-editor', {
     onChange(value) {
         console.log('Content updated:', value.length, 'characters');
     },
-    labels: {
+    locale: {
         'Bold': 'Gras',
         'Italic': 'Italique',
         'Uploading...': 'Téléversement...',

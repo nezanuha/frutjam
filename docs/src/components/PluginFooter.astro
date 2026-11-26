@@ -1,8 +1,15 @@
 ---
 /**
- * Footer for the standalone plugin pages: the plugin's own links, and one
- * quiet line saying who made it. Frutjam is mentioned as a sibling project,
- * not as a requirement — the plugin needs neither Frutjam nor Tailwind.
+ * Footer for the standalone plugin pages.
+ *
+ * It closes a long page, so it answers the three things someone has at the
+ * bottom of one: where the code is, where to ask, and what else is here. The
+ * jump links repeat the sections people come back for rather than listing all
+ * thirty — a second table of contents would be noise this far down.
+ *
+ * Frutjam is named as the sibling project it is, not as a requirement: the
+ * plugin needs neither Frutjam nor Tailwind, and the footer should not imply
+ * otherwise.
  */
 import { langUrl, splitLang, useTranslations } from '@/lib/i18n';
 
@@ -15,20 +22,62 @@ interface Props {
 const { name, repo, npm } = Astro.props;
 const { lang } = splitLang(Astro.url.pathname);
 const t = useTranslations(lang);
+const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-base-soft mt-12 py-8 px-5 lg:px-8">
-  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <p class="para-xs">
-      <span class="font-semibold">{name}</span> &middot; MIT &middot; {t('Built by')}
-      <a href="https://nezanuha.com" target="_blank" rel="noopener noreferrer" class="link link-hover">Nezanuha</a>
-    </p>
+<div class="border-t border-base-100 mt-16">
+  <footer class="footer sm:footer-horizontal p-8 lg:p-10 gap-8">
+    <div class="max-w-xs">
+      <a href={langUrl(lang, '/')} class="flex items-center gap-x-2 font-semibold text-lg mb-2" title="Frutjam">
+        <svg width="24" height="24" class="h-6 w-6" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="34.468" y="34.397" width="171.631" height="171.064" fill="rgb(255, 255, 255)"></rect>
+          <g transform="translate(0,240) scale(0.1,-0.1)" fill="#1529ff" stroke="none">
+            <path d="M723 2319 c-225 -16 -369 -68 -471 -171 -92 -91 -136 -195 -164 -387 -18 -120 -18 -1002 0 -1122 28 -192 72 -298 163 -388 88 -88 192 -133 374 -162 105 -16 823 -24 1012 -10 305 22 448 80 557 225 108 145 136 327 136 896 0 496 -19 671 -90 816 -51 106 -118 173 -224 224 -97 47 -188 67 -373 80 -160 11 -756 11 -920 -1z m909 -433 c180 -40 266 -124 306 -300 23 -104 23 -698 0 -802 -41 -182 -133 -267 -329 -305 -87 -17 -707 -18 -806 -1 -201 34 -300 122 -340 304 -23 106 -24 700 0 804 20 92 55 161 106 207 110 99 227 118 706 112 207 -3 309 -8 357 -19z"/>
+            <path d="M951 1535 c-48 -15 -85 -45 -109 -90 -14 -25 -17 -63 -17 -230 0 -110 3 -212 8 -227 13 -48 64 -96 120 -113 72 -21 422 -21 494 0 56 17 107 65 120 113 10 35 10 399 0 434 -13 48 -64 96 -120 113 -68 20 -431 20 -496 0z"/>
+          </g>
+        </svg>
+        <span>Frutjam</span>
+      </a>
+      <p class="para-xs">{t('%(name)s is free and open source, and works in any project — Frutjam and Tailwind are not required.', { name })}</p>
+      <div class="flex flex-wrap gap-1.5 mt-3">
+        <span class="badge badge-xs badge-outline badge-soft">MIT</span>
+        <span class="badge badge-xs badge-outline badge-soft">{t('No dependencies')}</span>
+      </div>
+    </div>
 
-    <nav class="flex flex-wrap gap-x-5 gap-y-2">
-      <a href={repo} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">GitHub</a>
-      <a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">npm</a>
-      <a href="https://discord.gg/FvjytjQSSZ" target="_blank" rel="noopener noreferrer" class="link link-hover link-xs">Discord</a>
-      <a href={langUrl(lang, '/')} class="link link-hover link-xs">Frutjam</a>
+    <nav>
+      <p class="footer-title">{name}</p>
+      <a href="#markdown-editor-demo" class="link link-hover link-sm">{t('Demo')}</a>
+      <a href="#installation" class="link link-hover link-sm">{t('Installation')}</a>
+      <a href="#every-option-in-one-table" class="link link-hover link-sm">{t('Options')}</a>
+      <a href="#frameworks" class="link link-hover link-sm">{t('Frameworks')}</a>
+      <a href="#upgrading-from-1x" class="link link-hover link-sm">{t('Upgrading from 1.x')}</a>
     </nav>
+
+    <nav>
+      <p class="footer-title">{t('Project')}</p>
+      <a href={repo} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">GitHub</a>
+      <a href={npm} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">npm</a>
+      <a href={`${repo}/issues`} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">{t('Report an issue')}</a>
+      <a href={`${repo}/blob/main/CHANGELOG.md`} target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">{t('Changelog')}</a>
+    </nav>
+
+    <nav>
+      <p class="footer-title">Frutjam</p>
+      <a href={langUrl(lang, '/components')} class="link link-hover link-sm">{t('Components')}</a>
+      <a href={langUrl(lang, '/blocks')} class="link link-hover link-sm">{t('Blocks')}</a>
+      <a href={langUrl(lang, '/docs')} class="link link-hover link-sm">{t('Docs')}</a>
+      <a href="https://discord.gg/FvjytjQSSZ" target="_blank" rel="noopener noreferrer" class="link link-hover link-sm">Discord</a>
+    </nav>
+  </footer>
+
+  <div class="border-t border-base-100 px-8 lg:px-10 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <p class="para-xs">
+      &copy; {year} <a href="https://nezanuha.com" target="_blank" rel="noopener noreferrer" class="link link-hover">Nezanuha</a>
+    </p>
+    <a href="#main-content" class="link link-hover link-xs inline-flex items-center gap-1 self-start sm:self-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+      {t('Back to top')}
+    </a>
   </div>
-</footer>
+</div>
