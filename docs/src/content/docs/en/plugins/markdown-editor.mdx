@@ -11,7 +11,7 @@ related:
 image: "https://cdn.frutjam.com/media/plugins/markdown-editor.webp"
 imageAlt: "Markdown Text Editor JavaScript Plugin by Frutjam"
 createdAt: "2025-09-10T14:44:51.417170+00:00"
-updatedAt: "2026-11-25T00:00:00.000000+00:00"
+updatedAt: "2026-11-26T00:00:00.000000+00:00"
 ---
 
 import Snippet from '@/components/Snippet.astro';
@@ -361,6 +361,27 @@ for a screen reader or a tooltip, use [`locale`](#interface-language).
 </div>
 </details>
 </div>
+
+### Pairs that close themselves
+
+Six pairs close as you open them, which earns its keep most on links, where
+`[text](url)` is four of them in a row:
+
+<Snippet view="code">
+
+```text
+{ }    [ ]    ( )    < >    " "    ' '
+```
+
+</Snippet>
+
+Type an opening one and you get both halves with the caret between them. Type
+the closing half yourself and the caret steps over the one already there
+instead of leaving you a spare. Select a word first and the pair wraps it —
+select `text`, press `[`, and you have `[text]` with the word still selected,
+ready for the `(url)` half. Backspace between an empty pair takes out both.
+
+There is no option for this; it is always on.
 
 ### Heading levels
 
@@ -1958,7 +1979,7 @@ DOM — in a React cleanup, a Vue `onBeforeUnmount`, or a Turbo teardown.
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">B</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘B</kbd> | Bold |
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">I</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘I</kbd> | Italic |
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">K</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">⌘K</kbd> | Link |
-| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">`</kbd> | Inline code |
+| <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">&#96;</kbd> | Inline code |
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">Shift</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">S</kbd> | Strikethrough |
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">1</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">2</kbd><span class="px-1">/</span><kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">3</kbd> | Headings, following whatever the `heading` tool offers |
 | <kbd class="kbd kbd-xs">Ctrl</kbd><span class="px-1">+</span><kbd class="kbd kbd-xs">L</kbd> | Bullet list |
@@ -2235,14 +2256,19 @@ It never fails silently at something you can fix.
 | *toolbar: no tool matches* | A name in the array is not a tool. Check it against [the tools](#the-tools); the entry is skipped. |
 | *A custom tool needs an action function* | A `{ custom: {...} }` entry has no `action`. It renders no button. |
 | *heading levels must be an array* | `{ heading: { levels } }` got something else. All six are offered. |
+| *Ignored heading levels outside 1-6, or repeated* | One of the levels was out of range or listed twice. The rest are used. |
+| *No usable heading levels* | Nothing in `levels` could be used, so the dropdown falls back to all six rather than rendering empty. |
 | *Maths syntax found, but nothing rendered it* | Pass a `renderer` that understands TeX, and load its stylesheet. |
 | *Task list syntax found, but the custom renderer emitted no checkbox* | Your `renderer` does not handle `- [ ]`. The preview's checkboxes come from its output. |
 | *The renderer threw* | Yours, or the default one, failed on this document. The preview falls back to plain text; what you typed is untouched. |
 | *A file was pasted / dropped but no upload endpoint is configured* | Pass `upload`. The drop is swallowed either way, so the unsaved document survives it. |
+| *Could not convert the pasted HTML* | The rich-paste conversion threw, so the clipboard's plain text went in instead. Nothing is lost. |
+| *autosave has no id or name to key the draft on* | The draft is keyed to the field's position on the page instead. Add a textarea above it and two drafts change places. Give the textarea an `id`, or pass `autosave: { key }`. |
 | *autosave could not write the draft* | The document is past what `localStorage` will take, or the browser is refusing it. Your text is fine; the draft is not being kept. |
 | *image.fileInput still works, and will be removed* | The pre-2.0 form, said once. The one deprecation that will go. |
 | *labels is now locale* / *label is an aria-label* / *variables moved from the toolbar array* | Renamed in 2.0, each said once. Nothing is broken and nothing is going away. |
 | *Image upload failed* | The endpoint answered with an error. The placeholder is marked in the text. |
+| *Upload refused:* | A file failed the `accept` or `maxSize` check. What follows the colon is the MIME type or the byte count — the writer sees the translated message, you get the specifics. |
 
 </DocTable>
 
