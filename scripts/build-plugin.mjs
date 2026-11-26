@@ -415,12 +415,44 @@ function addPrefix(obj, prefix) {
 // Split a CSS-in-JS object into utility class selectors and everything else.
 // addUtilities() only accepts single class selectors (e.g. ".btn"); at-rules
 // like @container, @keyframes, and non-class selectors must go to addBase().
+//
+// A modifier written '@utility table-hover { :where(&) :where(tbody tr) {} }'
+// compiles to the key ':where(.table-hover) :where(tbody tr)', which leads with
+// a class but does not start with one, so it used to fall through to addBase.
+// Two things went wrong there. It was emitted into every build, used or not --
+// 17 rules for table alone -- and addBase output never receives the prefix the
+// consumer's Tailwind applies to utility names, so under 'prefix(fj)' the rule
+// asked for '.me-table-hover' while the class in the markup was
+// 'fj:me-table-hover', and table-hover, the zebras, the pins and the sizes all
+// did nothing at all.
+//
+// Putting the selector back under its own class fixes both: the class goes
+// through addUtilities, so it is prefixed and dropped when unused, and '&'
+// resolves to exactly what the flattened selector said.
 function splitStyles(styles) {
   const base = {}
   const utils = {}
   for (const [k, v] of Object.entries(styles)) {
-    if (/^\\.[a-z]/.test(k)) utils[k] = v
-    else base[k] = v
+    if (/^\\.[a-z]/.test(k)) {
+      utils[k] = v
+      continue
+    }
+    // Every branch of the selector list has to lead with the same class, or
+    // nesting changes what it matches: a list where only the first branch is
+    // rewritten gets the parent prepended to the others as well, turning
+    // :where(.swap-rotate) :where(.swap-indeterminate) into a rule that wants
+    // a swap-rotate inside a swap-rotate.
+    const LEAD = /^:where\\(\\s*(\\.[a-z][\\w-]*)\\s*\\)/
+    const parts = splitTopLevelCommas(k).map(part => part.trim())
+    const leads = parts.map(part => LEAD.exec(part))
+    const classes = new Set(leads.map(lead => lead && lead[1]))
+    if (leads.every(Boolean) && classes.size === 1) {
+      const cls = leads[0][1]
+      const nested = parts.map((part, i) => ':where(&)' + part.slice(leads[i][0].length)).join(', ')
+      utils[cls] = { ...(utils[cls] || {}), [nested]: v }
+      continue
+    }
+    base[k] = v
   }
   return { base, utils }
 }
