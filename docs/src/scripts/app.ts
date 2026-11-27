@@ -495,16 +495,12 @@ async function initMarkdownEditors() {
   const selector = Object.keys(MTE_DEMOS).map((name) => '.' + name).join(', ');
   if (!document.querySelector(selector)) return;
 
-  // When this moves to markdown-text-editor@2, add the stylesheet here:
-  //
-  //   await import('markdown-text-editor/style.css');
-  //
-  // 2.0 stopped injecting a <style> tag, so without it every editor on the
-  // page renders unstyled. 1.9.x carries its CSS inside the JavaScript and
-  // exports no stylesheet to import, which is why this is a note and not a
-  // line of code. The demos for anything 2.0 added -- the variables list,
-  // draft recovery, the table bar -- also do nothing until that bump,
-  // because 1.9.x ignores options it has never heard of.
+  // 2.0 stopped injecting a <style> tag and ships its CSS as a file, so
+  // without this every editor on the page renders unstyled. Imported here
+  // rather than in the global stylesheet because it is 113 kB that only the
+  // handful of pages carrying a demo ever need, and this function has
+  // already established one is present.
+  await import('markdown-text-editor/style.css');
   const { default: MarkdownEditor } = await import('markdown-text-editor');
 
   for (const [name, options] of Object.entries(MTE_DEMOS)) {
